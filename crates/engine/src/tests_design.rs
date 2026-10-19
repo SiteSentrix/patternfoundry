@@ -86,7 +86,23 @@ fn a_princess_bodice_from_the_block() {
     // The princess seam on each panel: waist dart leg, bust point, armhole dart leg. They sew
     // together within the front waist's slope.
     let (a, b) = (length(&mut s, ids[0], 6, 1), length(&mut s, ids[1], 5, 1));
-    assert!((a - b).abs() < 2.0, "{a} {b}");
+    assert!((a - b).abs() < 2.0 && (a - b).abs() > 1e-3, "{a} {b}");
+    // True the side front's seam to the centre front's: its waist end moves down the seam.
+    let r = s.execute("design.matchLength", &json!({"id": ids[1].0, "from": 5, "to": 1, "likeId": ids[0].0, "likeFrom": 6, "likeTo": 1})).unwrap();
+    assert!((length(&mut s, ids[1], 5, 1) - a).abs() < 1e-6 && (r["moved"].as_f64().unwrap() - (a - b)).abs() < 0.1, "{r}");
+    assert!((length(&mut s, ids[0], 6, 1) - a).abs() < 1e-9);
+    let r = s.execute("design.matchLength", &json!({"id": ids[1].0, "from": 5, "to": 1, "length": 300})).unwrap();
+    assert!((r["mm"].as_f64().unwrap() - 300.0).abs() < 1e-6);
+    for p in [
+        json!({"id": ids[1].0, "from": 5, "to": 1}),
+        json!({"id": ids[1].0, "from": 5, "to": 5, "length": 10}),
+        json!({"id": ids[1].0, "from": 5, "to": 1, "length": -3}),
+        json!({"id": ids[1].0, "from": 5, "to": 1, "likeId": ids[0].0, "likeFrom": 6}),
+    ] {
+        assert!(s.execute("design.matchLength", &p).is_err(), "{p}");
+    }
+    s.execute("edit.undo", &json!({})).unwrap();
+    s.execute("edit.undo", &json!({})).unwrap();
     // One undo step each.
     s.execute("edit.undo", &json!({})).unwrap();
     assert_eq!(points(&s, id), after);

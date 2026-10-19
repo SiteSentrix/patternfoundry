@@ -141,8 +141,10 @@ is built on, plus a pattern mode, the way StitchFoundry adds embroidery:
   match within the front waist's slope). **Slash and spread** (`design.spread`): the outline cut
   straight between two points (anchors, or points on it) and opened by an amount, hinged at the
   far end (flare: a skirt widened at the hem, its waist kept) or parallel (even fullness, room
-  for a pleat); commands only for now (it needs an amount: a dialog later). Tests: 6 in
+  for a pleat); commands only for now (it needs an amount: a dialog later). **Truing**
+  (`design.matchLength`, PF-5.2): a seam's end point moves along the seam until the seam is a
+  given length or as long as another seam (the princess seams then match exactly). Tests: 6 in
   `pf-core`, 5 engine tests (`tests_design.rs`). Not yet (PF-5.x): pleat and gathering marks, facings, collars,
-  pockets; truing (walking seams, smoothing curves across seams, the princess seam curved through
+  pockets; more truing (walking seams with notches, smoothing curves across seams, the princess seam curved through
   the bust); dart shortening from the bust point; design steps replayed when the measurements
   change.

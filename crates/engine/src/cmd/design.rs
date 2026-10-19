@@ -1,7 +1,8 @@
 //! Design tools (PF-5) on paths and pieces' seam lines: `design.rotateDart` pivots a dart to
 //! another place on the outline, `design.split` cuts an outline in two (a princess seam through
 //! the bust point), `design.spread` slashes and spreads an outline (flare, fullness),
-//! `design.length` measures along an outline (to true seams that sew together).
+//! `design.length` measures along an outline and `design.matchLength` trues a seam to a length or
+//! to another seam (seams that sew together).
 //! The geometry is [`pf_core::design`]. A block part or a drafted path that is changed this way
 //! no longer follows the measurements (its points are no longer the block's).
 use super::*;
@@ -39,6 +40,15 @@ pub fn specs() -> Vec<CommandSpec> {
             "{id? (a path; default: the selection), anchors?: [a, b] | [a] (default: the selected points)} cut a closed path in two between two of its points, each part closed by a straight seam; one point that another shares (a bust point two darts share) splits there with no seam added → {ids}",
             has_doc,
             split
+        ),
+        cmd!(
+            "design.matchLength",
+            "Match Seam Length",
+            ["Pattern"],
+            None,
+            "{id? (a path or a piece; default: the selection), from: anchor, to: anchor (the seam: from one point forward to another), length?: mm, likeId?: id (a path or a piece), likeFrom?: anchor, likeTo?: anchor (another seam to match instead of a length)} true a seam: its end point (to) moves along the seam's direction until the seam is that long; the edge after it follows → {id, mm, moved (mm)}",
+            has_doc,
+            match_length
         ),
         cmd!(
             query "design.length",
@@ -221,22 +231,91 @@ fn split(s: &mut Session, p: &Value) -> Result<Value> {
     Ok(json!({"ids": ids.iter().map(|i| i.0).collect::<Vec<_>>()}))
 }
 
+/// The length in points along `ring` from anchor `from` forward to anchor `to`.
+fn along(ring: &[Knot], from: usize, to: usize) -> f64 {
+    let n = ring.len();
+    let path = path_of(ring);
+    let sp = &path.subpaths[0];
+    let steps = (to + n - from) % n;
+    (0..steps).map(|k| kurbo::ParamCurveArclen::arclen(&sp.segment((from + k) % n), 1e-9)).sum()
+}
+
+/// `from` and `to` anchors of the outline `ring`, from params named `from_key` and `to_key`.
+fn seam(ring: &[Knot], p: &Value, from_key: &str, to_key: &str, cmd: &str) -> Result<(usize, usize)> {
+    let (Some(from), Some(to)) = (anchor_param(p, from_key, cmd)?, anchor_param(p, to_key, cmd)?) else {
+        return Err(bad(cmd, format!("{from_key} and {to_key}: point numbers along the path")));
+    };
+    let n = ring.len();
+    if from >= n || to >= n || from == to {
+        return Err(bad(cmd, format!("two different points: the path has points 0 to {}", n.saturating_sub(1))));
+    }
+    Ok((from, to))
+}
+
 fn length(s: &mut Session, p: &Value) -> Result<Value> {
     const CMD: &str = "design.length";
     let id = super::measure::target_path(s, p, CMD)?;
     let ring = ring_of(&s.doc()?.doc, id, CMD)?;
-    let (Some(from), Some(to)) = (anchor_param(p, "from", CMD)?, anchor_param(p, "to", CMD)?) else {
-        return Err(bad(CMD, "from and to: point numbers along the path"));
+    let (from, to) = seam(&ring, p, "from", "to", CMD)?;
+    Ok(json!({"mm": pt_to_mm(along(&ring, from, to))}))
+}
+
+fn match_length(s: &mut Session, p: &Value) -> Result<Value> {
+    const CMD: &str = "design.matchLength";
+    let id = super::measure::target_path(s, p, CMD)?;
+    let doc = &s.doc()?.doc;
+    let ring = ring_of(doc, id, CMD)?;
+    let (from, to) = seam(&ring, p, "from", "to", CMD)?;
+    let target = match (p.get("length"), id_param(p, "likeId")) {
+        (Some(v), None) => pf_core::mm_to_pt(v.as_f64().filter(|l| l.is_finite() && *l > 0.0).ok_or_else(|| bad(CMD, "length: mm, more than 0"))?),
+        (None, Some(other)) => {
+            let other = super::measure::target_path(s, &json!({"id": other.0}), CMD)?;
+            let theirs = ring_of(doc, other, CMD)?;
+            let (f, t) = seam(&theirs, p, "likeFrom", "likeTo", CMD)?;
+            along(&theirs, f, t)
+        }
+        _ => return Err(bad(CMD, "length (mm) or likeId with likeFrom and likeTo: the seam to match")),
     };
+    // The seam's end moves along the direction the seam arrives in (its handle, or the segment
+    // from the point before), with its handles: the edge after it follows.
     let n = ring.len();
-    if from >= n || to >= n {
-        return Err(bad(CMD, format!("the path has points 0 to {}", n.saturating_sub(1))));
+    let end = ring[to];
+    let back = if (end.p - end.h_in).len() > 1e-9 { end.h_in } else { ring[(to + n - 1) % n].p };
+    let dir = (end.p - back).unit().ok_or_else(|| bad(CMD, "the seam's end has no direction"))?;
+    let moved = |d: f64| {
+        let mut r = ring.clone();
+        let k = &mut r[to];
+        let v = dir * d;
+        *k = Knot { p: k.p + v, h_in: k.h_in + v, h_out: k.h_out + v };
+        r
+    };
+    let error = |d: f64| along(&moved(d), from, to) - target;
+    // Secant steps from no move and the length's difference (the length changes about one for
+    // one with the move).
+    let (mut d0, mut d1) = (0.0, target - along(&ring, from, to));
+    let (mut e0, mut e1) = (error(d0), error(d1));
+    for _ in 0..40 {
+        if e1.abs() < 1e-9 || (e1 - e0).abs() < 1e-15 {
+            break;
+        }
+        let d2 = d1 - e1 * (d1 - d0) / (e1 - e0);
+        (d0, e0, d1) = (d1, e1, d2);
+        e1 = error(d1);
     }
-    let path = path_of(&ring);
-    let sp = &path.subpaths[0];
-    let steps = (to + n - from) % n;
-    let pts: f64 = (0..steps).map(|k| kurbo::ParamCurveArclen::arclen(&sp.segment((from + k) % n), 1e-6)).sum();
-    Ok(json!({"mm": pt_to_mm(pts)}))
+    if e1.abs() > 1e-6 {
+        return Err(bad(CMD, "can't make the seam that long by moving its end"));
+    }
+    let out = moved(d1);
+    s.edit("Match Seam Length", |d, sel| {
+        let n = d.node(id).ok_or(EngineError::NoNode(id))?;
+        let new = reshaped(n, path_of(&out));
+        if let Some(m) = d.node_mut(id) {
+            *m = new;
+        }
+        sel.set([id]);
+        Ok(())
+    })?;
+    Ok(json!({"id": id.0, "mm": pt_to_mm(along(&out, from, to)), "moved": pt_to_mm(d1)}))
 }
 
 /// The anchor at `q` on the outline: the one there, or a new one put there (then `true`). Within
