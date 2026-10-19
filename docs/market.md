@@ -24,7 +24,32 @@ these (see `CLAUDE.md`).
 | EFI Optitex (O/Dev) | pattern design, grading (incl. angle and variable grading), digitizing, wide CAD import/export | |
 | Tukatech TUKAcad | pattern design suite, bought or subscribed | [roundup](https://onlineclothingstudy.com/?p=10027) |
 | PolyPattern | industrial grading and marking | from €1000 one-time ([Capterra](https://www.capterra.com/p/110451/PolyPattern/)) |
-| CLO 3D, Marvelous Designer | 3D garment simulation on avatars, with 2D pattern editing | for later (3D fit preview) |
+| CLO 3D | 3D garment simulation on avatars with 2D pattern editing, for fashion production | for later (3D fit preview) |
+
+## Marvelous Designer (the one the ArtCraft community talks about)
+The 3D clothing tool used for games, film and animation, by CLO Virtual Fashion (CLO 3D's
+maker): draw flat 2D pattern pieces, sew their edges together, and drape the garment on a 3D
+avatar with cloth simulation (fabric weight, stretch, folds, wind), then export it for game
+engines and renderers. It is sold by subscription: a personal plan was $39/month or $280/year
+in 2022 ([CG Channel](https://www.cgchannel.com/?p=121535); check today's prices on
+marvelousdesigner.com/pricing), an indie studio licence was added in January 2026
+([Digital Production](https://digitalproduction.com/2026/01/12/marvelous-designer-adds-indie-pricing-quietly/)),
+and a student plan at $8.25/month in July 2026
+([AAP release](https://www.aap.com.au/aapreleases/cision20260709ae01014/)).
+
+What PatternFoundry takes from it (as features, from public docs and videos only):
+- **2D ↔ 3D together**: edit a pattern piece and see the draped garment update.
+- **Sewing lines** between edges (with seam length checks) that drive both the 3D sewing and
+  the real-world sewing instructions.
+- **Fabric presets** (cotton, denim, jersey, silk…) with weight and stretch.
+- **Avatars** sized from the user's own measurements, so the 3D preview is a fit check, not just
+  a picture.
+- **Exports** for game and 3D artists (OBJ/glTF/FBX of the draped garment), a market Marvelous
+  Designer owns and StitchFoundry's ArtCraft-adjacent users know.
+
+Where PatternFoundry can differ: one app that makes **real, sewable, true-scale patterns** and
+the **3D preview**, free, with AI help; Marvelous Designer's patterns are made for screens, CLO's
+for factories.
 
 ## What they share (our feature list to match)
 - Drafting from **measurement tables** (standard size charts and the user's own), with formulas

@@ -30,6 +30,7 @@ is built on, plus a pattern mode, the way StitchFoundry adds embroidery:
 | PF-7 | Export for cutting: DXF-AAMA/ASTM D6673, SVG; projector mode | a DXF opens in a cutting-room tool |
 | PF-8 | AI help (StitchFoundry's AI layer): draft from a description, fit advice from muslin photos, step-by-step help | "a wrap dress for my measurements" drafts |
 | PF-9 | Marker making / nesting; selling patterns on MakerFoundry | a marker for 2 m of fabric |
+| PF-10 | 3D fit preview (as Marvelous Designer and CLO do, from public docs only): avatar from measurements, sewing lines, cloth simulation, drape view beside the 2D pattern; glTF/OBJ export for game and 3D artists | a skirt drapes on an avatar of the user's size |
 
 ## Open decisions (the owner's)
 - Whether PatternFoundry is its own app (as planned) or a mode inside StitchFoundry.
