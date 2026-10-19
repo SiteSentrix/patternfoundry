@@ -5248,3 +5248,7 @@ mark-style	Japanese	Japonské
 	Draft Bodice Block	Konstruovat základní střih živůtku
 	Block Measurements	Míry pro základní střih
 	Draft Skirt Block	Konstruovat základní střih sukně
+# PatternFoundry: design tools (PF-5).
+	Rotate Dart	Přesunout záševek
+	Split at Points	Rozdělit v bodech
+	Seam Length	Délka švu

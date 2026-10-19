@@ -4829,3 +4829,7 @@ effect	Soft	Weich
 	Draft Bodice Block	Grundschnitt Oberteil konstruieren
 	Block Measurements	Maße für den Grundschnitt
 	Draft Skirt Block	Grundschnitt Rock konstruieren
+# PatternFoundry: design tools (PF-5).
+	Rotate Dart	Abnäher verlegen
+	Split at Points	An Punkten teilen
+	Seam Length	Nahtlänge

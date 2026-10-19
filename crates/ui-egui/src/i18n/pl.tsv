@@ -5101,3 +5101,7 @@ mark-style	Japanese	Japońskie
 	Draft Bodice Block	Skonstruuj formę podstawową stanika
 	Block Measurements	Wymiary formy podstawowej
 	Draft Skirt Block	Skonstruuj formę podstawową spódnicy
+# PatternFoundry: design tools (PF-5).
+	Rotate Dart	Przenieś zaszewkę
+	Split at Points	Podziel w punktach
+	Seam Length	Długość szwu

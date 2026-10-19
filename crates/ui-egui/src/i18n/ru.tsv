@@ -4859,3 +4859,7 @@ lighting	Light	Свет
 	Draft Bodice Block	Построить базовую выкройку лифа
 	Block Measurements	Мерки для базовой выкройки
 	Draft Skirt Block	Построить базовую выкройку юбки
+# PatternFoundry: design tools (PF-5).
+	Rotate Dart	Перевести вытачку
+	Split at Points	Разделить по точкам
+	Seam Length	Длина шва

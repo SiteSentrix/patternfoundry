@@ -236,7 +236,7 @@ fn use_size(s: &mut Session, p: &Value) -> Result<Value> {
 
 /// The path a draft command acts on: `id`, else the selected one; a pattern piece stands for its
 /// seam line.
-fn target_path(s: &Session, p: &Value, cmd: &str) -> Result<NodeId> {
+pub(crate) fn target_path(s: &Session, p: &Value, cmd: &str) -> Result<NodeId> {
     let st = s.doc()?;
     let id = match id_param(p, "id") {
         Some(id) => id,

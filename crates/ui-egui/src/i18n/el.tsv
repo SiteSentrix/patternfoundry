@@ -5200,3 +5200,7 @@ effect	Points	Σημεία
 	Draft Bodice Block	Σχεδίαση βασικού πατρόν μπούστου
 	Block Measurements	Μέτρα για το βασικό πατρόν
 	Draft Skirt Block	Σχεδίαση βασικού πατρόν φούστας
+# PatternFoundry: design tools (PF-5).
+	Rotate Dart	Περιστροφή πένσας
+	Split at Points	Διαίρεση στα σημεία
+	Seam Length	Μήκος ραφής

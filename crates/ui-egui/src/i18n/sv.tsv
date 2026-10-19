@@ -5204,3 +5204,7 @@ theme	Appearance	Utseende
 	Draft Bodice Block	Konstruera grundmönster för liv
 	Block Measurements	Mått för grundmönstret
 	Draft Skirt Block	Konstruera grundmönster för kjol
+# PatternFoundry: design tools (PF-5).
+	Rotate Dart	Flytta inprovning
+	Split at Points	Dela vid punkter
+	Seam Length	Sömlängd

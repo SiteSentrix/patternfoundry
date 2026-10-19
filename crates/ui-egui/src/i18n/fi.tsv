@@ -5212,3 +5212,7 @@ mark-style	Japanese	Japanilainen
 	Draft Bodice Block	Piirrä yläosan peruskaava
 	Block Measurements	Peruskaavan mitat
 	Draft Skirt Block	Piirrä hameen peruskaava
+# PatternFoundry: design tools (PF-5).
+	Rotate Dart	Siirrä laskos
+	Split at Points	Jaa pisteistä
+	Seam Length	Sauman pituus

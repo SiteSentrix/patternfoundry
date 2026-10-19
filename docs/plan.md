@@ -1,7 +1,8 @@
 # PatternFoundry: the plan
 
-**Status:** 2026-10-19. PF-0 to PF-4 done: PatternFoundry is VectorCraft renamed, with pattern
-pieces, true-scale printing, drafting from measurements and bodice and skirt blocks; design tools (PF-5) are next. Owner: Bruce Wattendorf (SiteSentrix).
+**Status:** 2026-10-19. PF-0 to PF-4 done and PF-5 started: PatternFoundry is VectorCraft renamed, with
+pattern pieces, true-scale printing, drafting from measurements, bodice and skirt blocks, and
+dart rotation and splitting (a princess-seam bodice from the block). Owner: Bruce Wattendorf (SiteSentrix).
 
 ## What it is
 Software for designing sewing patterns, for home sewists, small pattern designers and small
@@ -127,3 +128,18 @@ is built on, plus a pattern mode, the way StitchFoundry adds embroidery:
   tests (`tests_block.rs`). Not yet: sleeve and trouser blocks (PF-4.1, PF-4.2), a block panel
   with the method's options (ease, dart sizes), the bodice's armhole checked against the sleeve
   head once the sleeve exists.
+- 2026-10-19, **PF-5** (first part): design tools. **Rotate Dart** (`design.rotateDart`: the
+  pivot method; the side of the outline with fewer points swings round the dart's point so the
+  dart opens elsewhere on the outline, at a point or anchor; all of it or a share, leaving two
+  darts) and **Split at Points** (`design.split`: a closed path cut in two between two points,
+  each part closed by a straight seam; at a point two darts share, no seam is added), in the
+  Pattern menu (with two or one selected points); `design.length` measures along an outline to
+  true seams that sew together. Works on a piece's seam line too (the piece redraws; a split
+  needs the piece released first). A block part changed this way stops following the
+  measurements. Geometry in `pf_core::design`. The milestone: a princess-seam bodice from the
+  front block (bust dart into the armhole, split through the bust point; the two princess seams
+  match within the front waist's slope). Tests: 4 in `pf-core`, 4 engine tests
+  (`tests_design.rs`). Not yet (PF-5.x): slash and spread, fullness, pleats, facings, collars,
+  pockets; truing (walking seams, smoothing curves across seams, the princess seam curved through
+  the bust); dart shortening from the bust point; design steps replayed when the measurements
+  change.
