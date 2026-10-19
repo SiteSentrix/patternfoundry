@@ -129,9 +129,9 @@ impl App {
             // eframe can't give a window a new device: the user saves and starts again.
             self.graphics_lost = self.app.graphics_lost(&why);
             self.app.status(if self.graphics_lost {
-                "The graphics device was lost: unsaved changes are kept for Data Recovery. Save your documents and restart VectorCraft"
+                "The graphics device was lost: unsaved changes are kept for Data Recovery. Save your documents and restart PatternFoundry"
             } else {
-                "The graphics device was lost: save your documents and restart VectorCraft"
+                "The graphics device was lost: save your documents and restart PatternFoundry"
             });
         }
         if self.graphics_lost && ctx.input(|i| i.viewport().close_requested()) {
@@ -179,7 +179,7 @@ fn end_before_teardown(frames: u64) {
 fn open_files(app: &mut VectorcraftApp, files: Vec<String>) {
     for f in files {
         if let Err(e) = vectorcraft_ui_egui::io::open_reporting(app, &f) {
-            eprintln!("vectorcraft: {f}: {e}");
+            eprintln!("patternfoundry: {f}: {e}");
         }
     }
 }
@@ -195,16 +195,17 @@ fn discard_marked_text() {
     }
 }
 
-/// Where UI preferences live: ~/Library/Application Support/VectorCraft (macOS),
-/// %APPDATA%\VectorCraft (Windows), $XDG_CONFIG_HOME or ~/.config/vectorcraft (Linux).
+/// Where UI preferences live: ~/Library/Application Support/PatternFoundry (macOS),
+/// %APPDATA%\PatternFoundry (Windows), $XDG_CONFIG_HOME or ~/.config/patternfoundry (Linux). Its own
+/// folder, so PatternFoundry and VectorCraft keep their settings, libraries and recovery copies apart.
 fn prefs_path() -> Option<std::path::PathBuf> {
-    prefs_dir::prefs_path_for("VectorCraft", "vectorcraft")
+    prefs_dir::prefs_path_for("PatternFoundry", "patternfoundry")
 }
 
-/// The same place under the project's former name (DrawCraft): read once if there are no
-/// VectorCraft preferences yet, so settings survive the rename.
+/// VectorCraft's preferences (PatternFoundry is based on it): read once if there are no PatternFoundry
+/// preferences yet, so a VectorCraft user's settings come along.
 fn legacy_prefs_path() -> Option<std::path::PathBuf> {
-    prefs_dir::prefs_path_for("DrawCraft", "drawcraft")
+    prefs_dir::prefs_path_for("PatternFoundry", "vectorcraft")
 }
 
 /// Where the log files live: `logs` in the preferences folder (see `logging`).
@@ -556,7 +557,7 @@ fn services(parent: Parent, ui: egui::Context) -> Services {
         // owner that never answers holds a read for up to 4 s. Windows only asks which formats the
         // clipboard holds and macOS asks the pasteboard server, so they check in line.
         clipboard_probe: cfg!(target_os = "linux").then(|| Box::new(clipboard::system_clipboard) as ClipboardProbeFactory),
-        // Help → Discord / website / GitHub, the Discord button, About and Home links.
+        // Help → GitHub, and the About and Home links.
         open_url: Some(Box::new(|url: &str| {
             let _ = webbrowser::open(url);
         })),
@@ -600,12 +601,12 @@ fn open_file(path: &str) -> Result<(), String> {
 
 /// The window, Dock, taskbar and app-switcher icon (`assets/app-icon/`, see its README). macOS gets
 /// the version with Apple's transparent margin; elsewhere the full-bleed tile. The app ID matches
-/// `packaging/linux/ai.storyteller.vectorcraft.desktop` so Wayland docks find the launcher icon.
+/// `packaging/linux/com.sitesentrix.patternfoundry.desktop` so Wayland docks find the launcher icon.
 fn app_icon() -> egui::IconData {
     #[cfg(target_os = "macos")]
-    let png: &[u8] = include_bytes!("../../../assets/app-icon/vectorcraft-macos-512.png");
+    let png: &[u8] = include_bytes!("../../../assets/app-icon/patternfoundry-macos-512.png");
     #[cfg(not(target_os = "macos"))]
-    let png: &[u8] = include_bytes!("../../../assets/app-icon/hicolor/256x256/apps/ai.storyteller.vectorcraft.png");
+    let png: &[u8] = include_bytes!("../../../assets/app-icon/hicolor/256x256/apps/com.sitesentrix.patternfoundry.png");
     eframe::icon_data::from_png_bytes(png).unwrap_or_default()
 }
 
@@ -641,7 +642,7 @@ fn custom_titlebar(saved: Option<&vectorcraft_ui_egui::UiState>) -> bool {
 fn native_options(custom_titlebar: bool) -> eframe::NativeOptions {
     eframe::NativeOptions {
         viewport: egui::ViewportBuilder::default()
-            .with_title("VectorCraft")
+            .with_title("PatternFoundry")
             .with_inner_size(window::DEFAULT_SIZE)
             .with_min_inner_size(window::MIN_SIZE)
             .with_drag_and_drop(true)
@@ -650,18 +651,18 @@ fn native_options(custom_titlebar: bool) -> eframe::NativeOptions {
             .with_titlebar_shown(false)
             .with_title_shown(false)
             .with_icon(app_icon())
-            .with_app_id("ai.storyteller.vectorcraft"),
+            .with_app_id("com.sitesentrix.patternfoundry"),
         #[cfg(feature = "windows7")]
         renderer: eframe::Renderer::Glow,
         ..Default::default()
     }
 }
 
-/// `vectorcraft --help`. Headless work (convert, run, MCP) is `vectorcraft-cli`'s.
+/// `patternfoundry --help`. Headless work (convert, run, MCP) is `patternfoundry-cli`'s.
 const USAGE: &str = "\
-Usage: vectorcraft [options] [files…]
+Usage: patternfoundry [options] [files…]
 
-Opens the VectorCraft desktop app with the given files.
+Opens the PatternFoundry desktop app with the given files.
 
 Options:
   --control <port>               Start the localhost JSON-lines control server on <port>
@@ -673,8 +674,8 @@ Options:
   --version                      Print the version and exit
   -h, --help                     Print this help and exit
 
-Without a window (converting, scripting, the MCP server), use vectorcraft-cli:
-  vectorcraft-cli --help
+Without a window (converting, scripting, the MCP server), use patternfoundry-cli:
+  patternfoundry-cli --help
 ";
 
 fn main() -> std::process::ExitCode {
@@ -695,14 +696,14 @@ fn main() -> std::process::ExitCode {
             Ok(true) => continue,
             Ok(false) => {}
             Err(e) => {
-                eprintln!("vectorcraft: {e}");
+                eprintln!("patternfoundry: {e}");
                 return std::process::ExitCode::FAILURE;
             }
         }
         match a.as_str() {
             "--in-window-menus" => in_window_menus = true,
             "--version" => {
-                println!("vectorcraft {}", env!("CARGO_PKG_VERSION"));
+                println!("patternfoundry {}", env!("CARGO_PKG_VERSION"));
                 return std::process::ExitCode::SUCCESS;
             }
             // Before anything starts, like `--version`: from a terminal or an agent's shell the app
@@ -723,7 +724,7 @@ fn main() -> std::process::ExitCode {
         None => match automation_args::env_control_port(std::env::var_os("VECTORCRAFT_CONTROL_PORT")) {
             Ok(port) => port,
             Err(e) => {
-                eprintln!("vectorcraft: {e}");
+                eprintln!("patternfoundry: {e}");
                 return std::process::ExitCode::FAILURE;
             }
         },
@@ -745,7 +746,7 @@ fn main() -> std::process::ExitCode {
     if let Some(logger) = logger {
         match log_dir().filter(|_| prefs_enabled()) {
             Some(dir) => match logger.attach_dir(&dir) {
-                Ok(path) => log::info!("VectorCraft {}, log file {}", env!("CARGO_PKG_VERSION"), path.display()),
+                Ok(path) => log::info!("PatternFoundry {}, log file {}", env!("CARGO_PKG_VERSION"), path.display()),
                 // Standard error only by now (`attach_dir` gave up on the file); unlike `eprintln!`, never panics.
                 Err(e) => log::warn!("no log file: {e}"),
             },
@@ -764,7 +765,7 @@ fn main() -> std::process::ExitCode {
             Ok(roots) => roots,
             Err(e) => {
                 log::error!("{e}");
-                eprintln!("vectorcraft: {e}");
+                eprintln!("patternfoundry: {e}");
                 return std::process::ExitCode::FAILURE;
             }
         }
@@ -878,7 +879,7 @@ fn main() -> std::process::ExitCode {
     // A panic that ends the window (egui-wgpu's own, #502) is caught here: never a crash.
     let outcome = vectorcraft_engine::guard::catch_panic(|| {
         eframe::run_native(
-            "VectorCraft",
+            "PatternFoundry",
             options,
             Box::new(move |cc| {
                 let mut session = Session::new();
@@ -929,15 +930,15 @@ fn main() -> std::process::ExitCode {
                             ""
                         };
                         app.status(format!(
-                            "The graphics processor tried first couldn't show the window, so VectorCraft started again on {summary}{hint}"
+                            "The graphics processor tried first couldn't show the window, so PatternFoundry started again on {summary}{hint}"
                         ));
                     } else if let Some(crash) = &crash {
                         app.status(match crash {
                             gpu::Crash::Adapter { name, .. } => format!(
-                                "The last start of VectorCraft ended on {name} before its window appeared, so it started on {summary}. To try that graphics processor again, change Preferences › Performance › Graphics Processor or start with WGPU_BACKEND set"
+                                "The last start of PatternFoundry ended on {name} before its window appeared, so it started on {summary}. To try that graphics processor again, change Preferences › Performance › Graphics Processor or start with WGPU_BACKEND set"
                             ),
                             gpu::Crash::Listing => format!(
-                                "The last start of VectorCraft ended while it listed the graphics processors, so it started on {summary} with OpenGL alone. To try the other graphics backends again, change Preferences › Performance › Graphics Processor or start with WGPU_BACKEND set"
+                                "The last start of PatternFoundry ended while it listed the graphics processors, so it started on {summary} with OpenGL alone. To try the other graphics backends again, change Preferences › Performance › Graphics Processor or start with WGPU_BACKEND set"
                             ),
                         });
                     }
@@ -987,7 +988,7 @@ fn main() -> std::process::ExitCode {
     match outcome {
         Ok(()) => std::process::ExitCode::SUCCESS,
         Err(e) => {
-            log::error!("VectorCraft stopped: {e}");
+            log::error!("PatternFoundry stopped: {e}");
             std::process::ExitCode::FAILURE
         }
     }

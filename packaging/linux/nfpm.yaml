@@ -3,7 +3,7 @@
 # exports VERSION and NFPM_ARCH.
 #
 #   nfpm package -f packaging/linux/nfpm.yaml -p deb -t dist/release/
-name: vectorcraft
+name: patternfoundry
 arch: ${NFPM_ARCH}
 platform: linux
 version: ${VERSION}
@@ -13,14 +13,15 @@ release: 1
 section: graphics
 priority: optional
 maintainer: ${VECTORCRAFT_MAINTAINER}
-vendor: Learning Machines LLC
-homepage: https://getartcraft.com/apps/vectorcraft
+vendor: SiteSentrix
+homepage: https://github.com/SiteSentrix/patternfoundry
 license: MIT OR Apache-2.0
 description: |-
-  Open-source, native vector illustration app.
-  Pen, shape and brush tools, artboards, type, gradients, symbols and live
-  effects; opens and saves SVG and PDF.
-  Includes vectorcraft-cli, a headless converter and command runner.
+  Open-source sewing-pattern design software, built on a full vector editor:
+  pen, shape and brush tools, artboards, type, gradients, symbols and live
+  effects; opens and saves SVG and PDF. Pattern drafting, grading and
+  true-scale printing are on the way.
+  Includes patternfoundry-cli, a headless converter and command runner.
 
 # The binaries link only glibc and libgcc_s directly. Windowing (X11/Wayland, xkbcommon) and the
 # GPU (Vulkan, EGL/GL) are loaded at runtime, so they are dependencies/recommendations here
@@ -63,11 +64,11 @@ overrides:
       - xdg-desktop-portal
 
 contents:
-  - src: ${STAGE}/usr/bin/vectorcraft
-    dst: /usr/bin/vectorcraft
+  - src: ${STAGE}/usr/bin/patternfoundry
+    dst: /usr/bin/patternfoundry
     file_info: { mode: 0755 }
-  - src: ${STAGE}/usr/bin/vectorcraft-cli
-    dst: /usr/bin/vectorcraft-cli
+  - src: ${STAGE}/usr/bin/patternfoundry-cli
+    dst: /usr/bin/patternfoundry-cli
     file_info: { mode: 0755 }
   - src: ${STAGE}/usr/share/
     dst: /usr/share/

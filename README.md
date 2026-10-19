@@ -20,7 +20,7 @@
 By [SiteSentrix](https://sitesentrix.com), the makers of [StitchFoundry](https://stitchfoundry.app).
 
 ## Status
-Early development (October 2026). PatternFoundry is VectorCraft renamed, with the pattern tools
+Early development (October 2026). PatternFoundry is VectorCraft renamed (PF-0 done), with the pattern tools
 still to come: see [`docs/plan.md`](docs/plan.md) for the milestones (pattern pieces, true-scale
 printing, measurements, blocks, design tools, grading, cutting-room export) and
 [`docs/market.md`](docs/market.md) for the features we aim to match and beat. There are no

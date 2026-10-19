@@ -35,7 +35,7 @@ const HOST_COMMANDS: &[(&str, &str, &str)] = &[
     (
         "file.save",
         "Save",
-        "{…as document.save} = document.save {path?, format?, options?, svg?: {…SVG options}}: .vectorcraft, .ai (a PDF that reopens editable), .pdf, .svg or .svgz (default: the document's own path and format)",
+        "{…as document.save} = document.save {path?, format?, options?, svg?: {…SVG options}}: .patternfoundry (or .vectorcraft), .ai (a PDF that reopens editable), .pdf, .svg or .svgz (default: the document's own path and format)",
     ),
     ("file.export", "Export…", "{…as document.export} = document.export {path?, format?, artboard?, range?, scale?, …} (no path → dataBase64)"),
     (
@@ -335,7 +335,7 @@ impl Headless {
             "app.export" => self.export(p),
             "app.quit" => Ok(Value::Null),
             m if m.starts_with("ui.") => {
-                Err(format!("`{m}` needs the desktop app (start `vectorcraft --control 7979` and use `vectorcraft-cli mcp --connect`)"))
+                Err(format!("`{m}` needs the desktop app (start `patternfoundry --control 7979` and use `patternfoundry-cli mcp --connect`)"))
             }
             other => Err(format!("unknown method `{other}`")),
         }

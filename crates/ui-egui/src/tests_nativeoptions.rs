@@ -102,5 +102,8 @@ fn the_web_save_as_dialog_shows_the_native_options() {
     d.fields.insert("separateArtboards".into(), json!(true));
     dialogs::confirm(&mut app).unwrap();
     let names: Vec<String> = written.borrow().iter().map(|(p, _)| p.clone()).collect();
-    assert_eq!(names, ["Untitled-1.vectorcraft", "Untitled-1-Artboard-1.vectorcraft", "Untitled-1-B.vectorcraft", "Untitled-1-C.vectorcraft"]);
+    assert_eq!(
+        names,
+        ["Untitled-1.patternfoundry", "Untitled-1-Artboard-1.patternfoundry", "Untitled-1-B.patternfoundry", "Untitled-1-C.patternfoundry"]
+    );
 }

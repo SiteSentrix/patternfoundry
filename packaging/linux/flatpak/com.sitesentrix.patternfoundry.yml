@@ -1,23 +1,23 @@
-# Flatpak manifest for VectorCraft, ready for a Flathub submission.
+# Flatpak manifest for PatternFoundry, ready for a Flathub submission.
 #
 # Flatpak builds run offline, so the crate sources must be vendored first. From the repo root:
 #
 #   curl -fsSLO https://raw.githubusercontent.com/flatpak/flatpak-builder-tools/master/cargo/flatpak-cargo-generator.py
 #   python3 flatpak-cargo-generator.py Cargo.lock -o packaging/linux/flatpak/cargo-sources.json
-#   flatpak-builder --user --install --force-clean build-flatpak packaging/linux/flatpak/ai.storyteller.vectorcraft.yml
-#   flatpak run ai.storyteller.vectorcraft
+#   flatpak-builder --user --install --force-clean build-flatpak packaging/linux/flatpak/com.sitesentrix.patternfoundry.yml
+#   flatpak run com.sitesentrix.patternfoundry
 #
 # For Flathub, replace the `dir` source with a `git` source pinned to a release tag and commit.
-# Release bundles (.flatpak on GitHub Releases) use ai.storyteller.vectorcraft.bundle.yml instead.
-id: ai.storyteller.vectorcraft
+# Release bundles (.flatpak on GitHub Releases) use com.sitesentrix.patternfoundry.bundle.yml instead.
+id: com.sitesentrix.patternfoundry
 runtime: org.freedesktop.Platform
 runtime-version: '25.08'
 sdk: org.freedesktop.Sdk
 sdk-extensions:
   - org.freedesktop.Sdk.Extension.rust-stable
-command: vectorcraft
+command: patternfoundry
 finish-args:
-  # Keep identical to ai.storyteller.vectorcraft.bundle.yml (the release bundle); comments there.
+  # Keep identical to com.sitesentrix.patternfoundry.bundle.yml (the release bundle); comments there.
   - --share=ipc
   - --socket=wayland
   - --socket=fallback-x11
@@ -42,15 +42,15 @@ modules:
         CARGO_NET_OFFLINE: 'true'
     build-commands:
       - cargo --offline build --release --locked -p vectorcraft
-      - install -Dm755 target/release/vectorcraft /app/bin/vectorcraft
-      - install -Dm644 packaging/linux/ai.storyteller.vectorcraft.desktop /app/share/applications/ai.storyteller.vectorcraft.desktop
-      - install -Dm644 packaging/linux/ai.storyteller.vectorcraft.mime.xml /app/share/mime/packages/ai.storyteller.vectorcraft.xml
+      - install -Dm755 target/release/patternfoundry /app/bin/patternfoundry
+      - install -Dm644 packaging/linux/com.sitesentrix.patternfoundry.desktop /app/share/applications/com.sitesentrix.patternfoundry.desktop
+      - install -Dm644 packaging/linux/com.sitesentrix.patternfoundry.mime.xml /app/share/mime/packages/com.sitesentrix.patternfoundry.xml
       - mkdir -p /app/share/icons && cp -R assets/app-icon/hicolor /app/share/icons/
       - >-
         version=$(awk '/^\[/{p=($0=="[workspace.package]");next} p&&$1=="version"{gsub(/[" ]/,"",$3);print $3;exit}' Cargo.toml);
         install -d /app/share/metainfo;
         sed -e "s/@VERSION@/$version/" -e "s/@DATE@/$(date -u +%Y-%m-%d)/"
-        packaging/linux/ai.storyteller.vectorcraft.metainfo.xml.in > /app/share/metainfo/ai.storyteller.vectorcraft.metainfo.xml
+        packaging/linux/com.sitesentrix.patternfoundry.metainfo.xml.in > /app/share/metainfo/com.sitesentrix.patternfoundry.metainfo.xml
     sources:
       - type: dir
         path: ../../..

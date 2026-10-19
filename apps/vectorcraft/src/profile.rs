@@ -3,15 +3,15 @@
 //! In order:
 //! 1. `VECTORCRAFT_CONFIG_DIR`, when set (tests, agents, custom setups).
 //! 2. **Portable mode** (#1366), as in PhotoCraft: a marker file ([`PORTABLE_MARKERS`]) in the
-//!    install folder puts the settings in `VectorCraftData` beside it, so a portable copy leaves
+//!    install folder puts the settings in `PatternFoundryData` beside it, so a portable copy leaves
 //!    nothing in `%APPDATA%`. The install folder is the executable's; on macOS the one holding
-//!    `VectorCraft.app` (nothing is written inside a signed bundle), for an AppImage the one holding
+//!    `PatternFoundry.app` (nothing is written inside a signed bundle), for an AppImage the one holding
 //!    the `.AppImage` file (`$APPIMAGE`; the executable runs from a read-only mount). The Windows
-//!    portable zip ships with `portable.txt`; the MSI doesn't. The first time `VectorCraftData` is
+//!    portable zip ships with `portable.txt`; the MSI doesn't. The first time `PatternFoundryData` is
 //!    created, the settings in the user's profile are copied into it, so a portable zip that gains
 //!    the marker keeps its users' settings. If the folder can't be written (read-only medium,
 //!    Program Files), a warning is logged and the platform folder is used. A portable copy never
-//!    reads the old DrawCraft profile, and a run without preferences (`VECTORCRAFT_NO_PREFS`) never
+//!    reads the old VectorCraft profile, and a run without preferences (`VECTORCRAFT_NO_PREFS`) never
 //!    looks for the marker.
 //! 3. The platform convention.
 
@@ -20,9 +20,9 @@ use std::path::{Path, PathBuf};
 use std::sync::OnceLock;
 
 /// Files in the install folder that switch on portable mode (either one; contents are ignored).
-pub const PORTABLE_MARKERS: [&str; 2] = ["portable.txt", "VectorCraft.portable"];
+pub const PORTABLE_MARKERS: [&str; 2] = ["portable.txt", "PatternFoundry.portable"];
 /// The settings folder created in the install folder in portable mode.
-pub const PORTABLE_DATA_DIR: &str = "VectorCraftData";
+pub const PORTABLE_DATA_DIR: &str = "PatternFoundryData";
 
 pub fn prefs_path(legacy: bool) -> Option<PathBuf> {
     prefs_path_with(std::env::consts::OS, legacy, |key| std::env::var_os(key), portable_dir)
@@ -32,22 +32,23 @@ pub fn prefs_path(legacy: bool) -> Option<PathBuf> {
 /// preferences are in use.
 fn prefs_path_with(os: &str, legacy: bool, env: impl Fn(&str) -> Option<OsString>, portable: impl FnOnce() -> Option<PathBuf>) -> Option<PathBuf> {
     if let Some(root) = env("VECTORCRAFT_CONFIG_DIR") {
-        // Never fall back to DrawCraft's real profile when the isolated file does not exist.
+        // Never fall back to VectorCraft's real profile when the isolated file does not exist.
         return (!legacy && !root.is_empty()).then(|| PathBuf::from(root).join("ui.json"));
     }
     // A run without preferences reads and writes nothing, so it must not create the portable folder.
     if env("VECTORCRAFT_NO_PREFS").is_none()
         && let Some(dir) = portable()
     {
-        // A portable copy is self-contained: DrawCraft's old profile is not read into it.
+        // A portable copy is self-contained: VectorCraft's old profile is not read into it.
         return (!legacy).then(|| dir.join("ui.json"));
     }
     platform_dir(os, legacy, &env).map(|p| p.join("ui.json"))
 }
 
-/// The platform's settings folder of VectorCraft, or of DrawCraft (`legacy`).
+/// The platform's settings folder of PatternFoundry, or of VectorCraft (`legacy`: read once, to
+/// migrate from it).
 fn platform_dir(os: &str, legacy: bool, env: &impl Fn(&str) -> Option<OsString>) -> Option<PathBuf> {
-    let (name, lower) = if legacy { ("DrawCraft", "drawcraft") } else { ("VectorCraft", "vectorcraft") };
+    let (name, lower) = if legacy { ("VectorCraft", "vectorcraft") } else { ("PatternFoundry", "patternfoundry") };
     match os {
         "macos" => env("HOME").map(|p| PathBuf::from(p).join("Library/Application Support").join(name)),
         "windows" => env("APPDATA").map(|p| PathBuf::from(p).join(name)),
@@ -74,7 +75,7 @@ fn portable_dir() -> Option<PathBuf> {
 }
 
 /// The folder the user sees the app in, where the portable marker is looked for: the executable's;
-/// on macOS the one holding `VectorCraft.app` when the executable sits in its `Contents/MacOS` (a
+/// on macOS the one holding `PatternFoundry.app` when the executable sits in its `Contents/MacOS` (a
 /// signed bundle is never written into); on Linux the one holding the `.AppImage` file when
 /// `$APPIMAGE` names it (the executable itself runs from a read-only mount).
 fn install_dir(os: &str, exe: &Path, env: &impl Fn(&str) -> Option<OsString>) -> Option<PathBuf> {
@@ -98,7 +99,7 @@ fn app_bundle_parent(exe_dir: &Path) -> Option<&Path> {
     bundle.extension().filter(|ext| *ext == "app").and(bundle.parent())
 }
 
-/// `<install_dir>/VectorCraftData` when a portable marker sits in `install_dir`, created if missing;
+/// `<install_dir>/PatternFoundryData` when a portable marker sits in `install_dir`, created if missing;
 /// `None` without a marker, and the warning to log when there is one but that folder can't be
 /// written. The first time the folder is created, the settings in `previous` (the user's profile
 /// folder, when it exists) are copied into it, so a portable zip that gains the marker keeps its
@@ -214,22 +215,22 @@ mod tests {
 
     #[test]
     fn unset_override_keeps_platform_paths_and_legacy_migration() {
-        assert_eq!(prefs_path_with("macos", false, environment, installed), Some("/user/Library/Application Support/VectorCraft/ui.json".into()));
-        assert_eq!(prefs_path_with("macos", true, environment, installed), Some("/user/Library/Application Support/DrawCraft/ui.json".into()));
-        assert_eq!(prefs_path_with("windows", false, environment, installed), Some("/roaming/VectorCraft/ui.json".into()));
-        assert_eq!(prefs_path_with("linux", false, environment, installed), Some("/xdg-config/vectorcraft/ui.json".into()));
+        assert_eq!(prefs_path_with("macos", false, environment, installed), Some("/user/Library/Application Support/PatternFoundry/ui.json".into()));
+        assert_eq!(prefs_path_with("macos", true, environment, installed), Some("/user/Library/Application Support/VectorCraft/ui.json".into()));
+        assert_eq!(prefs_path_with("windows", false, environment, installed), Some("/roaming/PatternFoundry/ui.json".into()));
+        assert_eq!(prefs_path_with("linux", false, environment, installed), Some("/xdg-config/patternfoundry/ui.json".into()));
         assert_eq!(
             prefs_path_with("linux", true, |key| if key == "HOME" { environment(key) } else { None }, installed),
-            Some("/user/.config/drawcraft/ui.json".into())
+            Some("/user/.config/vectorcraft/ui.json".into())
         );
     }
 
     #[test]
     fn portable_mode_keeps_the_settings_beside_the_executable_and_skips_the_drawcraft_profile() {
-        let portable = || Some(PathBuf::from("/usb/VectorCraft/VectorCraftData"));
+        let portable = || Some(PathBuf::from("/usb/PatternFoundry/PatternFoundryData"));
         for os in ["macos", "windows", "linux"] {
-            assert_eq!(prefs_path_with(os, false, environment, portable), Some("/usb/VectorCraft/VectorCraftData/ui.json".into()), "{os}");
-            // A portable copy is self-contained: the one-time read of DrawCraft's old settings is skipped.
+            assert_eq!(prefs_path_with(os, false, environment, portable), Some("/usb/PatternFoundry/PatternFoundryData/ui.json".into()), "{os}");
+            // A portable copy is self-contained: the one-time read of VectorCraft's old settings is skipped.
             assert_eq!(prefs_path_with(os, true, environment, portable), None, "{os}");
         }
     }
@@ -246,18 +247,18 @@ mod tests {
     fn a_run_without_preferences_never_looks_for_the_portable_folder() {
         let env = |key: &str| if key == "VECTORCRAFT_NO_PREFS" { Some("1".into()) } else { environment(key) };
         let portable = || -> Option<PathBuf> { panic!("the portable folder is not looked for under VECTORCRAFT_NO_PREFS") };
-        assert_eq!(prefs_path_with("windows", false, env, portable), Some("/roaming/VectorCraft/ui.json".into()));
-        assert_eq!(prefs_path_with("windows", true, env, portable), Some("/roaming/DrawCraft/ui.json".into()));
+        assert_eq!(prefs_path_with("windows", false, env, portable), Some("/roaming/PatternFoundry/ui.json".into()));
+        assert_eq!(prefs_path_with("windows", true, env, portable), Some("/roaming/VectorCraft/ui.json".into()));
     }
 
     #[test]
     fn on_macos_the_marker_is_looked_for_beside_the_app_bundle() {
-        let bundled = Path::new("/Apps/VectorCraft.app/Contents/MacOS/vectorcraft");
+        let bundled = Path::new("/Apps/PatternFoundry.app/Contents/MacOS/vectorcraft");
         assert_eq!(install_dir("macos", bundled, &environment), Some("/Apps".into()));
         // A bare executable (the CLI zip) and other platforms: the executable's own folder.
         assert_eq!(install_dir("macos", Path::new("/Apps/vectorcraft-cli"), &environment), Some("/Apps".into()));
-        assert_eq!(install_dir("windows", bundled, &environment), Some("/Apps/VectorCraft.app/Contents/MacOS".into()));
-        assert_eq!(install_dir("linux", bundled, &environment), Some("/Apps/VectorCraft.app/Contents/MacOS".into()));
+        assert_eq!(install_dir("windows", bundled, &environment), Some("/Apps/PatternFoundry.app/Contents/MacOS".into()));
+        assert_eq!(install_dir("linux", bundled, &environment), Some("/Apps/PatternFoundry.app/Contents/MacOS".into()));
     }
 
     #[test]
@@ -297,7 +298,7 @@ mod tests {
     #[test]
     fn a_fake_app_bundle_keeps_the_marker_and_the_data_outside_the_bundle() {
         let folder = temp("bundle");
-        let exe = folder.join("VectorCraft.app/Contents/MacOS/vectorcraft");
+        let exe = folder.join("PatternFoundry.app/Contents/MacOS/vectorcraft");
         std::fs::create_dir_all(exe.parent().unwrap()).unwrap();
         std::fs::write(folder.join("portable.txt"), b"").unwrap();
         let install = install_dir("macos", &exe, &environment).unwrap();

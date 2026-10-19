@@ -184,7 +184,7 @@ fn accessory(mtm: MainThreadMarker, panel: &NSSavePanel, filters: Vec<Filter>, s
 mod tests {
     use super::*;
 
-    const FILTERS: &[Filter] = &[("VectorCraft", &["vectorcraft"]), ("SVG", &["svg"]), ("PDF", &["pdf"])];
+    const FILTERS: &[Filter] = &[("PatternFoundry", &["vectorcraft"]), ("SVG", &["svg"]), ("PDF", &["pdf"])];
 
     /// Save, Save As and Save a Copy list every save format with the default first; a panel with one
     /// named type, or one for every file, gets no menu, and rfd shows it.

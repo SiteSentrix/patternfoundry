@@ -4,7 +4,13 @@ version.workspace = true
 edition.workspace = true
 license.workspace = true
 publish = false
-default-run = "vectorcraft"
+default-run = "patternfoundry"
+
+# The program is named patternfoundry (so it installs beside VectorCraft); the package keeps
+# VectorCraft's name, so `cargo run -p vectorcraft` still works.
+[[bin]]
+name = "patternfoundry"
+path = "src/main.rs"
 
 [lints]
 workspace = true
@@ -88,7 +94,7 @@ wayland-backend = { version = "0.3", features = ["client_system"] }
 zbus = "=5.19.0"
 
 [build-dependencies]
-# Icon + VERSIONINFO for vectorcraft.exe; build.rs only uses it when targeting Windows.
+# Icon + VERSIONINFO for patternfoundry.exe; build.rs only uses it when targeting Windows.
 winresource = "0.1"
 
 [dev-dependencies]

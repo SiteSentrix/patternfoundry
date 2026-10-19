@@ -1,0 +1,14 @@
+[Desktop Entry]
+Type=Application
+Name=PatternFoundry
+GenericName=Sewing Pattern Designer
+Comment=Design sewing patterns and print them at true scale
+Exec=patternfoundry %F
+TryExec=patternfoundry
+Icon=com.sitesentrix.patternfoundry
+Terminal=false
+StartupNotify=true
+StartupWMClass=com.sitesentrix.patternfoundry
+Categories=Graphics;2DGraphics;VectorGraphics;
+Keywords=sewing;pattern;garment;drafting;grading;vector;svg;pdf;
+MimeType=image/svg+xml;application/pdf;

@@ -18,6 +18,8 @@ env:
   CARGO_INCREMENTAL: 0
 jobs:
   windows:
+    # VectorCraft's workflow: it runs only in VectorCraft's repository (PatternFoundry's checks are ci.yml).
+    if: github.repository == 'storytold/vectorcraft'
     runs-on: windows-2022
     timeout-minutes: 90
     steps:
