@@ -42,6 +42,15 @@ is built on, plus a pattern mode, the way StitchFoundry adds embroidery:
 - AI help (2026-10-19): paid with the shared **Foundry Account** and its Foundry credits, served by
   the StitchFoundry cloud service, not a separate account.
 
+- Hosting (2026-10-19): the app stays on **GitHub Pages** (the web build) and **GitHub Releases**
+  (the desktop downloads), as StitchFoundry does. No server of its own, no Railway.
+- Accounts and AI (2026-10-19): PatternFoundry uses the shared **Foundry Account** (one sign-in and
+  one credit balance, "Foundry credits", across all SiteSentrix apps), served by the StitchFoundry
+  cloud service at https://cloud.stitchfoundry.app. PatternFoundry never holds an Anthropic key:
+  AI requests go through that service, which adds the owner's key and charges the user's credits.
+  Users may still enter their own Anthropic key in the app's AI settings instead. Details for PF-8
+  are in `docs/start-here.md`.
+
 ## Open decisions (the owner's)
 - Whether PatternFoundry is its own app (as planned) or a mode inside StitchFoundry.
 - Which drafting methods to implement first (by the books or courses the owner's users follow).
