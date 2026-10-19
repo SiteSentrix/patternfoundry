@@ -35,5 +35,5 @@ is built on, plus a pattern mode, the way StitchFoundry adds embroidery:
 ## Open decisions (the owner's)
 - Whether PatternFoundry is its own app (as planned) or a mode inside StitchFoundry.
 - Which drafting methods to implement first (by the books or courses the owner's users follow).
-- Pricing of AI help (StitchFoundry's credits and account, or separate).
+- Pricing of AI help. (Decided 2026-10-19: AI help is paid with the shared **Foundry Account** and its Foundry credits, served by the StitchFoundry cloud service, not a separate account.)
 - Domain: patternfoundry.app.

@@ -14,9 +14,9 @@ anything he clicks through.
 - **VectorCraft** (github.com/storytold/vectorcraft): the Rust vector editor to merge in (PF-0).
 - **StitchFoundry** (github.com/Stitchwright/StitchFoundry): VectorCraft plus embroidery; the
   model for how a mode is added (its `docs/stitchfoundry-spec.md`, `crates/sf-core`, the
-  `embroidery.*` commands, the AI features and StitchFoundry Account), and its CI, release and
+  `embroidery.*` commands, the AI features and the Foundry Account window), and its CI, release and
   translation set-up (23 complete languages).
-- **StitchFoundry cloud** (cloud.stitchfoundry.app): accounts, credits, Stripe, AI.
+- **StitchFoundry cloud** (cloud.stitchfoundry.app): the shared **Foundry Account** (one sign-in and one credit balance for every SiteSentrix app), credits, Stripe, AI.
 - Websites on Cloudflare Pages from bwattendorf/sitesentrix-web; email through Cloudflare Email
   Routing and Resend; hosting on Railway Pro.
 
