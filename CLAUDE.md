@@ -41,6 +41,20 @@ break wasm, `cargo xtask ci` before every commit, progress docs), with "StitchFo
 - **Standards.** Exports follow the published specifications (DXF-AAMA/ASTM D6673 for cutting
   rooms, PDF/ISO 32000, SVG), tested against files written from those specifications.
 
+## Debugging
+When something fails and the cause isn't obvious, follow the `/debug` skill
+(`.claude/skills/debug/SKILL.md`, based on Kuhlmann, *The Book of Debugging*). What matters most:
+- **Reproduce first, and make the loop fast**: one named input and one command; never the full CI
+  as the loop. Run the one failing test, or the command on its own with the CLI; for scale bugs measure the 10 cm square in the output file.
+- **Look at what the program actually did** before theorising, and build a flag or command when you
+  keep wanting to see something.
+- **One hypothesis per experiment**, written down with what either result will teach; cap guessing
+  at about an hour, then switch strategy (bisect, instrument, follow the data).
+- **Verify the fix** by undoing it (the bug returns) and redoing it (it goes); keep the repro as a
+  regression test; look for the same mistake elsewhere.
+- Keep a debugging log in `docs/debug-logs/YYYY-MM-DD-<topic>.md` for anything that takes more
+  than one sitting, and reference it from the commit.
+
 ## Commit authorship
 Commits are authored by **Bruce Wattendorf**; AI assistance is a trailer, never the author.
 - `git config user.name "Bruce Wattendorf"` and `git config user.email "bwattendorf@gmail.com"`
