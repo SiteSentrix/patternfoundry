@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <!-- PatternFoundry app icon: original artwork, MIT OR Apache-2.0. A bodice pattern piece on a
+       teal field, with its stitching line, a notch, a grainline and a tape measure. -->
+  <defs>
+    <clipPath id="tile"><rect width="512" height="512" rx="112"/></clipPath>
+  </defs>
+  <g clip-path="url(#tile)">
+    <rect width="512" height="512" fill="#1f5560"/>
+    <g transform="rotate(-8 256 250)">
+      <!-- the pattern piece: a bodice front -->
+      <path d="M176 92 C200 112 228 118 252 110 L352 138 C340 184 346 226 382 252 L396 420 L150 428 L140 166 C162 150 174 124 176 92 Z"
+            fill="#000" opacity="0.22" transform="translate(10 12)"/>
+      <path d="M176 92 C200 112 228 118 252 110 L352 138 C340 184 346 226 382 252 L396 420 L150 428 L140 166 C162 150 174 124 176 92 Z"
+            fill="#f6eedb" stroke="#16262b" stroke-width="7" stroke-linejoin="round"/>
+      <!-- stitching line inside the cut edge -->
+      <path d="M180 120 C204 136 230 140 254 134 L328 155 C320 196 328 236 358 262 L370 398 L172 404 L164 178 C182 162 188 144 180 120 Z"
+            fill="none" stroke="#16262b" stroke-width="4" stroke-dasharray="14 10" stroke-linejoin="round" opacity="0.75"/>
+      <!-- waist dart -->
+      <path d="M278 423 L300 318 L322 422" fill="none" stroke="#16262b" stroke-width="5" stroke-linejoin="round"/>
+      <!-- notch on the armhole -->
+      <path d="M356 205 L336 214 L340 196 Z" fill="#16262b"/>
+      <!-- grainline -->
+      <path d="M232 190 L236 360" stroke="#c4472f" stroke-width="8" stroke-linecap="round"/>
+      <path d="M232 168 L246 198 L218 198 Z M237 382 L223 352 L251 352 Z" fill="#c4472f"/>
+    </g>
+    <!-- tape measure -->
+    <g transform="rotate(-14 256 430) translate(0 22)">
+      <rect x="-20" y="404" width="560" height="56" fill="#000" opacity="0.2" transform="translate(0 8)"/>
+      <rect x="-20" y="404" width="560" height="56" fill="#f2b33d" stroke="#16262b" stroke-width="5"/>
+      <g stroke="#16262b" stroke-width="5" stroke-linecap="round">
+        <path d="M20 407 v26 M60 407 v16 M100 407 v26 M140 407 v16 M180 407 v26 M220 407 v16 M260 407 v26 M300 407 v16 M340 407 v26 M380 407 v16 M420 407 v26 M460 407 v16 M500 407 v26"/>
+      </g>
+    </g>
+  </g>
+</svg>

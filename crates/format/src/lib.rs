@@ -60,6 +60,9 @@ pub const MIN_VERSION: u32 = 1;
 pub const COMPRESSED_SINCE: u32 = 3;
 /// Most pixels on the longer side of an embedded preview.
 pub const PREVIEW_MAX: u32 = 256;
+/// The extension PatternFoundry saves documents with. Inside they are VectorCraft documents
+/// (`"format": "vectorcraft"`), so VectorCraft opens them too.
+pub const SAVE_EXTENSION: &str = "patternfoundry";
 pub const EXTENSION: &str = "vectorcraft";
 /// Extension and format name from before the project was renamed (DrawCraft): still opened.
 pub const LEGACY_EXTENSION: &str = "drawcraft";
@@ -78,7 +81,7 @@ const MAX_UNPACKED: u64 = 512 << 20;
 
 /// Is `ext` (without the dot, any case) a native document extension?
 pub fn is_native_ext(ext: &str) -> bool {
-    ext.eq_ignore_ascii_case(EXTENSION) || ext.eq_ignore_ascii_case(LEGACY_EXTENSION)
+    ext.eq_ignore_ascii_case(SAVE_EXTENSION) || ext.eq_ignore_ascii_case(EXTENSION) || ext.eq_ignore_ascii_case(LEGACY_EXTENSION)
 }
 
 /// Does the file name or path end in a native document extension?
@@ -90,15 +93,15 @@ pub fn is_native_name(name: &str) -> bool {
 pub enum FormatError {
     #[error("not a VectorCraft file: {0}")]
     NotVectorcraft(String),
-    #[error("file version {0} is newer than this VectorCraft supports ({VERSION})")]
+    #[error("file version {0} is newer than this PatternFoundry supports ({VERSION})")]
     TooNew(u32),
     #[error("invalid image data for `{0}`")]
     BadImage(String),
-    #[error("can't save version {0}: VectorCraft writes versions {MIN_VERSION} to {VERSION}")]
+    #[error("can't save version {0}: PatternFoundry writes versions {MIN_VERSION} to {VERSION}")]
     BadVersion(u32),
     #[error("version {0} files can't be compressed: only version {COMPRESSED_SINCE} and later open compressed files")]
     CompressedTooOld(u32),
-    #[error("the compressed file unpacks to more than VectorCraft reads ({} MB of document, {} MB per image)", MAX_JSON >> 20, MAX_BLOB >> 20)]
+    #[error("the compressed file unpacks to more than PatternFoundry reads ({} MB of document, {} MB per image)", MAX_JSON >> 20, MAX_BLOB >> 20)]
     TooBig,
     #[error("the document is too large to save compressed ({0}): save it with Use Compression off")]
     TooBigToCompress(String),
@@ -349,7 +352,7 @@ pub fn save_to(doc: &Document, o: &SaveOptions, w: impl Write) -> Result<(), For
     // Older apps only know the name from before the rename.
     env.field(&mut out, "format", &if o.version < 3 { LEGACY_EXTENSION } else { EXTENSION })?;
     env.field(&mut out, "version", &o.version)?;
-    env.field(&mut out, "generator", &format!("VectorCraft {}", env!("CARGO_PKG_VERSION")))?;
+    env.field(&mut out, "generator", &format!("PatternFoundry {}", env!("CARGO_PKG_VERSION")))?;
     if let Some(png) = &o.preview {
         env.field(&mut out, "preview", &blob("image/png", png))?;
     }

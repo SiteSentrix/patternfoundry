@@ -326,7 +326,7 @@ mod tests {
         let pick = FilePick {
             name: "Untitled-1.vectorcraft".into(),
             folder: Some("/home/me/Art".into()),
-            filters: vec![("VectorCraft", &["vectorcraft"]), ("SVG", &["svg"]), ("PDF-compatible .ai", &["ai"])],
+            filters: vec![("PatternFoundry", &["vectorcraft"]), ("SVG", &["svg"]), ("PDF-compatible .ai", &["ai"])],
         };
         SaveRequest::new(&pick, "x11:3a0000f".into())
     }
@@ -337,9 +337,9 @@ mod tests {
     fn the_request_names_the_file_type_the_dialog_starts_on() {
         let request = request();
         let o = options(&request, "t1");
-        assert_eq!(o.get("current_filter"), Some(&Value::from(("VectorCraft".to_string(), vec![(0u32, "*.vectorcraft".to_string())]))));
+        assert_eq!(o.get("current_filter"), Some(&Value::from(("PatternFoundry".to_string(), vec![(0u32, "*.vectorcraft".to_string())]))));
         let filters = vec![
-            ("VectorCraft".to_string(), vec![(0u32, "*.vectorcraft".to_string())]),
+            ("PatternFoundry".to_string(), vec![(0u32, "*.vectorcraft".to_string())]),
             ("SVG".to_string(), vec![(0u32, "*.svg".to_string())]),
             ("PDF-compatible .ai".to_string(), vec![(0u32, "*.ai".to_string())]),
         ];
@@ -522,7 +522,7 @@ mod tests {
         let labels: Vec<&str> = request.filters.iter().map(|(l, _)| l.as_str()).collect();
         let lang = vectorcraft_ui_egui::i18n::current();
         let expected: Vec<&str> =
-            ["VectorCraft", "SVG", "PDF-compatible .ai"].iter().map(|l| vectorcraft_ui_egui::i18n::tr_ctx(lang, "file-filter", l)).collect();
+            ["PatternFoundry", "SVG", "PDF-compatible .ai"].iter().map(|l| vectorcraft_ui_egui::i18n::tr_ctx(lang, "file-filter", l)).collect();
         assert_eq!(labels, expected);
         assert_eq!(request.parent, "x11:3a0000f");
     }

@@ -19,6 +19,8 @@ concurrency:
 
 jobs:
   lint:
+    # VectorCraft's workflow: it runs only in VectorCraft's repository (PatternFoundry's checks are ci.yml).
+    if: github.repository == 'storytold/vectorcraft'
     # Intentionally tracked at @main (not SHA-pinned) so org-wide CI improvements, security fixes, and build optimizations propagate without PR churn across all craftapp repos.
     uses: storytold/craft-common-actions/.github/workflows/packaging-lint.yml@main
     with:

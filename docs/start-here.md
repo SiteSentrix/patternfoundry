@@ -37,7 +37,9 @@ anything he clicks through.
 ## The owner decides (ask, don't assume)
 Money, legal wording, anything public, domains, and the open decisions in `docs/plan.md`.
 
-## First task
-**PF-0**: merge VectorCraft in (`git remote add upstream https://github.com/storytold/vectorcraft`,
-merge, rename the app and its installers to PatternFoundry as StitchFoundry's BR-01 did, keep
-no ArtCraft branding), get `cargo xtask ci` green, push, and say what's next.
+## Next task
+PF-0 is done (see the progress log in `docs/plan.md`). Next is **PF-1**, pattern pieces: piece data
+on paths (name, cut count, fabric, grainline), seam allowance per edge with mitred or squared
+corners, notches, labels and a Pieces panel, as `pattern.*` engine commands with tests, in a
+pattern core crate below the UI (as StitchFoundry's `sf-core`). Look at CADCraft first for what can
+be reused (see above).

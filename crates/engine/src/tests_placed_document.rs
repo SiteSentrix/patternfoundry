@@ -383,7 +383,11 @@ fn a_changed_file_is_modified_and_update_links_reads_it_again() {
     assert_eq!((c["modified"].as_u64(), c["links"][0]["status"].as_str()), (Some(0), Some("ok")), "{c}");
     let list = s.execute("links.list", &json!({})).unwrap();
     let row = &list["links"][0];
-    assert_eq!((row["format"].as_str(), row["document"].as_bool(), row["status"].as_str()), (Some("VectorCraft"), Some(true), Some("ok")), "{row}");
+    assert_eq!(
+        (row["format"].as_str(), row["document"].as_bool(), row["status"].as_str()),
+        (Some("PatternFoundry"), Some(true), Some("ok")),
+        "{row}"
+    );
     // A blue document, wider, and a different file size.
     source(&src, 200.0, 50.0, BLUE, 1);
     assert_eq!(s.execute("links.check", &json!({})).unwrap()["links"][0]["status"], "modified");

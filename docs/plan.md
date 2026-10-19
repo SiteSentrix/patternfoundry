@@ -1,6 +1,7 @@
 # PatternFoundry: the plan
 
-**Status:** 2026-10-19. Idea and plan only; no code yet. Owner: Bruce Wattendorf (SiteSentrix).
+**Status:** 2026-10-19. PF-0 done: VectorCraft 0.13.1 merged in and renamed PatternFoundry; the
+pattern tools (PF-1 on) are next. Owner: Bruce Wattendorf (SiteSentrix).
 
 ## What it is
 Software for designing sewing patterns, for home sewists, small pattern designers and small
@@ -35,8 +36,25 @@ is built on, plus a pattern mode, the way StitchFoundry adds embroidery:
 | PF-9 | Marker making / nesting; selling patterns on MakerFoundry | a marker for 2 m of fabric |
 | PF-10 | 3D fit preview (as Marvelous Designer and CLO do, from public docs only): avatar from measurements, sewing lines, cloth simulation, drape view beside the 2D pattern; glTF/OBJ export for game and 3D artists | a skirt drapes on an avatar of the user's size |
 
+## Decided
+- Domain: **patternfoundry.app**, bought by the owner (2026-10-19). Installers and the app link to
+  the GitHub repository until the site is live; switching them is a one-line change each.
+
 ## Open decisions (the owner's)
 - Whether PatternFoundry is its own app (as planned) or a mode inside StitchFoundry.
 - Which drafting methods to implement first (by the books or courses the owner's users follow).
 - Pricing of AI help (StitchFoundry's credits and account, or separate).
-- Domain: patternfoundry.app.
+
+## Progress log
+- 2026-10-19, **PF-0**: VectorCraft 0.13.1 (upstream `a466625c`) merged with its history
+  (`upstream` = storytold/vectorcraft). The programs are `patternfoundry` and `patternfoundry-cli`
+  (the Cargo packages keep VectorCraft's names, so `cargo run -p vectorcraft` still works), the app
+  id is `com.sitesentrix.patternfoundry`, documents save as `.patternfoundry` (`.vectorcraft` and
+  `.drawcraft` still open), and settings live in their own PatternFoundry folder (VectorCraft's
+  are read once). User-visible text, its 22 translations, the installers (MSI with new GUIDs,
+  DMG, deb/rpm/AppImage, Flatpak, FreeBSD, web) and the MCP server say PatternFoundry. No ArtCraft
+  name, logo or link remains (`cargo xtask brands` now rejects them); the About box credits
+  VectorCraft in plain text. An original placeholder icon (a bodice pattern piece over a tape
+  measure). `.github/workflows/ci.yml` runs `cargo xtask ci`; VectorCraft's own workflows run only
+  in its repository. Not done: a release pipeline for PatternFoundry (signing secrets are the
+  owner's), and the VectorCraft progress docs (ROADMAP, parity docs) still describe VectorCraft.

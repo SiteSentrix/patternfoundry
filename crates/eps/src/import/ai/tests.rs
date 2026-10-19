@@ -681,7 +681,7 @@ fn images_with_alpha_channels() {
 fn image_left_out_with_a_warning(data: &[u8]) {
     let r = read(data).unwrap();
     assert!(art(&r.doc).is_empty(), "{:#?}", art(&r.doc));
-    let left_out = r.warnings.iter().filter(|w| *w == "an image VectorCraft can't read was left out").count();
+    let left_out = r.warnings.iter().filter(|w| *w == "an image PatternFoundry can't read was left out").count();
     assert_eq!(left_out, 1, "{:?}", r.warnings);
 }
 

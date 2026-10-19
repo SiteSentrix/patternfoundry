@@ -17,6 +17,8 @@ concurrency:
 
 jobs:
   affinity3:
+    # VectorCraft's workflow: it runs only in VectorCraft's repository (PatternFoundry's checks are ci.yml).
+    if: github.repository == 'storytold/vectorcraft'
     runs-on: ubuntu-latest
     timeout-minutes: 30
     env:

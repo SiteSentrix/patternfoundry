@@ -1,4 +1,4 @@
-//! Where VectorCraft keeps its settings, `ui.json`, and next to it folders of the user's own
+//! Where PatternFoundry keeps its settings, `ui.json`, and next to it folders of the user's own
 //! (Swatches, Graphic Styles, Fonts, Data Recovery, logs). The desktop app and `vectorcraft-cli`
 //! (which shares this file) read the same Fonts folder.
 
@@ -11,15 +11,20 @@ mod profile;
 /// Support (macOS) or %APPDATA% (Windows), or `lower` in $XDG_CONFIG_HOME or ~/.config (Linux and
 /// BSD).
 pub fn prefs_path_for(name: &str, lower: &str) -> Option<PathBuf> {
-    let legacy = name == "DrawCraft" || lower == "drawcraft";
+    // Any other app's profile is one PatternFoundry only migrates from (VectorCraft's): the profile
+    // module knows the two folders (and the portable one, which only PatternFoundry's can be).
+    let legacy = (name, lower) != APP_FOLDER;
     profile::prefs_path(legacy)
 }
 
-/// Have the font scans read VectorCraft's own Fonts folder, next to the settings, which
+/// PatternFoundry's own settings folder: its name on macOS and Windows, and on Linux and BSD.
+pub const APP_FOLDER: (&str, &str) = ("PatternFoundry", "patternfoundry");
+
+/// Have the font scans read PatternFoundry's own Fonts folder, next to the settings, which
 /// `text.addFontFiles` copies font files into. The folder is set whether or not
 /// `VECTORCRAFT_NO_PREFS` is set, as the Swatches and Graphic Styles folders are.
 pub fn install_fonts() {
-    if let Some(dir) = prefs_path_for("VectorCraft", "vectorcraft").and_then(|p| Some(p.parent()?.join("Fonts"))) {
+    if let Some(dir) = prefs_path_for("PatternFoundry", "patternfoundry").and_then(|p| Some(p.parent()?.join("Fonts"))) {
         vectorcraft_text::set_app_font_dir(dir);
     }
 }
@@ -30,7 +35,7 @@ fn store_dir(name: &str) -> Option<PathBuf> {
     if std::env::var_os("VECTORCRAFT_NO_PREFS").is_some() {
         return None;
     }
-    Some(prefs_path_for("VectorCraft", "vectorcraft")?.parent()?.join(name))
+    Some(prefs_path_for(APP_FOLDER.0, APP_FOLDER.1)?.parent()?.join(name))
 }
 
 /// Register the ICC profiles `color.loadProfile` kept in the `Color Profiles` folder (#2174), and
@@ -64,7 +69,7 @@ mod tests {
     #[test]
     fn the_font_scans_read_the_fonts_folder_next_to_the_settings() {
         install_fonts();
-        let fonts = prefs_path_for("VectorCraft", "vectorcraft").and_then(|p| Some(p.parent()?.join("Fonts")));
+        let fonts = prefs_path_for("PatternFoundry", "patternfoundry").and_then(|p| Some(p.parent()?.join("Fonts")));
         assert!(fonts.is_some(), "a home folder to keep the settings in");
         assert_eq!(vectorcraft_text::app_font_dir().map(std::path::Path::to_path_buf), fonts);
         assert!(vectorcraft_text::system_font_dirs().contains(&fonts.unwrap_or_default()));

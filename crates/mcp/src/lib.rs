@@ -5,7 +5,7 @@
 //! tools and resources and forwards everything to a [`Backend`]:
 //!
 //! - [`Remote`] talks to a running desktop app through its loopback JSON-lines control channel
-//!   (`vectorcraft --control 7979`): one `{"id","method","params"}` line in, one
+//!   (`patternfoundry --control 7979`): one `{"id","method","params"}` line in, one
 //!   `{"id","ok","result"|"error"}` line out.
 //! - [`Headless`] hosts an in-process [`vectorcraft_engine::Session`] and implements the same
 //!   control-channel method names itself (rendering screenshots with `vectorcraft-render`), so agents
