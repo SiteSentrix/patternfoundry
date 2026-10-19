@@ -16,6 +16,9 @@ is built on, plus a pattern mode, the way StitchFoundry adds embroidery:
   control channel, the CLI and MCP all reach them;
 - a pattern core crate (measurements, formulas, blocks, grading) below the UI layers, as
   StitchFoundry's `sf-core` is.
+- reuse before rewriting: CADCraft (same licence; see `docs/start-here.md`) has the constraint solver
+  for formulas (PF-3, PF-5), the DXF reader/writer for cutting-room export (PF-7) and layout plotting
+  (PF-2).
 
 ## Milestones and task ids
 | Id | What | Done when |
