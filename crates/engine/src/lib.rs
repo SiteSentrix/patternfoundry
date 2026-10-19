@@ -1705,7 +1705,8 @@ impl Session {
         // Dimensions follow the art they measure.
         let result = match f(doc, &mut st.selection).and_then(|v| {
             cmd::dimension::refresh(&before, doc)?;
-            // Pattern pieces follow their seam lines.
+            // Drafted points follow the measurements; then pattern pieces follow their seam lines.
+            cmd::measure::refresh(doc)?;
             cmd::piece::refresh(&before, doc)?;
             Ok(v)
         }) {
@@ -2178,6 +2179,8 @@ mod tests_live;
 mod tests_livecorners;
 #[cfg(test)]
 mod tests_maskview;
+#[cfg(test)]
+mod tests_measure;
 #[cfg(test)]
 mod tests_menucmds;
 #[cfg(test)]

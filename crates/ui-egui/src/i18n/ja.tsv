@@ -4884,3 +4884,18 @@ lighting	Light	ライト
 	Selected piece	選択したパーツ
 # PatternFoundry: true-scale printing (PF-2).
 	Pattern Marks (test squares, page names, overlap lines)	型紙マーク（テスト用の正方形、ページ名、重なり線）
+# PatternFoundry: measurements (PF-3).
+	Add Measurement	寸法を追加
+	Clear Measurements	寸法を消去
+	Clear Point Formulas	点の数式を消去
+	Draft Info	製図の情報
+	Formulas	数式
+	Import Size Chart	サイズ表を読み込む
+	Let PDF and SVG files saved with Preserve Editing keep the measured values	編集機能を保持して保存した PDF と SVG に計測値を残します
+	Measurements	寸法
+	No measurements yet	寸法はまだありません
+	Set Measurements	寸法を設定
+	Set Point Formula	点の数式を設定
+	Share in exported files	書き出したファイルで共有
+	Size chart	サイズ表
+	Use Size	サイズを使用

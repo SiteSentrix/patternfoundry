@@ -5212,3 +5212,18 @@ swatch	Bright Violet	Violet cerah
 	Selected piece	Bagian terpilih
 # PatternFoundry: true-scale printing (PF-2).
 	Pattern Marks (test squares, page names, overlap lines)	Tanda pola (persegi uji, nama halaman, garis tumpang)
+# PatternFoundry: measurements (PF-3).
+	Add Measurement	Tambah ukuran
+	Clear Measurements	Hapus ukuran
+	Clear Point Formulas	Hapus rumus titik
+	Draft Info	Info pola dasar
+	Formulas	Rumus
+	Import Size Chart	Impor tabel ukuran
+	Let PDF and SVG files saved with Preserve Editing keep the measured values	File PDF dan SVG yang disimpan dengan Pertahankan Pengeditan menyimpan nilai ukuran
+	Measurements	Ukuran
+	No measurements yet	Belum ada ukuran
+	Set Measurements	Atur ukuran
+	Set Point Formula	Atur rumus titik
+	Share in exported files	Bagikan di file ekspor
+	Size chart	Tabel ukuran
+	Use Size	Gunakan ukuran

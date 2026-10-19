@@ -782,6 +782,17 @@ pub struct Document {
     /// documents without any pay nothing for them.
     #[serde(default, skip_serializing_if = "std::ops::Not::not")]
     pub pieces: bool,
+    /// The measurements the pattern is drafted from (PatternFoundry): personal data, kept in the
+    /// document (the user's own file), left out of the copies exports embed unless the set says
+    /// it may be shared.
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub measurements: Option<Box<pf_core::measure::Measurements>>,
+    /// The size chart the measurements can be taken from.
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub size_chart: Option<Box<pf_core::measure::SizeChart>>,
+    /// Some path is drafted (has point formulas): edits place drafted points only while this is set.
+    #[serde(default, skip_serializing_if = "std::ops::Not::not")]
+    pub drafts: bool,
     /// Where each node is in the tree, for lookups by id ([`id_index`]): a cache, never saved.
     #[serde(skip)]
     index: id_index::IdIndex,
@@ -910,6 +921,9 @@ impl Document {
             puppet: None,
             dimensions: false,
             pieces: false,
+            measurements: None,
+            size_chart: None,
+            drafts: false,
             index: Default::default(),
         };
         let id = d.alloc_id();

@@ -4824,3 +4824,18 @@ lighting	Light	Світло
 	Selected piece	Вибрана деталь
 # PatternFoundry: true-scale printing (PF-2).
 	Pattern Marks (test squares, page names, overlap lines)	Позначки викрійки (контрольні квадрати, назви сторінок, лінії перекриття)
+# PatternFoundry: measurements (PF-3).
+	Add Measurement	Додати мірку
+	Clear Measurements	Очистити мірки
+	Clear Point Formulas	Очистити формули точок
+	Draft Info	Відомості про побудову
+	Formulas	Формули
+	Import Size Chart	Імпортувати таблицю розмірів
+	Let PDF and SVG files saved with Preserve Editing keep the measured values	Файли PDF і SVG, збережені з параметром «Зберегти можливості редагування», зберігають виміряні значення
+	Measurements	Мірки
+	No measurements yet	Мірок ще немає
+	Set Measurements	Задати мірки
+	Set Point Formula	Задати формулу точки
+	Share in exported files	Ділитися в експортованих файлах
+	Size chart	Таблиця розмірів
+	Use Size	Використати розмір

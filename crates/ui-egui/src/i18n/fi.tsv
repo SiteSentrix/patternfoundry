@@ -5193,3 +5193,18 @@ mark-style	Japanese	Japanilainen
 	Selected piece	Valittu kaavan osa
 # PatternFoundry: true-scale printing (PF-2).
 	Pattern Marks (test squares, page names, overlap lines)	Kaavamerkit (testineliöt, sivujen nimet, limityslinjat)
+# PatternFoundry: measurements (PF-3).
+	Add Measurement	Lisää mitta
+	Clear Measurements	Tyhjennä mitat
+	Clear Point Formulas	Tyhjennä pistekaavat
+	Draft Info	Kaavapiirustuksen tiedot
+	Formulas	Kaavat
+	Import Size Chart	Tuo kokotaulukko
+	Let PDF and SVG files saved with Preserve Editing keep the measured values	Säilytä muokattavuus -asetuksella tallennetut PDF- ja SVG-tiedostot säilyttävät mitatut arvot
+	Measurements	Mitat
+	No measurements yet	Ei vielä mittoja
+	Set Measurements	Aseta mitat
+	Set Point Formula	Aseta pistekaava
+	Share in exported files	Jaa vietyihin tiedostoihin
+	Size chart	Kokotaulukko
+	Use Size	Käytä kokoa

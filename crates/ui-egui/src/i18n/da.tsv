@@ -5212,3 +5212,18 @@ swatch	Bright Violet	Kraftig violet
 	Selected piece	Markeret mønsterdel
 # PatternFoundry: true-scale printing (PF-2).
 	Pattern Marks (test squares, page names, overlap lines)	Mønstermærker (testfirkanter, sidenavne, overlapningslinjer)
+# PatternFoundry: measurements (PF-3).
+	Add Measurement	Tilføj mål
+	Clear Measurements	Ryd mål
+	Clear Point Formulas	Ryd punktformler
+	Draft Info	Oplysninger om konstruktion
+	Formulas	Formler
+	Import Size Chart	Importér størrelsestabel
+	Let PDF and SVG files saved with Preserve Editing keep the measured values	PDF- og SVG-filer gemt med Bevar redigering beholder de målte værdier
+	Measurements	Mål
+	No measurements yet	Ingen mål endnu
+	Set Measurements	Angiv mål
+	Set Point Formula	Angiv punktformel
+	Share in exported files	Del i eksporterede filer
+	Size chart	Størrelsestabel
+	Use Size	Brug størrelse

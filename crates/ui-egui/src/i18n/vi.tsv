@@ -4824,3 +4824,18 @@ theme	Appearance	Giao diện
 	Selected piece	Chi tiết đã chọn
 # PatternFoundry: true-scale printing (PF-2).
 	Pattern Marks (test squares, page names, overlap lines)	Dấu rập (ô vuông kiểm tra, tên trang, đường chồng mép)
+# PatternFoundry: measurements (PF-3).
+	Add Measurement	Thêm số đo
+	Clear Measurements	Xóa số đo
+	Clear Point Formulas	Xóa công thức điểm
+	Draft Info	Thông tin dựng rập
+	Formulas	Công thức
+	Import Size Chart	Nhập bảng cỡ
+	Let PDF and SVG files saved with Preserve Editing keep the measured values	Tệp PDF và SVG lưu với Giữ khả năng chỉnh sửa giữ lại các giá trị đo
+	Measurements	Số đo
+	No measurements yet	Chưa có số đo nào
+	Set Measurements	Đặt số đo
+	Set Point Formula	Đặt công thức điểm
+	Share in exported files	Chia sẻ trong tệp đã xuất
+	Size chart	Bảng cỡ
+	Use Size	Dùng cỡ

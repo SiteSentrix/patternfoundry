@@ -1,7 +1,7 @@
 # PatternFoundry: the plan
 
-**Status:** 2026-10-19. PF-0, PF-1 and PF-2 done: PatternFoundry is VectorCraft renamed, with
-pattern pieces and true-scale printing; measurements (PF-3) are next. Owner: Bruce Wattendorf (SiteSentrix).
+**Status:** 2026-10-19. PF-0 to PF-3 done: PatternFoundry is VectorCraft renamed, with pattern
+pieces, true-scale printing and drafting from measurements; blocks (PF-4) are next. Owner: Bruce Wattendorf (SiteSentrix).
 
 ## What it is
 Software for designing sewing patterns, for home sewists, small pattern designers and small
@@ -96,3 +96,18 @@ is built on, plus a pattern mode, the way StitchFoundry adds embroidery:
   paper or artboard sizes, and exported PDFs (`document.exportPdf`) keep artboards at 100%.
   Not yet: layers per size (waits for grading, PF-6); the printer driver's own "fit to page"
   can't be checked from here, so the test squares are how a sewist checks it.
+- 2026-10-19, **PF-3**: measurements and drafting. The document's measurement set (values in
+  mm, and formulas over them: `quarter = (bust + ease) / 4`), a size chart read from a table
+  (comma, semicolon or tab separated; mm, cm or in) whose sizes fill in the set, and point
+  formulas on any path or a piece's seam line (`x`, `y` in mm from the draft's origin, which
+  moves with the path). Every edit places drafted points again, then pieces redraw: changing the
+  bust redraws the bodice and its cutting line, in one undo step. `measure.set`, `measure.info`,
+  `measure.clear`, `measure.importChart`, `measure.useSize`, `draft.setPoint`, `draft.info`,
+  `draft.clear`; the **Measurements** panel (Pattern and Window menus). The formula language is
+  CADCraft's `expr.rs`, adapted (same licence; NOTICE). **Personal data:** measurements live in
+  the document only; the copies that PDF, SVG and EPS exports embed (Preserve Editing) leave the
+  measured values out unless the set's `share` is on (formulas stay); nothing logs them. Tests:
+  10 more in `pf-core`, 5 engine tests (`tests_measure.rs`). Not yet: point formulas from the
+  panel or the canvas (commands only), personal sets kept apart from documents in the settings
+  folder, curves' handles placed by formulas, standard size charts bundled (charts are the
+  user's own: standards bodies' tables can't be copied in).

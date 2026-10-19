@@ -4844,3 +4844,18 @@ lighting	Light	Luce
 	Selected piece	Pezzo selezionato
 # PatternFoundry: true-scale printing (PF-2).
 	Pattern Marks (test squares, page names, overlap lines)	Segni del cartamodello (quadrati di prova, nomi delle pagine, linee di sovrapposizione)
+# PatternFoundry: measurements (PF-3).
+	Add Measurement	Aggiungi misura
+	Clear Measurements	Cancella misure
+	Clear Point Formulas	Cancella formule dei punti
+	Draft Info	Info sul tracciato
+	Formulas	Formule
+	Import Size Chart	Importa tabella taglie
+	Let PDF and SVG files saved with Preserve Editing keep the measured values	I file PDF e SVG salvati con Mantieni modificabilità conservano i valori misurati
+	Measurements	Misure
+	No measurements yet	Ancora nessuna misura
+	Set Measurements	Imposta misure
+	Set Point Formula	Imposta formula del punto
+	Share in exported files	Condividi nei file esportati
+	Size chart	Tabella taglie
+	Use Size	Usa taglia

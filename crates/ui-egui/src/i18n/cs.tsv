@@ -5229,3 +5229,18 @@ mark-style	Japanese	Japonské
 	Selected piece	Vybraný díl
 # PatternFoundry: true-scale printing (PF-2).
 	Pattern Marks (test squares, page names, overlap lines)	Značky střihu (zkušební čtverce, názvy stránek, čáry překryvu)
+# PatternFoundry: measurements (PF-3).
+	Add Measurement	Přidat míru
+	Clear Measurements	Vymazat míry
+	Clear Point Formulas	Vymazat vzorce bodů
+	Draft Info	Informace o konstrukci
+	Formulas	Vzorce
+	Import Size Chart	Importovat tabulku velikostí
+	Let PDF and SVG files saved with Preserve Editing keep the measured values	Soubory PDF a SVG uložené s volbou Zachovat možnosti úprav ponechají naměřené hodnoty
+	Measurements	Míry
+	No measurements yet	Zatím žádné míry
+	Set Measurements	Nastavit míry
+	Set Point Formula	Nastavit vzorec bodu
+	Share in exported files	Sdílet v exportovaných souborech
+	Size chart	Tabulka velikostí
+	Use Size	Použít velikost

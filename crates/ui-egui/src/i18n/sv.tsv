@@ -5185,3 +5185,18 @@ theme	Appearance	Utseende
 	Selected piece	Markerad mönsterdel
 # PatternFoundry: true-scale printing (PF-2).
 	Pattern Marks (test squares, page names, overlap lines)	Mönstermärken (testkvadrater, sidnamn, överlappningslinjer)
+# PatternFoundry: measurements (PF-3).
+	Add Measurement	Lägg till mått
+	Clear Measurements	Rensa mått
+	Clear Point Formulas	Rensa punktformler
+	Draft Info	Konstruktionsinfo
+	Formulas	Formler
+	Import Size Chart	Importera storlekstabell
+	Let PDF and SVG files saved with Preserve Editing keep the measured values	PDF- och SVG-filer som sparas med Bevara redigering behåller de uppmätta värdena
+	Measurements	Mått
+	No measurements yet	Inga mått ännu
+	Set Measurements	Ange mått
+	Set Point Formula	Ange punktformel
+	Share in exported files	Dela i exporterade filer
+	Size chart	Storlekstabell
+	Use Size	Använd storlek

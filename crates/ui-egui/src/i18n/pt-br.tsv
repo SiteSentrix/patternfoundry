@@ -5147,3 +5147,18 @@ mark-style	Japanese	Japonesas
 	Selected piece	Peça selecionada
 # PatternFoundry: true-scale printing (PF-2).
 	Pattern Marks (test squares, page names, overlap lines)	Marcas do molde (quadrados de teste, nomes das páginas, linhas de sobreposição)
+# PatternFoundry: measurements (PF-3).
+	Add Measurement	Adicionar medida
+	Clear Measurements	Limpar medidas
+	Clear Point Formulas	Limpar fórmulas dos pontos
+	Draft Info	Informações do traçado
+	Formulas	Fórmulas
+	Import Size Chart	Importar tabela de tamanhos
+	Let PDF and SVG files saved with Preserve Editing keep the measured values	Arquivos PDF e SVG salvos com Preservar edição mantêm os valores medidos
+	Measurements	Medidas
+	No measurements yet	Ainda não há medidas
+	Set Measurements	Definir medidas
+	Set Point Formula	Definir fórmula do ponto
+	Share in exported files	Compartilhar nos arquivos exportados
+	Size chart	Tabela de tamanhos
+	Use Size	Usar tamanho

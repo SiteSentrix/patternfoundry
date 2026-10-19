@@ -5137,3 +5137,18 @@ imageTrace	Outline	კონტური
 	Selected piece	არჩეული დეტალი
 # PatternFoundry: true-scale printing (PF-2).
 	Pattern Marks (test squares, page names, overlap lines)	თარგის ნიშნები (სატესტო კვადრატები, გვერდების სახელები, გადაფარვის ხაზები)
+# PatternFoundry: measurements (PF-3).
+	Add Measurement	ზომის დამატება
+	Clear Measurements	ზომების გასუფთავება
+	Clear Point Formulas	წერტილების ფორმულების გასუფთავება
+	Draft Info	აგების ინფორმაცია
+	Formulas	ფორმულები
+	Import Size Chart	ზომების ცხრილის იმპორტი
+	Let PDF and SVG files saved with Preserve Editing keep the measured values	PDF და SVG ფაილები, რომლებიც რედაქტირების შენარჩუნებით ინახება, ინარჩუნებენ გაზომილ მნიშვნელობებს
+	Measurements	ზომები
+	No measurements yet	ზომები ჯერ არ არის
+	Set Measurements	ზომების დაყენება
+	Set Point Formula	წერტილის ფორმულის დაყენება
+	Share in exported files	გაზიარება ექსპორტირებულ ფაილებში
+	Size chart	ზომების ცხრილი
+	Use Size	ზომის გამოყენება
