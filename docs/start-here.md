@@ -62,7 +62,7 @@ anything he clicks through.
 Money, legal wording, anything public, domains, and the open decisions in `docs/plan.md`.
 
 ## Next task
-PF-0 to PF-3 are done (see the progress log in `docs/plan.md`). Next is **PF-4**, blocks: drafted
-bodice, skirt, trouser and sleeve blocks from published drafting methods, built as drafts
-(`draft.setPoint` formulas over the measurements) so they follow the measurements. Which method
-to implement first is the owner's decision (open decisions in `docs/plan.md`): ask.
+PF-0 to PF-4 are done (see the progress log in `docs/plan.md`). Next is **PF-5**, design tools:
+dart move and rotate, slash and spread, fullness, pleats, facings, collars, pockets, and truing,
+starting from the PF-4 bodice block (the milestone: a princess-seam bodice from the block). The
+sleeve and trouser blocks (PF-4.1, PF-4.2) can be done alongside.

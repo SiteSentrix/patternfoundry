@@ -2050,6 +2050,8 @@ mod tests_blendopts;
 #[cfg(test)]
 mod tests_blendspine;
 #[cfg(test)]
+mod tests_block;
+#[cfg(test)]
 mod tests_brushsym;
 #[cfg(test)]
 mod tests_build;

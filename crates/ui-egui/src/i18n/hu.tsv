@@ -5230,3 +5230,7 @@ imageTrace	Outline	Körvonal
 	Share in exported files	Megosztás az exportált fájlokban
 	Size chart	Mérettáblázat
 	Use Size	Méret használata
+# PatternFoundry: blocks (PF-4).
+	Draft Bodice Block	Alapszabásminta szerkesztése (felsőrész)
+	Block Measurements	Az alapszabásminta méretei
+	Draft Skirt Block	Alapszabásminta szerkesztése (szoknya)

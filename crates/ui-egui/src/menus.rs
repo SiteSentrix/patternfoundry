@@ -2691,6 +2691,9 @@ pub fn menu_tree_named(english_names: bool) -> Vec<(&'static str, Vec<Item>)> {
             // PatternFoundry's sewing-pattern commands (PF-1 on).
             "Pattern",
             vec![
+                c("Draft Bodice Block", "block.bodice"),
+                c("Draft Skirt Block", "block.skirt"),
+                Sep,
                 c("Make Pattern Piece", "piece.make"),
                 c("Release Pattern Piece", "piece.release"),
                 Sep,

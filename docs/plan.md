@@ -1,7 +1,7 @@
 # PatternFoundry: the plan
 
-**Status:** 2026-10-19. PF-0 to PF-3 done: PatternFoundry is VectorCraft renamed, with pattern
-pieces, true-scale printing and drafting from measurements; blocks (PF-4) are next. Owner: Bruce Wattendorf (SiteSentrix).
+**Status:** 2026-10-19. PF-0 to PF-4 done: PatternFoundry is VectorCraft renamed, with pattern
+pieces, true-scale printing, drafting from measurements and bodice and skirt blocks; design tools (PF-5) are next. Owner: Bruce Wattendorf (SiteSentrix).
 
 ## What it is
 Software for designing sewing patterns, for home sewists, small pattern designers and small
@@ -50,9 +50,12 @@ is built on, plus a pattern mode, the way StitchFoundry adds embroidery:
   Users may still enter their own Anthropic key in the app's AI settings instead. Details for PF-8
   are in `docs/start-here.md`.
 
+- Drafting method (2026-10-19): **Aldrich** (Winifred Aldrich, *Metric Pattern Cutting for
+  Women's Wear*), British metric, first. Blocks are built from public descriptions of the method
+  (cited by URL in `crates/pf-core/src/block.rs`), never from the book's text or drawings.
+
 ## Open decisions (the owner's)
 - Whether PatternFoundry is its own app (as planned) or a mode inside StitchFoundry.
-- Which drafting methods to implement first (by the books or courses the owner's users follow).
 
 ## Progress log
 - 2026-10-19, **PF-0**: VectorCraft 0.13.1 (upstream `a466625c`) merged with its history
@@ -111,3 +114,16 @@ is built on, plus a pattern mode, the way StitchFoundry adds embroidery:
   panel or the canvas (commands only), personal sets kept apart from documents in the settings
   folder, curves' handles placed by formulas, standard size charts bundled (charts are the
   user's own: standards bodies' tables can't be copied in).
+- 2026-10-19, **PF-4**: blocks, Aldrich-style (British metric). **Draft Bodice Block**
+  (`block.bodice`: back and front close-fitting half bodices from bust, waist, nape to waist,
+  back width, chest, shoulder, neck and armscye depth; 5 cm ease, shoulder and waist darts) and
+  **Draft Skirt Block** (`block.skirt`: back and front straight skirt from waist, hip, waist to
+  hip and skirt length; 1 cm hip ease, the waist reduction two thirds at the side seams, the rest
+  in back and front darts), in the Pattern menu; `block.measurements` names what a block needs
+  and what the set lacks. Each part is a path that remembers its block: when a measurement
+  changes every edit draws it again (inside a pattern piece too, whose cutting line follows),
+  where it was moved to, in one undo step. Built from public tutorials of the method, cited in
+  `pf_core::block`; the owner can check them against the book. Tests: 4 in `pf-core`, 5 engine
+  tests (`tests_block.rs`). Not yet: sleeve and trouser blocks (PF-4.1, PF-4.2), a block panel
+  with the method's options (ease, dart sizes), the bodice's armhole checked against the sleeve
+  head once the sleeve exists.

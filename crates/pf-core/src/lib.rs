@@ -12,6 +12,7 @@
 //! * [`measure`] – measurement sets (in mm, with formulas over them) and size charts; [`expr`]
 //!   the formulas' small language; [`draft`] – path points placed by formulas, so a draft
 //!   follows the measurements.
+//! * [`block`] – blocks drafted from the measurements (the close-fitting bodice).
 //! * [`tiling`] – what a printed page of a tiled pattern carries: its name, overlap lines and the
 //!   10 cm and 1 in test squares.
 //!
@@ -21,6 +22,7 @@
 //! geometry functions take every length in the outline's own unit; the host converts.
 
 pub mod allowance;
+pub mod block;
 pub mod draft;
 pub mod expr;
 pub mod marks;

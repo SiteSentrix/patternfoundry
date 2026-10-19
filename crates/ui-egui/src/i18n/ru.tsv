@@ -4855,3 +4855,7 @@ lighting	Light	Свет
 	Share in exported files	Делиться в экспортированных файлах
 	Size chart	Таблица размеров
 	Use Size	Использовать размер
+# PatternFoundry: blocks (PF-4).
+	Draft Bodice Block	Построить базовую выкройку лифа
+	Block Measurements	Мерки для базовой выкройки
+	Draft Skirt Block	Построить базовую выкройку юбки
