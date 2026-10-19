@@ -5043,3 +5043,23 @@ lighting	Light	光源
 @msg	the file's variables and data sets weren't read (variables: {variables}, data sets: {data_sets}): the Variables panel doesn't list them	文件的变量和数据集未被读取（变量：{variables}，数据集：{data_sets}）：“变量”面板不会列出它们
 # Select by Color (select.color)
 	Select by Color	按颜色选择
+# PatternFoundry: pattern pieces (PF-1).
+	Add Notch	添加剪口
+	Make Pattern Piece	创建纸样裁片
+	Pattern Pieces	纸样裁片
+	Piece Info	裁片信息
+	Piece Options	裁片选项
+	Release Pattern Piece	释放纸样裁片
+	Remove Notch	删除剪口
+	Cut {count}	裁剪 {count} 片
+	Each selected closed path becomes a piece: the path is its seam line	每个选中的闭合路径都会成为一个裁片：路径就是它的净缝线
+	Edges	边
+	Fabric	面料
+	Mirrored pairs	镜像成对
+	No pattern pieces yet	还没有纸样裁片
+	Notches	剪口
+	Pattern piece	纸样裁片
+	Pieces	裁片
+	Seam allowance	缝份
+	Seam line length	净缝线长度
+	Selected piece	选中的裁片

@@ -62,6 +62,8 @@ pub const TABLE: &[(&str, Class)] = &[
     ("metafile", Class::Layer(3)),
     ("plugins", Class::Layer(2)),
     ("affinity", Class::Standalone),
+    // PatternFoundry's pattern core (the package keeps its `pf-` prefix).
+    ("pf-core", Class::Standalone),
     ("scriptcheck", Class::Standalone),
 ];
 

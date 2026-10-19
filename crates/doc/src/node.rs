@@ -572,6 +572,9 @@ pub struct NodeExtras {
     pub intertwine: Option<Box<PathData>>,
     /// Live Paint group: its Gap Options (Object › Live Paint › Gap Options; `None`: the defaults).
     pub live_paint_gaps: Option<Box<crate::live_paint::GapOptions>>,
+    /// Sewing pattern (PatternFoundry): on a piece's group, the piece (name, cut, seam allowance,
+    /// notches, grainline); on its children, which part of the piece each one draws.
+    pub pattern: Option<Box<pf_core::PatternTag>>,
 }
 
 /// No extras: what [`Node::extras`] gives for a node without any.
@@ -590,6 +593,7 @@ static NO_EXTRAS: NodeExtras = NodeExtras {
     dimension: None,
     intertwine: None,
     live_paint_gaps: None,
+    pattern: None,
 };
 
 /// A node's [`NodeExtras`], if it has any ([`Node::extras`]). Extras that are all unset equal
@@ -724,6 +728,7 @@ impl Serialize for Node {
             e.dimension.is_none(),
             e.intertwine.is_none(),
             e.live_paint_gaps.is_none(),
+            e.pattern.is_none(),
         ];
         let mut st = s.serialize_struct("Node", skips.iter().filter(|s| !**s).count())?;
         let mut skip = skips.into_iter();
@@ -762,6 +767,7 @@ impl Serialize for Node {
         field!("dimension", &e.dimension);
         field!("intertwine", &e.intertwine);
         field!("live_paint_gaps", &e.live_paint_gaps);
+        field!("pattern", &e.pattern);
         st.end()
     }
 }
@@ -821,6 +827,8 @@ struct NodeWire {
     intertwine: Option<Box<PathData>>,
     #[serde(default)]
     live_paint_gaps: Option<Box<crate::live_paint::GapOptions>>,
+    #[serde(default)]
+    pattern: Option<Box<pf_core::PatternTag>>,
 }
 
 impl From<NodeWire> for Node {
@@ -840,6 +848,7 @@ impl From<NodeWire> for Node {
             dimension: w.dimension,
             intertwine: w.intertwine,
             live_paint_gaps: w.live_paint_gaps,
+            pattern: w.pattern,
         };
         Node {
             id: w.id,
@@ -1250,6 +1259,15 @@ impl Node {
             && let Some(dimension) = &mut e.dimension
         {
             dimension.transform(a);
+        }
+        // A pattern piece's grainline moves with it.
+        if let Some(e) = self.extras_if_any()
+            && let Some(pf_core::PatternTag::Piece(piece)) = e.pattern.as_deref_mut()
+        {
+            piece.transform(|p| {
+                let q = a * Point::new(p.x, p.y);
+                pf_core::Pt::new(q.x, q.y)
+            });
         }
         if !self.is_layer() {
             self.bbox_angle = crate::orient::transformed_angle(self.bbox_angle, a);
@@ -2064,6 +2082,7 @@ mod tests {
             e.slice = Some(Box::default());
             e.perspective = Some(Box::new(crate::PerspectiveAttachment::new("left", 1.0)));
             e.live_paint_gaps = Some(Box::default());
+            e.pattern = Some(Box::new(pf_core::PatternTag::Mark(pf_core::Mark::Seam)));
         }
         /// The top-level keys of a JSON object, in the order written.
         struct Keys(Vec<String>);
@@ -2106,6 +2125,7 @@ mod tests {
             "bbox_angle",
             "perspective",
             "live_paint_gaps",
+            "pattern",
         ];
         assert_eq!(keys, order);
         assert_eq!(serde_json::from_value::<Node>(v).unwrap(), n);

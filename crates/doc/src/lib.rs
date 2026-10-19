@@ -778,6 +778,10 @@ pub struct Document {
     /// is set, so documents without any pay nothing for them.
     #[serde(default, skip_serializing_if = "std::ops::Not::not")]
     pub dimensions: bool,
+    /// Some object is a sewing-pattern piece: edits redraw pieces only while this is set, so
+    /// documents without any pay nothing for them.
+    #[serde(default, skip_serializing_if = "std::ops::Not::not")]
+    pub pieces: bool,
     /// Where each node is in the tree, for lookups by id ([`id_index`]): a cache, never saved.
     #[serde(skip)]
     index: id_index::IdIndex,
@@ -905,6 +909,7 @@ impl Document {
             svg_scripts: vec![],
             puppet: None,
             dimensions: false,
+            pieces: false,
             index: Default::default(),
         };
         let id = d.alloc_id();

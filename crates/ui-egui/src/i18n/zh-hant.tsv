@@ -4839,3 +4839,23 @@ lighting	Light	光源
 @msg	{key} must be an array of non-negative integer object ids	{key} 必須是由非負整數物件 id 組成的陣列
 @msg	invalid object id {value}: expected a non-negative integer	無效的物件 id {value}：應為非負整數
 @msg	no such object id {value}	沒有 id 為 {value} 的物件
+# PatternFoundry: pattern pieces (PF-1).
+	Add Notch	新增剪口
+	Make Pattern Piece	建立紙樣裁片
+	Pattern Pieces	紙樣裁片
+	Piece Info	裁片資訊
+	Piece Options	裁片選項
+	Release Pattern Piece	釋放紙樣裁片
+	Remove Notch	刪除剪口
+	Cut {count}	裁剪 {count} 片
+	Each selected closed path becomes a piece: the path is its seam line	每個選取的封閉路徑都會成為一個裁片：路徑就是它的完成線
+	Edges	邊
+	Fabric	布料
+	Mirrored pairs	鏡像成對
+	No pattern pieces yet	還沒有紙樣裁片
+	Notches	剪口
+	Pattern piece	紙樣裁片
+	Pieces	裁片
+	Seam allowance	縫份
+	Seam line length	完成線長度
+	Selected piece	選取的裁片

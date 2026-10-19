@@ -4818,3 +4818,23 @@ lighting	Light	Свет
 @msg	the file's variables and data sets weren't read (variables: {variables}, data sets: {data_sets}): the Variables panel doesn't list them	переменные и наборы данных файла не прочитаны (переменных: {variables}, наборов данных: {data_sets}): панель «Переменные» их не показывает
 # Select by Color (select.color)
 	Select by Color	Выделить по цвету
+# PatternFoundry: pattern pieces (PF-1).
+	Add Notch	Добавить надсечку
+	Make Pattern Piece	Создать деталь выкройки
+	Pattern Pieces	Детали выкройки
+	Piece Info	Сведения о детали
+	Piece Options	Параметры детали
+	Release Pattern Piece	Освободить деталь выкройки
+	Remove Notch	Удалить надсечку
+	Cut {count}	Кроить {count}
+	Each selected closed path becomes a piece: the path is its seam line	Каждый выбранный замкнутый контур становится деталью: контур — её линия шва
+	Edges	Края
+	Fabric	Ткань
+	Mirrored pairs	Зеркальные пары
+	No pattern pieces yet	Деталей выкройки пока нет
+	Notches	Надсечки
+	Pattern piece	Деталь выкройки
+	Pieces	Детали
+	Seam allowance	Припуск на шов
+	Seam line length	Длина линии шва
+	Selected piece	Выбранная деталь

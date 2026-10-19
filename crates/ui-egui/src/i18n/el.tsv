@@ -5159,3 +5159,23 @@ effect	Points	Σημεία
 @msg	the file's variables and data sets weren't read (variables: {variables}, data sets: {data_sets}): the Variables panel doesn't list them	οι μεταβλητές και τα σύνολα δεδομένων του αρχείου δεν διαβάστηκαν (μεταβλητές: {variables}, σύνολα δεδομένων: {data_sets}): ο πίνακας Μεταβλητές δεν τα εμφανίζει
 # Select by Color (select.color)
 	Select by Color	Επιλογή βάσει χρώματος
+# PatternFoundry: pattern pieces (PF-1).
+	Add Notch	Προσθήκη εγκοπής
+	Make Pattern Piece	Δημιουργία κομματιού πατρόν
+	Pattern Pieces	Κομμάτια πατρόν
+	Piece Info	Πληροφορίες κομματιού
+	Piece Options	Επιλογές κομματιού
+	Release Pattern Piece	Αποδέσμευση κομματιού πατρόν
+	Remove Notch	Αφαίρεση εγκοπής
+	Cut {count}	Κόψιμο {count}
+	Each selected closed path becomes a piece: the path is its seam line	Κάθε επιλεγμένη κλειστή διαδρομή γίνεται κομμάτι: η διαδρομή είναι η γραμμή ραφής του
+	Edges	Άκρες
+	Fabric	Ύφασμα
+	Mirrored pairs	Κατοπτρικά ζεύγη
+	No pattern pieces yet	Δεν υπάρχουν ακόμη κομμάτια πατρόν
+	Notches	Εγκοπές
+	Pattern piece	Κομμάτι πατρόν
+	Pieces	Κομμάτια
+	Seam allowance	Περιθώριο ραφής
+	Seam line length	Μήκος γραμμής ραφής
+	Selected piece	Επιλεγμένο κομμάτι

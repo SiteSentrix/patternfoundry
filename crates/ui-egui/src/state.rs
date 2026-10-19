@@ -174,6 +174,7 @@ pub const ICON_PANELS: &[(&str, &str, &str)] = &[
     ("actions", "Actions", "dc-actions"),
     ("info", "Info", "info"),
     ("docInfo", "Document Info", "dc-list-view"),
+    ("pieces", "Pattern Pieces", "scissors"),
     ("navigator", "Navigator", "map"),
     ("separations", "Separations Preview", "printer"),
     ("imageTrace", "Image Trace", "image"),

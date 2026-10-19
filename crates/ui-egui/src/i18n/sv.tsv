@@ -5163,3 +5163,23 @@ theme	Appearance	Utseende
 @msg	the file's variables and data sets weren't read (variables: {variables}, data sets: {data_sets}): the Variables panel doesn't list them	filens variabler och datauppsättningar lästes inte (variabler: {variables}, datauppsättningar: {data_sets}): panelen Variabler visar dem inte
 # Select by Color (select.color)
 	Select by Color	Markera efter färg
+# PatternFoundry: pattern pieces (PF-1).
+	Add Notch	Lägg till hack
+	Make Pattern Piece	Skapa mönsterdel
+	Pattern Pieces	Mönsterdelar
+	Piece Info	Information om mönsterdel
+	Piece Options	Alternativ för mönsterdel
+	Release Pattern Piece	Frigör mönsterdel
+	Remove Notch	Ta bort hack
+	Cut {count}	Klipp {count}
+	Each selected closed path becomes a piece: the path is its seam line	Varje markerad sluten bana blir en mönsterdel: banan är dess sömlinje
+	Edges	Kanter
+	Fabric	Tyg
+	Mirrored pairs	Spegelvända par
+	No pattern pieces yet	Inga mönsterdelar ännu
+	Notches	Hack
+	Pattern piece	Mönsterdel
+	Pieces	Delar
+	Seam allowance	Sömsmån
+	Seam line length	Sömlinjens längd
+	Selected piece	Markerad mönsterdel

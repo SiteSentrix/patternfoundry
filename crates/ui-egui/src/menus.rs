@@ -2688,6 +2688,11 @@ pub fn menu_tree_named(english_names: bool) -> Vec<(&'static str, Vec<Item>)> {
             ],
         ),
         (
+            // PatternFoundry's sewing-pattern commands (PF-1 on).
+            "Pattern",
+            vec![c("Make Pattern Piece", "piece.make"), c("Release Pattern Piece", "piece.release"), Sep, panel("Pattern Pieces", "pieces")],
+        ),
+        (
             "Type",
             vec![
                 sub("Font", font_items(english_names)),
@@ -2951,6 +2956,7 @@ pub fn menu_tree_named(english_names: bool) -> Vec<(&'static str, Vec<Item>)> {
                 panel("Navigator", "navigator"),
                 panel("Pathfinder", "pathfinder"),
                 panel("Pattern Options", "patternOptions"),
+                panel("Pattern Pieces", "pieces"),
                 panel("Properties", "properties"),
                 panel("Separations Preview", "separations"),
                 panel("Stroke", "stroke"),

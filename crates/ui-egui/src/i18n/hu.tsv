@@ -5193,3 +5193,23 @@ imageTrace	Outline	Körvonal
 @msg	the file's variables and data sets weren't read (variables: {variables}, data sets: {data_sets}): the Variables panel doesn't list them	a fájl változói és adatkészletei nem lettek beolvasva (változók: {variables}, adatkészletek: {data_sets}): a Változók panel nem listázza őket
 # Select by Color (select.color)
 	Select by Color	Kijelölés szín szerint
+# PatternFoundry: pattern pieces (PF-1).
+	Add Notch	Bevágás hozzáadása
+	Make Pattern Piece	Szabásmintadarab létrehozása
+	Pattern Pieces	Szabásmintadarabok
+	Piece Info	Darab adatai
+	Piece Options	Darab beállításai
+	Release Pattern Piece	Szabásmintadarab felbontása
+	Remove Notch	Bevágás eltávolítása
+	Cut {count}	Szabás: {count}
+	Each selected closed path becomes a piece: the path is its seam line	Minden kijelölt zárt útvonalból darab lesz: az útvonal a varrásvonala
+	Edges	Élek
+	Fabric	Anyag
+	Mirrored pairs	Tükrözött párok
+	No pattern pieces yet	Még nincsenek szabásmintadarabok
+	Notches	Bevágások
+	Pattern piece	Szabásmintadarab
+	Pieces	Darabok
+	Seam allowance	Varrásráhagyás
+	Seam line length	Varrásvonal hossza
+	Selected piece	Kijelölt darab

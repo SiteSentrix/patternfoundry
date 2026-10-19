@@ -5115,3 +5115,23 @@ imageTrace	Outline	კონტური
 # Select by Color (select.color)
 	Select by Color	მონიშვნა ფერის მიხედვით
 @msg	thumbnail: no page {n} (the file has 1)	thumbnail: გვერდი {n} არ არსებობს (ფაილს 1 გვერდი აქვს)
+# PatternFoundry: pattern pieces (PF-1).
+	Add Notch	ნაჭდევის დამატება
+	Make Pattern Piece	თარგის დეტალის შექმნა
+	Pattern Pieces	თარგის დეტალები
+	Piece Info	დეტალის ინფორმაცია
+	Piece Options	დეტალის პარამეტრები
+	Release Pattern Piece	თარგის დეტალის გათავისუფლება
+	Remove Notch	ნაჭდევის წაშლა
+	Cut {count}	მოჭრა {count}
+	Each selected closed path becomes a piece: the path is its seam line	ყოველი არჩეული დახურული კონტური დეტალი ხდება: კონტური მისი ნაკერის ხაზია
+	Edges	კიდეები
+	Fabric	ქსოვილი
+	Mirrored pairs	სარკისებრი წყვილები
+	No pattern pieces yet	თარგის დეტალები ჯერ არ არის
+	Notches	ნაჭდევები
+	Pattern piece	თარგის დეტალი
+	Pieces	დეტალები
+	Seam allowance	ნაკერის მარაგი
+	Seam line length	ნაკერის ხაზის სიგრძე
+	Selected piece	არჩეული დეტალი

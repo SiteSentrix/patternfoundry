@@ -58,6 +58,7 @@ mod pathops;
 mod patterncmds;
 pub mod pdfcmds;
 pub mod perspgrid;
+pub(crate) mod piece;
 pub(crate) mod place;
 pub mod plugin;
 pub mod prefscmds;
@@ -210,6 +211,7 @@ pub fn command_specs() -> &'static [CommandSpec] {
         v.extend(fileio::specs());
         v.extend(create::specs());
         v.extend(dimension::specs());
+        v.extend(piece::specs());
         v.extend(object::specs());
         v.extend(path::specs());
         v.extend(select::specs());

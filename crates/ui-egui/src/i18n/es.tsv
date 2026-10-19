@@ -5150,3 +5150,23 @@ mark-style	Japanese	Japonesas
 @msg	the file's variables and data sets weren't read (variables: {variables}, data sets: {data_sets}): the Variables panel doesn't list them	no se leyeron las variables ni los conjuntos de datos del archivo (variables: {variables}, conjuntos de datos: {data_sets}): el panel Variables no los muestra
 # Select by Color (select.color)
 	Select by Color	Seleccionar por color
+# PatternFoundry: pattern pieces (PF-1).
+	Add Notch	Añadir piquete
+	Make Pattern Piece	Crear pieza de patrón
+	Pattern Pieces	Piezas de patrón
+	Piece Info	Información de la pieza
+	Piece Options	Opciones de la pieza
+	Release Pattern Piece	Liberar pieza de patrón
+	Remove Notch	Quitar piquete
+	Cut {count}	Cortar {count}
+	Each selected closed path becomes a piece: the path is its seam line	Cada trazado cerrado seleccionado se convierte en una pieza: el trazado es su línea de costura
+	Edges	Bordes
+	Fabric	Tela
+	Mirrored pairs	Pares simétricos
+	No pattern pieces yet	Aún no hay piezas de patrón
+	Notches	Piquetes
+	Pattern piece	Pieza de patrón
+	Pieces	Piezas
+	Seam allowance	Margen de costura
+	Seam line length	Longitud de la línea de costura
+	Selected piece	Pieza seleccionada

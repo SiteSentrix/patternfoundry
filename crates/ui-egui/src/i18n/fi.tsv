@@ -5171,3 +5171,23 @@ mark-style	Japanese	Japanilainen
 @msg	the file's variables and data sets weren't read (variables: {variables}, data sets: {data_sets}): the Variables panel doesn't list them	tiedoston muuttujia ja tietojoukkoja ei luettu (muuttujia: {variables}, tietojoukkoja: {data_sets}): Muuttujat-paneeli ei näytä niitä
 # Select by Color (select.color)
 	Select by Color	Valitse värin mukaan
+# PatternFoundry: pattern pieces (PF-1).
+	Add Notch	Lisää merkkilovi
+	Make Pattern Piece	Luo kaavan osa
+	Pattern Pieces	Kaavan osat
+	Piece Info	Kaavan osan tiedot
+	Piece Options	Kaavan osan asetukset
+	Release Pattern Piece	Pura kaavan osa
+	Remove Notch	Poista merkkilovi
+	Cut {count}	Leikkaa {count}
+	Each selected closed path becomes a piece: the path is its seam line	Jokaisesta valitusta suljetusta polusta tulee kaavan osa: polku on sen saumaviiva
+	Edges	Reunat
+	Fabric	Kangas
+	Mirrored pairs	Peilikuvaparit
+	No pattern pieces yet	Ei vielä kaavan osia
+	Notches	Merkkilovet
+	Pattern piece	Kaavan osa
+	Pieces	Osat
+	Seam allowance	Saumanvara
+	Seam line length	Saumaviivan pituus
+	Selected piece	Valittu kaavan osa

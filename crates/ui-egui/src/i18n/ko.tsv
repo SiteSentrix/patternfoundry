@@ -4785,3 +4785,23 @@ lighting	Light	광원
 @msg	the file's variables and data sets weren't read (variables: {variables}, data sets: {data_sets}): the Variables panel doesn't list them	파일의 변수와 데이터 세트를 읽지 않았습니다(변수: {variables}, 데이터 세트: {data_sets}). 변수 패널에 표시되지 않습니다
 # Select by Color (select.color)
 	Select by Color	색상별 선택
+# PatternFoundry: pattern pieces (PF-1).
+	Add Notch	너치 추가
+	Make Pattern Piece	패턴 조각 만들기
+	Pattern Pieces	패턴 조각
+	Piece Info	조각 정보
+	Piece Options	조각 옵션
+	Release Pattern Piece	패턴 조각 해제
+	Remove Notch	너치 제거
+	Cut {count}	재단 {count}장
+	Each selected closed path becomes a piece: the path is its seam line	선택한 닫힌 패스가 각각 조각이 됩니다. 패스가 완성선입니다
+	Edges	변
+	Fabric	원단
+	Mirrored pairs	대칭 쌍
+	No pattern pieces yet	아직 패턴 조각이 없습니다
+	Notches	너치
+	Pattern piece	패턴 조각
+	Pieces	조각
+	Seam allowance	시접
+	Seam line length	완성선 길이
+	Selected piece	선택한 조각

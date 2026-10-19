@@ -34,6 +34,7 @@ pub mod opentype;
 pub mod paragraph;
 pub mod pathfinder;
 pub mod pattern_options;
+pub mod pieces;
 pub mod properties;
 pub mod separations;
 pub mod stroke;
@@ -166,6 +167,7 @@ pub fn show_icon_panel(app: &mut VectorcraftApp, ui: &mut Ui, id: &str) {
         "imageTrace" => image_trace::show(app, ui),
         "openType" => opentype::show(app, ui),
         "docInfo" => doc_info::show(app, ui),
+        "pieces" => pieces::show(app, ui),
         "charStyles" => text_styles::show(app, ui, text_styles::Kind::Char),
         "paraStyles" => text_styles::show(app, ui, text_styles::Kind::Para),
         "magicWand" => magic_wand::show(app, ui),

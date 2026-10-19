@@ -3029,6 +3029,14 @@ dependencies = [
 ]
 
 [[package]]
+name = "pf-core"
+version = "0.13.1"
+dependencies = [
+ "serde",
+ "serde_json",
+]
+
+[[package]]
 name = "phf"
 version = "0.13.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -4628,6 +4636,7 @@ dependencies = [
  "image",
  "jpeg-encoder",
  "kurbo 0.13.1",
+ "pf-core",
  "proptest",
  "serde",
  "serde_json",
@@ -4664,6 +4673,7 @@ dependencies = [
  "image",
  "kurbo 0.13.1",
  "log",
+ "pf-core",
  "proptest",
  "roxmltree 0.21.1",
  "ruzstd",

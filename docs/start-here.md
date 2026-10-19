@@ -62,8 +62,7 @@ anything he clicks through.
 Money, legal wording, anything public, domains, and the open decisions in `docs/plan.md`.
 
 ## Next task
-PF-0 is done (see the progress log in `docs/plan.md`). Next is **PF-1**, pattern pieces: piece data
-on paths (name, cut count, fabric, grainline), seam allowance per edge with mitred or squared
-corners, notches, labels and a Pieces panel, as `pattern.*` engine commands with tests, in a
-pattern core crate below the UI (as StitchFoundry's `sf-core`). Look at CADCraft first for what can
-be reused (see above).
+PF-0 and PF-1 are done (see the progress log in `docs/plan.md`). Next is **PF-2**, true-scale
+printing: tiled Letter/A4 pages with alignment marks and the 10 cm test square on every page,
+A0/36-inch copy-shop PDF, layers per size, each print and export path tested to measure exactly
+(CLAUDE.md). Look at CADCraft's layouts and plotting first (see above).

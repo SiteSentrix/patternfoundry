@@ -5207,3 +5207,23 @@ mark-style	Japanese	Japonské
 @msg	the file's variables and data sets weren't read (variables: {variables}, data sets: {data_sets}): the Variables panel doesn't list them	proměnné a sady dat souboru nebyly načteny (proměnné: {variables}, sady dat: {data_sets}): panel Proměnné je nezobrazuje
 # Select by Color (select.color)
 	Select by Color	Vybrat podle barvy
+# PatternFoundry: pattern pieces (PF-1).
+	Add Notch	Přidat zářez
+	Make Pattern Piece	Vytvořit díl střihu
+	Pattern Pieces	Díly střihu
+	Piece Info	Informace o dílu
+	Piece Options	Volby dílu
+	Release Pattern Piece	Uvolnit díl střihu
+	Remove Notch	Odstranit zářez
+	Cut {count}	Stříhat {count}×
+	Each selected closed path becomes a piece: the path is its seam line	Každá vybraná uzavřená cesta se stane dílem: cesta je jeho linií šití
+	Edges	Hrany
+	Fabric	Látka
+	Mirrored pairs	Zrcadlové páry
+	No pattern pieces yet	Zatím žádné díly střihu
+	Notches	Zářezy
+	Pattern piece	Díl střihu
+	Pieces	Díly
+	Seam allowance	Přídavek na šev
+	Seam line length	Délka linie šití
+	Selected piece	Vybraný díl

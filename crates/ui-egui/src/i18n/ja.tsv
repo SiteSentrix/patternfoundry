@@ -4862,3 +4862,23 @@ lighting	Light	ライト
 @msg	the file's variables and data sets weren't read (variables: {variables}, data sets: {data_sets}): the Variables panel doesn't list them	ファイルの変数とデータセットは読み込まれませんでした (変数: {variables}、データセット: {data_sets})。変数パネルには表示されません
 # Select by Color (select.color)
 	Select by Color	カラーで選択
+# PatternFoundry: pattern pieces (PF-1).
+	Add Notch	合印を追加
+	Make Pattern Piece	型紙パーツを作成
+	Pattern Pieces	型紙パーツ
+	Piece Info	パーツ情報
+	Piece Options	パーツのオプション
+	Release Pattern Piece	型紙パーツを解除
+	Remove Notch	合印を削除
+	Cut {count}	裁断 {count} 枚
+	Each selected closed path becomes a piece: the path is its seam line	選択した閉じたパスはそれぞれパーツになります。パスはその出来上がり線です
+	Edges	辺
+	Fabric	生地
+	Mirrored pairs	左右対称のペア
+	No pattern pieces yet	型紙パーツはまだありません
+	Notches	合印
+	Pattern piece	型紙パーツ
+	Pieces	パーツ
+	Seam allowance	縫い代
+	Seam line length	出来上がり線の長さ
+	Selected piece	選択したパーツ

@@ -5171,3 +5171,23 @@ theme	Appearance	Външен вид
 @msg	the file's variables and data sets weren't read (variables: {variables}, data sets: {data_sets}): the Variables panel doesn't list them	променливите и наборите от данни на файла не бяха прочетени (променливи: {variables}, набори от данни: {data_sets}): панелът „Променливи“ не ги показва
 # Select by Color (select.color)
 	Select by Color	Избиране по цвят
+# PatternFoundry: pattern pieces (PF-1).
+	Add Notch	Добавяне на насечка
+	Make Pattern Piece	Създаване на детайл от кройка
+	Pattern Pieces	Детайли от кройка
+	Piece Info	Информация за детайла
+	Piece Options	Опции на детайла
+	Release Pattern Piece	Освобождаване на детайла
+	Remove Notch	Премахване на насечка
+	Cut {count}	Крой {count}
+	Each selected closed path becomes a piece: the path is its seam line	Всеки избран затворен контур става детайл: контурът е неговата линия на шева
+	Edges	Ръбове
+	Fabric	Плат
+	Mirrored pairs	Огледални двойки
+	No pattern pieces yet	Още няма детайли от кройка
+	Notches	Насечки
+	Pattern piece	Детайл от кройка
+	Pieces	Детайли
+	Seam allowance	Добавка за шев
+	Seam line length	Дължина на линията на шева
+	Selected piece	Избран детайл
