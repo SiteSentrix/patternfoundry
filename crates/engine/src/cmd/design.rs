@@ -1,6 +1,7 @@
 //! Design tools (PF-5) on paths and pieces' seam lines: `design.rotateDart` pivots a dart to
 //! another place on the outline, `design.split` cuts an outline in two (a princess seam through
-//! the bust point), `design.length` measures along an outline (to true seams that sew together).
+//! the bust point), `design.spread` slashes and spreads an outline (flare, fullness),
+//! `design.length` measures along an outline (to true seams that sew together).
 //! The geometry is [`pf_core::design`]. A block part or a drafted path that is changed this way
 //! no longer follows the measurements (its points are no longer the block's).
 use super::*;
@@ -20,6 +21,15 @@ pub fn specs() -> Vec<CommandSpec> {
             "{id? (a path or a piece; default: the selection), apex?: anchor (the dart's point; its neighbours are the legs), to?: [x, y] (document points: where on the outline the dart moves to) | toAnchor?: anchor, amount?: the share of the dart that moves (more than 0, up to 1; default 1), side?: \"auto\" (the side with fewer points swings) | \"before\" | \"after\"} pivot a dart about its point so it opens somewhere else on the outline; without apex and to, two selected points of one path: the sharper one is the dart's point → {id, apex (the new dart's point), anchors}",
             has_doc,
             rotate_dart
+        ),
+        cmd!(
+            "design.spread",
+            "Slash and Spread",
+            ["Pattern"],
+            None,
+            "{id? (a path or a piece; default: the selection), from: anchor | [x, y] (document points on the outline: where it opens), to: anchor | [x, y] (the slash's other end), amount: mm (how far it opens at from), mode?: \"hinge\" (default: the gap closes to nothing at to; flare) | \"parallel\" (both ends open; even fullness or a pleat)} slash the outline straight from one point to another and spread it open; the points from `from` forward to `to` stay → {id, anchors}",
+            has_doc,
+            spread
         ),
         cmd!(
             "design.split",
@@ -146,23 +156,11 @@ fn rotate_dart(s: &mut Session, p: &Value) -> Result<Value> {
     let at = match (at, target) {
         (Some(t), _) => t,
         (None, Some(q)) => {
-            let path = path_of(&ring);
-            let (_, seg, t, hit, dist) = path.nearest(q).ok_or_else(|| bad(CMD, "the path has no outline"))?;
-            if dist > pf_core::mm_to_pt(5.0) {
-                return Err(bad(CMD, "to: a point on the outline (within 5 mm of it)"));
+            let (i, inserted) = point_on(&mut ring, q, "to", CMD)?;
+            if inserted && i <= apex {
+                apex += 1;
             }
-            match ring.iter().position(|k| (to_point(k.p) - hit).hypot() < 1e-6) {
-                Some(i) => i,
-                None => {
-                    let mut sp = path.subpaths[0].clone();
-                    let i = sp.insert_anchor(seg, t);
-                    ring = sp.anchors.iter().map(|a| Knot { p: to_pt(a.p), h_in: to_pt(a.h_in), h_out: to_pt(a.h_out) }).collect();
-                    if i <= apex {
-                        apex += 1;
-                    }
-                    i
-                }
-            }
+            i
         }
         (None, None) => return Err(bad(CMD, "to or toAnchor: where the dart moves to")),
     };
@@ -239,4 +237,67 @@ fn length(s: &mut Session, p: &Value) -> Result<Value> {
     let steps = (to + n - from) % n;
     let pts: f64 = (0..steps).map(|k| kurbo::ParamCurveArclen::arclen(&sp.segment((from + k) % n), 1e-6)).sum();
     Ok(json!({"mm": pt_to_mm(pts)}))
+}
+
+/// The anchor at `q` on the outline: the one there, or a new one put there (then `true`). Within
+/// 5 mm of the outline.
+fn point_on(ring: &mut Vec<Knot>, q: Point, key: &str, cmd: &str) -> Result<(usize, bool)> {
+    let path = path_of(ring);
+    let (_, seg, t, hit, dist) = path.nearest(q).ok_or_else(|| bad(cmd, "the path has no outline"))?;
+    if dist > pf_core::mm_to_pt(5.0) {
+        return Err(bad(cmd, format!("{key}: a point on the outline (within 5 mm of it)")));
+    }
+    if let Some(i) = ring.iter().position(|k| (to_point(k.p) - hit).hypot() < 1e-6) {
+        return Ok((i, false));
+    }
+    let mut sp = path.subpaths[0].clone();
+    let i = sp.insert_anchor(seg, t);
+    *ring = sp.anchors.iter().map(|a| Knot { p: to_pt(a.p), h_in: to_pt(a.h_in), h_out: to_pt(a.h_out) }).collect();
+    Ok((i, true))
+}
+
+/// An anchor param: a point's number, or `[x, y]` (document points) on the outline.
+fn place(ring: &mut Vec<Knot>, p: &Value, key: &str, cmd: &str) -> Result<(usize, bool)> {
+    match p.get(key) {
+        Some(Value::Array(_)) => {
+            let [x, y] = finite_numbers::<2>(&p[key]).ok_or_else(|| bad(cmd, format!("{key}: [x, y] in document points")))?;
+            point_on(ring, Point::new(x, y), key, cmd)
+        }
+        _ => {
+            let i = anchor_param(p, key, cmd)?.ok_or_else(|| bad(cmd, format!("{key}: a point's number along the path, or [x, y] on it")))?;
+            if i >= ring.len() {
+                return Err(bad(cmd, format!("the path has points 0 to {}", ring.len().saturating_sub(1))));
+            }
+            Ok((i, false))
+        }
+    }
+}
+
+fn spread(s: &mut Session, p: &Value) -> Result<Value> {
+    const CMD: &str = "design.spread";
+    let id = super::measure::target_path(s, p, CMD)?;
+    let mut ring = ring_of(&s.doc()?.doc, id, CMD)?;
+    let amount = p.get("amount").and_then(Value::as_f64).ok_or_else(|| bad(CMD, "amount: how far it opens, mm"))?;
+    let how = match str_param(p, "mode") {
+        None | Some("hinge") => pf_core::design::Spread::Hinge,
+        Some("parallel") => pf_core::design::Spread::Parallel,
+        Some(o) => return Err(bad(CMD, format!("mode: \"hinge\" or \"parallel\", not {o:?}"))),
+    };
+    let (mut from, _) = place(&mut ring, p, "from", CMD)?;
+    let (to, inserted) = place(&mut ring, p, "to", CMD)?;
+    if inserted && to <= from {
+        from += 1;
+    }
+    let out = pf_core::design::spread(&ring, from, to, pf_core::mm_to_pt(amount), how).map_err(|e| err(CMD, e))?;
+    let count = out.len();
+    s.edit("Slash and Spread", |d, sel| {
+        let n = d.node(id).ok_or(EngineError::NoNode(id))?;
+        let new = reshaped(n, path_of(&out));
+        if let Some(m) = d.node_mut(id) {
+            *m = new;
+        }
+        sel.set([id]);
+        Ok(())
+    })?;
+    Ok(json!({"id": id.0, "anchors": count}))
 }

@@ -1,6 +1,7 @@
 //! Design tools (PF-5, `design.*`): a princess-seam bodice from the bodice block, by pivoting the
-//! bust dart into the armhole and splitting through the bust point.
+//! bust dart into the armhole and splitting through the bust point; slash and spread on the skirt.
 
+use pf_core::mm_to_pt;
 use serde_json::json;
 use vectorcraft_doc::{NodeId, NodeKind};
 use vectorcraft_geom::{Point, Rect};
@@ -145,4 +146,51 @@ fn a_piece_seam_line_takes_a_dart_but_splits_only_released() {
     assert!(t.execute("design.split", &json!({"id": id2.0, "anchors": [5, 6]})).is_err());
     assert!(t.execute("design.split", &json!({"id": id2.0})).is_err());
     assert!(t.execute("design.length", &json!({"id": id2.0, "from": 0, "to": 40})).is_err());
+}
+
+/// The skirt block's front, and its points.
+fn skirt_front() -> (Session, NodeId, Vec<Point>) {
+    let mut s = Session::new();
+    s.execute("file.new", &json!({"width": 1400, "height": 1000})).unwrap();
+    s.execute("measure.set", &json!({"values": {"waist": 680, "hip": 940, "waist_to_hip": 200, "skirt_length": 600}})).unwrap();
+    let r = s.execute("block.skirt", &json!({"origin": [0, 0]})).unwrap();
+    let id = NodeId(r["ids"][1].as_u64().unwrap());
+    let p = points(&s, id);
+    (s, id, p)
+}
+
+#[test]
+fn slash_and_spread_flares_the_skirt_at_the_hem() {
+    // The front's points: 0 the centre front at the waist, 1 at the hem, 2 the side at the hem,
+    // 7 the front dart's leg nearest the centre front. Slash from the hem straight up to the
+    // waist half way between the dart and the centre front.
+    let (mut s, id, before) = skirt_front();
+    assert_eq!(before.len(), 8);
+    let top = Point::new((before[7].x + before[0].x) / 2.0, (before[7].y + before[0].y) / 2.0);
+    let hem = Point::new(top.x, before[1].y);
+    let r = s.execute("design.spread", &json!({"id": id.0, "from": [hem.x, hem.y], "to": [top.x, top.y], "amount": 60})).unwrap();
+    // Two new points on the slash, the one at the hem twice (either side of the gap).
+    assert_eq!(r["anchors"], 11);
+    let after = points(&s, id);
+    assert!((after[0] - hem).hypot() < 1e-6);
+    assert!(((after[10] - after[0]).hypot() - mm_to_pt(60.0)).abs() < 1e-9);
+    // The waist end of the slash stays shut, the hem side seam doesn't move.
+    assert!(after.iter().any(|p| (*p - top).hypot() < 1e-6) && after.contains(&before[2]));
+    s.execute("edit.undo", &json!({})).unwrap();
+    assert_eq!(points(&s, id), before);
+    // Parallel: both ends open by 4 cm.
+    let r = s.execute("design.spread", &json!({"id": id.0, "from": [hem.x, hem.y], "to": [top.x, top.y], "amount": 40, "mode": "parallel"})).unwrap();
+    assert_eq!(r["anchors"], 12);
+    let after = points(&s, id);
+    assert!(((after[11] - after[0]).hypot() - mm_to_pt(40.0)).abs() < 1e-9);
+    for p in [
+        json!({"id": id.0, "from": 1, "to": 2, "amount": 10}),
+        json!({"id": id.0, "from": [hem.x, hem.y], "to": [top.x, top.y]}),
+        json!({"id": id.0, "from": [hem.x, hem.y], "to": [top.x, top.y], "amount": 10, "mode": "wide"}),
+        json!({"id": id.0, "from": [-900, -900], "to": 0, "amount": 10}),
+        json!({"id": id.0, "from": 99, "to": 0, "amount": 10}),
+    ] {
+        assert!(s.execute("design.spread", &p).is_err(), "{p}");
+    }
+    assert_eq!(points(&s, id), after);
 }

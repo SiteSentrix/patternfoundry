@@ -62,7 +62,7 @@ anything he clicks through.
 Money, legal wording, anything public, domains, and the open decisions in `docs/plan.md`.
 
 ## Next task
-PF-0 to PF-4 are done and PF-5 has begun (dart rotation, splitting, seam length; see the
-progress log in `docs/plan.md`). Next is the rest of **PF-5**: slash and spread, fullness,
-pleats, facings, collars, pockets, and truing (walk seams, match lengths, smooth curves across
+PF-0 to PF-4 are done and PF-5 has begun (dart rotation, splitting, slash and spread, seam length; see the
+progress log in `docs/plan.md`). Next is the rest of **PF-5**: pleat and gathering
+marks, facings, collars, pockets, and truing (walk seams, match lengths, smooth curves across
 seams). The sleeve and trouser blocks (PF-4.1, PF-4.2) can be done alongside.

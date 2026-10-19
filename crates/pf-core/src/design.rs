@@ -10,6 +10,9 @@
 //! fewer anchors, so most of the piece (the centre front with its grain) stays put. With an
 //! `amount` below 1 only that share of the dart moves and the rest stays open (two darts).
 //!
+//! **Slash and spread** cuts the outline straight between two anchors and opens it: hinged at
+//! the far end (flare: the gap closes to nothing there) or parallel (even fullness, a pleat).
+//!
 //! **Splitting** cuts the ring between two anchors into two rings, each closed by a straight seam
 //! between them; when the two anchors are at the same place (a bust point two darts share) the
 //! seam is the darts' legs on each side and nothing is added.
@@ -234,6 +237,74 @@ pub fn split(ring: &[Knot], i: usize, j: usize) -> Result<(Vec<Knot>, Vec<Knot>)
     Ok((part(i, j)?, part(j, i)?))
 }
 
+/// How a slash opens.
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub enum Spread {
+    /// Hinged at the slash's far end: the gap is `amount` wide at its start and closes to nothing
+    /// at the hinge (flare added at a hem, the waist kept).
+    Hinge,
+    /// Both ends move apart by `amount` (even fullness, room for a pleat or gathers).
+    Parallel,
+}
+
+/// Slash the outline straight from anchor `from` to anchor `to` and spread it open by `amount`
+/// (in the outline's unit). The anchors from `from` forward to `to` stay; the rest move away
+/// from them. The gap's edges are straight lines, to true afterwards.
+pub fn spread(ring: &[Knot], from: usize, to: usize, amount: f64, how: Spread) -> Result<Vec<Knot>, DesignError> {
+    let n = ring.len();
+    if n < 4 || from >= n || to >= n || from == to || (to + 1) % n == from || (from + 1) % n == to {
+        return Err(DesignError::BadAnchor("a slash runs between two points of the outline that aren't neighbours"));
+    }
+    let (a, b) = (ring[from].p, ring[to].p);
+    let len = (b - a).len();
+    if !(amount.is_finite() && amount > 0.0) || len < 1e-9 || (how == Spread::Hinge && amount >= 2.0 * len) {
+        return Err(DesignError::BadAmount);
+    }
+    let mut out: Vec<Knot> = run(n, from, to).map(|i| ring[i]).collect();
+    let moved: Vec<Knot> = match how {
+        Spread::Hinge => {
+            // Turned about the hinge by the angle whose chord at the slash's start is `amount`,
+            // away from the anchors that stay.
+            let angle = 2.0 * (amount / (2.0 * len)).asin();
+            let stay_next = ring[(from + 1) % n].p;
+            let away = |sign: f64| (rotate(a, b, sign * angle) - stay_next).len();
+            let angle = if away(1.0) >= away(-1.0) { angle } else { -angle };
+            // The hinge stays; the edge leaving it turns with the moving side.
+            if let Some(h) = out.last_mut() {
+                h.h_out = rotate(h.h_out, b, angle);
+            }
+            run(n, (to + 1) % n, from).map(|i| ring[i].rotated(b, angle)).collect()
+        }
+        Spread::Parallel => {
+            // Moved square to the slash, toward the moving side.
+            let moving: Vec<usize> = run(n, to, from).collect();
+            let centre = moving.iter().fold(Pt::new(0.0, 0.0), |acc, &i| acc + ring[i].p) * (1.0 / moving.len() as f64);
+            let dir = (b - a) * (1.0 / len);
+            let mut normal = Pt::new(-dir.y, dir.x);
+            if normal.dot(centre - a) < 0.0 {
+                normal = normal * -1.0;
+            }
+            let d = normal * amount;
+            if let Some(h) = out.last_mut() {
+                h.h_out = h.p;
+            }
+            let mut m: Vec<Knot> = moving.iter().map(|&i| Knot { p: ring[i].p + d, h_in: ring[i].h_in + d, h_out: ring[i].h_out + d }).collect();
+            if let Some(h) = m.first_mut() {
+                h.h_in = h.p;
+            }
+            m
+        }
+    };
+    // Where the gap meets the slash's start, both sides are corners.
+    if let Some(first) = out.first_mut() {
+        first.h_in = first.p;
+    }
+    let last = moved.len() - 1;
+    out.extend(moved[..last].iter().copied());
+    out.push(out_corner(moved[last]));
+    Ok(out)
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -330,5 +401,40 @@ mod tests {
         assert!(l.iter().all(|k| k.p.x >= 100.0) && rt.iter().all(|k| k.p.x <= 100.0));
         assert!(opening(&two, 2).unwrap() < 0.4 && (opening(&two, 5).unwrap() - std::f64::consts::FRAC_PI_2).abs() < 1e-9);
         assert!(split(&r, 0, 1).is_err() && split(&r, 1, 1).is_err() && split(&r, 0, 4).is_err());
+    }
+
+    /// A 200 × 300 skirt-like panel, waist at the top: points 0 (0,0), 1 (100,0), 2 (200,0),
+    /// 3 (200,300), 4 (100,300), 5 (0,300).
+    fn panel() -> Vec<Knot> {
+        ring(&[(0.0, 0.0), (100.0, 0.0), (200.0, 0.0), (200.0, 300.0), (100.0, 300.0), (0.0, 300.0)])
+    }
+
+    #[test]
+    fn a_hinged_slash_adds_flare_at_the_hem_and_keeps_the_waist() {
+        let r = panel();
+        // From the hem's middle (4) up to the waist's middle (1): 4, 5, 0, 1 stay; 2, 3, 4 turn.
+        let out = spread(&r, 4, 1, 60.0, Spread::Hinge).unwrap();
+        assert_eq!(out.len(), 7);
+        assert!(near(out[0].p, Pt::new(100.0, 300.0)) && near(out[3].p, Pt::new(100.0, 0.0)));
+        // The gap at the hem is 60 wide, the moved side turned outward (right), the waist as long.
+        let gap = (out[6].p - out[0].p).len();
+        assert!((gap - 60.0).abs() < 1e-9, "{gap}");
+        assert!(out[6].p.x > 100.0 && out[5].p.x > 200.0);
+        assert!(((out[4].p - out[3].p).len() - 100.0).abs() < 1e-9);
+        assert!(((out[5].p - out[4].p).len() - 300.0).abs() < 1e-9);
+    }
+
+    #[test]
+    fn a_parallel_slash_adds_even_fullness() {
+        let r = panel();
+        let out = spread(&r, 4, 1, 40.0, Spread::Parallel).unwrap();
+        assert_eq!(out.len(), 8);
+        // Both ends open 40: the waist is 40 longer, the hem too.
+        assert!(near(out[4].p, Pt::new(140.0, 0.0)) && near(out[7].p, Pt::new(140.0, 300.0)));
+        assert!(near(out[5].p, Pt::new(240.0, 0.0)) && near(out[6].p, Pt::new(240.0, 300.0)));
+        assert!(spread(&r, 4, 5, 40.0, Spread::Parallel).is_err());
+        assert!(spread(&r, 4, 1, 0.0, Spread::Hinge).is_err());
+        assert!(spread(&r, 4, 1, 700.0, Spread::Hinge).is_err());
+        assert!(spread(&r, 4, 9, 10.0, Spread::Hinge).is_err());
     }
 }

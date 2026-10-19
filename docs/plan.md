@@ -2,7 +2,7 @@
 
 **Status:** 2026-10-19. PF-0 to PF-4 done and PF-5 started: PatternFoundry is VectorCraft renamed, with
 pattern pieces, true-scale printing, drafting from measurements, bodice and skirt blocks, and
-dart rotation and splitting (a princess-seam bodice from the block). Owner: Bruce Wattendorf (SiteSentrix).
+dart rotation, splitting and slash and spread (a princess-seam bodice from the block). Owner: Bruce Wattendorf (SiteSentrix).
 
 ## What it is
 Software for designing sewing patterns, for home sewists, small pattern designers and small
@@ -138,8 +138,11 @@ is built on, plus a pattern mode, the way StitchFoundry adds embroidery:
   needs the piece released first). A block part changed this way stops following the
   measurements. Geometry in `pf_core::design`. The milestone: a princess-seam bodice from the
   front block (bust dart into the armhole, split through the bust point; the two princess seams
-  match within the front waist's slope). Tests: 4 in `pf-core`, 4 engine tests
-  (`tests_design.rs`). Not yet (PF-5.x): slash and spread, fullness, pleats, facings, collars,
+  match within the front waist's slope). **Slash and spread** (`design.spread`): the outline cut
+  straight between two points (anchors, or points on it) and opened by an amount, hinged at the
+  far end (flare: a skirt widened at the hem, its waist kept) or parallel (even fullness, room
+  for a pleat); commands only for now (it needs an amount: a dialog later). Tests: 6 in
+  `pf-core`, 5 engine tests (`tests_design.rs`). Not yet (PF-5.x): pleat and gathering marks, facings, collars,
   pockets; truing (walking seams, smoothing curves across seams, the princess seam curved through
   the bust); dart shortening from the bust point; design steps replayed when the measurements
   change.
