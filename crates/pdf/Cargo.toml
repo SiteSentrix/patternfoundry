@@ -9,6 +9,7 @@ description = "VectorCraft PDF export and import"
 workspace = true
 
 [dependencies]
+pf-core = { workspace = true }
 vectorcraft-geom = { workspace = true }
 vectorcraft-doc = { workspace = true }
 vectorcraft-effects = { workspace = true }

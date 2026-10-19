@@ -4838,3 +4838,5 @@ lighting	Light	Свет
 	Seam allowance	Припуск на шов
 	Seam line length	Длина линии шва
 	Selected piece	Выбранная деталь
+# PatternFoundry: true-scale printing (PF-2).
+	Pattern Marks (test squares, page names, overlap lines)	Метки выкройки (контрольные квадраты, имена страниц, линии перекрытия)

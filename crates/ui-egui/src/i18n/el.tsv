@@ -5179,3 +5179,5 @@ effect	Points	Σημεία
 	Seam allowance	Περιθώριο ραφής
 	Seam line length	Μήκος γραμμής ραφής
 	Selected piece	Επιλεγμένο κομμάτι
+# PatternFoundry: true-scale printing (PF-2).
+	Pattern Marks (test squares, page names, overlap lines)	Σημάδια πατρόν (τετράγωνα ελέγχου, ονόματα σελίδων, γραμμές επικάλυψης)

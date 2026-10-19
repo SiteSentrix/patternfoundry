@@ -1,7 +1,7 @@
 # PatternFoundry: the plan
 
-**Status:** 2026-10-19. PF-0 and PF-1 done: PatternFoundry is VectorCraft renamed, with pattern
-pieces; true-scale printing (PF-2) is next. Owner: Bruce Wattendorf (SiteSentrix).
+**Status:** 2026-10-19. PF-0, PF-1 and PF-2 done: PatternFoundry is VectorCraft renamed, with
+pattern pieces and true-scale printing; measurements (PF-3) are next. Owner: Bruce Wattendorf (SiteSentrix).
 
 ## What it is
 Software for designing sewing patterns, for home sewists, small pattern designers and small
@@ -83,3 +83,16 @@ is built on, plus a pattern mode, the way StitchFoundry adds embroidery:
   Not yet: notches and per-edge allowances from the panel (commands only), notches placed by
   clicking, a dock icon for the panel, self-intersection cleanup where inward curves are tighter
   than the allowance, and translations of the commands' error messages.
+- 2026-10-19, **PF-2**: true-scale printing, built on VectorCraft's own print tiling (Tile Full
+  Pages / Tile Imageable Areas, overlap, margins, tile range, the Print Tiling tool), which
+  already existed. New: **Pattern Marks** in File › Print (`patternMarks`): every page carries a
+  10 cm and a 1 in test square; every tile its name (rows as letters, columns as numbers: A1 is
+  top left, with the grid's size), its printable area's edge and the lines where the next pages
+  begin, to trim and tape by (`pf_core::tiling`). Copy-shop paper: A2, A1, A0 and the 36 in roll
+  (36 × 48 in). A warning when Tile Full Pages would leave the printer's margins unprinted
+  between pages (tile the imageable areas instead). Tests read the PDFs back
+  (`crates/pdf/src/tests_truescale.rs`): a 10 cm square measures 10 cm at 100% on Letter, on
+  every tile and on A0, A1 and the roll, both test squares are on every page, pages are their
+  paper or artboard sizes, and exported PDFs (`document.exportPdf`) keep artboards at 100%.
+  Not yet: layers per size (waits for grading, PF-6); the printer driver's own "fit to page"
+  can't be checked from here, so the test squares are how a sewist checks it.

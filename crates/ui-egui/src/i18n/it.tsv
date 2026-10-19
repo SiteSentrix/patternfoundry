@@ -4842,3 +4842,5 @@ lighting	Light	Luce
 	Seam allowance	Margine di cucitura
 	Seam line length	Lunghezza della linea di cucitura
 	Selected piece	Pezzo selezionato
+# PatternFoundry: true-scale printing (PF-2).
+	Pattern Marks (test squares, page names, overlap lines)	Segni del cartamodello (quadrati di prova, nomi delle pagine, linee di sovrapposizione)

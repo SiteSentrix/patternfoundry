@@ -62,7 +62,7 @@ anything he clicks through.
 Money, legal wording, anything public, domains, and the open decisions in `docs/plan.md`.
 
 ## Next task
-PF-0 and PF-1 are done (see the progress log in `docs/plan.md`). Next is **PF-2**, true-scale
-printing: tiled Letter/A4 pages with alignment marks and the 10 cm test square on every page,
-A0/36-inch copy-shop PDF, layers per size, each print and export path tested to measure exactly
-(CLAUDE.md). Look at CADCraft's layouts and plotting first (see above).
+PF-0 to PF-2 are done (see the progress log in `docs/plan.md`). Next is **PF-3**, measurements:
+size charts and personal measurement sets (kept on the user's computer, never logged), and
+formulas in point positions so a draft follows the measurements ("changing the bust redraws the
+bodice"). CADCraft's constraint solver (see above) is the place to start for the formulas.

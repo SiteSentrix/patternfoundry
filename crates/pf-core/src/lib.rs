@@ -9,6 +9,8 @@
 //! * [`allowance`] – the cutting line: the seam line pushed out by each edge's allowance, with
 //!   mitred or squared corners.
 //! * [`marks`] – notches, the grainline arrow and the label text.
+//! * [`tiling`] – what a printed page of a tiled pattern carries: its name, overlap lines and the
+//!   10 cm and 1 in test squares.
 //!
 //! **Units.** Allowances and mark sizes are stored in millimetres, the unit sewists measure in
 //! (true scale is exact: [`MM_PER_PT`] is the definition, not a rounding). Positions (the
@@ -18,6 +20,7 @@
 pub mod allowance;
 pub mod marks;
 pub mod piece;
+pub mod tiling;
 
 pub use allowance::{Outline, cutting_line};
 pub use piece::{Corner, Grainline, Mark, Notch, NotchKind, PatternTag, Piece};
