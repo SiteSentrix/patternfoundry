@@ -18,6 +18,8 @@
 //! **Facings** copy a run of the outline (a neckline, an armhole) and move it inward by the
 //! facing's width for the facing's inner edge; its ends follow the seams beside the run.
 //!
+//! **Gathering marks**: a wavy line just inside an edge between two ticks, where it is gathered.
+//!
 //! **Splitting** cuts the ring between two anchors into two rings, each closed by a straight seam
 //! between them; when the two anchors are at the same place (a bust point two darts share) the
 //! seam is the darts' legs on each side and nothing is added.
@@ -506,6 +508,94 @@ pub fn pleat(ring: &[Knot], from: usize, to: usize, depth: f64, kind: PleatKind,
     Ok((out, marks))
 }
 
+/// The point at parameter `t` of the cubic `a`, `c1`, `c2`, `b`, and its direction there.
+fn cubic_at(a: Pt, c1: Pt, c2: Pt, b: Pt, t: f64) -> (Pt, Pt) {
+    let m = 1.0 - t;
+    let p = a * (m * m * m) + c1 * (3.0 * m * m * t) + c2 * (3.0 * m * t * t) + b * (t * t * t);
+    let d = (c1 - a) * (3.0 * m * m) + (c2 - c1) * (6.0 * m * t) + (b - c2) * (3.0 * t * t);
+    let d = if d.len() > 1e-12 { d } else { b - a };
+    (p, d)
+}
+
+/// The outline's run from anchor `from` forward to anchor `to` as points about `step` apart,
+/// each with its unit direction.
+fn walk(ring: &[Knot], from: usize, to: usize, step: f64) -> Vec<(Pt, Pt)> {
+    let n = ring.len();
+    let idx: Vec<usize> = run(n, from, to).collect();
+    let mut out = Vec::new();
+    for pair in idx.windows(2) {
+        let (a, b) = (ring[pair[0]], ring[pair[1]]);
+        let chord = (b.p - a.p).len() + (a.h_out - a.p).len() + (b.h_in - b.p).len();
+        let count = ((chord / step).ceil() as usize).clamp(1, 10_000);
+        let first = usize::from(!out.is_empty());
+        for k in first..=count {
+            let (p, d) = cubic_at(a.p, a.h_out, b.h_in, b.p, k as f64 / count as f64);
+            out.push((p, d.unit().unwrap_or(Pt::new(1.0, 0.0))));
+        }
+    }
+    out
+}
+
+/// A gathering mark for the outline's edge from anchor `from` forward to anchor `to`: a wavy
+/// line `inset` inside the edge (waves `wave` long, a quarter of that high), and a tick across
+/// the edge at each end, `inset` long either side of it (where the gathering starts and stops).
+/// Returns the polylines: the wave, then the two ticks.
+pub fn gather_marks(ring: &[Knot], from: usize, to: usize, inset: f64, wave: f64) -> Result<Vec<Vec<Pt>>, DesignError> {
+    let n = ring.len();
+    if n < 3 || from >= n || to >= n || from == to {
+        return Err(DesignError::BadAnchor("gathering runs between two different points of the outline"));
+    }
+    if !(inset.is_finite() && inset > 0.0 && wave.is_finite() && wave > 0.0) {
+        return Err(DesignError::BadAmount);
+    }
+    let area = signed_area2(ring);
+    if area.abs() < 1e-9 {
+        return Err(DesignError::BadAnchor("the outline encloses no area"));
+    }
+    let side = area.signum();
+    let pts = walk(ring, from, to, wave / 8.0);
+    let mut along = 0.0;
+    let mut wavy = Vec::with_capacity(pts.len());
+    for (k, &(p, d)) in pts.iter().enumerate() {
+        if k > 0 {
+            along += (p - pts[k - 1].0).len();
+        }
+        let inward = Pt::new(-d.y, d.x) * side;
+        let bump = (along / wave * std::f64::consts::TAU).sin() * wave / 4.0;
+        wavy.push(p + inward * (inset + bump));
+    }
+    let tick = |(p, d): (Pt, Pt)| {
+        let inward = Pt::new(-d.y, d.x) * side;
+        vec![p - inward * inset, p + inward * (2.0 * inset)]
+    };
+    let (Some(&first), Some(&last)) = (pts.first(), pts.last()) else {
+        return Err(DesignError::BadAnchor("the edge has no length"));
+    };
+    Ok(vec![wavy, tick(first), tick(last)])
+}
+
+/// The length of the outline's run from anchor `from` forward to anchor `to`.
+pub fn run_length(ring: &[Knot], from: usize, to: usize) -> f64 {
+    let n = ring.len();
+    if n < 2 || from >= n || to >= n {
+        return 0.0;
+    }
+    run(n, from, to)
+        .collect::<Vec<_>>()
+        .windows(2)
+        .map(|w| {
+            let (a, b) = (ring[w[0]], ring[w[1]]);
+            pieces([a.p, a.h_out, b.h_in, b.p])
+                .iter()
+                .map(|[p0, p1, p2, p3]| {
+                    let at = |t: f64| cubic_at(*p0, *p1, *p2, *p3, t).0;
+                    (0..32).map(|k| (at((k + 1) as f64 / 32.0) - at(k as f64 / 32.0)).len()).sum::<f64>()
+                })
+                .sum::<f64>()
+        })
+        .sum()
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -710,5 +800,23 @@ mod tests {
         // The arrows point toward each other, both ending short of the middle.
         let (a, b) = (&m.arrows[0][0], &m.arrows[1][0]);
         assert!(a[1].x > a[0].x && b[1].x < b[0].x && a[1].x < 140.0 && b[1].x > 140.0);
+    }
+
+    #[test]
+    fn a_gathering_mark_waves_inside_its_edge_between_two_ticks() {
+        // The panel's waist, from (0, 0) to (200, 0), the panel below it (y down).
+        let r = panel();
+        let m = gather_marks(&r, 0, 2, 5.0, 8.0).unwrap();
+        assert_eq!(m.len(), 3);
+        // The wave keeps inside the panel, 5 ± 2 below the waist, over the whole edge.
+        let wave = &m[0];
+        assert!(wave.iter().all(|p| p.y >= 3.0 - 1e-9 && p.y <= 7.0 + 1e-9), "{wave:?}");
+        assert!((wave[0].x).abs() < 1e-9 && (wave[wave.len() - 1].x - 200.0).abs() < 1e-9);
+        assert!(wave.iter().any(|p| p.y > 6.9) && wave.iter().any(|p| p.y < 3.1));
+        // The ticks cross the edge at both ends.
+        assert!(near(m[1][0], Pt::new(0.0, -5.0)) && near(m[1][1], Pt::new(0.0, 10.0)));
+        assert!(near(m[2][0], Pt::new(200.0, -5.0)));
+        assert!((run_length(&r, 0, 2) - 200.0).abs() < 1e-9 && (run_length(&r, 2, 0) - 800.0).abs() < 1e-9);
+        assert!(gather_marks(&r, 1, 1, 5.0, 8.0).is_err() && gather_marks(&r, 0, 2, 0.0, 8.0).is_err());
     }
 }
