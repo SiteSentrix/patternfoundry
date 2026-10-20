@@ -96,6 +96,15 @@ pub fn specs() -> Vec<CommandSpec> {
             smooth
         ),
         cmd!(
+            "design.standCollar",
+            "Draft Stand Collar",
+            ["Pattern"],
+            None,
+            "{back: {id, from?, to?, shoulder?}, front: {id, from?, to?, shoulder?} (the necklines, as for design.collar; without them the bodice block's back and front among the selection), height?: mm (35: the stand's height), rise?: mm (15: how far the neck edge curves up at centre front), extension?: mm (0: past centre front; half the button stand where the fronts meet, all of it where they overlap), origin?: [x, y] (document points: centre back at the neck edge; default above the back)} a stand (mandarin) collar, half of it (centre back on the fold): as long as the neckline, the neck edge curving up toward centre front, the top edge parallel, with its centre front line (dashed) → {id, centreFront, neck (mm), shoulder (mm from centre back)}",
+            has_doc,
+            stand_collar
+        ),
+        cmd!(
             "design.split",
             "Split at Points",
             ["Pattern"],
@@ -653,6 +662,71 @@ fn neckline_param(s: &Session, p: &Value, key: &str, fallback: Option<NodeId>, c
     Ok((id, ring, from, to, shoulder))
 }
 
+/// The back and front necklines for a collar: given, or the bodice block's back and front among
+/// the selection.
+type NecklineParam = (NodeId, Vec<Knot>, usize, usize, usize);
+fn necklines(s: &Session, p: &Value, cmd: &str) -> Result<(NecklineParam, NecklineParam)> {
+    let (mut sel_back, mut sel_front) = (None, None);
+    if p.get("back").is_none() && p.get("front").is_none() {
+        let st = s.doc()?;
+        for id in st.selection.in_paint_order(&st.doc) {
+            let Ok(path) = super::measure::target_path(s, &json!({"id": id.0}), cmd) else { continue };
+            match st.doc.node(path).and_then(|n| n.extras().block.as_deref().cloned()) {
+                Some(b) if b.kind == pf_core::block::BlockKind::Bodice && b.part == 0 => sel_back = Some(path),
+                Some(b) if b.kind == pf_core::block::BlockKind::Bodice && b.part == 1 => sel_front = Some(path),
+                _ => {}
+            }
+        }
+    }
+    Ok((neckline_param(s, p, "back", sel_back, cmd)?, neckline_param(s, p, "front", sel_front, cmd)?))
+}
+
+fn stand_collar(s: &mut Session, p: &Value) -> Result<Value> {
+    const CMD: &str = "design.standCollar";
+    let mm = |k: &str, d: f64| -> Result<f64> {
+        match p.get(k) {
+            None | Some(Value::Null) => Ok(d),
+            Some(v) => v.as_f64().filter(|x| x.is_finite() && *x >= 0.0).ok_or_else(|| bad(CMD, format!("{k}: mm"))),
+        }
+    };
+    let (height, rise, extension) = (mm("height", 35.0)?, mm("rise", 15.0)?, mm("extension", 0.0)?);
+    let ((back_id, back, bf, bt, _), (_, front, ff, ft, _)) = necklines(s, p, CMD)?;
+    let (bl, fl) = (pt_to_mm(pf_core::design::run_length(&back, bf, bt)), pt_to_mm(pf_core::design::run_length(&front, ff, ft)));
+    let c = pf_core::design::stand_collar(bl, fl, height, rise, extension).map_err(|e| err(CMD, e))?;
+    let origin = match p.get("origin") {
+        None | Some(Value::Null) => {
+            let cb = back.get(bf).map(|k| k.p).unwrap_or(Pt::new(0.0, 0.0));
+            Point::new(cb.x, cb.y - pf_core::mm_to_pt(height + rise + 20.0))
+        }
+        Some(v) => {
+            let [x, y] = finite_numbers::<2>(v).ok_or_else(|| bad(CMD, "origin: [x, y] in document points"))?;
+            Point::new(x, y)
+        }
+    };
+    let at = |q: Pt| Pt::new(origin.x + pf_core::mm_to_pt(q.x), origin.y + pf_core::mm_to_pt(q.y));
+    let outline: Vec<Knot> = c.outline.iter().map(|k| Knot { p: at(k.p), h_in: at(k.h_in), h_out: at(k.h_out) }).collect();
+    let cf = [at(c.centre_front[0]), at(c.centre_front[1])];
+    let doc = &s.doc()?.doc;
+    let anchor = doc.parent_of(back_id).filter(|_| in_piece(doc, back_id)).unwrap_or(back_id);
+    let ids = s.edit("Draft Stand Collar", |d, sel| {
+        let black = || vectorcraft_color::Paint::solid(vectorcraft_color::Color::BLACK);
+        let mut dashed = vectorcraft_doc::Appearance::basic(vectorcraft_color::Paint::None, black(), 0.75);
+        if let Some(st) = dashed.stroke_mut() {
+            st.dash = Some(vectorcraft_doc::Dash { pattern: vec![4.0, 2.0], ..Default::default() });
+        }
+        let id = d.alloc_id();
+        let mut n = Node::path(id, path_of(&outline), vectorcraft_doc::Appearance::basic(vectorcraft_color::Paint::None, black(), 1.0));
+        n.name = Some("Stand Collar".into());
+        let lid = d.alloc_id();
+        let mut l = Node::path(lid, PathData::single(SubPath::polyline(&[to_point(cf[0]), to_point(cf[1])], false)), dashed);
+        l.name = Some("Collar centre front".into());
+        d.insert_beside(vec![(anchor, vec![n, l])], false)?;
+        sel.set([id]);
+        Ok((id, lid))
+    })?;
+    Ok(json!({"id": ids.0.0, "centreFront": ids.1.0, "neck": bl + fl, "shoulder": bl}))
+}
+
 fn collar(s: &mut Session, p: &Value) -> Result<Value> {
     const CMD: &str = "design.collar";
     let mm = |k: &str, d: f64, zero_ok: bool| -> Result<f64> {
@@ -663,20 +737,7 @@ fn collar(s: &mut Session, p: &Value) -> Result<Value> {
     };
     let (overlap, width, lower) = (mm("overlap", 30.0, true)?, mm("width", 60.0, false)?, mm("lower", 0.0, true)?);
     // Without back and front: the bodice block's back and front among the selection.
-    let (mut sel_back, mut sel_front) = (None, None);
-    if p.get("back").is_none() && p.get("front").is_none() {
-        let st = s.doc()?;
-        for id in st.selection.in_paint_order(&st.doc) {
-            let Ok(path) = super::measure::target_path(s, &json!({"id": id.0}), CMD) else { continue };
-            match st.doc.node(path).and_then(|n| n.extras().block.as_deref().cloned()) {
-                Some(b) if b.kind == pf_core::block::BlockKind::Bodice && b.part == 0 => sel_back = Some(path),
-                Some(b) if b.kind == pf_core::block::BlockKind::Bodice && b.part == 1 => sel_front = Some(path),
-                _ => {}
-            }
-        }
-    }
-    let (back_id, back, bf, bt, bs) = neckline_param(s, p, "back", sel_back, CMD)?;
-    let (_, front, ff, ft, fs) = neckline_param(s, p, "front", sel_front, CMD)?;
+    let ((back_id, back, bf, bt, bs), (_, front, ff, ft, fs)) = necklines(s, p, CMD)?;
     let c = pf_core::design::flat_collar(
         pf_core::design::Neckline { ring: &back, from: bf, to: bt, shoulder: bs },
         pf_core::design::Neckline { ring: &front, from: ff, to: ft, shoulder: fs },

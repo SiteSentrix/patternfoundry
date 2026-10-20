@@ -491,3 +491,35 @@ fn a_box_pleat_in_the_skirt_front() {
     assert!((off[0] - 25.0).abs() < 1e-6 && (off[1] - 125.0).abs() < 1e-6, "{off:?}");
     assert!(s.execute("design.pleat", &json!({"id": id.0, "from": [hem.x, hem.y], "to": [top.x, top.y], "depth": 25, "kind": "accordion"})).is_err());
 }
+
+#[test]
+fn a_stand_collar_for_the_bodice_block() {
+    let mut s = Session::new();
+    s.execute("file.new", &json!({"width": 1400, "height": 1000})).unwrap();
+    s.execute(
+        "measure.set",
+        &json!({"values": {"bust": 880, "waist": 680, "nape_to_waist": 410, "back_width": 345, "chest": 325, "shoulder": 122, "neck": 370, "armscye_depth": 210}}),
+    )
+    .unwrap();
+    let r = s.execute("block.bodice", &json!({"origin": [0, 0]})).unwrap();
+    let (back, front) = (r["ids"][0].as_u64().unwrap(), r["ids"][1].as_u64().unwrap());
+    let back_neck = s.execute("design.length", &json!({"id": back, "from": 1, "to": 2})).unwrap()["mm"].as_f64().unwrap();
+    let front_neck = s.execute("design.length", &json!({"id": front, "from": 12, "to": 0})).unwrap()["mm"].as_f64().unwrap();
+    // From the selection, the bodice block's own neck points.
+    s.execute("select.set", &json!({"ids": [back, front]})).unwrap();
+    let r = s.execute("design.standCollar", &json!({"extension": 15})).unwrap();
+    let neck = r["neck"].as_f64().unwrap();
+    assert!((neck - (back_neck + front_neck)).abs() < 0.01, "{r} {back_neck} {front_neck}");
+    assert!((r["shoulder"].as_f64().unwrap() - back_neck).abs() < 0.01);
+    let id = NodeId(r["id"].as_u64().unwrap());
+    assert_eq!(s.doc().unwrap().doc.node(id).unwrap().name.as_deref(), Some("Stand Collar"));
+    // Its neck edge, centre back to the front end, is the neckline and the extension long.
+    let edge = length(&mut s, id, 0, 3);
+    assert!((edge - (neck + 15.0)).abs() < 0.05, "{edge}");
+    // The stand 35 mm high at centre back.
+    let p = points(&s, id);
+    assert!((pf_core::pt_to_mm((p[p.len() - 1] - p[0]).hypot()) - 35.0).abs() < 1e-6);
+    assert!(s.execute("design.standCollar", &json!({"height": -5})).is_err());
+    s.execute("edit.undo", &json!({})).unwrap();
+    assert!(s.doc().unwrap().doc.node(id).is_none());
+}
