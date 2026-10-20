@@ -39,11 +39,12 @@ is built on, plus a pattern mode, the way StitchFoundry adds embroidery:
 ## Decided
 - Domain: **patternfoundry.app**, bought by the owner (2026-10-19). Installers and the app link to
   the GitHub repository until the site is live; switching them is a one-line change each.
+- AI help (2026-10-19): paid with the shared **Foundry Account** and its Foundry credits, served by
+  the StitchFoundry cloud service, not a separate account.
 
 ## Open decisions (the owner's)
 - Whether PatternFoundry is its own app (as planned) or a mode inside StitchFoundry.
 - Which drafting methods to implement first (by the books or courses the owner's users follow).
-- Pricing of AI help (StitchFoundry's credits and account, or separate).
 
 ## Progress log
 - 2026-10-19, **PF-0**: VectorCraft 0.13.1 (upstream `a466625c`) merged with its history

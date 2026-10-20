@@ -98,6 +98,18 @@ detail behind each step, with page numbers, is in `docs/debug-book-notes.md`.
   oracle is our own code or a published spec, never another vendor's program), or change the
   requirement (ch. 30). Disable rather than delete, and record the debt (pp. 215-219).
 
+## This project (PatternFoundry)
+
+- **Fast loops, not the full CI** (it takes about an hour once VectorCraft is in): run the one
+  failing test (`cargo test -p <crate> --lib <name>`), and run commands on their own with the CLI
+  (`run --cmd <id> --params '<json>' --export out.png`), as StitchFoundry does.
+- **True scale:** when a print or export is off, measure the 10 cm test square in the output file
+  itself (PDF or SVG coordinates), not on screen; follow the size from the measurement table
+  through the draft to the export to find where it first goes wrong.
+- **Measurements are personal data:** use made-up measurement sets in repros and tests, never a
+  user's.
+- Debugging logs go in `docs/debug-logs/` (link them from the commit message).
+
 ## Anti-patterns (avoid)
 
 - Changing things one at a time hoping a test turns green (desperate guesses, ch. 4).
