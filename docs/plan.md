@@ -159,12 +159,14 @@ is built on, plus a pattern mode, the way StitchFoundry adds embroidery:
   (`design.pleat`, PF-5.4): a parallel spread of twice the pleat's depth along a line from one
   point to another, folding toward the side that stays, with its fold line (solid, an arrow to the
   placement line) and placement line (dashed) added in the piece, so they move with it; a command
-  only for now (it needs a depth). Tests: 9 in `pf-core`, 7 engine tests (`tests_design.rs`). Not
-  yet (PF-5.x): box and inverted pleats, gathering marks, notches at a pleat's ends, collars,
-  pockets; more truing (walking seams with notches, smoothing curves across seams, the princess
-  seam curved through the bust); dart shortening from the bust point; design steps replayed when
-  the measurements change; the sewing terms in the translations checked by sewists who speak each
-  language.
+  only for now (it needs a depth). **Inverted pleats** (`design.pleat` with `kind: "inverted"`,
+  PF-5.5): four times the depth, both edges folded to the middle, two fold lines and arrows and
+  one placement line. Tests: 10 in `pf-core`, 8 engine tests (`tests_design.rs`). Not yet
+  (PF-5.x): box pleats (they need a box width: two slashes), gathering marks, notches at a pleat's
+  ends, collars, pockets; more truing (walking seams with notches, smoothing curves across seams,
+  the princess seam curved through the bust); dart shortening from the bust point; design steps
+  replayed when the measurements change; the sewing terms in the translations checked by sewists
+  who speak each language.
 - 2026-10-20, **PF-4.1**: the one-piece straight sleeve block (`block.sleeve`, Pattern › Draft
   Sleeve Block), Natalie Bray's method from a public tutorial: the crown depth from the top arm by
   the tutorial's table, 5 cm ease round the top arm, the crown through marks on the back and front
