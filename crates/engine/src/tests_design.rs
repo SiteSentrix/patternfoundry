@@ -398,3 +398,42 @@ fn a_patch_pocket_and_its_placement_on_the_skirt() {
         assert!(s.execute("design.pocket", &p).is_err(), "{p}");
     }
 }
+
+#[test]
+fn walking_the_skirt_side_seams_notches_both_alike() {
+    let mut s = Session::new();
+    s.execute("file.new", &json!({"width": 1400, "height": 1000})).unwrap();
+    s.execute("measure.set", &json!({"values": {"waist": 680, "hip": 940, "waist_to_hip": 200, "skirt_length": 600}})).unwrap();
+    let r = s.execute("block.skirt", &json!({"origin": [0, 0]})).unwrap();
+    let (back, front) = (r["ids"][0].as_u64().unwrap(), r["ids"][1].as_u64().unwrap());
+    // Before they are pieces: lengths only. The back's side seam runs from its top (4) down to
+    // the hem (6); the front's from its top (4) back round to the hem (2), the other way along
+    // its outline.
+    let seams = json!({"a": {"id": back, "from": 4, "to": 6}, "b": {"id": front, "from": 4, "to": 2}});
+    let w = s.execute("design.walk", &seams).unwrap();
+    assert!(w["difference"].as_f64().unwrap().abs() < 0.01 && w["a"].as_f64().unwrap() > 600.0, "{w}");
+    let mut with = seams.clone();
+    with["every"] = json!(100);
+    assert!(s.execute("design.walk", &with).is_err());
+    // As pieces: a notch every 10 cm on both, in one undo step.
+    s.execute("select.set", &json!({"ids": [back, front]})).unwrap();
+    let pieces = s.execute("piece.make", &json!({})).unwrap();
+    let (gb, gf) = (pieces["ids"][0].as_u64().unwrap(), pieces["ids"][1].as_u64().unwrap());
+    let w = s.execute("design.walk", &with).unwrap();
+    let count = w["notches"].as_u64().unwrap();
+    assert_eq!(count, (w["a"].as_f64().unwrap() / 100.0).floor() as u64);
+    // A piece without notches leaves the list out.
+    let notches = |g: u64, s: &mut Session| s.execute("piece.info", &json!({"id": g})).unwrap()["notches"].as_array().cloned().unwrap_or_default();
+    let (nb, nf) = (notches(gb, &mut s), notches(gf, &mut s));
+    assert_eq!((nb.len() as u64, nf.len() as u64), (count, count));
+    // The first, 10 cm down the hip curve: the back's edge 4 from its start, the front's edge 3
+    // from its end.
+    let (b0, f0) = (&nb[0], &nf[nf.len() - 1]);
+    assert_eq!((b0["edge"].as_u64(), f0["edge"].as_u64()), (Some(4), Some(3)), "{nb:?} {nf:?}");
+    assert!((b0["at"].as_f64().unwrap() - (1.0 - f0["at"].as_f64().unwrap())).abs() < 1e-6);
+    s.execute("edit.undo", &json!({})).unwrap();
+    assert!(notches(gb, &mut s).is_empty());
+    let mut far = seams.clone();
+    far["notches"] = json!([5000]);
+    assert!(s.execute("design.walk", &far).is_err());
+}
