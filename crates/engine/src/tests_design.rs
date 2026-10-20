@@ -210,3 +210,34 @@ fn slash_and_spread_flares_the_skirt_at_the_hem() {
     }
     assert_eq!(points(&s, id), after);
 }
+
+#[test]
+fn a_neck_facing_ends_on_the_shoulder_and_the_centre_front() {
+    let (mut s, id) = front();
+    s.execute("design.rotateDart", &json!({"id": id.0, "apex": 11, "toAnchor": 8})).unwrap();
+    let body = points(&s, id);
+    // The neck runs from the neck point (0) to the centre front (1); the shoulder ends at 0.
+    let (neck, cf, shoulder) = (body[0], body[1], body[body.len() - 1]);
+    let r = s.execute("design.facing", &json!({"id": id.0, "from": 0, "to": 1, "width": 50})).unwrap();
+    let f = NodeId(r["id"].as_u64().unwrap());
+    assert_eq!(s.doc().unwrap().doc.node(f).unwrap().name.as_deref(), Some("Front Bodice Block Facing"));
+    let pts = points(&s, f);
+    assert_eq!((pts[0], pts[1]), (neck, cf));
+    // The inner end at the centre front is on the centre front (straight down from it), at least
+    // the width below; the one at the shoulder on the shoulder line, past the neck point.
+    let (cf_end, shoulder_end) = (pts[2], pts[pts.len() - 1]);
+    assert!((cf_end.x - cf.x).abs() < 1e-6 && cf_end.y - cf.y >= mm_to_pt(50.0) - 1e-6, "{cf_end:?} {cf:?}");
+    let (u, v) = (shoulder - neck, shoulder_end - neck);
+    assert!((u.x * v.y - u.y * v.x).abs() / u.hypot() < 1e-6 && u.x * v.x + u.y * v.y > 0.0);
+    // The body isn't changed; the facing is one undo step.
+    assert_eq!(points(&s, id), body);
+    s.execute("edit.undo", &json!({})).unwrap();
+    assert!(s.doc().unwrap().doc.node(f).is_none());
+    // Two selected points: the shorter way round, the same facing.
+    s.execute("select.anchors", &json!({"id": id.0, "anchors": [[0, 1], [0, 0]]})).unwrap();
+    let r = s.execute("design.facing", &json!({"width": 50})).unwrap();
+    assert_eq!(points(&s, NodeId(r["id"].as_u64().unwrap())), pts);
+    for p in [json!({"id": id.0, "from": 0, "to": 0}), json!({"id": id.0, "from": 0, "to": 1, "width": 0}), json!({"id": id.0, "from": 0})] {
+        assert!(s.execute("design.facing", &p).is_err(), "{p}");
+    }
+}

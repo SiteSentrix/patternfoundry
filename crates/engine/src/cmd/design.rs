@@ -1,7 +1,7 @@
 //! Design tools (PF-5) on paths and pieces' seam lines: `design.rotateDart` pivots a dart to
 //! another place on the outline, `design.split` cuts an outline in two (a princess seam through
 //! the bust point), `design.spread` slashes and spreads an outline (flare, fullness),
-//! `design.length` measures along an outline and `design.matchLength` trues a seam to a length or
+//! `design.facing` makes a facing for an edge, `design.length` measures along an outline and `design.matchLength` trues a seam to a length or
 //! to another seam (seams that sew together).
 //! The geometry is [`pf_core::design`]. A block part or a drafted path that is changed this way
 //! no longer follows the measurements (its points are no longer the block's).
@@ -31,6 +31,15 @@ pub fn specs() -> Vec<CommandSpec> {
             "{id? (a path or a piece; default: the selection), from: anchor | [x, y] (document points on the outline: where it opens), to: anchor | [x, y] (the slash's other end), amount: mm (how far it opens at from), mode?: \"hinge\" (default: the gap closes to nothing at to; flare) | \"parallel\" (both ends open; even fullness or a pleat)} slash the outline straight from one point to another and spread it open; the points from `from` forward to `to` stay → {id, anchors}",
             has_doc,
             spread
+        ),
+        cmd!(
+            "design.facing",
+            "Make Facing",
+            ["Pattern"],
+            None,
+            "{id? (a path or a piece; default: the selection), from: anchor | [x, y] (document points on the outline), to: anchor | [x, y] (the edge to face runs from one forward to the other), width?: mm (50)} a facing for an edge (without from and to: between two selected points, the shorter way round) (a neckline, an armhole): a new path whose outer edge is that run of the outline and whose inner edge is the run moved the width inward, its ends along the seams either side; put above the path or its piece → {id, anchors}",
+            has_doc,
+            facing
         ),
         cmd!(
             "design.split",
@@ -379,4 +388,52 @@ fn spread(s: &mut Session, p: &Value) -> Result<Value> {
         Ok(())
     })?;
     Ok(json!({"id": id.0, "anchors": count}))
+}
+
+fn facing(s: &mut Session, p: &Value) -> Result<Value> {
+    const CMD: &str = "design.facing";
+    let id = super::measure::target_path(s, p, CMD)?;
+    let doc = &s.doc()?.doc;
+    let mut ring = ring_of(doc, id, CMD)?;
+    let width = match p.get("width") {
+        None | Some(Value::Null) => 50.0,
+        Some(v) => v.as_f64().filter(|w| w.is_finite() && *w > 0.0).ok_or_else(|| bad(CMD, "width: mm, more than 0"))?,
+    };
+    let (from, to) = if p.get("from").is_none() && p.get("to").is_none() {
+        // Two selected points: the shorter way round between them.
+        let [a, b] = selected_points(s, id)?[..] else {
+            return Err(bad(CMD, "select two points of one path: the ends of the edge to face"));
+        };
+        if along(&ring, a, b) <= along(&ring, b, a) { (a, b) } else { (b, a) }
+    } else {
+        let (mut from, _) = place(&mut ring, p, "from", CMD)?;
+        let (to, inserted) = place(&mut ring, p, "to", CMD)?;
+        if inserted && to <= from {
+            from += 1;
+        }
+        (from, to)
+    };
+    let out = pf_core::design::facing(&ring, from, to, pf_core::mm_to_pt(width)).map_err(|e| err(CMD, e))?;
+    // Named after the piece, or the path; put above the piece (or the path).
+    let group = doc.parent_of(id).filter(|_| in_piece(doc, id));
+    let base = match group.and_then(|g| doc.node(g)).and_then(|g| g.extras().pattern.as_deref().and_then(pf_core::PatternTag::piece)) {
+        Some(piece) if !piece.name.is_empty() => Some(piece.name.clone()),
+        _ => doc.node(id).and_then(|n| n.name.clone()),
+    };
+    let name = base.map_or_else(|| "Facing".to_string(), |b| format!("{b} Facing"));
+    let anchor = group.unwrap_or(id);
+    let count = out.len();
+    let new = s.edit("Make Facing", |d, sel| {
+        let fid = d.alloc_id();
+        let mut n = Node::path(
+            fid,
+            path_of(&out),
+            vectorcraft_doc::Appearance::basic(vectorcraft_color::Paint::None, vectorcraft_color::Paint::solid(vectorcraft_color::Color::BLACK), 1.0),
+        );
+        n.name = Some(name);
+        d.insert_beside(vec![(anchor, vec![n])], false)?;
+        sel.set([fid]);
+        Ok(fid)
+    })?;
+    Ok(json!({"id": new.0, "anchors": count}))
 }

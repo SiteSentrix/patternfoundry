@@ -1,8 +1,9 @@
 # PatternFoundry: the plan
 
-**Status:** 2026-10-19. PF-0 to PF-4 done and PF-5 started: PatternFoundry is VectorCraft renamed, with
-pattern pieces, true-scale printing, drafting from measurements, bodice and skirt blocks, and
-dart rotation, splitting and slash and spread (a princess-seam bodice from the block). Owner: Bruce Wattendorf (SiteSentrix).
+**Status:** 2026-10-20. PF-0 to PF-4 done and PF-5 started: PatternFoundry is VectorCraft
+renamed, with pattern pieces, true-scale printing, drafting from measurements, bodice and skirt
+blocks, and the first design tools (dart rotation, splitting, slash and spread, seam matching,
+facings: a princess-seam bodice from the block). Owner: Bruce Wattendorf (SiteSentrix).
 
 ## What it is
 Software for designing sewing patterns, for home sewists, small pattern designers and small
@@ -128,23 +129,27 @@ is built on, plus a pattern mode, the way StitchFoundry adds embroidery:
   tests (`tests_block.rs`). Not yet: sleeve and trouser blocks (PF-4.1, PF-4.2), a block panel
   with the method's options (ease, dart sizes), the bodice's armhole checked against the sleeve
   head once the sleeve exists.
-- 2026-10-19, **PF-5** (first part): design tools. **Rotate Dart** (`design.rotateDart`: the
+- 2026-10-19/20, **PF-5** (design tools, first parts). **Rotate Dart** (`design.rotateDart`: the
   pivot method; the side of the outline with fewer points swings round the dart's point so the
   dart opens elsewhere on the outline, at a point or anchor; all of it or a share, leaving two
   darts) and **Split at Points** (`design.split`: a closed path cut in two between two points,
   each part closed by a straight seam; at a point two darts share, no seam is added), in the
-  Pattern menu (with two or one selected points); `design.length` measures along an outline to
-  true seams that sew together. Works on a piece's seam line too (the piece redraws; a split
-  needs the piece released first). A block part changed this way stops following the
-  measurements. Geometry in `pf_core::design`. The milestone: a princess-seam bodice from the
-  front block (bust dart into the armhole, split through the bust point; the two princess seams
-  match within the front waist's slope). **Slash and spread** (`design.spread`): the outline cut
+  Pattern menu (with two or one selected points); `design.length` measures along an outline. Works
+  on a piece's seam line too (the piece redraws; a split needs the piece released first). A block
+  part changed this way stops following the measurements. Geometry in `pf_core::design`. The
+  milestone: a princess-seam bodice from the front block (bust dart into the armhole, split
+  through the bust point). **Slash and spread** (`design.spread`, PF-5.1): the outline cut
   straight between two points (anchors, or points on it) and opened by an amount, hinged at the
-  far end (flare: a skirt widened at the hem, its waist kept) or parallel (even fullness, room
-  for a pleat); commands only for now (it needs an amount: a dialog later). **Truing**
+  far end (flare: a skirt widened at the hem, its waist kept) or parallel (even fullness, room for
+  a pleat); a command only for now (it needs an amount: a dialog later). **Truing**
   (`design.matchLength`, PF-5.2): a seam's end point moves along the seam until the seam is a
-  given length or as long as another seam (the princess seams then match exactly). Tests: 6 in
-  `pf-core`, 5 engine tests (`tests_design.rs`). Not yet (PF-5.x): pleat and gathering marks, facings, collars,
-  pockets; more truing (walking seams with notches, smoothing curves across seams, the princess seam curved through
-  the bust); dart shortening from the bust point; design steps replayed when the measurements
-  change.
+  given length or as long as another seam (the princess seams then match exactly). **Facings**
+  (`design.facing`, PF-5.3; Pattern › Make Facing with two selected points): a new path whose
+  outer edge is a run of the outline (a neckline, an armhole) and whose inner edge is that run
+  moved inward by the width (5 cm unless given; curves cut into pieces that turn at most 1/32 of a
+  turn, within 0.05 mm of the true offset), its ends along the seams either side. Tests: 8 in
+  `pf-core`, 6 engine tests (`tests_design.rs`). Not yet (PF-5.x): pleat and gathering marks,
+  collars, pockets; more truing (walking seams with notches, smoothing curves across seams, the
+  princess seam curved through the bust); dart shortening from the bust point; design steps
+  replayed when the measurements change; the sewing terms in the translations checked by sewists
+  who speak each language.

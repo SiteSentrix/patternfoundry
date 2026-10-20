@@ -13,6 +13,9 @@
 //! **Slash and spread** cuts the outline straight between two anchors and opens it: hinged at
 //! the far end (flare: the gap closes to nothing there) or parallel (even fullness, a pleat).
 //!
+//! **Facings** copy a run of the outline (a neckline, an armhole) and move it inward by the
+//! facing's width for the facing's inner edge; its ends follow the seams beside the run.
+//!
 //! **Splitting** cuts the ring between two anchors into two rings, each closed by a straight seam
 //! between them; when the two anchors are at the same place (a bust point two darts share) the
 //! seam is the darts' legs on each side and nothing is added.
@@ -305,6 +308,143 @@ pub fn spread(ring: &[Knot], from: usize, to: usize, amount: f64, how: Spread) -
     Ok(out)
 }
 
+/// Twice the outline's signed area (shoelace, on the anchors): its sign says which side is in.
+fn signed_area2(ring: &[Knot]) -> f64 {
+    let n = ring.len();
+    (0..n).map(|i| ring[i].p.cross(ring[(i + 1) % n].p)).sum()
+}
+
+/// Where the lines through `a` along `da` and through `b` along `db` cross, if they aren't
+/// (nearly) parallel.
+fn cross_lines(a: Pt, da: Pt, b: Pt, db: Pt) -> Option<Pt> {
+    let den = da.cross(db);
+    (den.abs() > 1e-9).then(|| a + da * ((b - a).cross(db) / den))
+}
+
+/// The cubic from `p0` to `p3` moved `w` to its left (in the shoelace sense: inward on an outline
+/// of positive area), by its control polygon: each leg moved square to itself, the inner
+/// controls where the moved legs cross. A handle on its anchor takes the chord's direction.
+fn offset_cubic(p0: Pt, p1: Pt, p2: Pt, p3: Pt, w: f64) -> [Pt; 4] {
+    let left = |d: Pt| d.unit().map(|u| Pt::new(-u.y, u.x) * w);
+    let chord = p3 - p0;
+    let Some(nc) = left(chord) else { return [p0, p1, p2, p3] };
+    let line = (p1 - p0).len() < 1e-9 && (p3 - p2).len() < 1e-9;
+    if line {
+        return [p0 + nc, p0 + nc, p3 + nc, p3 + nc];
+    }
+    let d01 = if (p1 - p0).len() > 1e-9 { p1 - p0 } else { p2 - p0 };
+    let d23 = if (p3 - p2).len() > 1e-9 { p3 - p2 } else { p3 - p1 };
+    let d12 = if (p2 - p1).len() > 1e-9 { p2 - p1 } else { chord };
+    let (n01, n12, n23) = (left(d01).unwrap_or(nc), left(d12).unwrap_or(nc), left(d23).unwrap_or(nc));
+    let (q0, q3) = (p0 + n01, p3 + n23);
+    let q1 = if (p1 - p0).len() > 1e-9 { cross_lines(q0, d01, p1 + n12, d12).unwrap_or(p1 + n01) } else { q0 };
+    let q2 = if (p3 - p2).len() > 1e-9 { cross_lines(p2 + n12, d12, q3, d23).unwrap_or(p2 + n23) } else { q3 };
+    [q0, q1, q2, q3]
+}
+
+/// A cubic cut into pieces that each turn at most a thirty-second of a turn (a straight one stays
+/// whole), so moving each by its control polygon stays close to the true offset.
+fn pieces(c: [Pt; 4]) -> Vec<[Pt; 4]> {
+    let [p0, p1, p2, p3] = c;
+    let start = if (p1 - p0).len() > 1e-9 { p1 - p0 } else { p2 - p0 };
+    let end = if (p3 - p2).len() > 1e-9 { p3 - p2 } else { p3 - p1 };
+    let turned = if start.len() > 1e-9 && end.len() > 1e-9 { turn(Pt::new(0.0, 0.0), start, end).abs() } else { 0.0 };
+    let count = ((turned / (std::f64::consts::PI / 16.0)).ceil() as usize).clamp(1, 32);
+    let mut out = Vec::with_capacity(count);
+    let mut rest = c;
+    for k in 0..count {
+        if k + 1 == count {
+            out.push(rest);
+            break;
+        }
+        let t = 1.0 / (count - k) as f64;
+        let [a, b, cc, d] = rest;
+        let lerp = |x: Pt, y: Pt| x + (y - x) * t;
+        let (ab, bc, cd) = (lerp(a, b), lerp(b, cc), lerp(cc, d));
+        let (abc, bcd) = (lerp(ab, bc), lerp(bc, cd));
+        let m = lerp(abc, bcd);
+        out.push([a, ab, abc, m]);
+        rest = [m, bcd, cd, d];
+    }
+    out
+}
+
+/// A facing for the outline's edge from anchor `from` forward to anchor `to`: a piece whose
+/// outer edge is that run of the outline (curves and all) and whose inner edge is the run moved
+/// `width` inward. Its ends follow the outline's edges either side (a neck facing ends along the
+/// shoulder seam and the centre front), or run square to the edge where those turn away.
+pub fn facing(ring: &[Knot], from: usize, to: usize, width: f64) -> Result<Vec<Knot>, DesignError> {
+    let n = ring.len();
+    if n < 3 || from >= n || to >= n || from == to {
+        return Err(DesignError::BadAnchor("a facing runs between two different points of the outline"));
+    }
+    if !(width.is_finite() && width > 0.0) {
+        return Err(DesignError::BadAmount);
+    }
+    let area = signed_area2(ring);
+    if area.abs() < 1e-9 {
+        return Err(DesignError::BadAnchor("the outline encloses no area"));
+    }
+    let w = width * area.signum();
+    let idx: Vec<usize> = run(n, from, to).collect();
+    if idx.len() == n + 1 || idx.len() > n {
+        return Err(DesignError::BadAnchor("a facing runs along part of the outline"));
+    }
+    // The inner edge: each segment moved inward; where neighbours don't meet (a corner), a
+    // straight join.
+    let mut inner: Vec<Knot> = Vec::new();
+    for pair in idx.windows(2) {
+        let (a, b) = (ring[pair[0]], ring[pair[1]]);
+        for [p0, p1, p2, p3] in pieces([a.p, a.h_out, b.h_in, b.p]) {
+            let [q0, q1, q2, q3] = offset_cubic(p0, p1, p2, p3, w);
+            match inner.last_mut() {
+                Some(last) if (last.p - q0).len() < 1e-6 => last.h_out = q1 + (last.p - q0),
+                _ => inner.push(Knot { p: q0, h_in: q0, h_out: q1 }),
+            }
+            inner.push(Knot { p: q3, h_in: q2, h_out: q3 });
+        }
+    }
+    // The ends along the neighbouring edges: where the inner edge's end tangent meets the line of
+    // the outline's next edge out, if that is within a few widths; else square.
+    let (first, last) = (inner[0], inner[inner.len() - 1]);
+    let start_dir = if (first.h_out - first.p).len() > 1e-9 { first.h_out - first.p } else { inner[1].p - first.p };
+    let end_dir = if (last.p - last.h_in).len() > 1e-9 { last.p - last.h_in } else { last.p - inner[inner.len() - 2].p };
+    let before = ring[(from + n - 1) % n].p - ring[from].p;
+    let after = ring[(to + 1) % n].p - ring[to].p;
+    let limit = 3.0 * width;
+    let start =
+        cross_lines(ring[from].p, before, first.p, start_dir).filter(|q| (*q - ring[from].p).len() < limit && (*q - ring[from].p).dot(before) > 0.0);
+    let end = cross_lines(ring[to].p, after, last.p, end_dir).filter(|q| (*q - ring[to].p).len() < limit && (*q - ring[to].p).dot(after) > 0.0);
+    if let Some(q) = start {
+        let k = &mut inner[0];
+        let d = q - k.p;
+        *k = Knot { p: q, h_in: q, h_out: k.h_out + d };
+    }
+    if let Some(q) = end {
+        let i = inner.len() - 1;
+        let k = &mut inner[i];
+        let d = q - k.p;
+        *k = Knot { p: q, h_in: k.h_in + d, h_out: q };
+    }
+    // Round the ring: the outline's run, then the inner edge back (handles swapped).
+    let mut out: Vec<Knot> = idx.iter().map(|&i| ring[i]).collect();
+    if let Some(f) = out.first_mut() {
+        f.h_in = f.p;
+    }
+    if let Some(l) = out.last_mut() {
+        l.h_out = l.p;
+    }
+    out.extend(inner.iter().rev().map(|k| Knot { p: k.p, h_in: k.h_out, h_out: k.h_in }));
+    if let Some(l) = out.last_mut() {
+        l.h_out = l.p;
+    }
+    let m = idx.len();
+    if let Some(k) = out.get_mut(m) {
+        k.h_in = k.p;
+    }
+    Ok(out)
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -436,5 +576,48 @@ mod tests {
         assert!(spread(&r, 4, 1, 0.0, Spread::Hinge).is_err());
         assert!(spread(&r, 4, 1, 700.0, Spread::Hinge).is_err());
         assert!(spread(&r, 4, 9, 10.0, Spread::Hinge).is_err());
+    }
+
+    #[test]
+    fn a_facing_follows_its_edge_and_ends_along_the_seams_beside_it() {
+        // A bodice-like outline (shoelace area positive in either orientation is handled): a
+        // straight neck from (40, 0) to (100, 60), the shoulder up and left of it, the centre
+        // front straight down.
+        let r = ring(&[(0.0, 0.0), (40.0, 0.0), (100.0, 60.0), (100.0, 300.0), (0.0, 300.0)]);
+        let f = facing(&r, 1, 2, 30.0).unwrap();
+        assert_eq!(f.len(), 4);
+        assert!(near(f[0].p, Pt::new(40.0, 0.0)) && near(f[1].p, Pt::new(100.0, 60.0)));
+        // The inner edge is 30 inside the neck, its ends on the shoulder (y = 0) and the centre
+        // front (x = 100).
+        let off = 30.0 * std::f64::consts::SQRT_2;
+        assert!(near(f[2].p, Pt::new(100.0, 60.0 + off)), "{:?}", f[2].p);
+        assert!(near(f[3].p, Pt::new(40.0 - off, 0.0)), "{:?}", f[3].p);
+        // The other way round the outline: the same facing.
+        let rev: Vec<Knot> = r.iter().rev().copied().collect();
+        let g = facing(&rev, 2, 3, 30.0).unwrap();
+        assert!(g.iter().any(|k| near(k.p, Pt::new(100.0, 60.0 + off))) && g.iter().any(|k| near(k.p, Pt::new(40.0 - off, 0.0))));
+        assert!(facing(&r, 1, 1, 30.0).is_err() && facing(&r, 1, 2, 0.0).is_err() && facing(&r, 1, 7, 30.0).is_err());
+    }
+
+    #[test]
+    fn a_curved_facing_keeps_its_width() {
+        // A quarter circle of radius 100 about (0, 0) as the neck: from (100, 0) to (0, 100),
+        // the rest of the outline outside it.
+        let k = 0.552_284_749_8 * 100.0;
+        let mut r = ring(&[(100.0, 0.0), (0.0, 100.0), (0.0, 300.0), (300.0, 300.0), (300.0, 0.0)]);
+        r[0].h_out = Pt::new(100.0, k);
+        r[1].h_in = Pt::new(k, 100.0);
+        let f = facing(&r, 0, 1, 20.0).unwrap();
+        // The inner edge, in pieces, is a quarter circle of radius 120 within a twentieth of a mm.
+        let inner = &f[2..];
+        assert!(inner.len() >= 4);
+        for w in inner.windows(2) {
+            let (a, b) = (w[0], w[1]);
+            for t in [0.0, 0.25, 0.5, 0.75] {
+                let mt = 1.0 - t;
+                let p = a.p * (mt * mt * mt) + a.h_out * (3.0 * mt * mt * t) + b.h_in * (3.0 * mt * t * t) + b.p * (t * t * t);
+                assert!((p.len() - 120.0).abs() < 0.05, "{t}: {}", p.len());
+            }
+        }
     }
 }
