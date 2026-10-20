@@ -179,12 +179,15 @@ is built on, plus a pattern mode, the way StitchFoundry adds embroidery:
   shorter way round its outline; their lengths and the difference, and with `notches` or `every`
   matching notches at the same distances along both pieces, in one undo step. Walking the skirt
   block's side seams found the front's 0.23 mm shorter (its hip curve's handles left out the rise
-  above the waist line); fixed, they now match. Tests: 13 in `pf-core`, 12 engine tests
-  (`tests_design.rs`). Not yet (PF-5.x): box pleats (they need a box width: two slashes), notches
-  at a pleat's ends, shirt and stand collars, in-seam and welt pockets; more truing (smoothing
-  curves across seams, the princess seam curved through the bust); dart shortening from the bust
-  point; design steps replayed when the measurements change; the sewing terms in the translations
-  checked by sewists who speak each language.
+  above the waist line); fixed, they now match. **Smoothing across a seam** (`design.smooth`,
+  PF-5.10): where a hem, waist, neckline or armhole meets a seam on two pieces that sew together,
+  both curves' handles are turned to one line (the second piece laid against the first along the
+  seam), so the curve runs on without a corner once sewn; handle lengths are kept and the corner
+  there was is reported. Tests: 14 in `pf-core`, 13 engine tests (`tests_design.rs`). Not yet
+  (PF-5.x): box pleats (they need a box width: two slashes), notches at a pleat's ends, shirt and
+  stand collars, in-seam and welt pockets; more truing (the princess seam curved through the
+  bust); dart shortening from the bust point; design steps replayed when the measurements change;
+  the sewing terms in the translations checked by sewists who speak each language.
 - 2026-10-20, **PF-4.1**: the one-piece straight sleeve block (`block.sleeve`, Pattern › Draft
   Sleeve Block), Natalie Bray's method from a public tutorial: the crown depth from the top arm by
   the tutorial's table, 5 cm ease round the top arm, the crown through marks on the back and front

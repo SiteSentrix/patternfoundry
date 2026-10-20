@@ -437,3 +437,35 @@ fn walking_the_skirt_side_seams_notches_both_alike() {
     far["notches"] = json!([5000]);
     assert!(s.execute("design.walk", &far).is_err());
 }
+
+#[test]
+fn smoothing_the_skirt_waist_across_the_side_seam() {
+    let mut s = Session::new();
+    s.execute("file.new", &json!({"width": 1400, "height": 1000})).unwrap();
+    s.execute("measure.set", &json!({"values": {"waist": 680, "hip": 940, "waist_to_hip": 200, "skirt_length": 600}})).unwrap();
+    let r = s.execute("block.skirt", &json!({"origin": [0, 0]})).unwrap();
+    let (back, front) = (NodeId(r["ids"][0].as_u64().unwrap()), NodeId(r["ids"][1].as_u64().unwrap()));
+    let (pb, pf) = (points(&s, back), points(&s, front));
+    // The waist meets the side seam at 4 on both; the seam runs on to 5 on the back, 3 on the
+    // front.
+    let seams = json!({"a": {"id": back.0, "at": 4, "seam": 5}, "b": {"id": front.0, "at": 4, "seam": 3}});
+    let first = s.execute("design.smooth", &seams).unwrap()["corner"].as_f64().unwrap();
+    assert!((0.0..90.0).contains(&first), "{first}");
+    // The points stay put; once smoothed there is no corner left.
+    assert_eq!((points(&s, back), points(&s, front)), (pb.clone(), pf.clone()));
+    let again = s.execute("design.smooth", &seams).unwrap()["corner"].as_f64().unwrap();
+    assert!(again.abs() < 1e-6, "{again}");
+    // One undo step each.
+    s.execute("edit.undo", &json!({})).unwrap();
+    s.execute("edit.undo", &json!({})).unwrap();
+    let again = s.execute("design.smooth", &seams).unwrap()["corner"].as_f64().unwrap();
+    assert!((again - first).abs() < 1e-9);
+    // The seam's other end must be a neighbour; a and b are two pieces.
+    for bad in [
+        json!({"a": {"id": back.0, "at": 4, "seam": 7}, "b": {"id": front.0, "at": 4, "seam": 3}}),
+        json!({"a": {"id": back.0, "at": 4, "seam": 5}, "b": {"id": back.0, "at": 4, "seam": 3}}),
+        json!({"a": {"id": back.0, "at": 4}, "b": {"id": front.0, "at": 4, "seam": 3}}),
+    ] {
+        assert!(s.execute("design.smooth", &bad).is_err(), "{bad}");
+    }
+}

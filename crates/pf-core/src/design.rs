@@ -805,6 +805,80 @@ pub fn patch_pocket(width: f64, depth: f64, hem: f64, corners: PocketCorners) ->
     Ok(Pocket { piece: shape(0.0, hem + depth), fold: [Pt::new(0.0, hem), Pt::new(width, hem)], finished: shape(0.0, depth) })
 }
 
+/// Where a curve meets a seam on one piece: its outline, the anchor the curve and the seam
+/// share, and the anchor at the seam's other end (one of that anchor's neighbours).
+#[derive(Clone, Copy, Debug)]
+pub struct Junction<'a> {
+    pub ring: &'a [Knot],
+    pub at: usize,
+    pub seam: usize,
+}
+
+impl Junction<'_> {
+    /// Whether the curve leaves `at` forward (the seam is behind it), and the curve's direction
+    /// there: its handle, or toward the curve's next anchor when it has none.
+    fn curve(&self) -> Result<(bool, Pt), DesignError> {
+        let n = self.ring.len();
+        if n < 3 || self.at >= n || self.seam >= n {
+            return Err(DesignError::BadAnchor("the meeting point and the seam's other end are points of the outline"));
+        }
+        let k = self.ring[self.at];
+        let forward = if (self.at + n - 1) % n == self.seam {
+            true
+        } else if (self.at + 1) % n == self.seam {
+            false
+        } else {
+            return Err(DesignError::BadAnchor("the seam's other end is a neighbour of the meeting point"));
+        };
+        let (handle, next) = if forward { (k.h_out, self.ring[(self.at + 1) % n].p) } else { (k.h_in, self.ring[(self.at + n - 1) % n].p) };
+        let dir = if (handle - k.p).len() > 1e-9 { handle - k.p } else { next - k.p };
+        dir.unit().map(|d| (forward, d)).ok_or(DesignError::BadAnchor("the curve has no length at the meeting point"))
+    }
+}
+
+/// Smooth the curve across a seam two pieces share: piece `b` is laid against `a` along the
+/// seam (meeting points together, `b`'s body on the seam's other side), and both curves' handles
+/// at the meeting points are turned to one line, so the curve runs on without a corner once
+/// sewn. Handle lengths are kept (a point with no handle gets one a third of the way to the
+/// curve's next point). Returns the two new meeting-point knots and the corner there was, in
+/// radians.
+pub fn smooth_across(a: Junction, b: Junction) -> Result<(Knot, Knot, f64), DesignError> {
+    let (fa, ta) = a.curve()?;
+    let (fb, tb) = b.curve()?;
+    let (pa, pb) = (a.ring[a.at].p, b.ring[b.at].p);
+    let (Some(sa), Some(sb)) = ((a.ring[a.seam].p - pa).unit(), (b.ring[b.seam].p - pb).unit()) else {
+        return Err(DesignError::BadAnchor("a seam has no length"));
+    };
+    // b's directions in a's frame: its seam onto a's, its curve on the seam's other side.
+    let rot = turn(Pt::new(0.0, 0.0), sb, sa);
+    let reflect = sa.cross(rotate(tb, Pt::new(0.0, 0.0), rot)).signum() == sa.cross(ta).signum();
+    let to_a = |v: Pt| {
+        let v = rotate(v, Pt::new(0.0, 0.0), rot);
+        if reflect { sa * (2.0 * v.dot(sa)) - v } else { v }
+    };
+    let to_b = |v: Pt| {
+        let v = if reflect { sa * (2.0 * v.dot(sa)) - v } else { v };
+        rotate(v, Pt::new(0.0, 0.0), -rot)
+    };
+    let tb_a = to_a(tb);
+    let corner = std::f64::consts::PI - turn(Pt::new(0.0, 0.0), ta, tb_a).abs();
+    let u = (ta - tb_a).unit().ok_or(DesignError::BadAnchor("the curves leave the seam the same way"))?;
+    let set = |j: Junction, forward: bool, dir: Pt| -> Knot {
+        let n = j.ring.len();
+        let mut k = j.ring[j.at];
+        let next = if forward { j.ring[(j.at + 1) % n].p } else { j.ring[(j.at + n - 1) % n].p };
+        let old = if forward { k.h_out } else { k.h_in };
+        let len = if (old - k.p).len() > 1e-9 { (old - k.p).len() } else { (next - k.p).len() / 3.0 };
+        if forward {
+            k.h_out = k.p + dir * len;
+        } else {
+            k.h_in = k.p + dir * len;
+        }
+        k
+    };
+    Ok((set(a, fa, u), set(b, fb, to_b(u * -1.0)), corner))
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -1107,5 +1181,38 @@ mod tests {
         ] {
             assert_eq!(bad, Err(DesignError::BadAmount));
         }
+    }
+
+    #[test]
+    fn smoothing_mirror_pieces_across_their_seam_squares_the_curve_to_it() {
+        // A: the seam along the top from (0, 0) to the meeting point (100, 0), the curve (a hem
+        // or armhole) leaving it down and out to (160, 100). B is A's mirror image, drafted
+        // elsewhere.
+        let mut a = ring(&[(0.0, 0.0), (100.0, 0.0), (160.0, 100.0), (0.0, 100.0)]);
+        a[1].h_out = Pt::new(120.0, 40.0);
+        let mirror = |k: &Knot| Knot {
+            p: Pt::new(600.0 - k.p.x, k.p.y),
+            h_in: Pt::new(600.0 - k.h_out.x, k.h_out.y),
+            h_out: Pt::new(600.0 - k.h_in.x, k.h_in.y),
+        };
+        let b: Vec<Knot> = a.iter().rev().map(mirror).collect();
+        // In b (reversed), the meeting point is 2 and the seam's other end 3.
+        assert!(near(b[2].p, Pt::new(500.0, 0.0)) && near(b[3].p, Pt::new(600.0, 0.0)));
+        let ja = Junction { ring: &a, at: 1, seam: 0 };
+        let jb = Junction { ring: &b, at: 2, seam: 3 };
+        let (ka, kb, corner) = smooth_across(ja, jb).unwrap();
+        // There was a corner (each curve 26.6° off square, so 53° together); now both leave the
+        // seam square, straight down, their handles as long as before.
+        assert!((corner - 2.0 * (20.0_f64).atan2(40.0)).abs() < 1e-9, "{corner}");
+        let len = (Pt::new(20.0, 40.0)).len();
+        assert!(near(ka.h_out, Pt::new(100.0, len)) && near(kb.h_in, Pt::new(500.0, len)), "{ka:?} {kb:?}");
+        // Smoothing again finds no corner.
+        let mut a2 = a.clone();
+        a2[1] = ka;
+        let mut b2 = b.clone();
+        b2[2] = kb;
+        let (_, _, again) = smooth_across(Junction { ring: &a2, ..ja }, Junction { ring: &b2, ..jb }).unwrap();
+        assert!(again.abs() < 1e-9);
+        assert!(smooth_across(Junction { seam: 3, ..ja }, jb).is_err());
     }
 }
