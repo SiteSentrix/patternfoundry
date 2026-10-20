@@ -11,7 +11,8 @@
 //! `amount` below 1 only that share of the dart moves and the rest stays open (two darts).
 //!
 //! **Slash and spread** cuts the outline straight between two anchors and opens it: hinged at
-//! the far end (flare: the gap closes to nothing there) or parallel (even fullness, a pleat).
+//! the far end (flare: the gap closes to nothing there) or parallel (even fullness). A knife
+//! pleat is a parallel spread of twice its depth, with its fold and placement lines.
 //!
 //! **Facings** copy a run of the outline (a neckline, an armhole) and move it inward by the
 //! facing's width for the facing's inner edge; its ends follow the seams beside the run.
@@ -445,6 +446,42 @@ pub fn facing(ring: &[Knot], from: usize, to: usize, width: f64) -> Result<Vec<K
     Ok(out)
 }
 
+/// A knife pleat's marks: where to fold, where the fold goes, and an arrow between them (each a
+/// polyline).
+#[derive(Clone, Debug, PartialEq)]
+pub struct PleatMarks {
+    /// The fold line (drawn solid).
+    pub fold: [Pt; 2],
+    /// The placement line the fold is brought to (drawn dashed).
+    pub placement: [Pt; 2],
+    /// The arrow from the fold line to the placement line, across the middle: its shaft, then
+    /// its head.
+    pub arrow: [Vec<Pt>; 2],
+}
+
+/// A knife pleat `depth` deep along the slash from anchor `from` to anchor `to`: the outline
+/// spread parallel by twice the depth (the fabric folded under), the fold toward the side that
+/// stays. `head` is the arrow head's length.
+pub fn pleat(ring: &[Knot], from: usize, to: usize, depth: f64, head: f64) -> Result<(Vec<Knot>, PleatMarks), DesignError> {
+    let out = spread(ring, from, to, 2.0 * depth, Spread::Parallel)?;
+    let n = ring.len();
+    let stay = (to + n - from) % n + 1;
+    let (fold_from, fold_to) = (out[out.len() - 1].p, out[stay].p);
+    let (place_from, place_to) = (ring[from].p, ring[to].p);
+    let (fm, pm) = ((fold_from + fold_to) * 0.5, (place_from + place_to) * 0.5);
+    let across = pm - fm;
+    let (start, tip) = (fm + across * 0.1, fm + across * 0.9);
+    let head = head.min(across.len() * 0.4);
+    let back = (start - tip).unit().unwrap_or(Pt::new(-1.0, 0.0)) * head;
+    let side = Pt::new(-back.y, back.x) * 0.5;
+    let marks = PleatMarks {
+        fold: [fold_from, fold_to],
+        placement: [place_from, place_to],
+        arrow: [vec![start, tip], vec![tip + back + side, tip, tip + back - side]],
+    };
+    Ok((out, marks))
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -619,5 +656,21 @@ mod tests {
                 assert!((p.len() - 120.0).abs() < 0.05, "{t}: {}", p.len());
             }
         }
+    }
+
+    #[test]
+    fn a_knife_pleat_takes_twice_its_depth_and_folds_toward_the_side_that_stays() {
+        let r = panel();
+        let (out, m) = pleat(&r, 4, 1, 20.0, 5.0).unwrap();
+        // Spread 40: the waist and the hem 40 longer.
+        assert!(near(out[4].p, Pt::new(140.0, 0.0)) && near(out[7].p, Pt::new(140.0, 300.0)));
+        // The placement line is the slash, the fold line the moved edge, 40 to the right.
+        assert_eq!(m.placement, [Pt::new(100.0, 300.0), Pt::new(100.0, 0.0)]);
+        assert!(near(m.fold[0], Pt::new(140.0, 300.0)) && near(m.fold[1], Pt::new(140.0, 0.0)));
+        // The arrow points from the fold to the placement line, at mid height.
+        let [shaft, head] = &m.arrow;
+        assert!(shaft[0].x > shaft[1].x && near(shaft[1], Pt::new(104.0, 150.0)));
+        assert!(near(head[1], shaft[1]) && head[0].x > head[1].x && head[2].x > head[1].x);
+        assert!(pleat(&r, 4, 1, 0.0, 5.0).is_err());
     }
 }

@@ -1,7 +1,7 @@
 //! Design tools (PF-5) on paths and pieces' seam lines: `design.rotateDart` pivots a dart to
 //! another place on the outline, `design.split` cuts an outline in two (a princess seam through
 //! the bust point), `design.spread` slashes and spreads an outline (flare, fullness),
-//! `design.facing` makes a facing for an edge, `design.length` measures along an outline and `design.matchLength` trues a seam to a length or
+//! `design.pleat` adds a knife pleat with its marks, `design.facing` makes a facing for an edge, `design.length` measures along an outline and `design.matchLength` trues a seam to a length or
 //! to another seam (seams that sew together).
 //! The geometry is [`pf_core::design`]. A block part or a drafted path that is changed this way
 //! no longer follows the measurements (its points are no longer the block's).
@@ -40,6 +40,15 @@ pub fn specs() -> Vec<CommandSpec> {
             "{id? (a path or a piece; default: the selection), from: anchor | [x, y] (document points on the outline), to: anchor | [x, y] (the edge to face runs from one forward to the other), width?: mm (50)} a facing for an edge (without from and to: between two selected points, the shorter way round) (a neckline, an armhole): a new path whose outer edge is that run of the outline and whose inner edge is the run moved the width inward, its ends along the seams either side; put above the path or its piece → {id, anchors}",
             has_doc,
             facing
+        ),
+        cmd!(
+            "design.pleat",
+            "Add Pleat",
+            ["Pattern"],
+            None,
+            "{id? (a path or a piece; default: the selection), from: anchor | [x, y] (document points on the outline), to: anchor | [x, y] (the pleat's line runs from one to the other), depth: mm (how far it folds under)} a knife pleat: the outline spread parallel by twice the depth, folding toward the side that stays (from forward to to), with its fold line (solid, with an arrow to the placement line) and placement line (dashed) added in the piece or above the path → {id, anchors, fold, placement}",
+            has_doc,
+            pleat
         ),
         cmd!(
             "design.split",
@@ -436,4 +445,58 @@ fn facing(s: &mut Session, p: &Value) -> Result<Value> {
         Ok(fid)
     })?;
     Ok(json!({"id": new.0, "anchors": count}))
+}
+
+fn pleat(s: &mut Session, p: &Value) -> Result<Value> {
+    const CMD: &str = "design.pleat";
+    let id = super::measure::target_path(s, p, CMD)?;
+    let doc = &s.doc()?.doc;
+    let mut ring = ring_of(doc, id, CMD)?;
+    let depth = p
+        .get("depth")
+        .and_then(Value::as_f64)
+        .filter(|d| d.is_finite() && *d > 0.0)
+        .ok_or_else(|| bad(CMD, "depth: how deep the pleat folds under, mm"))?;
+    let (mut from, _) = place(&mut ring, p, "from", CMD)?;
+    let (to, inserted) = place(&mut ring, p, "to", CMD)?;
+    if inserted && to <= from {
+        from += 1;
+    }
+    let (out, marks) = pf_core::design::pleat(&ring, from, to, pf_core::mm_to_pt(depth), pf_core::mm_to_pt(4.0)).map_err(|e| err(CMD, e))?;
+    // The marks go in the piece (they move with it) or above the path.
+    let group = doc.parent_of(id).filter(|_| in_piece(doc, id));
+    let count = out.len();
+    let ids = s.edit("Add Pleat", |d, sel| {
+        let n = d.node(id).ok_or(EngineError::NoNode(id))?;
+        let new = reshaped(n, path_of(&out));
+        if let Some(m) = d.node_mut(id) {
+            *m = new;
+        }
+        let line = |pts: &[Pt]| SubPath::polyline(&pts.iter().map(|q| to_point(*q)).collect::<Vec<_>>(), false);
+        let black = || vectorcraft_color::Paint::solid(vectorcraft_color::Color::BLACK);
+        let fold_id = d.alloc_id();
+        let mut fold = Node::path(
+            fold_id,
+            PathData::new(vec![line(&marks.fold), line(&marks.arrow[0]), line(&marks.arrow[1])]),
+            vectorcraft_doc::Appearance::basic(vectorcraft_color::Paint::None, black(), 0.75),
+        );
+        fold.name = Some("Pleat fold line".into());
+        let place_id = d.alloc_id();
+        let mut dashed = vectorcraft_doc::Appearance::basic(vectorcraft_color::Paint::None, black(), 0.75);
+        if let Some(st) = dashed.stroke_mut() {
+            st.dash = Some(vectorcraft_doc::Dash { pattern: vec![4.0, 2.0], ..Default::default() });
+        }
+        let mut placement = Node::path(place_id, PathData::single(line(&marks.placement)), dashed);
+        placement.name = Some("Pleat placement line".into());
+        match group {
+            Some(g) => {
+                d.insert(Some(g), usize::MAX, placement)?;
+                d.insert(Some(g), usize::MAX, fold)?;
+            }
+            None => d.insert_beside(vec![(id, vec![placement, fold])], false)?,
+        }
+        sel.set([id]);
+        Ok([fold_id, place_id])
+    })?;
+    Ok(json!({"id": id.0, "anchors": count, "fold": ids[0].0, "placement": ids[1].0}))
 }

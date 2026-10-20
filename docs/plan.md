@@ -147,9 +147,13 @@ is built on, plus a pattern mode, the way StitchFoundry adds embroidery:
   (`design.facing`, PF-5.3; Pattern › Make Facing with two selected points): a new path whose
   outer edge is a run of the outline (a neckline, an armhole) and whose inner edge is that run
   moved inward by the width (5 cm unless given; curves cut into pieces that turn at most 1/32 of a
-  turn, within 0.05 mm of the true offset), its ends along the seams either side. Tests: 8 in
-  `pf-core`, 6 engine tests (`tests_design.rs`). Not yet (PF-5.x): pleat and gathering marks,
-  collars, pockets; more truing (walking seams with notches, smoothing curves across seams, the
-  princess seam curved through the bust); dart shortening from the bust point; design steps
-  replayed when the measurements change; the sewing terms in the translations checked by sewists
-  who speak each language.
+  turn, within 0.05 mm of the true offset), its ends along the seams either side. **Knife pleats**
+  (`design.pleat`, PF-5.4): a parallel spread of twice the pleat's depth along a line from one
+  point to another, folding toward the side that stays, with its fold line (solid, an arrow to the
+  placement line) and placement line (dashed) added in the piece, so they move with it; a command
+  only for now (it needs a depth). Tests: 9 in `pf-core`, 7 engine tests (`tests_design.rs`). Not
+  yet (PF-5.x): box and inverted pleats, gathering marks, notches at a pleat's ends, collars,
+  pockets; more truing (walking seams with notches, smoothing curves across seams, the princess
+  seam curved through the bust); dart shortening from the bust point; design steps replayed when
+  the measurements change; the sewing terms in the translations checked by sewists who speak each
+  language.

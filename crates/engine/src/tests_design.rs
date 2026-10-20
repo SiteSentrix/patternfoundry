@@ -241,3 +241,34 @@ fn a_neck_facing_ends_on_the_shoulder_and_the_centre_front() {
         assert!(s.execute("design.facing", &p).is_err(), "{p}");
     }
 }
+
+#[test]
+fn a_knife_pleat_in_a_skirt_piece() {
+    let (mut s, id, before) = skirt_front();
+    s.execute("select.set", &json!({"ids": [id.0]})).unwrap();
+    let g = NodeId(s.execute("piece.make", &json!({"name": "Skirt Front"})).unwrap()["ids"][0].as_u64().unwrap());
+    let top = Point::new((before[7].x + before[0].x) / 2.0, (before[7].y + before[0].y) / 2.0);
+    let hem = Point::new(top.x, before[1].y);
+    let r = s.execute("design.pleat", &json!({"id": g.0, "from": [hem.x, hem.y], "to": [top.x, top.y], "depth": 30})).unwrap();
+    assert_eq!(r["id"], id.0);
+    let after = points(&s, id);
+    assert!(((after[after.len() - 1] - after[0]).hypot() - mm_to_pt(60.0)).abs() < 1e-9);
+    // Both lines are in the piece: they move with it, and survive its redraws.
+    let doc = &s.doc().unwrap().doc;
+    let (fold, placement) = (NodeId(r["fold"].as_u64().unwrap()), NodeId(r["placement"].as_u64().unwrap()));
+    assert_eq!((doc.parent_of(fold), doc.parent_of(placement)), (Some(g), Some(g)));
+    match &doc.node(fold).unwrap().kind {
+        NodeKind::Path { path, .. } => assert_eq!(path.subpaths.len(), 3),
+        _ => panic!("not a path"),
+    }
+    assert!(doc.node(placement).unwrap().appearance.stroke().is_some_and(|st| st.dash.is_some()));
+    assert!(doc.node(fold).unwrap().appearance.stroke().is_some_and(|st| st.dash.is_none()));
+    s.execute("piece.set", &json!({"id": g.0, "allowance": 15})).unwrap();
+    assert!(s.doc().unwrap().doc.node(fold).is_some());
+    // One undo step: the outline back, the marks gone.
+    s.execute("edit.undo", &json!({})).unwrap();
+    s.execute("edit.undo", &json!({})).unwrap();
+    assert_eq!(points(&s, id), before);
+    assert!(s.doc().unwrap().doc.node(fold).is_none());
+    assert!(s.execute("design.pleat", &json!({"id": g.0, "from": [hem.x, hem.y], "to": [top.x, top.y]})).is_err());
+}
