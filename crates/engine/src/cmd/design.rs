@@ -46,7 +46,7 @@ pub fn specs() -> Vec<CommandSpec> {
             "Add Pleat",
             ["Pattern"],
             None,
-            "{id? (a path or a piece; default: the selection), from: anchor | [x, y] (document points on the outline), to: anchor | [x, y] (the pleat's line runs from one to the other), depth: mm (how far it folds under), kind?: \"knife\" (default) | \"inverted\"} a pleat: for a knife pleat the outline spread parallel by twice the depth, folding toward the side that stays (from forward to to); for an inverted pleat four times, both edges folded to the middle. Its fold lines (solid, with arrows to the placements) and placement lines (dashed) added in the piece or above the path → {id, anchors, fold, placement}",
+            "{id? (a path or a piece; default: the selection), from: anchor | [x, y] (document points on the outline), to: anchor | [x, y] (the pleat's line runs from one to the other), depth: mm (how far it folds under), kind?: \"knife\" (default) | \"inverted\" | \"box\"} a pleat: for a knife pleat the outline spread parallel by twice the depth, folding toward the side that stays (from forward to to); for an inverted pleat four times, both edges folded to the middle; for a box pleat four times, folds a depth in from both edges brought out a depth past them. Its fold lines (solid, with arrows to the placements) and placement lines (dashed) added in the piece or above the path → {id, anchors, fold, placement}",
             has_doc,
             pleat
         ),
@@ -510,7 +510,8 @@ fn pleat(s: &mut Session, p: &Value) -> Result<Value> {
     let kind = match str_param(p, "kind") {
         None | Some("knife") => pf_core::design::PleatKind::Knife,
         Some("inverted") => pf_core::design::PleatKind::Inverted,
-        Some(o) => return Err(bad(CMD, format!("kind: \"knife\" or \"inverted\", not {o:?}"))),
+        Some("box") => pf_core::design::PleatKind::Box,
+        Some(o) => return Err(bad(CMD, format!("kind: \"knife\", \"inverted\" or \"box\", not {o:?}"))),
     };
     let (out, marks) = pf_core::design::pleat(&ring, from, to, pf_core::mm_to_pt(depth), kind, pf_core::mm_to_pt(4.0)).map_err(|e| err(CMD, e))?;
     // The marks go in the piece (they move with it) or above the path.

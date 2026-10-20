@@ -64,6 +64,6 @@ Money, legal wording, anything public, domains, and the open decisions in `docs/
 ## Next task
 PF-0 to PF-4 are done (with PF-4.1 and PF-4.2, the sleeve and trouser blocks) and PF-5 has begun
 (dart rotation, splitting, slash and spread, seam length and matching, walking seams, smoothing
-across seams, facings, knife and inverted pleats, gathering marks, flat collars, patch pockets;
-see the progress log in `docs/plan.md`). Next is the rest of **PF-5**: box pleats, shirt and stand
+across seams, facings, knife, inverted and box pleats, gathering marks, flat collars, patch
+pockets; see the progress log in `docs/plan.md`). Next is the rest of **PF-5**: shirt and stand
 collars, and in-seam and welt pockets.
