@@ -171,8 +171,12 @@ is built on, plus a pattern mode, the way StitchFoundry adds embroidery:
   wide unless given, its front rounded to centre front; the neck edge is as long as both
   necklines. Corners where an offset edge turns are now joined by an arc outside and trimmed
   inside (an edge offset twice had spiked out at the neck point: caught by drawing it, then by a
-  test). Tests: 12 in `pf-core`, 10 engine tests (`tests_design.rs`). Not yet (PF-5.x): box pleats
-  (they need a box width: two slashes), notches at a pleat's ends, shirt and stand collars,
+  test). **Patch pockets** (`design.pocket`, PF-5.8): the pocket piece, its finished width and
+  depth plus a hem (2.5 cm unless given) folded inside at the top with its fold line (dashed),
+  square, rounded or pointed at the bottom; with `on` and `at`, the finished outline marked on the
+  garment (dashed, in the piece); a command only for now (it needs a size). Tests: 13 in
+  `pf-core`, 11 engine tests (`tests_design.rs`). Not yet (PF-5.x): box pleats (they need a box
+  width: two slashes), notches at a pleat's ends, shirt and stand collars, in-seam and welt
   pockets; more truing (walking seams with notches, smoothing curves across seams, the princess
   seam curved through the bust); dart shortening from the bust point; design steps replayed when
   the measurements change; the sewing terms in the translations checked by sewists who speak each

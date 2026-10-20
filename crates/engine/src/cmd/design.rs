@@ -1,7 +1,7 @@
 //! Design tools (PF-5) on paths and pieces' seam lines: `design.rotateDart` pivots a dart to
 //! another place on the outline, `design.split` cuts an outline in two (a princess seam through
 //! the bust point), `design.spread` slashes and spreads an outline (flare, fullness),
-//! `design.collar` drafts a flat collar from the bodice's necklines, `design.gather` marks an edge to gather, `design.pleat` adds a knife pleat with its marks, `design.facing` makes a facing for an edge, `design.length` measures along an outline and `design.matchLength` trues a seam to a length or
+//! `design.pocket` makes a patch pocket and its placement mark, `design.collar` drafts a flat collar from the bodice's necklines, `design.gather` marks an edge to gather, `design.pleat` adds a knife pleat with its marks, `design.facing` makes a facing for an edge, `design.length` measures along an outline and `design.matchLength` trues a seam to a length or
 //! to another seam (seams that sew together).
 //! The geometry is [`pf_core::design`]. A block part or a drafted path that is changed this way
 //! no longer follows the measurements (its points are no longer the block's).
@@ -67,6 +67,15 @@ pub fn specs() -> Vec<CommandSpec> {
             "{back: {id (a path or a piece), from?: anchor (centre back at the neck), to?: anchor (the neck point), shoulder?: anchor (the shoulder point)}, front: {id, from?: anchor (the neck point), to?: anchor (centre front at the neck), shoulder?: anchor}, overlap?: mm (30: how far the shoulder points overlap), width?: mm (60), lower?: mm (0; 10 lowers a block's neckline for ease)} a flat (Peter Pan) collar: the front neckline laid against the back's at the neck point, the shoulders overlapping, the collar drawn the width out from the joined neckline with its front rounded to centre front; a bodice block part knows its own points (without back and front: the bodice block's back and front among the selection). The new path goes above the back → {id, neck (mm: the neck edge's length)}",
             has_doc,
             collar
+        ),
+        cmd!(
+            "design.pocket",
+            "Patch Pocket",
+            ["Pattern"],
+            None,
+            "{width: mm, depth: mm (finished), hem?: mm (25: folded inside at the top), corners?: \"square\" (default) | \"round\" | \"point\", radius?: mm (round; a fifth of the smaller side), point?: mm (point; how far the bottom middle drops, a fifth of the width), origin?: [x, y] (document points: the piece's top-left; default 20 mm inside the first artboard), on?: id (a garment path or piece: where the finished pocket is marked), at?: [x, y] (document points: the finished pocket's top-left on it; given with on)} a patch pocket piece (its hem included, make it a pattern piece for its allowance) with its hem fold line (dashed); with on and at, the finished pocket's outline is marked on the garment (dashed, in the piece) → {id, fold, placement?}",
+            has_doc,
+            pocket
         ),
         cmd!(
             "design.split",
@@ -673,4 +682,93 @@ fn collar(s: &mut Session, p: &Value) -> Result<Value> {
         Ok(id)
     })?;
     Ok(json!({"id": new.0, "neck": pt_to_mm(c.neck_length)}))
+}
+
+fn pocket(s: &mut Session, p: &Value) -> Result<Value> {
+    const CMD: &str = "design.pocket";
+    let mm = |k: &str, d: Option<f64>| -> Result<f64> {
+        match (p.get(k), d) {
+            (None | Some(Value::Null), Some(d)) => Ok(d),
+            (None | Some(Value::Null), None) => Err(bad(CMD, format!("{k}: mm"))),
+            (Some(v), _) => v.as_f64().filter(|x| x.is_finite() && *x >= 0.0).ok_or_else(|| bad(CMD, format!("{k}: mm"))),
+        }
+    };
+    let (width, depth, hem) = (mm("width", None)?, mm("depth", None)?, mm("hem", Some(25.0))?);
+    let corners = match str_param(p, "corners") {
+        None | Some("square") => pf_core::design::PocketCorners::Square,
+        Some("round") => pf_core::design::PocketCorners::Round(mm("radius", Some(width.min(depth) / 5.0))?),
+        Some("point") => pf_core::design::PocketCorners::Point(mm("point", Some(width / 5.0))?),
+        Some(o) => return Err(bad(CMD, format!("corners: \"square\", \"round\" or \"point\", not {o:?}"))),
+    };
+    let pk = pf_core::design::patch_pocket(width, depth, hem, corners).map_err(|e| err(CMD, e))?;
+    let doc = &s.doc()?.doc;
+    let point = |k: &str| -> Result<Option<Point>> {
+        match p.get(k) {
+            None | Some(Value::Null) => Ok(None),
+            Some(v) => {
+                let [x, y] = finite_numbers::<2>(v).ok_or_else(|| bad(CMD, format!("{k}: [x, y] in document points")))?;
+                Ok(Some(Point::new(x, y)))
+            }
+        }
+    };
+    let origin = point("origin")?.unwrap_or_else(|| {
+        let o = doc.artboards.first().map_or(Point::ZERO, |a| a.rect.origin());
+        Point::new(o.x + pf_core::mm_to_pt(20.0), o.y + pf_core::mm_to_pt(20.0))
+    });
+    // The placement mark goes on a garment piece (or above a path), its top-left at `at`.
+    let place = match (id_param(p, "on"), point("at")?) {
+        (Some(on), Some(at)) => {
+            let target = super::measure::target_path(s, &json!({"id": on.0}), CMD)?;
+            let group = doc.parent_of(target).filter(|_| in_piece(doc, target));
+            Some((group, target, at))
+        }
+        (None, None) => None,
+        _ => return Err(bad(CMD, "on and at go together: the garment piece and where the pocket's top-left corner goes on it")),
+    };
+    let at_mm = |q: Pt, o: Point| to_pt(Point::new(o.x + pf_core::mm_to_pt(q.x), o.y + pf_core::mm_to_pt(q.y)));
+    let moved = |ks: &[Knot], o: Point| -> Vec<Knot> {
+        ks.iter().map(|k| Knot { p: at_mm(k.p, o), h_in: at_mm(k.h_in, o), h_out: at_mm(k.h_out, o) }).collect()
+    };
+    let piece = moved(&pk.piece, origin);
+    let fold = [at_mm(pk.fold[0], origin), at_mm(pk.fold[1], origin)];
+    let parent = s.doc()?.insertion_parent();
+    let ids = s.edit("Patch Pocket", |d, sel| {
+        let black = || vectorcraft_color::Paint::solid(vectorcraft_color::Color::BLACK);
+        let line = |pts: &[Pt]| SubPath::polyline(&pts.iter().map(|q| to_point(*q)).collect::<Vec<_>>(), false);
+        let dashed = || {
+            let mut a = vectorcraft_doc::Appearance::basic(vectorcraft_color::Paint::None, black(), 0.75);
+            if let Some(st) = a.stroke_mut() {
+                st.dash = Some(vectorcraft_doc::Dash { pattern: vec![4.0, 2.0], ..Default::default() });
+            }
+            a
+        };
+        let pid = d.alloc_id();
+        let mut n = Node::path(pid, path_of(&piece), vectorcraft_doc::Appearance::basic(vectorcraft_color::Paint::None, black(), 1.0));
+        n.name = Some("Patch Pocket".into());
+        d.insert(parent, usize::MAX, n)?;
+        let fid = d.alloc_id();
+        let mut f = Node::path(fid, PathData::single(line(&fold)), dashed());
+        f.name = Some("Pocket hem fold line".into());
+        d.insert(parent, usize::MAX, f)?;
+        let mut mark = None;
+        if let Some((group, target, at)) = place {
+            let mid = d.alloc_id();
+            let mut m = Node::path(mid, path_of(&moved(&pk.finished, at)), dashed());
+            m.name = Some("Pocket placement".into());
+            match group {
+                Some(g) => {
+                    d.insert(Some(g), usize::MAX, m)?;
+                }
+                None => d.insert_beside(vec![(target, vec![m])], false)?,
+            }
+            mark = Some(mid);
+        }
+        sel.set([pid]);
+        Ok((pid, fid, mark))
+    })?;
+    let mut r = json!({"id": ids.0.0, "fold": ids.1.0});
+    if let Some(m) = ids.2 {
+        r["placement"] = json!(m.0);
+    }
+    Ok(r)
 }

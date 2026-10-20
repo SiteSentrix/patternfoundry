@@ -363,3 +363,38 @@ fn a_flat_collar_from_the_bodice_block_is_as_long_as_its_neckline() {
         assert!(s.execute("design.collar", &p).is_err(), "{p}");
     }
 }
+
+#[test]
+fn a_patch_pocket_and_its_placement_on_the_skirt() {
+    let (mut s, id, before) = skirt_front();
+    s.execute("select.set", &json!({"ids": [id.0]})).unwrap();
+    let g = NodeId(s.execute("piece.make", &json!({"name": "Skirt Front"})).unwrap()["ids"][0].as_u64().unwrap());
+    let at = Point::new(before[2].x + mm_to_pt(40.0), before[2].y - mm_to_pt(400.0));
+    let r = s
+        .execute("design.pocket", &json!({"width": 140, "depth": 160, "corners": "round", "origin": [1200, 100], "on": g.0, "at": [at.x, at.y]}))
+        .unwrap();
+    let (pocket, fold, placement) =
+        (NodeId(r["id"].as_u64().unwrap()), NodeId(r["fold"].as_u64().unwrap()), NodeId(r["placement"].as_u64().unwrap()));
+    // The piece: 14 cm wide, 16 cm and the 2.5 cm hem tall, where it was asked for.
+    let b = bounds(&s, pocket);
+    assert!((b.width() - mm_to_pt(140.0)).abs() < 1e-6 && (b.height() - mm_to_pt(185.0)).abs() < 1e-6, "{b:?}");
+    assert!((b.x0 - 1200.0).abs() < 1e-6 && (b.y0 - 100.0).abs() < 1e-6);
+    let doc = &s.doc().unwrap().doc;
+    assert_eq!(doc.node(pocket).unwrap().name.as_deref(), Some("Patch Pocket"));
+    assert!(doc.node(fold).unwrap().appearance.stroke().is_some_and(|st| st.dash.is_some()));
+    // The placement: the finished pocket, in the skirt piece, its top-left where asked.
+    assert_eq!(doc.parent_of(placement), Some(g));
+    let m = bounds(&s, placement);
+    assert!((m.x0 - at.x).abs() < 1e-6 && (m.y0 - at.y).abs() < 1e-6 && (m.height() - mm_to_pt(160.0)).abs() < 1e-6);
+    // It is one undo step; bad input is refused.
+    s.execute("edit.undo", &json!({})).unwrap();
+    assert!(s.doc().unwrap().doc.node(pocket).is_none() && s.doc().unwrap().doc.node(placement).is_none());
+    for p in [
+        json!({"width": 140}),
+        json!({"width": 140, "depth": 160, "corners": "oval"}),
+        json!({"width": 140, "depth": 160, "on": g.0}),
+        json!({"width": 140, "depth": 160, "corners": "round", "radius": 90}),
+    ] {
+        assert!(s.execute("design.pocket", &p).is_err(), "{p}");
+    }
+}
