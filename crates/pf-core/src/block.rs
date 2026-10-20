@@ -380,7 +380,13 @@ pub fn skirt(env: &mut Env) -> Result<Vec<Part>, BlockError> {
             Seg::Line(Pt::new(width, length)),
             Seg::Line(Pt::new(side, length)),
             Seg::Line(Pt::new(side, hip_y)),
-            Seg::Cubic(Pt::new(side, hip_y - hip_y * 0.45), Pt::new(front_side_top.x, front_side_top.y + hip_y * 0.5), front_side_top),
+            // The back's hip curve reversed (its handles from the side seam's full height, the rise
+            // included), so the side seams are as long and sew together.
+            Seg::Cubic(
+                Pt::new(side, hip_y - (hip_y + rise) * 0.45),
+                Pt::new(front_side_top.x, front_side_top.y + (hip_y + rise) * 0.5),
+                front_side_top,
+            ),
             Seg::Line(fd[0]),
             Seg::Line(fd[1]),
             Seg::Line(fd[2]),
