@@ -22,6 +22,14 @@
 //! `sleeve_crown` measurement (the armhole plus the ease to set the sleeve in) the crown depth is
 //! solved so the crown is that long.
 //!
+//! The basic trouser block follows the metric steps published at
+//! <https://www.theshapesoffabric.com/2020/08/16/learn-how-to-draft-the-basic-pants-pattern/>
+//! (the owner's choice, 2026-10-20; the same author as the skirt): half the hip and 2 cm ease wide,
+//! the crotch line 1.5 cm below the crotch depth, crotch extensions of an eighth of the half hip
+//! (3 cm more at the back), the waists a quarter waist and 1.5 cm (front) and 0.5 cm with a
+//! 2 cm × 10 cm dart (back), the hems 1 cm under and over half the hem, the knees from the line
+//! between hem and fork. The curves the page leaves to its drawings are chosen here and marked.
+//!
 //! Every length is in mm, y down, from the draft's origin `O` (the back neck's top-left
 //! construction corner). The back is drawn on the left (centre back at x = 0), the front on the
 //! right (centre front at the right edge), both half-bodies. The sleeve's origin is its shoulder
@@ -42,6 +50,8 @@ pub enum BlockKind {
     Skirt,
     /// The one-piece straight sleeve block.
     Sleeve,
+    /// The basic trouser block: front and back.
+    Trousers,
 }
 
 /// What a drafted path is: which part of which block, and where the block's origin is in the
@@ -103,12 +113,24 @@ pub const SLEEVE_MEASUREMENTS: &[(&str, &str)] = &[
     ("sleeve_length", "from the shoulder point down the outside of the arm to the wrist, the arm a little bent"),
 ];
 
+/// The measurements the trouser block is drafted from (all in mm).
+pub const TROUSER_MEASUREMENTS: &[(&str, &str)] = &[
+    ("waist", "round the natural waist"),
+    ("hip", "round the fullest part of the hips"),
+    ("waist_to_hip", "down the side from the waist to the fullest part of the hips"),
+    ("crotch_depth", "sitting on a flat chair, down the side from the waist to the seat"),
+    ("waist_to_knee", "down the side from the waist to the middle of the knee"),
+    ("waist_to_ankle", "down the side from the waist to the ankle bone"),
+    ("trouser_hem", "round the trouser leg at the hem (a choice, not a body measurement: 46 cm in the source's example)"),
+];
+
 /// The measurements a block is drafted from.
 pub fn measurements(kind: BlockKind) -> &'static [(&'static str, &'static str)] {
     match kind {
         BlockKind::Bodice => BODICE_MEASUREMENTS,
         BlockKind::Skirt => SKIRT_MEASUREMENTS,
         BlockKind::Sleeve => SLEEVE_MEASUREMENTS,
+        BlockKind::Trousers => TROUSER_MEASUREMENTS,
     }
 }
 
@@ -510,12 +532,153 @@ pub fn sleeve(env: &mut Env) -> Result<Vec<Part>, BlockError> {
     Ok(vec![sleeve_part(top_arm, length, depth)])
 }
 
+/// The front and back of the basic trouser block (parts 0 and 1), side by side in one frame: the
+/// top of the frame (the side seams' waist line) at y = 0, the front's half on the left (its
+/// centre front at x = 0), the back's on the right (its centre back at the frame's right edge),
+/// the side seams on the frame's middle line down to the crotch line.
+pub fn trousers(env: &mut Env) -> Result<Vec<Part>, BlockError> {
+    let v = need(env, TROUSER_MEASUREMENTS)?;
+    let &[waist, hip, waist_to_hip, crotch_depth, waist_to_knee, waist_to_ankle, hem] = v.as_slice() else {
+        return Err(BlockError::Missing(vec![]));
+    };
+    let (half_hip, half_waist) = (hip / 2.0, waist / 2.0);
+    // The frame: half the hip and 2 cm ease wide, waist to ankle long; the crotch line 1.5 cm
+    // below the crotch depth.
+    let width = half_hip + 20.0;
+    let side = width / 2.0;
+    let (hip_y, crotch_y, knee_y, hem_y) = (waist_to_hip, crotch_depth + 15.0, waist_to_knee, waist_to_ankle);
+    if !(hip_y < crotch_y && crotch_y < knee_y && knee_y < hem_y) {
+        return Err(BlockError::Impossible("the waist to hip, crotch depth, waist to knee and waist to ankle must come one below the other"));
+    }
+    // The crotch extensions, out from the centre front and the centre back along the crotch
+    // line (the source says only "extended left" and "right": out from the frame's edges, as the
+    // centre lines it draws reach the hip line there).
+    let front_ext = half_hip / 8.0;
+    let back_ext = front_ext + 30.0;
+    let front_fork = Pt::new(-front_ext, crotch_y);
+    let back_fork = Pt::new(width + back_ext, crotch_y);
+    // Centre front: 0.5 cm in from the frame's top-left corner and 1 cm down, straight to the
+    // hip line at the frame's edge. Centre back: 4 cm in from the top-right corner, straight
+    // from the hip line through it and 2.5 cm on, above the frame.
+    let cf_top = Pt::new(5.0, 10.0);
+    let cf_hip = Pt::new(0.0, hip_y);
+    let cb_hip = Pt::new(width, hip_y);
+    let cb_up = (Pt::new(width - 40.0, 0.0) - cb_hip).unit().unwrap_or(Pt::new(0.0, -1.0));
+    let cb_top = Pt::new(width - 40.0, 0.0) + cb_up * 25.0;
+    // The waists: a quarter waist and 1.5 cm at the front, and 0.5 cm at the back (with its
+    // 2 cm dart), each straight from the centre line to the frame's top line.
+    let to_top = |from: Pt, len: f64, dir: f64| -> Option<Pt> {
+        let d2 = len * len - from.y * from.y;
+        (d2 > 0.0).then(|| Pt::new(from.x + dir * d2.sqrt(), 0.0))
+    };
+    let front_len = half_waist / 2.0 + 15.0;
+    let back_len = half_waist / 2.0 + 5.0;
+    let front_side_top = to_top(cf_top, front_len, 1.0).ok_or(BlockError::Impossible("the waist is too small"))?;
+    let back_side_top = to_top(cb_top, back_len, -1.0).ok_or(BlockError::Impossible("the waist is too small"))?;
+    if front_side_top.x >= side || back_side_top.x <= side {
+        return Err(BlockError::Impossible("the waist is wider than the hips with ease"));
+    }
+    let side_hip = Pt::new(side, hip_y);
+    let side_crotch = Pt::new(side, crotch_y);
+    // The crease line (grain) half way between the front fork and the side seam on the crotch
+    // line; the back's as far from the side seam.
+    let front_grain = (front_fork.x + side) / 2.0;
+    let back_grain = side + (side - front_grain);
+    // The hems: half the hem round, 1 cm less at the front and 1 cm more at the back, centred
+    // on the crease lines.
+    let (front_hem, back_hem) = ((hem / 2.0 - 10.0) / 2.0, (hem / 2.0 + 10.0) / 2.0);
+    if front_hem <= 0.0 {
+        return Err(BlockError::Impossible("the hem is too small"));
+    }
+    // The front knee: the straight line from the hem to the fork, 1 cm in at knee level; as far
+    // from the crease on the side seam. The back knee 1 cm wider each side.
+    let fhi = Pt::new(front_grain - front_hem, hem_y);
+    let t = (knee_y - crotch_y) / (hem_y - crotch_y);
+    let on_line = front_fork + (fhi - front_fork) * t;
+    let front_knee = front_grain - (on_line.x + 10.0);
+    if front_knee <= 0.0 {
+        return Err(BlockError::Impossible("the leg is too narrow at the knee"));
+    }
+    let back_knee = front_knee + 10.0;
+    let fki = Pt::new(front_grain - front_knee, knee_y);
+    let fks = Pt::new(front_grain + front_knee, knee_y);
+    let fhs = Pt::new(front_grain + front_hem, hem_y);
+    let bki = Pt::new(back_grain + back_knee, knee_y);
+    let bks = Pt::new(back_grain - back_knee, knee_y);
+    let bhi = Pt::new(back_grain + back_hem, hem_y);
+    let bhs = Pt::new(back_grain - back_hem, hem_y);
+    // Curves the source leaves to its drawings, chosen here: each leaves its straight part in
+    // the same direction (no corner at the knee), the inseams meet the forks square to the
+    // crotch line (more curved at the back), the side seams reach the side line square at the
+    // crotch line, the front crotch is gentle and the back deeper (leaving the hip line along the
+    // slanted centre back, without a corner), the waists meet the centre lines square.
+    let rise = crotch_y - hip_y;
+    let up = |from: Pt, below: Pt, len: f64| from + (from - below).unit().unwrap_or(Pt::new(0.0, -1.0)) * len;
+    let thigh = knee_y - crotch_y;
+    let cf_dir = cf_hip - cf_top;
+    let cb_dir = cb_hip - cb_top;
+    // Front: from the centre front at the waist, down the centre front and the crotch, down the
+    // inseam, across the hem, up the side seam, the waist.
+    let front = Part {
+        name: "Front Trouser Block",
+        start: cf_top,
+        segs: vec![
+            Seg::Line(cf_hip),
+            Seg::Cubic(Pt::new(0.0, hip_y + rise * 0.55), Pt::new(front_fork.x * 0.5, crotch_y), front_fork),
+            Seg::Cubic(Pt::new(front_fork.x, crotch_y + thigh * 0.3), up(fki, fhi, thigh * 0.35), fki),
+            Seg::Line(fhi),
+            Seg::Line(fhs),
+            Seg::Line(fks),
+            Seg::Cubic(up(fks, fhs, thigh * 0.35), Pt::new(side, crotch_y + thigh * 0.35), side_crotch),
+            Seg::Line(side_hip),
+            Seg::Cubic(Pt::new(side, hip_y * 0.6), front_side_top + (side_hip - front_side_top) * 0.3, front_side_top),
+            Seg::Cubic(
+                front_side_top + (cf_top - front_side_top) * 0.33,
+                cf_top + Pt::new(cf_dir.y, -cf_dir.x).unit().unwrap_or(Pt::new(1.0, 0.0)) * (front_len * 0.33),
+                cf_top,
+            ),
+        ],
+    };
+    // Back: from the centre back at the waist, across the waist with its dart (2 cm wide, 10 cm
+    // long, square to the waist at its middle), down the side seam, across the hem, up the
+    // inseam, the crotch and the centre back.
+    let along = (back_side_top - cb_top).unit().unwrap_or(Pt::new(-1.0, 0.0));
+    let mid_waist = (cb_top + back_side_top) * 0.5;
+    let (dart_cb, dart_side) = (mid_waist - along * 10.0, mid_waist + along * 10.0);
+    let down = Pt::new(-along.y, along.x);
+    let down = if down.y < 0.0 { down * -1.0 } else { down };
+    let dart_point = mid_waist + down * 100.0;
+    let cb_square = Pt::new(-cb_dir.y, cb_dir.x).unit().unwrap_or(Pt::new(-1.0, 0.0));
+    let cb_square = if cb_square.x > 0.0 { cb_square * -1.0 } else { cb_square };
+    let back = Part {
+        name: "Back Trouser Block",
+        start: cb_top,
+        segs: vec![
+            Seg::Cubic(cb_top + cb_square * (back_len * 0.15), dart_cb - along * (back_len * 0.1), dart_cb),
+            Seg::Line(dart_point),
+            Seg::Line(dart_side),
+            Seg::Line(back_side_top),
+            Seg::Cubic(back_side_top + (side_hip - back_side_top) * 0.3, Pt::new(side, hip_y * 0.6), side_hip),
+            Seg::Line(side_crotch),
+            Seg::Cubic(Pt::new(side, crotch_y + thigh * 0.35), up(bks, bhs, thigh * 0.35), bks),
+            Seg::Line(bhs),
+            Seg::Line(bhi),
+            Seg::Line(bki),
+            Seg::Cubic(up(bki, bhi, thigh * 0.35), Pt::new(back_fork.x, crotch_y + thigh * 0.45), back_fork),
+            Seg::Cubic(Pt::new(width + back_ext * 0.35, crotch_y), cb_hip + cb_dir.unit().unwrap_or(Pt::new(0.0, 1.0)) * (rise * 0.75), cb_hip),
+            Seg::Line(cb_top),
+        ],
+    };
+    Ok(vec![front, back])
+}
+
 /// The parts of a block.
 pub fn draft(kind: BlockKind, env: &mut Env) -> Result<Vec<Part>, BlockError> {
     match kind {
         BlockKind::Bodice => bodice(env),
         BlockKind::Skirt => skirt(env),
         BlockKind::Sleeve => sleeve(env),
+        BlockKind::Trousers => trousers(env),
     }
 }
 
@@ -679,5 +842,47 @@ mod tests {
         assert!(matches!(sleeve(&mut m.env()), Err(BlockError::Impossible(_))));
         m.set_value("top_arm", None).unwrap();
         assert!(matches!(sleeve(&mut m.env()), Err(BlockError::Missing(_))));
+    }
+
+    #[test]
+    fn the_trouser_block_is_half_the_hip_with_ease_and_its_waists_make_the_waist() {
+        // The source's example: half hip 48, half waist 37, waist to hip 20, crotch depth 26,
+        // waist to knee 60, waist to ankle 104, hem 46 (cm).
+        let mut m = Measurements::default();
+        for (k, v) in [
+            ("waist", 740.0),
+            ("hip", 960.0),
+            ("waist_to_hip", 200.0),
+            ("crotch_depth", 260.0),
+            ("waist_to_knee", 600.0),
+            ("waist_to_ankle", 1040.0),
+            ("trouser_hem", 460.0),
+        ] {
+            m.set_value(k, Some(v)).unwrap();
+        }
+        let p = trousers(&mut m.env()).unwrap();
+        let (f, b) = (p[0].corners(), p[1].corners());
+        // The forks: 6 cm out from the centre front, 9 cm from the centre back, on the crotch
+        // line 27.5 cm down.
+        assert_eq!((f[2], b[11]), (Pt::new(-60.0, 275.0), Pt::new(590.0, 275.0)));
+        // The front's crease line is 9.5 cm in; its hem 22 cm and the back's 24 cm.
+        assert_eq!((f[4], f[5]), (Pt::new(-15.0, 1040.0), Pt::new(205.0, 1040.0)));
+        assert_eq!((b[8].x - b[9].x).abs(), 240.0);
+        // The waists, centre line to side, are 20 cm and 19 cm: with the 2 cm dart closed, half
+        // the waist.
+        let (cf_top, fs_top) = (f[0], f[9]);
+        assert!(((fs_top - cf_top).len() - 200.0).abs() < 1e-9 && fs_top.y == 0.0);
+        let (cb_top, bs_top) = (b[0], b[4]);
+        assert!(((bs_top - cb_top).len() - 190.0).abs() < 1e-9 && bs_top.y == 0.0);
+        assert!(((b[1] - b[3]).len() - 20.0).abs() < 1e-9 && ((b[2] - (b[1] + b[3]) * 0.5).len() - 100.0).abs() < 1e-9);
+        // The back's centre is 2.5 cm above the frame, and the back's knee 1 cm wider each side.
+        assert!(cb_top.y < -24.0);
+        assert!((((b[10].x - b[7].x) - (f[3].x - f[6].x).abs()) - 20.0).abs() < 1e-9);
+        // Both sides meet the side line at the hip and crotch lines.
+        assert!(f.contains(&Pt::new(250.0, 200.0)) && b.contains(&Pt::new(250.0, 275.0)));
+        m.set_value("waist_to_knee", Some(250.0)).unwrap();
+        assert!(matches!(trousers(&mut m.env()), Err(BlockError::Impossible(_))));
+        m.set_value("crotch_depth", None).unwrap();
+        assert_eq!(trousers(&mut m.env()), Err(BlockError::Missing(vec!["crotch_depth".into()])));
     }
 }

@@ -62,9 +62,8 @@ anything he clicks through.
 Money, legal wording, anything public, domains, and the open decisions in `docs/plan.md`.
 
 ## Next task
-PF-0 to PF-4 are done (PF-4.1, the sleeve block, too) and PF-5 has begun (dart rotation,
-splitting, slash and spread, seam length and matching, facings, knife pleats; see the progress log
-in `docs/plan.md`). Next is the rest of **PF-5**: box and inverted pleats, gathering marks,
-collars, pockets, and more truing (walk seams with notches, smooth curves across seams). The
-trouser block (PF-4.2) can be done alongside; its method is the owner's choice, as the sleeve's
-was.
+PF-0 to PF-4 are done (with PF-4.1 and PF-4.2, the sleeve and trouser blocks) and PF-5 has begun
+(dart rotation, splitting, slash and spread, seam length and matching, facings, knife pleats; see
+the progress log in `docs/plan.md`). Next is the rest of **PF-5**: box and inverted pleats,
+gathering marks, collars, pockets, and more truing (walk seams with notches, smooth curves across
+seams).

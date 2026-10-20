@@ -1,9 +1,9 @@
 # PatternFoundry: the plan
 
 **Status:** 2026-10-20. PF-0 to PF-4 done and PF-5 started: PatternFoundry is VectorCraft renamed,
-with pattern pieces, true-scale printing, drafting from measurements, bodice, skirt and sleeve
-blocks, and the first design tools (dart rotation, splitting, slash and spread, seam matching,
-facings, knife pleats: a princess-seam bodice from the block). Owner: Bruce Wattendorf
+with pattern pieces, true-scale printing, drafting from measurements, bodice, skirt, sleeve and
+trouser blocks, and the first design tools (dart rotation, splitting, slash and spread, seam
+matching, facings, knife pleats: a princess-seam bodice from the block). Owner: Bruce Wattendorf
 (SiteSentrix).
 
 ## What it is
@@ -59,6 +59,10 @@ is built on, plus a pattern mode, the way StitchFoundry adds embroidery:
 - Sleeve method (2026-10-20): **Natalie Bray**'s one-piece sleeve, from a public tutorial
   (cited in `crates/pf-core/src/block.rs`): no public description of Aldrich's sleeve was found,
   and her book's own text is not copied.
+- Trouser method (2026-10-20): **The Shapes of Fabric**'s basic pants block (metric, women's;
+  the same author as the skirt block), from her public tutorial, cited in
+  `crates/pf-core/src/block.rs`. Fashion Capital's was the other candidate (more detailed curves,
+  but a step cut off in its text).
 
 ## Open decisions (the owner's)
 - Whether PatternFoundry is its own app (as planned) or a mode inside StitchFoundry.
@@ -174,3 +178,17 @@ is built on, plus a pattern mode, the way StitchFoundry adds embroidery:
   origin, isn't cut off. Tests: 1 more in `pf-core`, 1 more engine test (`tests_block.rs`). Not
   yet: the bodice's armhole measured into the set by a command (it is `design.length` by hand
   now), notches for the crown's balance points, a two-piece sleeve, an elbow dart.
+- 2026-10-20, **PF-4.2**: the basic trouser block (`block.trousers`, Pattern › Draft Trouser
+  Block), front and back side by side, from The Shapes of Fabric's metric steps: half the hip and
+  2 cm ease wide, the crotch line 1.5 cm below the crotch depth, crotch extensions of an eighth of
+  the half hip out from the centre front (3 cm more at the back), the centre front 0.5 cm in and 1
+  cm down at the waist, the centre back 4 cm in and 2.5 cm above, waists of a quarter waist and
+  1.5 cm (front) and 0.5 cm with a 2 × 10 cm dart (back), hems 1 cm under and over half the hem,
+  the crease half way between fork and side seam, the knees from the line between hem and fork (1
+  cm wider each side at the back). Measurements: `waist`, `hip`, `waist_to_hip` (shared with the
+  skirt), `crotch_depth`, `waist_to_knee`, `waist_to_ankle`, `trouser_hem`. The test drafts the
+  tutorial's own example and gets its numbers (forks 6 and 9 cm out, hems 22 and 24 cm, waists 20
+  and 19 cm). The curves the tutorial leaves to its drawings are chosen in the code and marked;
+  the block was looked at as an exported picture. Tests: 1 more in `pf-core`, 1 more engine test.
+  Not yet: a front dart (the author's comments add about 1 cm at the front side seam for one),
+  walking the inseams and side seams (the tutorial's own check), a waistband.

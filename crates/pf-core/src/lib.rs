@@ -13,7 +13,7 @@
 //!   the formulas' small language; [`draft`] – path points placed by formulas, so a draft
 //!   follows the measurements.
 //! * [`block`] – blocks drafted from the measurements (the close-fitting bodice, the straight
-//!   skirt, the one-piece sleeve).
+//!   skirt, the one-piece sleeve, the trousers).
 //! * [`design`] – design tools on an outline: pivot a dart elsewhere, split a piece in two.
 //! * [`tiling`] – what a printed page of a tiled pattern carries: its name, overlap lines and the
 //!   10 cm and 1 in test squares.

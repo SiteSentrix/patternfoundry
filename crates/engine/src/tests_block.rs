@@ -1,4 +1,4 @@
-//! Blocks (PF-4, `block.*`): the bodice, skirt and sleeve blocks draft from the measurements and follow them.
+//! Blocks (PF-4, `block.*`): the bodice, skirt, sleeve and trouser blocks draft from the measurements and follow them.
 
 use pf_core::mm_to_pt;
 use serde_json::json;
@@ -165,4 +165,32 @@ fn the_sleeve_block_drafts_inside_the_artboard_and_follows_the_top_arm() {
     let m = s.execute("block.measurements", &json!({"block": "sleeve"})).unwrap();
     assert_eq!(m["missing"], json!(["sleeve_length"]));
     assert!(s.execute("block.sleeve", &json!({})).is_err());
+}
+
+#[test]
+fn the_trouser_block_drafts_inside_the_artboard_and_follows_the_hip() {
+    let mut s = measured();
+    s.execute(
+        "measure.set",
+        &json!({"values": {"hip": 960, "waist": 740, "waist_to_hip": 200, "crotch_depth": 260, "waist_to_knee": 600, "waist_to_ankle": 1040, "trouser_hem": 460}}),
+    )
+    .unwrap();
+    let r = s.execute("block.trousers", &json!({})).unwrap();
+    let ids: Vec<NodeId> = r["ids"].as_array().unwrap().iter().map(|v| NodeId(v.as_u64().unwrap())).collect();
+    let names: Vec<Option<String>> = ids.iter().map(|id| s.doc().unwrap().doc.node(*id).unwrap().name.clone()).collect();
+    assert_eq!(names, [Some("Front Trouser Block".into()), Some("Back Trouser Block".into())]);
+    // The front's fork reaches left of the frame and the back's waist above it: the block is
+    // still drawn 20 mm inside the artboard.
+    let art = s.doc().unwrap().doc.artboards[0].rect;
+    let (f, b) = (bounds(&s, ids[0]), bounds(&s, ids[1]));
+    assert!(near(f.x0, art.x0 + mm_to_pt(20.0)) && near(b.y0.min(f.y0), art.y0 + mm_to_pt(20.0)), "{f:?} {b:?}");
+    // From the fork to the side seam, 6 cm + 25 cm across at the crotch line; the leg 104 cm.
+    assert!(near(f.height(), mm_to_pt(1040.0)), "{}", f.height());
+    let width = f.width();
+    s.execute("measure.set", &json!({"values": {"hip": 1040}})).unwrap();
+    assert!(bounds(&s, ids[0]).width() > width);
+    s.execute("edit.undo", &json!({})).unwrap();
+    assert!(near(bounds(&s, ids[0]).width(), width));
+    let m = s.execute("block.measurements", &json!({"block": "trousers"})).unwrap();
+    assert_eq!(m["missing"], json!([]));
 }

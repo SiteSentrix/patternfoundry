@@ -1,6 +1,6 @@
-//! Blocks (PF-4): `block.bodice`, `block.skirt` and `block.sleeve` draft the close-fitting bodice
-//! block, the straight skirt block (back and front) and the one-piece sleeve block from the
-//! document's measurements ([`pf_core::block`]). Each part is a path that remembers its block, so
+//! Blocks (PF-4): `block.bodice`, `block.skirt`, `block.sleeve` and `block.trousers` draft the
+//! close-fitting bodice block, the straight skirt block (back and front), the one-piece sleeve
+//! block and the trouser block (front and back) from the document's measurements ([`pf_core::block`]). Each part is a path that remembers its block, so
 //! when a measurement changes, [`refresh`] draws it again (inside a pattern piece too: the piece
 //! then redraws its cutting line).
 use super::*;
@@ -40,11 +40,20 @@ pub fn specs() -> Vec<CommandSpec> {
             sleeve
         ),
         cmd!(
+            "block.trousers",
+            "Draft Trouser Block",
+            ["Pattern"],
+            None,
+            "{origin?: [x, y] (document points: the frame's top-left corner, at the centre front's waist line; default: the block 20 mm inside the first artboard's top-left corner)} draft the basic trouser block (front and back, side by side) from the measurements: waist, hip, waist_to_hip, crotch_depth, waist_to_knee, waist_to_ankle, trouser_hem (mm; measure.set). Each part follows the measurements when they change → {ids}",
+            has_doc,
+            trousers
+        ),
+        cmd!(
             query "block.measurements",
             "Block Measurements",
             [],
             None,
-            "{block?: \"bodice\" (default) | \"skirt\" | \"sleeve\"} the measurements the block is drafted from, what each one is, and which the document's set lacks → {needed: [{name, what}], missing: [name]}",
+            "{block?: \"bodice\" (default) | \"skirt\" | \"sleeve\" | \"trousers\"} the measurements the block is drafted from, what each one is, and which the document's set lacks → {needed: [{name, what}], missing: [name]}",
             has_doc,
             measurements
         ),
@@ -91,6 +100,10 @@ fn bodice(s: &mut Session, p: &Value) -> Result<Value> {
 
 fn skirt(s: &mut Session, p: &Value) -> Result<Value> {
     make(s, p, BlockKind::Skirt, "block.skirt", "Draft Skirt Block")
+}
+
+fn trousers(s: &mut Session, p: &Value) -> Result<Value> {
+    make(s, p, BlockKind::Trousers, "block.trousers", "Draft Trouser Block")
 }
 
 fn sleeve(s: &mut Session, p: &Value) -> Result<Value> {
@@ -144,7 +157,8 @@ fn measurements(s: &mut Session, p: &Value) -> Result<Value> {
         None | Some("bodice") => BlockKind::Bodice,
         Some("skirt") => BlockKind::Skirt,
         Some("sleeve") => BlockKind::Sleeve,
-        Some(_) => return Err(bad("block.measurements", "block: \"bodice\", \"skirt\" or \"sleeve\"")),
+        Some("trousers") => BlockKind::Trousers,
+        Some(_) => return Err(bad("block.measurements", "block: \"bodice\", \"skirt\", \"sleeve\" or \"trousers\"")),
     };
     let list = pf_core::block::measurements(kind);
     let mut env = env_of(&s.doc()?.doc);
