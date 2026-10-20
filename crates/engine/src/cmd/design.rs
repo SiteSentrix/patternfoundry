@@ -105,6 +105,15 @@ pub fn specs() -> Vec<CommandSpec> {
             stand_collar
         ),
         cmd!(
+            "design.inSeamPocket",
+            "In-Seam Pocket",
+            ["Pattern"],
+            None,
+            "{seam: {id (a path or a piece), from: anchor (the seam's top, at the waist), to: anchor} (the seam the pocket opens in, the shorter way round), top?: mm (90: from the top to the opening), opening?: mm (140), depth?: mm (150: the bag below the opening), width?: mm (130: the bag in from the seam), allowance?: mm (15: the bag's seam edge past both ends of the opening), match?: {id, from, to} (the seam it sews to)} a pocket bag hanging inside the piece from its seam (cut four: two for each side), and on pattern pieces notches at the opening's ends, on the matching seam too → {id, notches}",
+            has_doc,
+            in_seam_pocket
+        ),
+        cmd!(
             "design.split",
             "Split at Points",
             ["Pattern"],
@@ -988,4 +997,65 @@ fn smooth(s: &mut Session, p: &Value) -> Result<Value> {
         Ok(())
     })?;
     Ok(json!({"corner": corner.to_degrees()}))
+}
+
+fn in_seam_pocket(s: &mut Session, p: &Value) -> Result<Value> {
+    const CMD: &str = "design.inSeamPocket";
+    let mm = |k: &str, d: f64| -> Result<f64> {
+        match p.get(k) {
+            None | Some(Value::Null) => Ok(d),
+            Some(v) => v.as_f64().filter(|x| x.is_finite() && *x >= 0.0).ok_or_else(|| bad(CMD, format!("{k}: mm"))),
+        }
+    };
+    let (top, opening, depth, width, allowance) =
+        (mm("top", 90.0)?, mm("opening", 140.0)?, mm("depth", 150.0)?, mm("width", 130.0)?, mm("allowance", 15.0)?);
+    let main = seam_param(s, p, "seam", CMD)?;
+    let other = match p.get("match") {
+        None | Some(Value::Null) => None,
+        Some(_) => Some(seam_param(s, p, "match", CMD)?),
+    };
+    let doc = &s.doc()?.doc;
+    let ring = ring_of(doc, main.path, CMD)?;
+    let v = p.get("seam").ok_or_else(|| bad(CMD, "seam: {id, from, to}"))?;
+    let (from, to) = seam(&ring, v, "from", "to", CMD)?;
+    let mp = pf_core::mm_to_pt;
+    let pk = pf_core::design::in_seam_pocket(&ring, from, to, mp(top), mp(opening), mp(depth), mp(width), mp(allowance)).map_err(|e| err(CMD, e))?;
+    if let Some(o) = &other
+        && o.length() < pk.opening[1] - 1e-6
+    {
+        return Err(bad(CMD, "match: the seam it sews to is shorter than the pocket opening's end"));
+    }
+    let group = |path: NodeId| doc.parent_of(path).filter(|_| in_piece(doc, path));
+    let notches = |seam: &Seam| -> Vec<pf_core::Notch> {
+        pk.opening.iter().filter_map(|d| seam.at(*d)).map(|(edge, t)| pf_core::Notch { edge, at: t, kind: pf_core::NotchKind::Slit }).collect()
+    };
+    let mut marks: Vec<(NodeId, Vec<pf_core::Notch>)> = Vec::new();
+    for seam in std::iter::once(&main).chain(other.as_ref()) {
+        if let Some(g) = group(seam.path) {
+            marks.push((g, notches(seam)));
+        }
+    }
+    let anchor = group(main.path).unwrap_or(main.path);
+    let count: usize = marks.iter().map(|m| m.1.len()).sum();
+    let id = s.edit("In-Seam Pocket", |d, sel| {
+        let id = d.alloc_id();
+        let mut n = Node::path(
+            id,
+            path_of(&pk.bag),
+            vectorcraft_doc::Appearance::basic(vectorcraft_color::Paint::None, vectorcraft_color::Paint::solid(vectorcraft_color::Color::BLACK), 1.0),
+        );
+        n.name = Some("Pocket Bag".into());
+        d.insert_beside(vec![(anchor, vec![n])], false)?;
+        for (g, notches) in &marks {
+            let m = d.node_mut(*g).ok_or(EngineError::NoNode(*g))?;
+            if let Some(pf_core::PatternTag::Piece(piece)) = m.extras_mut().pattern.as_deref_mut() {
+                for notch in notches {
+                    piece.add_notch(*notch).map_err(|e| err(CMD, e))?;
+                }
+            }
+        }
+        sel.set([id]);
+        Ok(id)
+    })?;
+    Ok(json!({"id": id.0, "notches": count}))
 }

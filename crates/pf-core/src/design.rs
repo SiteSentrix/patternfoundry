@@ -968,6 +968,96 @@ pub fn stand_collar(back: f64, front: f64, depth: f64, rise: f64, extension: f64
     Ok(StandCollar { outline, shoulder: s, centre_front: [kc.p, c_top], top: top_length })
 }
 
+/// An in-seam pocket's bag, drafted on the piece it hangs inside.
+#[derive(Clone, Debug, PartialEq)]
+pub struct InSeamPocket {
+    /// The bag: its seam edge along the garment's seam (from above the opening to below it),
+    /// then round its curved edge, inside the piece.
+    pub bag: Vec<Knot>,
+    /// The opening's ends, as distances along the seam from its start.
+    pub opening: [f64; 2],
+}
+
+/// The outline the other way round: the same shape, its knots in reverse order.
+fn reversed(ring: &[Knot]) -> Vec<Knot> {
+    ring.iter().rev().map(|k| Knot { p: k.p, h_in: k.h_out, h_out: k.h_in }).collect()
+}
+
+/// An in-seam pocket in the seam from anchor `from` (its top: the waist) to anchor `to`, along
+/// the shorter way round the outline: an opening `opening` long starting `top` down the seam,
+/// and a bag reaching `width` in from the seam and `depth` below the opening, its seam edge
+/// running `allowance` past both ends of the opening (where the bag is stitched on), then square
+/// in from the seam by `allowance` before it curves round. After the published methods in
+/// Seamwork (<https://www.seamwork.com/articles/design-your-own-in-seam-pockets>) and Doina
+/// Alexei (an opening 3 to 5 inches below the waist and 5 to 5½ inches long,
+/// <https://www.doinaalexei.com/beginnersewingtutorialblog/video-tutorial-how-to-make-a-sewing-pattern-for-a-skirt-on-seam-pocket>).
+#[allow(clippy::too_many_arguments)]
+pub fn in_seam_pocket(
+    ring: &[Knot],
+    from: usize,
+    to: usize,
+    top: f64,
+    opening: f64,
+    depth: f64,
+    width: f64,
+    allowance: f64,
+) -> Result<InSeamPocket, DesignError> {
+    let n = ring.len();
+    if n < 3 || from >= n || to >= n || from == to {
+        return Err(DesignError::BadAnchor("the seam runs between two different points of the outline"));
+    }
+    if ![top, opening, depth, width, allowance].iter().all(|v| v.is_finite() && *v >= 0.0) || opening <= 0.0 || depth <= 0.0 || width <= allowance {
+        return Err(DesignError::BadAnchor("the opening, depth and width are more than 0, the width more than the allowance"));
+    }
+    let back = reversed(ring);
+    let (r, f, t) = if run_length(ring, from, to) <= run_length(&back, n - 1 - from, n - 1 - to) {
+        (ring.to_vec(), from, to)
+    } else {
+        (back, n - 1 - from, n - 1 - to)
+    };
+    let len = run_length(&r, f, t);
+    let (a, b) = (top - allowance, top + opening + allowance);
+    if a < 0.0 || b > len {
+        return Err(DesignError::BadAnchor("the pocket (its opening and the allowance past both ends) fits on the seam"));
+    }
+    let samples = walk(&r, f, t, (len / 2000.0).max(1e-3));
+    let mut dist = Vec::with_capacity(samples.len());
+    let mut d = 0.0;
+    for (i, (p, _)) in samples.iter().enumerate() {
+        if i > 0 {
+            d += (*p - samples[i - 1].0).len();
+        }
+        dist.push(d);
+    }
+    // The walk's length is the seam's to within its step; scale it to the seam's own.
+    let scale = if d > 0.0 { len / d } else { 1.0 };
+    let at = |x: f64| -> Pt {
+        let x = x / scale;
+        let i = dist.partition_point(|&v| v < x).clamp(1, dist.len().saturating_sub(1).max(1));
+        let (p0, p1) = (samples[i - 1].0, samples.get(i).map(|s| s.0).unwrap_or(samples[i - 1].0));
+        let span = dist.get(i).copied().unwrap_or(dist[i - 1]) - dist[i - 1];
+        if span > 1e-12 { p0 + (p1 - p0) * ((x - dist[i - 1]) / span) } else { p0 }
+    };
+    let (pa, pb, o1, o2) = (at(a), at(b), at(top), at(top + opening));
+    // The bag hangs along the seam's way at its lower end (below the hip a side seam runs with
+    // the grain), not along the chord of a curved hip.
+    let s = (pb - at(b - (b - a) * 0.1)).unit().ok_or(DesignError::BadAnchor("the seam has no length there"))?;
+    // Into the piece: left of the seam's way on an outline of positive area.
+    let inward = Pt::new(-s.y, s.x) * if signed_area2(&r) >= 0.0 { 1.0 } else { -1.0 };
+    let mut bag: Vec<Knot> = (0..=16).map(|k| Knot::corner(at(a + (b - a) * k as f64 / 16.0))).collect();
+    let tb = pb + inward * allowance;
+    let c = o2 + s * depth + inward * (width * 0.6);
+    let dd = o1 + s * (opening * 0.25) + inward * width;
+    let ta = pa + inward * allowance;
+    let kd = (c - dd).dot(s).abs() * 0.5;
+    bag.push(Knot { p: tb, h_in: tb, h_out: tb + s * (depth * 0.55) });
+    bag.push(Knot { p: c, h_in: c - inward * (width * 0.3), h_out: c + inward * (width * 0.3) });
+    // Up from the widest point no higher than the top tab, so the bag stays below it.
+    bag.push(Knot { p: dd, h_in: dd + s * kd, h_out: dd - s * ((dd - ta).dot(s).abs() * 0.9) });
+    bag.push(Knot { p: ta, h_in: ta + inward * ((width - allowance) * 0.5), h_out: ta });
+    Ok(InSeamPocket { bag, opening: [top, top + opening] })
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -1345,5 +1435,32 @@ mod tests {
         // Edge to edge: no extension, the front end at centre front.
         assert_eq!(stand_collar(90.0, 105.0, 35.0, 15.0, 0.0).unwrap().outline.len(), o.len() - 2);
         assert!(stand_collar(90.0, 105.0, 0.0, 15.0, 0.0).is_err() && stand_collar(90.0, 10.0, 35.0, 15.0, 0.0).is_err());
+    }
+
+    #[test]
+    fn an_in_seam_pocket_bag_hangs_inside_the_piece_from_its_seam() {
+        // A panel 200 wide and 600 long, its side seam on the right from the waist (1) down.
+        let r = ring(&[(0.0, 0.0), (200.0, 0.0), (200.0, 600.0), (0.0, 600.0)]);
+        for (rr, from, to) in [(r.clone(), 1, 2), (reversed(&r), 2, 1)] {
+            let p = in_seam_pocket(&rr, from, to, 90.0, 140.0, 150.0, 130.0, 15.0).unwrap();
+            assert_eq!(p.opening, [90.0, 230.0]);
+            let bag = &p.bag;
+            // The seam edge from 15 above the opening to 15 below it.
+            assert!(near(bag[0].p, Pt::new(200.0, 75.0)) && near(bag[16].p, Pt::new(200.0, 245.0)), "{:?} {:?}", bag[0].p, bag[16].p);
+            assert!(bag[..17].iter().all(|k| (k.p.x - 200.0).abs() < 1e-9));
+            // In from the seam: the tabs 15 in, the widest 130 in, the bottom 150 below the
+            // opening; everything inside the panel.
+            assert!(near(bag[17].p, Pt::new(185.0, 245.0)) && near(bag[20].p, Pt::new(185.0, 75.0)));
+            assert!(near(bag[18].p, Pt::new(200.0 - 78.0, 380.0)) && near(bag[19].p, Pt::new(70.0, 125.0)));
+            for w in bag[16..].windows(2) {
+                for k in 0..=8 {
+                    let q = cubic_at(w[0].p, w[0].h_out, w[1].h_in, w[1].p, k as f64 / 8.0).0;
+                    assert!(q.x >= 0.0 && q.x <= 200.0 + 1e-9 && q.y > 0.0 && q.y < 600.0, "{q:?}");
+                }
+            }
+        }
+        assert!(in_seam_pocket(&r, 1, 2, 500.0, 140.0, 150.0, 130.0, 15.0).is_err());
+        assert!(in_seam_pocket(&r, 1, 2, 90.0, 140.0, 150.0, 10.0, 15.0).is_err());
+        assert!(in_seam_pocket(&r, 1, 1, 90.0, 140.0, 150.0, 130.0, 15.0).is_err());
     }
 }
