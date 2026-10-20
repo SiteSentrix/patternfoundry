@@ -1,4 +1,5 @@
-//! Blocks (PF-4): `block.bodice` and `block.skirt` draft the close-fitting bodice block and the straight skirt block (back and front) from the
+//! Blocks (PF-4): `block.bodice`, `block.skirt` and `block.sleeve` draft the close-fitting bodice
+//! block, the straight skirt block (back and front) and the one-piece sleeve block from the
 //! document's measurements ([`pf_core::block`]). Each part is a path that remembers its block, so
 //! when a measurement changes, [`refresh`] draws it again (inside a pattern piece too: the piece
 //! then redraws its cutting line).
@@ -30,11 +31,20 @@ pub fn specs() -> Vec<CommandSpec> {
             skirt
         ),
         cmd!(
+            "block.sleeve",
+            "Draft Sleeve Block",
+            ["Pattern"],
+            None,
+            "{origin?: [x, y] (document points: the shoulder point at the top of the crown; default: the sleeve 20 mm inside the first artboard's top-left corner)} draft the one-piece straight sleeve block from the measurements: top_arm, sleeve_length (mm; measure.set), and sleeve_crown if the set has it (the crown's length: the bodice's armhole plus the ease to set it in, 3 to 4.5 cm; a formula such as \"armhole + 30\"), which sets the crown depth instead of the top arm table. It follows the measurements when they change → {ids, crown (mm: the crown's length, underarm to underarm)}",
+            has_doc,
+            sleeve
+        ),
+        cmd!(
             query "block.measurements",
             "Block Measurements",
             [],
             None,
-            "{block?: \"bodice\" (default) | \"skirt\"} the measurements the block is drafted from, what each one is, and which the document's set lacks → {needed: [{name, what}], missing: [name]}",
+            "{block?: \"bodice\" (default) | \"skirt\" | \"sleeve\"} the measurements the block is drafted from, what each one is, and which the document's set lacks → {needed: [{name, what}], missing: [name]}",
             has_doc,
             measurements
         ),
@@ -83,19 +93,30 @@ fn skirt(s: &mut Session, p: &Value) -> Result<Value> {
     make(s, p, BlockKind::Skirt, "block.skirt", "Draft Skirt Block")
 }
 
+fn sleeve(s: &mut Session, p: &Value) -> Result<Value> {
+    let mut r = make(s, p, BlockKind::Sleeve, "block.sleeve", "Draft Sleeve Block")?;
+    let parts = pf_core::block::draft(BlockKind::Sleeve, &mut env_of(&s.doc()?.doc)).map_err(|e| bad("block.sleeve", e.to_string()))?;
+    let crown = parts.first().map_or(0.0, pf_core::block::sleeve_crown);
+    r["crown"] = json!(crown);
+    Ok(r)
+}
+
 fn make(s: &mut Session, p: &Value, kind: BlockKind, cmd: &'static str, label: &'static str) -> Result<Value> {
     let st = s.doc()?;
     let origin = match p.get("origin") {
         Some(v) => {
             let [x, y] = finite_numbers::<2>(v).ok_or_else(|| bad(cmd, "origin: [x, y] in document points"))?;
-            Pt::new(x, y)
+            Some(Pt::new(x, y))
         }
-        None => {
-            let o = st.doc.artboards.first().map_or(Point::ZERO, |a| a.rect.origin());
-            Pt::new(o.x + mm_to_pt(20.0), o.y + mm_to_pt(20.0))
-        }
+        None => None,
     };
     let parts = pf_core::block::draft(kind, &mut env_of(&st.doc)).map_err(|e| bad(cmd, e.to_string()))?;
+    // By default the drawing (not its origin) starts 20 mm inside the first artboard's corner.
+    let origin = origin.unwrap_or_else(|| {
+        let o = st.doc.artboards.first().map_or(Point::ZERO, |a| a.rect.origin());
+        let (left, top) = parts.iter().flat_map(Part::corners).fold((0.0_f64, 0.0_f64), |(l, t), q| (l.min(q.x), t.min(q.y)));
+        Pt::new(o.x + mm_to_pt(20.0 - left), o.y + mm_to_pt(20.0 - top))
+    });
     let parent = st.insertion_parent();
     let ids = s.edit(label, |d, sel| {
         let mut ids = Vec::new();
@@ -122,7 +143,8 @@ fn measurements(s: &mut Session, p: &Value) -> Result<Value> {
     let kind = match str_param(p, "block") {
         None | Some("bodice") => BlockKind::Bodice,
         Some("skirt") => BlockKind::Skirt,
-        Some(_) => return Err(bad("block.measurements", "block: \"bodice\" or \"skirt\"")),
+        Some("sleeve") => BlockKind::Sleeve,
+        Some(_) => return Err(bad("block.measurements", "block: \"bodice\", \"skirt\" or \"sleeve\"")),
     };
     let list = pf_core::block::measurements(kind);
     let mut env = env_of(&s.doc()?.doc);

@@ -1,9 +1,10 @@
 # PatternFoundry: the plan
 
-**Status:** 2026-10-20. PF-0 to PF-4 done and PF-5 started: PatternFoundry is VectorCraft
-renamed, with pattern pieces, true-scale printing, drafting from measurements, bodice and skirt
+**Status:** 2026-10-20. PF-0 to PF-4 done and PF-5 started: PatternFoundry is VectorCraft renamed,
+with pattern pieces, true-scale printing, drafting from measurements, bodice, skirt and sleeve
 blocks, and the first design tools (dart rotation, splitting, slash and spread, seam matching,
-facings: a princess-seam bodice from the block). Owner: Bruce Wattendorf (SiteSentrix).
+facings, knife pleats: a princess-seam bodice from the block). Owner: Bruce Wattendorf
+(SiteSentrix).
 
 ## What it is
 Software for designing sewing patterns, for home sewists, small pattern designers and small
@@ -55,6 +56,9 @@ is built on, plus a pattern mode, the way StitchFoundry adds embroidery:
 - Drafting method (2026-10-19): **Aldrich** (Winifred Aldrich, *Metric Pattern Cutting for
   Women's Wear*), British metric, first. Blocks are built from public descriptions of the method
   (cited by URL in `crates/pf-core/src/block.rs`), never from the book's text or drawings.
+- Sleeve method (2026-10-20): **Natalie Bray**'s one-piece sleeve, from a public tutorial
+  (cited in `crates/pf-core/src/block.rs`): no public description of Aldrich's sleeve was found,
+  and her book's own text is not copied.
 
 ## Open decisions (the owner's)
 - Whether PatternFoundry is its own app (as planned) or a mode inside StitchFoundry.
@@ -157,3 +161,16 @@ is built on, plus a pattern mode, the way StitchFoundry adds embroidery:
   seam curved through the bust); dart shortening from the bust point; design steps replayed when
   the measurements change; the sewing terms in the translations checked by sewists who speak each
   language.
+- 2026-10-20, **PF-4.1**: the one-piece straight sleeve block (`block.sleeve`, Pattern › Draft
+  Sleeve Block), Natalie Bray's method from a public tutorial: the crown depth from the top arm by
+  the tutorial's table, 5 cm ease round the top arm, the crown through marks on the back and front
+  lines and the tutorial's midpoint offsets, straight sides, the wrist curved down at the back and
+  up at the front; it follows the measurements (`top_arm`, `sleeve_length`). The result reports
+  the crown's length. By the table alone the crown came out about as long as the bodice's armhole
+  (1.6 mm short with the test's made-up measurements), not the 3 to 4.5 cm longer a set-in sleeve
+  needs, so an optional `sleeve_crown` measurement (a formula such as `armhole + 30`) sets the
+  crown's length, and the crown depth is solved to match it. Blocks drafted without an origin now
+  start 20 mm inside the artboard by their own extent, so the sleeve, which reaches left of its
+  origin, isn't cut off. Tests: 1 more in `pf-core`, 1 more engine test (`tests_block.rs`). Not
+  yet: the bodice's armhole measured into the set by a command (it is `design.length` by hand
+  now), notches for the crown's balance points, a two-piece sleeve, an elbow dart.
