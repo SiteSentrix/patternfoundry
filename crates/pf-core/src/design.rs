@@ -20,6 +20,13 @@
 //!
 //! **Gathering marks**: a wavy line just inside an edge between two ticks, where it is gathered.
 //!
+//! **Flat collars** (Peter Pan), from the steps published at
+//! <https://www.thecreativecurator.com/how-to-draft-a-peter-pan-collar-pattern/>: the front
+//! neckline laid against the back's at the neck point, the shoulders overlapping by 2 to 4 cm, the
+//! neckline lowered 1 cm when the bodice is a block, and the collar drawn its depth out from the
+//! joined neckline (6 cm in that example), its front rounded (a shape the page leaves to the
+//! drafter, chosen here).
+//!
 //! **Splitting** cuts the ring between two anchors into two rings, each closed by a straight seam
 //! between them; when the two anchors are at the same place (a bust point two darts share) the
 //! seam is the darts' legs on each side and nothing is added.
@@ -373,6 +380,47 @@ fn pieces(c: [Pt; 4]) -> Vec<[Pt; 4]> {
     out
 }
 
+/// The open run of knots `run` moved `w` to its left (in the shoelace sense), segment by
+/// segment. Where neighbours don't meet (a corner), the outside of the corner is joined by a
+/// circular arc about it, the inside trimmed to where the two cross.
+fn offset_run(run: &[Knot], w: f64) -> Vec<Knot> {
+    let mut out: Vec<Knot> = Vec::new();
+    for pair in run.windows(2) {
+        let (a, b) = (pair[0], pair[1]);
+        for [p0, p1, p2, p3] in pieces([a.p, a.h_out, b.h_in, b.p]) {
+            let [q0, q1, q2, q3] = offset_cubic(p0, p1, p2, p3, w);
+            let t2 = (q1 - q0).unit().or_else(|| (q3 - q0).unit());
+            match out.last_mut() {
+                None => out.push(Knot { p: q0, h_in: q0, h_out: q1 }),
+                Some(last) if (last.p - q0).len() < 1e-6 => last.h_out = q1 + (last.p - q0),
+                Some(last) => {
+                    let t1 = (last.p - last.h_in).unit();
+                    match (t1, t2) {
+                        // Outside the corner (it turns away from the offset's side): an arc.
+                        (Some(t1), Some(t2)) if t1.cross(t2) * w < 0.0 => {
+                            let sweep = turn(p0, last.p, q0).abs();
+                            let k = 4.0 / 3.0 * (sweep / 4.0).tan() * w.abs();
+                            last.h_out = last.p + t1 * k;
+                            out.push(Knot { p: q0, h_in: q0 - t2 * k, h_out: q1 });
+                        }
+                        // Inside: both trimmed to where they cross, when that is near.
+                        (Some(t1), Some(t2)) => match cross_lines(last.p, t1, q0, t2).filter(|m| (*m - p0).len() < 2.0 * w.abs()) {
+                            Some(m) => {
+                                last.p = m;
+                                last.h_out = q1 + (m - q0);
+                            }
+                            None => out.push(Knot { p: q0, h_in: q0, h_out: q1 }),
+                        },
+                        _ => out.push(Knot { p: q0, h_in: q0, h_out: q1 }),
+                    }
+                }
+            }
+            out.push(Knot { p: q3, h_in: q2, h_out: q3 });
+        }
+    }
+    out
+}
+
 /// A facing for the outline's edge from anchor `from` forward to anchor `to`: a piece whose
 /// outer edge is that run of the outline (curves and all) and whose inner edge is the run moved
 /// `width` inward. Its ends follow the outline's edges either side (a neck facing ends along the
@@ -394,20 +442,7 @@ pub fn facing(ring: &[Knot], from: usize, to: usize, width: f64) -> Result<Vec<K
     if idx.len() == n + 1 || idx.len() > n {
         return Err(DesignError::BadAnchor("a facing runs along part of the outline"));
     }
-    // The inner edge: each segment moved inward; where neighbours don't meet (a corner), a
-    // straight join.
-    let mut inner: Vec<Knot> = Vec::new();
-    for pair in idx.windows(2) {
-        let (a, b) = (ring[pair[0]], ring[pair[1]]);
-        for [p0, p1, p2, p3] in pieces([a.p, a.h_out, b.h_in, b.p]) {
-            let [q0, q1, q2, q3] = offset_cubic(p0, p1, p2, p3, w);
-            match inner.last_mut() {
-                Some(last) if (last.p - q0).len() < 1e-6 => last.h_out = q1 + (last.p - q0),
-                _ => inner.push(Knot { p: q0, h_in: q0, h_out: q1 }),
-            }
-            inner.push(Knot { p: q3, h_in: q2, h_out: q3 });
-        }
-    }
+    let mut inner = offset_run(&idx.iter().map(|&i| ring[i]).collect::<Vec<_>>(), w);
     // The ends along the neighbouring edges: where the inner edge's end tangent meets the line of
     // the outline's next edge out, if that is within a few widths; else square.
     let (first, last) = (inner[0], inner[inner.len() - 1]);
@@ -594,6 +629,114 @@ pub fn run_length(ring: &[Knot], from: usize, to: usize) -> f64 {
                 .sum::<f64>()
         })
         .sum()
+}
+
+/// Where a flat collar's neckline comes from on one bodice part: its outline, the run of the
+/// neckline (from `from` forward to `to`) and the shoulder point (the far end of the shoulder
+/// from the neck point).
+#[derive(Clone, Copy, Debug)]
+pub struct Neckline<'a> {
+    pub ring: &'a [Knot],
+    pub from: usize,
+    pub to: usize,
+    pub shoulder: usize,
+}
+
+/// A flat collar and where the front landed.
+#[derive(Clone, Debug, PartialEq)]
+pub struct Collar {
+    /// The collar's outline: the neck edge from centre back to centre front, the rounded front,
+    /// the outer edge back to centre back, and the centre back line (a fold).
+    pub outline: Vec<Knot>,
+    /// How long the neck edge is (what is sewn to the neckline).
+    pub neck_length: f64,
+    /// The front's shoulder point, moved with the front.
+    pub front_shoulder: Pt,
+}
+
+/// A flat (Peter Pan) collar from a back neckline (centre back forward to the neck point) and
+/// a front one (neck point forward to centre front), drafted in the back's place: the front is
+/// moved so its neck point is the back's and its shoulder lies along the back's, then turned
+/// over the back about the neck point until the shoulder points overlap by `overlap` (measured
+/// round the turn). The neckline is lowered by `lower` (into the bodice), and the collar is
+/// `width` wide from it, its front rounded to meet the neckline at centre front.
+pub fn flat_collar(back: Neckline, front: Neckline, overlap: f64, width: f64, lower: f64) -> Result<Collar, DesignError> {
+    for part in [back, front] {
+        let n = part.ring.len();
+        if n < 3 || part.from >= n || part.to >= n || part.shoulder >= n || part.from == part.to {
+            return Err(DesignError::BadAnchor("a neckline runs between two different points of its outline, and the shoulder point is one of them"));
+        }
+    }
+    if !(width.is_finite() && width > 0.0 && overlap.is_finite() && overlap >= 0.0 && lower.is_finite() && lower >= 0.0) {
+        return Err(DesignError::BadAmount);
+    }
+    let area = signed_area2(back.ring);
+    if area.abs() < 1e-9 {
+        return Err(DesignError::BadAnchor("the back's outline encloses no area"));
+    }
+    let knots = |part: Neckline| run(part.ring.len(), part.from, part.to).map(|i| part.ring[i]).collect::<Vec<Knot>>();
+    let (b, f) = (knots(back), knots(front));
+    let (pb, pf) = (back.ring[back.to].p, front.ring[front.from].p);
+    let shoulder_b = back.ring[back.shoulder].p - pb;
+    let shoulder_f = front.ring[front.shoulder].p - pf;
+    let (Some(db), Some(df)) = (shoulder_b.unit(), shoulder_f.unit()) else {
+        return Err(DesignError::BadAnchor("a shoulder point is on its neck point"));
+    };
+    // Turn the front's shoulder onto the back's; reflect it if its body would then lie on the
+    // back's side of the shoulder (the halves were drafted facing each other).
+    let a0 = turn(Pt::new(0.0, 0.0), df, db);
+    let back_side = db.cross(b[0].p - pb).signum();
+    let cf = rotate(f[f.len() - 1].p - pf, Pt::new(0.0, 0.0), a0);
+    let reflect = db.cross(cf).signum() == back_side;
+    // Then over the back by the overlap.
+    let extra = back_side * overlap / shoulder_f.len();
+    let place = |q: Pt| {
+        let v = rotate(q - pf, Pt::new(0.0, 0.0), a0);
+        let v = if reflect { db * (2.0 * v.dot(db)) - v } else { v };
+        pb + rotate(v, Pt::new(0.0, 0.0), extra)
+    };
+    let moved = |k: Knot| Knot { p: place(k.p), h_in: place(k.h_in), h_out: place(k.h_out) };
+    // The neckline: the back's run, the neck point joined, the front's run moved.
+    let mut neck: Vec<Knot> = b[..b.len() - 1].to_vec();
+    let fm: Vec<Knot> = f.iter().map(|&k| moved(k)).collect();
+    neck.push(Knot { p: pb, h_in: b[b.len() - 1].h_in, h_out: fm[0].h_out });
+    neck.extend(fm[1..].iter().copied());
+    if let Some(k) = neck.first_mut() {
+        k.h_in = k.p;
+    }
+    if let Some(k) = neck.last_mut() {
+        k.h_out = k.p;
+    }
+    // Into the bodice is to the neckline's left times the back outline's orientation.
+    let body = area.signum();
+    // Both edges from the neckline as drawn (an edge offset twice would carry the first
+    // offset's corner joins out as spikes).
+    let outer = offset_run(&neck, (lower + width) * body);
+    if lower > 0.0 {
+        neck = offset_run(&neck, lower * body);
+    }
+    let neck_length = run_length(&neck, 0, neck.len() - 1);
+    let (Some(&n_end), Some(&o_end), Some(&o_start)) = (neck.last(), outer.last(), outer.first()) else {
+        return Err(DesignError::BadAnchor("the neckline has no length"));
+    };
+    // The rounded front (a shape the source leaves to the drafter): out from centre front square
+    // to the neckline, into the outer edge along it.
+    let out_dir = (o_end.p - n_end.p).unit().unwrap_or(Pt::new(0.0, 1.0));
+    let along = if (o_end.p - o_end.h_in).len() > 1e-9 { o_end.p - o_end.h_in } else { o_end.p - outer[outer.len() - 2].p };
+    let along = along.unit().unwrap_or(Pt::new(1.0, 0.0));
+    let mut outline = neck.clone();
+    if let Some(k) = outline.last_mut() {
+        k.h_out = n_end.p + out_dir * (width * 0.55);
+    }
+    let mut back_round: Vec<Knot> = outer.iter().rev().map(|k| Knot { p: k.p, h_in: k.h_out, h_out: k.h_in }).collect();
+    if let Some(k) = back_round.first_mut() {
+        k.h_in = o_end.p + along * (width * 0.3);
+    }
+    if let Some(k) = back_round.last_mut() {
+        k.h_out = o_start.p;
+    }
+    outline.extend(back_round);
+    Ok(Collar { outline, neck_length, front_shoulder: place(front.ring[front.shoulder].p) })
 }
 
 #[cfg(test)]
@@ -818,5 +961,56 @@ mod tests {
         assert!(near(m[2][0], Pt::new(200.0, -5.0)));
         assert!((run_length(&r, 0, 2) - 200.0).abs() < 1e-9 && (run_length(&r, 2, 0) - 800.0).abs() < 1e-9);
         assert!(gather_marks(&r, 1, 1, 5.0, 8.0).is_err() && gather_marks(&r, 0, 2, 0.0, 8.0).is_err());
+    }
+
+    #[test]
+    fn a_flat_collar_joins_the_necklines_at_the_neck_point_with_the_shoulders_overlapping() {
+        // A back (CB on the left, neck point at (50, 0), shoulder down to (150, 20)) and a front
+        // drafted elsewhere (neck point (350, 0), shoulder down to (250, 20), CF at (400, 60)).
+        let back = ring(&[(0.0, 10.0), (50.0, 0.0), (150.0, 20.0), (150.0, 300.0), (0.0, 300.0)]);
+        let front = ring(&[(350.0, 0.0), (250.0, 20.0), (250.0, 300.0), (400.0, 300.0), (400.0, 60.0)]);
+        let b = Neckline { ring: &back, from: 0, to: 1, shoulder: 2 };
+        // The front's outline runs from its neck point (4) forward to centre front (0).
+        let rev: Vec<Knot> = front.iter().rev().copied().collect();
+        let f_rev = Neckline { ring: &rev, from: 4, to: 0, shoulder: 3 };
+        let c = flat_collar(b, f_rev, 30.0, 60.0, 0.0).unwrap();
+        // The neck edge starts at centre back and passes the neck point; it is as long as both
+        // necklines.
+        assert!(near(c.outline[0].p, Pt::new(0.0, 10.0)) && near(c.outline[1].p, Pt::new(50.0, 0.0)));
+        let (lb, lf) = ((Pt::new(50.0, 0.0) - Pt::new(0.0, 10.0)).len(), (Pt::new(400.0, 60.0) - Pt::new(350.0, 0.0)).len());
+        assert!((c.neck_length - (lb + lf)).abs() < 1e-6, "{} {}", c.neck_length, lb + lf);
+        // The front's shoulder point lies 30 round the turn over the back's shoulder line.
+        let lshoulder = (Pt::new(250.0, 20.0) - Pt::new(350.0, 0.0)).len();
+        let fs = c.front_shoulder - Pt::new(50.0, 0.0);
+        assert!((fs.len() - lshoulder).abs() < 1e-9);
+        let a = turn(Pt::new(0.0, 0.0), Pt::new(100.0, 20.0), fs).abs();
+        assert!((a * lshoulder - 30.0).abs() < 1e-6, "{}", a * lshoulder);
+        // The outer edge is 60 from the neckline at centre back (a straight centre back line).
+        let last = c.outline[c.outline.len() - 1].p;
+        assert!(((last - Pt::new(0.0, 10.0)).len() - 60.0).abs() < 1e-6);
+        // The outer edge keeps the width from the neckline all round, past the corner at the
+        // neck point too (no spike where the two necklines meet at an angle).
+        let neck_pts = [Pt::new(0.0, 10.0), Pt::new(50.0, 0.0), c.outline[2].p];
+        let dist = |q: Pt| {
+            neck_pts
+                .windows(2)
+                .map(|s| {
+                    let (a, b) = (s[0], s[1]);
+                    let t = ((q - a).dot(b - a) / (b - a).dot(b - a)).clamp(0.0, 1.0);
+                    (q - (a + (b - a) * t)).len()
+                })
+                .fold(f64::MAX, f64::min)
+        };
+        let outer_of = |c: &Collar, from: usize| c.outline[from..].iter().map(|k| dist(k.p)).collect::<Vec<f64>>();
+        assert!(outer_of(&c, 4).iter().all(|d| (d - 60.0).abs() < 0.5), "{:?}", outer_of(&c, 4));
+        // Lowered 10: the outer edge 70 from the neckline as drawn, all round (an edge offset
+        // from the lowered one would spike out at the corner), and the neck edge 10 below it at
+        // centre back.
+        let lowered = flat_collar(b, f_rev, 30.0, 60.0, 10.0).unwrap();
+        let start = lowered.outline.iter().position(|k| (dist(k.p) - 70.0).abs() < 0.5).unwrap_or(0);
+        assert!(start > 0 && outer_of(&lowered, start).iter().all(|d| (d - 70.0).abs() < 0.5), "{:?}", outer_of(&lowered, start));
+        assert!(((lowered.outline[0].p - Pt::new(0.0, 10.0)).len() - 10.0).abs() < 1e-6);
+        assert!(flat_collar(b, f_rev, 30.0, 0.0, 0.0).is_err());
+        assert!(flat_collar(Neckline { shoulder: 9, ..b }, f_rev, 30.0, 60.0, 0.0).is_err());
     }
 }

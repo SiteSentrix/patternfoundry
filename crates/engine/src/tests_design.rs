@@ -324,3 +324,42 @@ fn a_gathering_mark_along_the_skirt_hem_says_what_it_gathers_into() {
         assert!(s.execute("design.gather", &p).is_err(), "{p}");
     }
 }
+
+#[test]
+fn a_flat_collar_from_the_bodice_block_is_as_long_as_its_neckline() {
+    let mut s = Session::new();
+    s.execute("file.new", &json!({"width": 1400, "height": 1000})).unwrap();
+    s.execute(
+        "measure.set",
+        &json!({"values": {"bust": 880, "waist": 680, "nape_to_waist": 410, "back_width": 345, "chest": 325, "shoulder": 122, "neck": 370, "armscye_depth": 210}}),
+    )
+    .unwrap();
+    let r = s.execute("block.bodice", &json!({"origin": [0, 0]})).unwrap();
+    let (back, front) = (r["ids"][0].as_u64().unwrap(), r["ids"][1].as_u64().unwrap());
+    let c = s.execute("design.collar", &json!({"back": {"id": back}, "front": {"id": front}})).unwrap();
+    let id = NodeId(c["id"].as_u64().unwrap());
+    assert_eq!(s.doc().unwrap().doc.node(id).unwrap().name.as_deref(), Some("Collar"));
+    // The neck edge is the back and front necklines together.
+    let back_neck = s.execute("design.length", &json!({"id": back, "from": 1, "to": 2})).unwrap()["mm"].as_f64().unwrap();
+    let front_neck = s.execute("design.length", &json!({"id": front, "from": 12, "to": 0})).unwrap()["mm"].as_f64().unwrap();
+    assert!((c["neck"].as_f64().unwrap() - (back_neck + front_neck)).abs() < 0.01, "{c} {back_neck} {front_neck}");
+    // It starts at the back's centre back neck point and lies over the back's neck.
+    let collar = points(&s, id);
+    assert_eq!(collar[0], points(&s, NodeId(back))[1]);
+    // Lowered for ease: a longer neck edge; undo takes the collar away; bad input refused.
+    let low = s.execute("design.collar", &json!({"back": {"id": back}, "front": {"id": front}, "lower": 10})).unwrap();
+    assert!(low["neck"].as_f64().unwrap() > c["neck"].as_f64().unwrap());
+    s.execute("edit.undo", &json!({})).unwrap();
+    assert!(s.doc().unwrap().doc.node(NodeId(low["id"].as_u64().unwrap())).is_none());
+    // From the selection: the same collar.
+    s.execute("select.set", &json!({"ids": [front, back]})).unwrap();
+    let sel = s.execute("design.collar", &json!({})).unwrap();
+    assert_eq!(points(&s, NodeId(sel["id"].as_u64().unwrap())), collar);
+    for p in [
+        json!({"back": {"id": back}}),
+        json!({"back": {"id": back}, "front": {"id": front}, "width": 0}),
+        json!({"back": {"id": back}, "front": {"id": front, "shoulder": 99}}),
+    ] {
+        assert!(s.execute("design.collar", &p).is_err(), "{p}");
+    }
+}

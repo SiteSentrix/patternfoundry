@@ -2700,6 +2700,7 @@ pub fn menu_tree_named(english_names: bool) -> Vec<(&'static str, Vec<Item>)> {
                 c("Split at Points", "design.split"),
                 c("Make Facing", "design.facing"),
                 c("Gather", "design.gather"),
+                c("Draft Collar", "design.collar"),
                 Sep,
                 c("Make Pattern Piece", "piece.make"),
                 c("Release Pattern Piece", "piece.release"),

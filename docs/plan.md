@@ -163,12 +163,20 @@ is built on, plus a pattern mode, the way StitchFoundry adds embroidery:
   PF-5.5): four times the depth, both edges folded to the middle, two fold lines and arrows and
   one placement line. **Gathering marks** (`design.gather`, PF-5.6; Pattern › Gather with two
   selected points): a wavy line 5 mm inside an edge and a tick across it at each end; with `into`,
-  the length it gathers into and the ratio are reported and the mark is named after it. Tests: 11
-  in `pf-core`, 9 engine tests (`tests_design.rs`). Not yet (PF-5.x): box pleats (they need a box
-  width: two slashes), notches at a pleat's ends, collars, pockets; more truing (walking seams
-  with notches, smoothing curves across seams, the princess seam curved through the bust); dart
-  shortening from the bust point; design steps replayed when the measurements change; the sewing
-  terms in the translations checked by sewists who speak each language.
+  the length it gathers into and the ratio are reported and the mark is named after it. **Flat
+  collars** (`design.collar`, PF-5.7; Pattern › Draft Collar with the bodice block's back and
+  front selected), from The Creative Curator's published steps (cited in `pf_core::design`): the
+  front neckline laid against the back's at the neck point, the shoulders overlapping (3 cm unless
+  given; the page says 2 to 4), the neckline lowered if asked (1 cm for a block), the collar 6 cm
+  wide unless given, its front rounded to centre front; the neck edge is as long as both
+  necklines. Corners where an offset edge turns are now joined by an arc outside and trimmed
+  inside (an edge offset twice had spiked out at the neck point: caught by drawing it, then by a
+  test). Tests: 12 in `pf-core`, 10 engine tests (`tests_design.rs`). Not yet (PF-5.x): box pleats
+  (they need a box width: two slashes), notches at a pleat's ends, shirt and stand collars,
+  pockets; more truing (walking seams with notches, smoothing curves across seams, the princess
+  seam curved through the bust); dart shortening from the bust point; design steps replayed when
+  the measurements change; the sewing terms in the translations checked by sewists who speak each
+  language.
 - 2026-10-20, **PF-4.1**: the one-piece straight sleeve block (`block.sleeve`, Pattern › Draft
   Sleeve Block), Natalie Bray's method from a public tutorial: the crown depth from the top arm by
   the tutorial's table, 5 cm ease round the top arm, the crown through marks on the back and front
