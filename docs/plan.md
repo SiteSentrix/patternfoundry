@@ -40,8 +40,6 @@ is built on, plus a pattern mode, the way StitchFoundry adds embroidery:
 ## Decided
 - Domain: **patternfoundry.app**, bought by the owner (2026-10-19). Installers and the app link to
   the GitHub repository until the site is live; switching them is a one-line change each.
-- AI help (2026-10-19): paid with the shared **Foundry Account** and its Foundry credits, served by
-  the StitchFoundry cloud service, not a separate account.
 
 - Hosting (2026-10-19): the app stays on **GitHub Pages** (the web build) and **GitHub Releases**
   (the desktop downloads), as StitchFoundry does. No server of its own, no Railway.
