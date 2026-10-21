@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- AppStream metadata (software centres, Flathub). Template: package.sh and the Flatpak
+     manifest substitute @VERSION@ and @DATE@ from Cargo.toml and the build date. -->
+<component type="desktop-application">
+  <id>com.sitesentrix.patternfoundry</id>
+  <metadata_license>CC0-1.0</metadata_license>
+  <project_license>MIT OR Apache-2.0</project_license>
+  <name>PatternFoundry</name>
+  <summary>Design sewing patterns and print them at true scale</summary>
+  <developer id="com.sitesentrix">
+    <name>SiteSentrix</name>
+  </developer>
+  <description>
+    <p>
+      PatternFoundry is open-source sewing-pattern design software built on a full vector editor.
+      Draw pattern pieces with pen, shape and brush tools, lay them out on artboards, and open and
+      save SVG and PDF. Drafting from measurements, grading and true-scale printing are on the
+      way. It is based on VectorCraft.
+    </p>
+  </description>
+  <launchable type="desktop-id">com.sitesentrix.patternfoundry.desktop</launchable>
+  <icon type="stock">com.sitesentrix.patternfoundry</icon>
+  <!-- Only url types known to appstream 0.15 (Ubuntu 22.04, where CI validates): no vcs-browser. -->
+  <url type="homepage">https://github.com/SiteSentrix/patternfoundry</url>
+  <url type="bugtracker">https://github.com/SiteSentrix/patternfoundry/issues</url>
+  <url type="help">https://github.com/SiteSentrix/patternfoundry</url>
+  <categories>
+    <category>Graphics</category>
+    <category>2DGraphics</category>
+    <category>VectorGraphics</category>
+  </categories>
+  <keywords>
+    <keyword>sewing</keyword>
+    <keyword>pattern</keyword>
+    <keyword>garment</keyword>
+    <keyword>vector</keyword>
+    <keyword>svg</keyword>
+    <keyword>pdf</keyword>
+    <keyword>drawing</keyword>
+    <keyword>bezier</keyword>
+  </keywords>
+  <branding>
+    <color type="primary" scheme_preference="light">#a9d6dc</color>
+    <color type="primary" scheme_preference="dark">#1f5560</color>
+  </branding>
+  <requires>
+    <display_length compare="ge">760</display_length>
+  </requires>
+  <supports>
+    <control>keyboard</control>
+    <control>pointing</control>
+    <control>tablet</control>
+  </supports>
+  <provides>
+    <binary>patternfoundry</binary>
+  </provides>
+  <content_rating type="oars-1.1"/>
+  <releases>
+    <release version="@VERSION@" date="@DATE@"/>
+  </releases>
+</component>

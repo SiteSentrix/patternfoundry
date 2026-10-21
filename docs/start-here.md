@@ -12,6 +12,14 @@ anything he clicks through.
 
 ## What exists to build on
 - **VectorCraft** (github.com/storytold/vectorcraft): the Rust vector editor to merge in (PF-0).
+- **CADCraft** (github.com/storytold/cadcraft), the ArtCraft team's Rust CAD app, under the same
+  licence as PatternFoundry (MIT OR Apache-2.0), so its code may be reused with its copyright notice
+  kept (in `NOTICE`) and none of the ArtCraft branding. Worth taking rather than rewriting (owner's
+  pointer, 2026-10-19): `crates/constraints` (a parametric solver for geometric and dimensional
+  constraints with expressions: PF-3 formulas and PF-5 drafting), `crates/dxf` (a standalone DXF
+  tag reader/writer from the published DXF reference: the base for DXF-AAMA in PF-7), and its
+  paper-space layouts, page setups and plotting to PDF (PF-2). Leave its `dwg` crate (it wraps the
+  MPL-2.0 `acadrust`); DWG is not on our plan.
 - **StitchFoundry** (github.com/Stitchwright/StitchFoundry): VectorCraft plus embroidery; the
   model for how a mode is added (its `docs/stitchfoundry-spec.md`, `crates/sf-core`, the
   `embroidery.*` commands, the AI features and the Foundry Account window), and its CI, release and
@@ -29,7 +37,9 @@ anything he clicks through.
 ## The owner decides (ask, don't assume)
 Money, legal wording, anything public, domains, and the open decisions in `docs/plan.md`.
 
-## First task
-**PF-0**: merge VectorCraft in (`git remote add upstream https://github.com/storytold/vectorcraft`,
-merge, rename the app and its installers to PatternFoundry as StitchFoundry's BR-01 did, keep
-no ArtCraft branding), get `cargo xtask ci` green, push, and say what's next.
+## Next task
+PF-0 is done (see the progress log in `docs/plan.md`). Next is **PF-1**, pattern pieces: piece data
+on paths (name, cut count, fabric, grainline), seam allowance per edge with mitred or squared
+corners, notches, labels and a Pieces panel, as `pattern.*` engine commands with tests, in a
+pattern core crate below the UI (as StitchFoundry's `sf-core`). Look at CADCraft first for what can
+be reused (see above).

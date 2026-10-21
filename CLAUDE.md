@@ -42,18 +42,23 @@ break wasm, `cargo xtask ci` before every commit, progress docs), with "StitchFo
   rooms, PDF/ISO 32000, SVG), tested against files written from those specifications.
 
 ## Debugging
-When something fails and the cause isn't obvious, follow the `/debug` skill
-(`.claude/skills/debug/SKILL.md`, based on Kuhlmann, *The Book of Debugging*). What matters most:
-- **Reproduce first, and make the loop fast**: one named input and one command; never the full CI
-  as the loop. Run the one failing test, or the command on its own with the CLI; for scale bugs measure the 10 cm square in the output file.
-- **Look at what the program actually did** before theorising, and build a flag or command when you
-  keep wanting to see something.
-- **One hypothesis per experiment**, written down with what either result will teach; cap guessing
-  at about an hour, then switch strategy (bisect, instrument, follow the data).
-- **Verify the fix** by undoing it (the bug returns) and redoing it (it goes); keep the repro as a
-  regression test; look for the same mistake elsewhere.
-- Keep a debugging log in `docs/debug-logs/YYYY-MM-DD-<topic>.md` for anything that takes more
-  than one sitting, and reference it from the commit.
+When a test, a command or a print fails and the cause is not obvious, follow the `/debug` skill
+(`.claude/skills/debug/SKILL.md`, based on Kuhlmann, *The Book of Debugging*, No Starch Press;
+chapter notes in [`docs/debug-book-notes.md`](docs/debug-book-notes.md)). The rules that matter most:
+- **Reproduce first, and make the loop fast**: the narrowest `cargo test -p <crate> <name>` or
+  `patternfoundry-cli run` that fails, not a full `cargo xtask ci` per question. Check that you are
+  running what you think (stale `target/`, another app on the control port).
+- **Look at what the program actually did** before theorising: the command's JSON result,
+  `ui.screenshot` / `ui.render`, the exported file, the log; for a scale bug, measure the 10 cm test
+  square in the output file itself. Add a switchable probe or a command when
+  you keep wanting to see something; never log body measurements.
+- **State a hypothesis and how you will test it** before building; one change per run.
+- **Do not give up on an idea after one bad run, and do not trust a baseline you have not checked.**
+- **Change strategy** after two or three failed guesses (or about an hour of guessing): `git bisect` when it used to work, cut the
+  case down to a minimal repro, follow the data to where it first goes wrong.
+- **Fix the root cause, then verify**: reproduce, undo and see it return, re-apply and see it go;
+  search for the same mistake elsewhere; turn the repro into a test.
+- Keep a log of leads, experiments and ruled-out areas in `docs/debug-logs/YYYY-MM-DD-<topic>.md`.
 
 ## Commit authorship
 Commits are authored by **Bruce Wattendorf**; AI assistance is a trailer, never the author.

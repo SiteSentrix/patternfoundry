@@ -1,0 +1,13 @@
+PatternFoundry app icon (patternfoundry.svg, patternfoundry-small.svg and every file derived from them in
+this directory: patternfoundry-1024.png, patternfoundry-macos-512.png, patternfoundry.icns,
+patternfoundry.ico, hicolor/).
+
+Original artwork made for PatternFoundry by Bruce Wattendorf (SiteSentrix), written by hand as SVG (no
+third-party material). Licensed like the rest of PatternFoundry, under either of
+
+  * Apache License, Version 2.0 (https://www.apache.org/licenses/LICENSE-2.0)
+  * MIT license (https://opensource.org/licenses/MIT)
+
+at your option.
+
+Regenerate the derived files with packaging/icons.sh.
