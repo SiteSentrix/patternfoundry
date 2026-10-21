@@ -87,6 +87,15 @@ pub fn specs() -> Vec<CommandSpec> {
             walk
         ),
         cmd!(
+            "design.smooth",
+            "Smooth Across Seam",
+            [],
+            None,
+            "{a: {id (a path or a piece), at: anchor (where the curve meets the seam), seam: anchor (the seam's other end, a neighbour of at)}, b: {id, at, seam} (the same on the piece it sews to)} turn both curves' handles at the meeting points to one line, so a hem, waist, neckline or armhole runs on without a corner once the seam is sewn; handle lengths are kept → {corner (degrees, the corner there was)}",
+            has_doc,
+            smooth
+        ),
+        cmd!(
             "design.split",
             "Split at Points",
             ["Pattern"],
@@ -880,4 +889,41 @@ fn walk(s: &mut Session, p: &Value) -> Result<Value> {
     let mut r = r;
     r["notches"] = json!(count);
     Ok(r)
+}
+
+fn junction_param(s: &Session, p: &Value, key: &str, cmd: &str) -> Result<(NodeId, Vec<Knot>, usize, usize)> {
+    let v = p.get(key).ok_or_else(|| bad(cmd, format!("{key}: {{id, at, seam}} (where the curve meets the seam, and the seam's other end)")))?;
+    let path = super::measure::target_path(s, v, cmd)?;
+    let ring = ring_of(&s.doc()?.doc, path, cmd)?;
+    let (Some(at), Some(seam)) = (anchor_param(v, "at", cmd)?, anchor_param(v, "seam", cmd)?) else {
+        return Err(bad(cmd, format!("{key}: at and seam, point numbers along the path")));
+    };
+    Ok((path, ring, at, seam))
+}
+
+fn smooth(s: &mut Session, p: &Value) -> Result<Value> {
+    const CMD: &str = "design.smooth";
+    let (pa, ra, at_a, seam_a) = junction_param(s, p, "a", CMD)?;
+    let (pb, rb, at_b, seam_b) = junction_param(s, p, "b", CMD)?;
+    if pa == pb {
+        return Err(bad(CMD, "a and b are two pieces (or paths) that sew together"));
+    }
+    let ja = pf_core::design::Junction { ring: &ra, at: at_a, seam: seam_a };
+    let jb = pf_core::design::Junction { ring: &rb, at: at_b, seam: seam_b };
+    let (ka, kb, corner) = pf_core::design::smooth_across(ja, jb).map_err(|e| err(CMD, e))?;
+    let (mut ra, mut rb) = (ra, rb);
+    ra[at_a] = ka;
+    rb[at_b] = kb;
+    s.edit("Smooth Across Seam", |d, sel| {
+        for (id, ring) in [(pa, &ra), (pb, &rb)] {
+            let n = d.node(id).ok_or(EngineError::NoNode(id))?;
+            let new = reshaped(n, path_of(ring));
+            if let Some(m) = d.node_mut(id) {
+                *m = new;
+            }
+        }
+        sel.set([pa, pb]);
+        Ok(())
+    })?;
+    Ok(json!({"corner": corner.to_degrees()}))
 }
