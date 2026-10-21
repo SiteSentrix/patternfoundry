@@ -5208,3 +5208,7 @@ mark-style	Japanese	Japanilainen
 	Share in exported files	Jaa vietyihin tiedostoihin
 	Size chart	Kokotaulukko
 	Use Size	Käytä kokoa
+# PatternFoundry: blocks (PF-4).
+	Draft Bodice Block	Piirrä yläosan peruskaava
+	Block Measurements	Peruskaavan mitat
+	Draft Skirt Block	Piirrä hameen peruskaava

@@ -577,6 +577,9 @@ pub struct NodeExtras {
     pub pattern: Option<Box<pf_core::PatternTag>>,
     /// Drafting (PatternFoundry): formulas placing this path's points from the measurements.
     pub draft: Option<Box<pf_core::draft::Draft>>,
+    /// Drafting (PatternFoundry): the block this path is a part of, drawn again from the
+    /// measurements when they change.
+    pub block: Option<Box<pf_core::block::BlockRef>>,
 }
 
 /// No extras: what [`Node::extras`] gives for a node without any.
@@ -597,6 +600,7 @@ static NO_EXTRAS: NodeExtras = NodeExtras {
     live_paint_gaps: None,
     pattern: None,
     draft: None,
+    block: None,
 };
 
 /// A node's [`NodeExtras`], if it has any ([`Node::extras`]). Extras that are all unset equal
@@ -733,6 +737,7 @@ impl Serialize for Node {
             e.live_paint_gaps.is_none(),
             e.pattern.is_none(),
             e.draft.is_none(),
+            e.block.is_none(),
         ];
         let mut st = s.serialize_struct("Node", skips.iter().filter(|s| !**s).count())?;
         let mut skip = skips.into_iter();
@@ -773,6 +778,7 @@ impl Serialize for Node {
         field!("live_paint_gaps", &e.live_paint_gaps);
         field!("pattern", &e.pattern);
         field!("draft", &e.draft);
+        field!("block", &e.block);
         st.end()
     }
 }
@@ -836,6 +842,8 @@ struct NodeWire {
     pattern: Option<Box<pf_core::PatternTag>>,
     #[serde(default)]
     draft: Option<Box<pf_core::draft::Draft>>,
+    #[serde(default)]
+    block: Option<Box<pf_core::block::BlockRef>>,
 }
 
 impl From<NodeWire> for Node {
@@ -857,6 +865,7 @@ impl From<NodeWire> for Node {
             live_paint_gaps: w.live_paint_gaps,
             pattern: w.pattern,
             draft: w.draft,
+            block: w.block,
         };
         Node {
             id: w.id,
@@ -1270,13 +1279,17 @@ impl Node {
         }
         // A draft's origin moves with its path, so the points stay where their formulas put them
         // relative to the path.
-        if let Some(e) = self.extras_if_any()
-            && let Some(d) = e.draft.as_deref_mut()
-        {
-            d.transform(|p| {
+        if let Some(e) = self.extras_if_any() {
+            let f = |p: pf_core::Pt| {
                 let q = a * Point::new(p.x, p.y);
                 pf_core::Pt::new(q.x, q.y)
-            });
+            };
+            if let Some(d) = e.draft.as_deref_mut() {
+                d.transform(f);
+            }
+            if let Some(b) = e.block.as_deref_mut() {
+                b.transform(f);
+            }
         }
         // A pattern piece's grainline moves with it.
         if let Some(e) = self.extras_if_any()
@@ -2102,6 +2115,8 @@ mod tests {
             e.live_paint_gaps = Some(Box::default());
             e.pattern = Some(Box::new(pf_core::PatternTag::Mark(pf_core::Mark::Seam)));
             e.draft = Some(Box::default());
+            e.block =
+                Some(Box::new(pf_core::block::BlockRef { kind: pf_core::block::BlockKind::Bodice, part: 1, origin: pf_core::Pt::new(1.0, 2.0) }));
         }
         /// The top-level keys of a JSON object, in the order written.
         struct Keys(Vec<String>);
@@ -2146,6 +2161,7 @@ mod tests {
             "live_paint_gaps",
             "pattern",
             "draft",
+            "block",
         ];
         assert_eq!(keys, order);
         assert_eq!(serde_json::from_value::<Node>(v).unwrap(), n);

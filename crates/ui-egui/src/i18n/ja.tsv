@@ -4899,3 +4899,7 @@ lighting	Light	ライト
 	Share in exported files	書き出したファイルで共有
 	Size chart	サイズ表
 	Use Size	サイズを使用
+# PatternFoundry: blocks (PF-4).
+	Draft Bodice Block	身頃原型を製図
+	Block Measurements	原型の寸法
+	Draft Skirt Block	スカート原型を製図

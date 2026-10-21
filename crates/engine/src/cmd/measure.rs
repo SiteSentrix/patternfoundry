@@ -270,13 +270,17 @@ pub(crate) fn refresh(doc: &mut Document) -> Result<()> {
     if !doc.drafts {
         return Ok(());
     }
+    // Block parts are drawn whole from the measurements; then point formulas place their points.
+    super::block::refresh(doc)?;
     let mut drafted = Vec::new();
+    let mut blocks = false;
     doc.walk(|n| {
         if let Some(d) = n.extras().draft.as_deref() {
             drafted.push((n.id, d.clone()));
         }
+        blocks |= n.extras().block.is_some();
     });
-    doc.drafts = !drafted.is_empty();
+    doc.drafts = blocks || !drafted.is_empty();
     let mut env = doc.measurements.as_deref().map(Measurements::env).unwrap_or_default();
     for (id, draft) in drafted {
         let placed = draft.place(&mut env);
