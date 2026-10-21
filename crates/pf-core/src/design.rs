@@ -27,6 +27,9 @@
 //! joined neckline (6 cm in that example), its front rounded (a shape the page leaves to the
 //! drafter, chosen here).
 //!
+//! **Patch pockets**: the pocket piece with its hem folded inside at the top, and the finished
+//! shape to mark on the garment.
+//!
 //! **Splitting** cuts the ring between two anchors into two rings, each closed by a straight seam
 //! between them; when the two anchors are at the same place (a bust point two darts share) the
 //! seam is the darts' legs on each side and nothing is added.
@@ -739,6 +742,69 @@ pub fn flat_collar(back: Neckline, front: Neckline, overlap: f64, width: f64, lo
     Ok(Collar { outline, neck_length, front_shoulder: place(front.ring[front.shoulder].p) })
 }
 
+/// A patch pocket's bottom corners.
+#[derive(Clone, Copy, Debug, PartialEq)]
+pub enum PocketCorners {
+    Square,
+    /// Rounded with this radius.
+    Round(f64),
+    /// A point at the bottom middle, this far below the sides' ends.
+    Point(f64),
+}
+
+/// A patch pocket: the piece (its hem included) and the shape it has finished.
+#[derive(Clone, Debug, PartialEq)]
+pub struct Pocket {
+    /// The piece: `width` wide and the depth and the hem tall, from its top-left corner at the
+    /// origin (y down), clockwise on screen. Its seam allowance comes from Make Pattern Piece.
+    pub piece: Vec<Knot>,
+    /// Where the hem folds inside, across the piece.
+    pub fold: [Pt; 2],
+    /// The finished pocket (the piece below the fold), top-left at the origin: what is marked
+    /// on the garment.
+    pub finished: Vec<Knot>,
+}
+
+/// A patch pocket `width` wide and `depth` deep when finished, with a `hem` folded inside at
+/// the top.
+pub fn patch_pocket(width: f64, depth: f64, hem: f64, corners: PocketCorners) -> Result<Pocket, DesignError> {
+    let ok = |v: f64| v.is_finite() && v > 0.0;
+    if !(ok(width) && ok(depth) && hem.is_finite() && hem >= 0.0) {
+        return Err(DesignError::BadAmount);
+    }
+    match corners {
+        PocketCorners::Round(r) if !(ok(r) && 2.0 * r <= width && r <= depth) => return Err(DesignError::BadAmount),
+        PocketCorners::Point(p) if !(ok(p) && p < depth) => return Err(DesignError::BadAmount),
+        _ => {}
+    }
+    // The outline from `top` down to `bottom`: across the top, down the right side, across the
+    // bottom, up the left side.
+    let shape = |top: f64, bottom: f64| -> Vec<Knot> {
+        let mut v = vec![Knot::corner(Pt::new(0.0, top)), Knot::corner(Pt::new(width, top))];
+        match corners {
+            PocketCorners::Square => {
+                v.push(Knot::corner(Pt::new(width, bottom)));
+                v.push(Knot::corner(Pt::new(0.0, bottom)));
+            }
+            PocketCorners::Round(r) => {
+                // A quarter circle as a cubic: handles 0.5523 of the radius.
+                let k = r * 0.552_284_749_8;
+                v.push(Knot { p: Pt::new(width, bottom - r), h_in: Pt::new(width, bottom - r), h_out: Pt::new(width, bottom - r + k) });
+                v.push(Knot { p: Pt::new(width - r, bottom), h_in: Pt::new(width - r + k, bottom), h_out: Pt::new(width - r, bottom) });
+                v.push(Knot { p: Pt::new(r, bottom), h_in: Pt::new(r, bottom), h_out: Pt::new(r - k, bottom) });
+                v.push(Knot { p: Pt::new(0.0, bottom - r), h_in: Pt::new(0.0, bottom - r + k), h_out: Pt::new(0.0, bottom - r) });
+            }
+            PocketCorners::Point(p) => {
+                v.push(Knot::corner(Pt::new(width, bottom - p)));
+                v.push(Knot::corner(Pt::new(width / 2.0, bottom)));
+                v.push(Knot::corner(Pt::new(0.0, bottom - p)));
+            }
+        }
+        v
+    };
+    Ok(Pocket { piece: shape(0.0, hem + depth), fold: [Pt::new(0.0, hem), Pt::new(width, hem)], finished: shape(0.0, depth) })
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -1012,5 +1078,34 @@ mod tests {
         assert!(((lowered.outline[0].p - Pt::new(0.0, 10.0)).len() - 10.0).abs() < 1e-6);
         assert!(flat_collar(b, f_rev, 30.0, 0.0, 0.0).is_err());
         assert!(flat_collar(Neckline { shoulder: 9, ..b }, f_rev, 30.0, 60.0, 0.0).is_err());
+    }
+
+    #[test]
+    fn a_patch_pocket_is_its_depth_and_hem_tall_with_the_corners_asked_for() {
+        let p = patch_pocket(140.0, 160.0, 30.0, PocketCorners::Square).unwrap();
+        assert_eq!(
+            p.piece.iter().map(|k| k.p).collect::<Vec<_>>(),
+            [Pt::new(0.0, 0.0), Pt::new(140.0, 0.0), Pt::new(140.0, 190.0), Pt::new(0.0, 190.0)]
+        );
+        assert_eq!(p.fold, [Pt::new(0.0, 30.0), Pt::new(140.0, 30.0)]);
+        assert_eq!(p.finished[2].p, Pt::new(140.0, 160.0));
+        // Rounded: the bottom is the radius in from each side, and as long as a quarter circle
+        // each corner (within a hair of the cubic's).
+        let r = patch_pocket(140.0, 160.0, 30.0, PocketCorners::Round(20.0)).unwrap();
+        assert_eq!(r.piece.len(), 6);
+        assert!(near(r.piece[3].p, Pt::new(120.0, 190.0)) && near(r.piece[4].p, Pt::new(20.0, 190.0)));
+        let round = run_length(&r.piece, 2, 3);
+        assert!((round - std::f64::consts::FRAC_PI_2 * 20.0).abs() < 0.02, "{round}");
+        // Pointed: the bottom middle 25 below the sides' ends.
+        let v = patch_pocket(140.0, 160.0, 30.0, PocketCorners::Point(25.0)).unwrap();
+        assert!(near(v.piece[3].p, Pt::new(70.0, 190.0)) && near(v.piece[2].p, Pt::new(140.0, 165.0)));
+        for bad in [
+            patch_pocket(0.0, 160.0, 30.0, PocketCorners::Square),
+            patch_pocket(140.0, 160.0, -1.0, PocketCorners::Square),
+            patch_pocket(140.0, 160.0, 30.0, PocketCorners::Round(80.0)),
+            patch_pocket(140.0, 160.0, 30.0, PocketCorners::Point(200.0)),
+        ] {
+            assert_eq!(bad, Err(DesignError::BadAmount));
+        }
     }
 }
