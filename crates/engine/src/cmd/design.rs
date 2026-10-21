@@ -1,7 +1,7 @@
 //! Design tools (PF-5) on paths and pieces' seam lines: `design.rotateDart` pivots a dart to
 //! another place on the outline, `design.split` cuts an outline in two (a princess seam through
 //! the bust point), `design.spread` slashes and spreads an outline (flare, fullness),
-//! `design.gather` marks an edge to gather, `design.pleat` adds a knife pleat with its marks, `design.facing` makes a facing for an edge, `design.length` measures along an outline and `design.matchLength` trues a seam to a length or
+//! `design.collar` drafts a flat collar from the bodice's necklines, `design.gather` marks an edge to gather, `design.pleat` adds a knife pleat with its marks, `design.facing` makes a facing for an edge, `design.length` measures along an outline and `design.matchLength` trues a seam to a length or
 //! to another seam (seams that sew together).
 //! The geometry is [`pf_core::design`]. A block part or a drafted path that is changed this way
 //! no longer follows the measurements (its points are no longer the block's).
@@ -58,6 +58,15 @@ pub fn specs() -> Vec<CommandSpec> {
             "{id? (a path or a piece; default: the selection), from: anchor | [x, y] (document points on the outline), to: anchor | [x, y] (the edge to gather runs from one forward to the other), into?: mm (the length it gathers into, shorter than the edge)} a gathering mark: a wavy line 5 mm inside the edge and a tick across it at each end, in the piece or above the path (without from and to: between two selected points, the shorter way round) → {id, mark, mm (the edge's length), into?, ratio?}",
             has_doc,
             gather
+        ),
+        cmd!(
+            "design.collar",
+            "Draft Collar",
+            ["Pattern"],
+            None,
+            "{back: {id (a path or a piece), from?: anchor (centre back at the neck), to?: anchor (the neck point), shoulder?: anchor (the shoulder point)}, front: {id, from?: anchor (the neck point), to?: anchor (centre front at the neck), shoulder?: anchor}, overlap?: mm (30: how far the shoulder points overlap), width?: mm (60), lower?: mm (0; 10 lowers a block's neckline for ease)} a flat (Peter Pan) collar: the front neckline laid against the back's at the neck point, the shoulders overlapping, the collar drawn the width out from the joined neckline with its front rounded to centre front; a bodice block part knows its own points (without back and front: the bodice block's back and front among the selection). The new path goes above the back → {id, neck (mm: the neck edge's length)}",
+            has_doc,
+            collar
         ),
         cmd!(
             "design.split",
@@ -583,4 +592,85 @@ fn gather(s: &mut Session, p: &Value) -> Result<Value> {
         r["ratio"] = json!(length / l);
     }
     Ok(r)
+}
+
+/// One side's neckline for `design.collar`: the path, its neckline's ends and the shoulder
+/// point. A bodice block part that is still the block knows its own.
+fn neckline_param(s: &Session, p: &Value, key: &str, fallback: Option<NodeId>, cmd: &str) -> Result<(NodeId, Vec<Knot>, usize, usize, usize)> {
+    let given;
+    let v = match (p.get(key), fallback) {
+        (Some(v), _) => v,
+        (None, Some(id)) => {
+            given = json!({"id": id.0});
+            &given
+        }
+        (None, None) => return Err(bad(cmd, format!("{key}: {{id, from?, to?, shoulder?}} (or select the bodice block's back and front)"))),
+    };
+    let id = super::measure::target_path(s, v, cmd)?;
+    let doc = &s.doc()?.doc;
+    let ring = ring_of(doc, id, cmd)?;
+    let block = doc.node(id).and_then(|n| n.extras().block.as_deref().cloned());
+    let known = match block {
+        Some(b) if b.kind == pf_core::block::BlockKind::Bodice && b.part == 0 => Some((1, 2, 6)),
+        Some(b) if b.kind == pf_core::block::BlockKind::Bodice && b.part == 1 => Some((12, 0, 9)),
+        _ => None,
+    };
+    let get = |k: &str, d: Option<usize>| -> Result<usize> {
+        match (anchor_param(v, k, cmd)?, d) {
+            (Some(i), _) | (None, Some(i)) => Ok(i),
+            (None, None) => Err(bad(cmd, format!("{key}.{k}: a point's number along the path (only a bodice block part knows its own)"))),
+        }
+    };
+    let (from, to, shoulder) = (get("from", known.map(|k| k.0))?, get("to", known.map(|k| k.1))?, get("shoulder", known.map(|k| k.2))?);
+    Ok((id, ring, from, to, shoulder))
+}
+
+fn collar(s: &mut Session, p: &Value) -> Result<Value> {
+    const CMD: &str = "design.collar";
+    let mm = |k: &str, d: f64, zero_ok: bool| -> Result<f64> {
+        match p.get(k) {
+            None | Some(Value::Null) => Ok(d),
+            Some(v) => v.as_f64().filter(|x| x.is_finite() && (*x > 0.0 || zero_ok && *x == 0.0)).ok_or_else(|| bad(CMD, format!("{k}: mm"))),
+        }
+    };
+    let (overlap, width, lower) = (mm("overlap", 30.0, true)?, mm("width", 60.0, false)?, mm("lower", 0.0, true)?);
+    // Without back and front: the bodice block's back and front among the selection.
+    let (mut sel_back, mut sel_front) = (None, None);
+    if p.get("back").is_none() && p.get("front").is_none() {
+        let st = s.doc()?;
+        for id in st.selection.in_paint_order(&st.doc) {
+            let Ok(path) = super::measure::target_path(s, &json!({"id": id.0}), CMD) else { continue };
+            match st.doc.node(path).and_then(|n| n.extras().block.as_deref().cloned()) {
+                Some(b) if b.kind == pf_core::block::BlockKind::Bodice && b.part == 0 => sel_back = Some(path),
+                Some(b) if b.kind == pf_core::block::BlockKind::Bodice && b.part == 1 => sel_front = Some(path),
+                _ => {}
+            }
+        }
+    }
+    let (back_id, back, bf, bt, bs) = neckline_param(s, p, "back", sel_back, CMD)?;
+    let (_, front, ff, ft, fs) = neckline_param(s, p, "front", sel_front, CMD)?;
+    let c = pf_core::design::flat_collar(
+        pf_core::design::Neckline { ring: &back, from: bf, to: bt, shoulder: bs },
+        pf_core::design::Neckline { ring: &front, from: ff, to: ft, shoulder: fs },
+        pf_core::mm_to_pt(overlap),
+        pf_core::mm_to_pt(width),
+        pf_core::mm_to_pt(lower),
+    )
+    .map_err(|e| err(CMD, e))?;
+    let doc = &s.doc()?.doc;
+    // Drafted where the back is: above it, or above its piece.
+    let anchor = doc.parent_of(back_id).filter(|_| in_piece(doc, back_id)).unwrap_or(back_id);
+    let new = s.edit("Draft Collar", |d, sel| {
+        let id = d.alloc_id();
+        let mut n = Node::path(
+            id,
+            path_of(&c.outline),
+            vectorcraft_doc::Appearance::basic(vectorcraft_color::Paint::None, vectorcraft_color::Paint::solid(vectorcraft_color::Color::BLACK), 1.0),
+        );
+        n.name = Some("Collar".into());
+        d.insert_beside(vec![(anchor, vec![n])], false)?;
+        sel.set([id]);
+        Ok(id)
+    })?;
+    Ok(json!({"id": new.0, "neck": pt_to_mm(c.neck_length)}))
 }
