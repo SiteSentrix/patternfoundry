@@ -466,9 +466,19 @@ fn encode_files(doc: &Document, f: &Format, p: &Value) -> Result<Encoded> {
         "txt" => super::text::encode(doc, p)?,
         "svg" | "svgz" => return super::svg::encode(doc, p, f.id == "svgz").map_err(|e| bad(C, e)),
         "dxf" => return super::dxf::encode(doc, p, use_artboards),
-        "aama" => return super::aama::encode(doc, p),
-        "svgcut" => return super::svgcut::encode(doc, p),
-        "projector" => return super::projector::encode(doc, p),
+        // The pattern-piece formats write one size of a graded pattern when asked (`size`).
+        "aama" => {
+            let mut q = p.clone();
+            // The file's sample size is the size written, unless given.
+            if let (Some(size), Some(o)) = (p.get("size").and_then(Value::as_str), q.as_object_mut())
+                && !o.contains_key("sampleSize")
+            {
+                o.insert("sampleSize".into(), Value::String(size.into()));
+            }
+            return super::aama::encode(&*sized(doc, p)?, &q);
+        }
+        "svgcut" => return super::svgcut::encode(&*sized(doc, p)?, p),
+        "projector" => return super::projector::encode(&*sized(doc, p)?, p),
         // EPS reads its own `useArtboards` (the art's bounds unless asked).
         "eps" => return super::eps::encode(doc, p),
         "emf" => return super::metafile::encode(doc, p, use_artboards, vectorcraft_metafile::Kind::Emf),
@@ -542,4 +552,14 @@ fn encode_files(doc: &Document, f: &Format, p: &Value) -> Result<Encoded> {
         _ => return Err(bad(C, format!("no encoder for {} yet", f.label))),
     };
     Ok(Encoded::one(bytes))
+}
+
+/// `doc`, or with `size` in the params, its pattern pieces graded to that size (redrafted from
+/// the size chart and moved by the grade rules, as the graded nest draws them).
+fn sized<'a>(doc: &'a Document, p: &Value) -> Result<Cow<'a, Document>> {
+    match p.get("size") {
+        None | Some(Value::Null) => Ok(Cow::Borrowed(doc)),
+        Some(Value::String(size)) => Ok(Cow::Owned(crate::cmd::grade::in_size(doc, size, C)?)),
+        Some(_) => Err(bad(C, "size: the name of a size of the size chart or the size range")),
+    }
 }

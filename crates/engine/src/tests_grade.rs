@@ -265,3 +265,51 @@ fn bad_sizes_and_rules_are_refused() {
     assert_eq!(s.execute("grade.setSizes", &json!({"sizes": null})).unwrap(), json!({"sizes": null}));
     assert!(e(&mut s, json!({"cmd": "grade.nest", "p": {}})).contains("no sizes"));
 }
+
+#[test]
+fn piece_exports_write_the_size_asked() {
+    let (mut s, id) = square();
+    let pts = seam_points(&s, id);
+    let right = pts.iter().map(|p| p[0]).fold(f64::MIN, f64::max);
+    for (i, p) in pts.iter().enumerate() {
+        let dx = if (p[0] - right).abs() < 1e-6 { 10.0 } else { 0.0 };
+        s.execute("grade.setRule", &json!({"id": id, "anchor": i, "step": [dx, 0]})).unwrap();
+    }
+    let text = |s: &mut Session, p: Value| {
+        let r = s.execute("document.export", &p).unwrap();
+        String::from_utf8(vectorcraft_format::base64_decode(r["dataBase64"].as_str().unwrap()).unwrap()).unwrap()
+    };
+    // SVG for cutting: the page is the cutting line and 10 mm round it.
+    for (size, page) in [(None, 140), (Some("S"), 130), (Some("l"), 150)] {
+        let svg = text(&mut s, json!({"format": "svgcut", "size": size}));
+        assert!(svg.contains(&format!("width=\"{page}mm\"")), "{size:?}: {}", &svg[..300]);
+    }
+    // DXF-AAMA: the size written is the file's sample size, unless given.
+    let dxf = text(&mut s, json!({"format": "aama", "size": "L"}));
+    assert!(dxf.contains("Sample Size: L"), "{dxf}");
+    let dxf = text(&mut s, json!({"format": "aama", "size": "L", "sampleSize": "Large"}));
+    assert!(dxf.contains("Sample Size: Large"));
+    // The projector PDF: the 130 mm cutting line of size L, 25 mm in.
+    let r = s.execute("document.export", &json!({"format": "projector", "size": "L"})).unwrap();
+    let doc = vectorcraft_pdf::import(&vectorcraft_format::base64_decode(r["dataBase64"].as_str().unwrap()).unwrap()).unwrap();
+    assert!((pf_core::pt_to_mm(doc.artboards[0].rect.width()) - 180.0).abs() < 0.01);
+    // The document is still in its base size; an unknown size is refused.
+    assert_eq!(seam_points(&s, id), pts);
+    let e = s.execute("document.export", &json!({"format": "svgcut", "size": "XXL"})).unwrap_err().to_string();
+    assert!(e.contains("no size `XXL`"), "{e}");
+}
+
+#[test]
+fn a_chart_size_exports_redrafted() {
+    let mut s = skirt();
+    let measured = s.execute("measure.info", &json!({})).unwrap();
+    let page = |s: &mut Session, size: &str| -> f64 {
+        let r = s.execute("document.export", &json!({"format": "svgcut", "size": size})).unwrap();
+        let svg = String::from_utf8(vectorcraft_format::base64_decode(r["dataBase64"].as_str().unwrap()).unwrap()).unwrap();
+        vectorcraft_svg::import(&svg).unwrap().artboards[0].rect.width()
+    };
+    let (ten, twelve, fourteen) = (page(&mut s, "10"), page(&mut s, "12"), page(&mut s, "14"));
+    assert!(ten < twelve && twelve < fourteen, "{ten} {twelve} {fourteen}");
+    // Drafting a size for the file leaves the document's own measurements alone.
+    assert_eq!(s.execute("measure.info", &json!({})).unwrap(), measured);
+}

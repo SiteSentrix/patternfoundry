@@ -23,6 +23,12 @@ const TEXT_ROOM_MM: f64 = 60.0;
 pub(super) const OPTIONS: &[FormatOption] = &[
     FormatOption { name: "version", ty: "string", default: "\"R13\"", description: "R13 (ASTM D6673) or R12 (for older AAMA readers)" },
     FormatOption { name: "styleName", ty: "string", default: "\"Pattern\"", description: "the Style Name the file gives the pattern" },
+    FormatOption {
+        name: "size",
+        ty: "string",
+        default: "\"\"",
+        description: "write the pieces graded to this size of the size chart or size range (default: as drawn)",
+    },
     FormatOption { name: "sampleSize", ty: "string", default: "\"\"", description: "the Sample Size, the size the pieces are drafted in" },
 ];
 
