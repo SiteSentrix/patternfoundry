@@ -295,3 +295,32 @@ fn an_inverted_pleat_has_two_fold_lines_meeting_at_its_middle() {
     let mid = subpaths(placement)[0].anchors[0].p;
     assert!(((mid - hem).hypot() - mm_to_pt(50.0)).abs() < 1e-6, "{mid:?}");
 }
+
+#[test]
+fn a_gathering_mark_along_the_skirt_hem_says_what_it_gathers_into() {
+    // The front's hem runs from the centre front (1) to the side seam (2): a quarter of the hip
+    // with ease, 24 cm.
+    let (mut s, id, before) = skirt_front();
+    let r = s.execute("design.gather", &json!({"id": id.0, "from": 1, "to": 2, "into": 200})).unwrap();
+    assert!((r["mm"].as_f64().unwrap() - 240.0).abs() < 1e-6, "{r}");
+    assert!((r["ratio"].as_f64().unwrap() - 1.2).abs() < 1e-9);
+    let mark = NodeId(r["mark"].as_u64().unwrap());
+    let doc = &s.doc().unwrap().doc;
+    assert_eq!(doc.node(mark).unwrap().name.as_deref(), Some("Gather to 200 mm"));
+    match &doc.node(mark).unwrap().kind {
+        NodeKind::Path { path, .. } => {
+            assert_eq!(path.subpaths.len(), 3);
+            // The wave keeps above the hem (inside the skirt), within 7 mm of it.
+            let hem_y = before[1].y;
+            assert!(path.subpaths[0].anchors.iter().all(|a| a.p.y < hem_y && hem_y - a.p.y <= mm_to_pt(7.0) + 1e-6));
+        }
+        _ => panic!("not a path"),
+    }
+    // The outline is unchanged; undo takes the mark away.
+    assert_eq!(points(&s, id), before);
+    s.execute("edit.undo", &json!({})).unwrap();
+    assert!(s.doc().unwrap().doc.node(mark).is_none());
+    for p in [json!({"id": id.0, "from": 1, "to": 2, "into": 300}), json!({"id": id.0, "from": 1, "to": 1}), json!({"id": id.0})] {
+        assert!(s.execute("design.gather", &p).is_err(), "{p}");
+    }
+}

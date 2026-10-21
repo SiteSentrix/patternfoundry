@@ -1,7 +1,7 @@
 //! Design tools (PF-5) on paths and pieces' seam lines: `design.rotateDart` pivots a dart to
 //! another place on the outline, `design.split` cuts an outline in two (a princess seam through
 //! the bust point), `design.spread` slashes and spreads an outline (flare, fullness),
-//! `design.pleat` adds a knife pleat with its marks, `design.facing` makes a facing for an edge, `design.length` measures along an outline and `design.matchLength` trues a seam to a length or
+//! `design.gather` marks an edge to gather, `design.pleat` adds a knife pleat with its marks, `design.facing` makes a facing for an edge, `design.length` measures along an outline and `design.matchLength` trues a seam to a length or
 //! to another seam (seams that sew together).
 //! The geometry is [`pf_core::design`]. A block part or a drafted path that is changed this way
 //! no longer follows the measurements (its points are no longer the block's).
@@ -49,6 +49,15 @@ pub fn specs() -> Vec<CommandSpec> {
             "{id? (a path or a piece; default: the selection), from: anchor | [x, y] (document points on the outline), to: anchor | [x, y] (the pleat's line runs from one to the other), depth: mm (how far it folds under), kind?: \"knife\" (default) | \"inverted\"} a pleat: for a knife pleat the outline spread parallel by twice the depth, folding toward the side that stays (from forward to to); for an inverted pleat four times, both edges folded to the middle. Its fold lines (solid, with arrows to the placements) and placement lines (dashed) added in the piece or above the path → {id, anchors, fold, placement}",
             has_doc,
             pleat
+        ),
+        cmd!(
+            "design.gather",
+            "Gather",
+            ["Pattern"],
+            None,
+            "{id? (a path or a piece; default: the selection), from: anchor | [x, y] (document points on the outline), to: anchor | [x, y] (the edge to gather runs from one forward to the other), into?: mm (the length it gathers into, shorter than the edge)} a gathering mark: a wavy line 5 mm inside the edge and a tick across it at each end, in the piece or above the path (without from and to: between two selected points, the shorter way round) → {id, mark, mm (the edge's length), into?, ratio?}",
+            has_doc,
+            gather
         ),
         cmd!(
             "design.split",
@@ -506,4 +515,72 @@ fn pleat(s: &mut Session, p: &Value) -> Result<Value> {
         Ok([fold_id, place_id])
     })?;
     Ok(json!({"id": id.0, "anchors": count, "fold": ids[0].0, "placement": ids[1].0}))
+}
+
+fn gather(s: &mut Session, p: &Value) -> Result<Value> {
+    const CMD: &str = "design.gather";
+    let id = super::measure::target_path(s, p, CMD)?;
+    let doc = &s.doc()?.doc;
+    let mut ring = ring_of(doc, id, CMD)?;
+    let into = match p.get("into") {
+        None | Some(Value::Null) => None,
+        Some(v) => Some(v.as_f64().filter(|l| l.is_finite() && *l > 0.0).ok_or_else(|| bad(CMD, "into: the length it gathers into, mm"))?),
+    };
+    let (from, to) = if p.get("from").is_none() && p.get("to").is_none() {
+        // Two selected points: the shorter way round between them.
+        let [a, b] = selected_points(s, id)?[..] else {
+            return Err(bad(CMD, "select two points of one path: the ends of the edge to gather"));
+        };
+        if along(&ring, a, b) <= along(&ring, b, a) { (a, b) } else { (b, a) }
+    } else {
+        let (mut from, _) = place(&mut ring, p, "from", CMD)?;
+        let (to, inserted) = place(&mut ring, p, "to", CMD)?;
+        if inserted && to <= from {
+            from += 1;
+        }
+        (from, to)
+    };
+    let length = pt_to_mm(along(&ring, from, to));
+    if let Some(l) = into
+        && l >= length
+    {
+        return Err(bad(CMD, format!("into: shorter than the edge ({length:.1} mm), or there is nothing to gather")));
+    }
+    let lines = pf_core::design::gather_marks(&ring, from, to, pf_core::mm_to_pt(5.0), pf_core::mm_to_pt(8.0)).map_err(|e| err(CMD, e))?;
+    let group = doc.parent_of(id).filter(|_| in_piece(doc, id));
+    let inserted_points = ring.len() != ring_of(doc, id, CMD)?.len();
+    let mark = s.edit("Gather", |d, sel| {
+        if inserted_points {
+            // The points the edge ends at were put on the outline.
+            let n = d.node(id).ok_or(EngineError::NoNode(id))?;
+            let new = reshaped(n, path_of(&ring));
+            if let Some(m) = d.node_mut(id) {
+                *m = new;
+            }
+        }
+        let line = |pts: &[Pt]| SubPath::polyline(&pts.iter().map(|q| to_point(*q)).collect::<Vec<_>>(), false);
+        let black = vectorcraft_color::Paint::solid(vectorcraft_color::Color::BLACK);
+        let mid = d.alloc_id();
+        let mut n = Node::path(
+            mid,
+            PathData::new(lines.iter().map(|l| line(l)).collect()),
+            vectorcraft_doc::Appearance::basic(vectorcraft_color::Paint::None, black, 0.75),
+        );
+        n.name = Some(match into {
+            Some(l) => format!("Gather to {l:.0} mm"),
+            None => "Gather".into(),
+        });
+        match group {
+            Some(g) => d.insert(Some(g), usize::MAX, n)?,
+            None => d.insert_beside(vec![(id, vec![n])], false).map(|_| mid)?,
+        };
+        sel.set([id]);
+        Ok(mid)
+    })?;
+    let mut r = json!({"id": id.0, "mark": mark.0, "mm": length});
+    if let Some(l) = into {
+        r["into"] = json!(l);
+        r["ratio"] = json!(length / l);
+    }
+    Ok(r)
 }
