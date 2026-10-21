@@ -375,3 +375,11 @@ is built on, plus a pattern mode, the way StitchFoundry adds embroidery:
   table's exact syntax, which no public source found so far gives (the standard itself is
   sold by ASTM; DH Patterns and Fit's overview was unreachable): the owner's call whether to
   buy ASTM D6673 or wait.
+- 2026-10-21, **PF-6.4**: the **Grading** panel (Pattern and Window menus): the size range typed
+  as "S, M, L" with its base size (Set Size Range; without a base chosen, the middle size), the
+  selected piece's seam line points each with its step rule (x and y, mm a size; × removes it;
+  a rule naming each size shows as "per size"), and Grade Nest / Clear Graded Nest (a size the
+  pattern can't make is said in the status bar). Everything goes through `grade.*`. Tests:
+  `crates/ui-egui/src/panels/tests_grading.rs` (drawn headless: the hint without a piece, a row
+  per point, the nest buttons, the typed size range sent). Not yet: picking a point on the
+  canvas, per-size rules edited in the panel, rules copied between pieces.

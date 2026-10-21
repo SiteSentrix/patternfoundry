@@ -5124,6 +5124,13 @@ mark-style	Japanese	Japońskie
 	Set Size Range	Ustaw zakres rozmiarów
 	Set Grade Rule	Ustaw regułę stopniowania
 	Grade Info	Informacje o stopniowaniu
+	Grading	Stopniowanie
+	Base size	Rozmiar bazowy
+	Grade rules (mm a size)	Reguły stopniowania (mm na rozmiar)
+	Name the sizes, smallest first, to give the points grade rules	Nazwij rozmiary, od najmniejszego, aby nadać punktom reguły
+	Select one pattern piece to grade its points	Zaznacz jedną część wykroju, aby stopniować jej punkty
+	Sizes	Rozmiary
+	per size	dla każdego rozmiaru
 	Draft Shirt Collar	Konstruuj kołnierzyk koszulowy
 file-filter	DXF-AAMA (cutting room)	DXF-AAMA (krojownia)
 @msg	DXF-AAMA files are DXF R13 (ASTM D6673) or R12	Pliki DXF-AAMA to DXF R13 (ASTM D6673) lub R12

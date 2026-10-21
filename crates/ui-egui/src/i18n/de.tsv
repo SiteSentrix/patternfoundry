@@ -4852,6 +4852,13 @@ effect	Soft	Weich
 	Set Size Range	Größenreihe festlegen
 	Set Grade Rule	Gradierregel festlegen
 	Grade Info	Gradierungsinfo
+	Grading	Gradierung
+	Base size	Grundgröße
+	Grade rules (mm a size)	Gradierregeln (mm je Größe)
+	Name the sizes, smallest first, to give the points grade rules	Benennen Sie die Größen, kleinste zuerst, um den Punkten Gradierregeln zu geben
+	Select one pattern piece to grade its points	Wählen Sie ein Schnittteil, um seine Punkte zu gradieren
+	Sizes	Größen
+	per size	je Größe
 	Draft Shirt Collar	Hemdkragen konstruieren
 file-filter	DXF-AAMA (cutting room)	DXF-AAMA (Zuschnitt)
 @msg	DXF-AAMA files are DXF R13 (ASTM D6673) or R12	DXF-AAMA-Dateien sind DXF R13 (ASTM D6673) oder R12

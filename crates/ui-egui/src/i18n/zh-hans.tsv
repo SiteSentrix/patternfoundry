@@ -5107,6 +5107,13 @@ lighting	Light	光源
 	Set Size Range	设置尺码范围
 	Set Grade Rule	设置推码规则
 	Grade Info	推码信息
+	Grading	推码
+	Base size	基础码
+	Grade rules (mm a size)	推码规则（每码 mm）
+	Name the sizes, smallest first, to give the points grade rules	请从小到大列出尺码，才能给点设置推码规则
+	Select one pattern piece to grade its points	选择一个裁片来为其点推码
+	Sizes	尺码
+	per size	按尺码
 	Draft Shirt Collar	绘制衬衫领
 file-filter	DXF-AAMA (cutting room)	DXF-AAMA（裁剪车间）
 @msg	DXF-AAMA files are DXF R13 (ASTM D6673) or R12	DXF-AAMA 文件为 DXF R13（ASTM D6673）或 R12

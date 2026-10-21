@@ -68,5 +68,6 @@ and matching, walking seams, smoothing across seams, facings, knife, inverted an
 gathering marks, flat, stand and shirt collars, patch, in-seam and welt pockets) and PF-7 has
 DXF-AAMA export (PF-7.1), SVG for cutting (PF-7.2) and the projector PDF (PF-7.3; see the
 progress log in `docs/plan.md`). PF-6 has grading by redrafting (PF-6.1, the graded nest), grade
-rules per point (PF-6.2) and one size written for cutting (PF-6.3). Next: a grading panel; graded
+rules per point (PF-6.2), one size written for cutting (PF-6.3) and the Grading panel (PF-6.4).
+Next: PF-8 (AI help) or the PF-6 follow-ups (points picked on the canvas); graded
 DXF-AAMA (the rule table) waits on the owner (see PF-6.3); the in-app projector view is still to do.

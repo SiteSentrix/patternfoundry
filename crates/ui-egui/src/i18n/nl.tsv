@@ -5296,6 +5296,13 @@ swatch	Bright Violet	Felviolet
 	Set Size Range	Maatreeks instellen
 	Set Grade Rule	Gradeerregel instellen
 	Grade Info	Gradeerinfo
+	Grading	Graderen
+	Base size	Basismaat
+	Grade rules (mm a size)	Gradeerregels (mm per maat)
+	Name the sizes, smallest first, to give the points grade rules	Geef de maten een naam, kleinste eerst, om de punten gradeerregels te geven
+	Select one pattern piece to grade its points	Selecteer één patroondeel om de punten te gradueren
+	Sizes	Maten
+	per size	per maat
 	Draft Shirt Collar	Overhemdkraag tekenen
 file-filter	DXF-AAMA (cutting room)	DXF-AAMA (snijzaal)
 @msg	DXF-AAMA files are DXF R13 (ASTM D6673) or R12	DXF-AAMA-bestanden zijn DXF R13 (ASTM D6673) of R12

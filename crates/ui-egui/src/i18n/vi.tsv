@@ -4866,6 +4866,13 @@ theme	Appearance	Giao diện
 	Set Size Range	Đặt dải cỡ
 	Set Grade Rule	Đặt quy tắc nhảy cỡ
 	Grade Info	Thông tin nhảy cỡ
+	Grading	Nhảy cỡ
+	Base size	Cỡ gốc
+	Grade rules (mm a size)	Quy tắc nhảy cỡ (mm mỗi cỡ)
+	Name the sizes, smallest first, to give the points grade rules	Đặt tên các cỡ, từ nhỏ đến lớn, để gán quy tắc cho các điểm
+	Select one pattern piece to grade its points	Chọn một chi tiết rập để nhảy cỡ các điểm của nó
+	Sizes	Cỡ
+	per size	theo từng cỡ
 	Draft Shirt Collar	Dựng cổ sơ mi
 file-filter	DXF-AAMA (cutting room)	DXF-AAMA (xưởng cắt)
 @msg	DXF-AAMA files are DXF R13 (ASTM D6673) or R12	Tệp DXF-AAMA là DXF R13 (ASTM D6673) hoặc R12

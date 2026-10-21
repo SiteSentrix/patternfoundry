@@ -176,6 +176,7 @@ pub const ICON_PANELS: &[(&str, &str, &str)] = &[
     ("docInfo", "Document Info", "dc-list-view"),
     ("pieces", "Pattern Pieces", "scissors"),
     ("measurements", "Measurements", "ruler"),
+    ("grading", "Grading", "scaling"),
     ("navigator", "Navigator", "map"),
     ("separations", "Separations Preview", "printer"),
     ("imageTrace", "Image Trace", "image"),

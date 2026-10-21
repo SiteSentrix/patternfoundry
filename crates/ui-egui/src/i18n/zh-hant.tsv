@@ -4903,6 +4903,13 @@ lighting	Light	光源
 	Set Size Range	設定尺碼範圍
 	Set Grade Rule	設定放碼規則
 	Grade Info	放碼資訊
+	Grading	放碼
+	Base size	基礎碼
+	Grade rules (mm a size)	放碼規則（每碼 mm）
+	Name the sizes, smallest first, to give the points grade rules	請由小到大列出尺碼，才能為點設定放碼規則
+	Select one pattern piece to grade its points	選取一個裁片來為其點放碼
+	Sizes	尺碼
+	per size	依尺碼
 	Draft Shirt Collar	繪製襯衫領
 file-filter	DXF-AAMA (cutting room)	DXF-AAMA（裁剪車間）
 @msg	DXF-AAMA files are DXF R13 (ASTM D6673) or R12	DXF-AAMA 檔案為 DXF R13（ASTM D6673）或 R12

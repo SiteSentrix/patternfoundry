@@ -5214,6 +5214,13 @@ mark-style	Japanese	Japonesas
 	Set Size Range	Definir gama de tallas
 	Set Grade Rule	Definir regla de escalado
 	Grade Info	Información del escalado
+	Grading	Escalado
+	Base size	Talla base
+	Grade rules (mm a size)	Reglas de escalado (mm por talla)
+	Name the sizes, smallest first, to give the points grade rules	Nombre las tallas, de menor a mayor, para dar reglas a los puntos
+	Select one pattern piece to grade its points	Seleccione una pieza del patrón para escalar sus puntos
+	Sizes	Tallas
+	per size	por talla
 	Draft Shirt Collar	Trazar cuello camisero
 file-filter	DXF-AAMA (cutting room)	DXF-AAMA (sala de corte)
 @msg	DXF-AAMA files are DXF R13 (ASTM D6673) or R12	Los archivos DXF-AAMA son DXF R13 (ASTM D6673) o R12

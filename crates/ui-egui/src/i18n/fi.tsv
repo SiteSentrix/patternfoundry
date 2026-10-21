@@ -5235,6 +5235,13 @@ mark-style	Japanese	Japanilainen
 	Set Size Range	Aseta kokosarja
 	Set Grade Rule	Aseta porrastussääntö
 	Grade Info	Porrastuksen tiedot
+	Grading	Porrastus
+	Base size	Peruskoko
+	Grade rules (mm a size)	Porrastussäännöt (mm kokoa kohden)
+	Name the sizes, smallest first, to give the points grade rules	Nimeä koot pienimmästä alkaen antaaksesi pisteille porrastussäännöt
+	Select one pattern piece to grade its points	Valitse yksi kaavanosa porrastaaksesi sen pisteet
+	Sizes	Koot
+	per size	kooittain
 	Draft Shirt Collar	Piirrä paitakaulus
 file-filter	DXF-AAMA (cutting room)	DXF-AAMA (leikkaamo)
 @msg	DXF-AAMA files are DXF R13 (ASTM D6673) or R12	DXF-AAMA-tiedostot ovat DXF R13 (ASTM D6673) tai R12

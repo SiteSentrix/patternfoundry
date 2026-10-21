@@ -20,6 +20,7 @@ pub mod doc_info;
 pub mod flattener_preview;
 pub mod glyphs;
 pub mod gradient;
+pub mod grading;
 pub mod graphic_styles;
 pub mod history;
 pub mod image_trace;
@@ -170,6 +171,7 @@ pub fn show_icon_panel(app: &mut VectorcraftApp, ui: &mut Ui, id: &str) {
         "docInfo" => doc_info::show(app, ui),
         "pieces" => pieces::show(app, ui),
         "measurements" => measurements::show(app, ui),
+        "grading" => grading::show(app, ui),
         "charStyles" => text_styles::show(app, ui, text_styles::Kind::Char),
         "paraStyles" => text_styles::show(app, ui, text_styles::Kind::Para),
         "magicWand" => magic_wand::show(app, ui),
@@ -563,6 +565,8 @@ mod tests_effectedit;
 mod tests_fontsize;
 #[cfg(test)]
 mod tests_freeform;
+#[cfg(test)]
+mod tests_grading;
 #[cfg(test)]
 mod tests_links;
 #[cfg(test)]

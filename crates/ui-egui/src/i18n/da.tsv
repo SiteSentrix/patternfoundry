@@ -5254,6 +5254,13 @@ swatch	Bright Violet	Kraftig violet
 	Set Size Range	Angiv størrelsesserie
 	Set Grade Rule	Angiv graderingsregel
 	Grade Info	Graderingsinfo
+	Grading	Gradering
+	Base size	Basisstørrelse
+	Grade rules (mm a size)	Graderingsregler (mm pr. størrelse)
+	Name the sizes, smallest first, to give the points grade rules	Navngiv størrelserne, mindste først, for at give punkterne graderingsregler
+	Select one pattern piece to grade its points	Vælg én mønsterdel for at gradere dens punkter
+	Sizes	Størrelser
+	per size	pr. størrelse
 	Draft Shirt Collar	Tegn skjortekrave
 file-filter	DXF-AAMA (cutting room)	DXF-AAMA (tilskæring)
 @msg	DXF-AAMA files are DXF R13 (ASTM D6673) or R12	DXF-AAMA-filer er DXF R13 (ASTM D6673) eller R12

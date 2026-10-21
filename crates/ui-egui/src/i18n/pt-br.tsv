@@ -5189,6 +5189,13 @@ mark-style	Japanese	Japonesas
 	Set Size Range	Definir grade de tamanhos
 	Set Grade Rule	Definir regra de graduação
 	Grade Info	Informações da graduação
+	Grading	Graduação
+	Base size	Tamanho base
+	Grade rules (mm a size)	Regras de graduação (mm por tamanho)
+	Name the sizes, smallest first, to give the points grade rules	Nomeie os tamanhos, do menor ao maior, para dar regras aos pontos
+	Select one pattern piece to grade its points	Selecione uma peça do molde para graduar seus pontos
+	Sizes	Tamanhos
+	per size	por tamanho
 	Draft Shirt Collar	Traçar gola de camisa
 file-filter	DXF-AAMA (cutting room)	DXF-AAMA (sala de corte)
 @msg	DXF-AAMA files are DXF R13 (ASTM D6673) or R12	Arquivos DXF-AAMA são DXF R13 (ASTM D6673) ou R12
