@@ -271,4 +271,27 @@ fn a_knife_pleat_in_a_skirt_piece() {
     assert_eq!(points(&s, id), before);
     assert!(s.doc().unwrap().doc.node(fold).is_none());
     assert!(s.execute("design.pleat", &json!({"id": g.0, "from": [hem.x, hem.y], "to": [top.x, top.y]})).is_err());
+    assert!(s.execute("design.pleat", &json!({"id": g.0, "from": [hem.x, hem.y], "to": [top.x, top.y], "depth": 30, "kind": "box"})).is_err());
+}
+
+#[test]
+fn an_inverted_pleat_has_two_fold_lines_meeting_at_its_middle() {
+    let (mut s, id, before) = skirt_front();
+    let top = Point::new((before[7].x + before[0].x) / 2.0, (before[7].y + before[0].y) / 2.0);
+    let hem = Point::new(top.x, before[1].y);
+    let r = s.execute("design.pleat", &json!({"id": id.0, "from": [hem.x, hem.y], "to": [top.x, top.y], "depth": 25, "kind": "inverted"})).unwrap();
+    let after = points(&s, id);
+    // Four times the depth: 10 cm more at the hem.
+    assert!(((after[after.len() - 1] - after[0]).hypot() - mm_to_pt(100.0)).abs() < 1e-9);
+    let doc = &s.doc().unwrap().doc;
+    let (fold, placement) = (NodeId(r["fold"].as_u64().unwrap()), NodeId(r["placement"].as_u64().unwrap()));
+    assert_eq!(doc.node(fold).unwrap().name.as_deref(), Some("Pleat fold lines"));
+    // Two fold lines and two arrows (shaft and head each); one placement line in the middle.
+    let subpaths = |id: NodeId| match &doc.node(id).unwrap().kind {
+        NodeKind::Path { path, .. } => path.subpaths.clone(),
+        _ => panic!("not a path"),
+    };
+    assert_eq!((subpaths(fold).len(), subpaths(placement).len()), (6, 1));
+    let mid = subpaths(placement)[0].anchors[0].p;
+    assert!(((mid - hem).hypot() - mm_to_pt(50.0)).abs() < 1e-6, "{mid:?}");
 }

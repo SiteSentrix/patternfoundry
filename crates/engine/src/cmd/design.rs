@@ -46,7 +46,7 @@ pub fn specs() -> Vec<CommandSpec> {
             "Add Pleat",
             ["Pattern"],
             None,
-            "{id? (a path or a piece; default: the selection), from: anchor | [x, y] (document points on the outline), to: anchor | [x, y] (the pleat's line runs from one to the other), depth: mm (how far it folds under)} a knife pleat: the outline spread parallel by twice the depth, folding toward the side that stays (from forward to to), with its fold line (solid, with an arrow to the placement line) and placement line (dashed) added in the piece or above the path → {id, anchors, fold, placement}",
+            "{id? (a path or a piece; default: the selection), from: anchor | [x, y] (document points on the outline), to: anchor | [x, y] (the pleat's line runs from one to the other), depth: mm (how far it folds under), kind?: \"knife\" (default) | \"inverted\"} a pleat: for a knife pleat the outline spread parallel by twice the depth, folding toward the side that stays (from forward to to); for an inverted pleat four times, both edges folded to the middle. Its fold lines (solid, with arrows to the placements) and placement lines (dashed) added in the piece or above the path → {id, anchors, fold, placement}",
             has_doc,
             pleat
         ),
@@ -462,7 +462,12 @@ fn pleat(s: &mut Session, p: &Value) -> Result<Value> {
     if inserted && to <= from {
         from += 1;
     }
-    let (out, marks) = pf_core::design::pleat(&ring, from, to, pf_core::mm_to_pt(depth), pf_core::mm_to_pt(4.0)).map_err(|e| err(CMD, e))?;
+    let kind = match str_param(p, "kind") {
+        None | Some("knife") => pf_core::design::PleatKind::Knife,
+        Some("inverted") => pf_core::design::PleatKind::Inverted,
+        Some(o) => return Err(bad(CMD, format!("kind: \"knife\" or \"inverted\", not {o:?}"))),
+    };
+    let (out, marks) = pf_core::design::pleat(&ring, from, to, pf_core::mm_to_pt(depth), kind, pf_core::mm_to_pt(4.0)).map_err(|e| err(CMD, e))?;
     // The marks go in the piece (they move with it) or above the path.
     let group = doc.parent_of(id).filter(|_| in_piece(doc, id));
     let count = out.len();
@@ -477,16 +482,18 @@ fn pleat(s: &mut Session, p: &Value) -> Result<Value> {
         let fold_id = d.alloc_id();
         let mut fold = Node::path(
             fold_id,
-            PathData::new(vec![line(&marks.fold), line(&marks.arrow[0]), line(&marks.arrow[1])]),
+            PathData::new(
+                marks.folds.iter().map(|f| line(f)).chain(marks.arrows.iter().flat_map(|[shaft, head]| [line(shaft), line(head)])).collect(),
+            ),
             vectorcraft_doc::Appearance::basic(vectorcraft_color::Paint::None, black(), 0.75),
         );
-        fold.name = Some("Pleat fold line".into());
+        fold.name = Some(if marks.folds.len() > 1 { "Pleat fold lines" } else { "Pleat fold line" }.into());
         let place_id = d.alloc_id();
         let mut dashed = vectorcraft_doc::Appearance::basic(vectorcraft_color::Paint::None, black(), 0.75);
         if let Some(st) = dashed.stroke_mut() {
             st.dash = Some(vectorcraft_doc::Dash { pattern: vec![4.0, 2.0], ..Default::default() });
         }
-        let mut placement = Node::path(place_id, PathData::single(line(&marks.placement)), dashed);
+        let mut placement = Node::path(place_id, PathData::new(marks.placements.iter().map(|l| line(l)).collect()), dashed);
         placement.name = Some("Pleat placement line".into());
         match group {
             Some(g) => {
