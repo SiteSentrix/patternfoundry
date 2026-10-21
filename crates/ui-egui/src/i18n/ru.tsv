@@ -4883,3 +4883,4 @@ file-filter	DXF-AAMA (cutting room)	DXF-AAMA (раскройный цех)
 @msg	no pattern pieces to export	нет деталей выкройки для экспорта
 @msg	the piece {_1} has no outline	у детали {_1} нет контура
 file-filter	SVG for cutting	SVG для раскроя
+file-filter	PDF for projector	PDF для проектора

@@ -311,3 +311,18 @@ is built on, plus a pattern mode, the way StitchFoundry adds embroidery:
   `marks` off only the cuts and notches are written. Tests: `crates/engine/src/tests_svgcut.rs`
   (a 10 cm square with 10 mm allowance cuts at 120 mm and its seam line at 100 mm, read back from
   the file; without marks only cuts are written).
+- 2026-10-21, **PF-7.3**: PDF for projector (`document.export {format: projector}`), for
+  projecting a pattern onto fabric on the cutting table, made as projector sewists describe such
+  files (https://www.craftstorming.com/2020/05/tips-for-using-pdf-sewing-patterns-on-a-projector):
+  one page at 100% holding every piece, set side by side (`layout: row`, the default; blocks are
+  drafted touching, so their allowances would overlap) or where they are drawn (`asDrawn`), with
+  a margin round them (`margin`, 25 mm); cutting lines and notches 3 pt thick (`lineWidth`),
+  dashed seam lines, grainlines, and names and cut counts in 10 mm type. PDF layers: a 10 cm grid
+  (on), a 4 in grid (off), a 10 cm test square in a band above the pieces, and the pieces; with
+  `invert`, white lines on a black page (a "Background" layer); with `mirror`, the page mirrored
+  left to right for cutting with the fabric's wrong side up (the type stays readable). Tests:
+  `crates/engine/src/tests_projector.rs` reads the PDF back: the test square measures 100 × 100
+  mm, the cutting line of a 10 cm square with 10 mm allowance 120 mm, the layers and their
+  visibility, inverted and mirrored pages, touching pieces set apart. Not yet: the projector
+  view in the app itself (full-screen, calibrated to the cutting mat), pieces cut on the fold
+  opened out, layers per size (PF-6).

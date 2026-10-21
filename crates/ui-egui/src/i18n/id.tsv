@@ -5255,3 +5255,4 @@ file-filter	DXF-AAMA (cutting room)	DXF-AAMA (ruang potong)
 @msg	no pattern pieces to export	tidak ada potongan pola untuk diekspor
 @msg	the piece {_1} has no outline	potongan {_1} tidak memiliki garis tepi
 file-filter	SVG for cutting	SVG untuk pemotongan
+file-filter	PDF for projector	PDF untuk proyektor

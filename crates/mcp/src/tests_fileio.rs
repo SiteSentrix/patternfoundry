@@ -75,6 +75,7 @@ fn export_tool_lists_engine_formats_and_options() {
             "txt",
             "dxf",
             "svgcut",
+            "projector",
             "aama",
             "eps",
             "emf",

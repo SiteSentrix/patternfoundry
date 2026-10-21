@@ -5236,3 +5236,4 @@ file-filter	DXF-AAMA (cutting room)	DXF-AAMA (кроялня)
 @msg	no pattern pieces to export	няма детайли на кройка за експорт
 @msg	the piece {_1} has no outline	детайлът {_1} няма контур
 file-filter	SVG for cutting	SVG за рязане
+file-filter	PDF for projector	PDF за проектор

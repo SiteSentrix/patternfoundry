@@ -5258,3 +5258,4 @@ file-filter	DXF-AAMA (cutting room)	DXF-AAMA (szabászat)
 @msg	no pattern pieces to export	nincs exportálható szabásminta-darab
 @msg	the piece {_1} has no outline	a(z) {_1} darabnak nincs körvonala
 file-filter	SVG for cutting	SVG vágáshoz
+file-filter	PDF for projector	PDF projektorhoz

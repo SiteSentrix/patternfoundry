@@ -4867,3 +4867,4 @@ file-filter	DXF-AAMA (cutting room)	DXF-AAMA (xưởng cắt)
 @msg	no pattern pieces to export	không có chi tiết rập nào để xuất
 @msg	the piece {_1} has no outline	chi tiết {_1} không có đường viền
 file-filter	SVG for cutting	SVG để cắt
+file-filter	PDF for projector	PDF cho máy chiếu

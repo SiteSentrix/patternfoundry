@@ -4850,3 +4850,4 @@ file-filter	DXF-AAMA (cutting room)	DXF-AAMA (재단실)
 @msg	no pattern pieces to export	내보낼 패턴 조각이 없습니다
 @msg	the piece {_1} has no outline	조각 {_1}에 윤곽선이 없습니다
 file-filter	SVG for cutting	재단용 SVG
+file-filter	PDF for projector	프로젝터용 PDF

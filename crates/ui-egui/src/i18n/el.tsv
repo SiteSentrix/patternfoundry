@@ -5224,3 +5224,4 @@ file-filter	DXF-AAMA (cutting room)	DXF-AAMA (κοπτήριο)
 @msg	no pattern pieces to export	δεν υπάρχουν κομμάτια πατρόν για εξαγωγή
 @msg	the piece {_1} has no outline	το κομμάτι {_1} δεν έχει περίγραμμα
 file-filter	SVG for cutting	SVG για κοπή
+file-filter	PDF for projector	PDF για προβολέα

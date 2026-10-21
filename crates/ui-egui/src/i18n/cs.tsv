@@ -5272,3 +5272,4 @@ file-filter	DXF-AAMA (cutting room)	DXF-AAMA (střihárna)
 @msg	no pattern pieces to export	žádné díly střihu k exportu
 @msg	the piece {_1} has no outline	díl {_1} nemá obrys
 file-filter	SVG for cutting	SVG pro řezání
+file-filter	PDF for projector	PDF pro projektor

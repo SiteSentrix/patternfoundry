@@ -66,5 +66,5 @@ PF-0 to PF-4 are done (with PF-4.1 and PF-4.2, the sleeve and trouser blocks; PF
 line bridging darts), PF-5's tools are in (dart rotation, splitting, slash and spread, seam length
 and matching, walking seams, smoothing across seams, facings, knife, inverted and box pleats,
 gathering marks, flat, stand and shirt collars, patch, in-seam and welt pockets) and PF-7 has
-DXF-AAMA export (PF-7.1) and SVG for cutting (PF-7.2; see the progress log in `docs/plan.md`).
-Next: the rest of PF-7 (projector mode), then PF-6 (grading).
+DXF-AAMA export (PF-7.1), SVG for cutting (PF-7.2) and the projector PDF (PF-7.3; see the
+progress log in `docs/plan.md`). Next: PF-6 (grading); the in-app projector view is still to do.
