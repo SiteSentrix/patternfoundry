@@ -560,3 +560,27 @@ fn an_in_seam_pocket_in_the_skirt_side_seam() {
         assert!(s.execute("design.inSeamPocket", &bad).is_err(), "{bad}");
     }
 }
+
+#[test]
+fn a_welt_pocket_marked_on_the_skirt_front() {
+    let (mut s, id, before) = skirt_front();
+    let at = Point::new((before[0].x + before[7].x) / 2.0, before[0].y + mm_to_pt(80.0));
+    let r = s.execute("design.weltPocket", &json!({"welts": "double", "on": id.0, "at": [at.x, at.y]})).unwrap();
+    let ids: Vec<NodeId> = r["ids"].as_array().unwrap().iter().map(|v| NodeId(v.as_u64().unwrap())).collect();
+    let names: Vec<Option<String>> = ids.iter().map(|i| s.doc().unwrap().doc.node(*i).unwrap().name.clone()).collect();
+    assert_eq!(names, [Some("Welt (cut 2)".into()), Some("Pocket bag, lower".into()), Some("Pocket bag, upper".into())]);
+    // The welt strip 120 + 2 × 15 long, 4 × 7 high; the opening 120 by 14 at `at`.
+    let mm = |r: Rect| (pf_core::pt_to_mm(r.width()), pf_core::pt_to_mm(r.height()));
+    let (w, h) = mm(bounds(&s, ids[0]));
+    assert!((w - 150.0).abs() < 1e-6 && (h - 28.0).abs() < 1e-6, "{w} {h}");
+    let opening = NodeId(r["opening"].as_u64().unwrap());
+    let ob = bounds(&s, opening);
+    assert!(((ob.x0 - at.x).abs() < 1e-6) && (ob.y0 - at.y).abs() < 1e-6);
+    let (w, h) = mm(ob);
+    assert!((w - 120.0).abs() < 1e-6 && (h - 14.0).abs() < 1e-6, "{w} {h}");
+    // One undo step takes it all away.
+    s.execute("edit.undo", &json!({})).unwrap();
+    assert!(s.doc().unwrap().doc.node(ids[0]).is_none() && s.doc().unwrap().doc.node(opening).is_none());
+    assert!(s.execute("design.weltPocket", &json!({"welts": "triple"})).is_err());
+    assert!(s.execute("design.weltPocket", &json!({"on": id.0})).is_err());
+}

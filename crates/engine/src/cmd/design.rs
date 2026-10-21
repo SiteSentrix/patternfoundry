@@ -114,6 +114,15 @@ pub fn specs() -> Vec<CommandSpec> {
             in_seam_pocket
         ),
         cmd!(
+            "design.weltPocket",
+            "Welt Pocket",
+            ["Pattern"],
+            None,
+            "{opening?: mm (120: how long), welts?: \"single\" (default) | \"double\", welt?: mm (each welt's finished height: 15 single, 7 double), depth?: mm (150: the bags below the opening), side?: mm (7: allowance along the welt), end?: mm (15: allowance at its ends), origin?: [x, y] (document points: the welt's top-left; default 20 mm inside the first artboard), on?: id (a garment path or piece: where the opening is marked), at?: [x, y] (document points: the opening's top-left on it; given with on)} a welt pocket's pieces: the welt strip with its fold line (cut two for double welts) and the lower and upper pocket bags; with on and at, the opening (dashed) and where it is cut marked on the garment → {ids, fold, opening?, cuts?}",
+            has_doc,
+            welt_pocket
+        ),
+        cmd!(
             "design.split",
             "Split at Points",
             ["Pattern"],
@@ -1058,4 +1067,100 @@ fn in_seam_pocket(s: &mut Session, p: &Value) -> Result<Value> {
         Ok(id)
     })?;
     Ok(json!({"id": id.0, "notches": count}))
+}
+
+fn welt_pocket(s: &mut Session, p: &Value) -> Result<Value> {
+    const CMD: &str = "design.weltPocket";
+    let welts = match str_param(p, "welts") {
+        None | Some("single") => pf_core::design::Welts::Single,
+        Some("double") => pf_core::design::Welts::Double,
+        Some(o) => return Err(bad(CMD, format!("welts: \"single\" or \"double\", not {o:?}"))),
+    };
+    let mm = |k: &str, d: f64| -> Result<f64> {
+        match p.get(k) {
+            None | Some(Value::Null) => Ok(d),
+            Some(v) => v.as_f64().filter(|x| x.is_finite() && *x >= 0.0).ok_or_else(|| bad(CMD, format!("{k}: mm"))),
+        }
+    };
+    let welt = mm("welt", if welts == pf_core::design::Welts::Single { 15.0 } else { 7.0 })?;
+    let pk = pf_core::design::welt_pocket(mm("opening", 120.0)?, welt, mm("depth", 150.0)?, welts, mm("side", 7.0)?, mm("end", 15.0)?)
+        .map_err(|e| err(CMD, e))?;
+    let doc = &s.doc()?.doc;
+    let point = |k: &str| -> Result<Option<Point>> {
+        match p.get(k) {
+            None | Some(Value::Null) => Ok(None),
+            Some(v) => {
+                let [x, y] = finite_numbers::<2>(v).ok_or_else(|| bad(CMD, format!("{k}: [x, y] in document points")))?;
+                Ok(Some(Point::new(x, y)))
+            }
+        }
+    };
+    let origin = point("origin")?.unwrap_or_else(|| {
+        let o = doc.artboards.first().map_or(Point::ZERO, |a| a.rect.origin());
+        Point::new(o.x + pf_core::mm_to_pt(20.0), o.y + pf_core::mm_to_pt(20.0))
+    });
+    let place = match (id_param(p, "on"), point("at")?) {
+        (Some(on), Some(at)) => {
+            let target = super::measure::target_path(s, &json!({"id": on.0}), CMD)?;
+            Some((doc.parent_of(target).filter(|_| in_piece(doc, target)), target, at))
+        }
+        (None, None) => None,
+        _ => return Err(bad(CMD, "on and at go together: the garment piece and where the opening's top-left corner goes on it")),
+    };
+    let at_mm = |q: Pt, o: Point| to_pt(Point::new(o.x + pf_core::mm_to_pt(q.x), o.y + pf_core::mm_to_pt(q.y)));
+    let moved = |ks: &[Knot], o: Point| -> Vec<Knot> {
+        ks.iter().map(|k| Knot { p: at_mm(k.p, o), h_in: at_mm(k.h_in, o), h_out: at_mm(k.h_out, o) }).collect()
+    };
+    let double = welts == pf_core::design::Welts::Double;
+    let parent = s.doc()?.insertion_parent();
+    let ids = s.edit("Welt Pocket", |d, sel| {
+        let black = || vectorcraft_color::Paint::solid(vectorcraft_color::Color::BLACK);
+        let solid = || vectorcraft_doc::Appearance::basic(vectorcraft_color::Paint::None, black(), 1.0);
+        let dashed = || {
+            let mut a = vectorcraft_doc::Appearance::basic(vectorcraft_color::Paint::None, black(), 0.75);
+            if let Some(st) = a.stroke_mut() {
+                st.dash = Some(vectorcraft_doc::Dash { pattern: vec![4.0, 2.0], ..Default::default() });
+            }
+            a
+        };
+        let line = |l: &[Pt; 2], o: Point| SubPath::polyline(&[to_point(at_mm(l[0], o)), to_point(at_mm(l[1], o))], false);
+        let mut ids = Vec::new();
+        let welt_name = if double { "Welt (cut 2)" } else { "Welt" };
+        for (ring, name) in [(&pk.welt, welt_name), (&pk.bags[0], "Pocket bag, lower"), (&pk.bags[1], "Pocket bag, upper")] {
+            let id = d.alloc_id();
+            let mut n = Node::path(id, path_of(&moved(ring, origin)), solid());
+            n.name = Some(name.into());
+            d.insert(parent, usize::MAX, n)?;
+            ids.push(id);
+        }
+        let fid = d.alloc_id();
+        let mut f = Node::path(fid, PathData::single(line(&pk.fold, origin)), dashed());
+        f.name = Some("Welt fold line".into());
+        d.insert(parent, usize::MAX, f)?;
+        let mut marks = None;
+        if let Some((group, target, at)) = place {
+            let oid = d.alloc_id();
+            let mut o = Node::path(oid, path_of(&moved(&pk.opening, at)), dashed());
+            o.name = Some("Welt pocket opening".into());
+            let cid = d.alloc_id();
+            let mut c = Node::path(cid, PathData::new(pk.cuts.iter().map(|l| line(l, at)).collect()), solid());
+            c.name = Some("Welt pocket cut".into());
+            match group {
+                Some(g) => {
+                    d.insert(Some(g), usize::MAX, o)?;
+                    d.insert(Some(g), usize::MAX, c)?;
+                }
+                None => d.insert_beside(vec![(target, vec![o, c])], false)?,
+            }
+            marks = Some((oid, cid));
+        }
+        sel.set(ids.iter().copied());
+        Ok((ids, fid, marks))
+    })?;
+    let mut r = json!({"ids": ids.0.iter().map(|i| i.0).collect::<Vec<_>>(), "fold": ids.1.0});
+    if let Some((o, c)) = ids.2 {
+        r["opening"] = json!(o.0);
+        r["cuts"] = json!(c.0);
+    }
+    Ok(r)
 }
