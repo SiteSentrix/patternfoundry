@@ -78,6 +78,15 @@ pub fn specs() -> Vec<CommandSpec> {
             pocket
         ),
         cmd!(
+            "design.walk",
+            "Walk Seams",
+            [],
+            None,
+            "{a: {id (a path or a piece), from: anchor, to: anchor}, b: {id, from, to} (two seams that sew together, from the ends that meet; each runs the shorter way round its outline), notches?: [mm, …] (distances from the seams' starts), every?: mm (a notch this far apart, at least 10)} walk two seams: their lengths and the difference; with notches or every, matching notches at the same distances along both (both must be pattern pieces) → {a, b, difference (mm), notches?}",
+            has_doc,
+            walk
+        ),
+        cmd!(
             "design.split",
             "Split at Points",
             ["Pattern"],
@@ -770,5 +779,105 @@ fn pocket(s: &mut Session, p: &Value) -> Result<Value> {
     if let Some(m) = ids.2 {
         r["placement"] = json!(m.0);
     }
+    Ok(r)
+}
+
+/// A seam for `design.walk`: the path, its outline and the anchors it runs between, the shorter
+/// way round (so it can run either way along its outline), and the lengths of its segments in
+/// walking order, each with its edge number and whether it is walked backwards.
+struct Seam {
+    path: NodeId,
+    legs: Vec<(usize, f64, bool)>,
+}
+
+impl Seam {
+    fn length(&self) -> f64 {
+        self.legs.iter().map(|l| l.1).sum()
+    }
+
+    /// The edge and the fraction along it (from the edge's own start, by length) at `d` points
+    /// from the seam's start.
+    fn at(&self, d: f64) -> Option<(usize, f64)> {
+        let mut acc = 0.0;
+        for &(edge, len, back) in &self.legs {
+            if d <= acc + len + 1e-9 {
+                let t = if len > 0.0 { ((d - acc) / len).clamp(0.0, 1.0) } else { 0.0 };
+                return Some((edge, if back { 1.0 - t } else { t }));
+            }
+            acc += len;
+        }
+        None
+    }
+}
+
+fn seam_param(s: &Session, p: &Value, key: &str, cmd: &str) -> Result<Seam> {
+    let v = p.get(key).ok_or_else(|| bad(cmd, format!("{key}: {{id, from, to}} (the seam's ends; it runs the shorter way round)")))?;
+    let path = super::measure::target_path(s, v, cmd)?;
+    let ring = ring_of(&s.doc()?.doc, path, cmd)?;
+    let (from, to) = seam(&ring, v, "from", "to", cmd)?;
+    let n = ring.len();
+    let pth = path_of(&ring);
+    let sp = &pth.subpaths[0];
+    let len = |i: usize| kurbo::ParamCurveArclen::arclen(&sp.segment(i % n), 1e-9);
+    let forward: Vec<(usize, f64, bool)> = (0..(to + n - from) % n).map(|k| ((from + k) % n, len(from + k), false)).collect();
+    let backward: Vec<(usize, f64, bool)> = (0..(from + n - to) % n).map(|k| ((from + n - 1 - k) % n, len(from + n - 1 - k), true)).collect();
+    let fl: f64 = forward.iter().map(|l| l.1).sum();
+    let bl: f64 = backward.iter().map(|l| l.1).sum();
+    Ok(Seam { path, legs: if fl <= bl { forward } else { backward } })
+}
+
+fn walk(s: &mut Session, p: &Value) -> Result<Value> {
+    const CMD: &str = "design.walk";
+    let (a, b) = (seam_param(s, p, "a", CMD)?, seam_param(s, p, "b", CMD)?);
+    let (la, lb) = (pt_to_mm(a.length()), pt_to_mm(b.length()));
+    let mut at: Vec<f64> = match p.get("notches") {
+        None | Some(Value::Null) => Vec::new(),
+        Some(Value::Array(v)) => v
+            .iter()
+            .map(|x| x.as_f64().filter(|d| d.is_finite() && *d > 0.0).ok_or_else(|| bad(CMD, "notches: distances from the seams' starts, mm")))
+            .collect::<Result<_>>()?,
+        Some(_) => return Err(bad(CMD, "notches: [mm, …]")),
+    };
+    if let Some(e) = p.get("every") {
+        let e = e.as_f64().filter(|d| d.is_finite() && *d >= 10.0).ok_or_else(|| bad(CMD, "every: mm, at least 10"))?;
+        let mut d = e;
+        while d < la.min(lb) - 1e-6 && at.len() < 200 {
+            at.push(d);
+            d += e;
+        }
+    }
+    let r = json!({"a": la, "b": lb, "difference": la - lb});
+    if at.is_empty() {
+        return Ok(r);
+    }
+    if let Some(d) = at.iter().find(|d| **d > la.min(lb) + 1e-6) {
+        return Err(bad(CMD, format!("a notch {d} mm along is past the shorter seam's end ({:.1} mm)", la.min(lb))));
+    }
+    let doc = &s.doc()?.doc;
+    let group = |path: NodeId| doc.parent_of(path).filter(|_| in_piece(doc, path));
+    let (Some(ga), Some(gb)) = (group(a.path), group(b.path)) else {
+        return Err(bad(CMD, "notches go on pattern pieces: make both seams' paths pieces first (Pattern › Make Pattern Piece)"));
+    };
+    let place = |seam: &Seam| -> Vec<pf_core::Notch> {
+        at.iter()
+            .filter_map(|d| seam.at(pf_core::mm_to_pt(*d)))
+            .map(|(edge, t)| pf_core::Notch { edge, at: t, kind: pf_core::NotchKind::Slit })
+            .collect()
+    };
+    let (na, nb) = (place(&a), place(&b));
+    let count = na.len();
+    s.edit("Walk Seams", |d, _| {
+        for (g, notches) in [(ga, &na), (gb, &nb)] {
+            let n = d.node_mut(g).ok_or(EngineError::NoNode(g))?;
+            if let Some(pf_core::PatternTag::Piece(piece)) = n.extras_mut().pattern.as_deref_mut() {
+                for notch in notches {
+                    piece.add_notch(*notch).map_err(|e| err(CMD, e))?;
+                }
+            }
+        }
+        Ok(())
+    })?;
+    let mut r = r;
+    r["notches"] = json!(count);
     Ok(r)
 }

@@ -174,13 +174,17 @@ is built on, plus a pattern mode, the way StitchFoundry adds embroidery:
   test). **Patch pockets** (`design.pocket`, PF-5.8): the pocket piece, its finished width and
   depth plus a hem (2.5 cm unless given) folded inside at the top with its fold line (dashed),
   square, rounded or pointed at the bottom; with `on` and `at`, the finished outline marked on the
-  garment (dashed, in the piece); a command only for now (it needs a size). Tests: 13 in
-  `pf-core`, 11 engine tests (`tests_design.rs`). Not yet (PF-5.x): box pleats (they need a box
-  width: two slashes), notches at a pleat's ends, shirt and stand collars, in-seam and welt
-  pockets; more truing (walking seams with notches, smoothing curves across seams, the princess
-  seam curved through the bust); dart shortening from the bust point; design steps replayed when
-  the measurements change; the sewing terms in the translations checked by sewists who speak each
-  language.
+  garment (dashed, in the piece); a command only for now (it needs a size). **Walking seams**
+  (`design.walk`, PF-5.9): two seams that sew together, each from the ends that meet and the
+  shorter way round its outline; their lengths and the difference, and with `notches` or `every`
+  matching notches at the same distances along both pieces, in one undo step. Walking the skirt
+  block's side seams found the front's 0.23 mm shorter (its hip curve's handles left out the rise
+  above the waist line); fixed, they now match. Tests: 13 in `pf-core`, 12 engine tests
+  (`tests_design.rs`). Not yet (PF-5.x): box pleats (they need a box width: two slashes), notches
+  at a pleat's ends, shirt and stand collars, in-seam and welt pockets; more truing (smoothing
+  curves across seams, the princess seam curved through the bust); dart shortening from the bust
+  point; design steps replayed when the measurements change; the sewing terms in the translations
+  checked by sewists who speak each language.
 - 2026-10-20, **PF-4.1**: the one-piece straight sleeve block (`block.sleeve`, Pattern › Draft
   Sleeve Block), Natalie Bray's method from a public tutorial: the crown depth from the top arm by
   the tutorial's table, 5 cm ease round the top arm, the crown through marks on the back and front
