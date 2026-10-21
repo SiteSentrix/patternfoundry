@@ -35,7 +35,7 @@ fn art(d: &Document) -> Vec<&Node> {
 
 /// The SVG rendered by resvg on white at 1 px/pt.
 fn resvg_render(svg: &str, w: u32, h: u32) -> Image {
-    let tree = resvg::usvg::Tree::from_str(svg, &resvg::usvg::Options::default()).expect("parse");
+    let tree = resvg::usvg::Tree::from_str(svg, &resvg::usvg::Options { dpi: 72.0, ..Default::default() }).expect("parse");
     let mut pm = resvg::tiny_skia::Pixmap::new(w, h).unwrap();
     pm.fill(resvg::tiny_skia::Color::WHITE);
     resvg::render(&tree, resvg::tiny_skia::Transform::identity(), &mut pm.as_mut());
@@ -140,7 +140,7 @@ fn number_attr(svg: &str, tag: &str, name: &str) -> f64 {
     let at = svg.find(&format!("<{tag} ")).unwrap_or_else(|| panic!("no <{tag}> in {svg}"));
     let rest = &svg[at..];
     let from = rest.find(&format!(" {name}=\"")).unwrap() + name.len() + 3;
-    rest[from..from + rest[from..].find('"').unwrap()].parse().unwrap()
+    rest[from..from + rest[from..].find('"').unwrap()].trim_end_matches("pt").parse().unwrap()
 }
 
 #[test]

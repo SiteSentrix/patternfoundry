@@ -293,3 +293,12 @@ is built on, plus a pattern mode, the way StitchFoundry adds embroidery:
   in R13 and R12, no errors, no fixes, the same extents. Tests: 5 in `pf-aama` (layers, true
   scale, read back as written, an insert and a lightweight polyline read, bad input), the vendored
   crate's 14, the 3 engine tests.
+- 2026-10-21, **PF-2.1**: SVG exports at true scale. VectorCraft wrote the SVG's size without a
+  unit (`width="283.465"`), which every SVG reader takes as CSS pixels, 96 per inch: a 10 cm
+  square came out 75 mm in browsers, Inkscape and cutting software. The size is now in points
+  (`width="283.465pt"`, the viewBox unchanged), so it measures 10 cm everywhere. Opening such a
+  file again reads a size in points that matches a `0 0 w h` viewBox (our own files) as before, a
+  user unit a point, so nothing goes through usvg's pixels and back. Test:
+  `crates/svg/tests/true_scale.rs` (the 10 cm test square measured by usvg at 96 per inch: 100 mm;
+  75 mm with the fix undone), and the SVG tests that drew exported files with usvg now read them
+  at 72 per inch (points as pixels), as they did.
