@@ -4933,6 +4933,10 @@ lighting	Light	ライト
 	Select one pattern piece to grade its points	ポイントをグレーディングするパーツを1つ選択してください
 	Sizes	サイズ
 	per size	サイズごと
+	Copy Grade Rules	グレーディングルールをコピー
+	Copy Rules To	ルールのコピー先
+	Mirrored	反転
+	For the opposite half: places mirrored left to right, x moves the other way	反対側の半身用：位置を左右反転し、x方向の移動を逆にします
 	Draft Shirt Collar	シャツカラーを製図
 file-filter	DXF-AAMA (cutting room)	DXF-AAMA（裁断室）
 @msg	DXF-AAMA files are DXF R13 (ASTM D6673) or R12	DXF-AAMA ファイルは DXF R13（ASTM D6673）または R12 です

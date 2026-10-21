@@ -4910,6 +4910,10 @@ lighting	Light	光源
 	Select one pattern piece to grade its points	選取一個裁片來為其點放碼
 	Sizes	尺碼
 	per size	依尺碼
+	Copy Grade Rules	複製放碼規則
+	Copy Rules To	複製規則到
+	Mirrored	鏡像
+	For the opposite half: places mirrored left to right, x moves the other way	用於另一半：位置左右鏡像，x 方向的移動相反
 	Draft Shirt Collar	繪製襯衫領
 file-filter	DXF-AAMA (cutting room)	DXF-AAMA（裁剪車間）
 @msg	DXF-AAMA files are DXF R13 (ASTM D6673) or R12	DXF-AAMA 檔案為 DXF R13（ASTM D6673）或 R12

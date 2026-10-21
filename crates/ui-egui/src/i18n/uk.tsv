@@ -4873,6 +4873,10 @@ lighting	Light	Світло
 	Select one pattern piece to grade its points	Виділіть одну деталь викрійки, щоб задати градацію її точок
 	Sizes	Розміри
 	per size	за розмірами
+	Copy Grade Rules	Копіювати правила градації
+	Copy Rules To	Копіювати правила до
+	Mirrored	Дзеркально
+	For the opposite half: places mirrored left to right, x moves the other way	Для протилежної половини: місця віддзеркалені зліва направо, зсуви по x у зворотний бік
 	Draft Shirt Collar	Побудувати сорочковий комір
 file-filter	DXF-AAMA (cutting room)	DXF-AAMA (розкрійний цех)
 @msg	DXF-AAMA files are DXF R13 (ASTM D6673) or R12	Файли DXF-AAMA — це DXF R13 (ASTM D6673) або R12

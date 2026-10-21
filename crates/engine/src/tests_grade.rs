@@ -313,3 +313,42 @@ fn a_chart_size_exports_redrafted() {
     // Drafting a size for the file leaves the document's own measurements alone.
     assert_eq!(s.execute("measure.info", &json!({})).unwrap(), measured);
 }
+
+#[test]
+fn rules_copied_to_the_opposite_half_turn_the_other_way() {
+    // A back and a front, 10 cm squares side by side; the back's right side grades 10 mm a size.
+    let (mut s, back) = square();
+    let side = pf_core::mm_to_pt(100.0);
+    s.execute("shape.rectangle", &json!({"x": 400, "y": 40, "width": side, "height": side})).unwrap();
+    let front = s.execute("piece.make", &json!({"name": "Front", "allowance": 10})).unwrap()["ids"][0].as_u64().unwrap();
+    let pts = seam_points(&s, back);
+    let right = pts.iter().map(|p| p[0]).fold(f64::MIN, f64::max);
+    for (i, p) in pts.iter().enumerate() {
+        let dx = if (p[0] - right).abs() < 1e-6 { 10.0 } else { 0.0 };
+        s.execute("grade.setRule", &json!({"id": back, "anchor": i, "step": [dx, 0]})).unwrap();
+    }
+    let v = s.execute("grade.copyRules", &json!({"from": back, "to": [front], "mirror": "x"})).unwrap();
+    assert_eq!(v["pieces"][0]["rules"].as_array().unwrap().len(), pts.len(), "{v}");
+    // The front grows to the left: its right side stays, its left side moves out.
+    s.execute("grade.nest", &json!({"line": "seam"})).unwrap();
+    let nest = nest_layer(&s);
+    let fronts: Vec<vectorcraft_geom::Rect> =
+        nest.children().unwrap().iter().map(|l| l.children().unwrap()[1].path_data().unwrap().bounds().unwrap()).collect();
+    let mm = |v: f64| (pf_core::pt_to_mm(v) * 1000.0).round() / 1000.0;
+    assert_eq!(fronts.iter().map(|b| mm(b.width())).collect::<Vec<_>>(), [90.0, 100.0, 110.0]);
+    assert!(fronts.windows(2).all(|w| (w[0].x1 - w[1].x1).abs() < 1e-6 && w[0].x0 > w[1].x0), "{fronts:?}");
+    // Without a mirror, the front grows to the right like the back.
+    s.execute("grade.copyRules", &json!({"from": back, "to": [front]})).unwrap();
+    s.execute("grade.nest", &json!({"line": "seam"})).unwrap();
+    let nest = nest_layer(&s);
+    let x0: Vec<f64> = nest.children().unwrap().iter().map(|l| l.children().unwrap()[1].path_data().unwrap().bounds().unwrap().x0).collect();
+    assert!(x0.windows(2).all(|w| (w[0] - w[1]).abs() < 1e-6), "{x0:?}");
+    // Refused: a piece without rules, or nothing to copy to.
+    assert!(s.execute("grade.copyRules", &json!({"from": back, "to": [back]})).unwrap_err().to_string().contains("to:"));
+    s.execute("grade.setRule", &json!({"id": front, "anchor": 0, "clear": true})).unwrap();
+    for i in 1..pts.len() {
+        s.execute("grade.setRule", &json!({"id": front, "anchor": i, "clear": true})).unwrap();
+    }
+    assert!(s.execute("grade.copyRules", &json!({"from": front, "to": [back]})).unwrap_err().to_string().contains("no grade rules"));
+    assert!(s.execute("grade.copyRules", &json!({"from": back, "to": [front], "mirror": "z"})).unwrap_err().to_string().contains("mirror"));
+}

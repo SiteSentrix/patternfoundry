@@ -5221,6 +5221,10 @@ mark-style	Japanese	Japonesas
 	Select one pattern piece to grade its points	Seleccione una pieza del patrón para escalar sus puntos
 	Sizes	Tallas
 	per size	por talla
+	Copy Grade Rules	Copiar reglas de escalado
+	Copy Rules To	Copiar reglas a
+	Mirrored	Reflejado
+	For the opposite half: places mirrored left to right, x moves the other way	Para la mitad opuesta: posiciones reflejadas de izquierda a derecha, movimientos en x al revés
 	Draft Shirt Collar	Trazar cuello camisero
 file-filter	DXF-AAMA (cutting room)	DXF-AAMA (sala de corte)
 @msg	DXF-AAMA files are DXF R13 (ASTM D6673) or R12	Los archivos DXF-AAMA son DXF R13 (ASTM D6673) o R12

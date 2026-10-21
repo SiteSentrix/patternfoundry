@@ -383,3 +383,12 @@ is built on, plus a pattern mode, the way StitchFoundry adds embroidery:
   `crates/ui-egui/src/panels/tests_grading.rs` (drawn headless: the hint without a piece, a row
   per point, the nest buttons, the typed size range sent). Not yet: picking a point on the
   canvas, per-size rules edited in the panel, rules copied between pieces.
+- 2026-10-21, **PF-6.5**: grade rules copied between pieces (`grade.copyRules {from, to?,
+  mirror?}`; the Grading panel's "Copy Rules To", with Mirrored). Each ruled point's rule goes to
+  the target's point nearest the same place in its bounds (a share of the width and height), so a
+  front takes a back's rules though its points differ (`pf_core::grade::copy_rules`); mirrored
+  (x), places flip left to right and x moves turn the other way, for the opposite half drawn the
+  other way round. The target's own rules are replaced. Tests: 1 in `pf-core` (nearest points,
+  mirroring, both rule kinds), 1 engine test (a front graded from a back grows to the left
+  mirrored, to the right not; refusals) and 1 panel test. Not yet: points picked on the canvas,
+  per-size rules edited in the panel.

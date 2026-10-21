@@ -4859,6 +4859,10 @@ effect	Soft	Weich
 	Select one pattern piece to grade its points	Wählen Sie ein Schnittteil, um seine Punkte zu gradieren
 	Sizes	Größen
 	per size	je Größe
+	Copy Grade Rules	Gradierregeln kopieren
+	Copy Rules To	Regeln kopieren nach
+	Mirrored	Gespiegelt
+	For the opposite half: places mirrored left to right, x moves the other way	Für die Gegenhälfte: Stellen links-rechts gespiegelt, x-Verschiebungen in die Gegenrichtung
 	Draft Shirt Collar	Hemdkragen konstruieren
 file-filter	DXF-AAMA (cutting room)	DXF-AAMA (Zuschnitt)
 @msg	DXF-AAMA files are DXF R13 (ASTM D6673) or R12	DXF-AAMA-Dateien sind DXF R13 (ASTM D6673) oder R12

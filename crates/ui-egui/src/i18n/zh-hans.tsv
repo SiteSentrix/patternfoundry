@@ -5114,6 +5114,10 @@ lighting	Light	光源
 	Select one pattern piece to grade its points	选择一个裁片来为其点推码
 	Sizes	尺码
 	per size	按尺码
+	Copy Grade Rules	复制推码规则
+	Copy Rules To	复制规则到
+	Mirrored	镜像
+	For the opposite half: places mirrored left to right, x moves the other way	用于另一半：位置左右镜像，x 方向的移动相反
 	Draft Shirt Collar	绘制衬衫领
 file-filter	DXF-AAMA (cutting room)	DXF-AAMA（裁剪车间）
 @msg	DXF-AAMA files are DXF R13 (ASTM D6673) or R12	DXF-AAMA 文件为 DXF R13（ASTM D6673）或 R12

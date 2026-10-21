@@ -83,3 +83,20 @@ fn set_size_range_sends_the_typed_sizes() {
     // No base chosen: the middle size.
     assert_eq!(range.base, "12");
 }
+
+#[test]
+fn copy_rules_to_gives_another_piece_the_rules() {
+    let (mut app, id) = square();
+    app.run("shape.rectangle", json!({"x": 400, "y": 40, "width": 283.465, "height": 283.465})).unwrap();
+    let front = app.run("piece.make", json!({"name": "Front", "allowance": 10})).unwrap()["ids"][0].as_u64().unwrap();
+    // Without rules there is nothing to copy.
+    app.run("select.set", json!({"ids": [id]})).unwrap();
+    assert!(!panel(&mut app).contains("Copy Rules To"));
+    app.run("grade.setRule", json!({"id": id, "anchor": 1, "step": [10, 0]})).unwrap();
+    let text = panel(&mut app);
+    assert!(text.contains("Copy Rules To") && text.contains("Front") && text.contains("Mirrored"), "{text}");
+    click(&mut app, "Copy Rules To");
+    let rules = app.run("grade.info", json!({"id": front})).unwrap()["rules"].clone();
+    assert_eq!(rules.as_array().unwrap().len(), 1, "{rules}");
+    assert_eq!(rules[0]["step"], json!([10.0, 0.0]));
+}

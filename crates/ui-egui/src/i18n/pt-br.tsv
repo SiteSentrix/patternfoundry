@@ -5196,6 +5196,10 @@ mark-style	Japanese	Japonesas
 	Select one pattern piece to grade its points	Selecione uma peça do molde para graduar seus pontos
 	Sizes	Tamanhos
 	per size	por tamanho
+	Copy Grade Rules	Copiar regras de graduação
+	Copy Rules To	Copiar regras para
+	Mirrored	Espelhado
+	For the opposite half: places mirrored left to right, x moves the other way	Para a metade oposta: posições espelhadas da esquerda para a direita, movimentos em x invertidos
 	Draft Shirt Collar	Traçar gola de camisa
 file-filter	DXF-AAMA (cutting room)	DXF-AAMA (sala de corte)
 @msg	DXF-AAMA files are DXF R13 (ASTM D6673) or R12	Arquivos DXF-AAMA são DXF R13 (ASTM D6673) ou R12

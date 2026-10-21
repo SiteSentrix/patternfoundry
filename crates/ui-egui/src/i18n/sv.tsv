@@ -5234,6 +5234,10 @@ theme	Appearance	Utseende
 	Select one pattern piece to grade its points	Markera en mönsterdel för att gradera dess punkter
 	Sizes	Storlekar
 	per size	per storlek
+	Copy Grade Rules	Kopiera graderingsregler
+	Copy Rules To	Kopiera regler till
+	Mirrored	Spegelvänd
+	For the opposite half: places mirrored left to right, x moves the other way	För motsatta halvan: platser speglade vänster till höger, x-förflyttningar åt andra hållet
 	Draft Shirt Collar	Konstruera skjortkrage
 file-filter	DXF-AAMA (cutting room)	DXF-AAMA (tillskärning)
 @msg	DXF-AAMA files are DXF R13 (ASTM D6673) or R12	DXF-AAMA-filer är DXF R13 (ASTM D6673) eller R12

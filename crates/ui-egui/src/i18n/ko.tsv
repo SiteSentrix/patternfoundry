@@ -4856,6 +4856,10 @@ lighting	Light	광원
 	Select one pattern piece to grade its points	점을 그레이딩할 패턴 조각을 하나 선택하세요
 	Sizes	사이즈
 	per size	사이즈별
+	Copy Grade Rules	그레이딩 규칙 복사
+	Copy Rules To	규칙 복사 대상
+	Mirrored	대칭
+	For the opposite half: places mirrored left to right, x moves the other way	반대쪽 절반용: 위치를 좌우 대칭하고 x 이동을 반대로 합니다
 	Draft Shirt Collar	셔츠 칼라 제도
 file-filter	DXF-AAMA (cutting room)	DXF-AAMA (재단실)
 @msg	DXF-AAMA files are DXF R13 (ASTM D6673) or R12	DXF-AAMA 파일은 DXF R13(ASTM D6673) 또는 R12입니다
