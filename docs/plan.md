@@ -326,3 +326,22 @@ is built on, plus a pattern mode, the way StitchFoundry adds embroidery:
   visibility, inverted and mirrored pages, touching pieces set apart. Not yet: the projector
   view in the app itself (full-screen, calibrated to the cutting mat), pieces cut on the fold
   opened out, layers per size (PF-6).
+- 2026-10-21, **PF-6.1**: grading by redrafting (**Pattern › Grade Nest**, `grade.nest`;
+  `grade.clear`). A PatternFoundry draft follows its measurements (PF-3), so each size of the
+  size chart is the same draft made again from that size's measurements (blocks, point formulas,
+  pieces with their allowance, dart caps and notches); grading "allows the one pattern to be made,
+  then sized up and down" (https://uphance.com/blog/pattern-grading-a-beginners-guide/). The
+  sizes are drawn over each other as a nest on a locked layer "Graded Nest", a sublayer per size
+  ("Size 12"), each size in its own colour and the size the document is drafted in heavier; the
+  document's own measurements and pieces don't change. `line`: the cutting lines (default) or the
+  seam lines; `align`: each piece's sizes lined up where they are drafted (default) or on a corner
+  or the centre of their bounds, for every piece or per piece (the skirt: the back on its top
+  left, centre back at the waist; the front on its top right). The result lists each size's
+  pieces with their width, height and line length in mm, the grade check; a size that draws the
+  same as the document (its chart row lacks the measurements the draft uses) is a warning. A
+  PDF saved with layers carries a layer per size (PF-2's "layers per size"). The nest stores
+  outlines only, never measurements. Tests: `crates/engine/src/tests_grade.rs` (a skirt in three
+  sizes: each piece grows by about a quarter of the hip step; size 12 is the document's own
+  cutting lines; measurements untouched; replaced, undone, cleared; PDF layers per size;
+  alignment; bad requests). Not yet: grade rules per point (PF-6.2) for patterns not drafted
+  from measurements, grade rules in DXF-AAMA files, printing one chosen size.

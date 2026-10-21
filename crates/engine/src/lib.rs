@@ -2132,6 +2132,8 @@ mod tests_fontlist;
 #[cfg(test)]
 mod tests_freeform;
 #[cfg(test)]
+mod tests_grade;
+#[cfg(test)]
 mod tests_gradient;
 #[cfg(test)]
 mod tests_gradpanel;

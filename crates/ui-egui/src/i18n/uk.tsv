@@ -4861,6 +4861,8 @@ lighting	Light	Світло
 	Draft Stand Collar	Побудувати комір-стійку
 	In-Seam Pocket	Кишеня в шві
 	Welt Pocket	Прорізна кишеня
+	Grade Nest	Градація розмірів
+	Clear Graded Nest	Видалити градацію
 	Draft Shirt Collar	Побудувати сорочковий комір
 file-filter	DXF-AAMA (cutting room)	DXF-AAMA (розкрійний цех)
 @msg	DXF-AAMA files are DXF R13 (ASTM D6673) or R12	Файли DXF-AAMA — це DXF R13 (ASTM D6673) або R12

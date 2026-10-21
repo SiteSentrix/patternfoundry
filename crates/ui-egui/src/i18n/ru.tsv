@@ -4877,6 +4877,8 @@ lighting	Light	Свет
 	Draft Stand Collar	Построить воротник-стойку
 	In-Seam Pocket	Карман в шве
 	Welt Pocket	Прорезной карман
+	Grade Nest	Градация размеров
+	Clear Graded Nest	Удалить градацию
 	Draft Shirt Collar	Построить рубашечный воротник
 file-filter	DXF-AAMA (cutting room)	DXF-AAMA (раскройный цех)
 @msg	DXF-AAMA files are DXF R13 (ASTM D6673) or R12	Файлы DXF-AAMA — это DXF R13 (ASTM D6673) или R12
