@@ -12,12 +12,13 @@
 //! only, never measurements.
 
 use super::*;
+use pf_core::grade::{GradeRule, GradeSizes, Rule};
 use pf_core::measure::Measurements;
 use pf_core::{Mark, pt_to_mm};
 use serde_json::{Value, json};
 use std::sync::Arc;
 use vectorcraft_color::{Color, Paint};
-use vectorcraft_doc::{Appearance, Document, LayerColor, Node, NodeKind};
+use vectorcraft_doc::{Appearance, Document, LayerColor, Node, NodeId, NodeKind};
 use vectorcraft_geom::PathData;
 
 /// The nest layer's name; making the nest again replaces the layer of this name.
@@ -40,6 +41,33 @@ pub fn specs() -> Vec<CommandSpec> {
             "{sizes?: [size…] (default every size of the size chart, in its order), line?: \"cut\" (default) | \"seam\", align?: \"drafted\" (default: where each size is drafted) | \"topLeft\" | \"topRight\" | \"bottomLeft\" | \"bottomRight\" | \"center\" (each piece's sizes lined up on that point of their bounds, at the document's own piece) | {\"<piece name>\": …, \"*\": … (the rest)}} draft the pattern again in each size from the size chart's measurements and draw the sizes over each other on the locked layer \"Graded Nest\", a sublayer per size (made again when it exists; the document's own measurements and pieces are not changed) → {layer, sizes: [{size, layer, pieces: [{name, widthMm, heightMm, lengthMm}]}], warnings}",
             has_doc,
             nest
+        ),
+        cmd!(
+            "grade.setSizes",
+            "Set Size Range",
+            [],
+            None,
+            "{sizes: [size…] (smallest first) | null (remove), base: one of them (the size the pattern is drawn in)} the sizes the pieces' grade rules grade into (grade.nest grades into them, from the size chart's measurements too where it has the size) → {sizes, base} | {sizes: null}",
+            has_doc,
+            set_sizes
+        ),
+        cmd!(
+            "grade.setRule",
+            "Set Grade Rule",
+            [],
+            None,
+            "{id? (a pattern piece or its part; default: the selected piece), anchor: 0.. (a point of the seam line), step?: [dx, dy] (mm the point moves each size up from the base, the opposite way each size down) | sizes?: {\"<size>\": [dx, dy] (mm from the base)} | clear?: true} x to the right, y down. Points between ruled points move in proportion along the seam line → grade.info",
+            has_doc,
+            set_rule
+        ),
+        cmd!(
+            query "grade.info",
+            "Grade Info",
+            [],
+            None,
+            "{id?} the piece's grade rules and how far each seam line point moves in each size → {id, sizes, base, rules: [{anchor, step: [dx, dy]} | {anchor, sizes: {size: [dx, dy]}}], moves: {size: [[dx, dy] per point, mm]}}",
+            has_doc,
+            info
         ),
         cmd!("grade.clear", "Clear Graded Nest", [], None, "{} remove the \"Graded Nest\" layer → {removed}", has_doc, clear),
     ]
@@ -105,12 +133,49 @@ struct Drawn {
     path: PathData,
 }
 
-/// The pieces' lines of `doc` drafted from `m`.
-fn redraft(doc: &Document, m: Measurements, line: Mark, cmd: &str) -> Result<Vec<Drawn>> {
+/// The seam line of the piece `n` and its points.
+fn seam_of(n: &Node) -> Option<(NodeId, Vec<pf_core::Pt>)> {
+    let seam = n.children()?.iter().find(|c| super::piece::mark_of(c) == Some(Mark::Seam))?;
+    let NodeKind::Path { path, .. } = &seam.kind else { return None };
+    let pts = path.subpaths.first()?.anchors.iter().map(|a| pf_core::Pt::new(a.p.x, a.p.y)).collect();
+    Some((seam.id, pts))
+}
+
+/// Move every graded piece's seam line points by their grade rules for `size`.
+fn apply_rules(d: &mut Document, sizes: &GradeSizes, size: &str) -> Result<()> {
+    let mut graded = Vec::new();
+    d.walk(|n| {
+        if let Some(piece) = super::piece::piece_on(n)
+            && !piece.grade.is_empty()
+            && let Some((seam, pts)) = seam_of(n)
+        {
+            graded.push((seam, pf_core::grade::moves(&pts, &piece.grade, sizes, size)));
+        }
+    });
+    for (seam, moves) in graded {
+        let path = super::path::path_mut(d, seam)?;
+        if let Some(sp) = path.subpaths.first_mut() {
+            for (a, m) in sp.anchors.iter_mut().zip(moves) {
+                let v = vectorcraft_geom::Point::new(pf_core::mm_to_pt(m[0]), pf_core::mm_to_pt(m[1])).to_vec2();
+                a.p += v;
+                a.h_in += v;
+                a.h_out += v;
+            }
+        }
+    }
+    Ok(())
+}
+
+/// The pieces' lines of `doc` drafted from `m`, then graded to `rules`' size.
+fn redraft(doc: &Document, m: Measurements, rules: Option<(&GradeSizes, &str)>, line: Mark, cmd: &str) -> Result<Vec<Drawn>> {
     let mut d = doc.clone();
     d.measurements = Some(Box::new(m));
-    // As an edit does: drafted points follow the measurements, then pieces their seam lines.
+    // As an edit does: drafted points follow the measurements, then pieces their seam lines;
+    // the grade rules move the drafted points.
     super::measure::refresh(&mut d)?;
+    if let Some((sizes, size)) = rules {
+        apply_rules(&mut d, sizes, size)?;
+    }
     super::piece::refresh(doc, &mut d)?;
     let mut out = Vec::new();
     d.walk(|n| {
@@ -140,19 +205,27 @@ fn nest(s: &mut Session, p: &Value) -> Result<Value> {
         _ => return Err(bad(CMD, "line: \"cut\" or \"seam\"")),
     };
     let doc = s.doc()?.doc.clone();
-    let chart = doc.size_chart.as_deref().ok_or_else(|| bad(CMD, "the document has no size chart (Measurements › Import Size Chart)"))?;
+    let chart = doc.size_chart.as_deref();
+    let range = doc.grade_sizes.as_deref();
+    // The sizes: the grade rules' size range, else the size chart's.
+    let all: Vec<String> = match (range, chart) {
+        (Some(r), _) => r.sizes.clone(),
+        (None, Some(c)) => c.size_names().into_iter().map(String::from).collect(),
+        (None, None) => {
+            return Err(bad(
+                CMD,
+                "the document has no sizes: import a size chart (Measurements › Import Size Chart) or name the sizes (grade.setSizes)",
+            ));
+        }
+    };
     let sizes: Vec<String> = match p.get("sizes") {
-        None | Some(Value::Null) => chart.size_names().into_iter().map(String::from).collect(),
+        None | Some(Value::Null) => all,
         Some(Value::Array(v)) => {
             let mut out = Vec::new();
             for s in v {
                 let s = s.as_str().ok_or_else(|| bad(CMD, "sizes: the sizes' names"))?;
-                let name = chart
-                    .size_names()
-                    .into_iter()
-                    .find(|n| n.eq_ignore_ascii_case(s.trim()))
-                    .ok_or_else(|| bad(CMD, format!("the size chart has no size `{s}`")))?;
-                out.push(name.to_string());
+                let name = all.iter().find(|n| n.eq_ignore_ascii_case(s.trim())).ok_or_else(|| bad(CMD, format!("there is no size `{s}`")))?;
+                out.push(name.clone());
             }
             out
         }
@@ -168,15 +241,22 @@ fn nest(s: &mut Session, p: &Value) -> Result<Value> {
     let mut base = (*doc).clone();
     base.layers.retain(|l| l.name.as_deref() != Some(NEST));
     let own = base.measurements.as_deref().cloned().unwrap_or_default();
-    let as_is = redraft(&base, own.clone(), line, CMD)?;
+    let as_is = redraft(&base, own.clone(), None, line, CMD)?;
     let mut drawn = Vec::new();
     let mut warnings = Vec::new();
     for size in &sizes {
+        // The chart's measurements for the size, when it has the size.
         let mut m = own.clone();
-        chart.apply(size, &mut m).map_err(|e| bad(CMD, e.to_string()))?;
-        // The size the document is drafted in.
-        let current = own.size.is_some() && m.size == own.size;
-        let mut pieces = redraft(&base, m, line, CMD)?;
+        let charted = chart.is_some_and(|c| c.size_names().iter().any(|n| n == size));
+        if let Some(c) = chart.filter(|_| charted) {
+            c.apply(size, &mut m).map_err(|e| bad(CMD, e.to_string()))?;
+        }
+        // The size the document is drawn in: the rules' base size, else the chart size in use.
+        let current = match range {
+            Some(r) => r.base == *size && (!charted || m.size == own.size),
+            None => own.size.is_some() && m.size == own.size,
+        };
+        let mut pieces = redraft(&base, m, range.map(|r| (r, size.as_str())), line, CMD)?;
         // Lined up on the document's own pieces, at the point asked.
         for (pc, own) in pieces.iter_mut().zip(&as_is) {
             let (Some(b), Some(o)) = (pc.path.bounds(), own.path.bounds()) else { continue };
@@ -184,10 +264,13 @@ fn nest(s: &mut Session, p: &Value) -> Result<Value> {
                 pc.path.transform(vectorcraft_geom::Affine::translate(to - from));
             }
         }
-        // A draft the size can't make keeps its last outline: say so rather than nest a copy.
+        // A size the draft and rules can't make keeps the document's outline: say so rather
+        // than nest a copy.
         let same = pieces.len() == as_is.len() && pieces.iter().zip(&as_is).all(|(a, b)| a.path == b.path);
         if same && !current {
-            warnings.push(format!("size {size} drew the same as the document: does the chart give the measurements the draft uses?"));
+            warnings.push(format!(
+                "size {size} drew the same as the document: does the chart give the measurements the draft uses, or the pieces grade rules?"
+            ));
         }
         drawn.push((size.clone(), current, pieces));
     }
@@ -256,4 +339,124 @@ fn clear(s: &mut Session, _: &Value) -> Result<Value> {
         })?;
     }
     Ok(json!({"removed": had}))
+}
+
+fn set_sizes(s: &mut Session, p: &Value) -> Result<Value> {
+    const CMD: &str = "grade.setSizes";
+    let range = match p.get("sizes") {
+        Some(Value::Null) => None,
+        Some(Value::Array(v)) => {
+            let names =
+                v.iter().map(|s| s.as_str().map(String::from)).collect::<Option<Vec<_>>>().ok_or_else(|| bad(CMD, "sizes: the sizes' names"))?;
+            let base = str_param(p, "base").ok_or_else(|| bad(CMD, "base: the size the pattern is drawn in"))?;
+            Some(GradeSizes::new(names, base).map_err(|e| bad(CMD, e.to_string()))?)
+        }
+        _ => return Err(bad(CMD, "sizes: the sizes' names, smallest first (null removes them)")),
+    };
+    let out = match &range {
+        Some(r) => json!({"sizes": r.sizes, "base": r.base}),
+        None => json!({"sizes": null}),
+    };
+    s.edit("Set Size Range", |d, _| {
+        d.grade_sizes = range.map(Box::new);
+        Ok(())
+    })?;
+    Ok(out)
+}
+
+/// The one piece a rule command acts on.
+fn one_piece(s: &Session, p: &Value, cmd: &str) -> Result<NodeId> {
+    match super::piece::target_pieces(s, p, cmd)?.as_slice() {
+        [one] => Ok(*one),
+        _ => Err(bad(cmd, "select one pattern piece")),
+    }
+}
+
+fn move_of(v: &Value) -> Option<[f64; 2]> {
+    match v.as_array()?.as_slice() {
+        [x, y] => Some([x.as_f64()?, y.as_f64()?]),
+        _ => None,
+    }
+}
+
+fn set_rule(s: &mut Session, p: &Value) -> Result<Value> {
+    const CMD: &str = "grade.setRule";
+    let id = one_piece(s, p, CMD)?;
+    let doc = &s.doc()?.doc;
+    let n = doc.node(id).ok_or(EngineError::NoNode(id))?;
+    let count = seam_of(n).map_or(0, |(_, pts)| pts.len());
+    let anchor = p
+        .get("anchor")
+        .and_then(Value::as_u64)
+        .and_then(|a| usize::try_from(a).ok())
+        .ok_or_else(|| bad(CMD, "anchor: the seam line's point, from 0"))?;
+    if anchor >= count {
+        return Err(bad(CMD, format!("the seam line has points 0 to {}", count.saturating_sub(1))));
+    }
+    let clear = p.get("clear").and_then(Value::as_bool).unwrap_or(false);
+    let rule = match (p.get("step"), p.get("sizes")) {
+        _ if clear => None,
+        (Some(v), None) => Some(Rule::Step(move_of(v).ok_or_else(|| bad(CMD, "step: [dx, dy] in mm"))?)),
+        (None, Some(Value::Object(m))) => {
+            let mut map = std::collections::BTreeMap::new();
+            for (k, v) in m {
+                let mv = move_of(v).ok_or_else(|| bad(CMD, format!("{k}: [dx, dy] in mm")))?;
+                // Sizes of the range are spelled as the range spells them.
+                let name = doc.grade_sizes.as_deref().and_then(|r| r.find(k)).unwrap_or(k.as_str());
+                map.insert(name.to_string(), mv);
+            }
+            Some(Rule::Sizes(map))
+        }
+        _ => return Err(bad(CMD, "give step: [dx, dy], or sizes: {\"<size>\": [dx, dy]}, or clear: true")),
+    };
+    let rule = rule.map(|r| r.checked().map_err(|e| bad(CMD, e.to_string()))).transpose()?;
+    let mut piece = super::piece::piece_on(n).cloned().ok_or_else(|| bad(CMD, "not a pattern piece"))?;
+    piece.grade.retain(|r| r.anchor != anchor);
+    if let Some(rule) = rule {
+        piece.grade.push(GradeRule { anchor, rule });
+        piece.grade.sort_by_key(|r| r.anchor);
+    }
+    s.edit("Set Grade Rule", |d, _| {
+        if let Some(n) = d.node_mut(id) {
+            n.extras_mut().pattern = Some(Box::new(pf_core::PatternTag::Piece(Box::new(piece))));
+        }
+        Ok(())
+    })?;
+    info_of(&s.doc()?.doc, id)
+}
+
+fn info_of(doc: &Document, id: NodeId) -> Result<Value> {
+    let n = doc.node(id).ok_or(EngineError::NoNode(id))?;
+    let piece = super::piece::piece_on(n).ok_or_else(|| bad("grade.info", "not a pattern piece"))?;
+    let rules: Vec<Value> = piece
+        .grade
+        .iter()
+        .map(|r| match &r.rule {
+            Rule::Step(m) => json!({"anchor": r.anchor, "step": m}),
+            Rule::Sizes(map) => json!({"anchor": r.anchor, "sizes": map}),
+        })
+        .collect();
+    let range = doc.grade_sizes.as_deref();
+    let mut moves = serde_json::Map::new();
+    if let (Some(r), Some((_, pts))) = (range, seam_of(n)) {
+        // The points in mm, as the rules measure.
+        let mm: Vec<pf_core::Pt> = pts.iter().map(|q| pf_core::Pt::new(pt_to_mm(q.x), pt_to_mm(q.y))).collect();
+        let round = |v: f64| (v * 1000.0).round() / 1000.0;
+        for size in &r.sizes {
+            let m = pf_core::grade::moves(&mm, &piece.grade, r, size);
+            moves.insert(size.clone(), json!(m.iter().map(|v| [round(v[0]), round(v[1])]).collect::<Vec<_>>()));
+        }
+    }
+    Ok(json!({
+        "id": id.0,
+        "sizes": range.map(|r| r.sizes.clone()),
+        "base": range.map(|r| r.base.clone()),
+        "rules": rules,
+        "moves": moves,
+    }))
+}
+
+fn info(s: &mut Session, p: &Value) -> Result<Value> {
+    let id = one_piece(s, p, "grade.info")?;
+    info_of(&s.doc()?.doc, id)
 }

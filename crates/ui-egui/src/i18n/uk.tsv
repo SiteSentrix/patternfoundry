@@ -4863,6 +4863,9 @@ lighting	Light	Світло
 	Welt Pocket	Прорізна кишеня
 	Grade Nest	Градація розмірів
 	Clear Graded Nest	Видалити градацію
+	Set Size Range	Задати розмірний ряд
+	Set Grade Rule	Задати правило градації
+	Grade Info	Відомості про градацію
 	Draft Shirt Collar	Побудувати сорочковий комір
 file-filter	DXF-AAMA (cutting room)	DXF-AAMA (розкрійний цех)
 @msg	DXF-AAMA files are DXF R13 (ASTM D6673) or R12	Файли DXF-AAMA — це DXF R13 (ASTM D6673) або R12

@@ -4846,6 +4846,9 @@ lighting	Light	광원
 	Welt Pocket	입술 주머니
 	Grade Nest	그레이딩(사이즈 전개)
 	Clear Graded Nest	그레이딩 지우기
+	Set Size Range	사이즈 범위 설정
+	Set Grade Rule	그레이딩 규칙 설정
+	Grade Info	그레이딩 정보
 	Draft Shirt Collar	셔츠 칼라 제도
 file-filter	DXF-AAMA (cutting room)	DXF-AAMA (재단실)
 @msg	DXF-AAMA files are DXF R13 (ASTM D6673) or R12	DXF-AAMA 파일은 DXF R13(ASTM D6673) 또는 R12입니다

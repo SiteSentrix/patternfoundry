@@ -4900,6 +4900,9 @@ lighting	Light	光源
 	Welt Pocket	嵌線口袋
 	Grade Nest	放碼
 	Clear Graded Nest	清除放碼
+	Set Size Range	設定尺碼範圍
+	Set Grade Rule	設定放碼規則
+	Grade Info	放碼資訊
 	Draft Shirt Collar	繪製襯衫領
 file-filter	DXF-AAMA (cutting room)	DXF-AAMA（裁剪車間）
 @msg	DXF-AAMA files are DXF R13 (ASTM D6673) or R12	DXF-AAMA 檔案為 DXF R13（ASTM D6673）或 R12

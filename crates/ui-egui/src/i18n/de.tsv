@@ -4849,6 +4849,9 @@ effect	Soft	Weich
 	Welt Pocket	Paspeltasche
 	Grade Nest	Größen gradieren
 	Clear Graded Nest	Gradierte Größen entfernen
+	Set Size Range	Größenreihe festlegen
+	Set Grade Rule	Gradierregel festlegen
+	Grade Info	Gradierungsinfo
 	Draft Shirt Collar	Hemdkragen konstruieren
 file-filter	DXF-AAMA (cutting room)	DXF-AAMA (Zuschnitt)
 @msg	DXF-AAMA files are DXF R13 (ASTM D6673) or R12	DXF-AAMA-Dateien sind DXF R13 (ASTM D6673) oder R12

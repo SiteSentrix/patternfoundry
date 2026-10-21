@@ -98,6 +98,9 @@ pub struct Piece {
     pub notches: Vec<Notch>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub grainline: Option<Grainline>,
+    /// Grade rules on the seam line's points (PF-6.2).
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub grade: Vec<crate::grade::GradeRule>,
 }
 
 fn one() -> u32 {
@@ -120,6 +123,7 @@ impl Default for Piece {
             corners: BTreeMap::new(),
             notches: Vec::new(),
             grainline: None,
+            grade: Vec::new(),
         }
     }
 }

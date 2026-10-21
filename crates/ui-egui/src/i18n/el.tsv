@@ -5220,6 +5220,9 @@ effect	Points	Σημεία
 	Welt Pocket	Τσέπη με φιλέτο
 	Grade Nest	Διαβάθμιση μεγεθών
 	Clear Graded Nest	Απαλοιφή διαβαθμισμένων μεγεθών
+	Set Size Range	Ορισμός σειράς μεγεθών
+	Set Grade Rule	Ορισμός κανόνα διαβάθμισης
+	Grade Info	Πληροφορίες διαβάθμισης
 	Draft Shirt Collar	Σχεδίαση γιακά πουκαμίσου
 file-filter	DXF-AAMA (cutting room)	DXF-AAMA (κοπτήριο)
 @msg	DXF-AAMA files are DXF R13 (ASTM D6673) or R12	Τα αρχεία DXF-AAMA είναι DXF R13 (ASTM D6673) ή R12

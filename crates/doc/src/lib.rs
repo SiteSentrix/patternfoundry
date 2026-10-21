@@ -790,6 +790,9 @@ pub struct Document {
     /// The size chart the measurements can be taken from.
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub size_chart: Option<Box<pf_core::measure::SizeChart>>,
+    /// The sizes the pattern's grade rules grade into, and its base size (PF-6.2).
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub grade_sizes: Option<Box<pf_core::grade::GradeSizes>>,
     /// Some path is drafted (has point formulas): edits place drafted points only while this is set.
     #[serde(default, skip_serializing_if = "std::ops::Not::not")]
     pub drafts: bool,
@@ -923,6 +926,7 @@ impl Document {
             pieces: false,
             measurements: None,
             size_chart: None,
+            grade_sizes: None,
             drafts: false,
             index: Default::default(),
         };
