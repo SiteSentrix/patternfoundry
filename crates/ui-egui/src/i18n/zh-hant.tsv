@@ -4903,3 +4903,4 @@ file-filter	DXF-AAMA (cutting room)	DXF-AAMA（裁剪車間）
 @msg	DXF-AAMA files are DXF R13 (ASTM D6673) or R12	DXF-AAMA 檔案為 DXF R13（ASTM D6673）或 R12
 @msg	no pattern pieces to export	沒有可匯出的版型裁片
 @msg	the piece {_1} has no outline	裁片 {_1} 沒有輪廓
+file-filter	SVG for cutting	用於裁剪的 SVG

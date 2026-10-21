@@ -5223,3 +5223,4 @@ file-filter	DXF-AAMA (cutting room)	DXF-AAMA (κοπτήριο)
 @msg	DXF-AAMA files are DXF R13 (ASTM D6673) or R12	Τα αρχεία DXF-AAMA είναι DXF R13 (ASTM D6673) ή R12
 @msg	no pattern pieces to export	δεν υπάρχουν κομμάτια πατρόν για εξαγωγή
 @msg	the piece {_1} has no outline	το κομμάτι {_1} δεν έχει περίγραμμα
+file-filter	SVG for cutting	SVG για κοπή

@@ -46,6 +46,7 @@ pub mod psdread;
 mod save;
 mod screens;
 mod svg;
+mod svgcut;
 mod text;
 mod tgaread;
 pub mod zip;
@@ -637,6 +638,17 @@ pub const FORMATS: &[Format] = &[
     Format { id: "txt", label: "Text", extensions: TEXT_EXTS, mime: "text/plain", read: false, write: true, raster: false, options: text::OPTIONS },
     Format { id: "dxf", label: "DXF", extensions: &["dxf"], mime: "image/vnd.dxf", read: true, write: true, raster: false, options: dxf::OPTIONS },
     // Pattern pieces for cutting rooms (ASTM D6673); written only: opening a .dxf reads it as DXF.
+    // Pattern pieces for laser cutters, cutting machines and print shops, in mm; written only.
+    Format {
+        id: "svgcut",
+        label: "SVG for cutting",
+        extensions: &["svg"],
+        mime: "image/svg+xml",
+        read: false,
+        write: true,
+        raster: false,
+        options: svgcut::OPTIONS,
+    },
     Format {
         id: "aama",
         label: "DXF-AAMA (cutting room)",

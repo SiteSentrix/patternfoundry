@@ -5235,3 +5235,4 @@ file-filter	DXF-AAMA (cutting room)	DXF-AAMA (leikkaamo)
 @msg	DXF-AAMA files are DXF R13 (ASTM D6673) or R12	DXF-AAMA-tiedostot ovat DXF R13 (ASTM D6673) tai R12
 @msg	no pattern pieces to export	ei vietäviä kaavan osia
 @msg	the piece {_1} has no outline	kaavan osalla {_1} ei ole ääriviivaa
+file-filter	SVG for cutting	SVG leikkaamiseen
