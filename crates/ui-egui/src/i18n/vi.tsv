@@ -4884,3 +4884,83 @@ file-filter	DXF-AAMA (cutting room)	DXF-AAMA (xưởng cắt)
 @msg	the piece {_1} has no outline	chi tiết {_1} không có đường viền
 file-filter	SVG for cutting	SVG để cắt
 file-filter	PDF for projector	PDF cho máy chiếu
+	Foundry Account…	Tài khoản Foundry…
+	A password needs at least 8 characters.	Mật khẩu cần ít nhất 8 ký tự.
+	Account	Tài khoản
+	Allow	Cho phép
+	Anthropic API key:	Khóa API Anthropic:
+	Ask	Hỏi
+	Buy credits	Mua tín dụng
+	Buy…	Mua…
+	Change key	Đổi khóa
+	Create Free Account	Tạo tài khoản miễn phí
+	Create a free Foundry Account	Tạo tài khoản Foundry miễn phí
+	Don't Allow	Không cho phép
+	Edit › Undo takes each change back.	Chỉnh sửa › Hoàn tác lấy lại từng thay đổi.
+	Email	Email
+	Foundry Account	Tài khoản Foundry
+	Foundry accounts aren't open yet. Until then, the AI features work with your own Anthropic API key.	Tài khoản Foundry chưa mở. Cho đến lúc đó, tính năng AI dùng khóa API Anthropic của riêng bạn.
+	Get a key	Lấy khóa
+	I have an account: Sign In	Tôi đã có tài khoản: Đăng nhập
+	New Conversation	Cuộc trò chuyện mới
+	New here? Create a free account	Mới đến? Tạo tài khoản miễn phí
+	No card needed, and no API key to set up	Không cần thẻ, không cần cài khóa API
+	Paid with Foundry credits ({n} left).	Trả bằng tín dụng Foundry (còn {n}).
+	Paid with Foundry credits.	Trả bằng tín dụng Foundry.
+	Pay for the AI features with my Foundry credits	Trả tiền tính năng AI bằng tín dụng Foundry của tôi
+	Pay with Foundry credits instead	Trả bằng tín dụng Foundry thay vào đó
+	Payment is on Stripe's secure page, in your browser; your card never reaches PatternFoundry.	Thanh toán diễn ra trên trang bảo mật của Stripe trong trình duyệt; thẻ của bạn không bao giờ đến PatternFoundry.
+	Reading your credits…	Đang đọc tín dụng…
+	Remember the key on this computer	Ghi nhớ khóa trên máy tính này
+	Server	Máy chủ
+	Sign In	Đăng nhập
+	Sign Out	Đăng xuất
+	Sign in to your Foundry Account	Đăng nhập Tài khoản Foundry của bạn
+	Signed in as {email}	Đã đăng nhập: {email}
+	Thinking…	Đang suy nghĩ…
+	Type your question, then press Enter	Gõ câu hỏi, rồi nhấn Enter
+	{n} credits	{n} tín dụng
+	{n} credits for {price}	{n} tín dụng giá {price}
+@msg	Anthropic refused the API key: {0}	Anthropic từ chối khóa API: {0}
+@msg	Couldn't reach the AI service: {0}	Không thể kết nối dịch vụ AI: {0}
+@msg	Enter your Anthropic API key first.	Hãy nhập khóa API Anthropic trước.
+@msg	The AI declined to answer this: ask another way.	AI từ chối trả lời câu này: hãy hỏi theo cách khác.
+@msg	The AI service failed (error {0}): try again later.	Dịch vụ AI gặp lỗi (lỗi {0}): hãy thử lại sau.
+@msg	The AI service is busy: try again in a minute.	Dịch vụ AI đang bận: hãy thử lại sau một phút.
+@msg	The API key isn't valid: paste it again from the Anthropic Console.	Khóa API không hợp lệ: hãy dán lại từ Anthropic Console.
+@msg	The question is too long: keep it under 2,000 characters.	Câu hỏi quá dài: hãy giữ dưới 2.000 ký tự.
+@msg	The reply had no answer: try again, or ask something narrower.	Câu trả lời không có nội dung: hãy thử lại, hoặc hỏi điều gì đó hẹp hơn.
+@msg	The request failed (error {0}): {1}	Yêu cầu thất bại (lỗi {0}): {1}
+@msg	Type a question first.	Hãy gõ câu hỏi trước.
+@msg	Your Anthropic account can't pay for this: {0}	Tài khoản Anthropic của bạn không thể thanh toán cho việc này: {0}
+@msg	already asking: wait for the answer	đang hỏi: hãy chờ câu trả lời
+@msg	This conversation is long: start a New Conversation.	Cuộc trò chuyện này đã dài: hãy bắt đầu Cuộc trò chuyện mới.
+@msg	Claude took too many steps: ask again, more simply.	Claude đã thực hiện quá nhiều bước: hãy hỏi lại, đơn giản hơn.
+	Ask About Patterns…	Hỏi về rập…
+	Answers come from Claude with your own Anthropic API key, billed to your Anthropic account. They can be wrong: sew a muslin before cutting good fabric.	Câu trả lời đến từ Claude bằng khóa API Anthropic của riêng bạn, tính phí vào tài khoản Anthropic của bạn. Chúng có thể sai: hãy may thử bằng vải mộc trước khi cắt vải tốt.
+	Ask About Patterns	Hỏi về rập
+	Ask anything about sewing patterns or PatternFoundry: how much ease to add, how to move a dart, which block to start from, where a feature is. Claude can also draft and change your pattern when you ask, after you allow it.	Hỏi bất cứ điều gì về rập may hoặc PatternFoundry: nên thêm bao nhiêu độ cử động, cách xoay pen, nên bắt đầu từ rập cơ bản nào, một tính năng nằm ở đâu. Claude cũng có thể dựng và thay đổi rập của bạn khi bạn yêu cầu, sau khi bạn cho phép.
+	Claude asks to:	Claude xin phép:
+	Couldn't do:	Không thể thực hiện:
+	Done:	Đã xong:
+	Free credits for the AI features, no API key needed	Tín dụng miễn phí cho các tính năng AI, không cần khóa API
+	Free credits to try the AI features: Ask About Patterns drafts and changes patterns with you	Tín dụng miễn phí để dùng thử các tính năng AI: Hỏi về rập cùng bạn dựng và thay đổi rập
+	Include my pattern	Kèm rập của tôi
+	Its pieces and sizes, and which measurements are set: never their values	Các chi tiết và cỡ của rập, cùng những số đo đã được đặt: không bao giờ gửi giá trị
+	Leave it empty for the Foundry service.	Để trống để dùng dịch vụ Foundry.
+	Not allowed:	Không được phép:
+	One account for every SiteSentrix app	Một tài khoản cho mọi ứng dụng SiteSentrix
+	Read your measurements	Đọc số đo của bạn
+@msg	An account with that email already exists: sign in instead.	Đã có tài khoản với email đó: hãy đăng nhập.
+@msg	Ask About Patterns needs a build that can reach the AI service	Hỏi về rập cần bản dựng có thể kết nối tới dịch vụ AI
+@msg	Foundry Account needs a build that can reach the AI service	Tài khoản Foundry cần bản dựng có thể kết nối tới dịch vụ AI
+@msg	Foundry accounts aren't open yet.	Tài khoản Foundry chưa mở.
+@msg	Not enough Foundry credits: buy more in Foundry Account.	Không đủ tín dụng Foundry: hãy mua thêm trong Tài khoản Foundry.
+@msg	Sign in to your Foundry account (Help › Foundry Account…).	Hãy đăng nhập vào tài khoản Foundry của bạn (Trợ giúp › Tài khoản Foundry…).
+@msg	The Foundry service can't do this yet: try again later.	Dịch vụ Foundry chưa làm được việc này: hãy thử lại sau.
+@msg	this needs a connection to the AI service, which this build doesn't have	việc này cần kết nối tới dịch vụ AI, mà bản dựng này không có
+@msg	Account made: welcome to PatternFoundry.	Đã tạo tài khoản: chào mừng bạn đến với PatternFoundry.
+@msg	Signed in.	Đã đăng nhập.
+@msg	Signed out.	Đã đăng xuất.
+@msg	Type your email address.	Hãy nhập địa chỉ email của bạn.
+@msg	Pay on the page that opened in your browser, then press Refresh.	Hãy thanh toán trên trang đã mở trong trình duyệt, rồi nhấn Làm mới.

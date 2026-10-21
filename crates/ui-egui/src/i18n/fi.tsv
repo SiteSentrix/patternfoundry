@@ -5253,3 +5253,83 @@ file-filter	DXF-AAMA (cutting room)	DXF-AAMA (leikkaamo)
 @msg	the piece {_1} has no outline	kaavan osalla {_1} ei ole ääriviivaa
 file-filter	SVG for cutting	SVG leikkaamiseen
 file-filter	PDF for projector	PDF projektorille
+	Foundry Account…	Foundry-tili…
+	A password needs at least 8 characters.	Salasanassa on oltava vähintään 8 merkkiä.
+	Account	Tili
+	Allow	Salli
+	Anthropic API key:	Anthropic API -avain:
+	Ask	Kysy
+	Buy credits	Osta krediittejä
+	Buy…	Osta…
+	Change key	Vaihda avain
+	Create Free Account	Luo ilmainen tili
+	Create a free Foundry Account	Luo ilmainen Foundry-tili
+	Don't Allow	Älä salli
+	Edit › Undo takes each change back.	Muokkaa › Kumoa peruu jokaisen muutoksen.
+	Email	Sähköposti
+	Foundry Account	Foundry-tili
+	Foundry accounts aren't open yet. Until then, the AI features work with your own Anthropic API key.	Foundry-tilit eivät ole vielä auki. Siihen asti tekoälytoiminnot toimivat omalla Anthropic API -avaimellasi.
+	Get a key	Hanki avain
+	I have an account: Sign In	Minulla on tili: kirjaudu
+	New Conversation	Uusi keskustelu
+	New here? Create a free account	Uusi täällä? Luo ilmainen tili
+	No card needed, and no API key to set up	Ei korttia eikä API-avainta asetettavaksi
+	Paid with Foundry credits ({n} left).	Maksettu Foundry-krediiteillä ({n} jäljellä).
+	Paid with Foundry credits.	Maksettu Foundry-krediiteillä.
+	Pay for the AI features with my Foundry credits	Maksa tekoälytoiminnot Foundry-krediiteilläni
+	Pay with Foundry credits instead	Maksa sen sijaan Foundry-krediiteillä
+	Payment is on Stripe's secure page, in your browser; your card never reaches PatternFoundry.	Maksu tehdään Stripen suojatulla sivulla selaimessasi; korttisi ei koskaan päädy PatternFoundrylle.
+	Reading your credits…	Luetaan krediittejä…
+	Remember the key on this computer	Muista avain tällä tietokoneella
+	Server	Palvelin
+	Sign In	Kirjaudu sisään
+	Sign Out	Kirjaudu ulos
+	Sign in to your Foundry Account	Kirjaudu Foundry-tiliisi
+	Signed in as {email}	Kirjautuneena: {email}
+	Thinking…	Mietitään…
+	Type your question, then press Enter	Kirjoita kysymyksesi ja paina Enter
+	{n} credits	{n} krediittiä
+	{n} credits for {price}	{n} krediittiä hintaan {price}
+@msg	Anthropic refused the API key: {0}	Anthropic hylkäsi API-avaimen: {0}
+@msg	Couldn't reach the AI service: {0}	Tekoälypalveluun ei saatu yhteyttä: {0}
+@msg	Enter your Anthropic API key first.	Anna ensin Anthropic API -avaimesi.
+@msg	The AI declined to answer this: ask another way.	Tekoäly kieltäytyi vastaamasta tähän: kysy toisin.
+@msg	The AI service failed (error {0}): try again later.	Tekoälypalvelu epäonnistui (virhe {0}): yritä myöhemmin uudelleen.
+@msg	The AI service is busy: try again in a minute.	Tekoälypalvelu on varattu: yritä uudelleen minuutin kuluttua.
+@msg	The API key isn't valid: paste it again from the Anthropic Console.	API-avain ei kelpaa: liitä se uudelleen Anthropic Consolesta.
+@msg	The question is too long: keep it under 2,000 characters.	Kysymys on liian pitkä: pidä se alle 2 000 merkissä.
+@msg	The reply had no answer: try again, or ask something narrower.	Vastauksessa ei ollut vastausta: yritä uudelleen tai kysy jotain rajatumpaa.
+@msg	The request failed (error {0}): {1}	Pyyntö epäonnistui (virhe {0}): {1}
+@msg	Type a question first.	Kirjoita ensin kysymys.
+@msg	Your Anthropic account can't pay for this: {0}	Anthropic-tilisi ei voi maksaa tätä: {0}
+@msg	already asking: wait for the answer	kysytään jo: odota vastausta
+@msg	This conversation is long: start a New Conversation.	Tämä keskustelu on pitkä: aloita uusi keskustelu.
+@msg	Claude took too many steps: ask again, more simply.	Claude otti liian monta vaihetta: kysy uudelleen yksinkertaisemmin.
+	Ask About Patterns…	Kysy kaavoista…
+	Answers come from Claude with your own Anthropic API key, billed to your Anthropic account. They can be wrong: sew a muslin before cutting good fabric.	Vastaukset tulevat Claudelta omalla Anthropic API -avaimellasi, ja ne laskutetaan Anthropic-tililtäsi. Ne voivat olla vääriä: ompele koeasu ennen kuin leikkaat hyvää kangasta.
+	Ask About Patterns	Kysy kaavoista
+	Ask anything about sewing patterns or PatternFoundry: how much ease to add, how to move a dart, which block to start from, where a feature is. Claude can also draft and change your pattern when you ask, after you allow it.	Kysy mitä tahansa ompelukaavoista tai PatternFoundrysta: kuinka paljon väljyyttä lisätään, miten laskos siirretään, mistä peruskaavasta aloitetaan, missä jokin toiminto on. Claude voi myös piirtää ja muuttaa kaavaasi pyynnöstäsi, kun olet sallinut sen.
+	Claude asks to:	Claude pyytää:
+	Couldn't do:	Ei voitu tehdä:
+	Done:	Tehty:
+	Free credits for the AI features, no API key needed	Ilmaisia krediittejä tekoälytoimintoihin, ei API-avainta
+	Free credits to try the AI features: Ask About Patterns drafts and changes patterns with you	Ilmaisia krediittejä tekoälytoimintojen kokeiluun: Kysy kaavoista piirtää ja muuttaa kaavoja kanssasi
+	Include my pattern	Liitä mukaan kaavani
+	Its pieces and sizes, and which measurements are set: never their values	Sen osat ja koot sekä mitkä mitat on asetettu: ei koskaan niiden arvoja
+	Leave it empty for the Foundry service.	Jätä tyhjäksi Foundry-palvelua varten.
+	Not allowed:	Ei sallittu:
+	One account for every SiteSentrix app	Yksi tili kaikkiin SiteSentrix-sovelluksiin
+	Read your measurements	Lukea mittasi
+@msg	An account with that email already exists: sign in instead.	Tällä sähköpostiosoitteella on jo tili: kirjaudu sen sijaan sisään.
+@msg	Ask About Patterns needs a build that can reach the AI service	Kysy kaavoista vaatii version, joka saa yhteyden tekoälypalveluun
+@msg	Foundry Account needs a build that can reach the AI service	Foundry-tili vaatii version, joka saa yhteyden tekoälypalveluun
+@msg	Foundry accounts aren't open yet.	Foundry-tilit eivät ole vielä avoinna.
+@msg	Not enough Foundry credits: buy more in Foundry Account.	Foundry-krediittejä ei ole tarpeeksi: osta lisää Foundry-tililtä.
+@msg	Sign in to your Foundry account (Help › Foundry Account…).	Kirjaudu Foundry-tilillesi (Ohje › Foundry-tili…).
+@msg	The Foundry service can't do this yet: try again later.	Foundry-palvelu ei vielä osaa tätä: yritä myöhemmin uudelleen.
+@msg	this needs a connection to the AI service, which this build doesn't have	tämä vaatii yhteyden tekoälypalveluun, jota tässä versiossa ei ole
+@msg	Account made: welcome to PatternFoundry.	Tili luotu: tervetuloa PatternFoundryyn.
+@msg	Signed in.	Kirjauduttu sisään.
+@msg	Signed out.	Kirjauduttu ulos.
+@msg	Type your email address.	Kirjoita sähköpostiosoitteesi.
+@msg	Pay on the page that opened in your browser, then press Refresh.	Maksa selaimessa avautuneella sivulla ja paina sitten Päivitä.

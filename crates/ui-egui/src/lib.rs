@@ -13,6 +13,7 @@ macro_rules! tl {
     };
 }
 
+pub mod ai;
 pub mod background;
 mod brand;
 pub mod canvas;
@@ -219,6 +220,25 @@ pub(crate) fn browsable_url(url: &str) -> Result<(), String> {
 /// Shows a file in the system file manager, or opens it in its app.
 pub type RevealFn = Box<dyn FnMut(&str) -> Result<(), String>>;
 
+/// Sends an HTTPS POST and waits for the answer → (HTTP status, body), or why none came. Called
+/// from a thread of its own (desktop): the AI requests ([`ai`]).
+pub type HttpPostFn = Arc<dyn Fn(&HttpRequest) -> Result<(u16, String), String> + Send + Sync>;
+
+/// Starts an HTTPS POST and hands the answer → (HTTP status, body), or why none came, to the
+/// callback later, on the UI thread (the web: the browser's fetch).
+pub type HttpPostAsyncFn = std::rc::Rc<dyn Fn(HttpRequest, Box<dyn FnOnce(Result<(u16, String), String>)>)>;
+
+pub use pf_ai::HttpRequest;
+
+/// Keeps small secrets (the AI features' API key and Foundry session) out of the settings, which
+/// the engine, the control channel and MCP agents can read.
+pub trait SecretStore {
+    /// The secret `name`, when one is kept.
+    fn load(&self, name: &str) -> Option<String>;
+    /// Keep `value` as the secret `name`; `None` forgets it.
+    fn save(&self, name: &str, value: Option<&str>) -> Result<(), String>;
+}
+
 /// Platform services injected by the host app (desktop or web).
 #[derive(Default)]
 pub struct Services {
@@ -292,6 +312,14 @@ pub struct Services {
     /// [`Self::start_pick`]'s dialogs are sheets on the window (macOS): while one is open the app
     /// neither quits nor closes documents, as under the modal dialog before.
     pub dialogs_are_sheets: bool,
+    /// Send the AI features' requests (desktop). Without it and [`Self::http_post_async`], Ask
+    /// About Patterns and Foundry Account are unavailable.
+    pub http_post: Option<HttpPostFn>,
+    /// Send an HTTPS POST without waiting (the web), when there is no [`Services::http_post`].
+    pub http_post_async: Option<HttpPostAsyncFn>,
+    /// Where the AI features keep the API key and the Foundry session (desktop: private files
+    /// next to the settings; the web: the browser's storage). Without it they last the session.
+    pub secrets: Option<Box<dyn SecretStore>>,
     /// The window is on Wayland: the tool cursors are painted into it instead of handed to the
     /// compositor as bitmaps ([`cursors::os_cursors`]).
     pub wayland: bool,
@@ -439,6 +467,8 @@ pub struct VectorcraftApp {
     pub graphics_adapter: Option<String>,
     /// File → Place: picked files, the place cursor's thumbnails, the Control bar's image details.
     pub place: place::PlaceState,
+    /// Ask About Patterns and Foundry Account (PF-8).
+    pub ai: ai::AiState,
     /// The Paste commands can paste from the system clipboard alone: it holds something to paste
     /// (SVG without a `system_clipboard`) while the internal clipboard is empty. It enables the
     /// Paste menu items.
@@ -561,6 +591,7 @@ impl VectorcraftApp {
             last_window_title: String::new(),
             graphics_adapter: None,
             place: Default::default(),
+            ai: Default::default(),
             system_paste: false,
             system_paste_at: f64::NEG_INFINITY,
             clipboard_probe: None,
@@ -1462,6 +1493,7 @@ impl VectorcraftApp {
         dock::floating_panel(self, &ctx);
         floating::show(self, &ctx);
         dialogs::show(self, &ctx);
+        ai::frame(self, &ctx);
         export_progress::show(self, &ctx);
         palette::show(self, &ctx);
         if self.custom_titlebar {

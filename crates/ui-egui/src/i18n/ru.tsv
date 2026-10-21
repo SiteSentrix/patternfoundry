@@ -4900,3 +4900,83 @@ file-filter	DXF-AAMA (cutting room)	DXF-AAMA (раскройный цех)
 @msg	the piece {_1} has no outline	у детали {_1} нет контура
 file-filter	SVG for cutting	SVG для раскроя
 file-filter	PDF for projector	PDF для проектора
+	Foundry Account…	Аккаунт Foundry…
+	A password needs at least 8 characters.	Пароль должен содержать не менее 8 символов.
+	Account	Аккаунт
+	Allow	Разрешить
+	Anthropic API key:	Ключ API Anthropic:
+	Ask	Спросить
+	Buy credits	Купить кредиты
+	Buy…	Купить…
+	Change key	Сменить ключ
+	Create Free Account	Создать бесплатный аккаунт
+	Create a free Foundry Account	Создайте бесплатный аккаунт Foundry
+	Don't Allow	Не разрешать
+	Edit › Undo takes each change back.	Редактирование › Отменить отменяет каждое изменение.
+	Email	Эл. почта
+	Foundry Account	Аккаунт Foundry
+	Foundry accounts aren't open yet. Until then, the AI features work with your own Anthropic API key.	Аккаунты Foundry ещё не открыты. До тех пор функции ИИ работают с вашим собственным ключом API Anthropic.
+	Get a key	Получить ключ
+	I have an account: Sign In	У меня есть аккаунт: войти
+	New Conversation	Новый разговор
+	New here? Create a free account	Впервые здесь? Создайте бесплатный аккаунт
+	No card needed, and no API key to set up	Без карты и без настройки ключа API
+	Paid with Foundry credits ({n} left).	Оплачено кредитами Foundry (осталось {n}).
+	Paid with Foundry credits.	Оплачено кредитами Foundry.
+	Pay for the AI features with my Foundry credits	Оплачивать функции ИИ моими кредитами Foundry
+	Pay with Foundry credits instead	Платить кредитами Foundry
+	Payment is on Stripe's secure page, in your browser; your card never reaches PatternFoundry.	Оплата проходит на защищённой странице Stripe в вашем браузере; ваша карта никогда не попадает в PatternFoundry.
+	Reading your credits…	Читаем ваши кредиты…
+	Remember the key on this computer	Запомнить ключ на этом компьютере
+	Server	Сервер
+	Sign In	Войти
+	Sign Out	Выйти
+	Sign in to your Foundry Account	Войдите в свой аккаунт Foundry
+	Signed in as {email}	Вход выполнен: {email}
+	Thinking…	Думаю…
+	Type your question, then press Enter	Введите вопрос и нажмите Enter
+	{n} credits	Кредитов: {n}
+	{n} credits for {price}	{n} кредитов за {price}
+@msg	An account with that email already exists: sign in instead.	Аккаунт с этой почтой уже есть: войдите в него.
+@msg	Anthropic refused the API key: {0}	Сервис Anthropic отклонил ключ API: {0}
+@msg	Couldn't reach the AI service: {0}	Не удалось связаться с сервисом ИИ: {0}
+@msg	Enter your Anthropic API key first.	Сначала введите свой ключ API Anthropic.
+@msg	Foundry accounts aren't open yet.	Аккаунты Foundry ещё не открыты.
+@msg	Not enough Foundry credits: buy more in Foundry Account.	Недостаточно кредитов Foundry: купите ещё в аккаунте Foundry.
+@msg	The AI declined to answer this: ask another way.	ИИ отказался отвечать: спросите иначе.
+@msg	The AI service failed (error {0}): try again later.	Сбой сервиса ИИ (ошибка {0}): повторите попытку позже.
+@msg	The AI service is busy: try again in a minute.	Сервис ИИ сейчас занят: повторите попытку через минуту.
+@msg	The API key isn't valid: paste it again from the Anthropic Console.	Ключ API недействителен: вставьте его заново из Anthropic Console.
+@msg	The question is too long: keep it under 2,000 characters.	Вопрос слишком длинный: не более 2000 символов.
+@msg	The reply had no answer: try again, or ask something narrower.	Ответ пуст: попробуйте снова или задайте более узкий вопрос.
+@msg	The request failed (error {0}): {1}	Запрос не выполнен (ошибка {0}): {1}
+@msg	Type a question first.	Сначала введите вопрос.
+@msg	Your Anthropic account can't pay for this: {0}	С вашей учётной записи Anthropic не удаётся оплатить этот запрос: {0}
+@msg	already asking: wait for the answer	вопрос уже отправлен: дождитесь ответа
+@msg	this needs a connection to the AI service, which this build doesn't have	для этого нужно подключение к службе ИИ, которого в этой сборке нет
+@msg	This conversation is long: start a New Conversation.	Разговор слишком длинный: начните новый разговор.
+@msg	Claude took too many steps: ask again, more simply.	Claude понадобилось слишком много шагов: спросите ещё раз, попроще.
+@msg	Account made: welcome to PatternFoundry.	Аккаунт создан: добро пожаловать в PatternFoundry.
+@msg	Signed in.	Вход выполнен.
+@msg	Signed out.	Выход выполнен.
+@msg	Type your email address.	Введите адрес эл. почты.
+@msg	Pay on the page that opened in your browser, then press Refresh.	Оплатите на странице, открывшейся в браузере, затем нажмите «Обновить».
+	Ask About Patterns…	Вопрос о выкройках…
+	Answers come from Claude with your own Anthropic API key, billed to your Anthropic account. They can be wrong: sew a muslin before cutting good fabric.	Ответы даёт Claude с вашим собственным ключом API Anthropic, оплата с вашего аккаунта Anthropic. Ответы могут быть ошибочными: прежде чем кроить хорошую ткань, сшейте макет из бязи.
+	Ask About Patterns	Вопрос о выкройках
+	Ask anything about sewing patterns or PatternFoundry: how much ease to add, how to move a dart, which block to start from, where a feature is. Claude can also draft and change your pattern when you ask, after you allow it.	Спрашивайте что угодно о выкройках или PatternFoundry: сколько добавить на свободу облегания, как перевести вытачку, с какой базовой выкройки начать, где найти функцию. Claude также может построить и изменить вашу выкройку по вашей просьбе, после того как вы это разрешите.
+	Claude asks to:	Claude просит:
+	Couldn't do:	Не удалось выполнить:
+	Done:	Выполнено:
+	Free credits for the AI features, no API key needed	Бесплатные кредиты на функции ИИ, без ключа API
+	Free credits to try the AI features: Ask About Patterns drafts and changes patterns with you	Бесплатные кредиты, чтобы попробовать функции ИИ: «Вопрос о выкройках» строит и изменяет выкройки вместе с вами
+	Include my pattern	Приложить мою выкройку
+	Its pieces and sizes, and which measurements are set: never their values	Её детали и размеры и то, какие мерки заданы, но никогда не их значения
+	Leave it empty for the Foundry service.	Оставьте пустым для сервиса Foundry.
+	Not allowed:	Не разрешено:
+	One account for every SiteSentrix app	Один аккаунт для всех приложений SiteSentrix
+	Read your measurements	Прочитать ваши мерки
+@msg	Ask About Patterns needs a build that can reach the AI service	«Вопрос о выкройках» требует сборки с доступом к службе ИИ
+@msg	Foundry Account needs a build that can reach the AI service	«Аккаунт Foundry» требует сборки с доступом к службе ИИ
+@msg	Sign in to your Foundry account (Help › Foundry Account…).	Войдите в аккаунт Foundry (Справка › Аккаунт Foundry…).
+@msg	The Foundry service can't do this yet: try again later.	Сервис Foundry пока этого не умеет: попробуйте позже.

@@ -4921,3 +4921,83 @@ file-filter	DXF-AAMA (cutting room)	DXF-AAMA（裁剪車間）
 @msg	the piece {_1} has no outline	裁片 {_1} 沒有輪廓
 file-filter	SVG for cutting	用於裁剪的 SVG
 file-filter	PDF for projector	用於投影機的 PDF
+	Foundry Account…	Foundry 帳戶…
+	A password needs at least 8 characters.	密碼至少需要 8 個字元。
+	Account	帳戶
+	Allow	允許
+	Anthropic API key:	Anthropic API 金鑰：
+	Ask	提問
+	Buy credits	購買點數
+	Buy…	購買…
+	Change key	更換金鑰
+	Create Free Account	建立免費帳戶
+	Create a free Foundry Account	建立免費 Foundry 帳戶
+	Don't Allow	不允許
+	Edit › Undo takes each change back.	編輯 › 還原可復原每項修改。
+	Email	電子郵件
+	Foundry Account	Foundry 帳戶
+	Foundry accounts aren't open yet. Until then, the AI features work with your own Anthropic API key.	Foundry 帳戶尚未開放。在此之前，AI 功能使用您自己的 Anthropic API 金鑰。
+	Get a key	取得金鑰
+	I have an account: Sign In	已有帳戶:登入
+	New Conversation	新對話
+	New here? Create a free account	新使用者?建立免費帳戶
+	No card needed, and no API key to set up	無需信用卡,也無需設定 API 金鑰
+	Paid with Foundry credits ({n} left).	以 Foundry 點數支付（剩餘 {n}）。
+	Paid with Foundry credits.	以 Foundry 點數支付。
+	Pay for the AI features with my Foundry credits	用我的 Foundry 點數支付 AI 功能
+	Pay with Foundry credits instead	改用 Foundry 點數支付
+	Payment is on Stripe's secure page, in your browser; your card never reaches PatternFoundry.	在瀏覽器中的 Stripe 安全頁面付款；您的信用卡資料絕不會到達 PatternFoundry。
+	Reading your credits…	正在讀取點數…
+	Remember the key on this computer	在此電腦上記住金鑰
+	Server	伺服器
+	Sign In	登入
+	Sign Out	登出
+	Sign in to your Foundry Account	登入你的 Foundry 帳戶
+	Signed in as {email}	已登入：{email}
+	Thinking…	思考中…
+	Type your question, then press Enter	輸入問題，然後按 Enter
+	{n} credits	{n} 點數
+	{n} credits for {price}	{n} 點數，{price}
+@msg	Anthropic refused the API key: {0}	Anthropic 拒絕了此 API 金鑰：{0}
+@msg	Couldn't reach the AI service: {0}	無法連線到 AI 服務：{0}
+@msg	Enter your Anthropic API key first.	請先輸入您的 Anthropic API 金鑰。
+@msg	The AI declined to answer this: ask another way.	AI 拒絕回答此問題：請換一種問法。
+@msg	The AI service failed (error {0}): try again later.	AI 服務發生錯誤 (錯誤 {0})：請稍後再試一次。
+@msg	The AI service is busy: try again in a minute.	AI 服務忙碌中：請一分鐘後再試一次。
+@msg	The API key isn't valid: paste it again from the Anthropic Console.	API 金鑰無效：請從 Anthropic Console 重新貼上。
+@msg	The question is too long: keep it under 2,000 characters.	問題太長：請不要超過 2,000 個字元。
+@msg	The reply had no answer: try again, or ask something narrower.	回覆中沒有回答：請重試，或問得更具體些。
+@msg	The request failed (error {0}): {1}	請求失敗 (錯誤 {0})：{1}
+@msg	Type a question first.	請先輸入問題。
+@msg	Your Anthropic account can't pay for this: {0}	您的 Anthropic 帳號無法支付此費用：{0}
+@msg	already asking: wait for the answer	正在提問：請等待回答
+@msg	This conversation is long: start a New Conversation.	此對話已很長：請開始新對話。
+@msg	Claude took too many steps: ask again, more simply.	Claude 用了太多步驟：請更簡單地再問一次。
+	Ask About Patterns…	詢問紙樣問題…
+	Answers come from Claude with your own Anthropic API key, billed to your Anthropic account. They can be wrong: sew a muslin before cutting good fabric.	回答由 Claude 使用您自己的 Anthropic API 金鑰產生，費用計入您的 Anthropic 帳戶。回答可能有誤：裁剪好布料前請先用胚布縫製樣衣。
+	Ask About Patterns	詢問紙樣問題
+	Ask anything about sewing patterns or PatternFoundry: how much ease to add, how to move a dart, which block to start from, where a feature is. Claude can also draft and change your pattern when you ask, after you allow it.	關於紙樣或 PatternFoundry 的任何問題都可以問：該加多少鬆份、如何轉移褶子、從哪個原型開始、某項功能在哪裡。在您允許後，Claude 也可以依您的要求繪製和修改紙樣。
+	Claude asks to:	Claude 請求：
+	Couldn't do:	無法完成：
+	Done:	已完成：
+	Free credits for the AI features, no API key needed	AI 功能免費點數，無需 API 金鑰
+	Free credits to try the AI features: Ask About Patterns drafts and changes patterns with you	免費點數試用 AI 功能：「詢問紙樣問題」與您一起繪製和修改紙樣
+	Include my pattern	附上我的紙樣
+	Its pieces and sizes, and which measurements are set: never their values	其裁片和尺碼，以及設定了哪些尺寸：絕不包括具體數值
+	Leave it empty for the Foundry service.	留空則使用 Foundry 服務。
+	Not allowed:	不允許：
+	One account for every SiteSentrix app	一個帳戶通用所有 SiteSentrix 應用程式
+	Read your measurements	讀取您的尺寸
+@msg	An account with that email already exists: sign in instead.	已有使用此電子郵件的帳戶：請改為登入。
+@msg	Ask About Patterns needs a build that can reach the AI service	「詢問紙樣問題」需要能連線 AI 服務的版本
+@msg	Foundry Account needs a build that can reach the AI service	「Foundry 帳戶」需要能連線 AI 服務的版本
+@msg	Foundry accounts aren't open yet.	Foundry 帳戶尚未開放。
+@msg	Not enough Foundry credits: buy more in Foundry Account.	Foundry 點數不足：請在 Foundry 帳戶中購買。
+@msg	Sign in to your Foundry account (Help › Foundry Account…).	請登入您的 Foundry 帳戶（說明 › Foundry 帳戶…）。
+@msg	The Foundry service can't do this yet: try again later.	Foundry 服務暫時無法完成此操作：請稍後再試。
+@msg	this needs a connection to the AI service, which this build doesn't have	此功能需要連線 AI 服務，而此版本不具備該連線
+@msg	Account made: welcome to PatternFoundry.	帳戶已建立：歡迎使用 PatternFoundry。
+@msg	Signed in.	已登入。
+@msg	Signed out.	已登出。
+@msg	Type your email address.	請輸入您的電子郵件地址。
+@msg	Pay on the page that opened in your browser, then press Refresh.	請在瀏覽器開啟的頁面上付款，然後按「重新整理」。

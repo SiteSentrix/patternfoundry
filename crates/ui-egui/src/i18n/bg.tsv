@@ -5253,3 +5253,83 @@ file-filter	DXF-AAMA (cutting room)	DXF-AAMA (кроялня)
 @msg	the piece {_1} has no outline	детайлът {_1} няма контур
 file-filter	SVG for cutting	SVG за рязане
 file-filter	PDF for projector	PDF за проектор
+	Foundry Account…	Акаунт в Foundry…
+	A password needs at least 8 characters.	Паролата трябва да е поне 8 знака.
+	Account	Акаунт
+	Allow	Разрешаване
+	Anthropic API key:	API ключ за Anthropic:
+	Ask	Питане
+	Buy credits	Купуване на кредити
+	Buy…	Купуване…
+	Change key	Смяна на ключа
+	Create Free Account	Създаване на безплатен акаунт
+	Create a free Foundry Account	Създайте безплатен акаунт в Foundry
+	Don't Allow	Без разрешение
+	Edit › Undo takes each change back.	Редактиране › Отмени връща всяка промяна.
+	Email	Имейл
+	Foundry Account	Акаунт в Foundry
+	Foundry accounts aren't open yet. Until then, the AI features work with your own Anthropic API key.	Акаунтите в Foundry още не са отворени. Дотогава функциите с ИИ работят със собствения ви API ключ на Anthropic.
+	Get a key	Вземете ключ
+	I have an account: Sign In	Имам акаунт: вход
+	New Conversation	Нов разговор
+	New here? Create a free account	Нови сте тук? Създайте безплатен акаунт
+	No card needed, and no API key to set up	Без карта и без API ключ за настройване
+	Paid with Foundry credits ({n} left).	Платено с кредити на Foundry (остават {n}).
+	Paid with Foundry credits.	Платено с кредити на Foundry.
+	Pay for the AI features with my Foundry credits	Плащане на функциите с ИИ с моите кредити на Foundry
+	Pay with Foundry credits instead	Плащане с кредити на Foundry вместо това
+	Payment is on Stripe's secure page, in your browser; your card never reaches PatternFoundry.	Плащането става на защитената страница на Stripe в браузъра ви; картата ви никога не стига до PatternFoundry.
+	Reading your credits…	Четене на кредитите…
+	Remember the key on this computer	Запомняне на ключа на този компютър
+	Server	Сървър
+	Sign In	Вход
+	Sign Out	Изход
+	Sign in to your Foundry Account	Влезте в акаунта си в Foundry
+	Signed in as {email}	Влезли сте като {email}
+	Thinking…	Мисля…
+	Type your question, then press Enter	Въведете въпроса си и натиснете Enter
+	{n} credits	{n} кредита
+	{n} credits for {price}	{n} кредита за {price}
+@msg	Anthropic refused the API key: {0}	Anthropic отхвърли API ключа: {0}
+@msg	Couldn't reach the AI service: {0}	Няма връзка с AI услугата: {0}
+@msg	Enter your Anthropic API key first.	Първо въведете своя API ключ за Anthropic.
+@msg	The AI declined to answer this: ask another way.	AI отказа да отговори на това: попитайте по друг начин.
+@msg	The AI service failed (error {0}): try again later.	AI услугата не успя (грешка {0}): опитайте отново по-късно.
+@msg	The AI service is busy: try again in a minute.	AI услугата е заета: опитайте отново след минута.
+@msg	The API key isn't valid: paste it again from the Anthropic Console.	API ключът не е валиден: поставете го отново от Anthropic Console.
+@msg	The question is too long: keep it under 2,000 characters.	Въпросът е твърде дълъг: нека бъде под 2000 знака.
+@msg	The reply had no answer: try again, or ask something narrower.	Отговорът не съдържаше отговор: опитайте отново или задайте по-конкретен въпрос.
+@msg	The request failed (error {0}): {1}	Заявката не успя (грешка {0}): {1}
+@msg	Type a question first.	Първо въведете въпрос.
+@msg	Your Anthropic account can't pay for this: {0}	Вашият акаунт в Anthropic не може да плати за това: {0}
+@msg	already asking: wait for the answer	вече се пита: изчакайте отговора
+@msg	This conversation is long: start a New Conversation.	Този разговор е дълъг: започнете нов разговор.
+@msg	Claude took too many steps: ask again, more simply.	Claude направи твърде много стъпки: попитайте отново, по-просто.
+	Ask About Patterns…	Питане за кройки…
+	Answers come from Claude with your own Anthropic API key, billed to your Anthropic account. They can be wrong: sew a muslin before cutting good fabric.	Отговорите идват от Claude с вашия собствен API ключ за Anthropic, като разходите се начисляват по вашия акаунт в Anthropic. Те може да са грешни: ушийте пробен модел от евтин плат, преди да кроите хубав плат.
+	Ask About Patterns	Питане за кройки
+	Ask anything about sewing patterns or PatternFoundry: how much ease to add, how to move a dart, which block to start from, where a feature is. Claude can also draft and change your pattern when you ask, after you allow it.	Питайте каквото и да е за кройки или PatternFoundry: колко свобода да добавите, как да преместите пенс, от коя основна кройка да започнете, къде е дадена функция. Claude може също да конструира и променя кройката ви, когато поискате, след като разрешите.
+	Claude asks to:	Claude иска да:
+	Couldn't do:	Не можа да се изпълни:
+	Done:	Готово:
+	Free credits for the AI features, no API key needed	Безплатни кредити за функциите с ИИ, без API ключ
+	Free credits to try the AI features: Ask About Patterns drafts and changes patterns with you	Безплатни кредити, за да опитате функциите с ИИ: „Питане за кройки“ конструира и променя кройки заедно с вас
+	Include my pattern	Включване на моята кройка
+	Its pieces and sizes, and which measurements are set: never their values	Детайлите и размерите ѝ и кои мерки са зададени: никога техните стойности
+	Leave it empty for the Foundry service.	Оставете празно за услугата Foundry.
+	Not allowed:	Не е разрешено:
+	One account for every SiteSentrix app	Един акаунт за всички приложения на SiteSentrix
+	Read your measurements	Четене на мерките ви
+@msg	An account with that email already exists: sign in instead.	Вече има акаунт с този имейл: влезте в него.
+@msg	Ask About Patterns needs a build that can reach the AI service	„Питане за кройки“ изисква версия, която може да се свърже с услугата с ИИ
+@msg	Foundry Account needs a build that can reach the AI service	„Акаунт в Foundry“ изисква версия, която може да се свърже с услугата с ИИ
+@msg	Foundry accounts aren't open yet.	Акаунтите в Foundry все още не са отворени.
+@msg	Not enough Foundry credits: buy more in Foundry Account.	Няма достатъчно кредити на Foundry: купете още в „Акаунт в Foundry“.
+@msg	Sign in to your Foundry account (Help › Foundry Account…).	Влезте в акаунта си в Foundry (Помощ › Акаунт в Foundry…).
+@msg	The Foundry service can't do this yet: try again later.	Услугата Foundry все още не може да направи това: опитайте по-късно.
+@msg	this needs a connection to the AI service, which this build doesn't have	това изисква връзка с услугата с ИИ, каквато тази версия няма
+@msg	Account made: welcome to PatternFoundry.	Акаунтът е създаден: добре дошли в PatternFoundry.
+@msg	Signed in.	Влязохте.
+@msg	Signed out.	Излязохте.
+@msg	Type your email address.	Въведете своя имейл адрес.
+@msg	Pay on the page that opened in your browser, then press Refresh.	Платете на страницата, която се отвори в браузъра ви, след това натиснете „Обновяване“.

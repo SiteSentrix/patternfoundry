@@ -5241,3 +5241,83 @@ file-filter	DXF-AAMA (cutting room)	DXF-AAMA (κοπτήριο)
 @msg	the piece {_1} has no outline	το κομμάτι {_1} δεν έχει περίγραμμα
 file-filter	SVG for cutting	SVG για κοπή
 file-filter	PDF for projector	PDF για προβολέα
+	Foundry Account…	Λογαριασμός Foundry…
+	A password needs at least 8 characters.	Ο κωδικός χρειάζεται τουλάχιστον 8 χαρακτήρες.
+	Account	Λογαριασμός
+	Allow	Να επιτρέπεται
+	Anthropic API key:	Κλειδί API της Anthropic:
+	Ask	Ερώτηση
+	Buy credits	Αγορά μονάδων
+	Buy…	Αγορά…
+	Change key	Αλλαγή κλειδιού
+	Create Free Account	Δημιουργία δωρεάν λογαριασμού
+	Create a free Foundry Account	Δημιουργήστε δωρεάν λογαριασμό Foundry
+	Don't Allow	Να μην επιτρέπεται
+	Edit › Undo takes each change back.	Η εντολή Επεξεργασία › Αναίρεση αναιρεί κάθε αλλαγή ξεχωριστά.
+	Email	Email
+	Foundry Account	Λογαριασμός Foundry
+	Foundry accounts aren't open yet. Until then, the AI features work with your own Anthropic API key.	Οι λογαριασμοί Foundry δεν έχουν ανοίξει ακόμα. Ως τότε, οι λειτουργίες ΤΝ δουλεύουν με το δικό σας κλειδί API της Anthropic.
+	Get a key	Λήψη κλειδιού
+	I have an account: Sign In	Έχω λογαριασμό: σύνδεση
+	New Conversation	Νέα συνομιλία
+	New here? Create a free account	Νέος εδώ; Δημιουργήστε δωρεάν λογαριασμό
+	No card needed, and no API key to set up	Χωρίς κάρτα και χωρίς κλειδί API για ρύθμιση
+	Paid with Foundry credits ({n} left).	Πληρωμή με μονάδες Foundry (απομένουν {n}).
+	Paid with Foundry credits.	Πληρωμή με μονάδες Foundry.
+	Pay for the AI features with my Foundry credits	Πληρωμή των λειτουργιών ΤΝ με τις μονάδες Foundry μου
+	Pay with Foundry credits instead	Πληρωμή με μονάδες Foundry αντί γι' αυτό
+	Payment is on Stripe's secure page, in your browser; your card never reaches PatternFoundry.	Η πληρωμή γίνεται στην ασφαλή σελίδα της Stripe, στο πρόγραμμα περιήγησής σας· η κάρτα σας δεν φτάνει ποτέ στο PatternFoundry.
+	Reading your credits…	Ανάγνωση των μονάδων σας…
+	Remember the key on this computer	Απομνημόνευση του κλειδιού σε αυτόν τον υπολογιστή
+	Server	Διακομιστής
+	Sign In	Σύνδεση
+	Sign Out	Αποσύνδεση
+	Sign in to your Foundry Account	Συνδεθείτε στον λογαριασμό σας Foundry
+	Signed in as {email}	Συνδεδεμένος ως {email}
+	Thinking…	Σκέφτεται…
+	Type your question, then press Enter	Πληκτρολογήστε την ερώτησή σας και πατήστε Enter
+	{n} credits	{n} μονάδες
+	{n} credits for {price}	{n} μονάδες για {price}
+@msg	Anthropic refused the API key: {0}	Η Anthropic απέρριψε το κλειδί API: {0}
+@msg	Couldn't reach the AI service: {0}	Δεν ήταν δυνατή η σύνδεση με την υπηρεσία AI: {0}
+@msg	Enter your Anthropic API key first.	Εισαγάγετε πρώτα το κλειδί API της Anthropic.
+@msg	The AI declined to answer this: ask another way.	Η AI αρνήθηκε να απαντήσει: ρωτήστε με άλλο τρόπο.
+@msg	The AI service failed (error {0}): try again later.	Η υπηρεσία AI απέτυχε (σφάλμα {0}): δοκιμάστε ξανά αργότερα.
+@msg	The AI service is busy: try again in a minute.	Η υπηρεσία AI είναι απασχολημένη: δοκιμάστε ξανά σε ένα λεπτό.
+@msg	The API key isn't valid: paste it again from the Anthropic Console.	Το κλειδί API δεν είναι έγκυρο: επικολλήστε το ξανά από το Anthropic Console.
+@msg	The question is too long: keep it under 2,000 characters.	Η ερώτηση είναι πολύ μεγάλη: κρατήστε την κάτω από 2.000 χαρακτήρες.
+@msg	The reply had no answer: try again, or ask something narrower.	Η απάντηση ήταν κενή: δοκιμάστε ξανά ή ρωτήστε κάτι πιο συγκεκριμένο.
+@msg	The request failed (error {0}): {1}	Το αίτημα απέτυχε (σφάλμα {0}): {1}
+@msg	Type a question first.	Πληκτρολογήστε πρώτα μια ερώτηση.
+@msg	Your Anthropic account can't pay for this: {0}	Ο λογαριασμός σας στην Anthropic δεν μπορεί να πληρώσει γι' αυτό: {0}
+@msg	already asking: wait for the answer	η ερώτηση είναι ήδη σε εξέλιξη: περιμένετε την απάντηση
+@msg	This conversation is long: start a New Conversation.	Αυτή η συνομιλία είναι μεγάλη: ξεκινήστε μια Νέα συνομιλία.
+@msg	Claude took too many steps: ask again, more simply.	Ο Claude έκανε υπερβολικά πολλά βήματα: ρωτήστε ξανά, πιο απλά.
+	Ask About Patterns…	Ερώτηση για πατρόν…
+	Answers come from Claude with your own Anthropic API key, billed to your Anthropic account. They can be wrong: sew a muslin before cutting good fabric.	Οι απαντήσεις προέρχονται από τον Claude με το δικό σας κλειδί API της Anthropic, με χρέωση στον λογαριασμό σας στην Anthropic. Μπορεί να είναι λανθασμένες: ράψτε ένα δοκιμαστικό ρούχο (τουάλ) πριν κόψετε καλό ύφασμα.
+	Ask About Patterns	Ερώτηση για πατρόν
+	Ask anything about sewing patterns or PatternFoundry: how much ease to add, how to move a dart, which block to start from, where a feature is. Claude can also draft and change your pattern when you ask, after you allow it.	Ρωτήστε οτιδήποτε για πατρόν ραπτικής ή για το PatternFoundry: πόση άνεση να προσθέσετε, πώς να μετακινήσετε μια πένσα, από ποιο βασικό πατρόν να ξεκινήσετε, πού βρίσκεται μια λειτουργία. Ο Claude μπορεί επίσης να σχεδιάσει και να αλλάξει το πατρόν σας όταν το ζητήσετε, αφού το επιτρέψετε.
+	Claude asks to:	Ο Claude ζητά να:
+	Couldn't do:	Δεν ήταν δυνατό:
+	Done:	Έγινε:
+	Free credits for the AI features, no API key needed	Δωρεάν μονάδες για τις λειτουργίες AI, χωρίς κλειδί API
+	Free credits to try the AI features: Ask About Patterns drafts and changes patterns with you	Δωρεάν μονάδες για να δοκιμάσετε τις λειτουργίες AI: η Ερώτηση για πατρόν σχεδιάζει και αλλάζει πατρόν μαζί σας
+	Include my pattern	Συμπερίληψη του πατρόν μου
+	Its pieces and sizes, and which measurements are set: never their values	Τα κομμάτια και τα μεγέθη του, και ποια μέτρα έχουν οριστεί: ποτέ οι τιμές τους
+	Leave it empty for the Foundry service.	Αφήστε το κενό για την υπηρεσία Foundry.
+	Not allowed:	Δεν επιτρέπεται:
+	One account for every SiteSentrix app	Ένας λογαριασμός για όλες τις εφαρμογές της SiteSentrix
+	Read your measurements	Ανάγνωση των μέτρων σας
+@msg	An account with that email already exists: sign in instead.	Υπάρχει ήδη λογαριασμός με αυτό το email: συνδεθείτε σε αυτόν.
+@msg	Ask About Patterns needs a build that can reach the AI service	Η «Ερώτηση για πατρόν» χρειάζεται μια έκδοση που μπορεί να συνδεθεί στην υπηρεσία AI
+@msg	Foundry Account needs a build that can reach the AI service	Ο «Λογαριασμός Foundry» χρειάζεται μια έκδοση που μπορεί να συνδεθεί στην υπηρεσία AI
+@msg	Foundry accounts aren't open yet.	Οι λογαριασμοί Foundry δεν έχουν ανοίξει ακόμη.
+@msg	Not enough Foundry credits: buy more in Foundry Account.	Δεν υπάρχουν αρκετές μονάδες Foundry: αγοράστε περισσότερες στον Λογαριασμό Foundry.
+@msg	Sign in to your Foundry account (Help › Foundry Account…).	Συνδεθείτε στον λογαριασμό σας Foundry (Βοήθεια › Λογαριασμός Foundry…).
+@msg	The Foundry service can't do this yet: try again later.	Η υπηρεσία Foundry δεν μπορεί να το κάνει αυτό ακόμη: δοκιμάστε ξανά αργότερα.
+@msg	this needs a connection to the AI service, which this build doesn't have	αυτό χρειάζεται σύνδεση με την υπηρεσία AI, την οποία αυτή η έκδοση δεν έχει
+@msg	Account made: welcome to PatternFoundry.	Ο λογαριασμός δημιουργήθηκε: καλώς ήρθατε στο PatternFoundry.
+@msg	Signed in.	Συνδεθήκατε.
+@msg	Signed out.	Αποσυνδεθήκατε.
+@msg	Type your email address.	Πληκτρολογήστε τη διεύθυνση email σας.
+@msg	Pay on the page that opened in your browser, then press Refresh.	Πληρώστε στη σελίδα που άνοιξε στο πρόγραμμα περιήγησης και, στη συνέχεια, πατήστε «Ανανέωση».

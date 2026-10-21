@@ -5275,3 +5275,83 @@ file-filter	DXF-AAMA (cutting room)	DXF-AAMA (szabászat)
 @msg	the piece {_1} has no outline	a(z) {_1} darabnak nincs körvonala
 file-filter	SVG for cutting	SVG vágáshoz
 file-filter	PDF for projector	PDF projektorhoz
+	Foundry Account…	Foundry-fiók…
+	A password needs at least 8 characters.	A jelszónak legalább 8 karakterből kell állnia.
+	Account	Fiók
+	Allow	Engedélyezés
+	Anthropic API key:	Anthropic API-kulcs:
+	Ask	Kérdezés
+	Buy credits	Kredit vásárlása
+	Buy…	Vásárlás…
+	Change key	Kulcs módosítása
+	Create Free Account	Ingyenes fiók létrehozása
+	Create a free Foundry Account	Hozzon létre ingyenes Foundry-fiókot
+	Don't Allow	Tiltás
+	Edit › Undo takes each change back.	A Szerkesztés › Visszavonás egyenként visszavonja a módosításokat.
+	Email	E-mail
+	Foundry Account	Foundry-fiók
+	Foundry accounts aren't open yet. Until then, the AI features work with your own Anthropic API key.	A Foundry-fiókok még nem nyíltak meg. Addig az MI-funkciók a saját Anthropic API-kulcsával működnek.
+	Get a key	Kulcs igénylése
+	I have an account: Sign In	Van fiókom: bejelentkezés
+	New Conversation	Új beszélgetés
+	New here? Create a free account	Új itt? Hozzon létre ingyenes fiókot
+	No card needed, and no API key to set up	Nem kell kártya, és API-kulcsot sem kell beállítani
+	Paid with Foundry credits ({n} left).	Foundry-kredittel fizetve ({n} maradt).
+	Paid with Foundry credits.	Foundry-kredittel fizetve.
+	Pay for the AI features with my Foundry credits	Az MI-funkciók fizetése a Foundry-kreditjeimmel
+	Pay with Foundry credits instead	Fizetés inkább Foundry-kredittel
+	Payment is on Stripe's secure page, in your browser; your card never reaches PatternFoundry.	A fizetés a Stripe biztonságos oldalán történik a böngészőjében; a kártyája sosem jut el a PatternFoundryhez.
+	Reading your credits…	Kreditek beolvasása…
+	Remember the key on this computer	A kulcs megjegyzése ezen a számítógépen
+	Server	Kiszolgáló
+	Sign In	Bejelentkezés
+	Sign Out	Kijelentkezés
+	Sign in to your Foundry Account	Jelentkezzen be a Foundry-fiókjába
+	Signed in as {email}	Bejelentkezve: {email}
+	Thinking…	Gondolkodás…
+	Type your question, then press Enter	Írd be a kérdésed, majd nyomd meg az Entert
+	{n} credits	{n} kredit
+	{n} credits for {price}	{n} kredit {price} áron
+@msg	Anthropic refused the API key: {0}	Az Anthropic elutasította az API-kulcsot: {0}
+@msg	Couldn't reach the AI service: {0}	Nem érhető el az MI-szolgáltatás: {0}
+@msg	Enter your Anthropic API key first.	Előbb add meg az Anthropic API-kulcsodat.
+@msg	The AI declined to answer this: ask another way.	Az MI nem vállalta a válaszadást: kérdezz másképp.
+@msg	The AI service failed (error {0}): try again later.	Az MI-szolgáltatás hibát jelzett ({0}): próbáld újra később.
+@msg	The AI service is busy: try again in a minute.	Az MI-szolgáltatás foglalt: próbáld újra egy perc múlva.
+@msg	The API key isn't valid: paste it again from the Anthropic Console.	Az API-kulcs érvénytelen: másold be újra az Anthropic Console-ból.
+@msg	The question is too long: keep it under 2,000 characters.	A kérdés túl hosszú: legyen 2000 karakternél rövidebb.
+@msg	The reply had no answer: try again, or ask something narrower.	A válasz üres volt: próbáld újra, vagy kérdezz szűkebben.
+@msg	The request failed (error {0}): {1}	A kérés sikertelen ({0}): {1}
+@msg	Type a question first.	Előbb írj be egy kérdést.
+@msg	Your Anthropic account can't pay for this: {0}	Az Anthropic-fiókod nem tudja kifizetni ezt: {0}
+@msg	already asking: wait for the answer	a kérdezés már folyamatban van: várd meg a választ
+@msg	This conversation is long: start a New Conversation.	Ez a beszélgetés hosszú: kezdj egy új beszélgetést.
+@msg	Claude took too many steps: ask again, more simply.	Claude túl sok lépést tett: kérdezz újra, egyszerűbben.
+	Ask About Patterns…	Kérdezzen a szabásmintákról…
+	Answers come from Claude with your own Anthropic API key, billed to your Anthropic account. They can be wrong: sew a muslin before cutting good fabric.	A válaszokat Claude adja az Ön saját Anthropic API-kulcsával, a díjat az Anthropic-fiókja terheli. Tévedhetnek: mielőtt értékes anyagot szab ki, varrjon próbadarabot olcsó vászonból.
+	Ask About Patterns	Kérdezzen a szabásmintákról
+	Ask anything about sewing patterns or PatternFoundry: how much ease to add, how to move a dart, which block to start from, where a feature is. Claude can also draft and change your pattern when you ask, after you allow it.	Kérdezzen bármit a szabásmintákról vagy a PatternFoundryról: mennyi bőséget adjon hozzá, hogyan helyezzen át egy varrást, melyik alapszabásmintából induljon, hol talál egy funkciót. Claude kérésre meg is szerkesztheti és módosíthatja a szabásmintáját, miután engedélyezte.
+	Claude asks to:	Claude engedélyt kér erre:
+	Couldn't do:	Nem sikerült:
+	Done:	Kész:
+	Free credits for the AI features, no API key needed	Ingyenes kreditek az MI-funkciókhoz, API-kulcs nélkül
+	Free credits to try the AI features: Ask About Patterns drafts and changes patterns with you	Ingyenes kreditek az MI-funkciók kipróbálásához: a Kérdezzen a szabásmintákról Önnel együtt szerkeszt és módosít szabásmintákat
+	Include my pattern	A szabásmintám csatolása
+	Its pieces and sizes, and which measurements are set: never their values	Darabjai és méretei, valamint hogy mely méretek vannak megadva: az értékeik soha
+	Leave it empty for the Foundry service.	Hagyja üresen a Foundry szolgáltatáshoz.
+	Not allowed:	Nem engedélyezett:
+	One account for every SiteSentrix app	Egy fiók az összes SiteSentrix-alkalmazáshoz
+	Read your measurements	Az Ön méreteinek beolvasása
+@msg	An account with that email already exists: sign in instead.	Ezzel az e-mail-címmel már létezik fiók: inkább jelentkezzen be.
+@msg	Ask About Patterns needs a build that can reach the AI service	A Kérdezzen a szabásmintákról funkcióhoz olyan verzió kell, amely eléri az MI-szolgáltatást
+@msg	Foundry Account needs a build that can reach the AI service	A Foundry-fiókhoz olyan verzió kell, amely eléri az MI-szolgáltatást
+@msg	Foundry accounts aren't open yet.	A Foundry-fiókok még nem nyíltak meg.
+@msg	Not enough Foundry credits: buy more in Foundry Account.	Nincs elég Foundry-kredit: vásároljon többet a Foundry-fiókban.
+@msg	Sign in to your Foundry account (Help › Foundry Account…).	Jelentkezzen be Foundry-fiókjába (Súgó › Foundry-fiók…).
+@msg	The Foundry service can't do this yet: try again later.	A Foundry szolgáltatás ezt még nem tudja: próbálja újra később.
+@msg	this needs a connection to the AI service, which this build doesn't have	ehhez kapcsolat kell az MI-szolgáltatással, ami ebben a verzióban nincs
+@msg	Account made: welcome to PatternFoundry.	Fiók létrehozva: üdvözöljük a PatternFoundryban.
+@msg	Signed in.	Bejelentkezett.
+@msg	Signed out.	Kijelentkezett.
+@msg	Type your email address.	Írja be az e-mail-címét.
+@msg	Pay on the page that opened in your browser, then press Refresh.	Fizessen a böngészőben megnyílt oldalon, majd nyomja meg a Frissítés gombot.

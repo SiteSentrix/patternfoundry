@@ -1873,7 +1873,7 @@ const COMPLETE_MESSAGES: &[&str] =
 
 /// Crates whose error and status messages reach the status bar.
 const MESSAGE_CRATES: &[&str] =
-    &["ui-egui", "engine", "doc", "format", "svg", "pdf", "eps", "text", "plugins", "metafile", "cad", "trace", "pf-aama"];
+    &["ui-egui", "engine", "doc", "format", "svg", "pdf", "eps", "text", "plugins", "metafile", "cad", "trace", "pf-aama", "pf-ai"];
 
 /// Where a message literal starts: a status, an error value, a `thiserror` message.
 const MESSAGE_MARKERS: &[&str] = &[".status(", "ui.status = ", "status = ", "Other(", "Err(", "ok_or(", "ok_or_else(|| ", "#[error("];

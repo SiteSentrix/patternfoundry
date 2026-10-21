@@ -5142,3 +5142,83 @@ file-filter	DXF-AAMA (cutting room)	DXF-AAMA (krojownia)
 @msg	the piece {_1} has no outline	element {_1} nie ma obrysu
 file-filter	SVG for cutting	SVG do cięcia
 file-filter	PDF for projector	PDF do projektora
+	Foundry Account…	Konto Foundry…
+	A password needs at least 8 characters.	Hasło musi mieć co najmniej 8 znaków.
+	Account	Konto
+	Allow	Zezwól
+	Anthropic API key:	Klucz API Anthropic:
+	Ask	Zapytaj
+	Buy credits	Kup kredyty
+	Buy…	Kup…
+	Change key	Zmień klucz
+	Create Free Account	Utwórz darmowe konto
+	Create a free Foundry Account	Utwórz darmowe konto Foundry
+	Don't Allow	Nie zezwalaj
+	Edit › Undo takes each change back.	Edycja › Cofnij wycofuje każdą zmianę.
+	Email	E-mail
+	Foundry Account	Konto Foundry
+	Foundry accounts aren't open yet. Until then, the AI features work with your own Anthropic API key.	Konta Foundry nie są jeszcze otwarte. Do tego czasu funkcje AI działają z Twoim własnym kluczem API Anthropic.
+	Get a key	Uzyskaj klucz
+	I have an account: Sign In	Mam konto: zaloguj się
+	New Conversation	Nowa rozmowa
+	New here? Create a free account	Nowy? Utwórz darmowe konto
+	No card needed, and no API key to set up	Bez karty i bez klucza API do ustawiania
+	Paid with Foundry credits ({n} left).	Opłacone kredytami Foundry (zostało {n}).
+	Paid with Foundry credits.	Opłacone kredytami Foundry.
+	Pay for the AI features with my Foundry credits	Płać za funkcje AI moimi kredytami Foundry
+	Pay with Foundry credits instead	Zapłać zamiast tego kredytami Foundry
+	Payment is on Stripe's secure page, in your browser; your card never reaches PatternFoundry.	Płatność odbywa się na bezpiecznej stronie Stripe w Twojej przeglądarce; Twoja karta nigdy nie trafia do PatternFoundry.
+	Reading your credits…	Wczytywanie kredytów…
+	Remember the key on this computer	Zapamiętaj klucz na tym komputerze
+	Server	Serwer
+	Sign In	Zaloguj się
+	Sign Out	Wyloguj się
+	Sign in to your Foundry Account	Zaloguj się do konta Foundry
+	Signed in as {email}	Zalogowano jako {email}
+	Thinking…	Myślenie…
+	Type your question, then press Enter	Wpisz pytanie i naciśnij Enter
+	{n} credits	Kredyty: {n}
+	{n} credits for {price}	{n} kredytów za {price}
+@msg	Anthropic refused the API key: {0}	Anthropic odrzucił klucz API: {0}
+@msg	Couldn't reach the AI service: {0}	Nie udało się połączyć z usługą AI: {0}
+@msg	Enter your Anthropic API key first.	Najpierw wprowadź klucz API Anthropic.
+@msg	The AI declined to answer this: ask another way.	AI odmówiła odpowiedzi na to: zapytaj inaczej.
+@msg	The AI service failed (error {0}): try again later.	Usługa AI zawiodła (błąd {0}): spróbuj ponownie później.
+@msg	The AI service is busy: try again in a minute.	Usługa AI jest zajęta: spróbuj ponownie za minutę.
+@msg	The API key isn't valid: paste it again from the Anthropic Console.	Klucz API jest nieprawidłowy: wklej go ponownie z Anthropic Console.
+@msg	The question is too long: keep it under 2,000 characters.	Pytanie jest za długie: zmieść się w 2000 znaków.
+@msg	The reply had no answer: try again, or ask something narrower.	Odpowiedź nie zawierała treści: spróbuj ponownie lub zapytaj o coś węższego.
+@msg	The request failed (error {0}): {1}	Żądanie nie powiodło się (błąd {0}): {1}
+@msg	Type a question first.	Najpierw wpisz pytanie.
+@msg	Your Anthropic account can't pay for this: {0}	Twoje konto Anthropic nie może za to zapłacić: {0}
+@msg	already asking: wait for the answer	pytanie już trwa: poczekaj na odpowiedź
+@msg	This conversation is long: start a New Conversation.	Ta rozmowa jest długa: rozpocznij Nową rozmowę.
+@msg	Claude took too many steps: ask again, more simply.	Claude wykonał zbyt wiele kroków: zapytaj ponownie, prościej.
+	Ask About Patterns…	Zapytaj o wykroje…
+	Answers come from Claude with your own Anthropic API key, billed to your Anthropic account. They can be wrong: sew a muslin before cutting good fabric.	Odpowiedzi pochodzą od Claude i używają Twojego własnego klucza API Anthropic, a opłaty obciążają Twoje konto Anthropic. Mogą być błędne: zanim skroisz dobrą tkaninę, uszyj próbny model z surówki.
+	Ask About Patterns	Zapytaj o wykroje
+	Ask anything about sewing patterns or PatternFoundry: how much ease to add, how to move a dart, which block to start from, where a feature is. Claude can also draft and change your pattern when you ask, after you allow it.	Pytaj o wszystko, co dotyczy wykrojów lub PatternFoundry: ile luzu dodać, jak przenieść zaszewkę, od której formy podstawowej zacząć, gdzie jest dana funkcja. Claude może też konstruować i zmieniać Twój wykrój na Twoją prośbę, gdy na to pozwolisz.
+	Claude asks to:	Claude prosi o:
+	Couldn't do:	Nie udało się wykonać:
+	Done:	Wykonano:
+	Free credits for the AI features, no API key needed	Darmowe kredyty na funkcje AI, bez klucza API
+	Free credits to try the AI features: Ask About Patterns drafts and changes patterns with you	Darmowe kredyty na wypróbowanie funkcji AI: Zapytaj o wykroje konstruuje i zmienia wykroje razem z Tobą
+	Include my pattern	Dołącz mój wykrój
+	Its pieces and sizes, and which measurements are set: never their values	Jego elementy i rozmiary oraz to, które wymiary są ustawione: nigdy ich wartości
+	Leave it empty for the Foundry service.	Zostaw puste dla usługi Foundry.
+	Not allowed:	Niedozwolone:
+	One account for every SiteSentrix app	Jedno konto dla wszystkich aplikacji SiteSentrix
+	Read your measurements	Odczyt Twoich wymiarów
+@msg	An account with that email already exists: sign in instead.	Konto z tym adresem e-mail już istnieje: zamiast tego zaloguj się.
+@msg	Ask About Patterns needs a build that can reach the AI service	Zapytaj o wykroje wymaga wersji, która może połączyć się z usługą AI
+@msg	Foundry Account needs a build that can reach the AI service	Konto Foundry wymaga wersji, która może połączyć się z usługą AI
+@msg	Foundry accounts aren't open yet.	Konta Foundry nie są jeszcze dostępne.
+@msg	Not enough Foundry credits: buy more in Foundry Account.	Za mało kredytów Foundry: kup więcej w Koncie Foundry.
+@msg	Sign in to your Foundry account (Help › Foundry Account…).	Zaloguj się na swoje konto Foundry (Pomoc › Konto Foundry…).
+@msg	The Foundry service can't do this yet: try again later.	Usługa Foundry jeszcze tego nie potrafi: spróbuj ponownie później.
+@msg	this needs a connection to the AI service, which this build doesn't have	to wymaga połączenia z usługą AI, którego ta wersja nie ma
+@msg	Account made: welcome to PatternFoundry.	Konto utworzone: witamy w PatternFoundry.
+@msg	Signed in.	Zalogowano.
+@msg	Signed out.	Wylogowano.
+@msg	Type your email address.	Wpisz swój adres e-mail.
+@msg	Pay on the page that opened in your browser, then press Refresh.	Zapłać na stronie otwartej w przeglądarce, a następnie naciśnij Odśwież.

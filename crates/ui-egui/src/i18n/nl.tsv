@@ -5314,3 +5314,83 @@ file-filter	DXF-AAMA (cutting room)	DXF-AAMA (snijzaal)
 @msg	the piece {_1} has no outline	het patroondeel {_1} heeft geen omtrek
 file-filter	SVG for cutting	SVG om te snijden
 file-filter	PDF for projector	PDF voor projector
+	Foundry Account…	Foundry-account…
+	A password needs at least 8 characters.	Een wachtwoord heeft minstens 8 tekens nodig.
+	Account	Account
+	Allow	Toestaan
+	Anthropic API key:	Anthropic API-sleutel:
+	Ask	Vragen
+	Buy credits	Credits kopen
+	Buy…	Kopen…
+	Change key	Sleutel wijzigen
+	Create Free Account	Gratis account maken
+	Create a free Foundry Account	Maak een gratis Foundry-account
+	Don't Allow	Niet toestaan
+	Edit › Undo takes each change back.	Bewerken › Ongedaan maken draait elke wijziging terug.
+	Email	E-mail
+	Foundry Account	Foundry-account
+	Foundry accounts aren't open yet. Until then, the AI features work with your own Anthropic API key.	Foundry-accounts zijn nog niet open. Tot dan werken de AI-functies met uw eigen Anthropic API-sleutel.
+	Get a key	Een sleutel aanvragen
+	I have an account: Sign In	Ik heb een account: aanmelden
+	New Conversation	Nieuw gesprek
+	New here? Create a free account	Nieuw? Maak een gratis account
+	No card needed, and no API key to set up	Geen kaart nodig en geen API-sleutel in te stellen
+	Paid with Foundry credits ({n} left).	Betaald met Foundry-credits (nog {n}).
+	Paid with Foundry credits.	Betaald met Foundry-credits.
+	Pay for the AI features with my Foundry credits	De AI-functies betalen met mijn Foundry-credits
+	Pay with Foundry credits instead	In plaats daarvan betalen met Foundry-credits
+	Payment is on Stripe's secure page, in your browser; your card never reaches PatternFoundry.	Betalen gebeurt op de beveiligde pagina van Stripe, in uw browser; uw kaart komt nooit bij PatternFoundry.
+	Reading your credits…	Uw credits ophalen…
+	Remember the key on this computer	De sleutel op deze computer onthouden
+	Server	Server
+	Sign In	Aanmelden
+	Sign Out	Afmelden
+	Sign in to your Foundry Account	Meld je aan bij je Foundry-account
+	Signed in as {email}	Aangemeld als {email}
+	Thinking…	Denken…
+	Type your question, then press Enter	Typ uw vraag en druk dan op Enter
+	{n} credits	{n} credits
+	{n} credits for {price}	{n} credits voor {price}
+	Ask About Patterns…	Vraag over patronen…
+	Answers come from Claude with your own Anthropic API key, billed to your Anthropic account. They can be wrong: sew a muslin before cutting good fabric.	Antwoorden komen van Claude met uw eigen Anthropic API-sleutel, gefactureerd op uw Anthropic-account. Ze kunnen fout zijn: naai eerst een proefmodel van nessel voordat u goede stof knipt.
+	Ask About Patterns	Vraag over patronen
+	Ask anything about sewing patterns or PatternFoundry: how much ease to add, how to move a dart, which block to start from, where a feature is. Claude can also draft and change your pattern when you ask, after you allow it.	Vraag alles over naaipatronen of PatternFoundry: hoeveel bewegingsruimte u toevoegt, hoe u een figuurnaad verlegt, van welk basispatroon u uitgaat, waar een functie zit. Claude kan uw patroon ook construeren en wijzigen als u daarom vraagt, nadat u dat hebt toegestaan.
+	Claude asks to:	Claude vraagt om:
+	Couldn't do:	Kon niet uitvoeren:
+	Done:	Gedaan:
+	Free credits for the AI features, no API key needed	Gratis credits voor de AI-functies, geen API-sleutel nodig
+	Free credits to try the AI features: Ask About Patterns drafts and changes patterns with you	Gratis credits om de AI-functies te proberen: Vraag over patronen construeert en wijzigt patronen samen met u
+	Include my pattern	Mijn patroon meesturen
+	Its pieces and sizes, and which measurements are set: never their values	De delen en maten ervan, en welke lichaamsmaten zijn ingesteld: nooit de waarden
+	Leave it empty for the Foundry service.	Laat dit leeg voor de Foundry-dienst.
+	Not allowed:	Niet toegestaan:
+	One account for every SiteSentrix app	Eén account voor alle apps van SiteSentrix
+	Read your measurements	Uw maten lezen
+@msg	An account with that email already exists: sign in instead.	Er bestaat al een account met dat e-mailadres: meld u in plaats daarvan aan.
+@msg	Ask About Patterns needs a build that can reach the AI service	Vraag over patronen heeft een versie nodig die de AI-dienst kan bereiken
+@msg	Foundry Account needs a build that can reach the AI service	Foundry-account heeft een versie nodig die de AI-dienst kan bereiken
+@msg	Foundry accounts aren't open yet.	Foundry-accounts zijn nog niet open.
+@msg	Not enough Foundry credits: buy more in Foundry Account.	Niet genoeg Foundry-credits: koop er meer in Foundry-account.
+@msg	Sign in to your Foundry account (Help › Foundry Account…).	Meld u aan bij uw Foundry-account (Help › Foundry-account…).
+@msg	The Foundry service can't do this yet: try again later.	De Foundry-dienst kan dit nog niet: probeer het later opnieuw.
+@msg	this needs a connection to the AI service, which this build doesn't have	hiervoor is een verbinding met de AI-dienst nodig, die deze versie niet heeft
+@msg	Account made: welcome to PatternFoundry.	Account aangemaakt: welkom bij PatternFoundry.
+@msg	Signed in.	Aangemeld.
+@msg	Signed out.	Afgemeld.
+@msg	Type your email address.	Typ uw e-mailadres.
+@msg	Pay on the page that opened in your browser, then press Refresh.	Betaal op de pagina die in uw browser is geopend en druk daarna op Vernieuwen.
+@msg	Anthropic refused the API key: {0}	Anthropic heeft de API-sleutel geweigerd: {0}
+@msg	Couldn't reach the AI service: {0}	Kon de AI-dienst niet bereiken: {0}
+@msg	Enter your Anthropic API key first.	Voer eerst uw Anthropic API-sleutel in.
+@msg	The AI declined to answer this: ask another way.	De AI weigerde hierop te antwoorden: vraag het anders.
+@msg	The AI service failed (error {0}): try again later.	De AI-dienst is mislukt (fout {0}): probeer het later opnieuw.
+@msg	The AI service is busy: try again in a minute.	De AI-dienst is bezet: probeer het over een minuut opnieuw.
+@msg	The API key isn't valid: paste it again from the Anthropic Console.	De API-sleutel is niet geldig: plak hem opnieuw vanuit de Anthropic Console.
+@msg	The question is too long: keep it under 2,000 characters.	De vraag is te lang: houd hem onder 2.000 tekens.
+@msg	The reply had no answer: try again, or ask something narrower.	De reactie bevatte geen antwoord: probeer het opnieuw of stel een specifiekere vraag.
+@msg	The request failed (error {0}): {1}	Het verzoek is mislukt (fout {0}): {1}
+@msg	Type a question first.	Typ eerst een vraag.
+@msg	Your Anthropic account can't pay for this: {0}	Uw Anthropic-account kan hier niet voor betalen: {0}
+@msg	already asking: wait for the answer	er wordt al gevraagd: wacht op het antwoord
+@msg	This conversation is long: start a New Conversation.	Dit gesprek is lang: begin een nieuw gesprek.
+@msg	Claude took too many steps: ask again, more simply.	Claude had te veel stappen nodig: vraag het opnieuw, eenvoudiger.

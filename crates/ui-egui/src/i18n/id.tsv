@@ -5272,3 +5272,83 @@ file-filter	DXF-AAMA (cutting room)	DXF-AAMA (ruang potong)
 @msg	the piece {_1} has no outline	potongan {_1} tidak memiliki garis tepi
 file-filter	SVG for cutting	SVG untuk pemotongan
 file-filter	PDF for projector	PDF untuk proyektor
+	Foundry Account…	Akun Foundry…
+	A password needs at least 8 characters.	Kata sandi perlu minimal 8 karakter.
+	Account	Akun
+	Allow	Izinkan
+	Anthropic API key:	Kunci API Anthropic:
+	Ask	Tanya
+	Buy credits	Beli kredit
+	Buy…	Beli…
+	Change key	Ganti kunci
+	Create Free Account	Buat Akun Gratis
+	Create a free Foundry Account	Buat Akun Foundry gratis
+	Don't Allow	Jangan izinkan
+	Edit › Undo takes each change back.	Edit › Urungkan membatalkan setiap perubahan.
+	Email	Email
+	Foundry Account	Akun Foundry
+	Foundry accounts aren't open yet. Until then, the AI features work with your own Anthropic API key.	Akun Foundry belum dibuka. Sampai saat itu, fitur AI bekerja dengan kunci API Anthropic Anda sendiri.
+	Get a key	Dapatkan kunci
+	I have an account: Sign In	Saya punya akun: Masuk
+	New Conversation	Percakapan baru
+	New here? Create a free account	Baru di sini? Buat akun gratis
+	No card needed, and no API key to set up	Tanpa kartu dan tanpa kunci API yang perlu diatur
+	Paid with Foundry credits ({n} left).	Dibayar dengan kredit Foundry (sisa {n}).
+	Paid with Foundry credits.	Dibayar dengan kredit Foundry.
+	Pay for the AI features with my Foundry credits	Bayar fitur AI dengan kredit Foundry saya
+	Pay with Foundry credits instead	Bayar dengan kredit Foundry saja
+	Payment is on Stripe's secure page, in your browser; your card never reaches PatternFoundry.	Pembayaran dilakukan di halaman aman Stripe, di peramban Anda; kartu Anda tidak pernah sampai ke PatternFoundry.
+	Reading your credits…	Membaca kredit Anda…
+	Remember the key on this computer	Ingat kunci di komputer ini
+	Server	Server
+	Sign In	Masuk
+	Sign Out	Keluar
+	Sign in to your Foundry Account	Masuk ke Akun Foundry Anda
+	Signed in as {email}	Masuk sebagai {email}
+	Thinking…	Berpikir…
+	Type your question, then press Enter	Ketik pertanyaan Anda, lalu tekan Enter
+	{n} credits	{n} kredit
+	{n} credits for {price}	{n} kredit seharga {price}
+	Ask About Patterns…	Tanya tentang pola…
+	Answers come from Claude with your own Anthropic API key, billed to your Anthropic account. They can be wrong: sew a muslin before cutting good fabric.	Jawaban berasal dari Claude dengan kunci API Anthropic Anda sendiri, ditagihkan ke akun Anthropic Anda. Jawaban bisa salah: jahit pakaian uji dari kain blacu sebelum memotong kain yang bagus.
+	Ask About Patterns	Tanya tentang pola
+	Ask anything about sewing patterns or PatternFoundry: how much ease to add, how to move a dart, which block to start from, where a feature is. Claude can also draft and change your pattern when you ask, after you allow it.	Tanyakan apa saja tentang pola jahit atau PatternFoundry: berapa banyak kelonggaran yang perlu ditambahkan, cara memindahkan kup, pola dasar mana yang dipakai sebagai awal, di mana sebuah fitur berada. Claude juga dapat membuat dan mengubah pola Anda saat Anda memintanya, setelah Anda mengizinkannya.
+	Claude asks to:	Claude meminta untuk:
+	Couldn't do:	Tidak dapat dilakukan:
+	Done:	Selesai:
+	Free credits for the AI features, no API key needed	Kredit gratis untuk fitur AI, tanpa kunci API
+	Free credits to try the AI features: Ask About Patterns drafts and changes patterns with you	Kredit gratis untuk mencoba fitur AI: Tanya tentang pola membuat dan mengubah pola bersama Anda
+	Include my pattern	Sertakan pola saya
+	Its pieces and sizes, and which measurements are set: never their values	Bagian dan ukurannya, serta ukuran badan mana yang sudah diatur: tidak pernah nilainya
+	Leave it empty for the Foundry service.	Kosongkan untuk memakai layanan Foundry.
+	Not allowed:	Tidak diizinkan:
+	One account for every SiteSentrix app	Satu akun untuk semua aplikasi SiteSentrix
+	Read your measurements	Membaca ukuran badan Anda
+@msg	An account with that email already exists: sign in instead.	Akun dengan email itu sudah ada: silakan masuk.
+@msg	Ask About Patterns needs a build that can reach the AI service	Tanya tentang pola memerlukan build yang dapat menjangkau layanan AI
+@msg	Foundry Account needs a build that can reach the AI service	Akun Foundry memerlukan build yang dapat menjangkau layanan AI
+@msg	Foundry accounts aren't open yet.	Akun Foundry belum dibuka.
+@msg	Not enough Foundry credits: buy more in Foundry Account.	Kredit Foundry tidak cukup: beli lagi di Akun Foundry.
+@msg	Sign in to your Foundry account (Help › Foundry Account…).	Masuk ke akun Foundry Anda (Bantuan › Akun Foundry…).
+@msg	The Foundry service can't do this yet: try again later.	Layanan Foundry belum bisa melakukan ini: coba lagi nanti.
+@msg	this needs a connection to the AI service, which this build doesn't have	ini memerlukan koneksi ke layanan AI, yang tidak dimiliki build ini
+@msg	Account made: welcome to PatternFoundry.	Akun dibuat: selamat datang di PatternFoundry.
+@msg	Signed in.	Berhasil masuk.
+@msg	Signed out.	Berhasil keluar.
+@msg	Type your email address.	Ketik alamat email Anda.
+@msg	Pay on the page that opened in your browser, then press Refresh.	Bayar di halaman yang terbuka di browser Anda, lalu tekan Segarkan.
+@msg	Anthropic refused the API key: {0}	Anthropic menolak kunci API: {0}
+@msg	Couldn't reach the AI service: {0}	Tidak dapat menjangkau layanan AI: {0}
+@msg	Enter your Anthropic API key first.	Masukkan dulu kunci API Anthropic Anda.
+@msg	The AI declined to answer this: ask another way.	AI menolak menjawab ini: tanyakan dengan cara lain.
+@msg	The AI service failed (error {0}): try again later.	Layanan AI gagal (galat {0}): coba lagi nanti.
+@msg	The AI service is busy: try again in a minute.	Layanan AI sedang sibuk: coba lagi dalam satu menit.
+@msg	The API key isn't valid: paste it again from the Anthropic Console.	Kunci API tidak valid: tempel lagi dari Anthropic Console.
+@msg	The question is too long: keep it under 2,000 characters.	Pertanyaannya terlalu panjang: buat kurang dari 2.000 karakter.
+@msg	The reply had no answer: try again, or ask something narrower.	Balasan tidak berisi jawaban: coba lagi, atau tanyakan sesuatu yang lebih spesifik.
+@msg	The request failed (error {0}): {1}	Permintaan gagal (galat {0}): {1}
+@msg	Type a question first.	Ketik pertanyaan terlebih dahulu.
+@msg	Your Anthropic account can't pay for this: {0}	Akun Anthropic Anda tidak dapat membayar ini: {0}
+@msg	already asking: wait for the answer	sedang bertanya: tunggu jawabannya
+@msg	This conversation is long: start a New Conversation.	Percakapan ini sudah panjang: mulai Percakapan baru.
+@msg	Claude took too many steps: ask again, more simply.	Claude mengambil terlalu banyak langkah: tanyakan lagi dengan lebih sederhana.
