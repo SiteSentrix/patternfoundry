@@ -123,6 +123,15 @@ pub fn specs() -> Vec<CommandSpec> {
             welt_pocket
         ),
         cmd!(
+            "design.shirtCollar",
+            "Draft Shirt Collar",
+            ["Pattern"],
+            None,
+            "{back, front (the necklines, as for design.collar; default: the bodice block's among the selection), stand?: mm (30: the stand's height), rise?: mm (10), extension?: mm (15: past centre front, half a 30 mm button stand), fall?: mm (40: the collar's height at centre back, more than the stand's so it covers the seam), drop?: mm (13: how far the collar's neck edge curves down at the front), out?: mm (19: how far its point reaches past centre front), point?: mm (51: the point's length), origin?: [x, y] (document points: the stand's centre back at the neck edge; default above the back)} a shirt collar: its stand (a stand collar, half of it, centre back on the fold) and the collar that turns down over it, drafted above the stand with a neck edge as long as the stand's top edge to centre front → {stand, centreFront, fall, neck (mm)}",
+            has_doc,
+            shirt_collar
+        ),
+        cmd!(
             "design.split",
             "Split at Points",
             ["Pattern"],
@@ -1163,4 +1172,58 @@ fn welt_pocket(s: &mut Session, p: &Value) -> Result<Value> {
         r["cuts"] = json!(c.0);
     }
     Ok(r)
+}
+
+fn shirt_collar(s: &mut Session, p: &Value) -> Result<Value> {
+    const CMD: &str = "design.shirtCollar";
+    let mm = |k: &str, d: f64| -> Result<f64> {
+        match p.get(k) {
+            None | Some(Value::Null) => Ok(d),
+            Some(v) => v.as_f64().filter(|x| x.is_finite() && *x >= 0.0).ok_or_else(|| bad(CMD, format!("{k}: mm"))),
+        }
+    };
+    let (height, rise, extension) = (mm("stand", 30.0)?, mm("rise", 10.0)?, mm("extension", 15.0)?);
+    let (fall, drop, out, point) = (mm("fall", 40.0)?, mm("drop", 13.0)?, mm("out", 19.0)?, mm("point", 51.0)?);
+    let ((back_id, back, bf, bt, _), (_, front, ff, ft, _)) = necklines(s, p, CMD)?;
+    let (bl, fl) = (pt_to_mm(pf_core::design::run_length(&back, bf, bt)), pt_to_mm(pf_core::design::run_length(&front, ff, ft)));
+    let c = pf_core::design::stand_collar(bl, fl, height, rise, extension).map_err(|e| err(CMD, e))?;
+    let f = pf_core::design::collar_fall(c.top, fall, drop, out, point).map_err(|e| err(CMD, e))?;
+    let origin = match p.get("origin") {
+        None | Some(Value::Null) => {
+            let cb = back.get(bf).map(|k| k.p).unwrap_or(Pt::new(0.0, 0.0));
+            Point::new(cb.x, cb.y - pf_core::mm_to_pt(height + rise + 20.0))
+        }
+        Some(v) => {
+            let [x, y] = finite_numbers::<2>(v).ok_or_else(|| bad(CMD, "origin: [x, y] in document points"))?;
+            Point::new(x, y)
+        }
+    };
+    // The fall above the stand, clear of it.
+    let lift = height + rise + 20.0 + drop;
+    let at = |q: Pt, up: f64| Pt::new(origin.x + pf_core::mm_to_pt(q.x), origin.y + pf_core::mm_to_pt(q.y - up));
+    let moved =
+        |ks: &[Knot], up: f64| -> Vec<Knot> { ks.iter().map(|k| Knot { p: at(k.p, up), h_in: at(k.h_in, up), h_out: at(k.h_out, up) }).collect() };
+    let (stand, fall_ring) = (moved(&c.outline, 0.0), moved(&f, lift));
+    let cf = [at(c.centre_front[0], 0.0), at(c.centre_front[1], 0.0)];
+    let doc = &s.doc()?.doc;
+    let anchor = doc.parent_of(back_id).filter(|_| in_piece(doc, back_id)).unwrap_or(back_id);
+    let ids = s.edit("Draft Shirt Collar", |d, sel| {
+        let black = || vectorcraft_color::Paint::solid(vectorcraft_color::Color::BLACK);
+        let mut dashed = vectorcraft_doc::Appearance::basic(vectorcraft_color::Paint::None, black(), 0.75);
+        if let Some(st) = dashed.stroke_mut() {
+            st.dash = Some(vectorcraft_doc::Dash { pattern: vec![4.0, 2.0], ..Default::default() });
+        }
+        let solid = || vectorcraft_doc::Appearance::basic(vectorcraft_color::Paint::None, black(), 1.0);
+        let (sid, lid, fid) = (d.alloc_id(), d.alloc_id(), d.alloc_id());
+        let mut n = Node::path(sid, path_of(&stand), solid());
+        n.name = Some("Collar Stand".into());
+        let mut l = Node::path(lid, PathData::single(SubPath::polyline(&[to_point(cf[0]), to_point(cf[1])], false)), dashed);
+        l.name = Some("Collar centre front".into());
+        let mut fl = Node::path(fid, path_of(&fall_ring), solid());
+        fl.name = Some("Shirt Collar".into());
+        d.insert_beside(vec![(anchor, vec![n, l, fl])], false)?;
+        sel.set([sid, fid]);
+        Ok((sid, lid, fid))
+    })?;
+    Ok(json!({"stand": ids.0.0, "centreFront": ids.1.0, "fall": ids.2.0, "neck": bl + fl}))
 }

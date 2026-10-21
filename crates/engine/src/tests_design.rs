@@ -584,3 +584,26 @@ fn a_welt_pocket_marked_on_the_skirt_front() {
     assert!(s.execute("design.weltPocket", &json!({"welts": "triple"})).is_err());
     assert!(s.execute("design.weltPocket", &json!({"on": id.0})).is_err());
 }
+
+#[test]
+fn a_shirt_collar_for_the_bodice_block() {
+    let mut s = Session::new();
+    s.execute("file.new", &json!({"width": 1400, "height": 1000})).unwrap();
+    s.execute(
+        "measure.set",
+        &json!({"values": {"bust": 880, "waist": 680, "nape_to_waist": 410, "back_width": 345, "chest": 325, "shoulder": 122, "neck": 370, "armscye_depth": 210}}),
+    )
+    .unwrap();
+    let r = s.execute("block.bodice", &json!({"origin": [0, 0]})).unwrap();
+    s.execute("select.set", &json!({"ids": [r["ids"][0], r["ids"][1]]})).unwrap();
+    let r = s.execute("design.shirtCollar", &json!({})).unwrap();
+    let (stand, fall) = (NodeId(r["stand"].as_u64().unwrap()), NodeId(r["fall"].as_u64().unwrap()));
+    // The fall's neck edge goes on the stand's top edge, a little shorter than the neckline.
+    let fall_neck = length(&mut s, fall, 0, 1);
+    assert!(fall_neck > 0.0 && fall_neck < r["neck"].as_f64().unwrap(), "{fall_neck} {r}");
+    // The fall above the stand, clear of it; one undo takes both away.
+    assert!(bounds(&s, fall).y1 < bounds(&s, stand).y0);
+    s.execute("edit.undo", &json!({})).unwrap();
+    assert!(s.doc().unwrap().doc.node(stand).is_none() && s.doc().unwrap().doc.node(fall).is_none());
+    assert!(s.execute("design.shirtCollar", &json!({"fall": 0})).is_err());
+}

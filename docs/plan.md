@@ -207,12 +207,18 @@ is built on, plus a pattern mode, the way StitchFoundry adds embroidery:
   the welt strip (the opening plus 15 mm at each end, twice the welt plus 7 mm each side, folded
   along its middle; cut two for double welts), the lower bag and the upper one deeper by the
   opening's height, both as long as the welt; with `on` and `at`, the opening box (dashed) and its
-  cut lines (along the middle, out to the corners) on the garment. Tests: 18 in `pf-core`, 17
-  engine tests (`tests_design.rs`). Not yet (PF-5.x): box pleats wider than twice their depth (two
-  slashes), notches at a pleat's ends, shirt collars (a stand with a fall), rounded or winged
-  stand fronts, flap pockets; more truing (the princess seam curved through the bust); dart
-  shortening from the bust point; design steps replayed when the measurements change; the sewing
-  terms in the translations checked by sewists who speak each language.
+  cut lines (along the middle, out to the corners) on the garment. **Shirt collars**
+  (`design.shirtCollar`, PF-5.15; Pattern › Draft Shirt Collar), after the published method in
+  NIMI's Fashion Design Technology trade theory
+  (https://nimi.co.in/cits_ebooks1/Fashion_Design_Technology/Fashion_Design_Technology_TT/files/basic-html/page164.html):
+  the stand (a stand collar, 30 mm high, 10 mm rise, 15 mm past centre front) and above it the
+  collar that turns down over it, its neck edge as long as the stand's top edge to centre front
+  and curving 13 mm down at the front, 40 mm high at centre back, its point 51 mm long and 19 mm
+  out. Tests: 19 in `pf-core`, 18 engine tests (`tests_design.rs`). Not yet (PF-5.x): box pleats
+  wider than twice their depth (two slashes), notches at a pleat's ends, rounded or winged stand
+  fronts, flap pockets; more truing (the princess seam curved through the bust); dart shortening
+  from the bust point; design steps replayed when the measurements change; the sewing terms in the
+  translations checked by sewists who speak each language.
 - 2026-10-20, **PF-4.1**: the one-piece straight sleeve block (`block.sleeve`, Pattern › Draft
   Sleeve Block), Natalie Bray's method from a public tutorial: the crown depth from the top arm by
   the tutorial's table, 5 cm ease round the top arm, the crown through marks on the back and front
