@@ -4788,3 +4788,23 @@ effect	Soft	Weich
 @msg	the file's variables and data sets weren't read (variables: {variables}, data sets: {data_sets}): the Variables panel doesn't list them	die Variablen und Datensätze der Datei wurden nicht gelesen (Variablen: {variables}, Datensätze: {data_sets}): Das Bedienfeld „Variablen“ listet sie nicht auf
 # Select by Color (select.color)
 	Select by Color	Nach Farbe auswählen
+# PatternFoundry: pattern pieces (PF-1).
+	Add Notch	Knipsmarke hinzufügen
+	Make Pattern Piece	Schnittteil erstellen
+	Pattern Pieces	Schnittteile
+	Piece Info	Schnittteil-Info
+	Piece Options	Schnittteil-Optionen
+	Release Pattern Piece	Schnittteil zurückwandeln
+	Remove Notch	Knipsmarke entfernen
+	Cut {count}	{count}× zuschneiden
+	Each selected closed path becomes a piece: the path is its seam line	Jeder ausgewählte geschlossene Pfad wird ein Schnittteil: Der Pfad ist seine Nahtlinie
+	Edges	Kanten
+	Fabric	Stoff
+	Mirrored pairs	Gegengleiche Paare
+	No pattern pieces yet	Noch keine Schnittteile
+	Notches	Knipsmarken
+	Pattern piece	Schnittteil
+	Pieces	Teile
+	Seam allowance	Nahtzugabe
+	Seam line length	Länge der Nahtlinie
+	Selected piece	Ausgewähltes Schnittteil

@@ -4822,3 +4822,23 @@ lighting	Light	Luce
 @msg	the file's variables and data sets weren't read (variables: {variables}, data sets: {data_sets}): the Variables panel doesn't list them	le variabili e i set di dati del file non sono stati letti (variabili: {variables}, set di dati: {data_sets}): il pannello Variabili non li elenca
 # Select by Color (select.color)
 	Select by Color	Seleziona per colore
+# PatternFoundry: pattern pieces (PF-1).
+	Add Notch	Aggiungi tacca
+	Make Pattern Piece	Crea pezzo del cartamodello
+	Pattern Pieces	Pezzi del cartamodello
+	Piece Info	Info pezzo
+	Piece Options	Opzioni pezzo
+	Release Pattern Piece	Rilascia pezzo del cartamodello
+	Remove Notch	Rimuovi tacca
+	Cut {count}	Taglia {count}
+	Each selected closed path becomes a piece: the path is its seam line	Ogni tracciato chiuso selezionato diventa un pezzo: il tracciato è la sua linea di cucitura
+	Edges	Bordi
+	Fabric	Tessuto
+	Mirrored pairs	Coppie speculari
+	No pattern pieces yet	Ancora nessun pezzo del cartamodello
+	Notches	Tacche
+	Pattern piece	Pezzo del cartamodello
+	Pieces	Pezzi
+	Seam allowance	Margine di cucitura
+	Seam line length	Lunghezza della linea di cucitura
+	Selected piece	Pezzo selezionato

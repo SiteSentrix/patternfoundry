@@ -1,7 +1,7 @@
 # PatternFoundry: the plan
 
-**Status:** 2026-10-19. PF-0 done: VectorCraft 0.13.1 merged in and renamed PatternFoundry; the
-pattern tools (PF-1 on) are next. Owner: Bruce Wattendorf (SiteSentrix).
+**Status:** 2026-10-19. PF-0 and PF-1 done: PatternFoundry is VectorCraft renamed, with pattern
+pieces; true-scale printing (PF-2) is next. Owner: Bruce Wattendorf (SiteSentrix).
 
 ## What it is
 Software for designing sewing patterns, for home sewists, small pattern designers and small
@@ -13,8 +13,9 @@ VectorCraft (github.com/storytold/vectorcraft), the clean-room Rust vector edito
 is built on, plus a pattern mode, the way StitchFoundry adds embroidery:
 - pattern pieces are paths with pattern data (seam allowance per edge, notches, grainline,
   piece name, cut count, fabric);
-- drafting, grading, truing and printing are engine commands (`pattern.*`), so the menus, the
-  control channel, the CLI and MCP all reach them;
+- drafting, grading, truing and printing are engine commands (`piece.*` and later families;
+  VectorCraft already uses `pattern.*` for fill patterns), so the menus, the control channel, the
+  CLI and MCP all reach them;
 - a pattern core crate (measurements, formulas, blocks, grading) below the UI layers, as
   StitchFoundry's `sf-core` is.
 - reuse before rewriting: CADCraft (same licence; see `docs/start-here.md`) has the constraint solver
@@ -39,8 +40,15 @@ is built on, plus a pattern mode, the way StitchFoundry adds embroidery:
 ## Decided
 - Domain: **patternfoundry.app**, bought by the owner (2026-10-19). Installers and the app link to
   the GitHub repository until the site is live; switching them is a one-line change each.
-- AI help (2026-10-19): paid with the shared **Foundry Account** and its Foundry credits, served by
-  the StitchFoundry cloud service, not a separate account.
+
+- Hosting (2026-10-19): the app stays on **GitHub Pages** (the web build) and **GitHub Releases**
+  (the desktop downloads), as StitchFoundry does. No server of its own, no Railway.
+- Accounts and AI (2026-10-19): PatternFoundry uses the shared **Foundry Account** (one sign-in and
+  one credit balance, "Foundry credits", across all SiteSentrix apps), served by the StitchFoundry
+  cloud service at https://cloud.stitchfoundry.app. PatternFoundry never holds an Anthropic key:
+  AI requests go through that service, which adds the owner's key and charges the user's credits.
+  Users may still enter their own Anthropic key in the app's AI settings instead. Details for PF-8
+  are in `docs/start-here.md`.
 
 ## Open decisions (the owner's)
 - Whether PatternFoundry is its own app (as planned) or a mode inside StitchFoundry.
@@ -59,3 +67,19 @@ is built on, plus a pattern mode, the way StitchFoundry adds embroidery:
   measure). `.github/workflows/ci.yml` runs `cargo xtask ci`; VectorCraft's own workflows run only
   in its repository. Not done: a release pipeline for PatternFoundry (signing secrets are the
   owner's), and the VectorCraft progress docs (ROADMAP, parity docs) still describe VectorCraft.
+- 2026-10-19, **PF-1**: pattern pieces. `crates/pf-core` (no workspace dependencies, like
+  StitchFoundry's `sf-core`) holds the piece data (name, cut count, mirrored pairs, fabric, seam
+  allowance per edge in mm, mitred or squared corners, notches, grainline) and the geometry: the
+  cutting line, notches (slit, double, V; 6 mm deep, never past the seam line) and the grainline
+  arrow. **Pattern › Make Pattern Piece** (`piece.make`) turns each selected closed path into a
+  piece: a group whose seam line is the path (dashed), with a solid cutting line, the grainline
+  and a label ("Front Bodice / Cut 2 (mirrored pairs) · Linen") generated as locked children, so
+  they print and export as ordinary art. Every edit redraws a piece whose seam line or data
+  changed (as dimensions follow their art); moving a piece moves its grainline. `piece.set`,
+  `piece.addNotch`, `piece.removeNotch`, `piece.info`, `piece.list`, `piece.release`; the
+  **Pattern Pieces** panel (Pattern and Window menus) edits name, fabric, cut, mirrored pairs and
+  the allowance; every new label translated in all 23 languages. Tests: 15 in `pf-core`, 8 engine
+  tests (`tests_piece.rs`: geometry at true scale, following edits, undo, save, export, bad input).
+  Not yet: notches and per-edge allowances from the panel (commands only), notches placed by
+  clicking, a dock icon for the panel, self-intersection cleanup where inward curves are tighter
+  than the allowance, and translations of the commands' error messages.

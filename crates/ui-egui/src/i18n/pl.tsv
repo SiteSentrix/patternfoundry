@@ -5060,3 +5060,23 @@ mark-style	Japanese	Japońskie
 @msg	the file's variables and data sets weren't read (variables: {variables}, data sets: {data_sets}): the Variables panel doesn't list them	zmienne i zestawy danych pliku nie zostały wczytane (zmienne: {variables}, zestawy danych: {data_sets}): panel Zmienne ich nie wyświetla
 # Select by Color (select.color)
 	Select by Color	Zaznacz według koloru
+# PatternFoundry: pattern pieces (PF-1).
+	Add Notch	Dodaj znak montażowy
+	Make Pattern Piece	Utwórz element wykroju
+	Pattern Pieces	Elementy wykroju
+	Piece Info	Informacje o elemencie
+	Piece Options	Opcje elementu
+	Release Pattern Piece	Uwolnij element wykroju
+	Remove Notch	Usuń znak montażowy
+	Cut {count}	Wytnij {count}
+	Each selected closed path becomes a piece: the path is its seam line	Każda zaznaczona zamknięta ścieżka staje się elementem wykroju: ścieżka jest jego linią szycia
+	Edges	Krawędzie
+	Fabric	Tkanina
+	Mirrored pairs	Pary lustrzane
+	No pattern pieces yet	Nie ma jeszcze elementów wykroju
+	Notches	Znaki montażowe
+	Pattern piece	Element wykroju
+	Pieces	Elementy
+	Seam allowance	Zapas na szew
+	Seam line length	Długość linii szycia
+	Selected piece	Zaznaczony element

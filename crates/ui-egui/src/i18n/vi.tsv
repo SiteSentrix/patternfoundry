@@ -4802,3 +4802,23 @@ theme	Appearance	Giao diện
 @msg	the file's variables and data sets weren't read (variables: {variables}, data sets: {data_sets}): the Variables panel doesn't list them	các biến và tập dữ liệu của tệp chưa được đọc (biến: {variables}, tập dữ liệu: {data_sets}): bảng Biến không liệt kê chúng
 # Select by Color (select.color)
 	Select by Color	Chọn theo màu
+# PatternFoundry: pattern pieces (PF-1).
+	Add Notch	Thêm dấu bấm
+	Make Pattern Piece	Tạo chi tiết rập
+	Pattern Pieces	Chi tiết rập
+	Piece Info	Thông tin chi tiết
+	Piece Options	Tùy chọn chi tiết
+	Release Pattern Piece	Giải phóng chi tiết rập
+	Remove Notch	Xóa dấu bấm
+	Cut {count}	Cắt {count}
+	Each selected closed path becomes a piece: the path is its seam line	Mỗi đường dẫn khép kín được chọn trở thành một chi tiết: đường dẫn là đường may của nó
+	Edges	Cạnh
+	Fabric	Vải
+	Mirrored pairs	Cặp đối xứng
+	No pattern pieces yet	Chưa có chi tiết rập nào
+	Notches	Dấu bấm
+	Pattern piece	Chi tiết rập
+	Pieces	Chi tiết
+	Seam allowance	Đường may chừa
+	Seam line length	Chiều dài đường may
+	Selected piece	Chi tiết đã chọn

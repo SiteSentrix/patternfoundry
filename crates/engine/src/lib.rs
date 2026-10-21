@@ -1705,6 +1705,8 @@ impl Session {
         // Dimensions follow the art they measure.
         let result = match f(doc, &mut st.selection).and_then(|v| {
             cmd::dimension::refresh(&before, doc)?;
+            // Pattern pieces follow their seam lines.
+            cmd::piece::refresh(&before, doc)?;
             Ok(v)
         }) {
             Ok(v) => match cmd::shaper::refresh(&before, Arc::make_mut(&mut st.doc)) {
@@ -2226,6 +2228,8 @@ mod tests_persp_select;
 mod tests_persp_text;
 #[cfg(test)]
 mod tests_perspgrid;
+#[cfg(test)]
+mod tests_piece;
 #[cfg(test)]
 mod tests_place;
 #[cfg(test)]

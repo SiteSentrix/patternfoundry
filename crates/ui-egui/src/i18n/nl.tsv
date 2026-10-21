@@ -5232,3 +5232,23 @@ swatch	Bright Violet	Felviolet
 	Justification	Uitvullen
 # Select by Color (select.color)
 	Select by Color	Selecteren op kleur
+# PatternFoundry: pattern pieces (PF-1).
+	Add Notch	Inknipje toevoegen
+	Make Pattern Piece	Patroondeel maken
+	Pattern Pieces	Patroondelen
+	Piece Info	Info over patroondeel
+	Piece Options	Opties voor patroondeel
+	Release Pattern Piece	Patroondeel vrijgeven
+	Remove Notch	Inknipje verwijderen
+	Cut {count}	{count}× knippen
+	Each selected closed path becomes a piece: the path is its seam line	Elk geselecteerd gesloten pad wordt een patroondeel: het pad is de naadlijn
+	Edges	Randen
+	Fabric	Stof
+	Mirrored pairs	Gespiegelde paren
+	No pattern pieces yet	Nog geen patroondelen
+	Notches	Inknipjes
+	Pattern piece	Patroondeel
+	Pieces	Delen
+	Seam allowance	Naadtoeslag
+	Seam line length	Lengte van de naadlijn
+	Selected piece	Geselecteerd patroondeel

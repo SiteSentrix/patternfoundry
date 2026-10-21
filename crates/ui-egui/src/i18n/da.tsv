@@ -5190,3 +5190,23 @@ swatch	Bright Violet	Kraftig violet
 	Justification	Justering
 # Select by Color (select.color)
 	Select by Color	Markér efter farve
+# PatternFoundry: pattern pieces (PF-1).
+	Add Notch	Tilføj hak
+	Make Pattern Piece	Opret mønsterdel
+	Pattern Pieces	Mønsterdele
+	Piece Info	Oplysninger om mønsterdel
+	Piece Options	Indstillinger for mønsterdel
+	Release Pattern Piece	Frigiv mønsterdel
+	Remove Notch	Fjern hak
+	Cut {count}	Klip {count}
+	Each selected closed path becomes a piece: the path is its seam line	Hver markeret lukket sti bliver en mønsterdel: stien er dens sømlinje
+	Edges	Kanter
+	Fabric	Stof
+	Mirrored pairs	Spejlvendte par
+	No pattern pieces yet	Ingen mønsterdele endnu
+	Notches	Hak
+	Pattern piece	Mønsterdel
+	Pieces	Dele
+	Seam allowance	Sømrum
+	Seam line length	Sømlinjens længde
+	Selected piece	Markeret mønsterdel

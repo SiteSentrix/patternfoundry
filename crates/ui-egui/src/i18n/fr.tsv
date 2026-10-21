@@ -5206,3 +5206,23 @@ theme	Appearance	Apparence
 @msg	the file's variables and data sets weren't read (variables: {variables}, data sets: {data_sets}): the Variables panel doesn't list them	les variables et jeux de données du fichier n’ont pas été lus (variables : {variables}, jeux de données : {data_sets}) : le panneau Variables ne les affiche pas
 # Select by Color (select.color)
 	Select by Color	Sélectionner par couleur
+# PatternFoundry: pattern pieces (PF-1).
+	Add Notch	Ajouter un cran
+	Make Pattern Piece	Créer une pièce de patron
+	Pattern Pieces	Pièces de patron
+	Piece Info	Infos sur la pièce
+	Piece Options	Options de la pièce
+	Release Pattern Piece	Libérer la pièce de patron
+	Remove Notch	Supprimer le cran
+	Cut {count}	Couper {count}
+	Each selected closed path becomes a piece: the path is its seam line	Chaque tracé fermé sélectionné devient une pièce : le tracé est sa ligne de couture
+	Edges	Bords
+	Fabric	Tissu
+	Mirrored pairs	Paires symétriques
+	No pattern pieces yet	Aucune pièce de patron pour l’instant
+	Notches	Crans
+	Pattern piece	Pièce de patron
+	Pieces	Pièces
+	Seam allowance	Valeur de couture
+	Seam line length	Longueur de la ligne de couture
+	Selected piece	Pièce sélectionnée

@@ -5190,3 +5190,23 @@ swatch	Bright Violet	Violet cerah
 	Justification	Justifikasi
 # Select by Color (select.color)
 	Select by Color	Pilih berdasarkan warna
+# PatternFoundry: pattern pieces (PF-1).
+	Add Notch	Tambah takik
+	Make Pattern Piece	Buat bagian pola
+	Pattern Pieces	Bagian pola
+	Piece Info	Info bagian
+	Piece Options	Opsi bagian
+	Release Pattern Piece	Lepaskan bagian pola
+	Remove Notch	Hapus takik
+	Cut {count}	Potong {count}
+	Each selected closed path becomes a piece: the path is its seam line	Setiap jalur tertutup yang dipilih menjadi bagian: jalur itu adalah garis jahitnya
+	Edges	Tepi
+	Fabric	Kain
+	Mirrored pairs	Pasangan cermin
+	No pattern pieces yet	Belum ada bagian pola
+	Notches	Takik
+	Pattern piece	Bagian pola
+	Pieces	Bagian
+	Seam allowance	Kampuh
+	Seam line length	Panjang garis jahit
+	Selected piece	Bagian terpilih

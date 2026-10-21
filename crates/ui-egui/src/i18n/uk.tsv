@@ -4802,3 +4802,23 @@ lighting	Light	Світло
 @msg	the file's variables and data sets weren't read (variables: {variables}, data sets: {data_sets}): the Variables panel doesn't list them	змінні та набори даних файлу не прочитано (змінних: {variables}, наборів даних: {data_sets}): панель «Змінні» їх не показує
 # Select by Color (select.color)
 	Select by Color	Виділити за кольором
+# PatternFoundry: pattern pieces (PF-1).
+	Add Notch	Додати надсічку
+	Make Pattern Piece	Створити деталь викрійки
+	Pattern Pieces	Деталі викрійки
+	Piece Info	Відомості про деталь
+	Piece Options	Параметри деталі
+	Release Pattern Piece	Звільнити деталь викрійки
+	Remove Notch	Видалити надсічку
+	Cut {count}	Кроїти {count}
+	Each selected closed path becomes a piece: the path is its seam line	Кожен вибраний замкнений контур стає деталлю: контур — її лінія шва
+	Edges	Краї
+	Fabric	Тканина
+	Mirrored pairs	Дзеркальні пари
+	No pattern pieces yet	Деталей викрійки ще немає
+	Notches	Надсічки
+	Pattern piece	Деталь викрійки
+	Pieces	Деталі
+	Seam allowance	Припуск на шов
+	Seam line length	Довжина лінії шва
+	Selected piece	Вибрана деталь
