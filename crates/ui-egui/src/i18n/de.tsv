@@ -4808,3 +4808,5 @@ effect	Soft	Weich
 	Seam allowance	Nahtzugabe
 	Seam line length	Länge der Nahtlinie
 	Selected piece	Ausgewähltes Schnittteil
+# PatternFoundry: true-scale printing (PF-2).
+	Pattern Marks (test squares, page names, overlap lines)	Schnittmuster-Marken (Testquadrate, Seitennamen, Überlappungslinien)

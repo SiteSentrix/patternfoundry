@@ -5213,3 +5213,5 @@ imageTrace	Outline	Körvonal
 	Seam allowance	Varrásráhagyás
 	Seam line length	Varrásvonal hossza
 	Selected piece	Kijelölt darab
+# PatternFoundry: true-scale printing (PF-2).
+	Pattern Marks (test squares, page names, overlap lines)	Szabásminta-jelek (tesztnégyzetek, oldalnevek, átfedési vonalak)

@@ -4805,3 +4805,5 @@ lighting	Light	광원
 	Seam allowance	시접
 	Seam line length	완성선 길이
 	Selected piece	선택한 조각
+# PatternFoundry: true-scale printing (PF-2).
+	Pattern Marks (test squares, page names, overlap lines)	패턴 표시(테스트 사각형, 페이지 이름, 겹침선)

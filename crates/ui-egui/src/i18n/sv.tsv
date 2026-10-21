@@ -5183,3 +5183,5 @@ theme	Appearance	Utseende
 	Seam allowance	Sömsmån
 	Seam line length	Sömlinjens längd
 	Selected piece	Markerad mönsterdel
+# PatternFoundry: true-scale printing (PF-2).
+	Pattern Marks (test squares, page names, overlap lines)	Mönstermärken (testkvadrater, sidnamn, överlappningslinjer)

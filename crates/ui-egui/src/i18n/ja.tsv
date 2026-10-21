@@ -4882,3 +4882,5 @@ lighting	Light	ライト
 	Seam allowance	縫い代
 	Seam line length	出来上がり線の長さ
 	Selected piece	選択したパーツ
+# PatternFoundry: true-scale printing (PF-2).
+	Pattern Marks (test squares, page names, overlap lines)	型紙マーク（テスト用の正方形、ページ名、重なり線）

@@ -5135,3 +5135,5 @@ imageTrace	Outline	კონტური
 	Seam allowance	ნაკერის მარაგი
 	Seam line length	ნაკერის ხაზის სიგრძე
 	Selected piece	არჩეული დეტალი
+# PatternFoundry: true-scale printing (PF-2).
+	Pattern Marks (test squares, page names, overlap lines)	თარგის ნიშნები (სატესტო კვადრატები, გვერდების სახელები, გადაფარვის ხაზები)

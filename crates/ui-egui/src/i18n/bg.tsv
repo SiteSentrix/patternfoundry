@@ -5191,3 +5191,5 @@ theme	Appearance	Външен вид
 	Seam allowance	Добавка за шев
 	Seam line length	Дължина на линията на шева
 	Selected piece	Избран детайл
+# PatternFoundry: true-scale printing (PF-2).
+	Pattern Marks (test squares, page names, overlap lines)	Маркировки за кройка (тестови квадрати, имена на страници, линии на застъпване)

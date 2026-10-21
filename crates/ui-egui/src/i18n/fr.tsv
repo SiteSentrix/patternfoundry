@@ -5226,3 +5226,5 @@ theme	Appearance	Apparence
 	Seam allowance	Valeur de couture
 	Seam line length	Longueur de la ligne de couture
 	Selected piece	Pièce sélectionnée
+# PatternFoundry: true-scale printing (PF-2).
+	Pattern Marks (test squares, page names, overlap lines)	Repères de patron (carrés de contrôle, noms des pages, lignes de chevauchement)

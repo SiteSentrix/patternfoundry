@@ -31,6 +31,11 @@ choice! {
         A5 = "a5", "A5";
         B4 = "b4", "B4";
         B5 = "b5", "B5";
+        A2 = "a2", "A2";
+        A1 = "a1", "A1";
+        A0 = "a0", "A0";
+        /// The 36 in (914 mm) copy-shop roll, cut 48 in long.
+        Roll36 = "roll36", "36 in roll";
         Custom = "custom", "Custom";
     } default Letter
 }
@@ -44,6 +49,10 @@ impl Media {
             Self::Legal => Some((612.0, 1008.0)),
             Self::Tabloid => Some((792.0, 1224.0)),
             Self::A3 => mm(297.0, 420.0),
+            Self::A2 => mm(420.0, 594.0),
+            Self::A1 => mm(594.0, 841.0),
+            Self::A0 => mm(841.0, 1189.0),
+            Self::Roll36 => Some((36.0 * 72.0, 48.0 * 72.0)),
             Self::A4 => mm(210.0, 297.0),
             Self::A5 => mm(148.0, 210.0),
             Self::B4 => mm(250.0, 353.0),
@@ -216,6 +225,9 @@ pub struct PrintSettings {
     pub color: PrintColor,
     /// Where the Print Tiling tool put the pages.
     pub tile_origin: TileOrigin,
+    /// Sewing-pattern marks on every page: the 10 cm and 1 in test squares, and on tiles their
+    /// name (A1, B2…), the printable area's edge and the overlap lines to tape the pages on.
+    pub pattern_marks: bool,
     // Advanced.
     pub advanced: PrintAdvanced,
 }
@@ -249,6 +261,7 @@ impl Default for PrintSettings {
             graphics: PrintGraphics::default(),
             color: PrintColor::default(),
             tile_origin: TileOrigin::default(),
+            pattern_marks: false,
             advanced: PrintAdvanced::default(),
         }
     }

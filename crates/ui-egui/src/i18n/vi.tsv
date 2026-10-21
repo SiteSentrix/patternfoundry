@@ -4822,3 +4822,5 @@ theme	Appearance	Giao diện
 	Seam allowance	Đường may chừa
 	Seam line length	Chiều dài đường may
 	Selected piece	Chi tiết đã chọn
+# PatternFoundry: true-scale printing (PF-2).
+	Pattern Marks (test squares, page names, overlap lines)	Dấu rập (ô vuông kiểm tra, tên trang, đường chồng mép)

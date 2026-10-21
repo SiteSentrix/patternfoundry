@@ -4859,3 +4859,5 @@ lighting	Light	光源
 	Seam allowance	縫份
 	Seam line length	完成線長度
 	Selected piece	選取的裁片
+# PatternFoundry: true-scale printing (PF-2).
+	Pattern Marks (test squares, page names, overlap lines)	紙樣標記（測試方塊、頁面名稱、重疊線）

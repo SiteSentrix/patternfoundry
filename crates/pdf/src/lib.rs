@@ -306,6 +306,8 @@ mod tests_strokeout;
 #[cfg(test)]
 mod tests_textstroke;
 #[cfg(test)]
+mod tests_truescale;
+#[cfg(test)]
 mod tests_webview;
 
 #[cfg(test)]
