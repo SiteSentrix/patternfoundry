@@ -4903,3 +4903,12 @@ lighting	Light	ライト
 	Draft Bodice Block	身頃原型を製図
 	Block Measurements	原型の寸法
 	Draft Skirt Block	スカート原型を製図
+# PatternFoundry: design tools (PF-5).
+	Rotate Dart	ダーツを移動
+	Split at Points	点で分割
+	Seam Length	縫い目の長さ
+	Slash and Spread	切り開き
+	Match Seam Length	縫い目の長さを合わせる
+	Make Facing	見返しを作成
+	Add Pleat	プリーツを追加
+	Draft Sleeve Block	袖原型を製図

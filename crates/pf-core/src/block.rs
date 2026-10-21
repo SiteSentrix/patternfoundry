@@ -13,9 +13,19 @@
 //! plus 1 cm ease; two thirds of the waist taken in at the side seams, the rest in darts, more at
 //! the back), with the values that page leaves to its drawings chosen here and marked.
 //!
+//! The one-piece straight sleeve block follows Natalie Bray's method as published at
+//! <https://www.thecreativecurator.com/drafting-a-sleeve-block/> (the owner's choice, 2026-10-20:
+//! no public description of Aldrich's sleeve was found): the crown depth from the top arm by the
+//! page's table, 5 cm ease round the top arm, the crown through marks on the back and front lines
+//! and the page's midpoint offsets, straight sides, the wrist curved down at the back and up at
+//! the front. The page says to check the crown against the bodice's armhole and adjust: with a
+//! `sleeve_crown` measurement (the armhole plus the ease to set the sleeve in) the crown depth is
+//! solved so the crown is that long.
+//!
 //! Every length is in mm, y down, from the draft's origin `O` (the back neck's top-left
 //! construction corner). The back is drawn on the left (centre back at x = 0), the front on the
-//! right (centre front at the right edge), both half-bodies.
+//! right (centre front at the right edge), both half-bodies. The sleeve's origin is its shoulder
+//! point, the back half on the left.
 
 use serde::{Deserialize, Serialize};
 
@@ -30,6 +40,8 @@ pub enum BlockKind {
     Bodice,
     /// The basic straight skirt block: back and front.
     Skirt,
+    /// The one-piece straight sleeve block.
+    Sleeve,
 }
 
 /// What a drafted path is: which part of which block, and where the block's origin is in the
@@ -85,11 +97,18 @@ pub const SKIRT_MEASUREMENTS: &[(&str, &str)] = &[
     ("skirt_length", "down the side from the waist to the hem (the knee for a block)"),
 ];
 
+/// The measurements the sleeve block is drafted from (all in mm).
+pub const SLEEVE_MEASUREMENTS: &[(&str, &str)] = &[
+    ("top_arm", "round the fullest part of the upper arm"),
+    ("sleeve_length", "from the shoulder point down the outside of the arm to the wrist, the arm a little bent"),
+];
+
 /// The measurements a block is drafted from.
 pub fn measurements(kind: BlockKind) -> &'static [(&'static str, &'static str)] {
     match kind {
         BlockKind::Bodice => BODICE_MEASUREMENTS,
         BlockKind::Skirt => SKIRT_MEASUREMENTS,
+        BlockKind::Sleeve => SLEEVE_MEASUREMENTS,
     }
 }
 
@@ -348,11 +367,155 @@ pub fn skirt(env: &mut Env) -> Result<Vec<Part>, BlockError> {
     Ok(vec![back, front])
 }
 
+/// Cubic segments through `pts` (a Catmull-Rom spline: each point's handles parallel to the line
+/// between its neighbours, a sixth of it long; the ends' to the next point), from `pts[0]`.
+fn through(pts: &[Pt]) -> Vec<Seg> {
+    let n = pts.len();
+    let at = |i: isize| pts[i.clamp(0, n as isize - 1) as usize];
+    (0..n.saturating_sub(1))
+        .map(|i| {
+            let i = i as isize;
+            let (p0, p1, p2, p3) = (at(i - 1), at(i), at(i + 1), at(i + 2));
+            Seg::Cubic(p1 + (p2 - p0) * (1.0 / 6.0), p2 - (p3 - p1) * (1.0 / 6.0), p2)
+        })
+        .collect()
+}
+
+/// The point half way along `a`–`b`, moved `by` square to it, to its left going from `a` to `b`
+/// (y down: up and out of the sleeve when going round the crown from back to front).
+fn bowed(a: Pt, b: Pt, by: f64) -> Pt {
+    let d = (b - a).unit().unwrap_or(Pt::new(1.0, 0.0));
+    mid(a, b) + Pt::new(d.y, -d.x) * by
+}
+
+/// The crown depth, from the shoulder point down to the crown line, for a top arm (mm): the
+/// source's table, 12 cm at a 26–27 cm top arm and 5 mm more for every 2 cm more (to 18 cm at
+/// 50–51 cm); beyond the table the same rule goes on.
+pub fn crown_depth(top_arm: f64) -> f64 {
+    120.0 + 5.0 * ((top_arm - 260.0) / 20.0).floor()
+}
+
+/// The length of a cubic from `a`: 64 straight pieces, sharpened by Richardson's rule (four
+/// times the 64-piece length less the 32-piece one, over three), well under a micron here.
+fn cubic_len(a: Pt, c1: Pt, c2: Pt, b: Pt) -> f64 {
+    let at = |t: f64| {
+        let m = 1.0 - t;
+        a * (m * m * m) + c1 * (3.0 * m * m * t) + c2 * (3.0 * m * t * t) + b * (t * t * t)
+    };
+    let chords = |n: usize| (0..n).map(|k| (at((k + 1) as f64 / n as f64) - at(k as f64 / n as f64)).len()).sum::<f64>();
+    (4.0 * chords(64) - chords(32)) / 3.0
+}
+
+/// How many segments the sleeve's crown has on each side (back and front).
+const CROWN_SEGS: usize = 4;
+
+/// The length of a sleeve block's crown, from the front underarm over the shoulder point to the
+/// back underarm (mm): what is sewn into the armhole.
+pub fn sleeve_crown(part: &Part) -> f64 {
+    let n = part.segs.len();
+    let mut at = part.start;
+    let mut total = 0.0;
+    for (i, seg) in part.segs.iter().enumerate() {
+        let end = match *seg {
+            Seg::Line(e) | Seg::Cubic(_, _, e) => e,
+        };
+        if i < CROWN_SEGS || i + CROWN_SEGS >= n {
+            total += match *seg {
+                Seg::Line(e) => (e - at).len(),
+                Seg::Cubic(c1, c2, e) => cubic_len(at, c1, c2, e),
+            };
+        }
+        at = end;
+    }
+    total
+}
+
+/// The sleeve's outline for a crown `depth`.
+fn sleeve_part(top_arm: f64, length: f64, depth: f64) -> Part {
+    // 5 cm ease round the top arm, half each side of the centre line; the back and front lines a
+    // quarter of the width in from the underarms.
+    let half = (top_arm + 50.0) / 2.0;
+    let (back_under, front_under) = (Pt::new(-half, depth), Pt::new(half, depth));
+    let (back_line, front_line) = (-half / 2.0, half / 2.0);
+    let (back_mark, front_mark) = (Pt::new(back_line, depth - 55.0), Pt::new(front_line, depth - 60.0));
+    let sp = Pt::new(0.0, 0.0);
+    // The crown through the marks, each straight run's middle moved square to it: 1 cm in, 1 cm
+    // out (back), 1.25 cm out, 2 cm in (front).
+    let crown = [
+        back_under,
+        bowed(back_under, back_mark, -10.0),
+        back_mark,
+        bowed(back_mark, sp, 10.0),
+        sp,
+        bowed(sp, front_mark, 12.5),
+        front_mark,
+        bowed(front_mark, front_under, -20.0),
+        front_under,
+    ];
+    // The wrist: down to the wrist line at the back line, up 2.5 cm at the front line, through
+    // the centre and both side seams half way between.
+    let level = length - 12.5;
+    let hem = [Pt::new(half, level), Pt::new(front_line, length - 25.0), Pt::new(0.0, level), Pt::new(back_line, length), Pt::new(-half, level)];
+    let mut segs = through(&crown[4..]);
+    segs.push(Seg::Line(hem[0]));
+    segs.extend(through(&hem));
+    segs.push(Seg::Line(back_under));
+    segs.extend(through(&crown[..5]));
+    Part { name: "Sleeve Block", start: sp, segs }
+}
+
+/// The one-piece straight sleeve block (part 0): the shoulder point at the origin, the centre
+/// line straight down (the grain), the back half on the left, the front on the right. The crown
+/// depth comes from the top arm by the table; when the set has a `sleeve_crown` (the length the
+/// crown is to be: the bodice's armhole plus the ease to set it in, `armhole + 30`), the depth is
+/// found that makes the crown that long instead.
+pub fn sleeve(env: &mut Env) -> Result<Vec<Part>, BlockError> {
+    let v = need(env, SLEEVE_MEASUREMENTS)?;
+    let &[top_arm, length] = v.as_slice() else {
+        return Err(BlockError::Missing(vec![]));
+    };
+    // Set but not working out (a formula over a measurement the set lacks): named as missing,
+    // not passed over.
+    let target = if env.contains("sleeve_crown") {
+        match env.value("sleeve_crown") {
+            Ok(t) if t > 0.0 => Some(t),
+            _ => return Err(BlockError::Missing(vec!["sleeve_crown".into()])),
+        }
+    } else {
+        None
+    };
+    let depth = match target {
+        None => crown_depth(top_arm),
+        Some(t) => {
+            // The crown grows with its depth: halve the interval until it is the length asked.
+            let len = |d: f64| sleeve_crown(&sleeve_part(top_arm, length, d));
+            let (mut lo, mut hi) = (61.0, 400.0);
+            if !(len(lo) <= t && t <= len(hi)) {
+                return Err(BlockError::Impossible("no crown depth gives a crown that long for this top arm"));
+            }
+            for _ in 0..60 {
+                let m = (lo + hi) / 2.0;
+                if len(m) < t { lo = m } else { hi = m }
+            }
+            (lo + hi) / 2.0
+        }
+    };
+    if depth <= 60.0 {
+        return Err(BlockError::Impossible("the top arm is too small for the crown"));
+    }
+    // The hem curves 2.5 cm up at the front: the sleeve must reach past the crown line by more.
+    if length <= depth + 50.0 {
+        return Err(BlockError::Impossible("the sleeve is shorter than its crown"));
+    }
+    Ok(vec![sleeve_part(top_arm, length, depth)])
+}
+
 /// The parts of a block.
 pub fn draft(kind: BlockKind, env: &mut Env) -> Result<Vec<Part>, BlockError> {
     match kind {
         BlockKind::Bodice => bodice(env),
         BlockKind::Skirt => skirt(env),
+        BlockKind::Sleeve => sleeve(env),
     }
 }
 
@@ -477,5 +640,44 @@ mod tests {
         let mut m = me();
         m.set_formula("waist", Some("bust - 200")).unwrap();
         assert!(bodice(&mut m.env()).is_ok());
+    }
+
+    #[test]
+    fn the_sleeve_block_has_its_crown_depth_from_the_table_and_ease_round_the_top_arm() {
+        assert_eq!(crown_depth(260.0), 120.0);
+        assert_eq!(crown_depth(279.0), 120.0);
+        assert_eq!(crown_depth(380.0), 150.0);
+        assert_eq!(crown_depth(510.0), 180.0);
+        let mut m = Measurements::default();
+        for (k, v) in [("top_arm", 380.0), ("sleeve_length", 640.0)] {
+            m.set_value(k, Some(v)).unwrap();
+        }
+        let p = sleeve(&mut m.env()).unwrap();
+        assert_eq!(p.len(), 1);
+        let (l, t, r, b) = bounds(&p[0]);
+        // 43 cm wide (38 + 5), the shoulder point at the top, 64 cm long at the back line.
+        assert!((r - l - 430.0).abs() < 1e-9 && t.abs() < 1e-9 && (b - 640.0).abs() < 1.0, "{l} {t} {r} {b}");
+        let c = p[0].corners();
+        assert!(c.contains(&Pt::new(-215.0, 150.0)) && c.contains(&Pt::new(215.0, 150.0)));
+        // The front crown scoops deeper than the back: the front mark is lower.
+        assert!(c.contains(&Pt::new(107.5, 90.0)) && c.contains(&Pt::new(-107.5, 95.0)));
+        // A crown fitted to an armhole: the depth that makes it that long.
+        let table = sleeve_crown(&p[0]);
+        m.set_formula("sleeve_crown", Some(&format!("{table} + 30"))).unwrap();
+        let fitted = sleeve(&mut m.env()).unwrap();
+        assert!((sleeve_crown(&fitted[0]) - (table + 30.0)).abs() < 1e-6);
+        // A deeper crown, the width kept.
+        let c = fitted[0].corners();
+        assert!(c[4].x == 215.0 && c[10] == Pt::new(-215.0, c[4].y) && c[4].y > 150.0, "{:?} {:?}", c[4], c[10]);
+        assert!(bounds(&fitted[0]).3 == b);
+        m.set_formula("sleeve_crown", Some("armhole + 30")).unwrap();
+        assert_eq!(sleeve(&mut m.env()), Err(BlockError::Missing(vec!["sleeve_crown".into()])));
+        m.set_formula("sleeve_crown", Some("2000")).unwrap();
+        assert!(matches!(sleeve(&mut m.env()), Err(BlockError::Impossible(_))));
+        m.set_formula("sleeve_crown", None).unwrap();
+        m.set_value("sleeve_length", Some(180.0)).unwrap();
+        assert!(matches!(sleeve(&mut m.env()), Err(BlockError::Impossible(_))));
+        m.set_value("top_arm", None).unwrap();
+        assert!(matches!(sleeve(&mut m.env()), Err(BlockError::Missing(_))));
     }
 }

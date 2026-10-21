@@ -5084,3 +5084,12 @@ lighting	Light	光源
 	Draft Bodice Block	绘制衣身原型
 	Block Measurements	原型尺寸
 	Draft Skirt Block	绘制裙子原型
+# PatternFoundry: design tools (PF-5).
+	Rotate Dart	转移省道
+	Split at Points	在点处拆分
+	Seam Length	缝线长度
+	Slash and Spread	剪开展开
+	Match Seam Length	匹配缝线长度
+	Make Facing	创建贴边
+	Add Pleat	添加褶裥
+	Draft Sleeve Block	绘制袖子原型

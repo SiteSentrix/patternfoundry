@@ -13,6 +13,7 @@ pub mod colortheme;
 mod create;
 mod css;
 mod cut;
+pub(crate) mod design;
 pub(crate) mod dimension;
 pub(crate) mod distortcmds;
 mod docinfo;
@@ -216,6 +217,7 @@ pub fn command_specs() -> &'static [CommandSpec] {
         v.extend(piece::specs());
         v.extend(measure::specs());
         v.extend(block::specs());
+        v.extend(design::specs());
         v.extend(object::specs());
         v.extend(path::specs());
         v.extend(select::specs());

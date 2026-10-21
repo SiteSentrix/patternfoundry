@@ -5234,3 +5234,12 @@ imageTrace	Outline	Körvonal
 	Draft Bodice Block	Alapszabásminta szerkesztése (felsőrész)
 	Block Measurements	Az alapszabásminta méretei
 	Draft Skirt Block	Alapszabásminta szerkesztése (szoknya)
+# PatternFoundry: design tools (PF-5).
+	Rotate Dart	Varrás áthelyezése
+	Split at Points	Felosztás a pontoknál
+	Seam Length	Varrathossz
+	Slash and Spread	Bevágás és szétnyitás
+	Match Seam Length	Varrathossz egyeztetése
+	Make Facing	Tisztázó készítése
+	Add Pleat	Berakás hozzáadása
+	Draft Sleeve Block	Alapszabásminta szerkesztése (ujj)

@@ -5156,3 +5156,12 @@ imageTrace	Outline	კონტური
 	Draft Bodice Block	ზედა ნაწილის საბაზისო თარგის აგება
 	Block Measurements	საბაზისო თარგის ზომები
 	Draft Skirt Block	ქვედაბოლოს საბაზისო თარგის აგება
+# PatternFoundry: design tools (PF-5).
+	Rotate Dart	გამონაჭრის გადატანა
+	Split at Points	გაყოფა წერტილებში
+	Seam Length	ნაკერის სიგრძე
+	Slash and Spread	გაჭრა და გაშლა
+	Match Seam Length	ნაკერის სიგრძის გათანაბრება
+	Make Facing	ამოსაკერის შექმნა
+	Add Pleat	ნაოჭის დამატება
+	Draft Sleeve Block	სახელოს საბაზისო თარგის აგება

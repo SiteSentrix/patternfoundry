@@ -2088,6 +2088,8 @@ mod tests_cut;
 #[cfg(test)]
 mod tests_dashalign;
 #[cfg(test)]
+mod tests_design;
+#[cfg(test)]
 mod tests_distort;
 #[cfg(test)]
 mod tests_docsetup;

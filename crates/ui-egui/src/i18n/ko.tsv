@@ -4826,3 +4826,12 @@ lighting	Light	광원
 	Draft Bodice Block	몸판 원형 제도
 	Block Measurements	원형 치수
 	Draft Skirt Block	스커트 원형 제도
+# PatternFoundry: design tools (PF-5).
+	Rotate Dart	다트 이동
+	Split at Points	점에서 분할
+	Seam Length	솔기 길이
+	Slash and Spread	절개 후 벌리기
+	Match Seam Length	솔기 길이 맞추기
+	Make Facing	안단 만들기
+	Add Pleat	주름 추가
+	Draft Sleeve Block	소매 원형 제도

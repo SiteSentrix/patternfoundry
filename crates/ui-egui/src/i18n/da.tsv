@@ -5231,3 +5231,12 @@ swatch	Bright Violet	Kraftig violet
 	Draft Bodice Block	Konstruér grundmønster til overdel
 	Block Measurements	Mål til grundmønsteret
 	Draft Skirt Block	Konstruér grundmønster til nederdel
+# PatternFoundry: design tools (PF-5).
+	Rotate Dart	Flyt indsnit
+	Split at Points	Del ved punkter
+	Seam Length	Sømlængde
+	Slash and Spread	Klip og spred
+	Match Seam Length	Tilpas sømlængde
+	Make Facing	Lav belægning
+	Add Pleat	Tilføj læg
+	Draft Sleeve Block	Konstruér grundmønster til ærme

@@ -5247,3 +5247,12 @@ theme	Appearance	Apparence
 	Draft Bodice Block	Tracer le patron de base du corsage
 	Block Measurements	Mesures du patron de base
 	Draft Skirt Block	Tracer le patron de base de la jupe
+# PatternFoundry: design tools (PF-5).
+	Rotate Dart	Pivoter la pince
+	Split at Points	Couper aux points
+	Seam Length	Longueur de couture
+	Slash and Spread	Couper et écarter
+	Match Seam Length	Égaliser la longueur de couture
+	Make Facing	Créer une parementure
+	Add Pleat	Ajouter un pli
+	Draft Sleeve Block	Tracer le patron de base de la manche

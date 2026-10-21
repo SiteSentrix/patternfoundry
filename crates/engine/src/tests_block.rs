@@ -1,4 +1,4 @@
-//! Blocks (PF-4, `block.*`): the bodice and skirt blocks draft from the measurements and follow them.
+//! Blocks (PF-4, `block.*`): the bodice, skirt and sleeve blocks draft from the measurements and follow them.
 
 use pf_core::mm_to_pt;
 use serde_json::json;
@@ -119,4 +119,50 @@ fn the_skirt_block_drafts_from_its_measurements_and_follows_the_hip() {
     s.execute("measure.set", &json!({"values": {"hip": 1000}})).unwrap();
     assert!(near(bounds(&s, ids[1]).x1, mm_to_pt(510.0)));
     assert!(s.execute("block.measurements", &json!({"block": "trouser"})).is_err());
+}
+
+#[test]
+fn the_sleeve_block_drafts_inside_the_artboard_and_follows_the_top_arm() {
+    let mut s = measured();
+    s.execute("measure.set", &json!({"values": {"top_arm": 280, "sleeve_length": 590}})).unwrap();
+    let r = s.execute("block.sleeve", &json!({})).unwrap();
+    let id = NodeId(r["ids"][0].as_u64().unwrap());
+    assert_eq!(s.doc().unwrap().doc.node(id).unwrap().name.as_deref(), Some("Sleeve Block"));
+    // By default the sleeve itself starts 20 mm inside the artboard (its shoulder point, the
+    // origin, is half a sleeve further in).
+    let art = s.doc().unwrap().doc.artboards[0].rect;
+    let b = bounds(&s, id);
+    assert!(near(b.x0, art.x0 + mm_to_pt(20.0)) && near(b.y0, art.y0 + mm_to_pt(20.0)), "{b:?}");
+    assert!(near(b.width(), mm_to_pt(330.0)), "{}", b.width());
+    // The crown is longer than the bodice's armhole (back and front), as a set-in sleeve's must
+    // be; its ease is reported, not forced (truing it is design.matchLength's).
+    let crown = r["crown"].as_f64().unwrap();
+    let bodice = s.execute("block.bodice", &json!({"origin": [0, 0]})).unwrap();
+    let armhole: f64 = (0..2)
+        .map(|k| {
+            let part = bodice["ids"][k].as_u64().unwrap();
+            s.execute("design.length", &json!({"id": part, "from": 6, "to": 9})).unwrap()["mm"].as_f64().unwrap()
+        })
+        .sum();
+    // By the table alone the crown is about the armhole's length (here 1.6 mm short), so the
+    // sleeve is fitted: the armhole as a measurement, the crown 3 cm more.
+    assert!((crown - armhole).abs() < 20.0, "crown {crown}, armhole {armhole}");
+    s.execute("measure.set", &json!({"values": {"armhole": armhole}, "formulas": {"sleeve_crown": "armhole + 30"}})).unwrap();
+    let fitted = s.execute("block.sleeve", &json!({})).unwrap();
+    assert!((fitted["crown"].as_f64().unwrap() - (armhole + 30.0)).abs() < 1e-6, "{fitted}");
+    // The first sleeve followed too: it is the same shape as the new one.
+    let other = NodeId(fitted["ids"][0].as_u64().unwrap());
+    assert!(near(bounds(&s, id).height(), bounds(&s, other).height()));
+    s.execute("measure.set", &json!({"formulas": {"sleeve_crown": null}, "values": {"armhole": null}})).unwrap();
+    // A larger top arm: a wider sleeve, in one undo step.
+    s.execute("measure.set", &json!({"values": {"top_arm": 320}})).unwrap();
+    assert!(near(bounds(&s, id).width(), mm_to_pt(370.0)));
+    s.execute("edit.undo", &json!({})).unwrap();
+    assert!(near(bounds(&s, id).width(), mm_to_pt(330.0)));
+    let m = s.execute("block.measurements", &json!({"block": "sleeve"})).unwrap();
+    assert_eq!(m["missing"], json!([]));
+    s.execute("measure.set", &json!({"values": {"sleeve_length": null}})).unwrap();
+    let m = s.execute("block.measurements", &json!({"block": "sleeve"})).unwrap();
+    assert_eq!(m["missing"], json!(["sleeve_length"]));
+    assert!(s.execute("block.sleeve", &json!({})).is_err());
 }

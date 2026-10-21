@@ -4843,3 +4843,12 @@ lighting	Light	Світло
 	Draft Bodice Block	Побудувати базову викрійку ліфа
 	Block Measurements	Мірки для базової викрійки
 	Draft Skirt Block	Побудувати базову викрійку спідниці
+# PatternFoundry: design tools (PF-5).
+	Rotate Dart	Перевести виточку
+	Split at Points	Розділити за точками
+	Seam Length	Довжина шва
+	Slash and Spread	Розрізати й розсунути
+	Match Seam Length	Вирівняти довжину шва
+	Make Facing	Створити обшивку
+	Add Pleat	Додати складку
+	Draft Sleeve Block	Побудувати базову викрійку рукава

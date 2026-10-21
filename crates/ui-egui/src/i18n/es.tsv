@@ -5191,3 +5191,12 @@ mark-style	Japanese	Japonesas
 	Draft Bodice Block	Trazar el patrón base del cuerpo
 	Block Measurements	Medidas del patrón base
 	Draft Skirt Block	Trazar el patrón base de la falda
+# PatternFoundry: design tools (PF-5).
+	Rotate Dart	Girar la pinza
+	Split at Points	Dividir en los puntos
+	Seam Length	Longitud de costura
+	Slash and Spread	Cortar y abrir
+	Match Seam Length	Igualar la longitud de costura
+	Make Facing	Crear vista
+	Add Pleat	Añadir pliegue
+	Draft Sleeve Block	Trazar el patrón base de la manga

@@ -4843,3 +4843,12 @@ theme	Appearance	Giao diện
 	Draft Bodice Block	Dựng rập cơ bản thân áo
 	Block Measurements	Số đo cho rập cơ bản
 	Draft Skirt Block	Dựng rập cơ bản chân váy
+# PatternFoundry: design tools (PF-5).
+	Rotate Dart	Xoay pen
+	Split at Points	Tách tại các điểm
+	Seam Length	Chiều dài đường may
+	Slash and Spread	Cắt và xòe
+	Match Seam Length	Khớp chiều dài đường may
+	Make Facing	Tạo nẹp
+	Add Pleat	Thêm ly
+	Draft Sleeve Block	Dựng rập cơ bản tay áo

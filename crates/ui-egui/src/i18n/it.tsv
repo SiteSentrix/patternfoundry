@@ -4863,3 +4863,12 @@ lighting	Light	Luce
 	Draft Bodice Block	Traccia il modello base del corpino
 	Block Measurements	Misure del modello base
 	Draft Skirt Block	Traccia il modello base della gonna
+# PatternFoundry: design tools (PF-5).
+	Rotate Dart	Ruota la pince
+	Split at Points	Dividi nei punti
+	Seam Length	Lunghezza della cucitura
+	Slash and Spread	Taglia e allarga
+	Match Seam Length	Pareggia la lunghezza della cucitura
+	Make Facing	Crea paramontura
+	Add Pleat	Aggiungi piega
+	Draft Sleeve Block	Traccia il modello base della manica

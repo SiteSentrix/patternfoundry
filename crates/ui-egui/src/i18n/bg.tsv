@@ -5212,3 +5212,12 @@ theme	Appearance	Външен вид
 	Draft Bodice Block	Конструиране на основна кройка на корсаж
 	Block Measurements	Мерки за основната кройка
 	Draft Skirt Block	Конструиране на основна кройка на пола
+# PatternFoundry: design tools (PF-5).
+	Rotate Dart	Преместване на пенса
+	Split at Points	Разделяне в точките
+	Seam Length	Дължина на шева
+	Slash and Spread	Срязване и разтваряне
+	Match Seam Length	Изравняване на дължината на шева
+	Make Facing	Създаване на обточка
+	Add Pleat	Добавяне на плисе
+	Draft Sleeve Block	Конструиране на основна кройка на ръкав
