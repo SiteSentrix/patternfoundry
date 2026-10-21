@@ -523,3 +523,40 @@ fn a_stand_collar_for_the_bodice_block() {
     s.execute("edit.undo", &json!({})).unwrap();
     assert!(s.doc().unwrap().doc.node(id).is_none());
 }
+
+#[test]
+fn an_in_seam_pocket_in_the_skirt_side_seam() {
+    let mut s = Session::new();
+    s.execute("file.new", &json!({"width": 1400, "height": 1000})).unwrap();
+    s.execute("measure.set", &json!({"values": {"waist": 680, "hip": 940, "waist_to_hip": 200, "skirt_length": 600}})).unwrap();
+    let r = s.execute("block.skirt", &json!({"origin": [0, 0]})).unwrap();
+    let (back, front) = (r["ids"][0].as_u64().unwrap(), r["ids"][1].as_u64().unwrap());
+    // On the paths: the bag, no notches.
+    let seams = json!({"seam": {"id": front, "from": 4, "to": 2}, "match": {"id": back, "from": 4, "to": 6}});
+    let r = s.execute("design.inSeamPocket", &seams).unwrap();
+    assert_eq!(r["notches"], 0);
+    let bag = NodeId(r["id"].as_u64().unwrap());
+    assert_eq!(s.doc().unwrap().doc.node(bag).unwrap().name.as_deref(), Some("Pocket Bag"));
+    // Its seam edge 140 + 2 × 15 mm along the side seam, the bag inside the front.
+    assert!((length(&mut s, bag, 0, 16) - 170.0).abs() < 0.1, "{}", length(&mut s, bag, 0, 16));
+    let (fb, bb) = (bounds(&s, NodeId(front)), bounds(&s, bag));
+    assert!(bb.x0 >= fb.x0 - 1e-6 && bb.x1 <= fb.x1 + 1e-6 && bb.y0 >= fb.y0 && bb.y1 <= fb.y1, "{fb:?} {bb:?}");
+    s.execute("edit.undo", &json!({})).unwrap();
+    // On pieces: notches at the opening's ends on both, in the same undo step as the bag.
+    s.execute("select.set", &json!({"ids": [back, front]})).unwrap();
+    let pieces = s.execute("piece.make", &json!({})).unwrap();
+    let (gb, gf) = (pieces["ids"][0].as_u64().unwrap(), pieces["ids"][1].as_u64().unwrap());
+    let r = s.execute("design.inSeamPocket", &seams).unwrap();
+    assert_eq!(r["notches"], 4);
+    let notches = |g: u64, s: &mut Session| s.execute("piece.info", &json!({"id": g})).unwrap()["notches"].as_array().cloned().unwrap_or_default();
+    assert_eq!((notches(gb, &mut s).len(), notches(gf, &mut s).len()), (2, 2));
+    s.execute("edit.undo", &json!({})).unwrap();
+    assert!(notches(gf, &mut s).is_empty());
+    for bad in [
+        json!({"seam": {"id": front, "from": 4, "to": 2}, "top": 900}),
+        json!({"seam": {"id": front, "from": 4, "to": 2}, "width": 5}),
+        json!({"top": 90}),
+    ] {
+        assert!(s.execute("design.inSeamPocket", &bad).is_err(), "{bad}");
+    }
+}
