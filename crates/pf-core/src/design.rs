@@ -896,6 +896,78 @@ pub fn smooth_across(a: Junction, b: Junction) -> Result<(Knot, Knot, f64), Desi
     Ok((set(a, fa, u), set(b, fb, to_b(u * -1.0)), corner))
 }
 
+/// A stand (mandarin) collar: its outline and marks, drafted flat with centre back at (0, 0),
+/// the neck edge running along +x and the stand above it (toward -y).
+#[derive(Clone, Debug, PartialEq)]
+pub struct StandCollar {
+    /// The half collar: the neck edge from centre back to the front end, the front end, the top
+    /// edge back to centre back, and the centre back line (a fold).
+    pub outline: Vec<Knot>,
+    /// Where the shoulder seam meets the neck edge (a notch).
+    pub shoulder: Pt,
+    /// The centre front line across the stand, `extension` back from the front end.
+    pub centre_front: [Pt; 2],
+    /// How long the top edge is from centre back to centre front (where a shirt collar's fall
+    /// is sewn on).
+    pub top: f64,
+}
+
+/// A stand collar for a neckline `back` long from centre back to the shoulder and `front` from
+/// the shoulder to centre front, `depth` high: a band whose neck edge runs straight to the
+/// shoulder, then curves up to `rise` above its line at centre front (so it hugs the neck), and
+/// runs on straight past centre front by `extension` (half a button stand where the fronts meet
+/// edge to edge, all of it where they overlap). The top edge is parallel to the neck edge, the
+/// front end square to it. Drafted from the published method in The Creative Curator,
+/// <https://www.thecreativecurator.com/draft-mandarin-collar-pattern/>.
+pub fn stand_collar(back: f64, front: f64, depth: f64, rise: f64, extension: f64) -> Result<StandCollar, DesignError> {
+    let ok = |v: f64| v.is_finite() && v >= 0.0;
+    if !(back > 0.0 && front > 0.0 && depth > 0.0 && ok(back) && ok(front) && ok(depth) && ok(rise) && ok(extension)) {
+        return Err(DesignError::BadAnchor("the neckline lengths and the stand's height are more than 0, the rise and extension 0 or more"));
+    }
+    if rise >= front * 0.7 {
+        return Err(DesignError::BadAnchor("the rise at centre front is less than the front neckline is long"));
+    }
+    let s = Pt::new(back, 0.0);
+    // The front curve: leaving the shoulder level, like an arc, ending `rise` up; `dx` across
+    // so that it is `front` long.
+    let curve = |dx: f64| -> [Knot; 2] {
+        let c = Pt::new(back + dx, -rise);
+        let k = (c - s).len() / 3.0;
+        let a = 2.0 * rise.atan2(dx);
+        [Knot { p: s, h_in: s, h_out: s + Pt::new(k, 0.0) }, Knot { p: c, h_in: c - Pt::new(a.cos(), -a.sin()) * k, h_out: c }]
+    };
+    let (mut lo, mut hi) = (0.0, front);
+    for _ in 0..60 {
+        let mid = (lo + hi) / 2.0;
+        if run_length(&curve(mid), 0, 1) < front {
+            lo = mid;
+        } else {
+            hi = mid;
+        }
+    }
+    let [ks, kc] = curve((lo + hi) / 2.0);
+    let a = 2.0 * rise.atan2(kc.p.x - back);
+    let e = kc.p + Pt::new(a.cos(), -a.sin()) * extension;
+    let cb = Knot::corner(Pt::new(0.0, 0.0));
+    let mut base = vec![cb, ks, kc];
+    if extension > 1e-9 {
+        base.push(Knot::corner(e));
+    }
+    // The top edge, the stand's height above (whichever side of the run that is).
+    let mut up = depth;
+    let mut top = offset_run(&base, up);
+    if top.first().is_some_and(|k| k.p.y > 0.0) {
+        up = -depth;
+        top = offset_run(&base, up);
+    }
+    let c_top = kc.p + Pt::new(-a.sin(), -a.cos()) * depth;
+    let to_cf = offset_run(&[cb, ks, kc], up);
+    let top_length = run_length(&to_cf, 0, to_cf.len().saturating_sub(1));
+    let mut outline = base;
+    outline.extend(top.iter().rev().map(|k| Knot { p: k.p, h_in: k.h_out, h_out: k.h_in }));
+    Ok(StandCollar { outline, shoulder: s, centre_front: [kc.p, c_top], top: top_length })
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -1247,5 +1319,31 @@ mod tests {
         let (_, _, again) = smooth_across(Junction { ring: &a2, ..ja }, Junction { ring: &b2, ..jb }).unwrap();
         assert!(again.abs() < 1e-9);
         assert!(smooth_across(Junction { seam: 3, ..ja }, jb).is_err());
+    }
+
+    #[test]
+    fn a_stand_collar_is_as_long_as_the_neckline_and_rises_at_centre_front() {
+        // The Creative Curator's example: 90 back, 105 front, 15 extension, 35 high, 15 rise.
+        let c = stand_collar(90.0, 105.0, 35.0, 15.0, 15.0).unwrap();
+        let o = &c.outline;
+        // The neck edge's four points, then the top edge (the offset front curve may be in pieces).
+        assert!(o.len() >= 8);
+        // The neck edge: straight to the shoulder, the front curve 105 long, rising 15, then
+        // the extension 15 on.
+        assert!(near(o[0].p, Pt::new(0.0, 0.0)) && near(o[1].p, Pt::new(90.0, 0.0)) && near(c.shoulder, o[1].p));
+        assert!((run_length(o, 1, 2) - 105.0).abs() < 1e-6, "{}", run_length(o, 1, 2));
+        assert!((o[2].p.y + 15.0).abs() < 1e-9 && near(c.centre_front[0], o[2].p));
+        assert!((run_length(o, 2, 3) - 15.0).abs() < 1e-9);
+        // The top edge 35 above all the way: at centre back, at centre front, at the front end.
+        assert!(near(o[o.len() - 1].p, Pt::new(0.0, -35.0)), "{:?}", o[o.len() - 1].p);
+        assert!(((c.centre_front[1] - c.centre_front[0]).len() - 35.0).abs() < 1e-6);
+        assert!(((o[4].p - o[3].p).len() - 35.0).abs() < 1e-6);
+        // The top edge, curving round the neck, is shorter than the neck edge.
+        assert!(c.top < 195.0 && c.top > 180.0, "{}", c.top);
+        // Square to the neck edge at the front end.
+        assert!((o[4].p - o[3].p).dot(o[3].p - o[2].p).abs() < 1e-6);
+        // Edge to edge: no extension, the front end at centre front.
+        assert_eq!(stand_collar(90.0, 105.0, 35.0, 15.0, 0.0).unwrap().outline.len(), o.len() - 2);
+        assert!(stand_collar(90.0, 105.0, 0.0, 15.0, 0.0).is_err() && stand_collar(90.0, 10.0, 35.0, 15.0, 0.0).is_err());
     }
 }
