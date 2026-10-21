@@ -1,0 +1,15 @@
+[package]
+name = "pf-aama"
+description = "DXF-AAMA / ASTM D6673 pattern files: pattern pieces written for cutting rooms and read back, on pf-dxf"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+rust-version.workspace = true
+repository.workspace = true
+publish = false
+
+[dependencies]
+pf-dxf = { workspace = true }
+
+[lints]
+workspace = true

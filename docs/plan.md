@@ -281,3 +281,15 @@ is built on, plus a pattern mode, the way StitchFoundry adds embroidery:
   waist and onto a sloping one); they fail with the dart test switched off. The skirt and bodice
   blocks made pieces were looked at: every waist, shoulder and bust dart bridged. Not yet: a dart
   pressed toward the other side (a choice per dart), curved dart legs, darts inside a curved edge.
+- 2026-10-21, **PF-7.1** (moved onto CADCraft's DXF crate, as the owner asked): DXF-AAMA files are
+  now written and read on `crates/pf-dxf`, CADCraft's standalone DXF tag reader and writer
+  (`crates/dxf`, from the published DXF reference; same licence, copyright kept in `NOTICE`, the
+  CADCraft name kept out of the crate's name and messages), by a new `crates/pf-aama` (layer 1):
+  the same file as before (R13 or R12, a block per piece, the layers and texts of ASTM D6673), now
+  built as DXF tags, and read back (the style and piece system text, cutting and sew lines,
+  notches, the grainline and internal lines; lightweight polylines and pieces placed away from the
+  origin too), which every file written is checked against. VectorCraft's DXF writer
+  (`vectorcraft-cad`) is back as it was. Checked again with ezdxf 1.4.5: the skirt block's pieces
+  in R13 and R12, no errors, no fixes, the same extents. Tests: 5 in `pf-aama` (layers, true
+  scale, read back as written, an insert and a lightweight polyline read, bad input), the vendored
+  crate's 14, the 3 engine tests.

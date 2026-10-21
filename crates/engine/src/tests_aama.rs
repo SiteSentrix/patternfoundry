@@ -20,7 +20,8 @@ fn square_piece(cut: u32, mirror: bool) -> Session {
 
 fn export(s: &mut Session, p: Value) -> String {
     let r = s.execute("document.export", &p).unwrap();
-    String::from_utf8(vectorcraft_format::base64_decode(r["dataBase64"].as_str().unwrap()).unwrap()).unwrap()
+    // DXF lines end in CR LF; the checks below read lines.
+    String::from_utf8(vectorcraft_format::base64_decode(r["dataBase64"].as_str().unwrap()).unwrap()).unwrap().replace("\r\n", "\n")
 }
 
 /// The `(code, value)` pairs of a DXF file.

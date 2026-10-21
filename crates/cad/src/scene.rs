@@ -117,7 +117,7 @@ fn polygons(bp: &BezPath) -> Vec<Vec<Point>> {
 
 /// A DXF symbol name (layer, text style) from `name`: from DXF 2000 up to 255 characters
 /// without `<>/\":;?*|=`` ` ``; before, up to 31 letters, digits, `$`, `-` and `_`, in capitals.
-pub(crate) fn symbol_name(name: &str, long: bool) -> String {
+fn symbol_name(name: &str, long: bool) -> String {
     let s: String = if long {
         let bad = |c: char| c.is_control() || "<>/\\\":;?*|=`".contains(c);
         name.trim().chars().map(|c| if bad(c) { '_' } else { c }).take(255).collect()
@@ -128,7 +128,7 @@ pub(crate) fn symbol_name(name: &str, long: bool) -> String {
 }
 
 /// `base` made unique among `taken` (any case) by `_2`, `_3`…, within `max` characters.
-pub(crate) fn unique(base: &str, taken: &[&str], max: usize) -> String {
+fn unique(base: &str, taken: &[&str], max: usize) -> String {
     let base = if base.is_empty() { "Layer".to_string() } else { base.to_string() };
     let free = |n: &str| !taken.iter().any(|t| t.eq_ignore_ascii_case(n));
     if free(&base) {
@@ -235,7 +235,6 @@ impl<'a> Scene<'a> {
             linetypes: self.linetypes,
             styles: self.styles,
             images: self.images,
-            blocks: Vec::new(),
             entities: self.e.into_string(),
             extents: self.extents.unwrap_or(limits),
             limits,

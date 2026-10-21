@@ -1,12 +1,12 @@
 //! DXF-AAMA export (`document.export {format: aama}`, PF-7.1): the document's pattern pieces
 //! as an ASTM D6673 file for cutting rooms, grading and nesting systems
-//! ([`vectorcraft_cad::export_aama`]). Each piece gives its cutting line (the boundary), its seam
+//! ([`pf_aama::write`]). Each piece gives its cutting line (the boundary), its seam
 //! line (the sew line), its notches (on the cutting line, cut toward the seam line), its grainline,
 //! and the paths the user added inside it as internal lines; in millimetres, y up, every piece
 //! where it is in the document relative to the others.
 
+use pf_aama::{Mm, Notch as AamaNotch, Piece as AamaPiece, Style as AamaStyle, Version};
 use serde_json::Value;
-use vectorcraft_cad::{AamaNotch, AamaPiece, AamaStyle, DxfVersion, Mm};
 use vectorcraft_doc::{Document, Node, NodeKind};
 use vectorcraft_geom::{BezPath, SubPath};
 
@@ -192,12 +192,11 @@ fn to_mm(pieces: &mut [AamaPiece]) {
 }
 
 pub(super) fn encode(doc: &Document, p: &Value) -> Result<Encoded> {
-    let version = match p.get("version").and_then(Value::as_str) {
-        None => DxfVersion::R13,
-        Some(v) => match DxfVersion::from_id(v) {
-            Some(v @ (DxfVersion::R12 | DxfVersion::R13)) => v,
-            _ => return Err(bad(C, format!("version: R13 (ASTM D6673) or R12 for DXF-AAMA, not {v:?}"))),
-        },
+    let version = match p.get("version").and_then(Value::as_str).map(|v| v.trim().to_ascii_uppercase()) {
+        None => Version::R13,
+        Some(v) if v == "R13" || v == "AC1012" => Version::R13,
+        Some(v) if v == "R12" || v == "AC1009" => Version::R12,
+        Some(v) => return Err(bad(C, format!("version: R13 (ASTM D6673) or R12 for DXF-AAMA, not {v:?}"))),
     };
     let text = |k: &str, d: &str| p.get(k).and_then(Value::as_str).unwrap_or(d).to_string();
     let mut pieces = pieces(doc)?;
@@ -216,7 +215,7 @@ pub(super) fn encode(doc: &Document, p: &Value) -> Result<Encoded> {
         version,
         pieces,
     };
-    let s = vectorcraft_cad::export_aama(&style).map_err(|e| bad(C, e))?;
+    let s = pf_aama::write(&style).map_err(|e| bad(C, e.to_string()))?;
     let mut enc = Encoded::one(s.into_bytes());
     if style.name.chars().count() > 20 {
         enc.warnings.push("the Style Name is longer than 20 characters: some cutting-room systems shorten it".into());
