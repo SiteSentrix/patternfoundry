@@ -4849,3 +4849,4 @@ file-filter	DXF-AAMA (cutting room)	DXF-AAMA (재단실)
 @msg	DXF-AAMA files are DXF R13 (ASTM D6673) or R12	DXF-AAMA 파일은 DXF R13(ASTM D6673) 또는 R12입니다
 @msg	no pattern pieces to export	내보낼 패턴 조각이 없습니다
 @msg	the piece {_1} has no outline	조각 {_1}에 윤곽선이 없습니다
+file-filter	SVG for cutting	재단용 SVG

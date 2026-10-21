@@ -5254,3 +5254,4 @@ file-filter	DXF-AAMA (cutting room)	DXF-AAMA (tilskæring)
 @msg	DXF-AAMA files are DXF R13 (ASTM D6673) or R12	DXF-AAMA-filer er DXF R13 (ASTM D6673) eller R12
 @msg	no pattern pieces to export	ingen mønsterdele at eksportere
 @msg	the piece {_1} has no outline	mønsterdelen {_1} har ingen omrids
+file-filter	SVG for cutting	SVG til skæring

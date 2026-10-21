@@ -441,6 +441,7 @@ fn formats_query_lists_readers_writers_and_options() {
             "png8",
             "txt",
             "dxf",
+            "svgcut",
             "aama",
             "eps",
             "emf",

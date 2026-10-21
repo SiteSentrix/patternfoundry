@@ -76,7 +76,7 @@ fn internal_lines(n: &Node, out: &mut Vec<Vec<Pt>>) {
 }
 
 /// The pieces of `doc` in paint order, in points (y down).
-fn pieces(doc: &Document) -> Result<Vec<AamaPiece>> {
+pub(super) fn pieces(doc: &Document) -> Result<Vec<AamaPiece>> {
     let mut nodes = Vec::new();
     doc.walk(|n| {
         if piece_on(n).is_some() {

@@ -5257,3 +5257,4 @@ file-filter	DXF-AAMA (cutting room)	DXF-AAMA (szabászat)
 @msg	DXF-AAMA files are DXF R13 (ASTM D6673) or R12	A DXF-AAMA fájlok DXF R13 (ASTM D6673) vagy R12 formátumúak
 @msg	no pattern pieces to export	nincs exportálható szabásminta-darab
 @msg	the piece {_1} has no outline	a(z) {_1} darabnak nincs körvonala
+file-filter	SVG for cutting	SVG vágáshoz

@@ -302,3 +302,12 @@ is built on, plus a pattern mode, the way StitchFoundry adds embroidery:
   `crates/svg/tests/true_scale.rs` (the 10 cm test square measured by usvg at 96 per inch: 100 mm;
   75 mm with the fix undone), and the SVG tests that drew exported files with usvg now read them
   at 72 per inch (points as pixels), as they did.
+- 2026-10-21, **PF-7.2**: SVG for cutting (`document.export {format: svgcut}`), for laser and
+  blade cutters and plotters that take SVG. The page is sized in millimetres
+  (`width="…mm"`, viewBox in mm, one user unit a millimetre) with a 10 mm margin round the
+  pieces. Each piece's cutting line is a red hairline path (`id="cut-N"`, `data-name`) in a `cut`
+  group, notches are blue strokes in `notches`, and with `marks` on (the default) a `draw` group
+  carries the dashed seam line, grainline, internal lines and the piece's name and cut count; with
+  `marks` off only the cuts and notches are written. Tests: `crates/engine/src/tests_svgcut.rs`
+  (a 10 cm square with 10 mm allowance cuts at 120 mm and its seam line at 100 mm, read back from
+  the file; without marks only cuts are written).
