@@ -1122,6 +1122,47 @@ pub fn welt_pocket(opening: f64, welt: f64, depth: f64, welts: Welts, side: f64,
     })
 }
 
+/// A shirt collar's fall (the collar that turns down over its stand), drafted flat with centre
+/// back at the neck edge at (0, 0), the neck edge along +x and the fall above it (toward -y).
+/// The neck edge is `neck` long (the stand's top edge, centre back to centre front) and curves
+/// down by `drop` by its front end; the fall is `height` high at centre back, and its point
+/// reaches `out` past the neck edge's end and `point` up from it. After the published method
+/// in NIMI's Fashion Design Technology trade theory
+/// (<https://nimi.co.in/cits_ebooks1/Fashion_Design_Technology/Fashion_Design_Technology_TT/files/basic-html/page164.html>):
+/// a 1½ inch fall, its point 2 inches long and ¾ inch out, the neck edge ½ inch down at the
+/// front.
+pub fn collar_fall(neck: f64, height: f64, drop: f64, out: f64, point: f64) -> Result<Vec<Knot>, DesignError> {
+    if ![neck, height, drop, out, point].iter().all(|v| v.is_finite() && *v >= 0.0) || neck <= 0.0 || height <= 0.0 || point <= 0.0 {
+        return Err(DesignError::BadAnchor(
+            "the neck edge, the fall and its point are more than 0; the drop and how far the point reaches out 0 or more",
+        ));
+    }
+    if drop >= neck * 0.5 {
+        return Err(DesignError::BadAnchor("the drop at the front is less than half the neck edge"));
+    }
+    let k0 = Pt::new(0.0, 0.0);
+    // The neck edge: leaving centre back level, like an arc, ending `drop` down, `neck` long.
+    let curve = |dx: f64| -> [Knot; 2] {
+        let p = Pt::new(dx, drop);
+        let k = (p - k0).len() / 3.0;
+        let a = 2.0 * drop.atan2(dx);
+        [Knot { p: k0, h_in: k0, h_out: k0 + Pt::new(k, 0.0) }, Knot { p, h_in: p - Pt::new(a.cos(), a.sin()) * k, h_out: p }]
+    };
+    let (mut lo, mut hi) = (0.0, neck);
+    for _ in 0..60 {
+        let mid = (lo + hi) / 2.0;
+        if run_length(&curve(mid), 0, 1) < neck {
+            lo = mid;
+        } else {
+            hi = mid;
+        }
+    }
+    let [kb, kp] = curve((lo + hi) / 2.0);
+    let o = Pt::new(kp.p.x + out, kp.p.y - point);
+    let l = Pt::new(0.0, -height);
+    Ok(vec![kb, kp, Knot::corner(o), Knot::corner(l)])
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -1547,5 +1588,17 @@ mod tests {
         assert!(
             welt_pocket(20.0, 15.0, 150.0, Welts::Double, 7.0, 15.0).is_err() && welt_pocket(120.0, 0.0, 150.0, Welts::Single, 7.0, 15.0).is_err()
         );
+    }
+
+    #[test]
+    fn a_collar_fall_fits_its_stand_and_turns_down_over_it() {
+        // NIMI's numbers in mm: 38 high, the point 51 long and 19 out, 13 down at the front.
+        let f = collar_fall(200.0, 38.0, 13.0, 19.0, 51.0).unwrap();
+        assert_eq!(f.len(), 4);
+        // The neck edge as long as the stand's top edge, ending 13 down.
+        assert!((run_length(&f, 0, 1) - 200.0).abs() < 1e-6 && (f[1].p.y - 13.0).abs() < 1e-9);
+        // The point 19 past the neck edge's end and 51 up from it; centre back 38 high.
+        assert!(near(f[2].p, f[1].p + Pt::new(19.0, -51.0)) && near(f[3].p, Pt::new(0.0, -38.0)));
+        assert!(collar_fall(200.0, 0.0, 13.0, 19.0, 51.0).is_err() && collar_fall(20.0, 38.0, 13.0, 19.0, 51.0).is_err());
     }
 }

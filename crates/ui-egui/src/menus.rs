@@ -2702,6 +2702,7 @@ pub fn menu_tree_named(english_names: bool) -> Vec<(&'static str, Vec<Item>)> {
                 c("Gather", "design.gather"),
                 c("Draft Collar", "design.collar"),
                 c("Draft Stand Collar", "design.standCollar"),
+                c("Draft Shirt Collar", "design.shirtCollar"),
                 c("In-Seam Pocket", "design.inSeamPocket"),
                 c("Welt Pocket", "design.weltPocket"),
                 Sep,
