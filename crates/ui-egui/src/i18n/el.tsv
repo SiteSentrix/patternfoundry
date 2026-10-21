@@ -5230,6 +5230,10 @@ effect	Points	Σημεία
 	Select one pattern piece to grade its points	Επιλέξτε ένα κομμάτι πατρόν για να διαβαθμίσετε τα σημεία του
 	Sizes	Μεγέθη
 	per size	ανά μέγεθος
+	Copy Grade Rules	Αντιγραφή κανόνων διαβάθμισης
+	Copy Rules To	Αντιγραφή κανόνων σε
+	Mirrored	Κατοπτρικά
+	For the opposite half: places mirrored left to right, x moves the other way	Για το απέναντι μισό: θέσεις κατοπτρισμένες αριστερά-δεξιά, μετακινήσεις x αντίστροφα
 	Draft Shirt Collar	Σχεδίαση γιακά πουκαμίσου
 file-filter	DXF-AAMA (cutting room)	DXF-AAMA (κοπτήριο)
 @msg	DXF-AAMA files are DXF R13 (ASTM D6673) or R12	Τα αρχεία DXF-AAMA είναι DXF R13 (ASTM D6673) ή R12

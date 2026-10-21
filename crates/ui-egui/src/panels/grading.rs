@@ -110,6 +110,46 @@ fn rules(app: &mut VectorcraftApp, ui: &mut Ui, info: &Value) {
             });
         }
     });
+    if info["rules"].as_array().is_some_and(|r| !r.is_empty()) {
+        copy_to(app, ui, id);
+    }
+}
+
+/// Copy the selected piece's rules to another piece, mirrored for the opposite half when asked.
+fn copy_to(app: &mut VectorcraftApp, ui: &mut Ui, id: u64) {
+    let pieces: Vec<(u64, String)> = app
+        .session
+        .execute("piece.list", &json!({}))
+        .ok()
+        .and_then(|v| v["pieces"].as_array().cloned())
+        .unwrap_or_default()
+        .iter()
+        .filter_map(|p| Some((p["id"].as_u64()?, p["name"].as_str().unwrap_or("").to_string())))
+        .filter(|(p, _)| *p != id)
+        .collect();
+    if pieces.is_empty() {
+        return;
+    }
+    let name = |p: &(u64, String)| if p.1.trim().is_empty() { format!("{} {}", tl!("Pattern piece"), p.0) } else { p.1.clone() };
+    let mut st: (u64, bool) = pstate(ui.ctx(), "grading-copy");
+    if !pieces.iter().any(|p| p.0 == st.0) {
+        st.0 = pieces[0].0;
+    }
+    ui.horizontal(|ui| {
+        let shown = pieces.iter().find(|p| p.0 == st.0).map(name).unwrap_or_default();
+        egui::ComboBox::from_id_salt("grading-copy-to").selected_text(shown).show_ui(ui, |ui| {
+            for p in &pieces {
+                if ui.selectable_label(st.0 == p.0, name(p)).clicked() {
+                    st.0 = p.0;
+                }
+            }
+        });
+        ui.checkbox(&mut st.1, tl!("Mirrored")).on_hover_text(tl!("For the opposite half: places mirrored left to right, x moves the other way"));
+        if ui.button(tl!("Copy Rules To")).clicked() {
+            run(app, "grade.copyRules", json!({ "from": id, "to": [st.0], "mirror": if st.1 { "x" } else { "none" } }));
+        }
+    });
+    set_pstate(ui.ctx(), "grading-copy", st);
 }
 
 pub fn show(app: &mut VectorcraftApp, ui: &mut Ui) {

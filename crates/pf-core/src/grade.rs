@@ -114,6 +114,16 @@ fn check(m: [f64; 2]) -> Result<[f64; 2], GradeError> {
 }
 
 impl Rule {
+    /// The rule with its x moves (`x`) and y moves (`y`) the other way, as for the mirror-image
+    /// piece.
+    pub fn mirrored(&self, x: bool, y: bool) -> Self {
+        let flip = |m: [f64; 2]| [if x { -m[0] } else { m[0] }, if y { -m[1] } else { m[1] }];
+        match self {
+            Rule::Step(m) => Rule::Step(flip(*m)),
+            Rule::Sizes(map) => Rule::Sizes(map.iter().map(|(k, v)| (k.clone(), flip(*v))).collect()),
+        }
+    }
+
     /// A checked rule.
     pub fn checked(self) -> Result<Self, GradeError> {
         Ok(match self {
@@ -142,6 +152,50 @@ impl Rule {
             Rule::Sizes(map) => map.iter().find(|(k, _)| k.eq_ignore_ascii_case(size.trim())).map_or([0.0, 0.0], |(_, v)| *v),
         }
     }
+}
+
+/// `[x0, y0, x1, y1]` round `pts`.
+fn bounds(pts: &[Pt]) -> [f64; 4] {
+    pts.iter().fold([f64::INFINITY, f64::INFINITY, f64::NEG_INFINITY, f64::NEG_INFINITY], |[x0, y0, x1, y1], p| {
+        [x0.min(p.x), y0.min(p.y), x1.max(p.x), y1.max(p.y)]
+    })
+}
+
+/// `p` as a share of `b`'s width and height (0 to 1; 0.5 across a flat side).
+fn share(p: Pt, b: [f64; 4]) -> [f64; 2] {
+    let at = |v: f64, lo: f64, hi: f64| if hi - lo > 1e-9 { (v - lo) / (hi - lo) } else { 0.5 };
+    [at(p.x, b[0], b[2]), at(p.y, b[1], b[3])]
+}
+
+/// The rules of the outline `from` given to the outline `to`: each ruled point's rule goes to the
+/// point of `to` nearest the same place in its bounds (a share of the width and height), so a
+/// front takes a back's rules though their points differ. With `mirror` x (or y), the places are
+/// mirrored across the bounds and the moves turn the other way, as for the opposite half. When
+/// two ruled points land on one point, the nearer keeps it.
+pub fn copy_rules(from: &[Pt], rules: &[GradeRule], to: &[Pt], mirror: [bool; 2]) -> Vec<GradeRule> {
+    if to.is_empty() {
+        return Vec::new();
+    }
+    let (bf, bt) = (bounds(from), bounds(to));
+    let targets: Vec<[f64; 2]> = to.iter().map(|p| share(*p, bt)).collect();
+    let mut best: Vec<Option<(f64, Rule)>> = vec![None; to.len()];
+    for r in rules {
+        let Some(p) = from.get(r.anchor) else { continue };
+        let [mut u, mut v] = share(*p, bf);
+        if mirror[0] {
+            u = 1.0 - u;
+        }
+        if mirror[1] {
+            v = 1.0 - v;
+        }
+        let Some((i, d)) = targets.iter().map(|t| (t[0] - u).powi(2) + (t[1] - v).powi(2)).enumerate().min_by(|a, b| a.1.total_cmp(&b.1)) else {
+            continue;
+        };
+        if best[i].as_ref().is_none_or(|(e, _)| d < *e) {
+            best[i] = Some((d, r.rule.mirrored(mirror[0], mirror[1])));
+        }
+    }
+    best.into_iter().enumerate().filter_map(|(anchor, b)| b.map(|(_, rule)| GradeRule { anchor, rule })).collect()
 }
 
 /// The move of every point of a closed outline through `points` for `size`, in mm: ruled points
@@ -230,6 +284,31 @@ mod tests {
         assert!(moves(&pts, &[], &s, "L").iter().all(|v| *v == [0.0, 0.0]));
         let past = [GradeRule { anchor: 9, rule: Rule::Step([1.0, 2.0]) }];
         assert!(moves(&pts, &past, &s, "L").iter().all(|v| *v == [0.0, 0.0]));
+    }
+
+    #[test]
+    fn rules_are_copied_to_the_nearest_points_and_mirrored() {
+        // A back: a 100 × 200 rectangle, its side seam (right) graded 5 mm out a size.
+        let back = [Pt::new(0.0, 0.0), Pt::new(100.0, 0.0), Pt::new(100.0, 200.0), Pt::new(0.0, 200.0)];
+        let rules = [
+            GradeRule { anchor: 1, rule: Rule::Step([5.0, 0.0]) },
+            GradeRule { anchor: 2, rule: Rule::Sizes(BTreeMap::from([("L".to_string(), [5.0, 8.0])])) },
+        ];
+        // A front, drawn the other way round with an extra point at the waist: its side seam is
+        // on the left.
+        let front = [Pt::new(300.0, 0.0), Pt::new(250.0, 0.0), Pt::new(200.0, 0.0), Pt::new(200.0, 210.0), Pt::new(300.0, 210.0)];
+        let copied = copy_rules(&back, &rules, &front, [true, false]);
+        assert_eq!(
+            copied,
+            [
+                GradeRule { anchor: 2, rule: Rule::Step([-5.0, 0.0]) },
+                GradeRule { anchor: 3, rule: Rule::Sizes(BTreeMap::from([("L".to_string(), [-5.0, 8.0])])) },
+            ]
+        );
+        // Not mirrored: the same side, the same moves.
+        let same = copy_rules(&back, &rules, &back, [false, false]);
+        assert_eq!(same, rules);
+        assert!(copy_rules(&back, &rules, &[], [false, false]).is_empty());
     }
 
     #[test]

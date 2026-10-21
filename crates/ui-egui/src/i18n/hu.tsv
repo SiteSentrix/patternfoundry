@@ -5264,6 +5264,10 @@ imageTrace	Outline	Körvonal
 	Select one pattern piece to grade its points	Jelöljön ki egy szabásmintadarabot a pontjai fokozásához
 	Sizes	Méretek
 	per size	méretenként
+	Copy Grade Rules	Fokozási szabályok másolása
+	Copy Rules To	Szabályok másolása ide
+	Mirrored	Tükrözve
+	For the opposite half: places mirrored left to right, x moves the other way	A szemközti félhez: a helyek balról jobbra tükrözve, az x elmozdulások ellenkező irányba
 	Draft Shirt Collar	Ingnyakú gallér szerkesztése
 file-filter	DXF-AAMA (cutting room)	DXF-AAMA (szabászat)
 @msg	DXF-AAMA files are DXF R13 (ASTM D6673) or R12	A DXF-AAMA fájlok DXF R13 (ASTM D6673) vagy R12 formátumúak

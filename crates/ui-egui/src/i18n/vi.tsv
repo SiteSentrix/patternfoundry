@@ -4873,6 +4873,10 @@ theme	Appearance	Giao diện
 	Select one pattern piece to grade its points	Chọn một chi tiết rập để nhảy cỡ các điểm của nó
 	Sizes	Cỡ
 	per size	theo từng cỡ
+	Copy Grade Rules	Sao chép quy tắc nhảy cỡ
+	Copy Rules To	Sao chép quy tắc sang
+	Mirrored	Đối xứng
+	For the opposite half: places mirrored left to right, x moves the other way	Cho nửa đối diện: vị trí đối xứng trái sang phải, dịch chuyển x ngược chiều
 	Draft Shirt Collar	Dựng cổ sơ mi
 file-filter	DXF-AAMA (cutting room)	DXF-AAMA (xưởng cắt)
 @msg	DXF-AAMA files are DXF R13 (ASTM D6673) or R12	Tệp DXF-AAMA là DXF R13 (ASTM D6673) hoặc R12

@@ -69,6 +69,15 @@ pub fn specs() -> Vec<CommandSpec> {
             has_doc,
             info
         ),
+        cmd!(
+            "grade.copyRules",
+            "Copy Grade Rules",
+            [],
+            None,
+            "{from: a pattern piece, to?: [pieces] (default: the selected pieces but `from`), mirror?: \"none\" (default) | \"x\" | \"y\" | \"xy\"} give each piece `from`'s grade rules, each on the point nearest the same place in the piece's bounds; mirror x for the opposite half (a front from a back drawn the other way round): places mirrored left to right and x moves turned the other way. The pieces' own rules are replaced → {pieces: [grade.info…]}",
+            has_doc,
+            copy_rules
+        ),
         cmd!("grade.clear", "Clear Graded Nest", [], None, "{} remove the \"Graded Nest\" layer → {removed}", has_doc, clear),
     ]
 }
@@ -486,4 +495,52 @@ fn info_of(doc: &Document, id: NodeId) -> Result<Value> {
 fn info(s: &mut Session, p: &Value) -> Result<Value> {
     let id = one_piece(s, p, "grade.info")?;
     info_of(&s.doc()?.doc, id)
+}
+
+fn copy_rules(s: &mut Session, p: &Value) -> Result<Value> {
+    const CMD: &str = "grade.copyRules";
+    let from = id_param(p, "from").ok_or_else(|| bad(CMD, "from: the pattern piece whose rules are copied"))?;
+    let doc = &s.doc()?.doc;
+    let from = super::piece::piece_group(doc, from).ok_or_else(|| bad(CMD, "from: not a pattern piece"))?;
+    let mirror = match str_param(p, "mirror").unwrap_or("none") {
+        "none" => [false, false],
+        "x" => [true, false],
+        "y" => [false, true],
+        "xy" => [true, true],
+        _ => return Err(bad(CMD, "mirror: \"none\", \"x\", \"y\" or \"xy\"")),
+    };
+    let src = doc.node(from).ok_or(EngineError::NoNode(from))?;
+    let rules = super::piece::piece_on(src).map(|pc| pc.grade.clone()).unwrap_or_default();
+    if rules.is_empty() {
+        return Err(bad(CMD, "the piece has no grade rules to copy"));
+    }
+    let (_, from_pts) = seam_of(src).ok_or_else(|| bad(CMD, "from: the piece has no seam line"))?;
+    let q = match p.get("to") {
+        Some(v) => json!({ "ids": v }),
+        None => json!({}),
+    };
+    let targets: Vec<NodeId> = super::piece::target_pieces(s, &q, CMD)?.into_iter().filter(|t| *t != from).collect();
+    if targets.is_empty() {
+        return Err(bad(CMD, "to: the pieces to copy the rules to (select them, or name them)"));
+    }
+    let doc = &s.doc()?.doc;
+    let mut changed = Vec::new();
+    for t in &targets {
+        let n = doc.node(*t).ok_or(EngineError::NoNode(*t))?;
+        let Some((_, pts)) = seam_of(n) else { continue };
+        let mut piece = super::piece::piece_on(n).cloned().ok_or_else(|| bad(CMD, "not a pattern piece"))?;
+        piece.grade = pf_core::grade::copy_rules(&from_pts, &rules, &pts, mirror);
+        changed.push((*t, piece));
+    }
+    s.edit("Copy Grade Rules", |d, _| {
+        for (t, piece) in changed {
+            if let Some(n) = d.node_mut(t) {
+                n.extras_mut().pattern = Some(Box::new(pf_core::PatternTag::Piece(Box::new(piece))));
+            }
+        }
+        Ok(())
+    })?;
+    let doc = &s.doc()?.doc;
+    let pieces = targets.iter().map(|t| info_of(doc, *t)).collect::<Result<Vec<_>>>()?;
+    Ok(json!({ "pieces": pieces }))
 }

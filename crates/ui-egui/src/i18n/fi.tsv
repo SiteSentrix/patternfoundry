@@ -5242,6 +5242,10 @@ mark-style	Japanese	Japanilainen
 	Select one pattern piece to grade its points	Valitse yksi kaavanosa porrastaaksesi sen pisteet
 	Sizes	Koot
 	per size	kooittain
+	Copy Grade Rules	Kopioi porrastussäännöt
+	Copy Rules To	Kopioi säännöt kohteeseen
+	Mirrored	Peilattu
+	For the opposite half: places mirrored left to right, x moves the other way	Vastakkaiselle puoliskolle: kohdat peilattu vasemmalta oikealle, x-siirrot toiseen suuntaan
 	Draft Shirt Collar	Piirrä paitakaulus
 file-filter	DXF-AAMA (cutting room)	DXF-AAMA (leikkaamo)
 @msg	DXF-AAMA files are DXF R13 (ASTM D6673) or R12	DXF-AAMA-tiedostot ovat DXF R13 (ASTM D6673) tai R12

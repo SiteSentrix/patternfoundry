@@ -5277,6 +5277,10 @@ theme	Appearance	Apparence
 	Select one pattern piece to grade its points	Sélectionnez une pièce de patron pour grader ses points
 	Sizes	Tailles
 	per size	par taille
+	Copy Grade Rules	Copier les règles de gradation
+	Copy Rules To	Copier les règles vers
+	Mirrored	En miroir
+	For the opposite half: places mirrored left to right, x moves the other way	Pour la moitié opposée : positions en miroir de gauche à droite, déplacements en x inversés
 	Draft Shirt Collar	Tracer un col de chemise
 file-filter	DXF-AAMA (cutting room)	DXF-AAMA (salle de coupe)
 @msg	DXF-AAMA files are DXF R13 (ASTM D6673) or R12	Les fichiers DXF-AAMA sont en DXF R13 (ASTM D6673) ou R12

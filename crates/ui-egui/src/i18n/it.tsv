@@ -4893,6 +4893,10 @@ lighting	Light	Luce
 	Select one pattern piece to grade its points	Selezionate un pezzo del cartamodello per sviluppare i suoi punti
 	Sizes	Taglie
 	per size	per taglia
+	Copy Grade Rules	Copia regole di sviluppo
+	Copy Rules To	Copia regole su
+	Mirrored	Speculare
+	For the opposite half: places mirrored left to right, x moves the other way	Per la metà opposta: posizioni specchiate da sinistra a destra, spostamenti in x invertiti
 	Draft Shirt Collar	Traccia collo camicia
 file-filter	DXF-AAMA (cutting room)	DXF-AAMA (sala taglio)
 @msg	DXF-AAMA files are DXF R13 (ASTM D6673) or R12	I file DXF-AAMA sono DXF R13 (ASTM D6673) o R12

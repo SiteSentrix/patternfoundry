@@ -5131,6 +5131,10 @@ mark-style	Japanese	Japońskie
 	Select one pattern piece to grade its points	Zaznacz jedną część wykroju, aby stopniować jej punkty
 	Sizes	Rozmiary
 	per size	dla każdego rozmiaru
+	Copy Grade Rules	Kopiuj reguły stopniowania
+	Copy Rules To	Kopiuj reguły do
+	Mirrored	Lustrzanie
+	For the opposite half: places mirrored left to right, x moves the other way	Dla przeciwnej połowy: miejsca odbite od lewej do prawej, przesunięcia w x odwrotnie
 	Draft Shirt Collar	Konstruuj kołnierzyk koszulowy
 file-filter	DXF-AAMA (cutting room)	DXF-AAMA (krojownia)
 @msg	DXF-AAMA files are DXF R13 (ASTM D6673) or R12	Pliki DXF-AAMA to DXF R13 (ASTM D6673) lub R12
