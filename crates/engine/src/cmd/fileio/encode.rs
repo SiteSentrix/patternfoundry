@@ -468,6 +468,7 @@ fn encode_files(doc: &Document, f: &Format, p: &Value) -> Result<Encoded> {
         "dxf" => return super::dxf::encode(doc, p, use_artboards),
         "aama" => return super::aama::encode(doc, p),
         "svgcut" => return super::svgcut::encode(doc, p),
+        "projector" => return super::projector::encode(doc, p),
         // EPS reads its own `useArtboards` (the art's bounds unless asked).
         "eps" => return super::eps::encode(doc, p),
         "emf" => return super::metafile::encode(doc, p, use_artboards, vectorcraft_metafile::Kind::Emf),

@@ -5190,3 +5190,4 @@ file-filter	DXF-AAMA (cutting room)	DXF-AAMA (sala de corte)
 @msg	no pattern pieces to export	nenhuma peça de molde para exportar
 @msg	the piece {_1} has no outline	a peça {_1} não tem contorno
 file-filter	SVG for cutting	SVG para corte
+file-filter	PDF for projector	PDF para projetor

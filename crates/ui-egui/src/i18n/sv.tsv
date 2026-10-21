@@ -5228,3 +5228,4 @@ file-filter	DXF-AAMA (cutting room)	DXF-AAMA (tillskärning)
 @msg	no pattern pieces to export	inga mönsterdelar att exportera
 @msg	the piece {_1} has no outline	mönsterdelen {_1} har ingen kontur
 file-filter	SVG for cutting	SVG för skärning
+file-filter	PDF for projector	PDF för projektor

@@ -4927,3 +4927,4 @@ file-filter	DXF-AAMA (cutting room)	DXF-AAMA（裁断室）
 @msg	no pattern pieces to export	書き出すパターンピースがありません
 @msg	the piece {_1} has no outline	ピース {_1} に輪郭がありません
 file-filter	SVG for cutting	カット用 SVG
+file-filter	PDF for projector	プロジェクター用 PDF

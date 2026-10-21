@@ -2262,6 +2262,8 @@ mod tests_printps;
 #[cfg(test)]
 mod tests_printtiling;
 #[cfg(test)]
+mod tests_projector;
+#[cfg(test)]
 mod tests_proxyitems;
 #[cfg(test)]
 mod tests_puppetwarp;

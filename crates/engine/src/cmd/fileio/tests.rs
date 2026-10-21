@@ -442,6 +442,7 @@ fn formats_query_lists_readers_writers_and_options() {
             "txt",
             "dxf",
             "svgcut",
+            "projector",
             "aama",
             "eps",
             "emf",

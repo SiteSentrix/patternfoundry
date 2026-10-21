@@ -5108,3 +5108,4 @@ file-filter	DXF-AAMA (cutting room)	DXF-AAMA（裁剪车间）
 @msg	no pattern pieces to export	没有可导出的样板裁片
 @msg	the piece {_1} has no outline	裁片 {_1} 没有轮廓
 file-filter	SVG for cutting	用于裁剪的 SVG
+file-filter	PDF for projector	用于投影仪的 PDF
