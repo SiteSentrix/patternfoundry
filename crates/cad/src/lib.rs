@@ -17,6 +17,7 @@
 //! - `scene`: the document walk that turns objects into entities.
 //! - `import`: the reader, entities to art, blocks to symbols.
 
+mod aama;
 mod aci;
 pub mod import;
 mod scene;
@@ -25,6 +26,7 @@ mod writer;
 use vectorcraft_doc::{Document, Unit};
 use vectorcraft_geom::Rect;
 
+pub use aama::{AamaNotch, AamaPiece, AamaStyle, Mm, export_aama, turn_and_curve_points};
 pub use aci::{aci_rgb, nearest_aci};
 pub use import::{DxfInfo, ImportOptions, Imported, import, info, is_dxf};
 

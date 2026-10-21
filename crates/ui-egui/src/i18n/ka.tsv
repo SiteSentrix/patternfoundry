@@ -5175,3 +5175,7 @@ imageTrace	Outline	კონტური
 	In-Seam Pocket	ნაკერის ჯიბე
 	Welt Pocket	ჩაჭრილი ჯიბე
 	Draft Shirt Collar	პერანგის საყელოს აგება
+file-filter	DXF-AAMA (cutting room)	DXF-AAMA (საჭრელი საამქრო)
+@msg	DXF-AAMA files are DXF R13 (ASTM D6673) or R12	DXF-AAMA ფაილები არის DXF R13 (ASTM D6673) ან R12
+@msg	no pattern pieces to export	გასატანი თარგის ნაწილები არ არის
+@msg	the piece {_1} has no outline	ნაწილს {_1} კონტური არ აქვს

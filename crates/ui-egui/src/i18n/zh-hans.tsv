@@ -5103,3 +5103,7 @@ lighting	Light	光源
 	In-Seam Pocket	缝内插袋
 	Welt Pocket	嵌线口袋
 	Draft Shirt Collar	绘制衬衫领
+file-filter	DXF-AAMA (cutting room)	DXF-AAMA（裁剪车间）
+@msg	DXF-AAMA files are DXF R13 (ASTM D6673) or R12	DXF-AAMA 文件为 DXF R13（ASTM D6673）或 R12
+@msg	no pattern pieces to export	没有可导出的样板裁片
+@msg	the piece {_1} has no outline	裁片 {_1} 没有轮廓

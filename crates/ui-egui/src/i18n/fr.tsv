@@ -5266,3 +5266,7 @@ theme	Appearance	Apparence
 	In-Seam Pocket	Poche dans la couture
 	Welt Pocket	Poche passepoilée
 	Draft Shirt Collar	Tracer un col de chemise
+file-filter	DXF-AAMA (cutting room)	DXF-AAMA (salle de coupe)
+@msg	DXF-AAMA files are DXF R13 (ASTM D6673) or R12	Les fichiers DXF-AAMA sont en DXF R13 (ASTM D6673) ou R12
+@msg	no pattern pieces to export	aucune pièce de patron à exporter
+@msg	the piece {_1} has no outline	la pièce {_1} n’a pas de contour
