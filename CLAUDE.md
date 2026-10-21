@@ -61,10 +61,11 @@ chapter notes in [`docs/debug-book-notes.md`](docs/debug-book-notes.md)). The ru
 - Keep a log of leads, experiments and ruled-out areas in `docs/debug-logs/YYYY-MM-DD-<topic>.md`.
 
 ## Commit authorship
-Commits are authored by **Bruce Wattendorf**; AI assistance is a trailer, never the author.
-- `git config user.name "Bruce Wattendorf"` and `git config user.email "bwattendorf@gmail.com"`
-  before the first commit (or `--author="Bruce Wattendorf <bwattendorf@gmail.com>"`).
-- End every commit message with: `Co-Authored-By: Claude <noreply@anthropic.com>`
+Commits are made by **Claude**, with Bruce Wattendorf credited as co-author (owner's decision,
+2026-10-21; it replaces the earlier rule that commits were authored as Bruce).
+- `git config user.name "Claude"` and `git config user.email "noreply@anthropic.com"` before the
+  first commit.
+- End every commit message with: `Co-Authored-By: Bruce Wattendorf <bwattendorf@gmail.com>`
 - One task id per commit (`PF-1.2: seam allowance`). No model names in commits, code or docs.
 
 ## Licence
