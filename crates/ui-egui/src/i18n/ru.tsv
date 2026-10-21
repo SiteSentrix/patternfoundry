@@ -4882,6 +4882,13 @@ lighting	Light	Свет
 	Set Size Range	Задать размерный ряд
 	Set Grade Rule	Задать правило градации
 	Grade Info	Сведения о градации
+	Grading	Градация
+	Base size	Базовый размер
+	Grade rules (mm a size)	Правила градации (мм на размер)
+	Name the sizes, smallest first, to give the points grade rules	Перечислите размеры, начиная с меньшего, чтобы задать точкам правила
+	Select one pattern piece to grade its points	Выделите одну деталь лекала, чтобы задать градацию её точек
+	Sizes	Размеры
+	per size	по размерам
 	Draft Shirt Collar	Построить рубашечный воротник
 file-filter	DXF-AAMA (cutting room)	DXF-AAMA (раскройный цех)
 @msg	DXF-AAMA files are DXF R13 (ASTM D6673) or R12	Файлы DXF-AAMA — это DXF R13 (ASTM D6673) или R12

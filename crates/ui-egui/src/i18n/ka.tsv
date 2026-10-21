@@ -5179,6 +5179,13 @@ imageTrace	Outline	კონტური
 	Set Size Range	ზომების რიგის დაყენება
 	Set Grade Rule	გრადაციის წესის დაყენება
 	Grade Info	გრადაციის ინფორმაცია
+	Grading	გრადაცია
+	Base size	საბაზო ზომა
+	Grade rules (mm a size)	გრადაციის წესები (მმ ზომაზე)
+	Name the sizes, smallest first, to give the points grade rules	დაასახელეთ ზომები, უმცირესიდან, რომ წერტილებს წესები მისცეთ
+	Select one pattern piece to grade its points	აირჩიეთ ერთი თარგის ნაწილი მისი წერტილების გრადაციისთვის
+	Sizes	ზომები
+	per size	თითო ზომაზე
 	Draft Shirt Collar	პერანგის საყელოს აგება
 file-filter	DXF-AAMA (cutting room)	DXF-AAMA (საჭრელი საამქრო)
 @msg	DXF-AAMA files are DXF R13 (ASTM D6673) or R12	DXF-AAMA ფაილები არის DXF R13 (ASTM D6673) ან R12

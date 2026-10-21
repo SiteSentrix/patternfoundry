@@ -4926,6 +4926,13 @@ lighting	Light	ライト
 	Set Size Range	サイズ展開を設定
 	Set Grade Rule	グレーディングルールを設定
 	Grade Info	グレーディング情報
+	Grading	グレーディング
+	Base size	基本サイズ
+	Grade rules (mm a size)	グレーディングルール（1サイズあたりmm）
+	Name the sizes, smallest first, to give the points grade rules	ポイントにルールを付けるには、サイズを小さい順に入力してください
+	Select one pattern piece to grade its points	ポイントをグレーディングするパーツを1つ選択してください
+	Sizes	サイズ
+	per size	サイズごと
 	Draft Shirt Collar	シャツカラーを製図
 file-filter	DXF-AAMA (cutting room)	DXF-AAMA（裁断室）
 @msg	DXF-AAMA files are DXF R13 (ASTM D6673) or R12	DXF-AAMA ファイルは DXF R13（ASTM D6673）または R12 です

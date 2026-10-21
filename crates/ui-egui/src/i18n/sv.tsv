@@ -5227,6 +5227,13 @@ theme	Appearance	Utseende
 	Set Size Range	Ange storleksserie
 	Set Grade Rule	Ange graderingsregel
 	Grade Info	Graderingsinfo
+	Grading	Gradering
+	Base size	Basstorlek
+	Grade rules (mm a size)	Graderingsregler (mm per storlek)
+	Name the sizes, smallest first, to give the points grade rules	Namnge storlekarna, minsta först, för att ge punkterna graderingsregler
+	Select one pattern piece to grade its points	Markera en mönsterdel för att gradera dess punkter
+	Sizes	Storlekar
+	per size	per storlek
 	Draft Shirt Collar	Konstruera skjortkrage
 file-filter	DXF-AAMA (cutting room)	DXF-AAMA (tillskärning)
 @msg	DXF-AAMA files are DXF R13 (ASTM D6673) or R12	DXF-AAMA-filer är DXF R13 (ASTM D6673) eller R12

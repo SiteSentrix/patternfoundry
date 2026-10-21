@@ -5271,6 +5271,13 @@ mark-style	Japanese	Japonské
 	Set Size Range	Nastavit řadu velikostí
 	Set Grade Rule	Nastavit pravidlo odstupňování
 	Grade Info	Informace o odstupňování
+	Grading	Odstupňování
+	Base size	Základní velikost
+	Grade rules (mm a size)	Pravidla odstupňování (mm na velikost)
+	Name the sizes, smallest first, to give the points grade rules	Pojmenujte velikosti od nejmenší, abyste bodům dali pravidla
+	Select one pattern piece to grade its points	Vyberte jeden střihový díl a odstupňujte jeho body
+	Sizes	Velikosti
+	per size	po velikostech
 	Draft Shirt Collar	Konstruovat košilový límec
 file-filter	DXF-AAMA (cutting room)	DXF-AAMA (střihárna)
 @msg	DXF-AAMA files are DXF R13 (ASTM D6673) or R12	Soubory DXF-AAMA jsou DXF R13 (ASTM D6673) nebo R12

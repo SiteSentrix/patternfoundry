@@ -5254,6 +5254,13 @@ swatch	Bright Violet	Violet cerah
 	Set Size Range	Atur rentang ukuran
 	Set Grade Rule	Atur aturan grading
 	Grade Info	Info grading
+	Grading	Grading
+	Base size	Ukuran dasar
+	Grade rules (mm a size)	Aturan grading (mm per ukuran)
+	Name the sizes, smallest first, to give the points grade rules	Beri nama ukuran, dari yang terkecil, untuk memberi titik aturan grading
+	Select one pattern piece to grade its points	Pilih satu potongan pola untuk men-grading titik-titiknya
+	Sizes	Ukuran
+	per size	per ukuran
 	Draft Shirt Collar	Buat pola kerah kemeja
 file-filter	DXF-AAMA (cutting room)	DXF-AAMA (ruang potong)
 @msg	DXF-AAMA files are DXF R13 (ASTM D6673) or R12	Berkas DXF-AAMA adalah DXF R13 (ASTM D6673) atau R12

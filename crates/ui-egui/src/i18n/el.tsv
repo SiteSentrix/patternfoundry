@@ -5223,6 +5223,13 @@ effect	Points	Σημεία
 	Set Size Range	Ορισμός σειράς μεγεθών
 	Set Grade Rule	Ορισμός κανόνα διαβάθμισης
 	Grade Info	Πληροφορίες διαβάθμισης
+	Grading	Διαβάθμιση
+	Base size	Βασικό μέγεθος
+	Grade rules (mm a size)	Κανόνες διαβάθμισης (mm ανά μέγεθος)
+	Name the sizes, smallest first, to give the points grade rules	Ονομάστε τα μεγέθη, από το μικρότερο, για να δώσετε κανόνες στα σημεία
+	Select one pattern piece to grade its points	Επιλέξτε ένα κομμάτι πατρόν για να διαβαθμίσετε τα σημεία του
+	Sizes	Μεγέθη
+	per size	ανά μέγεθος
 	Draft Shirt Collar	Σχεδίαση γιακά πουκαμίσου
 file-filter	DXF-AAMA (cutting room)	DXF-AAMA (κοπτήριο)
 @msg	DXF-AAMA files are DXF R13 (ASTM D6673) or R12	Τα αρχεία DXF-AAMA είναι DXF R13 (ASTM D6673) ή R12

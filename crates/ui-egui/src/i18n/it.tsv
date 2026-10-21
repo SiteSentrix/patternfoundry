@@ -4886,6 +4886,13 @@ lighting	Light	Luce
 	Set Size Range	Imposta gamma taglie
 	Set Grade Rule	Imposta regola di sviluppo
 	Grade Info	Info sviluppo taglie
+	Grading	Sviluppo taglie
+	Base size	Taglia base
+	Grade rules (mm a size)	Regole di sviluppo (mm per taglia)
+	Name the sizes, smallest first, to give the points grade rules	Indicate le taglie, dalla più piccola, per dare regole ai punti
+	Select one pattern piece to grade its points	Selezionate un pezzo del cartamodello per sviluppare i suoi punti
+	Sizes	Taglie
+	per size	per taglia
 	Draft Shirt Collar	Traccia collo camicia
 file-filter	DXF-AAMA (cutting room)	DXF-AAMA (sala taglio)
 @msg	DXF-AAMA files are DXF R13 (ASTM D6673) or R12	I file DXF-AAMA sono DXF R13 (ASTM D6673) o R12
