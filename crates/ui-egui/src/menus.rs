@@ -568,6 +568,18 @@ pub const UI_COMMANDS: &[(&str, &str, &str, &str)] = &[
         "{objects?: [paths|shapes|text|images|effects|groups|linkedFiles|guides], layers?: [locked|hidden]} set the Layers panel's Filter (By Object, By Layer): a row stays when it is of a kind in `objects` and in a state in `layers` (its own lock or eye; an empty list takes every row), or when a row inside it stays; Search All narrows the rows further. A key left out keeps its list. The filter lasts the session and does not change the document, its open rows or the selection → {objects, layers}",
     ),
     (
+        "ui.askAboutPatterns",
+        "Ask About Patterns…",
+        "",
+        "{question?: text (asked at once)} open Ask About Patterns: questions about sewing patterns or PatternFoundry answered by Claude with your own Anthropic API key or paid with Foundry credits; it can draft and change the pattern through the commands, each change after your Allow (the conversation and a summary of the pattern open now go along: its pieces and sizes and the names of the measurements set, never their values, which Claude reads only with your Allow) → {open, asking}",
+    ),
+    (
+        "ui.account",
+        "Foundry Account…",
+        "",
+        "{create?: bool (open on Create Account, else Sign In)} open Foundry Account: make an account or sign in to the Foundry service shared by the SiteSentrix apps, see the credits and buy more (Stripe's page opens in the browser), and choose to pay for the AI features with them instead of your own Anthropic API key → {open, signedIn, server, credits, payWithCredits}",
+    ),
+    (
         "ui.tileEdgeColor",
         "Tile Edge Color…",
         "",
@@ -1556,6 +1568,8 @@ pub fn run_ui_command(app: &mut VectorcraftApp, id: &str, p: &Value) -> Option<R
             crate::dialogs::graphic_style_options::open_merge(app, names.unwrap_or_default())
         }
         "ui.tileEdgeColor" => crate::dialogs::tile_edge_color::open(app),
+        "ui.askAboutPatterns" => crate::ai::ask::open(app, p),
+        "ui.account" => crate::ai::account::open(app, p),
         "ui.layerOptions" => crate::dialogs::layer_options::open(app, p),
         "ui.newLayer" => crate::dialogs::layer_options::open_new(app, p),
         "ui.newArtboard" => crate::dialogs::artboard_options::open_new(app),
@@ -2248,6 +2262,7 @@ pub fn enabled(app: &VectorcraftApp, id: &str) -> bool {
         "type.bold" | "type.italic" => crate::panels::character::text_style(app).is_some(),
         id if crate::panels::paragraph::ALIGN_COMMANDS.iter().any(|c| c.0 == id) => crate::panels::character::text_style(app).is_some(),
         "file.reveal" => app.services.reveal.is_some() && app.session.active().is_some_and(|d| d.path.is_some()),
+        "ui.askAboutPatterns" | "ui.account" => crate::ai::available(app),
         "file.cancelExport" | "file.exportInBackground" => app.background.jobs.iter().any(|j| j.progress.is_some() && !j.cancelled()),
         "file.place"
         | "file.export.svg"
@@ -2712,6 +2727,8 @@ pub fn menu_tree_named(english_names: bool) -> Vec<(&'static str, Vec<Item>)> {
                 c("Grade Nest", "grade.nest"),
                 c("Clear Graded Nest", "grade.clear"),
                 Sep,
+                c("Ask About Patterns…", "ui.askAboutPatterns"),
+                Sep,
                 panel("Measurements", "measurements"),
                 panel("Grading", "grading"),
                 panel("Pattern Pieces", "pieces"),
@@ -3019,6 +3036,9 @@ pub fn menu_tree_named(english_names: bool) -> Vec<(&'static str, Vec<Item>)> {
                 Sep,
                 c("Search Commands…", "help.commandPalette"),
                 todos("PatternFoundry Help…", "F1"),
+                Sep,
+                c("Ask About Patterns…", "ui.askAboutPatterns"),
+                c("Foundry Account…", "ui.account"),
                 Sep,
                 c("About PatternFoundry", "help.about"),
             ],

@@ -68,6 +68,8 @@ pub const TABLE: &[(&str, Class)] = &[
     // DXF tags (adapted from CADCraft) and DXF-AAMA pattern files on them.
     ("pf-dxf", Class::Standalone),
     ("pf-aama", Class::Layer(1)),
+    // AI requests (adapted from StitchFoundry's AI client), without network code.
+    ("pf-ai", Class::Standalone),
 ];
 
 /// Explicit orderings *within* a layer (earlier may be used by later).

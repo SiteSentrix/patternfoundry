@@ -5289,3 +5289,83 @@ file-filter	DXF-AAMA (cutting room)	DXF-AAMA (střihárna)
 @msg	the piece {_1} has no outline	díl {_1} nemá obrys
 file-filter	SVG for cutting	SVG pro řezání
 file-filter	PDF for projector	PDF pro projektor
+	Foundry Account…	Účet Foundry…
+	A password needs at least 8 characters.	Heslo musí mít alespoň 8 znaků.
+	Account	Účet
+	Allow	Povolit
+	Anthropic API key:	Klíč API Anthropic:
+	Ask	Zeptat se
+	Buy credits	Koupit kredity
+	Buy…	Koupit…
+	Change key	Změnit klíč
+	Create Free Account	Vytvořit účet zdarma
+	Create a free Foundry Account	Vytvořte si účet Foundry zdarma
+	Don't Allow	Nepovolit
+	Edit › Undo takes each change back.	Úpravy › Zpět vrátí každou změnu.
+	Email	E-mail
+	Foundry Account	Účet Foundry
+	Foundry accounts aren't open yet. Until then, the AI features work with your own Anthropic API key.	Účty Foundry zatím nejsou otevřené. Do té doby funkce AI fungují s vaším vlastním klíčem API Anthropic.
+	Get a key	Získat klíč
+	I have an account: Sign In	Mám účet: přihlásit se
+	New Conversation	Nová konverzace
+	New here? Create a free account	Jste tu nově? Vytvořte si účet zdarma
+	No card needed, and no API key to set up	Bez karty a bez nastavování klíče API
+	Paid with Foundry credits ({n} left).	Placeno kredity Foundry (zbývá {n}).
+	Paid with Foundry credits.	Placeno kredity Foundry.
+	Pay for the AI features with my Foundry credits	Platit funkce AI mými kredity Foundry
+	Pay with Foundry credits instead	Platit raději kredity Foundry
+	Payment is on Stripe's secure page, in your browser; your card never reaches PatternFoundry.	Platí se na zabezpečené stránce Stripe ve vašem prohlížeči; vaše karta se do PatternFoundry nikdy nedostane.
+	Reading your credits…	Načítají se kredity…
+	Remember the key on this computer	Zapamatovat si klíč v tomto počítači
+	Server	Server
+	Sign In	Přihlásit se
+	Sign Out	Odhlásit se
+	Sign in to your Foundry Account	Přihlaste se k účtu Foundry
+	Signed in as {email}	Přihlášen jako {email}
+	Thinking…	Přemýšlí…
+	Type your question, then press Enter	Napište otázku a stiskněte Enter
+	{n} credits	{n} kreditů
+	{n} credits for {price}	{n} kreditů za {price}
+@msg	An account with that email already exists: sign in instead.	Účet s tímto e-mailem už existuje: raději se přihlaste.
+@msg	Anthropic refused the API key: {0}	Anthropic odmítl klíč API: {0}
+@msg	Couldn't reach the AI service: {0}	Ke službě AI se nelze připojit: {0}
+@msg	Enter your Anthropic API key first.	Nejprve zadejte svůj klíč API Anthropic.
+@msg	Foundry accounts aren't open yet.	Účty Foundry zatím nejsou otevřené.
+@msg	Not enough Foundry credits: buy more in Foundry Account.	Málo kreditů Foundry: kupte další v Účtu Foundry.
+@msg	The AI declined to answer this: ask another way.	AI odmítla odpovědět: zeptejte se jinak.
+@msg	The AI service failed (error {0}): try again later.	Služba AI selhala (chyba {0}): zkuste to znovu později.
+@msg	The AI service is busy: try again in a minute.	Služba AI je právě vytížená: zkuste to znovu za minutu.
+@msg	The API key isn't valid: paste it again from the Anthropic Console.	Klíč API není platný: vložte ho znovu z Anthropic Console.
+@msg	The question is too long: keep it under 2,000 characters.	Otázka je příliš dlouhá: nepřekračujte 2 000 znaků.
+@msg	The reply had no answer: try again, or ask something narrower.	Odpověď byla prázdná: zkuste to znovu nebo se zeptejte konkrétněji.
+@msg	The request failed (error {0}): {1}	Požadavek selhal (chyba {0}): {1}
+@msg	Type a question first.	Nejprve napište otázku.
+@msg	Your Anthropic account can't pay for this: {0}	Z vašeho účtu Anthropic to nelze zaplatit: {0}
+@msg	already asking: wait for the answer	otázka už se odesílá: počkejte na odpověď
+@msg	this needs a connection to the AI service, which this build doesn't have	to vyžaduje připojení ke službě AI, které tato verze nemá
+@msg	This conversation is long: start a New Conversation.	Tato konverzace je dlouhá: začněte novou konverzaci.
+@msg	Claude took too many steps: ask again, more simply.	Claude potřeboval příliš mnoho kroků: zeptejte se znovu a jednodušeji.
+@msg	Account made: welcome to PatternFoundry.	Účet vytvořen: vítejte ve PatternFoundry.
+@msg	Signed in.	Přihlášeno.
+@msg	Signed out.	Odhlášeno.
+@msg	Type your email address.	Napište svou e-mailovou adresu.
+@msg	Pay on the page that opened in your browser, then press Refresh.	Zaplaťte na stránce otevřené v prohlížeči a pak stiskněte Obnovit.
+	Ask About Patterns…	Zeptat se na střihy…
+	Answers come from Claude with your own Anthropic API key, billed to your Anthropic account. They can be wrong: sew a muslin before cutting good fabric.	Odpovědi přicházejí od Clauda s vaším vlastním klíčem API Anthropic, účtovaným na váš účet Anthropic. Mohou být chybné: než nastříháte dobrou látku, ušijte zkušební model z nebělené bavlny.
+	Ask About Patterns	Zeptat se na střihy
+	Ask anything about sewing patterns or PatternFoundry: how much ease to add, how to move a dart, which block to start from, where a feature is. Claude can also draft and change your pattern when you ask, after you allow it.	Zeptejte se na cokoli o střizích nebo PatternFoundry: kolik volnosti přidat, jak přesunout záševek, ze kterého základního střihu vyjít, kde je nějaká funkce. Claude může na vaši žádost také konstruovat a měnit váš střih, jakmile to povolíte.
+	Claude asks to:	Claude žádá:
+	Couldn't do:	Nelze provést:
+	Done:	Hotovo:
+	Free credits for the AI features, no API key needed	Kredity zdarma na funkce AI, bez klíče API
+	Free credits to try the AI features: Ask About Patterns drafts and changes patterns with you	Kredity zdarma na vyzkoušení funkcí AI: Zeptat se na střihy s vámi konstruuje a mění střihy
+	Include my pattern	Přiložit můj střih
+	Its pieces and sizes, and which measurements are set: never their values	Jeho díly a velikosti a které míry jsou nastavené: nikdy jejich hodnoty
+	Leave it empty for the Foundry service.	Nechte prázdné pro službu Foundry.
+	Not allowed:	Nepovoleno:
+	One account for every SiteSentrix app	Jeden účet pro všechny aplikace SiteSentrix
+	Read your measurements	Číst vaše míry
+@msg	Ask About Patterns needs a build that can reach the AI service	Zeptat se na střihy vyžaduje verzi, která se může připojit ke službě AI
+@msg	Foundry Account needs a build that can reach the AI service	Účet Foundry vyžaduje verzi, která se může připojit ke službě AI
+@msg	Sign in to your Foundry account (Help › Foundry Account…).	Přihlaste se ke svému účtu Foundry (Nápověda › Účet Foundry…).
+@msg	The Foundry service can't do this yet: try again later.	Služba Foundry to zatím neumí: zkuste to později.

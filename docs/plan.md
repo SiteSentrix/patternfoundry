@@ -392,3 +392,24 @@ is built on, plus a pattern mode, the way StitchFoundry adds embroidery:
   mirroring, both rule kinds), 1 engine test (a front graded from a back grows to the left
   mirrored, to the right not; refusals) and 1 panel test. Not yet: points picked on the canvas,
   per-size rules edited in the panel.
+- 2026-10-21, **PF-8.1**: **Ask About Patterns** (Help and Pattern menus, `ui.askAboutPatterns`)
+  and **Foundry Account** (Help menu, `ui.account`), adapted from StitchFoundry's AI client, as
+  the owner approved (`crates/sf-core/src/ai` and `crates/ui-egui/src/embroidery/{ask,account,
+  prompt}.rs` in github.com/Stitchwright/StitchFoundry). A new `crates/pf-ai` (standalone, no
+  network code) builds the Messages API requests and reads the replies: the conversation, Claude's
+  two tools (`find_commands`, `run_command`), the Foundry cloud service's requests (sign in, the
+  account, checkout) and AI requests sent through it paid in credits (only the body keys the
+  service accepts; model `claude-opus-5-5`, at most 16,000 tokens). The app sends them through the
+  host: `ureq` on a thread on the desktop (`apps/vectorcraft/src/ai_service.rs`, with the API key
+  and session in private files next to the settings), the browser's fetch on the web. Claude can
+  look at the pattern and change it through PatternFoundry's commands: reads run at once, changes
+  wait for the user's Allow (each an undo step), files, exports, preferences, plug-ins and windows
+  are out of reach. Measurements are personal data: the pattern summary sent with a question
+  names the pieces, blocks, sizes and which measurements are set, never their values, and
+  measure.info (the only command that returns them) waits for the user's Allow like a change.
+  Tests: 9 in `pf-ai`, 7 in `crates/ui-egui/src/ai/tests.rs` (with a fake service: the summary
+  without values, reads at once and the skirt drafted after Allow, a declined read, what Claude may
+  run, no key or question, the web's fetch, a request paid with credits going to the service and
+  its out-of-credits refusal). Not yet: a real request checked against the service, drafting a
+  whole garment from a description (the "wrap dress" of PF-8's done-when: needs a wrap bodice in
+  the design tools), fit advice from muslin photos.

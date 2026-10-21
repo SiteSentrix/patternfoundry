@@ -21,6 +21,7 @@ pf-core = { path = "crates/pf-core" }
 # A DXF tag reader/writer adapted from CADCraft (NOTICE), and DXF-AAMA pattern files on it
 pf-dxf = { path = "crates/pf-dxf" }
 pf-aama = { path = "crates/pf-aama" }
+pf-ai = { path = "crates/pf-ai" }
 vectorcraft-geom = { path = "crates/geom" }
 vectorcraft-color = { path = "crates/color" }
 vectorcraft-doc = { path = "crates/doc" }

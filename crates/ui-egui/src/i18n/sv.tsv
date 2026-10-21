@@ -5245,3 +5245,83 @@ file-filter	DXF-AAMA (cutting room)	DXF-AAMA (tillskärning)
 @msg	the piece {_1} has no outline	mönsterdelen {_1} har ingen kontur
 file-filter	SVG for cutting	SVG för skärning
 file-filter	PDF for projector	PDF för projektor
+	Foundry Account…	Foundry-konto…
+	A password needs at least 8 characters.	Ett lösenord behöver minst 8 tecken.
+	Account	Konto
+	Allow	Tillåt
+	Anthropic API key:	Anthropic API-nyckel:
+	Ask	Fråga
+	Buy credits	Köp krediter
+	Buy…	Köp…
+	Change key	Byt nyckel
+	Create Free Account	Skapa gratis konto
+	Create a free Foundry Account	Skapa ett gratis Foundry-konto
+	Don't Allow	Tillåt inte
+	Edit › Undo takes each change back.	Redigera › Ångra tar tillbaka varje ändring.
+	Email	E-post
+	Foundry Account	Foundry-konto
+	Foundry accounts aren't open yet. Until then, the AI features work with your own Anthropic API key.	Foundry-konton har inte öppnat än. Tills dess fungerar AI-funktionerna med din egen API-nyckel från Anthropic.
+	Get a key	Skaffa en nyckel
+	I have an account: Sign In	Jag har ett konto: logga in
+	New Conversation	Ny konversation
+	New here? Create a free account	Ny här? Skapa ett gratis konto
+	No card needed, and no API key to set up	Inget kort och ingen API-nyckel att ställa in
+	Paid with Foundry credits ({n} left).	Betalt med Foundry-krediter ({n} kvar).
+	Paid with Foundry credits.	Betalt med Foundry-krediter.
+	Pay for the AI features with my Foundry credits	Betala AI-funktionerna med mina Foundry-krediter
+	Pay with Foundry credits instead	Betala med Foundry-krediter i stället
+	Payment is on Stripe's secure page, in your browser; your card never reaches PatternFoundry.	Betalningen sker på Stripes säkra sida i din webbläsare; ditt kort når aldrig PatternFoundry.
+	Reading your credits…	Läser dina krediter…
+	Remember the key on this computer	Kom ihåg nyckeln på den här datorn
+	Server	Server
+	Sign In	Logga in
+	Sign Out	Logga ut
+	Sign in to your Foundry Account	Logga in på ditt Foundry-konto
+	Signed in as {email}	Inloggad som {email}
+	Thinking…	Tänker…
+	Type your question, then press Enter	Skriv din fråga och tryck sedan på Enter
+	{n} credits	{n} krediter
+	{n} credits for {price}	{n} krediter för {price}
+@msg	Anthropic refused the API key: {0}	Anthropic avvisade API-nyckeln: {0}
+@msg	Couldn't reach the AI service: {0}	Kunde inte nå AI-tjänsten: {0}
+@msg	Enter your Anthropic API key first.	Ange din Anthropic API-nyckel först.
+@msg	The AI declined to answer this: ask another way.	AI:n avböjde att svara på detta: fråga på ett annat sätt.
+@msg	The AI service failed (error {0}): try again later.	AI-tjänsten misslyckades (fel {0}): försök igen senare.
+@msg	The AI service is busy: try again in a minute.	AI-tjänsten är upptagen: försök igen om en minut.
+@msg	The API key isn't valid: paste it again from the Anthropic Console.	API-nyckeln är ogiltig: klistra in den igen från Anthropic Console.
+@msg	The question is too long: keep it under 2,000 characters.	Frågan är för lång: håll den under 2 000 tecken.
+@msg	The reply had no answer: try again, or ask something narrower.	Svaret innehöll inget svar: försök igen, eller fråga något snävare.
+@msg	The request failed (error {0}): {1}	Begäran misslyckades (fel {0}): {1}
+@msg	Type a question first.	Skriv en fråga först.
+@msg	Your Anthropic account can't pay for this: {0}	Ditt Anthropic-konto kan inte betala för detta: {0}
+@msg	already asking: wait for the answer	frågar redan: vänta på svaret
+@msg	This conversation is long: start a New Conversation.	Den här konversationen är lång: starta en ny konversation.
+@msg	Claude took too many steps: ask again, more simply.	Claude tog för många steg: fråga igen, enklare.
+	Ask About Patterns…	Fråga om mönster…
+	Answers come from Claude with your own Anthropic API key, billed to your Anthropic account. They can be wrong: sew a muslin before cutting good fabric.	Svaren kommer från Claude med din egen Anthropic API-nyckel, debiterat ditt Anthropic-konto. De kan vara fel: sy en provmodell i nessel innan du klipper till fint tyg.
+	Ask About Patterns	Fråga om mönster
+	Ask anything about sewing patterns or PatternFoundry: how much ease to add, how to move a dart, which block to start from, where a feature is. Claude can also draft and change your pattern when you ask, after you allow it.	Fråga vad som helst om symönster eller PatternFoundry: hur mycket rörelsevidd du ska lägga till, hur du flyttar en inprovning, vilket grundmönster du ska utgå från, var en funktion finns. Claude kan också konstruera och ändra ditt mönster när du ber om det, efter att du har tillåtit det.
+	Claude asks to:	Claude ber om att:
+	Couldn't do:	Kunde inte utföra:
+	Done:	Klart:
+	Free credits for the AI features, no API key needed	Gratis krediter för AI-funktionerna, ingen API-nyckel behövs
+	Free credits to try the AI features: Ask About Patterns drafts and changes patterns with you	Gratis krediter för att prova AI-funktionerna: Fråga om mönster konstruerar och ändrar mönster tillsammans med dig
+	Include my pattern	Inkludera mitt mönster
+	Its pieces and sizes, and which measurements are set: never their values	Dess delar och storlekar, och vilka mått som är angivna: aldrig deras värden
+	Leave it empty for the Foundry service.	Lämna tomt för Foundry-tjänsten.
+	Not allowed:	Inte tillåtet:
+	One account for every SiteSentrix app	Ett konto för alla SiteSentrix-appar
+	Read your measurements	Läsa dina mått
+@msg	An account with that email already exists: sign in instead.	Det finns redan ett konto med den e-postadressen: logga in i stället.
+@msg	Ask About Patterns needs a build that can reach the AI service	Fråga om mönster kräver en version som kan nå AI-tjänsten
+@msg	Foundry Account needs a build that can reach the AI service	Foundry-konto kräver en version som kan nå AI-tjänsten
+@msg	Foundry accounts aren't open yet.	Foundry-konton är inte öppna än.
+@msg	Not enough Foundry credits: buy more in Foundry Account.	Inte tillräckligt med Foundry-krediter: köp fler i Foundry-konto.
+@msg	Sign in to your Foundry account (Help › Foundry Account…).	Logga in på ditt Foundry-konto (Hjälp › Foundry-konto…).
+@msg	The Foundry service can't do this yet: try again later.	Foundry-tjänsten kan inte göra detta än: försök igen senare.
+@msg	this needs a connection to the AI service, which this build doesn't have	detta kräver en anslutning till AI-tjänsten, som den här versionen inte har
+@msg	Account made: welcome to PatternFoundry.	Kontot har skapats: välkommen till PatternFoundry.
+@msg	Signed in.	Inloggad.
+@msg	Signed out.	Utloggad.
+@msg	Type your email address.	Skriv din e-postadress.
+@msg	Pay on the page that opened in your browser, then press Refresh.	Betala på sidan som öppnades i webbläsaren och tryck sedan på Uppdatera.

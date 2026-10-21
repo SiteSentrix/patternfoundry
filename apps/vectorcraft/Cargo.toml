@@ -39,6 +39,9 @@ image = { workspace = true }
 webbrowser = { workspace = true }
 # The window's monitors, size and position (the same winit eframe runs on).
 winit = { version = "0.30", default-features = false }
+# The AI features' HTTPS requests (src/ai_service.rs), as StitchFoundry sends them: rustls with the
+# system's trusted certificates.
+ureq = { version = "3.4", default-features = false, features = ["rustls", "platform-verifier"] }
 
 # The win7 target retains the viewer fallback; craft-print's WinRT PDF renderer needs newer Windows.
 [target.'cfg(all(not(target_arch = "wasm32"), not(target_vendor = "win7")))'.dependencies]

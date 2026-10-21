@@ -67,7 +67,7 @@ line bridging darts), PF-5's tools are in (dart rotation, splitting, slash and s
 and matching, walking seams, smoothing across seams, facings, knife, inverted and box pleats,
 gathering marks, flat, stand and shirt collars, patch, in-seam and welt pockets) and PF-7 has
 DXF-AAMA export (PF-7.1), SVG for cutting (PF-7.2) and the projector PDF (PF-7.3; see the
-progress log in `docs/plan.md`). PF-6 has grading by redrafting (PF-6.1, the graded nest), grade
-rules per point (PF-6.2), one size written for cutting (PF-6.3) and the Grading panel (PF-6.4).
-Next: PF-8 (AI help) or the PF-6 follow-ups (points picked on the canvas); graded
-DXF-AAMA (the rule table) waits on the owner (see PF-6.3); the in-app projector view is still to do.
+progress log in `docs/plan.md`). PF-6 (grading, PF-6.1 to 6.5) is done but for graded DXF-AAMA
+(the rule table), which waits on the owner (see PF-6.3). PF-8 has begun: Ask About Patterns and
+Foundry Account (PF-8.1). Next: a real request through the Foundry service, then drafting a
+garment from a description; the in-app projector view is still to do.
