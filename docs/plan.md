@@ -345,3 +345,21 @@ is built on, plus a pattern mode, the way StitchFoundry adds embroidery:
   cutting lines; measurements untouched; replaced, undone, cleared; PDF layers per size;
   alignment; bad requests). Not yet: grade rules per point (PF-6.2) for patterns not drafted
   from measurements, grade rules in DXF-AAMA files, printing one chosen size.
+- 2026-10-21, **PF-6.2**: grade rules per point, for patterns that aren't drafted from
+  measurements (`grade.setSizes`, `grade.setRule`, `grade.info`). As the cutting-room standard
+  describes rule grading (ASTM D6673, from DH Patterns and Fit's overview,
+  https://dorthehansen.com/wp-content/uploads/2014/10/ePattern-ASTM-Standard.pdf), chosen
+  points of a piece carry a grade rule: how far the point moves in x and y for each size. The
+  document keeps a size range (smallest first) and its base size; a rule is either the same move
+  at every size step from the base (`step: [dx, dy]`, mm, x right and y down) or each named
+  size's move from the base (`sizes: {"L": [dx, dy]}`). Points between ruled points move in
+  proportion to how far along the seam line they are (`pf_core::grade::moves`), so a curve
+  between two graded points keeps its shape; with one rule the whole piece moves. `grade.nest`
+  grades into the size range when there is one: each size is drafted from the size chart's
+  measurements where the chart has it, then the rules move the points, so the two kinds of
+  grading add up. The rules live on the piece (saved with it); the document is never graded
+  itself. Tests: 4 in `pf-core` (sizes, regular and irregular rules, points in proportion,
+  wrapping round the outline) and 4 more engine tests (`tests_grade.rs`: a square graded 90, 100,
+  110 mm; irregular rules; rules on top of redrafting; bad sizes and rules). Not yet: a grading
+  panel (rules from the canvas), grade rules written into DXF-AAMA files (the RUL table),
+  printing one chosen size, rules copied between pieces.

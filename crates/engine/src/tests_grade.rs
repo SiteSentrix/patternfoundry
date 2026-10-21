@@ -119,7 +119,7 @@ fn sizes_the_chart_cannot_draft_are_reported_and_bad_requests_refused() {
     assert_eq!(v["warnings"].as_array().unwrap().len(), 2, "{v}");
     let mut t = Session::new();
     t.execute("file.new", &json!({"width": 800, "height": 800})).unwrap();
-    assert!(t.execute("grade.nest", &json!({})).unwrap_err().to_string().contains("size chart"));
+    assert!(t.execute("grade.nest", &json!({})).unwrap_err().to_string().contains("no sizes"));
     t.execute("measure.importChart", &json!({"data": CHART})).unwrap();
     assert!(t.execute("grade.nest", &json!({})).unwrap_err().to_string().contains("pattern pieces"));
     assert_eq!(t.execute("grade.clear", &json!({})).unwrap(), json!({"removed": false}));
@@ -145,4 +145,123 @@ fn each_piece_lines_up_on_the_point_asked() {
     let x1: Vec<f64> = nest.children().unwrap().iter().map(|l| l.children().unwrap()[1].path_data().unwrap().bounds().unwrap().x1).collect();
     assert!(x1[0] < x1[1] && x1[1] < x1[2], "{x1:?}");
     assert!(s.execute("grade.nest", &json!({"align": "middle"})).unwrap_err().to_string().contains("align"));
+}
+
+/// A 10 cm square piece graded S, M (base), L.
+fn square() -> (Session, u64) {
+    let mut s = Session::new();
+    s.execute("file.new", &json!({"width": 800, "height": 800})).unwrap();
+    let side = pf_core::mm_to_pt(100.0);
+    s.execute("shape.rectangle", &json!({"x": 40, "y": 40, "width": side, "height": side})).unwrap();
+    let id = s.execute("piece.make", &json!({"name": "Square", "allowance": 10})).unwrap()["ids"][0].as_u64().unwrap();
+    s.execute("grade.setSizes", &json!({"sizes": ["S", "M", "L"], "base": "m"})).unwrap();
+    (s, id)
+}
+
+/// The seam line's points of piece `id`, in mm.
+fn seam_points(s: &Session, id: u64) -> Vec<[f64; 2]> {
+    let doc = &s.doc().unwrap().doc;
+    let n = doc.node(vectorcraft_doc::NodeId(id)).unwrap();
+    let seam =
+        n.children().unwrap().iter().find(|c| matches!(c.extras().pattern.as_deref(), Some(pf_core::PatternTag::Mark(pf_core::Mark::Seam)))).unwrap();
+    seam.path_data().unwrap().subpaths[0].anchors.iter().map(|a| [pf_core::pt_to_mm(a.p.x), pf_core::pt_to_mm(a.p.y)]).collect()
+}
+
+#[test]
+fn grade_rules_move_points_from_size_to_size() {
+    let (mut s, id) = square();
+    let pts = seam_points(&s, id);
+    let right = pts.iter().map(|p| p[0]).fold(f64::MIN, f64::max);
+    // The right side's points move 10 mm out a size; the left side's stay.
+    for (i, p) in pts.iter().enumerate() {
+        let dx = if (p[0] - right).abs() < 1e-6 { 10.0 } else { 0.0 };
+        s.execute("grade.setRule", &json!({"id": id, "anchor": i, "step": [dx, 0]})).unwrap();
+    }
+    let info = s.execute("grade.info", &json!({"id": id})).unwrap();
+    assert_eq!(info["base"], json!("M"));
+    assert_eq!(info["rules"].as_array().unwrap().len(), pts.len());
+    let moved = |size: &str| -> Vec<f64> { info["moves"][size].as_array().unwrap().iter().map(|m| m[0].as_f64().unwrap()).collect() };
+    for (i, p) in pts.iter().enumerate() {
+        let out = if (p[0] - right).abs() < 1e-6 { 10.0 } else { 0.0 };
+        assert_eq!([moved("S")[i], moved("M")[i], moved("L")[i]], [-out, 0.0, out]);
+    }
+    // The nest: seam lines 90, 100 and 110 mm wide; cutting lines 20 mm more; M is the document's.
+    let v = s.execute("grade.nest", &json!({"line": "seam"})).unwrap();
+    assert_eq!(widths(&v, 0), [90.0, 100.0, 110.0]);
+    assert_eq!(v["warnings"], json!([]));
+    let v = s.execute("grade.nest", &json!({})).unwrap();
+    assert_eq!(widths(&v, 0), [110.0, 120.0, 130.0]);
+    let nest = nest_layer(&s);
+    let m = nest.children().unwrap()[1].children().unwrap()[0].path_data().unwrap().clone();
+    assert_eq!(vec![m], own_cuts(&s));
+    // The document itself is not graded.
+    assert_eq!(seam_points(&s, id), pts);
+}
+
+#[test]
+fn irregular_rules_name_each_size() {
+    let (mut s, id) = square();
+    let pts = seam_points(&s, id);
+    let bottom = pts.iter().map(|p| p[1]).fold(f64::MIN, f64::max);
+    for (i, p) in pts.iter().enumerate() {
+        if (p[1] - bottom).abs() < 1e-6 {
+            s.execute("grade.setRule", &json!({"id": id, "anchor": i, "sizes": {"s": [0, -3], "l": [0, 8]}})).unwrap();
+        } else {
+            s.execute("grade.setRule", &json!({"id": id, "anchor": i, "step": [0, 0]})).unwrap();
+        }
+    }
+    let v = s.execute("grade.nest", &json!({"line": "seam"})).unwrap();
+    let heights: Vec<f64> = v["sizes"].as_array().unwrap().iter().map(|s| s["pieces"][0]["heightMm"].as_f64().unwrap()).collect();
+    assert_eq!(heights, [97.0, 100.0, 108.0]);
+    // Spelled as the range spells the sizes.
+    let info = s.execute("grade.info", &json!({"id": id})).unwrap();
+    assert!(info["rules"].as_array().unwrap().iter().any(|r| r["sizes"]["L"] == json!([0.0, 8.0])), "{info}");
+    // Cleared, a point goes back to following its neighbours.
+    s.execute("grade.setRule", &json!({"id": id, "anchor": 0, "clear": true})).unwrap();
+    assert!(s.execute("grade.info", &json!({"id": id})).unwrap()["rules"].as_array().unwrap().iter().all(|r| r["anchor"] != json!(0)));
+}
+
+#[test]
+fn rules_and_redrafting_add_up() {
+    // The skirt drafted in each chart size, and the back moved 5 mm down a size by one rule.
+    let mut s = skirt();
+    s.execute("grade.setSizes", &json!({"sizes": ["10", "12", "14"], "base": "12"})).unwrap();
+    let back = s.execute("grade.nest", &json!({})).unwrap();
+    let drafted: Vec<f64> =
+        (0..3).map(|i| nest_layer(&s).children().unwrap()[i].children().unwrap()[0].path_data().unwrap().bounds().unwrap().y0).collect();
+    assert_eq!(back["warnings"], json!([]));
+    let id = {
+        let doc = &s.doc().unwrap().doc;
+        let mut id = None;
+        doc.walk(|n| {
+            if id.is_none() && super::cmd::piece::piece_on(n).is_some() {
+                id = Some(n.id.0);
+            }
+        });
+        id.unwrap()
+    };
+    s.execute("grade.setRule", &json!({"id": id, "anchor": 0, "step": [0, 5]})).unwrap();
+    s.execute("grade.nest", &json!({})).unwrap();
+    let ruled: Vec<f64> =
+        (0..3).map(|i| nest_layer(&s).children().unwrap()[i].children().unwrap()[0].path_data().unwrap().bounds().unwrap().y0).collect();
+    for (k, (r, d)) in ruled.iter().zip(&drafted).enumerate() {
+        assert!((pf_core::pt_to_mm(r - d) - 5.0 * (k as f64 - 1.0)).abs() < 1e-6, "{ruled:?} {drafted:?}");
+    }
+}
+
+#[test]
+fn bad_sizes_and_rules_are_refused() {
+    let (mut s, id) = square();
+    let e = |s: &mut Session, p: Value| s.execute(p["cmd"].as_str().unwrap(), &p["p"]).unwrap_err().to_string();
+    assert!(e(&mut s, json!({"cmd": "grade.setSizes", "p": {"sizes": ["S", "M"], "base": "L"}})).contains("base size"));
+    assert!(e(&mut s, json!({"cmd": "grade.setSizes", "p": {"sizes": ["S", "s"], "base": "S"}})).contains("twice"));
+    assert!(e(&mut s, json!({"cmd": "grade.setRule", "p": {"id": id, "anchor": 99, "step": [1, 0]}})).contains("points 0 to"));
+    assert!(e(&mut s, json!({"cmd": "grade.setRule", "p": {"id": id, "anchor": 0, "step": [1]}})).contains("step"));
+    assert!(e(&mut s, json!({"cmd": "grade.setRule", "p": {"id": id, "anchor": 0, "step": [900, 0]}})).contains("-500 to 500"));
+    assert!(e(&mut s, json!({"cmd": "grade.setRule", "p": {"id": id, "anchor": 0}})).contains("clear"));
+    // Without rules every size draws as the base: a warning for each other size.
+    let v = s.execute("grade.nest", &json!({})).unwrap();
+    assert_eq!(v["warnings"].as_array().unwrap().len(), 2, "{v}");
+    assert_eq!(s.execute("grade.setSizes", &json!({"sizes": null})).unwrap(), json!({"sizes": null}));
+    assert!(e(&mut s, json!({"cmd": "grade.nest", "p": {}})).contains("no sizes"));
 }

@@ -5232,6 +5232,9 @@ theme	Appearance	Външен вид
 	Welt Pocket	Джоб с лайсна
 	Grade Nest	Степенуване на размерите
 	Clear Graded Nest	Изчистване на степенуваните размери
+	Set Size Range	Задаване на гама размери
+	Set Grade Rule	Задаване на правило за степенуване
+	Grade Info	Информация за степенуването
 	Draft Shirt Collar	Конструиране на риза яка
 file-filter	DXF-AAMA (cutting room)	DXF-AAMA (кроялня)
 @msg	DXF-AAMA files are DXF R13 (ASTM D6673) or R12	DXF-AAMA файловете са DXF R13 (ASTM D6673) или R12

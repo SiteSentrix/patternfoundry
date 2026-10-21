@@ -101,7 +101,7 @@ pub(crate) fn mark_of(n: &Node) -> Option<Mark> {
 }
 
 /// The piece group `id` is or is in (one of its parts).
-fn piece_group(doc: &Document, id: NodeId) -> Option<NodeId> {
+pub(crate) fn piece_group(doc: &Document, id: NodeId) -> Option<NodeId> {
     let n = doc.node(id)?;
     if piece_on(n).is_some() {
         return Some(id);
@@ -112,7 +112,7 @@ fn piece_group(doc: &Document, id: NodeId) -> Option<NodeId> {
 
 /// The pieces a command acts on: `ids`/`id` in the params, else the selected pieces (or pieces
 /// with a selected part).
-fn target_pieces(s: &Session, p: &Value, cmd: &str) -> Result<Vec<NodeId>> {
+pub(crate) fn target_pieces(s: &Session, p: &Value, cmd: &str) -> Result<Vec<NodeId>> {
     let st = s.doc()?;
     let given: Vec<NodeId> = if let Some(id) = id_param(p, "id") {
         vec![id]

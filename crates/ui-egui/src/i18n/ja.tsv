@@ -4923,6 +4923,9 @@ lighting	Light	ライト
 	Welt Pocket	玉縁ポケット
 	Grade Nest	グレーディング（サイズ展開）
 	Clear Graded Nest	グレーディングを消去
+	Set Size Range	サイズ展開を設定
+	Set Grade Rule	グレーディングルールを設定
+	Grade Info	グレーディング情報
 	Draft Shirt Collar	シャツカラーを製図
 file-filter	DXF-AAMA (cutting room)	DXF-AAMA（裁断室）
 @msg	DXF-AAMA files are DXF R13 (ASTM D6673) or R12	DXF-AAMA ファイルは DXF R13（ASTM D6673）または R12 です
