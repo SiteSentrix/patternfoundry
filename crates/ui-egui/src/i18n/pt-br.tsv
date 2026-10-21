@@ -5185,3 +5185,7 @@ mark-style	Japanese	Japonesas
 	In-Seam Pocket	Bolso embutido na costura
 	Welt Pocket	Bolso embutido com vivo
 	Draft Shirt Collar	Traçar gola de camisa
+file-filter	DXF-AAMA (cutting room)	DXF-AAMA (sala de corte)
+@msg	DXF-AAMA files are DXF R13 (ASTM D6673) or R12	Arquivos DXF-AAMA são DXF R13 (ASTM D6673) ou R12
+@msg	no pattern pieces to export	nenhuma peça de molde para exportar
+@msg	the piece {_1} has no outline	a peça {_1} não tem contorno

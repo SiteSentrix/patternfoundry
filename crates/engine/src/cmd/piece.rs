@@ -22,7 +22,7 @@ use vectorcraft_geom::{Affine, BezPath, PathData, Point, SubPath};
 const MAX_PIECES: usize = 1000;
 /// How closely curves of the seam line are followed, in points (a fiftieth of a millimetre is
 /// below what a printer or a cutter can show).
-const FLATTEN_PT: f64 = 0.05;
+pub(crate) const FLATTEN_PT: f64 = 0.05;
 /// The label's type size, in points.
 const LABEL_PT: f64 = 10.0;
 
@@ -91,12 +91,12 @@ fn err(cmd: &str, e: impl ToString) -> EngineError {
 }
 
 /// The piece on `n`, if it is a piece's group.
-fn piece_on(n: &Node) -> Option<&Piece> {
+pub(crate) fn piece_on(n: &Node) -> Option<&Piece> {
     n.extras().pattern.as_deref().and_then(PatternTag::piece)
 }
 
 /// Which part of a piece `n` draws, if it is one.
-fn mark_of(n: &Node) -> Option<Mark> {
+pub(crate) fn mark_of(n: &Node) -> Option<Mark> {
     n.extras().pattern.as_deref().and_then(PatternTag::mark)
 }
 
@@ -163,7 +163,7 @@ fn allowance_param(v: &Value, cmd: &str) -> Result<f64> {
 
 /// The seam line's first closed subpath, flattened into an outline in document points: segment
 /// `i` of the subpath is edge `i`. Also the number of edges.
-fn outline_of(path: &PathData) -> Option<(Outline, usize)> {
+pub(crate) fn outline_of(path: &PathData) -> Option<(Outline, usize)> {
     let sp: &SubPath = path.subpaths.iter().find(|sp| sp.closed)?;
     let edges = sp.segment_count();
     let mut out = Outline::default();

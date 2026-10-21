@@ -246,3 +246,26 @@ is built on, plus a pattern mode, the way StitchFoundry adds embroidery:
   the block was looked at as an exported picture. Tests: 1 more in `pf-core`, 1 more engine test.
   Not yet: a front dart (the author's comments add about 1 cm at the front side seam for one),
   walking the inseams and side seams (the tutorial's own check), a waistband.
+- 2026-10-21, **PF-7.1**: DXF-AAMA export for cutting rooms (`document.export {format: aama}`,
+  File › Export › Export As › DXF-AAMA (cutting room)), written from the published descriptions of
+  ASTM D6673 (DH Patterns and Fit's overview,
+  https://dorthehansen.com/wp-content/uploads/2014/10/ePattern-ASTM-Standard.pdf, and Patro's
+  notes, https://fabricesalvaire.github.io/Patro/resources/file-format/dxf-astm.html; the standard
+  itself is not bought). DXF R13 (or R12 for older readers): a block per piece, inserted at the
+  origin, its cutting line on layer 1, seam line on 14, both copied to the validation layers 84
+  and 87, turn points (2) and curve points (3) of both, notches as points on the cutting line
+  carrying depth, width and angle (4), the grainline (7), the paths drawn inside the piece as
+  internal lines (8), and the piece system text (Piece Name, Quantity as right and left pieces,
+  Material); the style system text (Style Name, dates, Author, Sample Size, Units: METRIC, the
+  standard's version, Curve Tolerance) on layer 1 at the origin. Millimetres, y up, the pieces
+  where they are relative to each other. An unnamed piece goes by its seam line's name; every
+  piece name is once in the file. The DXF writer (`vectorcraft-cad`) gained blocks besides model
+  and paper space. Checked: the 10 cm square test (its seam line exactly 100 mm across in the
+  file, the cutting line 120), and the skirt block's file read by an independent reader (ezdxf
+  1.4.5's recover and strict readers: no errors, no fixes), drawn the right way up. Tests: 3 in
+  `vectorcraft-cad`, 3 engine tests (`tests_aama.rs`). Not yet: grading (graded nests and the rule
+  table, PF-6), drill holes, mirror lines and the NM attribute, notch shapes besides slit and V
+  (layers 80 to 83), opening AAMA files, an options dialog (the style name and sample size are
+  parameters), a test in a cutting-room program. Seen while checking: the cutting line runs its
+  allowance round a dart's legs, as if the dart were cut out; a cutting line should bridge the
+  dart (PF-1 follow-up).

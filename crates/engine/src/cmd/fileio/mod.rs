@@ -21,6 +21,7 @@
 //! [`FORMATS`] is the single list of formats (append-only); open dialogs use [`open_filters`],
 //! agents query `document.formats`.
 
+mod aama;
 mod action_batch;
 mod affinity;
 mod batch;
@@ -635,6 +636,17 @@ pub const FORMATS: &[Format] = &[
     Format { id: "png8", label: "PNG-8", extensions: &["png"], mime: "image/png", read: false, write: true, raster: true, options: PALETTE_OPTIONS },
     Format { id: "txt", label: "Text", extensions: TEXT_EXTS, mime: "text/plain", read: false, write: true, raster: false, options: text::OPTIONS },
     Format { id: "dxf", label: "DXF", extensions: &["dxf"], mime: "image/vnd.dxf", read: true, write: true, raster: false, options: dxf::OPTIONS },
+    // Pattern pieces for cutting rooms (ASTM D6673); written only: opening a .dxf reads it as DXF.
+    Format {
+        id: "aama",
+        label: "DXF-AAMA (cutting room)",
+        extensions: &["dxf"],
+        mime: "image/vnd.dxf",
+        read: false,
+        write: true,
+        raster: false,
+        options: aama::OPTIONS,
+    },
     Format {
         id: "eps",
         label: "EPS",

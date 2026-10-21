@@ -2032,6 +2032,8 @@ fn refresh_tree_text_bounds(n: &mut Arc<vectorcraft_doc::Node>) {
 #[cfg(test)]
 mod tests;
 #[cfg(test)]
+mod tests_aama;
+#[cfg(test)]
 mod tests_adjust;
 #[cfg(test)]
 mod tests_appearance;

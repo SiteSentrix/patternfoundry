@@ -4882,3 +4882,7 @@ lighting	Light	Luce
 	In-Seam Pocket	Tasca nella cucitura
 	Welt Pocket	Tasca a filetto
 	Draft Shirt Collar	Traccia collo camicia
+file-filter	DXF-AAMA (cutting room)	DXF-AAMA (sala taglio)
+@msg	DXF-AAMA files are DXF R13 (ASTM D6673) or R12	I file DXF-AAMA sono DXF R13 (ASTM D6673) o R12
+@msg	no pattern pieces to export	nessun pezzo del cartamodello da esportare
+@msg	the piece {_1} has no outline	il pezzo {_1} non ha contorno

@@ -251,6 +251,17 @@ pub(crate) struct ImageDef {
     pub reactors: Vec<(Handle, Handle)>,
 }
 
+/// A named block of entities (a pattern piece in a DXF-AAMA file): its block record, its BLOCK
+/// and ENDBLK handles, and its entities' group codes (owned by the record).
+#[derive(Clone, Debug)]
+pub(crate) struct UserBlock {
+    pub name: String,
+    pub record: Handle,
+    pub begin: Handle,
+    pub end: Handle,
+    pub entities: String,
+}
+
 /// Everything around the entities, collected while they were written.
 pub(crate) struct Drawing {
     pub version: DxfVersion,
@@ -259,6 +270,8 @@ pub(crate) struct Drawing {
     /// Text styles: (style name, font family).
     pub styles: Vec<(String, String)>,
     pub images: Vec<ImageDef>,
+    /// Blocks besides model and paper space, inserted by the entities.
+    pub blocks: Vec<UserBlock>,
     /// The entities' group codes.
     pub entities: String,
     /// `[x0, y0, x1, y1]` of everything written (drawing units).
@@ -314,7 +327,7 @@ impl Drawing {
             c.raw(2, "Standard");
             c.int(70, 0);
             c.end_table();
-            c.table("BLOCK_RECORD", fixed::BLOCK_RECORD_TABLE, 2);
+            c.table("BLOCK_RECORD", fixed::BLOCK_RECORD_TABLE, 2 + self.blocks.len());
             for (name, h, layout) in
                 [("*Model_Space", fixed::MODEL_RECORD, fixed::MODEL_LAYOUT), ("*Paper_Space", fixed::PAPER_RECORD, fixed::PAPER_LAYOUT)]
             {
@@ -322,6 +335,15 @@ impl Drawing {
                 c.raw(2, name);
                 if v.r2000() {
                     c.handle(340, layout);
+                    c.int(70, 0);
+                    c.int(280, 1);
+                    c.int(281, 0);
+                }
+            }
+            for b in &self.blocks {
+                c.record("BLOCK_RECORD", b.record, fixed::BLOCK_RECORD_TABLE, "AcDbBlockTableRecord");
+                c.str(2, &b.name);
+                if v.r2000() {
                     c.int(70, 0);
                     c.int(280, 1);
                     c.int(281, 0);
@@ -348,6 +370,11 @@ impl Drawing {
                 c.raw(8, "0");
                 c.raw(100, "AcDbBlockEnd");
             }
+            self.user_blocks(&mut c);
+            c.end_section();
+        } else if !self.blocks.is_empty() {
+            c.section("BLOCKS");
+            self.user_blocks(&mut c);
             c.end_section();
         }
         c.section("ENTITIES");
@@ -358,6 +385,31 @@ impl Drawing {
         }
         c.raw(0, "EOF");
         c.into_string()
+    }
+
+    /// The blocks besides model and paper space (from R13 owned by their block records).
+    fn user_blocks(&self, c: &mut Codes) {
+        let handles = self.version.handles();
+        for b in &self.blocks {
+            c.object("BLOCK", b.begin, b.record, "AcDbEntity");
+            c.raw(8, "0");
+            if handles {
+                c.raw(100, "AcDbBlockBegin");
+            }
+            c.str(2, &b.name);
+            c.int(70, 0);
+            c.xyz(10, 0.0, 0.0);
+            c.str(3, &b.name);
+            if handles {
+                c.raw(1, "");
+            }
+            c.append(&b.entities);
+            c.object("ENDBLK", b.end, b.record, "AcDbEntity");
+            c.raw(8, "0");
+            if handles {
+                c.raw(100, "AcDbBlockEnd");
+            }
+        }
     }
 
     fn header(&self, c: &mut Codes, handseed: u32) {

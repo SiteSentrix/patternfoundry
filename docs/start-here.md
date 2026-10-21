@@ -62,9 +62,9 @@ anything he clicks through.
 Money, legal wording, anything public, domains, and the open decisions in `docs/plan.md`.
 
 ## Next task
-PF-0 to PF-4 are done (with PF-4.1 and PF-4.2, the sleeve and trouser blocks) and PF-5's tools are
-in (dart rotation, splitting, slash and spread, seam length and matching, walking seams, smoothing
+PF-0 to PF-4 are done (with PF-4.1 and PF-4.2, the sleeve and trouser blocks), PF-5's tools are in
+(dart rotation, splitting, slash and spread, seam length and matching, walking seams, smoothing
 across seams, facings, knife, inverted and box pleats, gathering marks, flat, stand and shirt
-collars, patch, in-seam and welt pockets; see the progress log in `docs/plan.md`). Next: the
-smaller PF-5 items in the progress log's “Not yet” list, then PF-7 (export for cutting) and PF-6
-(grading).
+collars, patch, in-seam and welt pockets) and PF-7 has begun with DXF-AAMA export (PF-7.1; see the
+progress log in `docs/plan.md`). Next: the cutting line bridging darts (PF-1 follow-up), the rest
+of PF-7 (SVG export for cutting, projector mode), then PF-6 (grading).
