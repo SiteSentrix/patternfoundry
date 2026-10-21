@@ -6,6 +6,12 @@
 //! edges meet (a corner) the piece's [`Corner`] style decides the join; inside a curved edge the
 //! joins are mitres, cut off (bevelled) where a mitre would reach far out.
 //!
+//! A dart (a sharp inward V of two straight legs) is not cut round: the cutting line crosses it
+//! with the dart's cap, drawn as a pattern maker does by folding the dart closed, pressed toward
+//! the side before it, drawing the allowance, and opening it again: the allowance lines meet the
+//! legs where the folded line crosses them, and peak over the dart's middle line where the
+//! folded-under dart reaches.
+//!
 //! Known limit: a seam line whose inward curves are tighter than the allowance (a deep, narrow
 //! notch in the outline) gives a cutting line that crosses itself there.
 
@@ -151,6 +157,62 @@ impl Outline {
     }
 }
 
+/// A dart is a sharp inward corner of two straight legs: legs closer than this (degrees).
+const DART_DEGREES: f64 = 50.0;
+
+/// `p` turned by `angle` (radians) about `about`.
+fn turn_about(p: Pt, about: Pt, angle: f64) -> Pt {
+    let (s, c) = angle.sin_cos();
+    let d = p - about;
+    about + Pt::new(d.x * c - d.y * s, d.x * s + d.y * c)
+}
+
+/// `p` reflected across the line through `on` along the unit `dir`.
+fn reflect(p: Pt, on: Pt, dir: Pt) -> Pt {
+    let d = p - on;
+    on + dir * (2.0 * d.dot(dir)) - d
+}
+
+/// The cutting line across a dart: `e1` the segment before it, `leg1` and `leg2` its legs (the
+/// apex is where they meet), `e2` the segment after it, with the allowances `w1` and `w2` of the
+/// segments either side. The points from where the line before the dart meets its first leg to
+/// where the line after it continues; `None` when the lines don't cross (it is then cut round).
+fn dart_cap(e1: &Seg, leg1: &Seg, leg2: &Seg, e2: &Seg, w1: f64, w2: f64) -> Option<Vec<Pt>> {
+    let (a, apex, b) = (leg1.start, leg1.end, leg2.end);
+    let u = (a - apex).unit()?;
+    let v = (b - apex).unit()?;
+    // Closing the dart turns everything after it about the apex until `b` is on `a`.
+    let close = u.y.atan2(u.x) - v.y.atan2(v.x);
+    let l1 = (a + e1.out * w1, e1.dir);
+    let l2 = (turn_about(b + e2.out * w2, apex, close), turn_about(apex + e2.dir, apex, close) - apex);
+    // The dart's side of the first leg (where its gap and the far side are).
+    let dart_side = u.cross(b - apex).signum();
+    let on_dart_side = |p: Pt| u.cross(p - apex).signum() == dart_side;
+    let q = cross_point(l1.0, l1.1, l2.0, l2.1);
+    // Where the folded allowance line crosses the leg: on the line after the dart when the two
+    // meet before the leg, else on the line before it.
+    let (mut points, across, extra) = match q {
+        Some(q) if !on_dart_side(q) => {
+            let q1 = cross_point(l2.0, l2.1, apex, u)?;
+            (vec![q, q1], l2, None)
+        }
+        Some(q) => (vec![cross_point(l1.0, l1.1, apex, u)?], l1, Some(q)),
+        None => (vec![cross_point(l1.0, l1.1, apex, u)?], l1, None),
+    };
+    let q1 = *points.last()?;
+    // The dart, folded toward the first side, lies over it mirrored in the first leg: its middle
+    // line reaches the allowance line where that mirror crosses it.
+    let middle = (u + v).unit()?;
+    let mirrored = reflect(apex + middle, apex, u) - apex;
+    let c = reflect(cross_point(apex, mirrored, across.0, across.1)?, apex, u);
+    points.push(c);
+    points.push(turn_about(q1, apex, -close));
+    if let Some(q) = extra {
+        points.push(turn_about(q, apex, -close));
+    }
+    points.iter().all(|p| p.is_finite()).then_some(points)
+}
+
 /// Where two lines cross: the line through `a` along `da` and the line through `b` along `db`.
 fn cross_point(a: Pt, da: Pt, b: Pt, db: Pt) -> Option<Pt> {
     let den = da.cross(db);
@@ -179,8 +241,36 @@ pub fn cutting_line(outline: &Outline, width: impl Fn(usize) -> f64, corner: imp
         Pt::new(s.dir.y, -s.dir.x).dot(s.out).signum()
     };
     let n = segs.len();
+    // Darts: the join at a dart's mouth (before its first leg) gives its cap, the joins at its
+    // apex and its other mouth nothing.
+    let mut caps: Vec<Option<Vec<Pt>>> = vec![None; n];
+    let mut skip = vec![false; n];
+    if n >= 5 {
+        for k in 0..n {
+            let (e1, leg1, leg2, e2) = (segs[(k + n - 1) % n], segs[k], segs[(k + 1) % n], segs[(k + 2) % n]);
+            let taken =
+                skip[k] || caps[k].is_some() || skip[(k + 1) % n] || skip[(k + 2) % n] || caps[(k + 1) % n].is_some() || caps[(k + 2) % n].is_some();
+            let inward = leg1.dir.cross(leg2.dir) * side_sign < 0.0;
+            let sharp = (-leg1.dir).dot(leg2.dir) > DART_DEGREES.to_radians().cos();
+            if taken || !inward || !sharp {
+                continue;
+            }
+            if let Some(cap) = dart_cap(&e1, &leg1, &leg2, &e2, w(&e1), w(&e2)) {
+                caps[k] = Some(cap);
+                skip[(k + 1) % n] = true;
+                skip[(k + 2) % n] = true;
+            }
+        }
+    }
     let mut out = Vec::with_capacity(n + 8);
     for j in 0..n {
+        if skip[j] {
+            continue;
+        }
+        if let Some(cap) = caps[j].take() {
+            out.extend(cap);
+            continue;
+        }
         let a = segs[(j + n - 1) % n];
         let b = segs[j];
         let (wa, wb) = (w(&a), w(&b));
@@ -300,6 +390,71 @@ mod tests {
         for p in &cut {
             assert!((p.len() - 60.0).abs() < 0.01, "{}", p.len());
         }
+    }
+
+    #[test]
+    fn a_dart_is_bridged_by_its_cap_not_cut_round() {
+        // A 100 × 100 piece (y down) with a dart in its top edge: legs from (45, 0) and (55, 0)
+        // to the point (50, 40), drawn either way round.
+        let pts = [(0.0, 0.0), (45.0, 0.0), (50.0, 40.0), (55.0, 0.0), (100.0, 0.0), (100.0, 100.0), (0.0, 100.0)];
+        let mut rev = pts;
+        rev.reverse();
+        for o in [polygon(&pts), polygon(&rev)] {
+            let cut = cutting_line(&o, |_| 10.0, |_| Corner::Mitre).unwrap();
+            // Nothing of the cutting line goes down into the dart: the allowance doesn't follow
+            // the legs.
+            assert!(cut.iter().all(|p| p.y <= 1e-9 || p.x < 0.0 || p.x > 100.0), "{cut:?}");
+            // The cap: two points on the legs' lines above the mouth, mirror images in the
+            // dart's middle line, and a peak on that line above them.
+            let on_leg = |p: &Pt, a: Pt| ((*p - Pt::new(50.0, 40.0)).cross(a - Pt::new(50.0, 40.0))).abs() < 1e-6;
+            let q1 = cut.iter().find(|p| p.y < 0.0 && on_leg(p, Pt::new(45.0, 0.0))).copied().unwrap();
+            let q2 = cut.iter().find(|p| p.y < 0.0 && on_leg(p, Pt::new(55.0, 0.0))).copied().unwrap();
+            assert!((q1.x + q2.x - 100.0).abs() < 1e-9 && (q1.y - q2.y).abs() < 1e-9, "{q1:?} {q2:?}");
+            let peak = cut.iter().find(|p| (p.x - 50.0).abs() < 1e-9).copied().unwrap();
+            assert!(peak.y < q1.y, "{peak:?} {q1:?}");
+            // Folded, the cap lies on the allowance line: the peak mirrored in the first leg is
+            // on the 10 mm line before the dart (y = -10) or on the folded line after it.
+            let u = (Pt::new(45.0, 0.0) - Pt::new(50.0, 40.0)).unit().unwrap();
+            let folded = reflect(peak, Pt::new(50.0, 40.0), u);
+            assert!(folded.x < 50.0, "{folded:?}");
+            // Elsewhere the allowance is the plain 10 mm.
+            let (x0, _, x1, y1) = bounds(&cut);
+            assert!((x0 + 10.0).abs() < 1e-9 && (x1 - 110.0).abs() < 1e-9 && (y1 - 110.0).abs() < 1e-9);
+        }
+    }
+
+    #[test]
+    fn the_dart_cap_folds_flat_onto_a_straight_waist() {
+        // When the dart is closed the waist either side is one straight line (the sides tilt
+        // to make it so): then the folded allowance is one line too, and the cap's peak mirrored
+        // in the first leg lands on it.
+        let apex = Pt::new(50.0, 60.0);
+        let half = 5f64.atan2(60.0);
+        // The waist after the dart turned by the dart's angle, so that closing the dart (which
+        // turns it back) makes it one line with the waist before it.
+        let b = Pt::new(55.0, 0.0);
+        let far = turn_about(b + Pt::new(45.0, 0.0), b, 2.0 * half);
+        let o = polygon(&[(0.0, 0.0), (45.0, 0.0), (apex.x, apex.y), (b.x, b.y), (far.x, far.y), (far.x, 100.0), (0.0, 100.0)]);
+        let cut = cutting_line(&o, |_| 10.0, |_| Corner::Mitre).unwrap();
+        let peak = cut.iter().find(|p| (p.x - 50.0).abs() < 1e-6 && p.y < 0.0).copied().unwrap();
+        let u = (Pt::new(45.0, 0.0) - apex).unit().unwrap();
+        assert!((reflect(peak, apex, u).y + 10.0).abs() < 1e-6, "{peak:?} {:?}", reflect(peak, apex, u));
+    }
+
+    #[test]
+    fn on_a_sloping_waist_the_cap_still_folds_onto_the_allowance_line() {
+        // A waist rising to the side, as a skirt's does: the cap follows the folded line, its
+        // peak mirrored in the first leg on the allowance line where the dart lies folded.
+        let apex = Pt::new(50.0, 80.0);
+        let o = polygon(&[(0.0, 10.0), (45.0, 4.5), (apex.x, apex.y), (55.0, 4.0), (100.0, 0.0), (100.0, 100.0), (0.0, 100.0)]);
+        let cut = cutting_line(&o, |_| 10.0, |_| Corner::Mitre).unwrap();
+        let c = cut.iter().position(|p| (p.x - 50.0).abs() < 0.1 && p.y < 0.0).unwrap();
+        let (q, q1, peak) = (cut[c - 2], cut[c - 1], cut[c]);
+        let u = (Pt::new(45.0, 4.5) - apex).unit().unwrap();
+        let folded = reflect(peak, apex, u);
+        assert!((folded - q).cross(q1 - q).abs() / (q1 - q).len() < 1e-9, "{folded:?} not on {q:?}–{q1:?}");
+        // The two points on the legs are as far from the apex.
+        assert!(((q1 - apex).len() - (cut[c + 1] - apex).len()).abs() < 1e-9);
     }
 
     #[test]

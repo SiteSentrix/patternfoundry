@@ -269,3 +269,15 @@ is built on, plus a pattern mode, the way StitchFoundry adds embroidery:
   parameters), a test in a cutting-room program. Seen while checking: the cutting line runs its
   allowance round a dart's legs, as if the dart were cut out; a cutting line should bridge the
   dart (PF-1 follow-up).
+- 2026-10-21, **PF-1.1**: the cutting line bridges darts. A dart (a sharp inward V of two straight
+  legs, closer than 50°) is no longer cut round: the cutting line crosses it with the dart's cap,
+  constructed as a pattern maker does by folding the dart closed (pressed toward the side before
+  it), drawing the allowance and opening it again; the allowance lines meet the legs where the
+  folded line crosses them, equally far from the point, and the cap peaks (or dips, where closing
+  the dart bends the seam) over the dart's middle line where the folded-under dart reaches. Found
+  while checking the DXF-AAMA export (PF-7.1), whose pieces had their allowance run round the
+  darts' legs as if the darts were cut out. Tests: 3 in `pf-core` (`allowance.rs`: nothing of the
+  cutting line inside a dart, the cap's points mirrored, the cap folding flat onto a straight
+  waist and onto a sloping one); they fail with the dart test switched off. The skirt and bodice
+  blocks made pieces were looked at: every waist, shoulder and bust dart bridged. Not yet: a dart
+  pressed toward the other side (a choice per dart), curved dart legs, darts inside a curved edge.
