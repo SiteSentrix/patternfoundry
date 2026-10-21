@@ -67,4 +67,5 @@ line bridging darts), PF-5's tools are in (dart rotation, splitting, slash and s
 and matching, walking seams, smoothing across seams, facings, knife, inverted and box pleats,
 gathering marks, flat, stand and shirt collars, patch, in-seam and welt pockets) and PF-7 has
 DXF-AAMA export (PF-7.1), SVG for cutting (PF-7.2) and the projector PDF (PF-7.3; see the
-progress log in `docs/plan.md`). Next: PF-6 (grading); the in-app projector view is still to do.
+progress log in `docs/plan.md`). PF-6 has begun with grading by redrafting (PF-6.1, the graded
+nest). Next: grade rules per point (PF-6.2); the in-app projector view is still to do.

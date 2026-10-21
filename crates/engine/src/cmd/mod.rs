@@ -30,6 +30,7 @@ pub mod flatten;
 pub mod fontfiles;
 mod fonts;
 pub(crate) mod freeform;
+pub(crate) mod grade;
 pub(crate) mod gradient;
 pub(crate) mod graph;
 mod halftone;
@@ -218,6 +219,7 @@ pub fn command_specs() -> &'static [CommandSpec] {
         v.extend(measure::specs());
         v.extend(block::specs());
         v.extend(design::specs());
+        v.extend(grade::specs());
         v.extend(object::specs());
         v.extend(path::specs());
         v.extend(select::specs());
