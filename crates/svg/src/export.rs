@@ -112,7 +112,10 @@ fn write(doc: &Document, opts: &ExportOptions, native: Option<&[u8]>, id_prefix:
         out.push_str(" version=\"1.2\" baseProfile=\"tiny\"");
     }
     if !opts.responsive {
-        out.push_str(&format!(" width=\"{ww}\" height=\"{hh}\""));
+        // In points, the document's unit: a unitless size is CSS pixels (96 per inch) to every
+        // SVG reader, which would make a 10 cm square 7.5 cm. The viewBox keeps the drawing's
+        // own numbers.
+        out.push_str(&format!(" width=\"{ww}pt\" height=\"{hh}pt\""));
     }
     out.push_str(&format!(" viewBox=\"0 0 {ww} {hh}\">{nl}"));
     let css = opts.styling == Styling::InternalCss && !w.classes.is_empty();
