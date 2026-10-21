@@ -18,6 +18,9 @@ craft-ui = { git = "https://github.com/storytold/craft-libs", rev = "5c874d51eeb
 # internal
 # PatternFoundry's pattern core (sewing-pattern pieces; no workspace dependencies)
 pf-core = { path = "crates/pf-core" }
+# A DXF tag reader/writer adapted from CADCraft (NOTICE), and DXF-AAMA pattern files on it
+pf-dxf = { path = "crates/pf-dxf" }
+pf-aama = { path = "crates/pf-aama" }
 vectorcraft-geom = { path = "crates/geom" }
 vectorcraft-color = { path = "crates/color" }
 vectorcraft-doc = { path = "crates/doc" }
@@ -52,6 +55,8 @@ thiserror = "2"
 serde = { version = "1", features = ["derive", "rc"] }
 serde_json = { version = "1", features = ["float_roundtrip"] }
 log = "0.4"
+# DXF text in pre-2007 code pages (pf-dxf)
+encoding_rs = "0.8.35"
 proptest = "1"
 crc32fast = "1.5"
 # tests: a TCP port bound without listening (connections to it are refused)
