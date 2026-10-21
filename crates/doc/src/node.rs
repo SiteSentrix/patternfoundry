@@ -575,6 +575,8 @@ pub struct NodeExtras {
     /// Sewing pattern (PatternFoundry): on a piece's group, the piece (name, cut, seam allowance,
     /// notches, grainline); on its children, which part of the piece each one draws.
     pub pattern: Option<Box<pf_core::PatternTag>>,
+    /// Drafting (PatternFoundry): formulas placing this path's points from the measurements.
+    pub draft: Option<Box<pf_core::draft::Draft>>,
 }
 
 /// No extras: what [`Node::extras`] gives for a node without any.
@@ -594,6 +596,7 @@ static NO_EXTRAS: NodeExtras = NodeExtras {
     intertwine: None,
     live_paint_gaps: None,
     pattern: None,
+    draft: None,
 };
 
 /// A node's [`NodeExtras`], if it has any ([`Node::extras`]). Extras that are all unset equal
@@ -729,6 +732,7 @@ impl Serialize for Node {
             e.intertwine.is_none(),
             e.live_paint_gaps.is_none(),
             e.pattern.is_none(),
+            e.draft.is_none(),
         ];
         let mut st = s.serialize_struct("Node", skips.iter().filter(|s| !**s).count())?;
         let mut skip = skips.into_iter();
@@ -768,6 +772,7 @@ impl Serialize for Node {
         field!("intertwine", &e.intertwine);
         field!("live_paint_gaps", &e.live_paint_gaps);
         field!("pattern", &e.pattern);
+        field!("draft", &e.draft);
         st.end()
     }
 }
@@ -829,6 +834,8 @@ struct NodeWire {
     live_paint_gaps: Option<Box<crate::live_paint::GapOptions>>,
     #[serde(default)]
     pattern: Option<Box<pf_core::PatternTag>>,
+    #[serde(default)]
+    draft: Option<Box<pf_core::draft::Draft>>,
 }
 
 impl From<NodeWire> for Node {
@@ -849,6 +856,7 @@ impl From<NodeWire> for Node {
             intertwine: w.intertwine,
             live_paint_gaps: w.live_paint_gaps,
             pattern: w.pattern,
+            draft: w.draft,
         };
         Node {
             id: w.id,
@@ -1259,6 +1267,16 @@ impl Node {
             && let Some(dimension) = &mut e.dimension
         {
             dimension.transform(a);
+        }
+        // A draft's origin moves with its path, so the points stay where their formulas put them
+        // relative to the path.
+        if let Some(e) = self.extras_if_any()
+            && let Some(d) = e.draft.as_deref_mut()
+        {
+            d.transform(|p| {
+                let q = a * Point::new(p.x, p.y);
+                pf_core::Pt::new(q.x, q.y)
+            });
         }
         // A pattern piece's grainline moves with it.
         if let Some(e) = self.extras_if_any()
@@ -2083,6 +2101,7 @@ mod tests {
             e.perspective = Some(Box::new(crate::PerspectiveAttachment::new("left", 1.0)));
             e.live_paint_gaps = Some(Box::default());
             e.pattern = Some(Box::new(pf_core::PatternTag::Mark(pf_core::Mark::Seam)));
+            e.draft = Some(Box::default());
         }
         /// The top-level keys of a JSON object, in the order written.
         struct Keys(Vec<String>);
@@ -2126,6 +2145,7 @@ mod tests {
             "perspective",
             "live_paint_gaps",
             "pattern",
+            "draft",
         ];
         assert_eq!(keys, order);
         assert_eq!(serde_json::from_value::<Node>(v).unwrap(), n);

@@ -5065,3 +5065,18 @@ lighting	Light	光源
 	Selected piece	选中的裁片
 # PatternFoundry: true-scale printing (PF-2).
 	Pattern Marks (test squares, page names, overlap lines)	纸样标记（测试方块、页面名称、重叠线）
+# PatternFoundry: measurements (PF-3).
+	Add Measurement	添加尺寸
+	Clear Measurements	清除尺寸
+	Clear Point Formulas	清除点公式
+	Draft Info	制图信息
+	Formulas	公式
+	Import Size Chart	导入尺码表
+	Let PDF and SVG files saved with Preserve Editing keep the measured values	以“保留编辑功能”保存的 PDF 和 SVG 文件保留测量值
+	Measurements	尺寸
+	No measurements yet	还没有尺寸
+	Set Measurements	设置尺寸
+	Set Point Formula	设置点公式
+	Share in exported files	在导出的文件中共享
+	Size chart	尺码表
+	Use Size	使用尺码

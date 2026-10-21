@@ -5254,3 +5254,18 @@ swatch	Bright Violet	Felviolet
 	Selected piece	Geselecteerd patroondeel
 # PatternFoundry: true-scale printing (PF-2).
 	Pattern Marks (test squares, page names, overlap lines)	Patroonmarkeringen (testvierkanten, paginanamen, overlaplijnen)
+# PatternFoundry: measurements (PF-3).
+	Add Measurement	Maat toevoegen
+	Clear Measurements	Maten wissen
+	Clear Point Formulas	Puntformules wissen
+	Draft Info	Info over constructie
+	Formulas	Formules
+	Import Size Chart	Maattabel importeren
+	Let PDF and SVG files saved with Preserve Editing keep the measured values	PDF- en SVG-bestanden die met Bewerkingsmogelijkheden behouden zijn opgeslagen, houden de gemeten waarden
+	Measurements	Maten
+	No measurements yet	Nog geen maten
+	Set Measurements	Maten instellen
+	Set Point Formula	Puntformule instellen
+	Share in exported files	Delen in geëxporteerde bestanden
+	Size chart	Maattabel
+	Use Size	Maat gebruiken

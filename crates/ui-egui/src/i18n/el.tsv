@@ -5181,3 +5181,18 @@ effect	Points	Σημεία
 	Selected piece	Επιλεγμένο κομμάτι
 # PatternFoundry: true-scale printing (PF-2).
 	Pattern Marks (test squares, page names, overlap lines)	Σημάδια πατρόν (τετράγωνα ελέγχου, ονόματα σελίδων, γραμμές επικάλυψης)
+# PatternFoundry: measurements (PF-3).
+	Add Measurement	Προσθήκη μέτρου
+	Clear Measurements	Απαλοιφή μέτρων
+	Clear Point Formulas	Απαλοιφή τύπων σημείων
+	Draft Info	Πληροφορίες σχεδίου
+	Formulas	Τύποι
+	Import Size Chart	Εισαγωγή πίνακα μεγεθών
+	Let PDF and SVG files saved with Preserve Editing keep the measured values	Τα αρχεία PDF και SVG που αποθηκεύονται με Διατήρηση επεξεργασίας κρατούν τις μετρημένες τιμές
+	Measurements	Μέτρα
+	No measurements yet	Δεν υπάρχουν ακόμη μέτρα
+	Set Measurements	Ορισμός μέτρων
+	Set Point Formula	Ορισμός τύπου σημείου
+	Share in exported files	Κοινή χρήση στα εξαγόμενα αρχεία
+	Size chart	Πίνακας μεγεθών
+	Use Size	Χρήση μεγέθους

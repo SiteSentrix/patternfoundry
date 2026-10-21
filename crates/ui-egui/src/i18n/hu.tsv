@@ -5215,3 +5215,18 @@ imageTrace	Outline	Körvonal
 	Selected piece	Kijelölt darab
 # PatternFoundry: true-scale printing (PF-2).
 	Pattern Marks (test squares, page names, overlap lines)	Szabásminta-jelek (tesztnégyzetek, oldalnevek, átfedési vonalak)
+# PatternFoundry: measurements (PF-3).
+	Add Measurement	Méret hozzáadása
+	Clear Measurements	Méretek törlése
+	Clear Point Formulas	Pontképletek törlése
+	Draft Info	Szerkesztés adatai
+	Formulas	Képletek
+	Import Size Chart	Mérettáblázat importálása
+	Let PDF and SVG files saved with Preserve Editing keep the measured values	A Szerkeszthetőség megőrzése beállítással mentett PDF- és SVG-fájlok megtartják a mért értékeket
+	Measurements	Méretek
+	No measurements yet	Még nincsenek méretek
+	Set Measurements	Méretek beállítása
+	Set Point Formula	Pontképlet beállítása
+	Share in exported files	Megosztás az exportált fájlokban
+	Size chart	Mérettáblázat
+	Use Size	Méret használata

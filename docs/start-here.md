@@ -62,7 +62,7 @@ anything he clicks through.
 Money, legal wording, anything public, domains, and the open decisions in `docs/plan.md`.
 
 ## Next task
-PF-0 to PF-2 are done (see the progress log in `docs/plan.md`). Next is **PF-3**, measurements:
-size charts and personal measurement sets (kept on the user's computer, never logged), and
-formulas in point positions so a draft follows the measurements ("changing the bust redraws the
-bodice"). CADCraft's constraint solver (see above) is the place to start for the formulas.
+PF-0 to PF-3 are done (see the progress log in `docs/plan.md`). Next is **PF-4**, blocks: drafted
+bodice, skirt, trouser and sleeve blocks from published drafting methods, built as drafts
+(`draft.setPoint` formulas over the measurements) so they follow the measurements. Which method
+to implement first is the owner's decision (open decisions in `docs/plan.md`): ask.

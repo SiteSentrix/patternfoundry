@@ -5228,3 +5228,18 @@ theme	Appearance	Apparence
 	Selected piece	Pièce sélectionnée
 # PatternFoundry: true-scale printing (PF-2).
 	Pattern Marks (test squares, page names, overlap lines)	Repères de patron (carrés de contrôle, noms des pages, lignes de chevauchement)
+# PatternFoundry: measurements (PF-3).
+	Add Measurement	Ajouter une mesure
+	Clear Measurements	Effacer les mesures
+	Clear Point Formulas	Effacer les formules des points
+	Draft Info	Infos sur la construction
+	Formulas	Formules
+	Import Size Chart	Importer un tableau de tailles
+	Let PDF and SVG files saved with Preserve Editing keep the measured values	Les fichiers PDF et SVG enregistrés avec Conserver les fonctions d’édition gardent les valeurs mesurées
+	Measurements	Mesures
+	No measurements yet	Aucune mesure pour l’instant
+	Set Measurements	Définir les mesures
+	Set Point Formula	Définir la formule du point
+	Share in exported files	Partager dans les fichiers exportés
+	Size chart	Tableau de tailles
+	Use Size	Utiliser la taille

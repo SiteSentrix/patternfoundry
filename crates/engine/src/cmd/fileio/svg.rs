@@ -152,7 +152,8 @@ fn plan(doc: &Document, p: &Value) -> Result<(ExportOptions, Vec<Option<usize>>,
 pub(super) fn encode(doc: &Document, p: &Value, compressed: bool) -> Result<Encoded, String> {
     let (opts, boards, chosen) = plan(doc, p)?;
     // Preserve editing embeds the native document (once, shared by every file).
-    let native = opts.preserve_editing.then(|| vectorcraft_format::save(doc, false));
+    // Personal measurements stay out of the copy a shared file carries (crate::cmd::measure).
+    let native = opts.preserve_editing.then(|| vectorcraft_format::save(&crate::cmd::measure::for_sharing(doc), false));
     // Draw linked files as vectors when available, or their previews with a warning. Keep
     // that preparation out of the native attachment so missing links remain relinkable.
     let (full, warnings) = crate::cmd::place::document::full_documents(doc);

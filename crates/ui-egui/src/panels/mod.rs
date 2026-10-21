@@ -29,6 +29,7 @@ pub mod libraries;
 pub mod library_panel;
 pub mod links;
 pub mod magic_wand;
+pub mod measurements;
 pub mod navigator;
 pub mod opentype;
 pub mod paragraph;
@@ -168,6 +169,7 @@ pub fn show_icon_panel(app: &mut VectorcraftApp, ui: &mut Ui, id: &str) {
         "openType" => opentype::show(app, ui),
         "docInfo" => doc_info::show(app, ui),
         "pieces" => pieces::show(app, ui),
+        "measurements" => measurements::show(app, ui),
         "charStyles" => text_styles::show(app, ui, text_styles::Kind::Char),
         "paraStyles" => text_styles::show(app, ui, text_styles::Kind::Para),
         "magicWand" => magic_wand::show(app, ui),

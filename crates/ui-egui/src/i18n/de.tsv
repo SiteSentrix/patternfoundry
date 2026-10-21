@@ -4810,3 +4810,18 @@ effect	Soft	Weich
 	Selected piece	Ausgewähltes Schnittteil
 # PatternFoundry: true-scale printing (PF-2).
 	Pattern Marks (test squares, page names, overlap lines)	Schnittmuster-Marken (Testquadrate, Seitennamen, Überlappungslinien)
+# PatternFoundry: measurements (PF-3).
+	Add Measurement	Maß hinzufügen
+	Clear Measurements	Maße löschen
+	Clear Point Formulas	Punktformeln löschen
+	Draft Info	Konstruktions-Info
+	Formulas	Formeln
+	Import Size Chart	Maßtabelle importieren
+	Let PDF and SVG files saved with Preserve Editing keep the measured values	PDF- und SVG-Dateien, die mit „Bearbeitungsfunktionen beibehalten“ gespeichert werden, behalten die gemessenen Werte
+	Measurements	Maße
+	No measurements yet	Noch keine Maße
+	Set Measurements	Maße festlegen
+	Set Point Formula	Punktformel festlegen
+	Share in exported files	In exportierten Dateien teilen
+	Size chart	Maßtabelle
+	Use Size	Größe verwenden

@@ -43,6 +43,7 @@ pub mod linkfiles;
 pub mod links;
 mod live;
 pub(crate) mod maskedit;
+pub(crate) mod measure;
 pub(crate) mod menucmds;
 pub(crate) mod newart;
 pub mod newdoc;
@@ -212,6 +213,7 @@ pub fn command_specs() -> &'static [CommandSpec] {
         v.extend(create::specs());
         v.extend(dimension::specs());
         v.extend(piece::specs());
+        v.extend(measure::specs());
         v.extend(object::specs());
         v.extend(path::specs());
         v.extend(select::specs());

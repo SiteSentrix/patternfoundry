@@ -5193,3 +5193,18 @@ theme	Appearance	Външен вид
 	Selected piece	Избран детайл
 # PatternFoundry: true-scale printing (PF-2).
 	Pattern Marks (test squares, page names, overlap lines)	Маркировки за кройка (тестови квадрати, имена на страници, линии на застъпване)
+# PatternFoundry: measurements (PF-3).
+	Add Measurement	Добавяне на мярка
+	Clear Measurements	Изчистване на мерките
+	Clear Point Formulas	Изчистване на формулите на точките
+	Draft Info	Информация за конструкцията
+	Formulas	Формули
+	Import Size Chart	Импортиране на таблица с размери
+	Let PDF and SVG files saved with Preserve Editing keep the measured values	PDF и SVG файловете, записани със Запазване на редактирането, запазват измерените стойности
+	Measurements	Мерки
+	No measurements yet	Още няма мерки
+	Set Measurements	Задаване на мерки
+	Set Point Formula	Задаване на формула на точка
+	Share in exported files	Споделяне в експортираните файлове
+	Size chart	Таблица с размери
+	Use Size	Използване на размер
