@@ -1058,6 +1058,70 @@ pub fn in_seam_pocket(
     Ok(InSeamPocket { bag, opening: [top, top + opening] })
 }
 
+/// How many welts a welt pocket has.
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub enum Welts {
+    /// One welt filling the opening.
+    Single,
+    /// Two welts meeting in the middle of the opening (a jetted pocket).
+    Double,
+}
+
+/// A welt pocket's pieces and marks, laid out with the welt's top-left at (0, 0) and the
+/// opening's top-left at (0, 0) for the marks on the garment.
+#[derive(Clone, Debug, PartialEq)]
+pub struct WeltPocket {
+    /// The welt strip, cut on the fold line along its middle (cut one, or two for double welts).
+    pub welt: Vec<Knot>,
+    /// The welt's fold line.
+    pub fold: [Pt; 2],
+    /// The two pocket bags: the lower (behind the welt), and the upper, deeper by the opening's
+    /// height (it reaches up to the opening's top edge).
+    pub bags: [Vec<Knot>; 2],
+    /// The opening on the garment: a box the welts fill.
+    pub opening: Vec<Knot>,
+    /// Where the opening is cut: along its middle, then out to its four corners.
+    pub cuts: Vec<[Pt; 2]>,
+}
+
+fn rect(x: f64, y: f64, w: f64, h: f64) -> Vec<Knot> {
+    [(x, y), (x + w, y), (x + w, y + h), (x, y + h)].iter().map(|&(a, b)| Knot::corner(Pt::new(a, b))).collect()
+}
+
+/// A welt pocket with an opening `opening` long and welts `welt` high when finished (one, or two
+/// meeting in the middle), its bags `depth` deep below the opening. The welt strip is the
+/// opening plus `end` at each end long and twice the welt plus `side` on each long edge high
+/// (it is folded in half); the bags are as long as the welt strip. After the published tutorial
+/// in The Shapes of Fabric (<https://www.theshapesoffabric.com/2019/06/24/welt-pocket-tutorial/>):
+/// 7 mm welts with 7 mm allowances along them and 15 mm at their ends.
+pub fn welt_pocket(opening: f64, welt: f64, depth: f64, welts: Welts, side: f64, end: f64) -> Result<WeltPocket, DesignError> {
+    if ![opening, welt, depth, side, end].iter().all(|v| v.is_finite() && *v >= 0.0) || opening <= 0.0 || welt <= 0.0 || depth <= 0.0 {
+        return Err(DesignError::BadAnchor("the opening, the welt and the depth are more than 0, the allowances 0 or more"));
+    }
+    let high = match welts {
+        Welts::Single => welt,
+        Welts::Double => 2.0 * welt,
+    };
+    if high * 2.0 > opening {
+        return Err(DesignError::BadAnchor("the opening is longer than twice its height"));
+    }
+    let (w, h) = (opening + 2.0 * end, 2.0 * welt + 2.0 * side);
+    let gap = 20.0;
+    let lower = rect(0.0, h + gap, w, depth + side);
+    let upper = rect(w + gap, h + gap, w, depth + high + side);
+    // The cut: along the middle, stopping half the height from each end, then out to the corners.
+    let (m, i) = (high / 2.0, high / 2.0);
+    let (a, b) = (Pt::new(i, m), Pt::new(opening - i, m));
+    let cuts = vec![[a, b], [a, Pt::new(0.0, 0.0)], [a, Pt::new(0.0, high)], [b, Pt::new(opening, 0.0)], [b, Pt::new(opening, high)]];
+    Ok(WeltPocket {
+        welt: rect(0.0, 0.0, w, h),
+        fold: [Pt::new(0.0, h / 2.0), Pt::new(w, h / 2.0)],
+        bags: [lower, upper],
+        opening: rect(0.0, 0.0, opening, high),
+        cuts,
+    })
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -1462,5 +1526,26 @@ mod tests {
         assert!(in_seam_pocket(&r, 1, 2, 500.0, 140.0, 150.0, 130.0, 15.0).is_err());
         assert!(in_seam_pocket(&r, 1, 2, 90.0, 140.0, 150.0, 10.0, 15.0).is_err());
         assert!(in_seam_pocket(&r, 1, 1, 90.0, 140.0, 150.0, 130.0, 15.0).is_err());
+    }
+
+    #[test]
+    fn a_welt_pockets_pieces_from_its_opening() {
+        // The Shapes of Fabric's example: a 120 opening, 7 welts, 7 and 15 allowances.
+        let p = welt_pocket(120.0, 7.0, 150.0, Welts::Double, 7.0, 15.0).unwrap();
+        let size = |r: &[Knot]| r[2].p - r[0].p;
+        assert!(near(size(&p.welt), Pt::new(150.0, 28.0)) && (p.fold[0].y - 14.0).abs() < 1e-9);
+        // The bags as long as the welt; the upper deeper by the opening's height (two welts).
+        assert!(near(size(&p.bags[0]), Pt::new(150.0, 157.0)) && near(size(&p.bags[1]), Pt::new(150.0, 171.0)));
+        assert!(near(size(&p.opening), Pt::new(120.0, 14.0)));
+        // The cut along the middle, 7 short of each end, then to the corners.
+        assert!(near(p.cuts[0][0], Pt::new(7.0, 7.0)) && near(p.cuts[0][1], Pt::new(113.0, 7.0)) && p.cuts.len() == 5);
+        // A single welt fills the opening alone.
+        let s = welt_pocket(120.0, 15.0, 150.0, Welts::Single, 7.0, 15.0).unwrap();
+        assert!(near(size(&s.opening), Pt::new(120.0, 15.0)) && near(size(&s.welt), Pt::new(150.0, 44.0)));
+        // No piece overlaps another.
+        assert!(s.bags[0][0].p.y > s.welt[2].p.y && s.bags[1][0].p.x > s.bags[0][1].p.x);
+        assert!(
+            welt_pocket(20.0, 15.0, 150.0, Welts::Double, 7.0, 15.0).is_err() && welt_pocket(120.0, 0.0, 150.0, Welts::Single, 7.0, 15.0).is_err()
+        );
     }
 }

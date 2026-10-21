@@ -2703,6 +2703,7 @@ pub fn menu_tree_named(english_names: bool) -> Vec<(&'static str, Vec<Item>)> {
                 c("Draft Collar", "design.collar"),
                 c("Draft Stand Collar", "design.standCollar"),
                 c("In-Seam Pocket", "design.inSeamPocket"),
+                c("Welt Pocket", "design.weltPocket"),
                 Sep,
                 c("Make Pattern Piece", "piece.make"),
                 c("Release Pattern Piece", "piece.release"),

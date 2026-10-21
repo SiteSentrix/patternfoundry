@@ -201,12 +201,18 @@ is built on, plus a pattern mode, the way StitchFoundry adds embroidery:
   above the opening to 15 mm below it (the opening 140 mm long, 90 mm down by default), square in
   by the allowance, then curving out 130 mm and down 150 mm below the opening; on pattern pieces,
   notches at the opening's ends on the seam and on the seam it sews to, in the same undo step.
-  Tests: 17 in `pf-core`, 16 engine tests (`tests_design.rs`). Not yet (PF-5.x): box pleats wider
-  than twice their depth (two slashes), notches at a pleat's ends, shirt collars (a stand with a
-  fall), rounded or winged stand fronts, welt pockets; more truing (the princess seam curved
-  through the bust); dart shortening from the bust point; design steps replayed when the
-  measurements change; the sewing terms in the translations checked by sewists who speak each
-  language.
+  **Welt pockets** (`design.weltPocket`, PF-5.14; Pattern › Welt Pocket), after The Shapes of
+  Fabric's published tutorial
+  (https://www.theshapesoffabric.com/2019/06/24/welt-pocket-tutorial/): single or double welts;
+  the welt strip (the opening plus 15 mm at each end, twice the welt plus 7 mm each side, folded
+  along its middle; cut two for double welts), the lower bag and the upper one deeper by the
+  opening's height, both as long as the welt; with `on` and `at`, the opening box (dashed) and its
+  cut lines (along the middle, out to the corners) on the garment. Tests: 18 in `pf-core`, 17
+  engine tests (`tests_design.rs`). Not yet (PF-5.x): box pleats wider than twice their depth (two
+  slashes), notches at a pleat's ends, shirt collars (a stand with a fall), rounded or winged
+  stand fronts, flap pockets; more truing (the princess seam curved through the bust); dart
+  shortening from the bust point; design steps replayed when the measurements change; the sewing
+  terms in the translations checked by sewists who speak each language.
 - 2026-10-20, **PF-4.1**: the one-piece straight sleeve block (`block.sleeve`, Pattern › Draft
   Sleeve Block), Natalie Bray's method from a public tutorial: the crown depth from the top arm by
   the tutorial's table, 5 cm ease round the top arm, the crown through marks on the back and front
