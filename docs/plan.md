@@ -363,3 +363,15 @@ is built on, plus a pattern mode, the way StitchFoundry adds embroidery:
   110 mm; irregular rules; rules on top of redrafting; bad sizes and rules). Not yet: a grading
   panel (rules from the canvas), grade rules written into DXF-AAMA files (the RUL table),
   printing one chosen size, rules copied between pieces.
+- 2026-10-21, **PF-6.3**: one size of a graded pattern written for cutting. DXF-AAMA, SVG for
+  cutting and the projector PDF take `size` (`document.export {format: aama, size: "14"}`): the
+  pieces are written as the graded nest draws that size (drafted from the size chart's
+  measurements where it has the size, moved by the grade rules where the size range has it),
+  and the document stays in its own size with its own measurements; DXF-AAMA's sample size is
+  the size written unless `sampleSize` says otherwise. Tests: 2 more in `tests_grade.rs` (a
+  ruled square's cutting SVG at 130, 140 and 150 mm pages, the AAMA sample size, the projector
+  page; the skirt's chart sizes exported redrafted, measurements untouched). Not yet, and why:
+  graded DXF-AAMA (the base size with a grade rule table, the `.RUL` file) needs the rule
+  table's exact syntax, which no public source found so far gives (the standard itself is
+  sold by ASTM; DH Patterns and Fit's overview was unreachable): the owner's call whether to
+  buy ASTM D6673 or wait.

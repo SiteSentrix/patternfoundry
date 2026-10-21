@@ -166,8 +166,8 @@ fn apply_rules(d: &mut Document, sizes: &GradeSizes, size: &str) -> Result<()> {
     Ok(())
 }
 
-/// The pieces' lines of `doc` drafted from `m`, then graded to `rules`' size.
-fn redraft(doc: &Document, m: Measurements, rules: Option<(&GradeSizes, &str)>, line: Mark, cmd: &str) -> Result<Vec<Drawn>> {
+/// `doc` drafted from `m`, then graded to `rules`' size, its pieces drawn again.
+fn graded(doc: &Document, m: Measurements, rules: Option<(&GradeSizes, &str)>) -> Result<Document> {
     let mut d = doc.clone();
     d.measurements = Some(Box::new(m));
     // As an edit does: drafted points follow the measurements, then pieces their seam lines;
@@ -177,6 +177,33 @@ fn redraft(doc: &Document, m: Measurements, rules: Option<(&GradeSizes, &str)>, 
         apply_rules(&mut d, sizes, size)?;
     }
     super::piece::refresh(doc, &mut d)?;
+    Ok(d)
+}
+
+/// `doc` with its pattern pieces in size `size` of the size range or the size chart, as the
+/// graded nest draws that size; the document's own measurements kept.
+pub(crate) fn in_size(doc: &Document, size: &str, cmd: &str) -> Result<Document> {
+    let chart = doc.size_chart.as_deref();
+    let range = doc.grade_sizes.as_deref();
+    let in_range = range.and_then(|r| r.find(size)).map(String::from);
+    let in_chart = chart.and_then(|c| c.size_names().into_iter().find(|n| n.eq_ignore_ascii_case(size.trim())).map(String::from));
+    let Some(name) = in_range.clone().or(in_chart.clone()) else {
+        return Err(bad(cmd, format!("there is no size `{size}` (the size chart's or the size range's)")));
+    };
+    let own = doc.measurements.as_deref().cloned().unwrap_or_default();
+    let mut m = own.clone();
+    if let (Some(c), Some(_)) = (chart, &in_chart) {
+        c.apply(&name, &mut m).map_err(|e| bad(cmd, e.to_string()))?;
+    }
+    let mut d = graded(doc, m, range.zip(in_range.as_deref()))?;
+    // The drawn size's measurements were only for drafting: the document keeps its own.
+    d.measurements = doc.measurements.clone();
+    Ok(d)
+}
+
+/// The pieces' lines of `doc` drafted from `m`, then graded to `rules`' size.
+fn redraft(doc: &Document, m: Measurements, rules: Option<(&GradeSizes, &str)>, line: Mark, cmd: &str) -> Result<Vec<Drawn>> {
+    let d = graded(doc, m, rules)?;
     let mut out = Vec::new();
     d.walk(|n| {
         let Some(piece) = super::piece::piece_on(n) else { return };

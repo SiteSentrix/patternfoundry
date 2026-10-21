@@ -19,12 +19,20 @@ const MARGIN_MM: f64 = 10.0;
 const TEXT_MM: f64 = 5.0;
 
 /// The cutting SVG's options `document.formats` lists.
-pub(super) const OPTIONS: &[FormatOption] = &[FormatOption {
-    name: "marks",
-    ty: "boolean",
-    default: "true",
-    description: "also the seam lines, grainlines, lines inside the pieces and their names (group `draw`, not cut)",
-}];
+pub(super) const OPTIONS: &[FormatOption] = &[
+    FormatOption {
+        name: "marks",
+        ty: "boolean",
+        default: "true",
+        description: "also the seam lines, grainlines, lines inside the pieces and their names (group `draw`, not cut)",
+    },
+    FormatOption {
+        name: "size",
+        ty: "string",
+        default: "\"\"",
+        description: "write the pieces graded to this size of the size chart or size range (default: as drawn)",
+    },
+];
 
 /// A number in mm, to a thousandth, without trailing zeros.
 fn n(v: f64) -> String {

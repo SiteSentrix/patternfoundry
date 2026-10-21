@@ -29,6 +29,12 @@ const TEXT_MM: f64 = 10.0;
 
 /// The projector PDF's options `document.formats` lists.
 pub(super) const OPTIONS: &[FormatOption] = &[
+    FormatOption {
+        name: "size",
+        ty: "string",
+        default: "\"\"",
+        description: "write the pieces graded to this size of the size chart or size range (default: as drawn)",
+    },
     FormatOption { name: "margin", ty: "number", default: "25", description: "room round the pieces, mm" },
     FormatOption {
         name: "lineWidth",
