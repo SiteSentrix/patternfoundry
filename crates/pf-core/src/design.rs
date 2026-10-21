@@ -1163,6 +1163,68 @@ pub fn collar_fall(neck: f64, height: f64, drop: f64, out: f64, point: f64) -> R
     Ok(vec![kb, kp, Knot::corner(o), Knot::corner(l)])
 }
 
+/// A half outline (a front cut on the fold) opened out into the whole: mirrored across the
+/// line through anchors `a` and `b`, which are neighbours on the outline (the centre front edge,
+/// either way round). The result starts with the half's own anchors from `b` round to `a` (so
+/// anchor `k` of the half is anchor `(k + n - b) % n` of the whole when `a` comes just before
+/// `b`), then their mirror images back from `a` to `b`; the edge between them is gone. As a wrap
+/// front is drafted: "because the front is asymmetric, don't place it on a center-front fold",
+/// the block reflected across centre front (Ploen Patterns,
+/// <https://ploenpatterns.com/blogs/news/how-to-draft-a-wrap-blouse-step-by-step-pattern-making-tutorial>;
+/// Sewing with Numbers, <https://sewingwithnumbers.substack.com/p/how-to-draft-a-wrap-skirt>).
+pub fn opened_out(ring: &[Knot], a: usize, b: usize) -> Result<Vec<Knot>, DesignError> {
+    let n = ring.len();
+    if n < 3 || a >= n || b >= n {
+        return Err(DesignError::BadAnchor("the fold edge's anchors are past the outline's end"));
+    }
+    // Walk from the far end of the fold edge round to its near end, the edge left out.
+    let (from, to) = if (a + 1) % n == b {
+        (b, a)
+    } else if (b + 1) % n == a {
+        (a, b)
+    } else {
+        return Err(DesignError::BadAnchor("the fold edge's two anchors must be neighbours on the outline"));
+    };
+    let (p, q) = (ring[from].p, ring[to].p);
+    let axis = (q - p).unit().ok_or(DesignError::BadAnchor("the fold edge has no length"))?;
+    let mirror = |v: Pt| {
+        let d = v - p;
+        p + axis * (2.0 * d.dot(axis)) - d
+    };
+    let half: Vec<Knot> = run(n, from, to).map(|k| ring[k]).collect();
+    let mut whole = half.clone();
+    // Across the fold the outline carries on as its mirror image: the ends' other handles too.
+    if let Some(last) = whole.last_mut() {
+        last.h_out = mirror(last.h_in);
+    }
+    if let Some(first) = whole.first_mut() {
+        first.h_in = mirror(first.h_out);
+    }
+    for k in half[1..half.len() - 1].iter().rev() {
+        whole.push(Knot { p: mirror(k.p), h_in: mirror(k.h_out), h_out: mirror(k.h_in) });
+    }
+    Ok(whole)
+}
+
+/// The straight edge from anchor `i` to the next one, bowed by `depth` at its middle toward the
+/// left of its direction (a negative depth bows it to the right): a wrap edge drawn "slightly
+/// curved and shorter so it stays closer to the body" (Ploen Patterns, as [`opened_out`]).
+pub fn bow(ring: &mut [Knot], i: usize, depth: f64) -> Result<(), DesignError> {
+    let n = ring.len();
+    if i >= n {
+        return Err(DesignError::BadAnchor("the edge's anchor is past the outline's end"));
+    }
+    let j = (i + 1) % n;
+    let (a, b) = (ring[i].p, ring[j].p);
+    let d = b - a;
+    let left = Pt::new(d.y, -d.x).unit().ok_or(DesignError::BadAnchor("the edge has no length"))?;
+    // A cubic's middle moves three quarters of what both handles move.
+    let off = left * (depth * 4.0 / 3.0);
+    ring[i].h_out = a + d * (1.0 / 3.0) + off;
+    ring[j].h_in = a + d * (2.0 / 3.0) + off;
+    Ok(())
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -1600,5 +1662,39 @@ mod tests {
         // The point 19 past the neck edge's end and 51 up from it; centre back 38 high.
         assert!(near(f[2].p, f[1].p + Pt::new(19.0, -51.0)) && near(f[3].p, Pt::new(0.0, -38.0)));
         assert!(collar_fall(200.0, 0.0, 13.0, 19.0, 51.0).is_err() && collar_fall(20.0, 38.0, 13.0, 19.0, 51.0).is_err());
+    }
+
+    #[test]
+    fn a_half_opens_out_across_its_fold_and_an_edge_bows() {
+        // A half front: centre front on the right, from (100, 0) down to (100, 200).
+        let half = [Pt::new(100.0, 0.0), Pt::new(100.0, 200.0), Pt::new(0.0, 200.0), Pt::new(0.0, 40.0), Pt::new(60.0, 0.0)].map(Knot::corner);
+        let whole = opened_out(&half, 0, 1).unwrap();
+        let pts: Vec<Pt> = whole.iter().map(|k| k.p).collect();
+        assert_eq!(
+            pts,
+            [
+                Pt::new(100.0, 200.0),
+                Pt::new(0.0, 200.0),
+                Pt::new(0.0, 40.0),
+                Pt::new(60.0, 0.0),
+                Pt::new(100.0, 0.0),
+                Pt::new(140.0, 0.0),
+                Pt::new(200.0, 40.0),
+                Pt::new(200.0, 200.0),
+            ]
+        );
+        // The same, the fold edge named the other way round, and a curved knot keeps its curve.
+        assert_eq!(opened_out(&half, 1, 0).unwrap(), whole);
+        let mut curved = half;
+        curved[4].h_in = Pt::new(80.0, 0.0);
+        curved[4].h_out = Pt::new(50.0, 5.0);
+        let w = opened_out(&curved, 0, 1).unwrap();
+        assert_eq!((w[5].h_in, w[5].h_out), (Pt::new(150.0, 5.0), Pt::new(120.0, 0.0)));
+        assert!(opened_out(&half, 0, 2).is_err() && opened_out(&half, 0, 9).is_err());
+        // A straight edge bowed 10 to its left: its middle moves 10.
+        let mut ring = [Pt::new(0.0, 0.0), Pt::new(100.0, 0.0), Pt::new(50.0, 80.0)].map(Knot::corner);
+        bow(&mut ring, 0, 10.0).unwrap();
+        let mid = (ring[0].p + ring[0].h_out * 3.0 + ring[1].h_in * 3.0 + ring[1].p) * 0.125;
+        assert!((mid - Pt::new(50.0, -10.0)).len() < 1e-9, "{mid:?}");
     }
 }
