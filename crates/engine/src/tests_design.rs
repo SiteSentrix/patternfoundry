@@ -607,3 +607,95 @@ fn a_shirt_collar_for_the_bodice_block() {
     assert!(s.doc().unwrap().doc.node(stand).is_none() && s.doc().unwrap().doc.node(fall).is_none());
     assert!(s.execute("design.shirtCollar", &json!({"fall": 0})).is_err());
 }
+
+/// A wrap front (`design.wrapFront`), as Ploen Patterns drafts a wrap blouse
+/// (<https://ploenpatterns.com/blogs/news/how-to-draft-a-wrap-blouse-step-by-step-pattern-making-tutorial>):
+/// the bust dart moved to the armhole first, the half opened out across centre front, the wrap
+/// line from the shoulder 45 mm from the neck to the far side's waist.
+#[test]
+fn a_wrap_front_from_the_bodice_block() {
+    let (mut s, id) = front();
+    let half = points(&s, id);
+    let b = bounds(&s, id);
+    // The bust dart cut away from the shoulder: a warning.
+    let mut t = front().0;
+    let tid = NodeId(t.execute("block.bodice", &json!({"origin": [0, 0]})).unwrap()["ids"][1].as_u64().unwrap());
+    let w = t.execute("design.wrapFront", &json!({"id": tid.0})).unwrap();
+    assert!(w["warnings"].as_array().unwrap().iter().any(|m| m.as_str().unwrap().contains("Rotate Dart")), "{w}");
+    // Done as the source says: the bust dart into the armhole first.
+    s.execute("design.rotateDart", &json!({"id": id.0, "apex": 11, "toAnchor": 8})).unwrap();
+    let rotated = points(&s, id);
+    s.execute("piece.make", &json!({"ids": [id.0], "allowance": 15})).unwrap();
+    let seam = super::cmd::measure::target_path(&s, &json!({"id": id.0}), "test").unwrap();
+    let r = s.execute("design.wrapFront", &json!({"id": id.0})).unwrap();
+    assert!(r["warnings"].as_array().unwrap().iter().all(|m| !m.as_str().unwrap().contains("Rotate Dart")), "{r}");
+    let after = points(&s, seam);
+    // The outlines' extents by their points (bounds take in the curves' handles).
+    let extent = |v: &[Point]| {
+        v.iter().fold(Rect::new(f64::MAX, f64::MAX, f64::MIN, f64::MIN), |r, p| Rect::new(r.x0.min(p.x), r.y0.min(p.y), r.x1.max(p.x), r.y1.max(p.y)))
+    };
+    let (a, b) = (extent(&after), {
+        let _ = b;
+        extent(&half)
+    });
+    // Opened out across centre front (the block's right edge): from the side seam on the left
+    // to the mirrored side waist on the right (the mirrored armhole is cut away).
+    let cf = b.x1;
+    let side_waist = half.iter().copied().filter(|p| p.x - b.x0 < (cf - b.x0) * 0.15).max_by(|p, q| p.y.total_cmp(&q.y)).unwrap();
+    assert!((a.x0 - b.x0).abs() < 1e-6 && (a.x1 - (2.0 * cf - side_waist.x)).abs() < 1e-6, "{a:?} {b:?}");
+    // The wrap line from the shoulder, 45 mm along it from the neck point (the highest point), to
+    // the far side seam's lowest point.
+    let neck = rotated.iter().copied().min_by(|p, q| p.y.total_cmp(&q.y)).unwrap();
+    let from = Point::new(r["from"][0].as_f64().unwrap(), r["from"][1].as_f64().unwrap());
+    let to = Point::new(r["to"][0].as_f64().unwrap(), r["to"][1].as_f64().unwrap());
+    assert!(after.iter().any(|p| (*p - from).hypot() < 1e-6) && after.iter().any(|p| (*p - to).hypot() < 1e-6));
+    assert!((pf_core::pt_to_mm((from - neck).hypot()) - 45.0).abs() < 0.5, "{from:?} {neck:?}");
+    assert!(from.x < neck.x, "toward the shoulder point, away from centre front");
+    assert!((to.x - a.x1).abs() < 1e-6 && to.y > a.y1 - mm_to_pt(30.0), "{to:?} {a:?}");
+    // Nothing of the neck or centre front above the line is left: every point is on the piece's
+    // side of the wrap line.
+    let side = |q: Point| (to - from).cross(q - from);
+    let inside = side(half.iter().copied().min_by(|p, q| p.x.total_cmp(&q.x)).unwrap()).signum();
+    assert!(after.iter().all(|q| side(*q) * inside > -1e-6), "points past the wrap line");
+    // The piece is cut as a mirrored pair now.
+    let info = s.execute("piece.info", &json!({"id": id.0})).unwrap();
+    assert_eq!((info["cut"].as_u64(), info["mirror"].as_bool()), (Some(2), Some(true)), "{info}");
+    // Undone in one step.
+    s.execute("edit.undo", &json!({})).unwrap();
+    assert_eq!(points(&s, seam).len(), 13);
+}
+
+#[test]
+fn a_wrap_edge_bows_into_the_piece_and_bad_requests_are_refused() {
+    // A plain half: 100 × 200 mm, centre front on the right.
+    let mut s = Session::new();
+    s.execute("file.new", &json!({"width": 800, "height": 800})).unwrap();
+    let (w, h) = (mm_to_pt(100.0), mm_to_pt(200.0));
+    s.execute("shape.rectangle", &json!({"x": 0, "y": 0, "width": w, "height": h})).unwrap();
+    let id = s.doc().unwrap().selection.objects[0];
+    // Both sides are straight: the fold named, the right edge.
+    let pts = points(&s, id);
+    let right: Vec<usize> = (0..pts.len()).filter(|&i| (pts[i].x - w).abs() < 1e-6).collect();
+    let (f0, f1) = if (right[0] + 1) % pts.len() == right[1] { (right[0], right[1]) } else { (right[1], right[0]) };
+    let r = s.execute("design.wrapFront", &json!({"id": id.0, "fold": [f0, f1], "shoulder": 30, "curve": 15})).unwrap();
+    assert_eq!(r["warnings"], json!([]));
+    // The wrap line ends at the far waist corner (200 mm across, 200 mm down).
+    let to = Point::new(r["to"][0].as_f64().unwrap(), r["to"][1].as_f64().unwrap());
+    assert!((to - Point::new(2.0 * w, h)).hypot() < 1e-6, "{to:?}");
+    // The bowed edge: its handles are off the straight line, toward the piece.
+    let node = s.doc().unwrap().doc.node(id).unwrap().clone();
+    let NodeKind::Path { path, .. } = &node.kind else { panic!() };
+    let sp = &path.subpaths[0];
+    let from = Point::new(r["from"][0].as_f64().unwrap(), r["from"][1].as_f64().unwrap());
+    let off = |q: Point| (to - from).cross(q - from) / (to - from).hypot();
+    let last = sp.anchors.len() - 1;
+    let handles = [sp.anchors[last].h_out, sp.anchors[0].h_in];
+    let inside = off(Point::new(0.0, h)).signum();
+    assert!(handles.iter().all(|q| off(*q) * inside > mm_to_pt(15.0)), "{handles:?}");
+    // Refused: no straight side edge, a bad fold, a bad curve.
+    s.execute("shape.ellipse", &json!({"x": 400, "y": 400, "width": 100, "height": 100})).unwrap();
+    let e = s.doc().unwrap().selection.objects[0];
+    assert!(s.execute("design.wrapFront", &json!({"id": e.0})).unwrap_err().to_string().contains("fold"));
+    assert!(s.execute("design.wrapFront", &json!({"id": id.0, "fold": [0, 2]})).unwrap_err().to_string().contains("neighbour"));
+    assert!(s.execute("design.wrapFront", &json!({"id": id.0, "curve": "deep"})).unwrap_err().to_string().contains("curve"));
+}

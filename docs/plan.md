@@ -413,3 +413,20 @@ is built on, plus a pattern mode, the way StitchFoundry adds embroidery:
   its out-of-credits refusal). Not yet: a real request checked against the service, drafting a
   whole garment from a description (the "wrap dress" of PF-8's done-when: needs a wrap bodice in
   the design tools), fit advice from muslin photos.
+- 2026-10-21, **PF-5.16**: **Make Wrap Front** (`design.wrapFront`, Pattern menu), for PF-8's
+  wrap dress, as Ploen Patterns drafts a wrap blouse from the bodice block
+  (https://ploenpatterns.com/blogs/news/how-to-draft-a-wrap-blouse-step-by-step-pattern-making-tutorial):
+  the bust dart moved into the armhole first ("so there is room for the wrap"), the half front
+  opened out across centre front ("because the front is asymmetric, don't place it on a
+  center-front fold"; the block reflected across centre front, as Sewing with Numbers drafts a
+  wrap skirt, https://sewingwithnumbers.substack.com/p/how-to-draft-a-wrap-skirt), and cut along
+  the wrap line from the shoulder 4.5 cm from the neck point to the far side's waist; `curve`
+  bows the wrap edge into the piece (the source's gaping fix). The fold is found (the longest
+  straight edge on the outline's left or right side) or named; `from`/`to` move the line. A
+  piece becomes cut as a mirrored pair. A dart the wrap line cuts away is reported (move the bust
+  dart out of the shoulder first), and a dart of the far side whose point falls past the line is
+  left out. Geometry: `pf_core::design::{opened_out, bow}`. Tests: 1 in `pf-core`, 2 engine tests
+  (`tests_design.rs`: the bodice block's wrap front, the warning, the line 45 mm along the
+  shoulder, nothing past it, cut 2 mirrored, one undo; a bowed edge and refusals). Not yet: the
+  ties and the waistband, the back's matching changes (the source's lowered armhole, extended
+  shoulder).

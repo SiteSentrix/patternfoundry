@@ -1,6 +1,7 @@
 //! Design tools (PF-5) on paths and pieces' seam lines: `design.rotateDart` pivots a dart to
 //! another place on the outline, `design.split` cuts an outline in two (a princess seam through
-//! the bust point), `design.spread` slashes and spreads an outline (flare, fullness),
+//! the bust point), `design.wrapFront` opens a half front out across centre front and cuts it
+//! along a wrap line, `design.spread` slashes and spreads an outline (flare, fullness),
 //! `design.pocket` makes a patch pocket and its placement mark, `design.collar` drafts a flat collar from the bodice's necklines, `design.gather` marks an edge to gather, `design.pleat` adds a knife pleat with its marks, `design.facing` makes a facing for an edge, `design.length` measures along an outline and `design.matchLength` trues a seam to a length or
 //! to another seam (seams that sew together).
 //! The geometry is [`pf_core::design`]. A block part or a drafted path that is changed this way
@@ -130,6 +131,15 @@ pub fn specs() -> Vec<CommandSpec> {
             "{back, front (the necklines, as for design.collar; default: the bodice block's among the selection), stand?: mm (30: the stand's height), rise?: mm (10), extension?: mm (15: past centre front, half a 30 mm button stand), fall?: mm (40: the collar's height at centre back, more than the stand's so it covers the seam), drop?: mm (13: how far the collar's neck edge curves down at the front), out?: mm (19: how far its point reaches past centre front), point?: mm (51: the point's length), origin?: [x, y] (document points: the stand's centre back at the neck edge; default above the back)} a shirt collar: its stand (a stand collar, half of it, centre back on the fold) and the collar that turns down over it, drafted above the stand with a neck edge as long as the stand's top edge to centre front → {stand, centreFront, fall, neck (mm)}",
             has_doc,
             shirt_collar
+        ),
+        cmd!(
+            "design.wrapFront",
+            "Make Wrap Front",
+            ["Pattern"],
+            None,
+            "{id? (a half front, cut on the fold: a path or a piece; default: the selection), fold?: [a, b] (the centre front edge's two neighbouring points; default: the longest straight edge on the outline's left or right side), shoulder?: mm (where the wrap line starts: this far along the outline from the highest point, the neck, away from the fold; default 45), from?: [x, y] (instead: document points on the outline), to?: [x, y] (where it ends, on the mirrored half; default the far side seam's lowest point, the side waist), curve?: mm (the wrap edge bowed this far into the piece, which stops it gaping; default 0)} the half opened out across centre front and cut along the wrap line, as a wrap top's front is drafted; move a bust dart out of the shoulder first (design.rotateDart), else the wrap line cuts it away (a warning says so); a dart of the far side the wrap line crosses is left out; a piece is then cut as a mirrored pair (2, not on the fold) → {id, anchors, from: [x, y], to: [x, y], warnings}",
+            has_doc,
+            wrap_front
         ),
         cmd!(
             "design.split",
@@ -328,6 +338,174 @@ fn split(s: &mut Session, p: &Value) -> Result<Value> {
         Ok(ids)
     })?;
     Ok(json!({"ids": ids.iter().map(|i| i.0).collect::<Vec<_>>()}))
+}
+
+/// The centre front edge of a half outline: the longest straight edge whose both ends are on the
+/// outline's leftmost or rightmost side (the fold), as `(a, b)` with `b` after `a`.
+fn fold_edge(ring: &[Knot]) -> Option<(usize, usize)> {
+    let n = ring.len();
+    let (lo, hi) = ring.iter().fold((f64::INFINITY, f64::NEG_INFINITY), |(lo, hi), k| (lo.min(k.p.x), hi.max(k.p.x)));
+    let tol = (hi - lo) * 1e-6 + 1e-6;
+    let straight = |i: usize, j: usize| (ring[i].h_out - ring[i].p).len() < 1e-9 && (ring[j].h_in - ring[j].p).len() < 1e-9;
+    (0..n)
+        .map(|i| (i, (i + 1) % n))
+        .filter(|&(i, j)| straight(i, j))
+        .filter(|&(i, j)| [lo, hi].iter().any(|x| (ring[i].p.x - x).abs() < tol && (ring[j].p.x - x).abs() < tol))
+        .max_by(|&(a, b), &(c, d)| (ring[a].p - ring[b].p).len().total_cmp(&(ring[c].p - ring[d].p).len()))
+}
+
+/// The point `dist` along `ring` from anchor `from`, forward (`dir` 1) or back (`dir` -1).
+fn walked(ring: &[Knot], from: usize, dist: f64, dir: i64) -> Option<Point> {
+    use kurbo::{ParamCurve, ParamCurveArclen};
+    let n = ring.len();
+    let path = path_of(ring);
+    let sp = &path.subpaths[0];
+    let mut left = dist;
+    let mut i = from;
+    for _ in 0..n {
+        let (seg, rev) = if dir > 0 { (sp.segment(i), false) } else { (sp.segment((i + n - 1) % n), true) };
+        let len = seg.arclen(1e-9);
+        if left <= len {
+            let t = seg.inv_arclen(if rev { len - left } else { left }, 1e-9);
+            return Some(seg.eval(t));
+        }
+        left -= len;
+        i = if dir > 0 { (i + 1) % n } else { (i + n - 1) % n };
+    }
+    None
+}
+
+fn wrap_front(s: &mut Session, p: &Value) -> Result<Value> {
+    const CMD: &str = "design.wrapFront";
+    let id = super::measure::target_path(s, p, CMD)?;
+    let doc = &s.doc()?.doc;
+    let half = ring_of(doc, id, CMD)?;
+    let n = half.len();
+    let (a, b) = match p.get("fold") {
+        Some(Value::Array(v)) => match v.as_slice() {
+            [x, y] => {
+                let at = |v: &Value| v.as_u64().and_then(|i| usize::try_from(i).ok()).filter(|i| *i < n);
+                at(x).zip(at(y)).ok_or_else(|| bad(CMD, format!("fold: two neighbouring points, 0 to {}", n.saturating_sub(1))))?
+            }
+            _ => return Err(bad(CMD, "fold: [a, b], the centre front edge's two points")),
+        },
+        Some(_) => return Err(bad(CMD, "fold: [a, b], the centre front edge's two points")),
+        None => fold_edge(&half).ok_or_else(|| bad(CMD, "no straight centre front edge on the outline's side: name it with fold: [a, b]"))?,
+    };
+    let whole = pf_core::design::opened_out(&half, a, b).map_err(|e| err(CMD, e))?;
+    // The half's own anchors are the first n - 0 of the whole: its anchor k is the whole's
+    // (k - start) mod n, where start is the half's anchor the whole begins with.
+    let start = if (a + 1) % n == b { b } else { a };
+    let own = |k: usize| (k + n - start) % n;
+    let axis_x = half[a].p.x;
+    let away = |q: Pt| (q.x - axis_x).abs();
+    let mut ring = whole;
+    // Where the wrap line starts: given, or `shoulder` along from the highest point (the neck),
+    // away from the fold.
+    let from_pt = match p.get("from") {
+        Some(Value::Array(_)) => {
+            let [x, y] = finite_numbers::<2>(&p["from"]).ok_or_else(|| bad(CMD, "from: [x, y] in document points"))?;
+            Point::new(x, y)
+        }
+        Some(_) => return Err(bad(CMD, "from: [x, y] in document points")),
+        None => {
+            let shoulder = match p.get("shoulder") {
+                None | Some(Value::Null) => 45.0,
+                Some(v) => v.as_f64().filter(|v| v.is_finite() && *v >= 0.0).ok_or_else(|| bad(CMD, "shoulder: mm, 0 or more"))?,
+            };
+            let top = (0..n).min_by(|&i, &j| half[i].p.y.total_cmp(&half[j].p.y)).unwrap_or(0);
+            let k = own(top);
+            // The way round whose next point is further from the fold.
+            let (next, prev) = (ring[(k + 1) % ring.len()].p, ring[(k + ring.len() - 1) % ring.len()].p);
+            let dir = if away(next) >= away(prev) { 1 } else { -1 };
+            walked(&ring, k, pf_core::mm_to_pt(shoulder), dir).ok_or_else(|| bad(CMD, "shoulder: longer than the outline"))?
+        }
+    };
+    // Where it ends: given, or the far side seam's lowest point, mirrored.
+    let to_pt = match p.get("to") {
+        Some(Value::Array(_)) => {
+            let [x, y] = finite_numbers::<2>(&p["to"]).ok_or_else(|| bad(CMD, "to: [x, y] in document points"))?;
+            Point::new(x, y)
+        }
+        Some(_) => return Err(bad(CMD, "to: [x, y] in document points")),
+        None => {
+            let far = half.iter().map(|k| away(k.p)).fold(0.0, f64::max);
+            let side = half
+                .iter()
+                .filter(|k| away(k.p) >= far * 0.85)
+                .max_by(|x, y| x.p.y.total_cmp(&y.p.y))
+                .map(|k| k.p)
+                .ok_or_else(|| bad(CMD, "the outline has no side seam"))?;
+            Point::new(2.0 * axis_x - side.x, side.y)
+        }
+    };
+    let (mut i, _) = point_on(&mut ring, from_pt, "from", CMD)?;
+    let (j, inserted) = point_on(&mut ring, to_pt, "to", CMD)?;
+    if inserted && j <= i {
+        i += 1;
+    }
+    let (one, two) = pf_core::design::split(&ring, i, j).map_err(|e| err(CMD, e))?;
+    // The front keeps the half's own armhole: the part holding its point furthest from the fold.
+    let far_pt = half.iter().max_by(|x, y| away(x.p).total_cmp(&away(y.p))).map(|k| k.p).unwrap_or_default();
+    let holds = |r: &[Knot]| r.iter().any(|k| (k.p - far_pt).len() < 1e-6);
+    let mut kept = if holds(&one) { one } else { two };
+    // A dart of the mirrored half that the wrap line crosses (its point past the line) is left
+    // out: its legs' feet join on the waist.
+    let (q0, q1) = (kept[kept.len() - 1].p, kept[0].p);
+    let side_of = |q: Pt| (q1 - q0).cross(q - q0);
+    let inside = side_of(far_pt).signum();
+    let before = kept.len();
+    let tol = pf_core::mm_to_pt(0.5) * (q1 - q0).len();
+    let last = kept.len() - 1;
+    kept = kept.into_iter().enumerate().filter(|(k, knot)| *k == 0 || *k == last || side_of(knot.p) * inside > -tol).map(|(_, knot)| knot).collect();
+    let dropped = before - kept.len();
+    // The half's own darts whose points the wrap line cut away (a bust dart in the shoulder).
+    let sharp = |r: &[Knot], i: usize| pf_core::design::opening(r, i).is_some_and(|a| a < 0.6);
+    let own_side = |q: Pt| (q.x - axis_x).signum() == (far_pt.x - axis_x).signum() && away(q) > 1e-6;
+    let darts_before = (0..n).filter(|&i| sharp(&half, i)).count();
+    let darts_after =
+        (0..kept.len()).filter(|&i| sharp(&kept, i) && own_side(kept[i].p) && half.iter().any(|h| (h.p - kept[i].p).len() < 1e-6)).count();
+    let mut warnings = Vec::new();
+    if darts_after < darts_before {
+        warnings.push("a dart of the front was cut away by the wrap line: move it out of the shoulder first (Pattern › Rotate Dart, to the armhole or the side), as wrap fronts are drafted".to_string());
+    }
+    if dropped > 0 {
+        warnings.push(format!("{dropped} point(s) past the wrap line were left out (a dart of the wrap's far side)"));
+    }
+    if let Some(curve) = p.get("curve") {
+        let depth = curve.as_f64().filter(|v| v.is_finite()).ok_or_else(|| bad(CMD, "curve: mm the wrap edge bows into the piece"))?;
+        if depth != 0.0 {
+            // The wrap edge closes the part (its last anchor to its first); into the piece is the
+            // side its middle lies on.
+            let e = kept.len() - 1;
+            let (q0, q1) = (kept[e].p, kept[0].p);
+            let c = kept.iter().fold(Pt::default(), |acc, k| acc + k.p) * (1.0 / kept.len() as f64);
+            let d = q1 - q0;
+            let left = Pt::new(d.y, -d.x);
+            let sign = if left.dot(c - q0) >= 0.0 { 1.0 } else { -1.0 };
+            pf_core::design::bow(&mut kept, e, sign * pf_core::mm_to_pt(depth)).map_err(|e| err(CMD, e))?;
+        }
+    }
+    let count = kept.len();
+    let parent = doc.parent_of(id).filter(|_| in_piece(doc, id));
+    s.edit("Make Wrap Front", |d, sel| {
+        let node = d.node(id).ok_or(EngineError::NoNode(id))?;
+        let new = reshaped(node, path_of(&kept));
+        if let Some(m) = d.node_mut(id) {
+            *m = new;
+        }
+        // Cut as a mirrored pair, no longer on the fold.
+        if let Some(g) = parent
+            && let Some(gn) = d.node_mut(g)
+            && let Some(pf_core::PatternTag::Piece(piece)) = gn.extras_mut().pattern.as_deref_mut()
+        {
+            piece.cut = piece.cut.max(2);
+            piece.mirror = true;
+        }
+        sel.set([parent.unwrap_or(id)]);
+        Ok(())
+    })?;
+    Ok(json!({"id": id.0, "anchors": count, "from": [from_pt.x, from_pt.y], "to": [to_pt.x, to_pt.y], "warnings": warnings}))
 }
 
 /// The length in points along `ring` from anchor `from` forward to anchor `to`.
