@@ -4,13 +4,17 @@
 //! The fabric runs along x (its length) from x = 0, its width along y from 0 to `width`. Each
 //! [`Part`] comes already turned so its grainline runs along x, as the grain must run along the
 //! fabric's length; a part may also be laid turned half round (180°) unless the fabric has a nap
-//! or a one-way print. Parts are laid largest first, each where its right end comes furthest
-//! left (then nearest the top edge): a *bottom-left fill*, the classic greedy heuristic for
-//! irregular nesting (Hopper & Turton, "An empirical investigation of meta-heuristic and
-//! heuristic algorithms for a 2D packing problem", EJOR 128 (2001)). Overlap is tested on a grid
+//! or a one-way print. Parts are laid largest first (those on the fold before the rest), each
+//! where its right end comes furthest left (then nearest the top edge): a *bottom-left fill*, the
+//! classic greedy heuristic for irregular nesting (Hopper & Turton, "An empirical investigation
+//! of meta-heuristic and heuristic algorithms for a 2D packing problem", EJOR 128 (2001)). Overlap is tested on a grid
 //! of `step` cells: each part covers every cell its outline, grown by half the gap, touches, so
 //! parts laid never overlap and are at least `gap` apart; a finer step lays them closer, at more
 //! cost.
+//!
+//! On fabric folded lengthwise the fold is the top edge (y = 0): a part cut on the fold
+//! ([`Part::fold`]) lies with its fold line against it, and [`opened_out`] makes the whole of such
+//! a part for fabric laid out single.
 //!
 //! Every length is in the parts' own unit.
 
@@ -23,11 +27,14 @@ pub const MAX_CELLS: usize = 40_000_000;
 /// Most points one part's outline has.
 pub const MAX_POINTS: usize = 100_000;
 
-/// A part to lay: its outline (a polygon, grainline along x), and whether it may be turned 180°.
-#[derive(Clone, Debug, PartialEq)]
+/// A part to lay: its outline (a polygon, grainline along x), whether it may be turned 180°,
+/// and whether it is cut on the fold: its smallest y on the fold line, so it lies against the
+/// top edge (never turned).
+#[derive(Clone, Debug, Default, PartialEq)]
 pub struct Part {
     pub points: Vec<Pt>,
     pub turn: bool,
+    pub fold: bool,
 }
 
 /// Where a part went: its points, turned half round about the origin when `turned`, moved by
@@ -234,7 +241,7 @@ pub fn lay(parts: &[Part], width: f64, gap: f64, step: f64) -> Result<Layout, Ma
                 return Vec::new();
             }
             let mut w = vec![way(&p.points, false, pad, step)];
-            if p.turn {
+            if p.turn && !p.fold {
                 w.push(way(&p.points, true, pad, step));
             }
             w
@@ -248,7 +255,8 @@ pub fn lay(parts: &[Part], width: f64, gap: f64, step: f64) -> Result<Layout, Ma
     let words = total.div_ceil(64);
     let mut grid = Grid { words, bits: vec![0; words * fabric_rows] };
     let mut order: Vec<usize> = (0..parts.len()).collect();
-    order.sort_by(|&a, &b| area(&parts[b].points).total_cmp(&area(&parts[a].points)).then(a.cmp(&b)));
+    // Parts on the fold first (they have only the fold to go along), then largest first.
+    order.sort_by(|&a, &b| parts[b].fold.cmp(&parts[a].fold).then(area(&parts[b].points).total_cmp(&area(&parts[a].points))).then(a.cmp(&b)));
     let mut length = 0.0f64;
     for i in order {
         // The way whose right end comes furthest left, then nearest the top.
@@ -258,7 +266,9 @@ pub fn lay(parts: &[Part], width: f64, gap: f64, step: f64) -> Result<Layout, Ma
             if c.rows.len() > fabric_rows || c.cols > total {
                 continue;
             }
-            let found = (0..=total - c.cols).find_map(|cx| (0..=fabric_rows - c.rows.len()).find(|&cy| grid.fits(c, cx, cy)).map(|cy| (cx, cy)));
+            // A part on the fold lies against the top edge only.
+            let rows = if parts[i].fold { 0 } else { fabric_rows - c.rows.len() };
+            let found = (0..=total - c.cols).find_map(|cx| (0..=rows).find(|&cy| grid.fits(c, cx, cy)).map(|cy| (cx, cy)));
             if let Some((cx, cy)) = found {
                 let key = (cx + c.cols, cy);
                 if best.is_none_or(|(bk, bx, by)| key < (bx + ways[i][bk].cells.cols, by)) {
@@ -274,6 +284,55 @@ pub fn lay(parts: &[Part], width: f64, gap: f64, step: f64) -> Result<Layout, Ma
         placed[i] = Some(at);
     }
     Ok(Layout { placed, length })
+}
+
+/// The whole of a part cut on the fold: outline `points` (a polygon on one side of the fold line
+/// through `a` and `b`, touching it along its fold edge) and its mirror image across the line,
+/// as one polygon. `None` when the outline crosses the line or doesn't touch it.
+pub fn opened_out(points: &[Pt], a: Pt, b: Pt) -> Option<Vec<Pt>> {
+    let d = (b - a).unit()?;
+    let n = points.len();
+    if n < 3 {
+        return None;
+    }
+    let size = points.iter().map(|p| (*p - a).len()).fold(0.0, f64::max);
+    let eps = 1e-6 * size.max(1.0);
+    let side = |p: Pt| d.cross(p - a);
+    let on = |i: usize| side(points[i % n]).abs() <= eps;
+    let off: Vec<f64> = points.iter().map(|p| side(*p)).filter(|v| v.abs() > eps).collect();
+    if off.is_empty() || !(off.iter().all(|v| *v > 0.0) || off.iter().all(|v| *v < 0.0)) {
+        return None;
+    }
+    // The runs of points on the line; the fold edge is the longest.
+    let mut best: Option<(usize, usize, f64)> = None;
+    for start in (0..n).filter(|&i| on(i) && !on(i + n - 1)) {
+        let mut end = start;
+        while on(end + 1) && end + 1 < start + n {
+            end += 1;
+        }
+        let span = (points[end % n] - points[start]).len();
+        if best.is_none_or(|(_, _, s)| span > s) {
+            best = Some((start, end % n, span));
+        }
+    }
+    let (first, last, _) = best?;
+    // From the fold edge's end round the outline to its start, then back on the mirror side.
+    let mut chain = Vec::new();
+    let mut i = last;
+    loop {
+        chain.push(points[i]);
+        if i == first {
+            break;
+        }
+        i = (i + 1) % n;
+    }
+    let mirror = |p: Pt| {
+        let v = p - a;
+        a + d * (2.0 * v.dot(d)) - v
+    };
+    let inner: Vec<Pt> = chain[1..chain.len() - 1].iter().rev().map(|p| mirror(*p)).collect();
+    chain.extend(inner);
+    Some(chain)
 }
 
 #[cfg(test)]
@@ -312,7 +371,7 @@ mod tests {
     #[test]
     fn rectangles_fill_the_width_then_the_length() {
         // Four 500 × 700 pieces on 1400 wide fabric: two across, two along, 1000 long.
-        let parts: Vec<Part> = (0..4).map(|_| Part { points: rect(500.0, 700.0), turn: true }).collect();
+        let parts: Vec<Part> = (0..4).map(|_| Part { points: rect(500.0, 700.0), turn: true, fold: false }).collect();
         let l = lay(&parts, 1400.0, 0.0, 10.0).unwrap();
         assert!(l.placed.iter().all(Option::is_some));
         assert!((l.length - 1000.0).abs() < 1e-9, "{}", l.length);
@@ -327,9 +386,9 @@ mod tests {
         let l_shape =
             vec![Pt::new(0.0, 0.0), Pt::new(400.0, 0.0), Pt::new(400.0, 100.0), Pt::new(100.0, 100.0), Pt::new(100.0, 500.0), Pt::new(0.0, 500.0)];
         let tri = vec![Pt::new(0.0, 0.0), Pt::new(300.0, 50.0), Pt::new(20.0, 400.0)];
-        let mut parts = vec![Part { points: l_shape.clone(), turn: true }, Part { points: l_shape, turn: true }];
-        parts.extend((0..3).map(|_| Part { points: tri.clone(), turn: true }));
-        parts.extend((0..3).map(|_| Part { points: rect(250.0, 120.0), turn: false }));
+        let mut parts = vec![Part { points: l_shape.clone(), turn: true, fold: false }, Part { points: l_shape, turn: true, fold: false }];
+        parts.extend((0..3).map(|_| Part { points: tri.clone(), turn: true, fold: false }));
+        parts.extend((0..3).map(|_| Part { points: rect(250.0, 120.0), turn: false, fold: false }));
         let width = 900.0;
         let l = lay(&parts, width, 4.0, 5.0).unwrap();
         let laid: Vec<Vec<Pt>> = parts.iter().zip(&l.placed).map(|(p, at)| p.points.iter().map(|q| at.unwrap().apply(*q)).collect()).collect();
@@ -348,18 +407,54 @@ mod tests {
     #[test]
     fn a_one_way_part_is_never_turned_and_a_too_wide_one_is_left_out() {
         let tri = vec![Pt::new(0.0, 0.0), Pt::new(300.0, 0.0), Pt::new(0.0, 300.0)];
-        let parts =
-            vec![Part { points: tri.clone(), turn: false }, Part { points: tri, turn: false }, Part { points: rect(100.0, 2000.0), turn: true }];
+        let parts = vec![
+            Part { points: tri.clone(), turn: false, fold: false },
+            Part { points: tri, turn: false, fold: false },
+            Part { points: rect(100.0, 2000.0), turn: true, fold: false },
+        ];
         let l = lay(&parts, 300.0, 0.0, 5.0).unwrap();
         assert!(l.placed[..2].iter().all(|p| p.is_some_and(|p| !p.turned)));
         assert_eq!(l.placed[2], None);
         // Turning lets two triangles make a square.
         let parts: Vec<Part> =
-            (0..2).map(|_| Part { points: vec![Pt::new(0.0, 0.0), Pt::new(300.0, 0.0), Pt::new(0.0, 300.0)], turn: true }).collect();
+            (0..2).map(|_| Part { points: vec![Pt::new(0.0, 0.0), Pt::new(300.0, 0.0), Pt::new(0.0, 300.0)], turn: true, fold: false }).collect();
         let l = lay(&parts, 300.0, 0.0, 5.0).unwrap();
         assert!(l.length <= 310.0, "{}", l.length);
         assert_eq!(lay(&parts, 0.0, 0.0, 5.0), Err(MarkerError::Width));
         assert_eq!(lay(&parts, 300.0, -1.0, 5.0), Err(MarkerError::Gap));
         assert_eq!(lay(&parts, 300.0, 0.0, 0.0), Err(MarkerError::Step));
+    }
+
+    #[test]
+    fn a_part_on_the_fold_lies_against_it_and_opens_out_whole() {
+        // A half front, centre front (x = 0, from (0, 400) up to (0, 0)) on the fold.
+        let half = vec![Pt::new(0.0, 0.0), Pt::new(200.0, 0.0), Pt::new(250.0, 400.0), Pt::new(0.0, 400.0)];
+        let whole = opened_out(&half, Pt::new(0.0, 400.0), Pt::new(0.0, 0.0)).unwrap();
+        assert_eq!(whole.len(), 6);
+        assert!((area(&whole) - 2.0 * area(&half)).abs() < 1e-6);
+        assert!(whole.contains(&Pt::new(-250.0, 400.0)) && whole.contains(&Pt::new(-200.0, 0.0)));
+        // A cutting line with a point mid-fold too.
+        let mid = vec![Pt::new(0.0, 0.0), Pt::new(200.0, 0.0), Pt::new(250.0, 400.0), Pt::new(0.0, 400.0), Pt::new(0.0, 200.0)];
+        assert!((area(&opened_out(&mid, Pt::new(0.0, 0.0), Pt::new(0.0, 1.0)).unwrap()) - 2.0 * area(&half)).abs() < 1e-6);
+        // Across the line, or away from it: no.
+        assert_eq!(opened_out(&half, Pt::new(100.0, 0.0), Pt::new(100.0, 1.0)), None);
+        assert_eq!(opened_out(&half, Pt::new(-5.0, 0.0), Pt::new(-5.0, 1.0)), None);
+        // On the fold: laid at the top edge, never turned, even with room below.
+        let strip = rect(300.0, 100.0);
+        let parts = vec![
+            Part { points: strip.clone(), turn: true, fold: true },
+            Part { points: strip.clone(), turn: true, fold: true },
+            Part { points: rect(100.0, 50.0), turn: true, fold: false },
+        ];
+        let l = lay(&parts, 400.0, 0.0, 5.0).unwrap();
+        for at in &l.placed[..2] {
+            let at = at.unwrap();
+            assert!(!at.turned && strip.iter().map(|p| at.apply(*p).y).fold(f64::INFINITY, f64::min).abs() < 1e-9);
+        }
+        assert!((l.length - 600.0).abs() < 1e-9, "{}", l.length);
+        // A larger part off the fold leaves the fold to the parts on it.
+        let parts = vec![Part { points: rect(300.0, 300.0), turn: true, fold: false }, Part { points: strip.clone(), turn: true, fold: true }];
+        let l = lay(&parts, 400.0, 0.0, 5.0).unwrap();
+        assert!((l.length - 300.0).abs() < 1e-9, "{}", l.length);
     }
 }

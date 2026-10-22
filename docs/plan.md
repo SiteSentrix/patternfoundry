@@ -483,3 +483,17 @@ is built on, plus a pattern mode, the way StitchFoundry adds embroidery:
   Not yet: folded fabric (pieces cut on the fold laid against the fold), a small tilt off grain,
   plaid and stripe matching, pieces moved by hand with the length and efficiency kept up to date,
   a better search (trying orders, as nesting software does), the marker in DXF-AAMA.
+- 2026-10-22, **PF-9.2**: pieces cut on the fold, and markers on folded fabric. A piece's fold
+  (`piece.set {fold: edge | "auto" | null}`; the Pieces panel's **Cut on fold**, "auto" the
+  longest straight edge) is a straight edge of its seam line: it takes no allowance and the label
+  says "Cut 1 on fold". **Make Marker** lays such a piece opened out across the fold, whole, with
+  one cutting line round it and the seam line and grainline on both halves
+  (`pf_core::marker::opened_out`). With `folded` (the fabric folded lengthwise, selvedges
+  together, the usual home layout: https://www.threadsmagazine.com/2009/06/30/the-fold-line) the
+  marker is half the width with the fold dashed along its top edge: pieces on the fold lie against
+  it, and every other piece cuts a mirror-image pair through both layers, so a piece cut 2 is laid
+  once (an odd count is warned about: it cuts one more). Tests: 2 more in `pf-core` (a label on
+  the fold; opening out, lying against the fold) and 1 in `tests_marker.rs` (no allowance on the
+  fold, opened out single, against the fold when folded, pairs, the odd count, the fold taken
+  off). Not yet: the fold in the projector PDF and in DXF-AAMA (its mirror line), a fold that is
+  not straight.
