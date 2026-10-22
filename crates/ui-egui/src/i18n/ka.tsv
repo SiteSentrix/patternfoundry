@@ -5331,3 +5331,11 @@ file-filter	PDF for projector	PDF პროექტორისთვის
 	Back to the piece's seam allowance	დეტალის ნაკერის მარაგზე დაბრუნება
 	A notch in the middle of the edge	ნაჭდევი კიდის შუაში
 	Notch on edge {edge}, {at}% along	ნაჭდევი კიდეზე {edge}, {at}%-ზე
+	Piece Outlines	დეტალების კონტურები
+	Projector	პროექტორი
+	Projector Scale (screen points per mm, 0: not calibrated)	პროექტორის მასშტაბი (ეკრანის წერტილები მმ-ზე, 0: არ არის კალიბრირებული)
+	Projector View	პროექტორის ხედი
+	Measure the square on the cutting mat: it should be 10 cm each way. The arrows make it bigger or smaller (with Shift, faster); Enter keeps it; Escape leaves. Scale: {scale} points per mm.	გაზომეთ კვადრატი საჭრელ ხალიჩაზე: ყოველი მიმართულებით 10 სმ უნდა იყოს. ისრები ადიდებს ან აპატარავებს (Shift-ით სწრაფად); Enter ინახავს; Escape გამოდის. მასშტაბი: {scale} წერტილი მმ-ზე.
+	Arrows move the pattern 1 cm (Shift: 1 mm) · M mirrors it · C calibrates · Escape leaves	ისრები გადაადგილებს თარგს 1 სმ-ით (Shift: 1 მმ) · M ასარკავს · C აკალიბრებს · Escape გამოდის
+@msg	no pattern pieces to project: make the outlines pattern pieces first (Pattern › Make Pattern Piece)	საპროექციო თარგის დეტალები არ არის: ჯერ კონტურები გადააქციეთ თარგის დეტალებად (თარგი › თარგის დეტალის შექმნა)
+@msg	scale: screen points per mm, more than 0	მასშტაბი: ეკრანის წერტილები მმ-ზე, 0-ზე მეტი

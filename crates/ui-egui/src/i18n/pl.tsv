@@ -5276,3 +5276,11 @@ file-filter	PDF for projector	PDF do projektora
 	Back to the piece's seam allowance	Wróć do zapasu na szew elementu
 	A notch in the middle of the edge	Znak montażowy w połowie krawędzi
 	Notch on edge {edge}, {at}% along	Znak montażowy na krawędzi {edge}, w {at}%
+	Piece Outlines	Obrysy elementów
+	Projector	Projektor
+	Projector Scale (screen points per mm, 0: not calibrated)	Skala projektora (punkty ekranu na mm, 0: nieskalibrowany)
+	Projector View	Widok projektora
+	Measure the square on the cutting mat: it should be 10 cm each way. The arrows make it bigger or smaller (with Shift, faster); Enter keeps it; Escape leaves. Scale: {scale} points per mm.	Zmierz kwadrat na macie do cięcia: powinien mieć 10 cm w każdą stronę. Strzałki go powiększają lub zmniejszają (z Shift szybciej); Enter go zachowuje; Escape kończy. Skala: {scale} punktów na mm.
+	Arrows move the pattern 1 cm (Shift: 1 mm) · M mirrors it · C calibrates · Escape leaves	Strzałki przesuwają wykrój o 1 cm (Shift: 1 mm) · M odbija go · C kalibruje · Escape kończy
+@msg	no pattern pieces to project: make the outlines pattern pieces first (Pattern › Make Pattern Piece)	brak elementów wykroju do wyświetlenia: najpierw zamień obrysy w elementy wykroju (Wykrój › Utwórz element wykroju)
+@msg	scale: screen points per mm, more than 0	skala: punkty ekranu na mm, więcej niż 0

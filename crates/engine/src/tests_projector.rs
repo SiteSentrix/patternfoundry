@@ -159,3 +159,27 @@ fn a_piece_cut_on_the_fold_is_projected_whole_or_as_the_half_with_its_fold() {
     assert_eq!(fold.len(), 1);
     assert!(mm(fold[0])[0] == 25.0 && mm(fold[0])[2] == 0.0 && mm(fold[0])[3] == 100.0, "{:?}", mm(fold[0]));
 }
+
+#[test]
+fn the_outlines_the_projector_view_draws_are_true_to_scale() {
+    let mut s = square_piece();
+    let o = s.execute("piece.outlines", &json!({})).unwrap();
+    let span = |v: &Value, k: usize| {
+        let xs: Vec<f64> = v.as_array().unwrap().iter().map(|q| q[k].as_f64().unwrap()).collect();
+        xs.iter().cloned().fold(f64::NEG_INFINITY, f64::max) - xs.iter().cloned().fold(f64::INFINITY, f64::min)
+    };
+    let p = &o["pieces"][0];
+    // The 10 cm square: 100 mm on the seam line, 120 on the cutting line, in mm.
+    assert!((span(&p["seam"], 0) - 100.0).abs() < 0.01 && (span(&p["seam"], 1) - 100.0).abs() < 0.01, "{p}");
+    assert!((span(&p["cut"], 0) - 120.0).abs() < 0.01, "{p}");
+    assert_eq!(p["notches"].as_array().unwrap().len(), 1);
+    assert_eq!(p["text"], "Front\nCut 1");
+    // On the fold: opened out (220 mm), or the half (110) with its fold line.
+    s.execute("piece.set", &json!({"fold": 3})).unwrap();
+    let whole = s.execute("piece.outlines", &json!({})).unwrap();
+    assert!((span(&whole["pieces"][0]["cut"], 0) - 220.0).abs() < 0.01 && whole["pieces"][0]["fold"].is_null());
+    let half = s.execute("piece.outlines", &json!({"openFolds": false})).unwrap();
+    assert!((span(&half["pieces"][0]["cut"], 0) - 110.0).abs() < 0.01);
+    assert_eq!(half["pieces"][0]["text"], "Front\nCut 1 on fold");
+    assert!((span(&half["pieces"][0]["fold"], 1) - 100.0).abs() < 0.01);
+}

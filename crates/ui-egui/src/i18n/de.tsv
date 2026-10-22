@@ -5005,3 +5005,11 @@ file-filter	PDF for projector	PDF für Projektor
 	Back to the piece's seam allowance	Zurück zur Nahtzugabe des Teils
 	A notch in the middle of the edge	Eine Knipsmarke in der Mitte der Kante
 	Notch on edge {edge}, {at}% along	Knipsmarke an Kante {edge}, bei {at} %
+	Piece Outlines	Schnittteil-Umrisse
+	Projector	Projektor
+	Projector Scale (screen points per mm, 0: not calibrated)	Projektormaßstab (Bildschirmpunkte pro mm, 0: nicht kalibriert)
+	Projector View	Projektoransicht
+	Measure the square on the cutting mat: it should be 10 cm each way. The arrows make it bigger or smaller (with Shift, faster); Enter keeps it; Escape leaves. Scale: {scale} points per mm.	Messen Sie das Quadrat auf der Schneidematte: Es sollte in beide Richtungen 10 cm messen. Die Pfeiltasten machen es größer oder kleiner (mit Umschalt schneller); Eingabe übernimmt es; Escape beendet. Maßstab: {scale} Punkte pro mm.
+	Arrows move the pattern 1 cm (Shift: 1 mm) · M mirrors it · C calibrates · Escape leaves	Pfeiltasten verschieben das Schnittmuster um 1 cm (Umschalt: 1 mm) · M spiegelt es · C kalibriert · Escape beendet
+@msg	no pattern pieces to project: make the outlines pattern pieces first (Pattern › Make Pattern Piece)	keine Schnittteile zum Projizieren: machen Sie die Umrisse zuerst zu Schnittteilen (Schnitt › Schnittteil erstellen)
+@msg	scale: screen points per mm, more than 0	Maßstab: Bildschirmpunkte pro mm, mehr als 0

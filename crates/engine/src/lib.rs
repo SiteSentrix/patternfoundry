@@ -972,6 +972,9 @@ pub struct Prefs {
     // Devices
     pub touch_workspace: bool,
     pub touch_gestures: bool,
+    /// Devices › Projector › Projector Scale (PF-7.5): screen points per millimetre on the cutting
+    /// mat, from calibrating the projector view against its 10 cm square; 0 until calibrated.
+    pub projector_scale: f64,
     // Graphic Styles panel
     /// Override Character Color: a graphic style applied to type replaces its characters' fill
     /// and stroke with the style's fills and strokes.
@@ -1188,6 +1191,7 @@ impl Default for Prefs {
             black_output: s("accurate"),
             touch_workspace: true,
             touch_gestures: true,
+            projector_scale: 0.0,
             override_char_color: true,
             pattern_tile_edge_color: {
                 let [r, g, b] = vectorcraft_doc::LAYER_COLORS[0].1;

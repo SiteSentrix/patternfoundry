@@ -574,6 +574,12 @@ pub const UI_COMMANDS: &[(&str, &str, &str, &str)] = &[
         "{question?: text (asked at once)} open Ask About Patterns: questions about sewing patterns or PatternFoundry answered by Claude with your own Anthropic API key or paid with Foundry credits; it can draft and change the pattern through the commands, each change after your Allow (the conversation and a summary of the pattern open now go along: its pieces and sizes and the names of the measurements set, never their values, which Claude reads only with your Allow) → {open, asking}",
     ),
     (
+        "ui.projector",
+        "Projector View",
+        "",
+        "{on?: bool (default: the other way), calibrate?: bool, mirror?: bool, openFolds?: bool (true), size?, scale?: screen points per mm on the mat (kept as Preferences › Devices › Projector Scale)} the pattern pieces full screen at true size, white on black, for a projector over the cutting table (piece.outlines); not calibrated, it opens on a 10 cm square to measure on the mat and size with the arrows (Enter keeps it). Keys: the arrows move the pattern 1 cm (Shift: 1 mm), M mirrors it, C calibrates, Escape leaves → {on, calibrating, mirror, openFolds, scale, pan}",
+    ),
+    (
         "ui.checkSleeveEase",
         "Check Sleeve Ease",
         "",
@@ -1582,6 +1588,7 @@ pub fn run_ui_command(app: &mut VectorcraftApp, id: &str, p: &Value) -> Option<R
         "ui.tileEdgeColor" => crate::dialogs::tile_edge_color::open(app),
         "ui.askAboutPatterns" => crate::ai::ask::open(app, p),
         "ui.checkSleeveEase" => crate::dialogs::sleeve_ease::check(app, p),
+        "ui.projector" => crate::projector::command(app, p),
         "ui.checkMuslin" => crate::ai::muslin::open(app, p).and_then(|v| {
             if p.get("check").and_then(Value::as_bool) == Some(true) {
                 crate::ai::muslin::check(app)?;
@@ -2284,7 +2291,7 @@ pub fn enabled(app: &VectorcraftApp, id: &str) -> bool {
         id if crate::panels::paragraph::ALIGN_COMMANDS.iter().any(|c| c.0 == id) => crate::panels::character::text_style(app).is_some(),
         "file.reveal" => app.services.reveal.is_some() && app.session.active().is_some_and(|d| d.path.is_some()),
         "ui.askAboutPatterns" | "ui.checkMuslin" | "ui.account" => crate::ai::available(app),
-        "ui.checkSleeveEase" => app.session.active().is_some(),
+        "ui.checkSleeveEase" | "ui.projector" => app.session.active().is_some(),
         "file.cancelExport" | "file.exportInBackground" => app.background.jobs.iter().any(|j| j.progress.is_some() && !j.cancelled()),
         "file.place"
         | "file.export.svg"
@@ -2751,6 +2758,7 @@ pub fn menu_tree_named(english_names: bool) -> Vec<(&'static str, Vec<Item>)> {
                 Sep,
                 c("Grade Nest", "grade.nest"),
                 c("Clear Graded Nest", "grade.clear"),
+                c("Projector View", "ui.projector"),
                 cp(
                     "Make Marker…",
                     "marker.make",

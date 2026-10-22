@@ -5018,3 +5018,11 @@ file-filter	PDF for projector	PDF для проєктора
 	Back to the piece's seam allowance	Повернути припуск деталі
 	A notch in the middle of the edge	Надсічка посередині краю
 	Notch on edge {edge}, {at}% along	Надсічка на краю {edge}, на {at}%
+	Piece Outlines	Контури деталей
+	Projector	Проектор
+	Projector Scale (screen points per mm, 0: not calibrated)	Масштаб проектора (екранних точок на мм, 0: не відкалібровано)
+	Projector View	Вигляд для проектора
+	Measure the square on the cutting mat: it should be 10 cm each way. The arrows make it bigger or smaller (with Shift, faster); Enter keeps it; Escape leaves. Scale: {scale} points per mm.	Виміряйте квадрат на розкрійному килимку: він має бути 10 см у кожен бік. Стрілки збільшують або зменшують його (із Shift швидше); Enter зберігає; Escape виходить. Масштаб: {scale} точок на мм.
+	Arrows move the pattern 1 cm (Shift: 1 mm) · M mirrors it · C calibrates · Escape leaves	Стрілки зсувають викрійку на 1 см (Shift: 1 мм) · M віддзеркалює її · C калібрує · Escape виходить
+@msg	no pattern pieces to project: make the outlines pattern pieces first (Pattern › Make Pattern Piece)	немає деталей викрійки для проєкції: спершу зробіть контури деталями викрійки («Викрійка» › «Створити деталь викрійки»)
+@msg	scale: screen points per mm, more than 0	масштаб: екранних точок на мм, більше 0

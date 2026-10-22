@@ -83,6 +83,15 @@ pub fn specs() -> Vec<CommandSpec> {
             info
         ),
         cmd!(query "piece.list", "Pattern Pieces", [], None, "{} the document's pieces, in paint order → {pieces: [{id, name, cut, mirror, fabric}]}", has_doc, list),
+        cmd!(
+            query "piece.outlines",
+            "Piece Outlines",
+            [],
+            None,
+            "{openFolds?: bool (true: pieces cut on the fold opened out, whole), size? (a size of the size range or chart)} every piece's lines in millimetres, y down, where they are in the document, as the projector view draws them → {pieces: [{name, text (the label: name and how to cut), cut: [[x, y]] (closed), seam: [[x, y]] (closed), notches: [[[x, y], [x, y]]], grain: [[x, y], [x, y]] | null, fold: [[x, y], [x, y]] | null (the half's fold line), lines: [[[x, y]]] (drawn inside), label: [x, y]}], bounds: [x0, y0, x1, y1]}",
+            has_doc,
+            outlines
+        ),
     ]
 }
 
@@ -652,4 +661,71 @@ fn list(s: &mut Session, _: &Value) -> Result<Value> {
         }
     });
     Ok(json!({ "pieces": pieces }))
+}
+
+fn outlines(s: &mut Session, p: &Value) -> Result<Value> {
+    const CMD: &str = "piece.outlines";
+    let open = match p.get("openFolds") {
+        None | Some(Value::Null) => true,
+        Some(v) => v.as_bool().ok_or_else(|| bad(CMD, "openFolds: true or false"))?,
+    };
+    let doc = &s.doc()?.doc;
+    let sized = match p.get("size") {
+        None | Some(Value::Null) => None,
+        Some(Value::String(size)) if size.trim().is_empty() => None,
+        Some(Value::String(size)) => Some(super::grade::in_size(doc, size, CMD)?),
+        Some(_) => return Err(bad(CMD, "size: the name of a size of the size range or chart")),
+    };
+    let pieces = super::fileio::aama::pieces(sized.as_ref().unwrap_or(doc))?;
+    let mm = |q: [f64; 2]| [(pt_to_mm(q[0]) * 1000.0).round() / 1000.0, (pt_to_mm(q[1]) * 1000.0).round() / 1000.0];
+    let ring = |v: &[[f64; 2]]| v.iter().map(|q| mm(*q)).collect::<Vec<_>>();
+    let (mut x0, mut y0, mut x1, mut y1) = (f64::INFINITY, f64::INFINITY, f64::NEG_INFINITY, f64::NEG_INFINITY);
+    let mut out = Vec::new();
+    for piece in &pieces {
+        let piece = if open { super::fileio::aama::opened(piece) } else { piece.clone() };
+        for q in piece.boundary.iter().map(|q| mm(*q)) {
+            (x0, y0, x1, y1) = (x0.min(q[0]), y0.min(q[1]), x1.max(q[0]), y1.max(q[1]));
+        }
+        // Each notch as the cut it makes: its angle is counter-clockwise with y up, y runs down.
+        let notches: Vec<Vec<[f64; 2]>> = piece
+            .notches
+            .iter()
+            .map(|n| {
+                let (sn, c) = n.angle.to_radians().sin_cos();
+                let into = [c, -sn];
+                let tip = [n.at[0] + into[0] * n.depth, n.at[1] + into[1] * n.depth];
+                let half = n.width / 2.0;
+                if half > 0.0 {
+                    let side = [-into[1] * half, into[0] * half];
+                    vec![mm([n.at[0] + side[0], n.at[1] + side[1]]), mm(tip), mm([n.at[0] - side[0], n.at[1] - side[1]])]
+                } else {
+                    vec![mm(n.at), mm(tip)]
+                }
+            })
+            .collect();
+        let cut = piece.quantity.0 + piece.quantity.1;
+        let mut text = format!("{}\nCut {cut}", piece.name);
+        if piece.mirror.is_some() {
+            text.push_str(" on fold");
+        }
+        if piece.quantity.1 > 0 {
+            text.push_str(" (mirrored pairs)");
+        }
+        if !piece.material.is_empty() {
+            text.push_str(&format!(" · {}", piece.material));
+        }
+        out.push(json!({
+            "name": piece.name,
+            "text": text,
+            "cut": ring(&piece.boundary),
+            "seam": ring(&piece.sew_line),
+            "notches": notches,
+            "grain": piece.grain.map(|g| [mm(g[0]), mm(g[1])]),
+            "fold": piece.mirror.map(|g| [mm(g[0]), mm(g[1])]),
+            "lines": piece.internal.iter().map(|l| ring(l)).collect::<Vec<_>>(),
+            "label": mm(piece.text_at),
+        }));
+    }
+    let bounds = if out.is_empty() { Value::Null } else { json!([x0, y0, x1, y1]) };
+    Ok(json!({"pieces": out, "bounds": bounds}))
 }

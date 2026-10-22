@@ -5423,3 +5423,11 @@ file-filter	PDF for projector	PDF pro projektor
 	Back to the piece's seam allowance	Zpět na švovou záložku dílu
 	A notch in the middle of the edge	Zářez uprostřed hrany
 	Notch on edge {edge}, {at}% along	Zářez na hraně {edge}, {at} % od začátku
+	Piece Outlines	Obrysy dílů
+	Projector	Projektor
+	Projector Scale (screen points per mm, 0: not calibrated)	Měřítko projektoru (body obrazovky na mm, 0: nezkalibrováno)
+	Projector View	Zobrazení pro projektor
+	Measure the square on the cutting mat: it should be 10 cm each way. The arrows make it bigger or smaller (with Shift, faster); Enter keeps it; Escape leaves. Scale: {scale} points per mm.	Změřte čtverec na řezací podložce: měl by mít 10 cm na každou stranu. Šipky ho zvětšují nebo zmenšují (se Shiftem rychleji); Enter ho ponechá; Escape skončí. Měřítko: {scale} bodů na mm.
+	Arrows move the pattern 1 cm (Shift: 1 mm) · M mirrors it · C calibrates · Escape leaves	Šipky posunou střih o 1 cm (Shift: 1 mm) · M ho zrcadlí · C kalibruje · Escape skončí
+@msg	no pattern pieces to project: make the outlines pattern pieces first (Pattern › Make Pattern Piece)	žádné díly střihu k promítnutí: nejdřív udělejte z obrysů díly střihu (Střih › Vytvořit díl střihu)
+@msg	scale: screen points per mm, more than 0	měřítko: body obrazovky na mm, více než 0
