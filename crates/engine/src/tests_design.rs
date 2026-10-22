@@ -699,3 +699,55 @@ fn a_wrap_edge_bows_into_the_piece_and_bad_requests_are_refused() {
     assert!(s.execute("design.wrapFront", &json!({"id": id.0, "fold": [0, 2]})).unwrap_err().to_string().contains("neighbour"));
     assert!(s.execute("design.wrapFront", &json!({"id": id.0, "curve": "deep"})).unwrap_err().to_string().contains("curve"));
 }
+
+/// A wrap skirt's front (`design.wrapFront {edge: "straight"}`): the skirt block's front opened
+/// out across centre front, its wrap edge parallel to it, the overlap past it.
+#[test]
+fn a_wrap_skirt_front_and_its_bands() {
+    let mut s = Session::new();
+    s.execute("file.new", &json!({"width": 1400, "height": 1000})).unwrap();
+    s.execute("measure.set", &json!({"values": {"waist": 680, "hip": 940, "waist_to_hip": 200, "skirt_length": 600}})).unwrap();
+    let r = s.execute("block.skirt", &json!({"origin": [0, 0]})).unwrap();
+    let id = NodeId(r["ids"][1].as_u64().unwrap());
+    let half = points(&s, id);
+    let cf = half.iter().map(|p| p.x).fold(f64::MIN, f64::max);
+    let side = half.iter().map(|p| p.x).fold(f64::MAX, f64::min);
+    // (Clear of the mirrored waist dart, 120 mm from centre front.)
+    let r = s.execute("design.wrapFront", &json!({"id": id.0, "edge": "straight", "overlap": 60})).unwrap();
+    assert_eq!((r["overlapMm"].as_f64(), &r["warnings"]), (Some(60.0), &json!([])));
+    let after = points(&s, id);
+    let x1 = after.iter().map(|p| p.x).fold(f64::MIN, f64::max);
+    let x0 = after.iter().map(|p| p.x).fold(f64::MAX, f64::min);
+    // The side seam stays; the wrap edge is 60 mm past centre front, straight down from the
+    // waist to the hem.
+    assert!((x0 - side).abs() < 1e-6 && (x1 - (cf + mm_to_pt(60.0))).abs() < 1e-6, "{x0} {x1} {cf}");
+    let edge = r["edge"].as_array().unwrap();
+    let (top, bottom) = (edge[0][1].as_f64().unwrap(), edge[1][1].as_f64().unwrap());
+    let hem = half.iter().map(|p| p.y).fold(f64::MIN, f64::max);
+    assert!((edge[0][0].as_f64().unwrap() - x1).abs() < 1e-6 && (bottom - hem).abs() < 1e-6 && top.abs() < mm_to_pt(10.0), "{edge:?}");
+    // Through the mirrored dart: a warning.
+    s.execute("edit.undo", &json!({})).unwrap();
+    let r = s.execute("design.wrapFront", &json!({"id": id.0, "edge": "straight", "overlap": 120})).unwrap();
+    assert!(r["warnings"][0].as_str().unwrap().contains("dart"), "{r}");
+    // The whole front when the overlap reaches the far side (the default).
+    s.execute("edit.undo", &json!({})).unwrap();
+    let r = s.execute("design.wrapFront", &json!({"id": id.0, "edge": "straight"})).unwrap();
+    assert_eq!(r["edge"], json!(null));
+    let x1 = points(&s, id).iter().map(|p| p.x).fold(f64::MIN, f64::max);
+    assert!((x1 - (2.0 * cf - side)).abs() < 1e-6);
+    assert!(s.execute("design.wrapFront", &json!({"id": id.0, "edge": "curved"})).unwrap_err().to_string().contains("edge"));
+    // A waistband: 8 cm wide folded (16 cm cut), 1.5 times the waist long, with its fold line.
+    let b = s.execute("design.band", &json!({"length": 1020, "width": 160, "origin": [0, 900]})).unwrap();
+    let band = NodeId(b["id"].as_u64().unwrap());
+    let r = bounds(&s, band);
+    assert!((pf_core::pt_to_mm(r.width()) - 1020.0).abs() < 1e-6 && (pf_core::pt_to_mm(r.height()) - 160.0).abs() < 1e-6);
+    let doc = &s.doc().unwrap().doc;
+    assert_eq!(doc.node(band).unwrap().name.as_deref(), Some("Waistband"));
+    let fold = bounds(&s, NodeId(b["fold"].as_u64().unwrap()));
+    assert!((fold.y0 - (r.y0 + r.height() / 2.0)).abs() < 1e-6 && fold.height() < 1e-6);
+    let t = s.execute("design.band", &json!({"length": 635, "width": 89, "name": "Tie", "fold": false})).unwrap();
+    assert_eq!(t["fold"], json!(null));
+    assert!(s.execute("design.band", &json!({"length": 0, "width": 50})).unwrap_err().to_string().contains("length"));
+    // Bands become pieces like any outline.
+    s.execute("piece.make", &json!({"ids": [band.0], "allowance": 10})).unwrap();
+}
