@@ -72,6 +72,6 @@ progress log in `docs/plan.md`). PF-6 (grading, PF-6.1 to 6.5) is done but for g
 Foundry Account (PF-8.1), the wrap dress's pieces (PF-5.16, 5.17) and Check My Muslin (PF-8.2).
 PF-9 has markers (PF-9.1, Pattern › Make Marker…) with pieces cut on the fold and folded fabric
 (PF-9.2); the exports know the fold too (PF-7.4: the DXF-AAMA mirror line, opened out on the
-projector). Next: a real request through the
-Foundry service, then drafting a garment from a description; the in-app projector view and
-selling patterns on MakerFoundry are still to do.
+projector), and Pattern › Projector View shows the pattern at true size on a calibrated projector
+(PF-7.5). Next: a real request through the
+Foundry service, then drafting a garment from a description; selling patterns on MakerFoundry is still to do.

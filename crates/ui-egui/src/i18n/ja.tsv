@@ -5078,3 +5078,11 @@ file-filter	PDF for projector	プロジェクター用 PDF
 	Back to the piece's seam allowance	パーツの縫い代に戻す
 	A notch in the middle of the edge	辺の中央に合印
 	Notch on edge {edge}, {at}% along	辺 {edge} の合印（{at}% の位置）
+	Piece Outlines	パーツの輪郭
+	Projector	プロジェクター
+	Projector Scale (screen points per mm, 0: not calibrated)	プロジェクターの倍率（1 mm あたりの画面ポイント、0：未調整）
+	Projector View	プロジェクター表示
+	Measure the square on the cutting mat: it should be 10 cm each way. The arrows make it bigger or smaller (with Shift, faster); Enter keeps it; Escape leaves. Scale: {scale} points per mm.	カッティングマット上で正方形を測ってください。縦横とも 10 cm になるはずです。矢印キーで大きく・小さく（Shift で速く）、Enter で決定、Escape で終了。倍率：1 mm あたり {scale} ポイント。
+	Arrows move the pattern 1 cm (Shift: 1 mm) · M mirrors it · C calibrates · Escape leaves	矢印キーで型紙を 1 cm 移動（Shift：1 mm）· M で反転 · C で調整 · Escape で終了
+@msg	no pattern pieces to project: make the outlines pattern pieces first (Pattern › Make Pattern Piece)	投影する型紙パーツがありません：先に輪郭を型紙パーツにしてください（パターン › 型紙パーツを作成）
+@msg	scale: screen points per mm, more than 0	倍率：1 mm あたりの画面ポイント、0 より大きく

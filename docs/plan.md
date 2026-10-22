@@ -536,3 +536,18 @@ is built on, plus a pattern mode, the way StitchFoundry adds embroidery:
   through `piece.set {edges}`, `piece.addNotch` and `piece.removeNotch`. Tests: 1 in
   `panels/tests_pieces.rs` (the panel's first test). Not yet: notches and allowances picked on the
   canvas, a notch moved along its edge, the notch kind chosen in the panel.
+- 2026-10-22, **PF-7.5**: the projector view in the app. **Pattern › Projector View**
+  (`ui.projector`) draws the pattern pieces full screen at true size, white on black, for a
+  projector over the cutting table: the cutting lines thick, the seam lines dashed, notches,
+  grainlines, lines inside, names and how to cut, a 10 cm test square beside them; pieces cut on
+  the fold opened out (or the half with its fold, for folded fabric). True size needs the
+  projector calibrated once: the view shows a 10 cm square to measure on the mat and size with the
+  arrows (Shift: faster), Enter keeps the scale as Preferences › Devices › Projector Scale (screen
+  points per mm on the mat); until then it opens on the square. The arrows move the pattern 1 cm
+  (Shift: 1 mm), M mirrors it (to cut with the wrong side up), C calibrates again, Escape leaves;
+  the view takes these keys before the app's shortcuts, so they don't move the selection. The
+  pieces come from the new query `piece.outlines` (each piece's lines in mm, y down; built as the
+  DXF-AAMA export builds them). Tests: 1 in `tests_projector.rs` (the outlines true to scale,
+  opened out and halved), 1 in the UI (calibrating, keeping the scale, moving and mirroring, full
+  screen on and off). Not yet tried on a real projector; not yet: a grid over the whole mat to
+  check against, a scale per projector, the view on the web.

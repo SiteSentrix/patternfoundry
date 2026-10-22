@@ -5448,3 +5448,11 @@ file-filter	PDF for projector	PDF voor projector
 	Back to the piece's seam allowance	Terug naar de naadtoeslag van het patroondeel
 	A notch in the middle of the edge	Een inknipje midden op de rand
 	Notch on edge {edge}, {at}% along	Inknipje op rand {edge}, op {at}%
+	Piece Outlines	Omtrekken van patroondelen
+	Projector	Projector
+	Projector Scale (screen points per mm, 0: not calibrated)	Projectorschaal (schermpunten per mm, 0: niet gekalibreerd)
+	Projector View	Projectorweergave
+	Measure the square on the cutting mat: it should be 10 cm each way. The arrows make it bigger or smaller (with Shift, faster); Enter keeps it; Escape leaves. Scale: {scale} points per mm.	Meet het vierkant op de snijmat: het moet in beide richtingen 10 cm zijn. De pijltjes maken het groter of kleiner (met Shift sneller); Enter bewaart het; Escape sluit af. Schaal: {scale} punten per mm.
+	Arrows move the pattern 1 cm (Shift: 1 mm) · M mirrors it · C calibrates · Escape leaves	Pijltjes verschuiven het patroon 1 cm (Shift: 1 mm) · M spiegelt het · C kalibreert · Escape sluit af
+@msg	no pattern pieces to project: make the outlines pattern pieces first (Pattern › Make Pattern Piece)	geen patroondelen om te projecteren: maak eerst patroondelen van de omtrekken (Patroon › Patroondeel maken)
+@msg	scale: screen points per mm, more than 0	schaal: schermpunten per mm, meer dan 0

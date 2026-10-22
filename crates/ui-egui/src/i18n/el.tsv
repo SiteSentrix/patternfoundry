@@ -5375,3 +5375,11 @@ file-filter	PDF for projector	PDF για προβολέα
 	Back to the piece's seam allowance	Πίσω στη ραφή του κομματιού
 	A notch in the middle of the edge	Μια εγκοπή στη μέση της άκρης
 	Notch on edge {edge}, {at}% along	Εγκοπή στην άκρη {edge}, στο {at}%
+	Piece Outlines	Περιγράμματα κομματιών
+	Projector	Προβολέας
+	Projector Scale (screen points per mm, 0: not calibrated)	Κλίμακα προβολέα (σημεία οθόνης ανά mm, 0: χωρίς βαθμονόμηση)
+	Projector View	Προβολή για προβολέα
+	Measure the square on the cutting mat: it should be 10 cm each way. The arrows make it bigger or smaller (with Shift, faster); Enter keeps it; Escape leaves. Scale: {scale} points per mm.	Μετρήστε το τετράγωνο στο επιφάνεια κοπής: πρέπει να είναι 10 cm προς κάθε κατεύθυνση. Τα βέλη το μεγαλώνουν ή το μικραίνουν (με Shift πιο γρήγορα)· το Enter το κρατά· το Escape βγαίνει. Κλίμακα: {scale} σημεία ανά mm.
+	Arrows move the pattern 1 cm (Shift: 1 mm) · M mirrors it · C calibrates · Escape leaves	Τα βέλη μετακινούν το πατρόν κατά 1 cm (Shift: 1 mm) · M το καθρεφτίζει · C βαθμονομεί · Escape βγαίνει
+@msg	no pattern pieces to project: make the outlines pattern pieces first (Pattern › Make Pattern Piece)	δεν υπάρχουν κομμάτια πατρόν για προβολή: κάντε πρώτα τα περιγράμματα κομμάτια πατρόν (Πατρόν › Δημιουργία κομματιού)
+@msg	scale: screen points per mm, more than 0	κλίμακα: σημεία οθόνης ανά mm, πάνω από 0

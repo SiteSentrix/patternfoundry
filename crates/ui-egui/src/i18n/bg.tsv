@@ -5387,3 +5387,11 @@ file-filter	PDF for projector	PDF за проектор
 	Back to the piece's seam allowance	Обратно към добавката за шев на детайла
 	A notch in the middle of the edge	Насечка в средата на ръба
 	Notch on edge {edge}, {at}% along	Насечка на ръб {edge}, на {at}%
+	Piece Outlines	Контури на детайлите
+	Projector	Проектор
+	Projector Scale (screen points per mm, 0: not calibrated)	Мащаб на проектора (екранни точки на мм, 0: не е калибриран)
+	Projector View	Изглед за проектор
+	Measure the square on the cutting mat: it should be 10 cm each way. The arrows make it bigger or smaller (with Shift, faster); Enter keeps it; Escape leaves. Scale: {scale} points per mm.	Измерете квадрата върху подложката за рязане: трябва да е 10 см във всяка посока. Стрелките го уголемяват или смаляват (с Shift по-бързо); Enter го запазва; Escape излиза. Мащаб: {scale} точки на мм.
+	Arrows move the pattern 1 cm (Shift: 1 mm) · M mirrors it · C calibrates · Escape leaves	Стрелките местят кройката с 1 см (Shift: 1 мм) · M я огледално обръща · C калибрира · Escape излиза
+@msg	no pattern pieces to project: make the outlines pattern pieces first (Pattern › Make Pattern Piece)	няма детайли на кройка за проектиране: първо направете контурите детайли на кройка (Кройка › Създаване на детайл)
+@msg	scale: screen points per mm, more than 0	мащаб: екранни точки на мм, повече от 0

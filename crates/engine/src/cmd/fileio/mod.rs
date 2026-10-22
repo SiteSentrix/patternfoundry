@@ -21,7 +21,7 @@
 //! [`FORMATS`] is the single list of formats (append-only); open dialogs use [`open_filters`],
 //! agents query `document.formats`.
 
-mod aama;
+pub(crate) mod aama;
 mod action_batch;
 mod affinity;
 mod batch;

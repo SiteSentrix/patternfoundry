@@ -5366,3 +5366,11 @@ file-filter	PDF for projector	PDF para proyector
 	Back to the piece's seam allowance	Volver al margen de costura de la pieza
 	A notch in the middle of the edge	Un piquete en el centro del borde
 	Notch on edge {edge}, {at}% along	Piquete en el borde {edge}, al {at} %
+	Piece Outlines	Contornos de las piezas
+	Projector	Proyector
+	Projector Scale (screen points per mm, 0: not calibrated)	Escala del proyector (puntos de pantalla por mm, 0: sin calibrar)
+	Projector View	Vista de proyector
+	Measure the square on the cutting mat: it should be 10 cm each way. The arrows make it bigger or smaller (with Shift, faster); Enter keeps it; Escape leaves. Scale: {scale} points per mm.	Mida el cuadrado sobre la base de corte: debe medir 10 cm en cada sentido. Las flechas lo agrandan o lo reducen (con Mayús, más rápido); Intro lo guarda; Esc sale. Escala: {scale} puntos por mm.
+	Arrows move the pattern 1 cm (Shift: 1 mm) · M mirrors it · C calibrates · Escape leaves	Las flechas mueven el patrón 1 cm (Mayús: 1 mm) · M lo refleja · C calibra · Esc sale
+@msg	no pattern pieces to project: make the outlines pattern pieces first (Pattern › Make Pattern Piece)	no hay piezas de patrón que proyectar: convierta primero los contornos en piezas de patrón (Patrón › Crear pieza de patrón)
+@msg	scale: screen points per mm, more than 0	escala: puntos de pantalla por mm, más de 0

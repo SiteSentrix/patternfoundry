@@ -5001,3 +5001,11 @@ file-filter	PDF for projector	프로젝터용 PDF
 	Back to the piece's seam allowance	패턴 조각의 시접으로 되돌리기
 	A notch in the middle of the edge	변 가운데에 너치
 	Notch on edge {edge}, {at}% along	변 {edge}의 너치, {at}% 위치
+	Piece Outlines	패턴 조각 윤곽
+	Projector	프로젝터
+	Projector Scale (screen points per mm, 0: not calibrated)	프로젝터 배율(mm당 화면 포인트, 0: 보정 안 됨)
+	Projector View	프로젝터 보기
+	Measure the square on the cutting mat: it should be 10 cm each way. The arrows make it bigger or smaller (with Shift, faster); Enter keeps it; Escape leaves. Scale: {scale} points per mm.	커팅 매트에서 정사각형을 재세요. 가로세로 모두 10 cm여야 합니다. 화살표로 크게 또는 작게(Shift와 함께 더 빠르게), Enter로 유지, Escape로 나갑니다. 배율: mm당 {scale} 포인트.
+	Arrows move the pattern 1 cm (Shift: 1 mm) · M mirrors it · C calibrates · Escape leaves	화살표로 패턴을 1 cm 이동(Shift: 1 mm) · M 좌우 반전 · C 보정 · Escape 나가기
+@msg	no pattern pieces to project: make the outlines pattern pieces first (Pattern › Make Pattern Piece)	투사할 패턴 조각이 없습니다: 먼저 윤곽을 패턴 조각으로 만드세요(패턴 › 패턴 조각 만들기)
+@msg	scale: screen points per mm, more than 0	배율: mm당 화면 포인트, 0보다 크게

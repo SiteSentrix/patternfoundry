@@ -347,6 +347,7 @@ pub const PREF_SPECS: &[PrefSpec] = &[
     // Devices
     p!("touchWorkspace", "Devices", "", "Enable Touch Workspace", bool),
     p!("touchGestures", "Devices", "", "Enable Touch Gestures", bool),
+    p!("projectorScale", "Devices", "Projector", "Projector Scale (screen points per mm, 0: not calibrated)", num(0.0, 1000.0, "")),
     // Graphic Styles panel menu
     p!("overrideCharColor", "Type", "Graphic Styles", "Override Character Color", bool),
     // Object → Pattern → Tile Edge Color
