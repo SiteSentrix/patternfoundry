@@ -5,6 +5,10 @@
 //! never logged, and left out of the copies of the document that exported PDF and SVG files
 //! carry, unless the set says they may be shared ([`for_sharing`]).
 //!
+//! The user's own measurement sets can be kept on this computer, in a folder next to the
+//! preferences (PF-3.4: `measure.saveSet`, `measure.sets`, `measure.loadSet`,
+//! `measure.deleteSet`; [`crate::store`]), to load into any pattern.
+//!
 //! Lengths come and go in millimetres (a number; or a string with a unit, `"35 in"`).
 use super::*;
 use pf_core::draft::Draft;
@@ -63,6 +67,42 @@ pub fn specs() -> Vec<CommandSpec> {
             "{size} copy a size of the size chart into the measurements (formulas stay) → measure.info",
             has_doc,
             use_size
+        ),
+        cmd!(
+            query "measure.saveSet",
+            "Save to My Measurements",
+            [],
+            None,
+            "{name? (default: the set's own name)} keep the document's measurement set (values and formulas) on this computer, in the folder of saved sets next to the preferences, replacing a saved set of the same name; it never leaves the computer and is never shared → {name, sets}",
+            has_doc,
+            save_set
+        ),
+        cmd!(
+            query "measure.sets",
+            "My Measurements",
+            [],
+            None,
+            "{} the measurement sets kept on this computer (measure.saveSet), by name, without their values → {sets: [{name, count (how many measurements), size}], store: bool (whether there is a folder to keep them in)}",
+            has_doc,
+            sets
+        ),
+        cmd!(
+            "measure.loadSet",
+            "Load Measurements",
+            [],
+            None,
+            "{name} the saved set becomes the document's measurement set (blocks and point formulas follow it; not shared) → measure.info",
+            has_doc,
+            load_set
+        ),
+        cmd!(
+            query "measure.deleteSet",
+            "Delete Saved Measurements",
+            [],
+            None,
+            "{name} delete a saved measurement set from this computer → {sets}",
+            has_doc,
+            delete_set
         ),
         cmd!(
             "draft.setPoint",
@@ -197,6 +237,66 @@ fn clear(s: &mut Session, _: &Value) -> Result<Value> {
         Ok(())
     })?;
     Ok(info_of(&s.doc()?.doc))
+}
+
+fn no_store(cmd: &str) -> EngineError {
+    bad(cmd, "there is no folder to keep measurement sets in here (the desktop app keeps them next to its preferences)")
+}
+
+fn set_list(s: &Session) -> Value {
+    let sets: Vec<Value> =
+        s.measurement_sets().iter().map(|m| json!({"name": m.name, "count": m.values.len() + m.formulas.len(), "size": m.size})).collect();
+    json!(sets)
+}
+
+fn save_set(s: &mut Session, p: &Value) -> Result<Value> {
+    const CMD: &str = "measure.saveSet";
+    if !s.has_measurement_store() {
+        return Err(no_store(CMD));
+    }
+    let mut m = s.doc()?.doc.measurements.as_deref().cloned().ok_or_else(|| bad(CMD, "the document has no measurements to save"))?;
+    if m.values.is_empty() && m.formulas.is_empty() {
+        return Err(bad(CMD, "the document has no measurements to save"));
+    }
+    if let Some(n) = str_param(p, "name") {
+        m.name = n.trim().chars().take(200).collect();
+    }
+    if m.name.is_empty() {
+        return Err(bad(CMD, "name: whose measurements they are (\"Me\")"));
+    }
+    if !s.store_measurement_set(&m) {
+        return Err(bad(CMD, "the measurements could not be saved"));
+    }
+    Ok(json!({"name": m.name, "sets": set_list(s)}))
+}
+
+fn sets(s: &mut Session, _: &Value) -> Result<Value> {
+    Ok(json!({"sets": set_list(s), "store": s.has_measurement_store()}))
+}
+
+fn named_set(s: &Session, p: &Value, cmd: &str) -> Result<Measurements> {
+    if !s.has_measurement_store() {
+        return Err(no_store(cmd));
+    }
+    let name = str_param(p, "name").map(str::trim).filter(|n| !n.is_empty()).ok_or_else(|| bad(cmd, "name: the saved set's name"))?;
+    s.measurement_sets().into_iter().find(|m| m.name.eq_ignore_ascii_case(name)).ok_or_else(|| bad(cmd, format!("there is no saved set `{name}`")))
+}
+
+fn load_set(s: &mut Session, p: &Value) -> Result<Value> {
+    const CMD: &str = "measure.loadSet";
+    let m = named_set(s, p, CMD)?;
+    s.edit("Load Measurements", |d, _| {
+        d.measurements = Some(Box::new(m));
+        Ok(())
+    })?;
+    Ok(info_of(&s.doc()?.doc))
+}
+
+fn delete_set(s: &mut Session, p: &Value) -> Result<Value> {
+    const CMD: &str = "measure.deleteSet";
+    let m = named_set(s, p, CMD)?;
+    s.remove_measurement_set(&m.name);
+    Ok(json!({"sets": set_list(s)}))
 }
 
 fn import_chart(s: &mut Session, p: &Value) -> Result<Value> {

@@ -202,3 +202,49 @@ fn stored_profiles_register_again_and_removing_one_removes_its_copy() {
     assert!(s.execute("color.removeProfile", &json!({"name": cms::SRGB})).is_err(), "built-in profiles stay");
     s.execute("color.removeProfile", &json!({"name": other})).unwrap();
 }
+
+#[test]
+fn saved_measurement_sets_load_into_any_pattern_and_bad_files_are_skipped() {
+    let dir = fresh_dir("measurements").join("Measurements");
+    // Made-up measurements, not anyone's.
+    let mut a = Session::new();
+    a.execute("file.new", &json!({})).unwrap();
+    assert!(a.execute("measure.saveSet", &json!({})).is_err(), "no folder attached: nowhere to keep them");
+    a.attach_measurement_store(dir.clone());
+    assert!(a.execute("measure.saveSet", &json!({})).is_err(), "nothing to save");
+    a.execute("measure.set", &json!({"name": "Me", "values": {"bust": 880, "waist": 680}, "formulas": {"half_bust": "bust / 2"}, "share": true}))
+        .unwrap();
+    let r = a.execute("measure.saveSet", &json!({})).unwrap();
+    assert_eq!(r["sets"], json!([{"name": "Me", "count": 3, "size": null}]));
+    a.execute("measure.saveSet", &json!({"name": "Sam"})).unwrap();
+    // The file holds the set, not shared, and nothing else.
+    let files: Vec<_> = std::fs::read_dir(&dir).unwrap().map(|e| e.unwrap().path()).collect();
+    assert_eq!(files.len(), 2);
+    let me = std::fs::read_to_string(dir.join(format!("{}.pfmeasure", file_stem("Me")))).unwrap();
+    let v: Value = serde_json::from_str(&me).unwrap();
+    assert_eq!(
+        (v["format"].as_str(), v["set"]["values"]["bust"].as_f64(), v["set"].get("share")),
+        (Some("patternfoundry-measurements"), Some(880.0), None)
+    );
+    // Another session, another pattern: the set loads, and undoes.
+    let mut b = Session::new();
+    b.attach_measurement_store(dir.clone());
+    b.execute("file.new", &json!({})).unwrap();
+    let sets = b.execute("measure.sets", &json!({})).unwrap();
+    assert_eq!((sets["store"].as_bool(), sets["sets"].as_array().unwrap().len()), (Some(true), 2));
+    let info = b.execute("measure.loadSet", &json!({"name": "me"})).unwrap();
+    assert_eq!((info["name"].as_str(), info["computed"]["half_bust"].as_f64(), info["share"].as_bool()), (Some("Me"), Some(440.0), Some(false)));
+    b.execute("edit.undo", &json!({})).unwrap();
+    assert_eq!(b.execute("measure.info", &json!({})).unwrap()["values"], json!({}));
+    assert!(b.execute("measure.loadSet", &json!({"name": "Nobody"})).is_err());
+    // A damaged file, and one with a value no set can hold, are passed over.
+    std::fs::write(dir.join("broken.pfmeasure"), b"{ not json").unwrap();
+    std::fs::write(dir.join("odd.pfmeasure"), br#"{"format":"patternfoundry-measurements","set":{"name":"Odd","values":{"bust":-5}}}"#).unwrap();
+    let names: Vec<String> =
+        b.execute("measure.sets", &json!({})).unwrap()["sets"].as_array().unwrap().iter().map(|s| s["name"].as_str().unwrap().to_string()).collect();
+    assert_eq!(names, ["Me", "Sam"]);
+    // Deleted, it is gone.
+    let r = b.execute("measure.deleteSet", &json!({"name": "Sam"})).unwrap();
+    assert_eq!(r["sets"].as_array().unwrap().len(), 1);
+    let _ = std::fs::remove_dir_all(&dir);
+}

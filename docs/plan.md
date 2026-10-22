@@ -536,3 +536,14 @@ is built on, plus a pattern mode, the way StitchFoundry adds embroidery:
   through `piece.set {edges}`, `piece.addNotch` and `piece.removeNotch`. Tests: 1 in
   `panels/tests_pieces.rs` (the panel's first test). Not yet: notches and allowances picked on the
   canvas, a notch moved along its edge, the notch kind chosen in the panel.
+- 2026-10-22, **PF-3.4**: personal measurement sets kept on this computer. **My Measurements** in
+  the Measurements panel (`measure.saveSet`, `measure.sets`, `measure.loadSet`,
+  `measure.deleteSet`) keeps the document's set (values and formulas) as a `.pfmeasure` file in a
+  Measurements folder next to the preferences (the desktop app and `patternfoundry-cli` attach it;
+  the web has none), to load into any other pattern (undoable; blocks and point formulas follow).
+  Measurements are personal data: the sets stay in that folder, are saved never shared, are never
+  logged (a file that can't be read is logged by its file name only), and are read back through
+  the same checks `measure.set` makes, so a damaged or edited file can't bring in a value no set
+  can hold. Tests: 1 in `tests_store.rs` (saved, listed without values, loaded into another
+  session's pattern and undone, damaged files skipped, deleted), 1 in the panel. Not yet: a set
+  chosen when drafting a block, sets synced between the user's computers (only if they ask).

@@ -16,6 +16,11 @@
 //!   Attaching the folder installs them again. The Additional Plug-ins Folder preference is not
 //!   copied: it is loaded from where it is.
 //!
+//! * **Measurement sets** (PF-3.4): the user's own measurement sets (`measure.saveSet`), as
+//!   `.pfmeasure` files named after the set, so one person's measurements can be loaded into any
+//!   pattern (`measure.loadSet`). They are personal data: they stay in this folder, on this
+//!   computer, and are never logged (a file that does not parse is logged by its file name only).
+//!
 //! The files are untrusted input like any other: sizes and counts are capped, a file that does not
 //! parse is skipped with a log record, and every write is atomic.
 
@@ -41,6 +46,32 @@ const PROFILE_EXT: &str = "icc";
 pub const MAX_PLUGIN_STORE: u64 = 512 << 20;
 /// The extension of a stored plug-in.
 const PLUGIN_EXT: &str = "wasm";
+/// The extension of a stored measurement set.
+const MEASUREMENTS_EXT: &str = "pfmeasure";
+/// The largest measurement set file read (a set is a few kilobytes).
+pub const MAX_MEASUREMENTS_FILE: u64 = 1 << 20;
+/// What a measurement set file says it is.
+const MEASUREMENTS_FORMAT: &str = "patternfoundry-measurements";
+
+/// A measurement set file: its format, then the set.
+#[derive(serde::Serialize, serde::Deserialize)]
+struct MeasurementsFile {
+    format: String,
+    set: pf_core::measure::Measurements,
+}
+
+/// A set read from a file, made again through the same checks `measure.set` makes: names,
+/// lengths and formulas a set can hold, nothing else; never shared.
+fn rebuilt(raw: pf_core::measure::Measurements) -> Option<pf_core::measure::Measurements> {
+    let mut m = pf_core::measure::Measurements { name: raw.name.trim().chars().take(200).collect(), size: raw.size, ..Default::default() };
+    for (k, v) in &raw.values {
+        m.set_value(k, Some(*v)).ok()?;
+    }
+    for (k, f) in &raw.formulas {
+        m.set_formula(k, Some(f)).ok()?;
+    }
+    (!m.name.is_empty()).then_some(m)
+}
 
 /// The file name (without extension) a stored item called `name` gets: its name made safe for any
 /// file system, then a hash of the name, so that names that differ only in characters a file name
@@ -118,6 +149,58 @@ fn take(dir: &Path, file: &str) {
 }
 
 impl Session {
+    /// Keep the measurement sets this session saves in `dir` (made when the first is saved).
+    pub fn attach_measurement_store(&mut self, dir: PathBuf) {
+        self.measurement_dir = Some(dir);
+    }
+
+    /// Whether there is a folder to keep measurement sets in.
+    pub(crate) fn has_measurement_store(&self) -> bool {
+        self.measurement_dir.is_some()
+    }
+
+    /// The saved measurement sets, by name; files that can't be read are skipped (logged by file
+    /// name, never by content).
+    pub(crate) fn measurement_sets(&self) -> Vec<pf_core::measure::Measurements> {
+        let Some(dir) = &self.measurement_dir else { return vec![] };
+        let mut out: Vec<pf_core::measure::Measurements> = Vec::new();
+        for path in list_files(dir, MEASUREMENTS_EXT) {
+            let set = read_capped(&path, MAX_MEASUREMENTS_FILE)
+                .ok()
+                .and_then(|b| serde_json::from_slice::<MeasurementsFile>(&b).ok())
+                .filter(|f| f.format == MEASUREMENTS_FORMAT)
+                .and_then(|f| rebuilt(f.set));
+            match set {
+                Some(m) if !out.iter().any(|o| o.name.eq_ignore_ascii_case(&m.name)) => out.push(m),
+                Some(_) => {}
+                None => log::warn!(
+                    "skipped measurement set file {}: not one PatternFoundry can read",
+                    path.file_name().map(|n| n.to_string_lossy()).unwrap_or_default()
+                ),
+            }
+        }
+        out.sort_by_key(|m| m.name.to_lowercase());
+        out
+    }
+
+    /// Save measurement set `m` (named) to the store, replacing a set of the same name. Whether it
+    /// was written.
+    pub(crate) fn store_measurement_set(&self, m: &pf_core::measure::Measurements) -> bool {
+        let Some(dir) = &self.measurement_dir else { return false };
+        let mut set = m.clone();
+        set.share = false;
+        let file = MeasurementsFile { format: MEASUREMENTS_FORMAT.into(), set };
+        let Ok(bytes) = serde_json::to_vec_pretty(&file) else { return false };
+        put(dir, &format!("{}.{MEASUREMENTS_EXT}", file_stem(&m.name)), &bytes)
+    }
+
+    /// Delete the saved measurement set `name`.
+    pub(crate) fn remove_measurement_set(&self, name: &str) {
+        if let Some(dir) = &self.measurement_dir {
+            take(dir, &format!("{}.{MEASUREMENTS_EXT}", file_stem(name)));
+        }
+    }
+
     /// Keep the PDF presets this session saves in `dir`, and take the ones already there as the
     /// saved presets (see the module docs). Call it once, after the preferences were restored.
     pub fn attach_pdf_preset_store(&mut self, dir: PathBuf) {
