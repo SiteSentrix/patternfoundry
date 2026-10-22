@@ -5381,3 +5381,9 @@ file-filter	PDF for projector	PDF за проектор
 	Less than the {min} to {max} mm it should take in: the sleeve may pull across the cap. Set sleeve_crown to {wanted} mm in Measurements to redraft the sleeve block with the ease in the middle.	По-малко от {min} до {max} мм, които трябва да свие: ръкавът може да дърпа на главата. Задайте sleeve_crown на {wanted} мм в Мерки, за да се начертае основата на ръкава отново със свиване по средата.
 	More than the {min} to {max} mm it should take in: the cap may pucker when it is set in. Set sleeve_crown to {wanted} mm in Measurements to redraft the sleeve block with the ease in the middle.	Повече от {min} до {max} мм, които трябва да свие: главата може да се набере при вшиване. Задайте sleeve_crown на {wanted} мм в Мерки, за да се начертае основата на ръкава отново със свиване по средата.
 	Within the {min} to {max} mm it should take in.	В рамките на {min} до {max} мм, които трябва да свие.
+	Edges: {edges}, notches: {notches}	Ръбове: {edges}, насечки: {notches}
+	Edge {n}	Ръб {n}
+	On fold	На сгъвка
+	Back to the piece's seam allowance	Обратно към добавката за шев на детайла
+	A notch in the middle of the edge	Насечка в средата на ръба
+	Notch on edge {edge}, {at}% along	Насечка на ръб {edge}, на {at}%

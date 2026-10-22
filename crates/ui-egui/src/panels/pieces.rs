@@ -1,6 +1,7 @@
 //! Pattern Pieces panel (PF-1): the document's pattern pieces, and the selected piece's name, cut
-//! count, fabric, seam allowance and the edge cut on the fold. Everything it shows comes from `piece.list` and `piece.info`;
-//! every change goes through `piece.set`, `piece.make` and `piece.release`.
+//! count, fabric, seam allowance, the edge cut on the fold, and its edges (each one's allowance)
+//! and notches. Everything it shows comes from `piece.list` and `piece.info`; every change goes
+//! through `piece.set`, `piece.addNotch`, `piece.removeNotch`, `piece.make` and `piece.release`.
 
 use egui::Ui;
 use serde_json::{Value, json};
@@ -59,6 +60,53 @@ fn text_field(app: &mut VectorcraftApp, ui: &mut Ui, label: &str, key: &str, pie
     set_pstate(ui.ctx(), &id, buf);
 }
 
+/// The piece's edges, each with its seam allowance (the piece's own until one is set; none on
+/// the fold) and a button to add a notch at its middle, then the notches, each with a button to
+/// remove it.
+fn edges_section(app: &mut VectorcraftApp, ui: &mut Ui, info: &Value, id: u64, edges: u64) {
+    let t = Tokens::get(ui.ctx());
+    let default = info["allowance"].as_f64().unwrap_or(10.0);
+    let notches = info["notches"].as_array().cloned().unwrap_or_default();
+    let title =
+        crate::i18n::fmt(tl!("Edges: {edges}, notches: {notches}"), &[("edges", &edges.to_string()), ("notches", &notches.len().to_string())]);
+    egui::CollapsingHeader::new(title).id_salt("pieces-edges").show(ui, |ui| {
+        egui::Grid::new("pieces-edge-grid").num_columns(3).spacing([8.0, 4.0]).show(ui, |ui| {
+            for e in 0..edges {
+                ui.label(egui::RichText::new(crate::i18n::fmt(tl!("Edge {n}"), &[("n", &e.to_string())])).size(12.0).color(t.text_dim));
+                ui.horizontal(|ui| {
+                    if info["fold"].as_u64() == Some(e) {
+                        ui.label(egui::RichText::new(tl!("On fold")).size(12.0));
+                        return;
+                    }
+                    let own = info["edges"].get(e.to_string()).and_then(Value::as_f64);
+                    let mut mm = own.unwrap_or(default);
+                    let r = ui.add(egui::DragValue::new(&mut mm).range(0.0..=200.0).speed(0.5).max_decimals(2).suffix(" mm"));
+                    if r.drag_stopped() || (r.changed() && !r.dragged()) {
+                        run(app, "piece.set", json!({ "id": id, "edges": { e.to_string(): mm } }));
+                    }
+                    if own.is_some() && ui.small_button("↺").on_hover_text(tl!("Back to the piece's seam allowance")).clicked() {
+                        run(app, "piece.set", json!({ "id": id, "edges": { e.to_string(): Value::Null } }));
+                    }
+                });
+                if ui.small_button(tl!("Add Notch")).on_hover_text(tl!("A notch in the middle of the edge")).clicked() {
+                    run(app, "piece.addNotch", json!({ "id": id, "edge": e, "at": 0.5 }));
+                }
+                ui.end_row();
+            }
+        });
+        for (i, n) in notches.iter().enumerate() {
+            ui.horizontal(|ui| {
+                let at = (n["at"].as_f64().unwrap_or_default() * 100.0).round().to_string();
+                let edge = n["edge"].as_u64().unwrap_or_default().to_string();
+                ui.label(egui::RichText::new(crate::i18n::fmt(tl!("Notch on edge {edge}, {at}% along"), &[("edge", &edge), ("at", &at)])).size(12.0));
+                if ui.small_button("×").on_hover_text(tl!("Remove Notch")).clicked() {
+                    run(app, "piece.removeNotch", json!({ "id": id, "index": i }));
+                }
+            });
+        }
+    });
+}
+
 pub fn show(app: &mut VectorcraftApp, ui: &mut Ui) {
     let Some(c) = fetch(app, ui.ctx()) else {
         widgets::dim_label(ui, tl!("No document"));
@@ -105,9 +153,7 @@ pub fn show(app: &mut VectorcraftApp, ui: &mut Ui) {
                 }
             }
         });
-        let notches = info["notches"].as_array().map_or(0, Vec::len);
-        super::doc_info::row(ui, tl!("Edges"), edges.to_string());
-        super::doc_info::row(ui, tl!("Notches"), notches.to_string());
+        edges_section(app, ui, info, id, edges);
         super::doc_info::row(ui, tl!("Seam line length"), format!("{} mm", info["seamLength"].as_f64().unwrap_or_default()));
         if let Some(problem) = info["problem"].as_str() {
             widgets::dim_label(ui, &crate::i18n::message(crate::i18n::current(), problem));

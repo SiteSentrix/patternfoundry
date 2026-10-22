@@ -5012,3 +5012,9 @@ file-filter	PDF for projector	PDF cho máy chiếu
 	Less than the {min} to {max} mm it should take in: the sleeve may pull across the cap. Set sleeve_crown to {wanted} mm in Measurements to redraft the sleeve block with the ease in the middle.	Ít hơn mức {min} đến {max} mm cần bai: tay áo có thể bị kéo ở đầu tay. Đặt sleeve_crown thành {wanted} mm trong Số đo để vẽ lại rập tay cơ bản với độ bai ở giữa khoảng.
 	More than the {min} to {max} mm it should take in: the cap may pucker when it is set in. Set sleeve_crown to {wanted} mm in Measurements to redraft the sleeve block with the ease in the middle.	Nhiều hơn mức {min} đến {max} mm cần bai: đầu tay có thể bị nhăn khi tra. Đặt sleeve_crown thành {wanted} mm trong Số đo để vẽ lại rập tay cơ bản với độ bai ở giữa khoảng.
 	Within the {min} to {max} mm it should take in.	Nằm trong mức {min} đến {max} mm cần bai.
+	Edges: {edges}, notches: {notches}	Cạnh: {edges}, dấu bấm: {notches}
+	Edge {n}	Cạnh {n}
+	On fold	Ở nếp gấp
+	Back to the piece's seam allowance	Trở về đường may chừa của chi tiết
+	A notch in the middle of the edge	Một dấu bấm ở giữa cạnh
+	Notch on edge {edge}, {at}% along	Dấu bấm trên cạnh {edge}, tại {at}%

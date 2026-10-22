@@ -5403,3 +5403,9 @@ file-filter	PDF for projector	PDF projektorhoz
 	Less than the {min} to {max} mm it should take in: the sleeve may pull across the cap. Set sleeve_crown to {wanted} mm in Measurements to redraft the sleeve block with the ease in the middle.	Kevesebb, mint a bedolgozandó {min}–{max} mm: az ujj húzhat az ujjfejnél. Állítsa a sleeve_crown értékét {wanted} mm-re a Méretekben, és az ujjalapszabás a tartomány közepére igazodva rajzolódik újra.
 	More than the {min} to {max} mm it should take in: the cap may pucker when it is set in. Set sleeve_crown to {wanted} mm in Measurements to redraft the sleeve block with the ease in the middle.	Több, mint a bedolgozandó {min}–{max} mm: az ujjfej ráncolódhat bevarráskor. Állítsa a sleeve_crown értékét {wanted} mm-re a Méretekben, és az ujjalapszabás a tartomány közepére igazodva rajzolódik újra.
 	Within the {min} to {max} mm it should take in.	A bedolgozandó {min}–{max} mm-en belül.
+	Edges: {edges}, notches: {notches}	Élek: {edges}, bevágások: {notches}
+	Edge {n}	{n}. él
+	On fold	Hajtásra
+	Back to the piece's seam allowance	Vissza a darab varrásráhagyásához
+	A notch in the middle of the edge	Bevágás az él közepén
+	Notch on edge {edge}, {at}% along	Bevágás a(z) {edge}. élen, {at}%-nál

@@ -5373,3 +5373,9 @@ file-filter	PDF for projector	PDF för projektor
 	Less than the {min} to {max} mm it should take in: the sleeve may pull across the cap. Set sleeve_crown to {wanted} mm in Measurements to redraft the sleeve block with the ease in the middle.	Mindre än de {min} till {max} mm den bör ta in: ärmen kan dra över kullen. Ställ sleeve_crown på {wanted} mm i Mått för att rita om ärmgrundmönstret med invidden i mitten.
 	More than the {min} to {max} mm it should take in: the cap may pucker when it is set in. Set sleeve_crown to {wanted} mm in Measurements to redraft the sleeve block with the ease in the middle.	Mer än de {min} till {max} mm den bör ta in: kullen kan rynka sig när den sys i. Ställ sleeve_crown på {wanted} mm i Mått för att rita om ärmgrundmönstret med invidden i mitten.
 	Within the {min} to {max} mm it should take in.	Inom de {min} till {max} mm den bör ta in.
+	Edges: {edges}, notches: {notches}	Kanter: {edges}, hack: {notches}
+	Edge {n}	Kant {n}
+	On fold	I vikningen
+	Back to the piece's seam allowance	Tillbaka till delens sömsmån
+	A notch in the middle of the edge	Ett hack mitt på kanten
+	Notch on edge {edge}, {at}% along	Hack på kant {edge}, vid {at} %

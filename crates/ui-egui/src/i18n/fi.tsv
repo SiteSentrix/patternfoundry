@@ -5381,3 +5381,9 @@ file-filter	PDF for projector	PDF projektorille
 	Less than the {min} to {max} mm it should take in: the sleeve may pull across the cap. Set sleeve_crown to {wanted} mm in Measurements to redraft the sleeve block with the ease in the middle.	Vähemmän kuin {min}–{max} mm, jonka sen pitäisi sovittaa: hiha voi kiristää kuvun kohdalta. Aseta sleeve_crown arvoon {wanted} mm Mitoissa, niin hihan peruskaava piirretään uudelleen väljyys keskellä.
 	More than the {min} to {max} mm it should take in: the cap may pucker when it is set in. Set sleeve_crown to {wanted} mm in Measurements to redraft the sleeve block with the ease in the middle.	Enemmän kuin {min}–{max} mm, jonka sen pitäisi sovittaa: kupu voi rypyttyä kiinnitettäessä. Aseta sleeve_crown arvoon {wanted} mm Mitoissa, niin hihan peruskaava piirretään uudelleen väljyys keskellä.
 	Within the {min} to {max} mm it should take in.	{min}–{max} mm:n sisällä, jonka sen pitäisi sovittaa.
+	Edges: {edges}, notches: {notches}	Reunat: {edges}, merkkilovet: {notches}
+	Edge {n}	Reuna {n}
+	On fold	Taitteella
+	Back to the piece's seam allowance	Takaisin kappaleen saumanvaraan
+	A notch in the middle of the edge	Merkkilovi reunan keskelle
+	Notch on edge {edge}, {at}% along	Merkkilovi reunalla {edge}, {at} %:n kohdalla

@@ -5032,3 +5032,9 @@ file-filter	PDF for projector	PDF per proiettore
 	Less than the {min} to {max} mm it should take in: the sleeve may pull across the cap. Set sleeve_crown to {wanted} mm in Measurements to redraft the sleeve block with the ease in the middle.	Meno dei {min}–{max} mm che dovrebbe assorbire: la manica può tirare sulla testa. Imposta sleeve_crown a {wanted} mm in Misure per ritracciare la manica base con l'agio a metà.
 	More than the {min} to {max} mm it should take in: the cap may pucker when it is set in. Set sleeve_crown to {wanted} mm in Measurements to redraft the sleeve block with the ease in the middle.	Più dei {min}–{max} mm che dovrebbe assorbire: la testa può fare pieghe quando la monti. Imposta sleeve_crown a {wanted} mm in Misure per ritracciare la manica base con l'agio a metà.
 	Within the {min} to {max} mm it should take in.	Entro i {min}–{max} mm che dovrebbe assorbire.
+	Edges: {edges}, notches: {notches}	Bordi: {edges}, tacche: {notches}
+	Edge {n}	Bordo {n}
+	On fold	In piega
+	Back to the piece's seam allowance	Torna al margine di cucitura del pezzo
+	A notch in the middle of the edge	Una tacca a metà del bordo
+	Notch on edge {edge}, {at}% along	Tacca sul bordo {edge}, al {at}%

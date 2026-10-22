@@ -572,6 +572,8 @@ mod tests_links;
 #[cfg(test)]
 mod tests_maskview;
 #[cfg(test)]
+mod tests_pieces;
+#[cfg(test)]
 mod tests_stroke;
 #[cfg(test)]
 mod tests_strokedepth;

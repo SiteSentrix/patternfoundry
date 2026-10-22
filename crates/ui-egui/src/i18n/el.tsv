@@ -5369,3 +5369,9 @@ file-filter	PDF for projector	PDF για προβολέα
 	Less than the {min} to {max} mm it should take in: the sleeve may pull across the cap. Set sleeve_crown to {wanted} mm in Measurements to redraft the sleeve block with the ease in the middle.	Λιγότερο από τα {min} έως {max} mm που πρέπει να μαζεύει: το μανίκι μπορεί να τραβάει στην κορυφή. Ορίστε το sleeve_crown στα {wanted} mm στις Μετρήσεις για να ξανασχεδιαστεί το βασικό μανίκι με τη χαλαρότητα στη μέση.
 	More than the {min} to {max} mm it should take in: the cap may pucker when it is set in. Set sleeve_crown to {wanted} mm in Measurements to redraft the sleeve block with the ease in the middle.	Περισσότερο από τα {min} έως {max} mm που πρέπει να μαζεύει: η κορυφή μπορεί να ζαρώσει όταν ραφτεί. Ορίστε το sleeve_crown στα {wanted} mm στις Μετρήσεις για να ξανασχεδιαστεί το βασικό μανίκι με τη χαλαρότητα στη μέση.
 	Within the {min} to {max} mm it should take in.	Μέσα στα {min} έως {max} mm που πρέπει να μαζεύει.
+	Edges: {edges}, notches: {notches}	Άκρες: {edges}, εγκοπές: {notches}
+	Edge {n}	Άκρη {n}
+	On fold	Στο δίπλωμα
+	Back to the piece's seam allowance	Πίσω στη ραφή του κομματιού
+	A notch in the middle of the edge	Μια εγκοπή στη μέση της άκρης
+	Notch on edge {edge}, {at}% along	Εγκοπή στην άκρη {edge}, στο {at}%

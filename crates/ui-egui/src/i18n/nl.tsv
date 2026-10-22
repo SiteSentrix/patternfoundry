@@ -5442,3 +5442,9 @@ file-filter	PDF for projector	PDF voor projector
 	Less than the {min} to {max} mm it should take in: the sleeve may pull across the cap. Set sleeve_crown to {wanted} mm in Measurements to redraft the sleeve block with the ease in the middle.	Minder dan de {min} tot {max} mm die hij zou moeten inhalen: de mouw kan over de kop trekken. Zet sleeve_crown in Maten op {wanted} mm om het mouwpatroon opnieuw te tekenen met het inhalen in het midden.
 	More than the {min} to {max} mm it should take in: the cap may pucker when it is set in. Set sleeve_crown to {wanted} mm in Measurements to redraft the sleeve block with the ease in the middle.	Meer dan de {min} tot {max} mm die hij zou moeten inhalen: de kop kan bij het inzetten plooien. Zet sleeve_crown in Maten op {wanted} mm om het mouwpatroon opnieuw te tekenen met het inhalen in het midden.
 	Within the {min} to {max} mm it should take in.	Binnen de {min} tot {max} mm die hij zou moeten inhalen.
+	Edges: {edges}, notches: {notches}	Randen: {edges}, inknipjes: {notches}
+	Edge {n}	Rand {n}
+	On fold	Op de vouw
+	Back to the piece's seam allowance	Terug naar de naadtoeslag van het patroondeel
+	A notch in the middle of the edge	Een inknipje midden op de rand
+	Notch on edge {edge}, {at}% along	Inknipje op rand {edge}, op {at}%

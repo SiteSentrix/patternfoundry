@@ -5400,3 +5400,9 @@ file-filter	PDF for projector	PDF untuk proyektor
 	Less than the {min} to {max} mm it should take in: the sleeve may pull across the cap. Set sleeve_crown to {wanted} mm in Measurements to redraft the sleeve block with the ease in the middle.	Kurang dari {min} sampai {max} mm yang seharusnya dikerutkan: lengan bisa tertarik di kepala lengan. Atur sleeve_crown menjadi {wanted} mm di Ukuran agar pola dasar lengan digambar ulang dengan kelonggaran di tengah.
 	More than the {min} to {max} mm it should take in: the cap may pucker when it is set in. Set sleeve_crown to {wanted} mm in Measurements to redraft the sleeve block with the ease in the middle.	Lebih dari {min} sampai {max} mm yang seharusnya dikerutkan: kepala lengan bisa berkerut saat dipasang. Atur sleeve_crown menjadi {wanted} mm di Ukuran agar pola dasar lengan digambar ulang dengan kelonggaran di tengah.
 	Within the {min} to {max} mm it should take in.	Dalam batas {min} sampai {max} mm yang seharusnya dikerutkan.
+	Edges: {edges}, notches: {notches}	Tepi: {edges}, takik: {notches}
+	Edge {n}	Tepi {n}
+	On fold	Di lipatan
+	Back to the piece's seam allowance	Kembali ke kampuh potongan
+	A notch in the middle of the edge	Takik di tengah tepi
+	Notch on edge {edge}, {at}% along	Takik di tepi {edge}, pada {at}%
