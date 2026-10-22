@@ -751,3 +751,27 @@ fn a_wrap_skirt_front_and_its_bands() {
     // Bands become pieces like any outline.
     s.execute("piece.make", &json!({"ids": [band.0], "allowance": 10})).unwrap();
 }
+
+#[test]
+fn a_bust_dart_is_ended_short_of_the_bust_point() {
+    let (mut s, id) = front();
+    let before = points(&s, id);
+    let bust_point = before[11];
+    // The shoulder bust dart (point 11, legs 10 and 12) ended 25 mm short, by default.
+    let r = s.execute("design.shortenDart", &json!({"id": id.0, "apex": 11})).unwrap();
+    let after = points(&s, id);
+    let moved = after[11];
+    assert!((pf_core::pt_to_mm((moved - bust_point).hypot()) - 25.0).abs() < 1e-6, "{moved:?}");
+    assert_eq!((r["apex"][0].as_f64(), r["apex"][1].as_f64()), (Some(moved.x), Some(moved.y)));
+    // Along the centre line: toward the middle of the opening, the legs' ends and the waist dart's
+    // point (the same bust point) where they were.
+    let mid = (before[10].to_vec2() + before[12].to_vec2()) / 2.0;
+    let (to_mid, to_new) = (mid - bust_point.to_vec2(), moved - bust_point);
+    assert!(to_mid.cross(to_new).abs() < 1e-6 && to_mid.dot(to_new) > 0.0);
+    assert_eq!((after[10], after[12], after[3]), (before[10], before[12], before[3]));
+    // One undo step; a point that is no dart's, and too long a shortening, are refused.
+    s.execute("edit.undo", &json!({})).unwrap();
+    assert_eq!(points(&s, id), before);
+    assert!(s.execute("design.shortenDart", &json!({"id": id.0, "apex": 5})).is_err());
+    assert!(s.execute("design.shortenDart", &json!({"id": id.0, "apex": 11, "shorten": 900})).is_err());
+}
