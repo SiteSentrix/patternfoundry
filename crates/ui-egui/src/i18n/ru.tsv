@@ -4982,3 +4982,35 @@ file-filter	PDF for projector	PDF для проектора
 @msg	Foundry Account needs a build that can reach the AI service	«Аккаунт Foundry» требует сборки с доступом к службе ИИ
 @msg	Sign in to your Foundry account (Help › Foundry Account…).	Войдите в аккаунт Foundry (Справка › Аккаунт Foundry…).
 @msg	The Foundry service can't do this yet: try again later.	Сервис Foundry пока этого не умеет: попробуйте позже.
+	Add Photos…	Добавить фото…
+	Choose the photos in the browser's window…	Выберите фото в окне браузера…
+@msg	This photo is too large: send a smaller copy.	Это фото слишком большое: отправьте копию поменьше.
+@msg	no files here	здесь нет файлов
+	About the fit	О посадке
+	Anything else? For example: folds below the back neck	Что-то ещё? Например: заломы под горловиной спинки
+	Check My Muslin	Проверить макет
+	Claude looks at the photos with your own Anthropic API key, billed to your Anthropic account. It can be wrong: sew the altered part again in muslin before cutting good fabric.	Claude смотрит фото с вашим собственным ключом API Anthropic, оплата с вашего аккаунта Anthropic. Он может ошибаться: прежде чем кроить хорошую ткань, сшейте изменённую часть ещё раз из бязи.
+	Final fabric	Основная ткань
+	Hard to raise my arms	Трудно поднять руки
+	How it feels:	Как сидит:
+	Include the pattern it was cut from (open now), so it can be altered	Приложить выкройку, по которой он скроен (открыта сейчас), чтобы её можно было изменить
+	Loose or gaping somewhere	Где-то свободно или отходит
+	Muslin fabric	Ткань для макета
+	My muslin ({n} photos)	Мой макет (фото: {n})
+	Photos of your muslin, tried on	Фото макета на фигуре
+	The front, the side and the back, standing straight with your arms down, and close-ups of any folds or pulling.	Спереди, сбоку и сзади, стоя прямо с опущенными руками, и крупные планы всех заломов и натяжений.
+	The neckline gapes or pulls	Горловина отходит или тянет
+	The photos go to Claude for this check only; PatternFoundry doesn't keep them.	Фото отправляются Claude только для этой проверки; PatternFoundry их не хранит.
+	The shoulder seams don't sit on my shoulders	Плечевые швы не лежат на плечах
+	Tight across the back or shoulders	Тесно по спине или в плечах
+	Tight across the bust or chest	Тесно по груди
+	Tight at the waist or hips	Тесно по талии или бёдрам
+	Too long or too short	Слишком длинно или слишком коротко
+	e.g. calico, an old sheet	напр. бязь, старая простыня
+	e.g. cotton poplin, jersey	напр. хлопковый поплин, трикотаж
+	Check My Muslin…	Проверить макет…
+@msg	Add a photo of the muslin first.	Сначала добавьте фото макета.
+@msg	Check My Muslin needs a build that can reach the AI service	«Проверить макет» требует сборки с доступом к службе ИИ
+@msg	The image is too large to send: crop it, or send a smaller copy.	Изображение слишком большое для отправки: обрежьте его или отправьте уменьшенную копию.
+@msg	At most 6 photos: remove one first.	Не больше 6 фото: сначала уберите одно.
+@msg	This photo can't be read: save or send it as a JPEG (on an iPhone: Settings › Camera › Formats › Most Compatible).	Это фото не читается: сохраните или отправьте его в JPEG (на iPhone: Настройки › Камера › Форматы › Наиболее совместимый).

@@ -1,5 +1,5 @@
-//! PatternFoundry's AI help (PF-8): Ask About Patterns ([`ask`]) and the Foundry Account that can
-//! pay for it ([`account`]). Requests go out through the host's `http_post` service (desktop, on a
+//! PatternFoundry's AI help (PF-8): Ask About Patterns ([`ask`]), Check My Muslin ([`muslin`]) and
+//! the Foundry Account that can pay for them ([`account`]). Requests go out through the host's `http_post` service (desktop, on a
 //! thread of their own) or `http_post_async` (the web, the browser's fetch), with the user's own
 //! Anthropic API key or a Foundry session paid in credits; the windows pick the answers up on a
 //! later frame.
@@ -15,6 +15,7 @@ use crate::VectorcraftApp;
 
 pub mod account;
 pub mod ask;
+pub mod muslin;
 
 /// The secret the API key is kept as.
 pub const KEY_NAME: &str = "anthropic-api-key";
@@ -34,6 +35,7 @@ pub struct AiState {
     pub now: f64,
     pub ask: ask::AskState,
     pub account: account::AccountState,
+    pub muslin: muslin::MuslinState,
 }
 
 /// Whether this build can send AI requests.
@@ -120,6 +122,7 @@ pub fn frame(app: &mut VectorcraftApp, ctx: &egui::Context) {
     account::poll(app, ctx);
     ask::window(app, ctx);
     account::window(app, ctx);
+    muslin::window(app, ctx);
 }
 
 #[cfg(test)]

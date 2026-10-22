@@ -574,6 +574,12 @@ pub const UI_COMMANDS: &[(&str, &str, &str, &str)] = &[
         "{question?: text (asked at once)} open Ask About Patterns: questions about sewing patterns or PatternFoundry answered by Claude with your own Anthropic API key or paid with Foundry credits; it can draft and change the pattern through the commands, each change after your Allow (the conversation and a summary of the pattern open now go along: its pieces and sizes and the names of the measurements set, never their values, which Claude reads only with your Allow) → {open, asking}",
     ),
     (
+        "ui.checkMuslin",
+        "Check My Muslin…",
+        "",
+        "{photos?: [path] (added), check?: bool (send the check now)} open Check My Muslin: photos of a muslin (a toile) tried on, the pattern open now and a few answers about the fit, looked at by Claude (your own Anthropic API key or Foundry credits), which says what doesn't fit and how to alter the pattern, and offers to make the alterations (in the Ask About Patterns window, each after your Allow); the photos go with the check only and aren't kept → {open, photos, error}",
+    ),
+    (
         "ui.account",
         "Foundry Account…",
         "",
@@ -1569,6 +1575,14 @@ pub fn run_ui_command(app: &mut VectorcraftApp, id: &str, p: &Value) -> Option<R
         }
         "ui.tileEdgeColor" => crate::dialogs::tile_edge_color::open(app),
         "ui.askAboutPatterns" => crate::ai::ask::open(app, p),
+        "ui.checkMuslin" => crate::ai::muslin::open(app, p).and_then(|v| {
+            if p.get("check").and_then(Value::as_bool) == Some(true) {
+                crate::ai::muslin::check(app)?;
+                Ok(json!({"open": true, "photos": 0, "checking": true}))
+            } else {
+                Ok(v)
+            }
+        }),
         "ui.account" => crate::ai::account::open(app, p),
         "ui.layerOptions" => crate::dialogs::layer_options::open(app, p),
         "ui.newLayer" => crate::dialogs::layer_options::open_new(app, p),
@@ -2262,7 +2276,7 @@ pub fn enabled(app: &VectorcraftApp, id: &str) -> bool {
         "type.bold" | "type.italic" => crate::panels::character::text_style(app).is_some(),
         id if crate::panels::paragraph::ALIGN_COMMANDS.iter().any(|c| c.0 == id) => crate::panels::character::text_style(app).is_some(),
         "file.reveal" => app.services.reveal.is_some() && app.session.active().is_some_and(|d| d.path.is_some()),
-        "ui.askAboutPatterns" | "ui.account" => crate::ai::available(app),
+        "ui.askAboutPatterns" | "ui.checkMuslin" | "ui.account" => crate::ai::available(app),
         "file.cancelExport" | "file.exportInBackground" => app.background.jobs.iter().any(|j| j.progress.is_some() && !j.cancelled()),
         "file.place"
         | "file.export.svg"
@@ -2730,6 +2744,7 @@ pub fn menu_tree_named(english_names: bool) -> Vec<(&'static str, Vec<Item>)> {
                 c("Clear Graded Nest", "grade.clear"),
                 Sep,
                 c("Ask About Patterns…", "ui.askAboutPatterns"),
+                c("Check My Muslin…", "ui.checkMuslin"),
                 Sep,
                 panel("Measurements", "measurements"),
                 panel("Grading", "grading"),
@@ -3040,6 +3055,7 @@ pub fn menu_tree_named(english_names: bool) -> Vec<(&'static str, Vec<Item>)> {
                 todos("PatternFoundry Help…", "F1"),
                 Sep,
                 c("Ask About Patterns…", "ui.askAboutPatterns"),
+                c("Check My Muslin…", "ui.checkMuslin"),
                 c("Foundry Account…", "ui.account"),
                 Sep,
                 c("About PatternFoundry", "help.about"),

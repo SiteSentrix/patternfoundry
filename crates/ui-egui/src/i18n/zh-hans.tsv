@@ -5207,3 +5207,35 @@ file-filter	PDF for projector	用于投影仪的 PDF
 @msg	Sign in to your Foundry account (Help › Foundry Account…).	请登录您的 Foundry 账户（帮助 › Foundry 账户…）。
 @msg	The Foundry service can't do this yet: try again later.	Foundry 服务暂时无法完成此操作：请稍后再试。
 @msg	this needs a connection to the AI service, which this build doesn't have	此功能需要连接 AI 服务，而此版本不具备该连接
+	Add Photos…	添加照片…
+	Choose the photos in the browser's window…	请在浏览器窗口中选择照片…
+@msg	This photo is too large: send a smaller copy.	这张照片太大：请发送较小的副本。
+@msg	no files here	这里没有文件
+	About the fit	关于合体度
+	Anything else? For example: folds below the back neck	还有别的吗？例如：后领口下方有褶皱
+	Check My Muslin	检查我的样衣
+	Claude looks at the photos with your own Anthropic API key, billed to your Anthropic account. It can be wrong: sew the altered part again in muslin before cutting good fabric.	Claude 使用您自己的 Anthropic API 密钥查看照片，费用计入您的 Anthropic 账户。它可能出错：裁剪好面料前，请先用白坯布把修改过的部分重新缝制一次样衣。
+	Final fabric	正式面料
+	Hard to raise my arms	手臂难以抬起
+	How it feels:	穿着感受：
+	Include the pattern it was cut from (open now), so it can be altered	附上裁剪所用的纸样（现在打开的），以便修改
+	Loose or gaping somewhere	某处松垮或豁开
+	Muslin fabric	样衣面料
+	My muslin ({n} photos)	我的样衣（{n} 张照片）
+	Photos of your muslin, tried on	您试穿样衣的照片
+	The front, the side and the back, standing straight with your arms down, and close-ups of any folds or pulling.	正面、侧面和背面，站直、手臂自然下垂，以及所有褶皱或拉扯处的特写。
+	The neckline gapes or pulls	领口豁开或拉扯
+	The photos go to Claude for this check only; PatternFoundry doesn't keep them.	照片仅为本次检查发送给 Claude；PatternFoundry 不会保留。
+	The shoulder seams don't sit on my shoulders	肩缝没有落在我的肩上
+	Tight across the back or shoulders	背部或肩部太紧
+	Tight across the bust or chest	胸部太紧
+	Tight at the waist or hips	腰部或臀部太紧
+	Too long or too short	太长或太短
+	e.g. calico, an old sheet	例如 白坯布、旧床单
+	e.g. cotton poplin, jersey	例如 棉府绸、针织布
+	Check My Muslin…	检查我的样衣…
+@msg	Add a photo of the muslin first.	请先添加一张样衣照片。
+@msg	Check My Muslin needs a build that can reach the AI service	“检查我的样衣”需要能连接 AI 服务的版本
+@msg	The image is too large to send: crop it, or send a smaller copy.	图像过大，无法发送：请裁剪图像，或发送较小的副本。
+@msg	At most 6 photos: remove one first.	最多 6 张照片：请先移除一张。
+@msg	This photo can't be read: save or send it as a JPEG (on an iPhone: Settings › Camera › Formats › Most Compatible).	无法读取这张照片：请另存或以 JPEG 发送（iPhone：设置 › 相机 › 格式 › 兼容性最佳）。

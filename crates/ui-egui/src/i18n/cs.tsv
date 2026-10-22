@@ -5371,3 +5371,35 @@ file-filter	PDF for projector	PDF pro projektor
 @msg	Foundry Account needs a build that can reach the AI service	Účet Foundry vyžaduje verzi, která se může připojit ke službě AI
 @msg	Sign in to your Foundry account (Help › Foundry Account…).	Přihlaste se ke svému účtu Foundry (Nápověda › Účet Foundry…).
 @msg	The Foundry service can't do this yet: try again later.	Služba Foundry to zatím neumí: zkuste to později.
+	Add Photos…	Přidat fotky…
+	Choose the photos in the browser's window…	Vyberte fotky v okně prohlížeče…
+@msg	This photo is too large: send a smaller copy.	Tato fotka je příliš velká: pošlete menší kopii.
+@msg	no files here	tady nejsou žádné soubory
+	About the fit	O padnutí
+	Anything else? For example: folds below the back neck	Ještě něco? Například: záhyby pod zadním výstřihem
+	Check My Muslin	Zkontrolovat zkušební model
+	Claude looks at the photos with your own Anthropic API key, billed to your Anthropic account. It can be wrong: sew the altered part again in muslin before cutting good fabric.	Claude se na fotky podívá s vaším vlastním klíčem API Anthropic, účtovaným na váš účet Anthropic. Může se mýlit: než nastříháte dobrou látku, ušijte upravenou část znovu jako zkušební model z nebělené bavlny.
+	Final fabric	Konečná látka
+	Hard to raise my arms	Těžko zvedám ruce
+	How it feels:	Jak sedí:
+	Include the pattern it was cut from (open now), so it can be altered	Přiložit střih, podle kterého byl nastříhán (teď otevřený), aby se dal upravit
+	Loose or gaping somewhere	Někde volný nebo odstává
+	Muslin fabric	Látka na zkušební model
+	My muslin ({n} photos)	Můj zkušební model ({n} fotek)
+	Photos of your muslin, tried on	Fotky vašeho zkušebního modelu na těle
+	The front, the side and the back, standing straight with your arms down, and close-ups of any folds or pulling.	Zepředu, z boku a zezadu, ve vzpřímeném postoji se spuštěnými pažemi, a detaily všech záhybů a míst, kde táhne.
+	The neckline gapes or pulls	Výstřih odstává nebo táhne
+	The photos go to Claude for this check only; PatternFoundry doesn't keep them.	Fotky jdou ke Claudovi jen pro tuto kontrolu; PatternFoundry si je neuchovává.
+	The shoulder seams don't sit on my shoulders	Ramenní švy nesedí na mých ramenou
+	Tight across the back or shoulders	Těsný přes záda nebo ramena
+	Tight across the bust or chest	Těsný přes prsa nebo hrudník
+	Tight at the waist or hips	Těsný v pase nebo v bocích
+	Too long or too short	Příliš dlouhý nebo příliš krátký
+	e.g. calico, an old sheet	např. nebělená bavlna, staré prostěradlo
+	e.g. cotton poplin, jersey	např. bavlněný popelín, úplet
+	Check My Muslin…	Zkontrolovat zkušební model…
+@msg	Add a photo of the muslin first.	Nejdřív přidejte fotku zkušebního modelu.
+@msg	Check My Muslin needs a build that can reach the AI service	Zkontrolovat zkušební model vyžaduje verzi, která se může připojit ke službě AI
+@msg	The image is too large to send: crop it, or send a smaller copy.	Obraz je příliš velký na odeslání: ořízněte ho nebo pošlete menší kopii.
+@msg	At most 6 photos: remove one first.	Nejvýš 6 fotek: nejdřív jednu odeberte.
+@msg	This photo can't be read: save or send it as a JPEG (on an iPhone: Settings › Camera › Formats › Most Compatible).	Tuto fotku nelze přečíst: uložte nebo pošlete ji jako JPEG (na iPhonu: Nastavení › Fotoaparát › Formáty › Nejkompatibilnější).

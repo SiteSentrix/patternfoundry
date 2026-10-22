@@ -5396,3 +5396,35 @@ file-filter	PDF for projector	PDF voor projector
 @msg	already asking: wait for the answer	er wordt al gevraagd: wacht op het antwoord
 @msg	This conversation is long: start a New Conversation.	Dit gesprek is lang: begin een nieuw gesprek.
 @msg	Claude took too many steps: ask again, more simply.	Claude had te veel stappen nodig: vraag het opnieuw, eenvoudiger.
+	Add Photos…	Foto's toevoegen…
+	Choose the photos in the browser's window…	Kies de foto's in het venster van de browser…
+	About the fit	Over de pasvorm
+	Anything else? For example: folds below the back neck	Nog iets anders? Bijvoorbeeld: plooien onder de achterhals
+	Check My Muslin	Mijn proefmodel controleren
+	Claude looks at the photos with your own Anthropic API key, billed to your Anthropic account. It can be wrong: sew the altered part again in muslin before cutting good fabric.	Claude bekijkt de foto's met uw eigen Anthropic API-sleutel, gefactureerd op uw Anthropic-account. Het kan fout zijn: naai het aangepaste deel nog eens in nessel voordat u goede stof knipt.
+	Final fabric	Definitieve stof
+	Hard to raise my arms	Moeilijk om mijn armen op te tillen
+	How it feels:	Hoe het zit:
+	Include the pattern it was cut from (open now), so it can be altered	Het patroon waaruit het geknipt is meesturen (nu open), zodat het aangepast kan worden
+	Loose or gaping somewhere	Ergens te ruim of het gaapt
+	Muslin fabric	Stof voor het proefmodel
+	My muslin ({n} photos)	Mijn proefmodel ({n} foto's)
+	Photos of your muslin, tried on	Foto's van uw proefmodel, aangetrokken
+	The front, the side and the back, standing straight with your arms down, and close-ups of any folds or pulling.	De voorkant, de zijkant en de achterkant, rechtop staand met de armen omlaag, en close-ups van plooien of trekken.
+	The neckline gapes or pulls	De halslijn gaapt of trekt
+	The photos go to Claude for this check only; PatternFoundry doesn't keep them.	De foto's gaan alleen voor deze controle naar Claude; PatternFoundry bewaart ze niet.
+	The shoulder seams don't sit on my shoulders	De schoudernaden zitten niet op mijn schouders
+	Tight across the back or shoulders	Te nauw over de rug of de schouders
+	Tight across the bust or chest	Te nauw over de buste of borst
+	Tight at the waist or hips	Te nauw in de taille of over de heupen
+	Too long or too short	Te lang of te kort
+	e.g. calico, an old sheet	bijv. nessel, een oud laken
+	e.g. cotton poplin, jersey	bijv. katoenpopeline, tricot
+	Check My Muslin…	Mijn proefmodel controleren…
+@msg	Add a photo of the muslin first.	Voeg eerst een foto van het proefmodel toe.
+@msg	Check My Muslin needs a build that can reach the AI service	Mijn proefmodel controleren heeft een versie nodig die de AI-dienst kan bereiken
+@msg	The image is too large to send: crop it, or send a smaller copy.	De afbeelding is te groot om te verzenden: snijd haar bij of stuur een kleinere kopie.
+@msg	This photo is too large: send a smaller copy.	Deze foto is te groot: stuur een kleinere kopie.
+@msg	no files here	geen bestanden hier
+@msg	At most 6 photos: remove one first.	Hoogstens 6 foto's: verwijder er eerst een.
+@msg	This photo can't be read: save or send it as a JPEG (on an iPhone: Settings › Camera › Formats › Most Compatible).	Deze foto kan niet worden gelezen: sla hem op of stuur hem als JPEG (op een iPhone: Instellingen › Camera › Formaten › Meest compatibel).

@@ -5323,3 +5323,35 @@ file-filter	PDF for projector	PDF για προβολέα
 @msg	Signed out.	Αποσυνδεθήκατε.
 @msg	Type your email address.	Πληκτρολογήστε τη διεύθυνση email σας.
 @msg	Pay on the page that opened in your browser, then press Refresh.	Πληρώστε στη σελίδα που άνοιξε στο πρόγραμμα περιήγησης και, στη συνέχεια, πατήστε «Ανανέωση».
+	Add Photos…	Προσθήκη φωτογραφιών…
+	Choose the photos in the browser's window…	Επιλέξτε τις φωτογραφίες στο παράθυρο του προγράμματος περιήγησης…
+	About the fit	Σχετικά με την εφαρμογή
+	Anything else? For example: folds below the back neck	Κάτι άλλο; Για παράδειγμα: πτυχές κάτω από τη λαιμόκοψη της πλάτης
+	Check My Muslin	Έλεγχος του δοκιμαστικού μου
+	Claude looks at the photos with your own Anthropic API key, billed to your Anthropic account. It can be wrong: sew the altered part again in muslin before cutting good fabric.	Ο Claude βλέπει τις φωτογραφίες με το δικό σας κλειδί API της Anthropic, με χρέωση στον λογαριασμό σας στην Anthropic. Μπορεί να κάνει λάθος: ράψτε ξανά το τροποποιημένο μέρος σε δοκιμαστικό ρούχο (τουάλ) πριν κόψετε καλό ύφασμα.
+	Final fabric	Τελικό ύφασμα
+	Hard to raise my arms	Δυσκολεύομαι να σηκώσω τα χέρια
+	How it feels:	Πώς το νιώθω:
+	Include the pattern it was cut from (open now), so it can be altered	Να συμπεριληφθεί το πατρόν από το οποίο κόπηκε (ανοιχτό τώρα), ώστε να μπορεί να τροποποιηθεί
+	Loose or gaping somewhere	Φαρδύ ή ανοίγει κάπου
+	Muslin fabric	Ύφασμα δοκιμαστικού
+	My muslin ({n} photos)	Το δοκιμαστικό μου ({n} φωτογραφίες)
+	Photos of your muslin, tried on	Φωτογραφίες του δοκιμαστικού σας, φορεμένου
+	The front, the side and the back, standing straight with your arms down, and close-ups of any folds or pulling.	Από μπροστά, από το πλάι και από πίσω, όρθιοι με τα χέρια κάτω, και κοντινά πλάνα από πτυχές ή τραβήγματα.
+	The neckline gapes or pulls	Η λαιμόκοψη ανοίγει ή τραβάει
+	The photos go to Claude for this check only; PatternFoundry doesn't keep them.	Οι φωτογραφίες πηγαίνουν στον Claude μόνο για αυτόν τον έλεγχο· το PatternFoundry δεν τις κρατά.
+	The shoulder seams don't sit on my shoulders	Οι ραφές των ώμων δεν κάθονται στους ώμους μου
+	Tight across the back or shoulders	Στενό στην πλάτη ή στους ώμους
+	Tight across the bust or chest	Στενό στο στήθος
+	Tight at the waist or hips	Στενό στη μέση ή στους γοφούς
+	Too long or too short	Πολύ μακρύ ή πολύ κοντό
+	e.g. calico, an old sheet	π.χ. αμερικάνικο πανί, ένα παλιό σεντόνι
+	e.g. cotton poplin, jersey	π.χ. βαμβακερή ποπλίνα, ζέρσεϊ
+	Check My Muslin…	Έλεγχος του δοκιμαστικού μου…
+@msg	Add a photo of the muslin first.	Προσθέστε πρώτα μια φωτογραφία του δοκιμαστικού.
+@msg	Check My Muslin needs a build that can reach the AI service	Ο «Έλεγχος του δοκιμαστικού μου» χρειάζεται μια έκδοση που μπορεί να συνδεθεί στην υπηρεσία AI
+@msg	The image is too large to send: crop it, or send a smaller copy.	Η εικόνα είναι πολύ μεγάλη για αποστολή: περικόψτε την ή στείλτε ένα μικρότερο αντίγραφο.
+@msg	This photo is too large: send a smaller copy.	Αυτή η φωτογραφία είναι πολύ μεγάλη: στείλτε ένα μικρότερο αντίγραφο.
+@msg	no files here	δεν υπάρχουν αρχεία εδώ
+@msg	At most 6 photos: remove one first.	Το πολύ 6 φωτογραφίες: αφαιρέστε πρώτα μία.
+@msg	This photo can't be read: save or send it as a JPEG (on an iPhone: Settings › Camera › Formats › Most Compatible).	Αυτή η φωτογραφία δεν μπορεί να διαβαστεί: αποθηκεύστε ή στείλτε τη ως JPEG (σε iPhone: Ρυθμίσεις › Κάμερα › Μορφές › Πιο συμβατό).

@@ -4986,3 +4986,35 @@ file-filter	PDF for projector	PDF per proiettore
 @msg	Foundry Account needs a build that can reach the AI service	Account Foundry richiede una versione che possa raggiungere il servizio di IA
 @msg	Sign in to your Foundry account (Help › Foundry Account…).	Accedi al tuo account Foundry (Aiuto › Account Foundry…).
 @msg	The Foundry service can't do this yet: try again later.	Il servizio Foundry non può ancora farlo: riprova più tardi.
+	Add Photos…	Aggiungi foto…
+	Choose the photos in the browser's window…	Scegli le foto nella finestra del browser…
+@msg	This photo is too large: send a smaller copy.	Questa foto è troppo grande: invia una copia più piccola.
+@msg	no files here	qui non ci sono file
+	About the fit	Sulla vestibilità
+	Anything else? For example: folds below the back neck	Altro? Per esempio: pieghe sotto lo scollo dietro
+	Check My Muslin	Controlla la mia tela di prova
+	Claude looks at the photos with your own Anthropic API key, billed to your Anthropic account. It can be wrong: sew the altered part again in muslin before cutting good fabric.	Claude guarda le foto con la tua chiave API Anthropic, addebitata sul tuo account Anthropic. Può sbagliare: cuci di nuovo la parte modificata in tela di prova prima di tagliare un tessuto pregiato.
+	Final fabric	Tessuto definitivo
+	Hard to raise my arms	Faccio fatica ad alzare le braccia
+	How it feels:	Come la sento:
+	Include the pattern it was cut from (open now), so it can be altered	Includi il cartamodello da cui è stata tagliata (aperto ora), così si può modificare
+	Loose or gaping somewhere	Larga o che si apre da qualche parte
+	Muslin fabric	Tessuto della tela di prova
+	My muslin ({n} photos)	La mia tela di prova ({n} foto)
+	Photos of your muslin, tried on	Foto della tua tela di prova, indossata
+	The front, the side and the back, standing straight with your arms down, and close-ups of any folds or pulling.	Davanti, di lato e dietro, in piedi dritta con le braccia lungo i fianchi, e primi piani di pieghe o punti che tirano.
+	The neckline gapes or pulls	Lo scollo si apre o tira
+	The photos go to Claude for this check only; PatternFoundry doesn't keep them.	Le foto vanno a Claude solo per questo controllo; PatternFoundry non le conserva.
+	The shoulder seams don't sit on my shoulders	Le cuciture delle spalle non cadono sulle mie spalle
+	Tight across the back or shoulders	Stretta sulla schiena o sulle spalle
+	Tight across the bust or chest	Stretta sul seno o sul torace
+	Tight at the waist or hips	Stretta in vita o sui fianchi
+	Too long or too short	Troppo lunga o troppo corta
+	e.g. calico, an old sheet	es. tela di cotone grezza, un vecchio lenzuolo
+	e.g. cotton poplin, jersey	es. popeline di cotone, jersey
+	Check My Muslin…	Controlla la mia tela di prova…
+@msg	Add a photo of the muslin first.	Aggiungi prima una foto della tela di prova.
+@msg	Check My Muslin needs a build that can reach the AI service	Controlla la mia tela di prova richiede una versione che possa raggiungere il servizio di IA
+@msg	The image is too large to send: crop it, or send a smaller copy.	L'immagine è troppo grande per essere inviata: ritagliala o invia una copia più piccola.
+@msg	At most 6 photos: remove one first.	Al massimo 6 foto: togline una prima.
+@msg	This photo can't be read: save or send it as a JPEG (on an iPhone: Settings › Camera › Formats › Most Compatible).	Questa foto non si può leggere: salvala o inviala come JPEG (su iPhone: Impostazioni › Fotocamera › Formati › Più compatibile).

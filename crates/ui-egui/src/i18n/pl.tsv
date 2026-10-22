@@ -5224,3 +5224,35 @@ file-filter	PDF for projector	PDF do projektora
 @msg	Signed out.	Wylogowano.
 @msg	Type your email address.	Wpisz swój adres e-mail.
 @msg	Pay on the page that opened in your browser, then press Refresh.	Zapłać na stronie otwartej w przeglądarce, a następnie naciśnij Odśwież.
+	Add Photos…	Dodaj zdjęcia…
+	Choose the photos in the browser's window…	Wybierz zdjęcia w oknie przeglądarki…
+	About the fit	O dopasowaniu
+	Anything else? For example: folds below the back neck	Coś jeszcze? Na przykład: fałdy poniżej karku z tyłu
+	Check My Muslin	Sprawdź mój próbny model
+	Claude looks at the photos with your own Anthropic API key, billed to your Anthropic account. It can be wrong: sew the altered part again in muslin before cutting good fabric.	Claude ogląda zdjęcia z Twoim własnym kluczem API Anthropic, rozliczanym na Twoim koncie Anthropic. Może się mylić: zanim skroisz dobrą tkaninę, uszyj zmienioną część jeszcze raz z surówki.
+	Final fabric	Docelowa tkanina
+	Hard to raise my arms	Trudno mi podnieść ręce
+	How it feels:	Jak leży:
+	Include the pattern it was cut from (open now), so it can be altered	Dołącz wykrój, z którego go skrojono (teraz otwarty), aby można go było zmienić
+	Loose or gaping somewhere	Gdzieś luźny lub odstaje
+	Muslin fabric	Tkanina na próbny model
+	My muslin ({n} photos)	Mój próbny model (zdjęcia: {n})
+	Photos of your muslin, tried on	Zdjęcia próbnego modelu na sobie
+	The front, the side and the back, standing straight with your arms down, and close-ups of any folds or pulling.	Przód, bok i tył, w pozycji wyprostowanej z opuszczonymi rękami, oraz zbliżenia wszystkich fałd i naciągnięć.
+	The neckline gapes or pulls	Dekolt odstaje lub ciągnie
+	The photos go to Claude for this check only; PatternFoundry doesn't keep them.	Zdjęcia trafiają do Claude tylko na potrzeby tego sprawdzenia; PatternFoundry ich nie przechowuje.
+	The shoulder seams don't sit on my shoulders	Szwy ramion nie leżą na moich ramionach
+	Tight across the back or shoulders	Ciasny na plecach lub w ramionach
+	Tight across the bust or chest	Ciasny w biuście lub w klatce piersiowej
+	Tight at the waist or hips	Ciasny w talii lub w biodrach
+	Too long or too short	Za długi lub za krótki
+	e.g. calico, an old sheet	np. surówka bawełniana, stare prześcieradło
+	e.g. cotton poplin, jersey	np. popelina bawełniana, dzianina jersey
+	Check My Muslin…	Sprawdź mój próbny model…
+@msg	Add a photo of the muslin first.	Najpierw dodaj zdjęcie próbnego modelu.
+@msg	Check My Muslin needs a build that can reach the AI service	Sprawdź mój próbny model wymaga wersji, która może połączyć się z usługą AI
+@msg	The image is too large to send: crop it, or send a smaller copy.	Obraz jest za duży do wysłania: przytnij go lub wyślij mniejszą kopię.
+@msg	This photo is too large: send a smaller copy.	To zdjęcie jest za duże: wyślij mniejszą kopię.
+@msg	no files here	brak plików
+@msg	At most 6 photos: remove one first.	Najwyżej 6 zdjęć: najpierw usuń jedno.
+@msg	This photo can't be read: save or send it as a JPEG (on an iPhone: Settings › Camera › Formats › Most Compatible).	Nie można odczytać tego zdjęcia: zapisz je lub wyślij jako JPEG (na iPhonie: Ustawienia › Aparat › Formaty › Najbardziej zgodne).

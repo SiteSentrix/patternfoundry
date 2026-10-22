@@ -8,6 +8,8 @@
 //! * [`ask`] – Ask About Patterns: questions about sewing patterns and PatternFoundry, answered
 //!   by Claude, which can look at the pattern open now and, with the user's leave, change it
 //!   through PatternFoundry's commands.
+//! * [`muslin`] – Check My Muslin: photos of a muslin (a test garment) tried on, looked at by
+//!   Claude for fit, which says what to alter and, with the user's leave, alters the pattern.
 //! * [`cloud`] – Foundry accounts: signing in, the credits, and AI requests sent through the
 //!   service.
 //!
@@ -22,6 +24,7 @@ use serde_json::Value;
 
 pub mod ask;
 pub mod cloud;
+pub mod muslin;
 
 /// The Messages API endpoint.
 pub const API_URL: &str = "https://api.anthropic.com/v1/messages";
@@ -32,6 +35,19 @@ pub const MODEL: &str = "claude-opus-5-5";
 /// The beta that lets a request the model declines run again on the model Anthropic recommends
 /// (`"fallbacks": "default"`).
 pub const FALLBACK_BETA: &str = "server-side-fallback-2026-07-01";
+
+/// The longest side, in pixels, a photo is sent at (the model sees no more detail).
+pub const IMAGE_SIDE: u32 = 1568;
+/// The largest image sent, as base64 (the API takes up to 5 MB an image).
+pub const MAX_IMAGE_BASE64: usize = 5_000_000;
+
+/// An image to send: PNG or JPEG bytes in base64.
+#[derive(Clone, Debug, PartialEq)]
+pub struct AiImage {
+    /// `image/png` or `image/jpeg`.
+    pub media_type: &'static str,
+    pub data_base64: String,
+}
 
 /// An HTTP POST for the app's client to send.
 #[derive(Clone, Debug, PartialEq)]
@@ -52,6 +68,11 @@ pub enum AiError {
     NoQuestion,
     #[error("The question is too long: keep it under 2,000 characters.")]
     LongQuestion,
+    /// Check My Muslin was asked with no photo.
+    #[error("Add a photo of the muslin first.")]
+    NoPhoto,
+    #[error("The image is too large to send: crop it, or send a smaller copy.")]
+    LargeImage,
     /// The key was refused (401) or may not use the model (403).
     #[error("Anthropic refused the API key: {0}")]
     Key(String),

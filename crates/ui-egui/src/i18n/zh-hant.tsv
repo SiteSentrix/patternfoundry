@@ -5003,3 +5003,35 @@ file-filter	PDF for projector	用於投影機的 PDF
 @msg	Signed out.	已登出。
 @msg	Type your email address.	請輸入您的電子郵件地址。
 @msg	Pay on the page that opened in your browser, then press Refresh.	請在瀏覽器開啟的頁面上付款，然後按「重新整理」。
+	Add Photos…	新增照片…
+	Choose the photos in the browser's window…	請在瀏覽器視窗中選擇照片…
+	About the fit	關於合身度
+	Anything else? For example: folds below the back neck	還有別的嗎？例如：後領口下方有皺褶
+	Check My Muslin	檢查我的樣衣
+	Claude looks at the photos with your own Anthropic API key, billed to your Anthropic account. It can be wrong: sew the altered part again in muslin before cutting good fabric.	Claude 使用您自己的 Anthropic API 金鑰查看照片，費用計入您的 Anthropic 帳戶。它可能出錯：裁剪好布料前，請先用胚布把修改過的部分重新縫製一次樣衣。
+	Final fabric	正式布料
+	Hard to raise my arms	手臂難以抬起
+	How it feels:	穿著感受：
+	Include the pattern it was cut from (open now), so it can be altered	附上裁剪所用的紙樣（目前開啟的），以便修改
+	Loose or gaping somewhere	某處鬆垮或豁開
+	Muslin fabric	樣衣布料
+	My muslin ({n} photos)	我的樣衣（{n} 張照片）
+	Photos of your muslin, tried on	您試穿樣衣的照片
+	The front, the side and the back, standing straight with your arms down, and close-ups of any folds or pulling.	正面、側面和背面，站直、手臂自然下垂，以及所有皺褶或拉扯處的特寫。
+	The neckline gapes or pulls	領口豁開或拉扯
+	The photos go to Claude for this check only; PatternFoundry doesn't keep them.	照片僅為本次檢查傳送給 Claude；PatternFoundry 不會保留。
+	The shoulder seams don't sit on my shoulders	肩縫沒有落在我的肩上
+	Tight across the back or shoulders	背部或肩部太緊
+	Tight across the bust or chest	胸部太緊
+	Tight at the waist or hips	腰部或臀部太緊
+	Too long or too short	太長或太短
+	e.g. calico, an old sheet	例如 胚布、舊床單
+	e.g. cotton poplin, jersey	例如 棉府綢、針織布
+	Check My Muslin…	檢查我的樣衣…
+@msg	Add a photo of the muslin first.	請先新增一張樣衣照片。
+@msg	Check My Muslin needs a build that can reach the AI service	「檢查我的樣衣」需要能連線 AI 服務的版本
+@msg	The image is too large to send: crop it, or send a smaller copy.	影像過大，無法傳送：請裁切影像，或傳送較小的複本。
+@msg	This photo is too large: send a smaller copy.	這張照片太大：請傳送較小的複本。
+@msg	no files here	這裡沒有檔案
+@msg	At most 6 photos: remove one first.	最多 6 張照片：請先移除一張。
+@msg	This photo can't be read: save or send it as a JPEG (on an iPhone: Settings › Camera › Formats › Most Compatible).	無法讀取這張照片：請另存或以 JPEG 傳送（iPhone：設定 › 相機 › 格式 › 最相容）。

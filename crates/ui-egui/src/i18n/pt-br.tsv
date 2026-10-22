@@ -5289,3 +5289,35 @@ file-filter	PDF for projector	PDF para projetor
 @msg	already asking: wait for the answer	já está perguntando: aguarde a resposta
 @msg	This conversation is long: start a New Conversation.	Esta conversa está longa: comece uma Nova conversa.
 @msg	Claude took too many steps: ask again, more simply.	O Claude deu passos demais: pergunte de novo, de forma mais simples.
+	Add Photos…	Adicionar fotos…
+	Choose the photos in the browser's window…	Escolha as fotos na janela do navegador…
+	About the fit	Sobre o caimento
+	Anything else? For example: folds below the back neck	Mais alguma coisa? Por exemplo: dobras abaixo do decote das costas
+	Check My Muslin	Verificar minha peça-piloto
+	Claude looks at the photos with your own Anthropic API key, billed to your Anthropic account. It can be wrong: sew the altered part again in muslin before cutting good fabric.	O Claude analisa as fotos com a sua própria chave de API da Anthropic, cobrada na sua conta Anthropic. Ele pode errar: costure de novo a parte alterada em morim antes de cortar um tecido bom.
+	Final fabric	Tecido definitivo
+	Hard to raise my arms	Difícil levantar os braços
+	How it feels:	Como fica no corpo:
+	Include the pattern it was cut from (open now), so it can be altered	Incluir o molde de onde foi cortada (aberto agora), para que possa ser alterado
+	Loose or gaping somewhere	Folgado ou abrindo em algum lugar
+	Muslin fabric	Tecido da peça-piloto
+	My muslin ({n} photos)	Minha peça-piloto ({n} fotos)
+	Photos of your muslin, tried on	Fotos da sua peça-piloto, vestida
+	The front, the side and the back, standing straight with your arms down, and close-ups of any folds or pulling.	A frente, o lado e as costas, em pé e reto com os braços para baixo, e closes de quaisquer dobras ou repuxados.
+	The neckline gapes or pulls	O decote abre ou repuxa
+	The photos go to Claude for this check only; PatternFoundry doesn't keep them.	As fotos vão para o Claude só para esta verificação; o PatternFoundry não as guarda.
+	The shoulder seams don't sit on my shoulders	As costuras dos ombros não ficam sobre os meus ombros
+	Tight across the back or shoulders	Justo nas costas ou nos ombros
+	Tight across the bust or chest	Justo no busto ou no peito
+	Tight at the waist or hips	Justo na cintura ou no quadril
+	Too long or too short	Comprido demais ou curto demais
+	e.g. calico, an old sheet	ex.: morim, um lençol velho
+	e.g. cotton poplin, jersey	ex.: tricoline de algodão, malha
+	Check My Muslin…	Verificar minha peça-piloto…
+@msg	Add a photo of the muslin first.	Adicione primeiro uma foto da peça-piloto.
+@msg	Check My Muslin needs a build that can reach the AI service	Verificar minha peça-piloto precisa de uma versão que consiga acessar o serviço de IA
+@msg	The image is too large to send: crop it, or send a smaller copy.	A imagem é grande demais para enviar: recorte-a ou envie uma cópia menor.
+@msg	This photo is too large: send a smaller copy.	Esta foto é grande demais: envie uma cópia menor.
+@msg	no files here	não há arquivos aqui
+@msg	At most 6 photos: remove one first.	No máximo 6 fotos: remova uma primeiro.
+@msg	This photo can't be read: save or send it as a JPEG (on an iPhone: Settings › Camera › Formats › Most Compatible).	Esta foto não pode ser lida: salve-a ou envie-a como JPEG (no iPhone: Ajustes › Câmera › Formatos › Mais Compatível).

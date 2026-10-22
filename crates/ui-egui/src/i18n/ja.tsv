@@ -5026,3 +5026,35 @@ file-filter	PDF for projector	プロジェクター用 PDF
 @msg	Foundry Account needs a build that can reach the AI service	「Foundry アカウント」には AI サービスに接続できるビルドが必要です
 @msg	Sign in to your Foundry account (Help › Foundry Account…).	Foundry アカウントにサインインしてください（ヘルプ › Foundry アカウント…）。
 @msg	The Foundry service can't do this yet: try again later.	Foundry のサービスはまだこれに対応していません。後でもう一度お試しください。
+	Add Photos…	写真を追加…
+	Choose the photos in the browser's window…	ブラウザーのウィンドウで写真を選んでください…
+@msg	This photo is too large: send a smaller copy.	この写真は大きすぎます。小さいコピーを送ってください。
+@msg	no files here	ここにはファイルがありません
+	About the fit	フィットについて
+	Anything else? For example: folds below the back neck	ほかに何か？ 例：後ろ衿ぐりの下にしわが出る
+	Check My Muslin	仮縫いをチェック
+	Claude looks at the photos with your own Anthropic API key, billed to your Anthropic account. It can be wrong: sew the altered part again in muslin before cutting good fabric.	Claude はお使いの Anthropic API キーで写真を見ます。料金はお使いの Anthropic アカウントに請求されます。間違えることもあるので、良い生地を裁つ前に、補正した部分をもう一度シーチングで仮縫いしてください。
+	Final fabric	本番の生地
+	Hard to raise my arms	腕が上げにくい
+	How it feels:	着心地：
+	Include the pattern it was cut from (open now), so it can be altered	裁断に使った型紙（いま開いているもの）を含め、補正できるようにする
+	Loose or gaping somewhere	どこかがゆるい、または浮いている
+	Muslin fabric	仮縫い用の生地
+	My muslin ({n} photos)	私の仮縫い（写真 {n} 枚）
+	Photos of your muslin, tried on	仮縫いを着た写真
+	The front, the side and the back, standing straight with your arms down, and close-ups of any folds or pulling.	正面、横、後ろを、まっすぐ立って腕を下ろした姿勢で。しわや引きつれがあれば、その拡大写真も。
+	The neckline gapes or pulls	衿ぐりが浮く、または引きつれる
+	The photos go to Claude for this check only; PatternFoundry doesn't keep them.	写真はこのチェックのためだけに Claude に送られます。PatternFoundry には保存されません。
+	The shoulder seams don't sit on my shoulders	肩線が肩に乗っていない
+	Tight across the back or shoulders	背中や肩がきつい
+	Tight across the bust or chest	バストや胸がきつい
+	Tight at the waist or hips	ウエストやヒップがきつい
+	Too long or too short	長すぎる、または短すぎる
+	e.g. calico, an old sheet	例：シーチング、古いシーツ
+	e.g. cotton poplin, jersey	例：綿ブロード、ジャージー
+	Check My Muslin…	仮縫いをチェック…
+@msg	Add a photo of the muslin first.	まず仮縫いの写真を追加してください。
+@msg	Check My Muslin needs a build that can reach the AI service	「仮縫いをチェック」には AI サービスに接続できるビルドが必要です
+@msg	The image is too large to send: crop it, or send a smaller copy.	画像が大きすぎて送信できません。切り抜くか、小さいコピーを送ってください。
+@msg	At most 6 photos: remove one first.	写真は 6 枚までです。先に 1 枚削除してください。
+@msg	This photo can't be read: save or send it as a JPEG (on an iPhone: Settings › Camera › Formats › Most Compatible).	この写真は読み込めません。JPEG で保存するか送ってください（iPhone では 設定 › カメラ › フォーマット › 互換性優先）。

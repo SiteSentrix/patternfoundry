@@ -5314,3 +5314,35 @@ file-filter	PDF for projector	PDF para proyector
 @msg	Foundry Account needs a build that can reach the AI service	Cuenta de Foundry necesita una versión que pueda conectarse al servicio de IA
 @msg	Sign in to your Foundry account (Help › Foundry Account…).	Inicie sesión en su cuenta de Foundry (Ayuda › Cuenta de Foundry…).
 @msg	The Foundry service can't do this yet: try again later.	El servicio de Foundry aún no puede hacer esto: inténtelo más tarde.
+	Add Photos…	Añadir fotos…
+	Choose the photos in the browser's window…	Elija las fotos en la ventana del navegador…
+@msg	This photo is too large: send a smaller copy.	Esta foto es demasiado grande: envíe una copia más pequeña.
+@msg	no files here	aquí no hay archivos
+	About the fit	Sobre el ajuste
+	Anything else? For example: folds below the back neck	¿Algo más? Por ejemplo: arrugas debajo del escote de la espalda
+	Check My Muslin	Revisar mi prueba de muselina
+	Claude looks at the photos with your own Anthropic API key, billed to your Anthropic account. It can be wrong: sew the altered part again in muslin before cutting good fabric.	Claude mira las fotos con su propia clave de API de Anthropic, cobrada en su cuenta de Anthropic. Puede equivocarse: vuelva a coser la parte modificada en muselina antes de cortar una buena tela.
+	Final fabric	Tela definitiva
+	Hard to raise my arms	Me cuesta levantar los brazos
+	How it feels:	Cómo se siente:
+	Include the pattern it was cut from (open now), so it can be altered	Incluir el patrón con el que se cortó (abierto ahora), para poder modificarlo
+	Loose or gaping somewhere	Holgado o abierto en algún sitio
+	Muslin fabric	Tela de la prueba
+	My muslin ({n} photos)	Mi prueba de muselina ({n} fotos)
+	Photos of your muslin, tried on	Fotos de su prueba de muselina, puesta
+	The front, the side and the back, standing straight with your arms down, and close-ups of any folds or pulling.	De frente, de lado y de espaldas, de pie y recto con los brazos abajo, y primeros planos de cualquier arruga o tirantez.
+	The neckline gapes or pulls	El escote se abre o tira
+	The photos go to Claude for this check only; PatternFoundry doesn't keep them.	Las fotos van a Claude solo para esta revisión; PatternFoundry no las guarda.
+	The shoulder seams don't sit on my shoulders	Las costuras de los hombros no quedan sobre mis hombros
+	Tight across the back or shoulders	Ajustado en la espalda o los hombros
+	Tight across the bust or chest	Ajustado en el busto o el pecho
+	Tight at the waist or hips	Ajustado en la cintura o las caderas
+	Too long or too short	Demasiado largo o demasiado corto
+	e.g. calico, an old sheet	p. ej. calicó, una sábana vieja
+	e.g. cotton poplin, jersey	p. ej. popelina de algodón, punto (jersey)
+	Check My Muslin…	Revisar mi prueba de muselina…
+@msg	Add a photo of the muslin first.	Añada primero una foto de la prueba de muselina.
+@msg	Check My Muslin needs a build that can reach the AI service	Revisar mi prueba de muselina necesita una versión que pueda conectarse al servicio de IA
+@msg	The image is too large to send: crop it, or send a smaller copy.	La imagen es demasiado grande para enviarla: recórtela o envíe una copia más pequeña.
+@msg	At most 6 photos: remove one first.	Como máximo 6 fotos: quite una primero.
+@msg	This photo can't be read: save or send it as a JPEG (on an iPhone: Settings › Camera › Formats › Most Compatible).	Esta foto no se puede leer: guárdela o envíela como JPEG (en un iPhone: Ajustes › Cámara › Formatos › Más compatible).

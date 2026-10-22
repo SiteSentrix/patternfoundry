@@ -443,3 +443,20 @@ is built on, plus a pattern mode, the way StitchFoundry adds embroidery:
   `tests_design.rs`. So a wrap dress is: the bodice back; the front's bust dart rotated into the
   armhole, then Make Wrap Front; the skirt back; the skirt front with Make Wrap Front (straight);
   a waistband and ties with Make Band.
+- 2026-10-22, **PF-8.2**: **Check My Muslin** (Help and Pattern menus, `ui.checkMuslin`), PF-8's
+  fit advice, adapted from StitchFoundry's Check My Sew-out as the owner approved
+  (`crates/sf-core/src/ai/sewout.rs`, `crates/ui-egui/src/embroidery/sewout.rs`). Up to six photos
+  of a muslin tried on (turned upright, made no larger than Claude looks at, sent as JPEG), the
+  pattern's summary when it is open (pieces, blocks, sizes and which measurements are set, never
+  their values) and a few answers (the muslin's fabric, the final fabric, how it feels, notes) go
+  to Claude with fitting instructions (`pf_ai::muslin`): read the drag lines and folds, say where,
+  give each problem's cause and the pattern alteration with how much, talk about the garment
+  never the body's looks, never guess measurements from the photos. The answer, and the
+  alterations it offers (each after the user's Allow; reading the measurements too), are in the
+  Ask About Patterns window in its muslin mode, and questions after it go with the same
+  instructions. The photos show the user: they go with the check only, are let go of once sent or
+  when the window closes, and nothing logs them. Tests: 2 in `pf-ai` (the first message, the
+  request) and 2 in `crates/ui-egui/src/ai/tests.rs` (a photo made smaller, a file that isn't one
+  refused, the check's message with no measured value, the alteration made after Allow, the
+  follow-up's instructions; a check without a photo). Not yet: a real request checked against
+  the service, the pattern drawn as a picture to compare with the photos.
