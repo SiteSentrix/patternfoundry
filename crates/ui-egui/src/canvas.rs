@@ -1895,6 +1895,7 @@ fn context_menu(app: &mut VectorcraftApp, resp: &egui::Response, xf: &Xf) {
         let p = xf.to_doc(p);
         let locked = hit_with(app, p, xf.zoom, |doc, p, opt| Some(vectorcraft_doc::hit::locked_objects_at(doc, p, opt)));
         app.ui.context_locked = app.session.active().map(|st| st.uid).zip(locked);
+        app.ui.context_point = app.session.active().map(|st| (st.uid, [p.x, p.y]));
         if let Some(st) = app.session.active()
             && let Some(top) = hit_at(app, p, xf.zoom).map(|h| h.top_object(st.isolation))
             && !st.selection.contains(top)
@@ -1906,6 +1907,7 @@ fn context_menu(app: &mut VectorcraftApp, resp: &egui::Response, xf: &Xf) {
     let mut clicked = None;
     if resp.context_menu(|ui| crate::menus::context_menu_body(app, ui, &mut clicked)).is_none() {
         app.ui.context_locked = None;
+        app.ui.context_point = None;
     }
     if let Some((id, p)) = clicked {
         crate::menus::invoke(app, &id, p);

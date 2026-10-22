@@ -3159,6 +3159,18 @@ pub fn context_items(app: &VectorcraftApp) -> Vec<Item> {
         ]);
     } else {
         v.extend([c("Cut", "edit.cut"), c("Copy", "edit.copy"), c("Paste", "edit.paste"), Sep]);
+        // A pattern piece right-clicked on or near its seam line: a notch there, or that edge on
+        // the fold (piece.addNotch, piece.set with the point; refused away from the seam line).
+        if let ([piece], Some((uid, at))) = (roots.as_slice(), app.ui.context_point)
+            && uid == st.uid
+            && piece.extras().pattern.as_deref().and_then(pf_core::PatternTag::piece).is_some()
+        {
+            v.extend([
+                cp("Add Notch Here", "piece.addNotch", json!({ "id": piece.id.0, "point": at })),
+                cp("Cut on Fold Here", "piece.set", json!({ "id": piece.id.0, "foldAt": at })),
+                Sep,
+            ]);
+        }
         if let [one] = roots.as_slice()
             && one.is_container()
         {
@@ -4003,6 +4015,8 @@ pub const CONTEXT_LABELS: &[&str] = &[
     "Make Compound Path",
     "Release Compound Path",
     "Select All",
+    "Add Notch Here",
+    "Cut on Fold Here",
 ];
 
 /// The labels [`dynamic_label`] can show in place of an item's own (Show/Hide pairs and the like),

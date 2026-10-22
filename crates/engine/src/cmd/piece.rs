@@ -51,7 +51,7 @@ pub fn specs() -> Vec<CommandSpec> {
             "Piece Options",
             [],
             None,
-            "{id? (default: the selected piece), name?, cut?: 1..999, mirror?: bool (cut in mirror-image pairs), fabric?, allowance?: mm (every edge without its own), edges?: {\"<edge>\": mm | null (back to the piece's allowance)}, corners?: {\"<corner>\": \"mitre\" | \"square\"} (corner i is where edge i-1 meets edge i), grainline?: {from: [x, y], to: [x, y]} (document points) | \"auto\" (vertical through the middle), fold?: edge | \"auto\" (the longest straight edge) | null (the straight edge cut on the fold: no allowance, laid against the fabric's fold or opened out by marker.make)} → piece.info",
+            "{id? (default: the selected piece), name?, cut?: 1..999, mirror?: bool (cut in mirror-image pairs), fabric?, allowance?: mm (every edge without its own), edges?: {\"<edge>\": mm | null (back to the piece's allowance)}, corners?: {\"<corner>\": \"mitre\" | \"square\"} (corner i is where edge i-1 meets edge i), grainline?: {from: [x, y], to: [x, y]} (document points) | \"auto\" (vertical through the middle), fold?: edge | \"auto\" (the longest straight edge) | null, foldAt?: [x, y] (instead: the straight edge nearest this document point) (the straight edge cut on the fold: no allowance, laid against the fabric's fold or opened out by marker.make)} → piece.info",
             has_doc,
             set
         ),
@@ -60,7 +60,7 @@ pub fn specs() -> Vec<CommandSpec> {
             "Add Notch",
             [],
             None,
-            "{id?, edge: 0.., at?: 0..1 (0.5; along the edge by length), kind?: \"slit\" (default) | \"double\" | \"v\"} → piece.info",
+            "{id?, edge: 0.., at?: 0..1 (0.5; along the edge by length) | point: [x, y] (instead: document points on the seam line or in its allowance, as a click on the canvas: the nearest edge there), kind?: \"slit\" (default) | \"double\" | \"v\"} → piece.info",
             has_doc,
             add_notch
         ),
@@ -465,8 +465,16 @@ fn set(s: &mut Session, p: &Value) -> Result<Value> {
     const CMD: &str = "piece.set";
     let id = one_piece(s, p, CMD)?;
     // The fold: a straight edge of the seam line.
-    let fold = match p.get("fold") {
+    let fold = match p.get("fold").or(p.get("foldAt")) {
         None => None,
+        Some(v) if p.get("foldAt").is_some() => {
+            let q = point_of(v).ok_or_else(|| bad(CMD, "foldAt: [x, y] in document points"))?;
+            let (e, _) = edge_near(s, id, Point::new(q.x, q.y)).ok_or_else(|| bad(CMD, "the point is not on the seam line or in its allowance"))?;
+            if !straight(s, id, e) {
+                return Err(bad(CMD, "the fold must be a straight edge"));
+            }
+            Some(Some(e))
+        }
         Some(Value::Null) => Some(None),
         Some(Value::String(a)) if a == "auto" => {
             Some(Some(longest_straight(s, id).ok_or_else(|| bad(CMD, "the piece has no straight edge to cut on the fold"))?))
@@ -546,14 +554,54 @@ fn set(s: &mut Session, p: &Value) -> Result<Value> {
     })
 }
 
+/// How far past an edge's seam allowance a point picked on the canvas may be from the seam line, in
+/// mm, and still name that edge.
+const PICK_MM: f64 = 5.0;
+
+/// The edge of piece `id`'s seam line nearest document point `q`, and how far along it (0 to 1,
+/// by length), when `q` is within the edge's allowance and [`PICK_MM`] of the seam line.
+fn edge_near(s: &Session, id: NodeId, q: Point) -> Option<(usize, f64)> {
+    use vectorcraft_geom::kurbo::{ParamCurve, ParamCurveArclen, ParamCurveNearest};
+    let st = s.doc().ok()?;
+    let piece = st.doc.node(id).and_then(piece_on)?;
+    let seam = seam_of(&st.doc, id)?;
+    let NodeKind::Path { path, .. } = &seam.kind else { return None };
+    let sp = path.subpaths.iter().find(|sp| sp.closed)?;
+    let (mut best, mut best_d) = (None, f64::INFINITY);
+    for i in 0..sp.segment_count() {
+        let seg = sp.segment(i);
+        let near = seg.nearest(q, 1e-6);
+        if near.distance_sq < best_d {
+            best_d = near.distance_sq;
+            let total = seg.arclen(1e-6);
+            let at = if total > 1e-9 { seg.subsegment(0.0..near.t).arclen(1e-6) / total } else { 0.5 };
+            best = Some((i, at.clamp(0.0, 1.0)));
+        }
+    }
+    let (edge, at) = best?;
+    (best_d.sqrt() <= mm_to_pt(piece.allowance_of(edge) + PICK_MM)).then_some((edge, at))
+}
+
 fn add_notch(s: &mut Session, p: &Value) -> Result<Value> {
     const CMD: &str = "piece.addNotch";
     let id = one_piece(s, p, CMD)?;
-    let edge =
-        p.get("edge").and_then(Value::as_u64).and_then(|e| usize::try_from(e).ok()).ok_or_else(|| bad(CMD, "edge: the edge's number, from 0"))?;
-    let at = match p.get("at") {
-        None => 0.5,
-        Some(v) => v.as_f64().ok_or_else(|| bad(CMD, "at: 0 (the edge's start) to 1 (its end)"))?,
+    let (edge, at) = match p.get("point") {
+        Some(v) => {
+            let q = point_of(v).ok_or_else(|| bad(CMD, "point: [x, y] in document points"))?;
+            edge_near(s, id, Point::new(q.x, q.y)).ok_or_else(|| bad(CMD, "the point is not on the seam line or in its allowance"))?
+        }
+        None => {
+            let edge = p
+                .get("edge")
+                .and_then(Value::as_u64)
+                .and_then(|e| usize::try_from(e).ok())
+                .ok_or_else(|| bad(CMD, "edge: the edge's number, from 0 (or point)"))?;
+            let at = match p.get("at") {
+                None => 0.5,
+                Some(v) => v.as_f64().ok_or_else(|| bad(CMD, "at: 0 (the edge's start) to 1 (its end)"))?,
+            };
+            (edge, at)
+        }
     };
     let kind = match str_param(p, "kind") {
         None | Some("slit") => NotchKind::Slit,
