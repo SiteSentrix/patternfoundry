@@ -4998,3 +4998,8 @@ file-filter	PDF for projector	PDF cho máy chiếu
 @msg	no files here	không có tệp nào ở đây
 @msg	At most 6 photos: remove one first.	Tối đa 6 ảnh: hãy xóa bớt một ảnh trước.
 @msg	This photo can't be read: save or send it as a JPEG (on an iPhone: Settings › Camera › Formats › Most Compatible).	Không đọc được ảnh này: hãy lưu hoặc gửi ảnh dưới dạng JPEG (trên iPhone: Cài đặt › Camera › Định dạng › Tương thích nhất).
+	Make Marker	Tạo sơ đồ cắt
+	Make Marker…	Tạo sơ đồ cắt…
+	Gap	Khoảng cách
+	Precision	Độ chính xác
+	One Way	Một chiều

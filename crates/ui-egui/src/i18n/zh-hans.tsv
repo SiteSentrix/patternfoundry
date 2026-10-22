@@ -5239,3 +5239,8 @@ file-filter	PDF for projector	用于投影仪的 PDF
 @msg	The image is too large to send: crop it, or send a smaller copy.	图像过大，无法发送：请裁剪图像，或发送较小的副本。
 @msg	At most 6 photos: remove one first.	最多 6 张照片：请先移除一张。
 @msg	This photo can't be read: save or send it as a JPEG (on an iPhone: Settings › Camera › Formats › Most Compatible).	无法读取这张照片：请另存或以 JPEG 发送（iPhone：设置 › 相机 › 格式 › 兼容性最佳）。
+	Make Marker	制作排料图
+	Make Marker…	制作排料图…
+	Gap	间距
+	Precision	精度
+	One Way	单向

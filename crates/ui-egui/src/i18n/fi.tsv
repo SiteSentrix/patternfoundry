@@ -5367,3 +5367,8 @@ file-filter	PDF for projector	PDF projektorille
 @msg	no files here	täällä ei ole tiedostoja
 @msg	At most 6 photos: remove one first.	Enintään 6 kuvaa: poista ensin yksi.
 @msg	This photo can't be read: save or send it as a JPEG (on an iPhone: Settings › Camera › Formats › Most Compatible).	Tätä kuvaa ei voi lukea: tallenna tai lähetä se JPEG-muodossa (iPhonessa: Asetukset › Kamera › Muodot › Yhteensopivin).
+	Make Marker	Tee leikkuukuva
+	Make Marker…	Tee leikkuukuva…
+	Gap	Väli
+	Precision	Tarkkuus
+	One Way	Yhteen suuntaan

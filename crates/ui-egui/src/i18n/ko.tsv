@@ -4981,3 +4981,8 @@ file-filter	PDF for projector	프로젝터용 PDF
 @msg	no files here	여기에 파일이 없습니다
 @msg	At most 6 photos: remove one first.	사진은 최대 6장입니다: 먼저 하나를 제거하세요.
 @msg	This photo can't be read: save or send it as a JPEG (on an iPhone: Settings › Camera › Formats › Most Compatible).	이 사진을 읽을 수 없습니다: JPEG로 저장하거나 보내세요(iPhone: 설정 › 카메라 › 포맷 › 높은 호환성).
+	Make Marker	마커 만들기
+	Make Marker…	마커 만들기…
+	Gap	간격
+	Precision	정밀도
+	One Way	한 방향

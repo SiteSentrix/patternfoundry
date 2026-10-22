@@ -5389,3 +5389,8 @@ file-filter	PDF for projector	PDF projektorhoz
 @msg	no files here	itt nincsenek fájlok
 @msg	At most 6 photos: remove one first.	Legfeljebb 6 fotó: előbb távolítson el egyet.
 @msg	This photo can't be read: save or send it as a JPEG (on an iPhone: Settings › Camera › Formats › Most Compatible).	Ez a fotó nem olvasható: mentse vagy küldje el JPEG formátumban (iPhone-on: Beállítások › Kamera › Formátumok › Legkompatibilisebb).
+	Make Marker	Szabásterv készítése
+	Make Marker…	Szabásterv készítése…
+	Gap	Térköz
+	Precision	Pontosság
+	One Way	Egy irányba

@@ -2742,6 +2742,11 @@ pub fn menu_tree_named(english_names: bool) -> Vec<(&'static str, Vec<Item>)> {
                 Sep,
                 c("Grade Nest", "grade.nest"),
                 c("Clear Graded Nest", "grade.clear"),
+                cp(
+                    "Make Marker…",
+                    "marker.make",
+                    json!({"width": "150 cm", "fabric": "", "gap": "2 mm", "oneWay": false, "size": "", "precision": "5 mm"}),
+                ),
                 Sep,
                 c("Ask About Patterns…", "ui.askAboutPatterns"),
                 c("Check My Muslin…", "ui.checkMuslin"),

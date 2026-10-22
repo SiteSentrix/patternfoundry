@@ -460,3 +460,26 @@ is built on, plus a pattern mode, the way StitchFoundry adds embroidery:
   refused, the check's message with no measured value, the alteration made after Allow, the
   follow-up's instructions; a check without a photo). Not yet: a real request checked against
   the service, the pattern drawn as a picture to compare with the photos.
+- 2026-10-22, **PF-9.1**: marker making, **Pattern › Make Marker…** (`marker.make`). A marker is
+  "a diagram of the precise arrangement of pattern pieces" for a cut, its efficiency the share of
+  the fabric the pieces use
+  (https://www.onlineclothingstudy.com/2011/11/marker-planning-and-marker-making.html). Every copy
+  of a fabric's pieces (the cut count; a piece cut in mirror-image pairs gives half its copies
+  flipped) is laid on the fabric's width with its grainline along the length, parallel to the
+  selvedge (https://www.threadsmagazine.com/2018/02/22/fabric-grain-explained), either way up, or
+  all one way for a nap or a one-way print (`oneWay`,
+  https://www.threadsmagazine.com/2020/06/11/how-to-lay-out-patterns-on-napped-fabrics), `gap`
+  apart (2 mm), optionally in one `size` of the range. The laying (`pf_core::marker::lay`) is a
+  bottom-left fill (Hopper & Turton, EJOR 128, 2001): largest piece first, each where its end
+  comes furthest along, overlap tested on a grid (`precision`, 5 mm) where each piece covers every
+  cell its outline grown by half the gap touches, so pieces never overlap. The marker is drawn on
+  the layer "Marker <fabric>" (made again it replaces it): the fabric's outline, a caption (width,
+  length, % used), and each copy's cutting line, seam line, grainline and notches as plain art
+  with its name. Pieces too wide for the fabric are listed. The bodice, skirt and sleeve blocks,
+  two of each, take 1.37 m of 150 cm fabric at 68% (precision 3 mm). Tests: 3 in `pf-core` (rectangles fill the
+  width then the length, concave pieces never overlap and stay on the fabric, one-way and too
+  wide), 2 in `tests_marker.rs` (copies, mirror images, true-scale fabric, the lining's own
+  marker, replaced and undone; the blocks on two metres, untouched when the measurements change).
+  Not yet: folded fabric (pieces cut on the fold laid against the fold), a small tilt off grain,
+  plaid and stripe matching, pieces moved by hand with the length and efficiency kept up to date,
+  a better search (trying orders, as nesting software does), the marker in DXF-AAMA.

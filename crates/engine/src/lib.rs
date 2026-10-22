@@ -2186,6 +2186,8 @@ mod tests_live;
 #[cfg(test)]
 mod tests_livecorners;
 #[cfg(test)]
+mod tests_marker;
+#[cfg(test)]
 mod tests_maskview;
 #[cfg(test)]
 mod tests_measure;

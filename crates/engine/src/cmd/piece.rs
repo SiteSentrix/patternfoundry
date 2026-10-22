@@ -147,7 +147,7 @@ fn one_piece(s: &Session, p: &Value, cmd: &str) -> Result<NodeId> {
 }
 
 /// A length param in millimetres: a number (mm) or a string with a unit (`"5/8 in"`, `"1 cm"`).
-fn mm_param(v: &Value) -> Option<f64> {
+pub(crate) fn mm_param(v: &Value) -> Option<f64> {
     match v {
         Value::Number(n) => n.as_f64(),
         Value::String(s) => vectorcraft_doc::Unit::Millimeters.parse(s).map(pt_to_mm),
