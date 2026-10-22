@@ -5387,6 +5387,15 @@ file-filter	PDF for projector	PDF för projektor
 	Arrows move the pattern 1 cm (Shift: 1 mm) · M mirrors it · C calibrates · Escape leaves	Pilarna flyttar mönstret 1 cm (Skift: 1 mm) · M speglar det · C kalibrerar · Escape avslutar
 @msg	no pattern pieces to project: make the outlines pattern pieces first (Pattern › Make Pattern Piece)	inga mönsterdelar att projicera: gör först konturerna till mönsterdelar (Mönster › Skapa mönsterdel)
 @msg	scale: screen points per mm, more than 0	skala: skärmpunkter per mm, mer än 0
+	Delete Saved Measurements	Ta bort sparade mått
+	Load Measurements	Läs in mått
+	My Measurements	Mina mått
+	Save to My Measurements	Spara i Mina mått
+	Delete from this computer	Ta bort från den här datorn
+	Kept on this computer only, to load into any pattern	Sparas bara på den här datorn, för att läsas in i vilket mönster som helst
+	Load	Läs in
+	Use these measurements in this pattern	Använd de här måtten i det här mönstret
+	Whose (Me)	Vems (Jag)
 	Shorten Dart	Korta inprovning
 	Shorten Dart…	Korta inprovning…
 	Shorten	Korta

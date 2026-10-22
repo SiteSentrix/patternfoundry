@@ -5395,6 +5395,15 @@ file-filter	PDF for projector	PDF projektorille
 	Arrows move the pattern 1 cm (Shift: 1 mm) · M mirrors it · C calibrates · Escape leaves	Nuolet siirtävät kaavaa 1 cm (vaihto: 1 mm) · M peilaa sen · C kalibroi · Esc poistuu
 @msg	no pattern pieces to project: make the outlines pattern pieces first (Pattern › Make Pattern Piece)	ei projisoitavia kaavaosia: tee ääriviivoista ensin kaavaosia (Kaava › Tee kaavaosa)
 @msg	scale: screen points per mm, more than 0	mittakaava: näyttöpisteitä millille, yli 0
+	Delete Saved Measurements	Poista tallennetut mitat
+	Load Measurements	Lataa mitat
+	My Measurements	Omat mitat
+	Save to My Measurements	Tallenna Omiin mittoihin
+	Delete from this computer	Poista tältä tietokoneelta
+	Kept on this computer only, to load into any pattern	Säilytetään vain tällä tietokoneella, ladattaviksi mihin tahansa kaavaan
+	Load	Lataa
+	Use these measurements in this pattern	Käytä näitä mittoja tässä kaavassa
+	Whose (Me)	Kenen (Minä)
 	Shorten Dart	Lyhennä laskosta
 	Shorten Dart…	Lyhennä laskosta…
 	Shorten	Lyhennä

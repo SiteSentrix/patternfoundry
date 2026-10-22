@@ -5086,6 +5086,15 @@ file-filter	PDF for projector	プロジェクター用 PDF
 	Arrows move the pattern 1 cm (Shift: 1 mm) · M mirrors it · C calibrates · Escape leaves	矢印キーで型紙を 1 cm 移動（Shift：1 mm）· M で反転 · C で調整 · Escape で終了
 @msg	no pattern pieces to project: make the outlines pattern pieces first (Pattern › Make Pattern Piece)	投影する型紙パーツがありません：先に輪郭を型紙パーツにしてください（パターン › 型紙パーツを作成）
 @msg	scale: screen points per mm, more than 0	倍率：1 mm あたりの画面ポイント、0 より大きく
+	Delete Saved Measurements	保存した寸法を削除
+	Load Measurements	寸法を読み込む
+	My Measurements	マイ寸法
+	Save to My Measurements	マイ寸法に保存
+	Delete from this computer	このコンピューターから削除
+	Kept on this computer only, to load into any pattern	このコンピューターだけに保存され、どの型紙にも読み込めます
+	Load	読み込む
+	Use these measurements in this pattern	この寸法をこの型紙で使う
+	Whose (Me)	だれの（自分）
 	Shorten Dart	ダーツを短くする
 	Shorten Dart…	ダーツを短くする…
 	Shorten	短くする

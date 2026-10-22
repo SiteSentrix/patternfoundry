@@ -551,6 +551,17 @@ is built on, plus a pattern mode, the way StitchFoundry adds embroidery:
   opened out and halved), 1 in the UI (calibrating, keeping the scale, moving and mirroring, full
   screen on and off). Not yet tried on a real projector; not yet: a grid over the whole mat to
   check against, a scale per projector, the view on the web.
+- 2026-10-22, **PF-3.4**: personal measurement sets kept on this computer. **My Measurements** in
+  the Measurements panel (`measure.saveSet`, `measure.sets`, `measure.loadSet`,
+  `measure.deleteSet`) keeps the document's set (values and formulas) as a `.pfmeasure` file in a
+  Measurements folder next to the preferences (the desktop app and `patternfoundry-cli` attach it;
+  the web has none), to load into any other pattern (undoable; blocks and point formulas follow).
+  Measurements are personal data: the sets stay in that folder, are saved never shared, are never
+  logged (a file that can't be read is logged by its file name only), and are read back through
+  the same checks `measure.set` makes, so a damaged or edited file can't bring in a value no set
+  can hold. Tests: 1 in `tests_store.rs` (saved, listed without values, loaded into another
+  session's pattern and undone, damaged files skipped, deleted), 1 in the panel. Not yet: a set
+  chosen when drafting a block, sets synced between the user's computers (only if they ask).
 - 2026-10-22, **PF-5.18**: dart shortening. **Pattern › Shorten Dart…** (`design.shortenDart`)
   moves a dart's point along its centre line toward its opening, 25 mm by default (a bust dart is
   ended about 1 in short of the bust point), the legs straight from the same ends so the seam it
