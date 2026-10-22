@@ -101,6 +101,10 @@ pub struct Piece {
     /// Grade rules on the seam line's points (PF-6.2).
     #[serde(default, skip_serializing_if = "Vec::is_empty")]
     pub grade: Vec<crate::grade::GradeRule>,
+    /// The edge cut on the fold (PF-9.2): laid against the fabric's fold, it takes no allowance,
+    /// and the piece cut is the whole, opened out across it.
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub fold: Option<usize>,
 }
 
 fn one() -> u32 {
@@ -124,6 +128,7 @@ impl Default for Piece {
             notches: Vec::new(),
             grainline: None,
             grade: Vec::new(),
+            fold: None,
         }
     }
 }
@@ -170,8 +175,11 @@ pub fn check_name(s: &str) -> Result<String, PieceError> {
 }
 
 impl Piece {
-    /// The allowance of `edge`, in mm.
+    /// The allowance of `edge`, in mm (none on the fold).
     pub fn allowance_of(&self, edge: usize) -> f64 {
+        if self.fold == Some(edge) {
+            return 0.0;
+        }
         self.edges.get(&edge).copied().unwrap_or(self.allowance)
     }
 
@@ -208,12 +216,16 @@ impl Piece {
         self.edges.retain(|e, _| *e < edges);
         self.corners.retain(|c, _| *c < edges);
         self.notches.retain(|n| n.edge < edges);
+        self.fold = self.fold.filter(|f| *f < edges);
     }
 
     /// The label text: the name, then how to cut it.
     pub fn label(&self) -> String {
         let name = if self.name.is_empty() { "Piece" } else { self.name.as_str() };
         let mut cut = format!("Cut {}", self.cut);
+        if self.fold.is_some() {
+            cut.push_str(" on fold");
+        }
         if self.mirror {
             cut.push_str(" (mirrored pairs)");
         }
@@ -327,5 +339,12 @@ mod tests {
         let p = Piece { name: "Sleeve".into(), cut: 2, mirror: true, fabric: "Main".into(), ..Piece::default() };
         assert_eq!(p.label(), "Sleeve\nCut 2 (mirrored pairs) · Main");
         assert_eq!(Piece::default().label(), "Piece\nCut 1");
+        let mut p = Piece { name: "Front".into(), fold: Some(3), ..Piece::default() };
+        assert_eq!(p.label(), "Front\nCut 1 on fold");
+        // The fold takes no allowance, and goes when its edge does.
+        p.edges.insert(3, 15.0);
+        assert_eq!((p.allowance_of(3), p.allowance_of(2)), (0.0, 10.0));
+        p.fit_edges(3);
+        assert_eq!(p.fold, None);
     }
 }

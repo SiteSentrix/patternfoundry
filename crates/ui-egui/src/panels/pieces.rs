@@ -1,5 +1,5 @@
 //! Pattern Pieces panel (PF-1): the document's pattern pieces, and the selected piece's name, cut
-//! count, fabric and seam allowance. Everything it shows comes from `piece.list` and `piece.info`;
+//! count, fabric, seam allowance and the edge cut on the fold. Everything it shows comes from `piece.list` and `piece.info`;
 //! every change goes through `piece.set`, `piece.make` and `piece.release`.
 
 use egui::Ui;
@@ -91,6 +91,20 @@ pub fn show(app: &mut VectorcraftApp, ui: &mut Ui) {
             }
         });
         let edges = info["edgeCount"].as_u64().unwrap_or_default();
+        ui.horizontal(|ui| {
+            let fold = info["fold"].as_u64();
+            let mut on = fold.is_some();
+            let r = ui.checkbox(&mut on, tl!("Cut on fold")).on_hover_text(tl!("The straight edge laid on the fabric's fold: no allowance there"));
+            if r.changed() {
+                run(app, "piece.set", json!({ "id": id, "fold": if on { json!("auto") } else { Value::Null } }));
+            }
+            if let Some(mut e) = fold {
+                ui.label(egui::RichText::new(tl!("Edge")).size(12.0).color(t.text_dim));
+                if ui.add(egui::DragValue::new(&mut e).range(0..=edges.saturating_sub(1))).changed() {
+                    run(app, "piece.set", json!({ "id": id, "fold": e }));
+                }
+            }
+        });
         let notches = info["notches"].as_array().map_or(0, Vec::len);
         super::doc_info::row(ui, tl!("Edges"), edges.to_string());
         super::doc_info::row(ui, tl!("Notches"), notches.to_string());

@@ -120,3 +120,75 @@ fn a_bodice_and_skirt_fit_on_two_metres() {
     s.execute("measure.set", &json!({"values": {"hip": 1000}})).unwrap();
     assert_eq!(layer(&s, "Marker Main"), &before);
 }
+
+/// The bounds of the paths named `name` in each group of layer `l`, by group name.
+fn parts_named(l: &Node, name: &str) -> Vec<(String, Vec<Rect>)> {
+    l.children()
+        .unwrap()
+        .iter()
+        .filter(|g| matches!(g.kind, NodeKind::Group { .. }))
+        .map(|g| {
+            let b = g
+                .children()
+                .unwrap()
+                .iter()
+                .filter(|c| c.name.as_deref() == Some(name))
+                .map(|c| match &c.kind {
+                    NodeKind::Path { path, .. } => path.bounds().unwrap(),
+                    _ => panic!("not a path"),
+                })
+                .collect();
+            (g.name.clone().unwrap_or_default(), b)
+        })
+        .collect()
+}
+
+#[test]
+fn a_piece_on_the_fold_opens_out_or_lies_against_the_fold() {
+    let mut s = Session::new();
+    s.execute("file.new", &json!({"width": 2000, "height": 2000})).unwrap();
+    // A 300 × 500 half back, its longest straight edge (the left side, edge 3) on the fold: no
+    // allowance there.
+    let back = rect_piece(&mut s, 0.0, 300.0, 500.0, json!({"name": "Back", "fold": "auto"}));
+    let info = s.execute("piece.info", &json!({"id": back.0})).unwrap();
+    assert_eq!(info["fold"], 3);
+    let cut =
+        s.doc().unwrap().doc.node(back).unwrap().children().unwrap().iter().find(|c| c.name.as_deref() == Some("Cutting line")).cloned().unwrap();
+    let NodeKind::Path { path, .. } = &cut.kind else { panic!() };
+    let b = path.bounds().unwrap();
+    assert!((pt_to_mm(b.width()) - 310.0).abs() < 0.01 && b.x0.abs() < 1e-6, "{b:?}");
+    assert!(s.execute("piece.set", &json!({"id": back.0, "fold": 9})).is_err());
+    // Laid single, it opens out whole: 520 along the length, 620 across, one cutting line.
+    let r = s.execute("marker.make", &json!({"width": 1100, "gap": 0, "origin": [0, 2000]})).unwrap();
+    assert_eq!(r["copies"], 1);
+    assert!((r["lengthMm"].as_f64().unwrap() - 520.0).abs() < 0.01, "{r}");
+    let l = layer(&s, "Marker Main");
+    let cuts = parts_named(l, "Cutting line");
+    assert_eq!(cuts.len(), 1);
+    assert_eq!(cuts[0].1.len(), 1, "one cutting line round the whole");
+    let w = cuts[0].1[0];
+    assert!((pt_to_mm(w.width()) - 520.0).abs() < 0.01 && (pt_to_mm(w.height()) - 620.0).abs() < 0.01, "{w:?}");
+    // The seam line and the grainline on both halves.
+    let g = l.children().unwrap().iter().find(|g| g.name.as_deref() == Some("Back")).unwrap();
+    assert_eq!(g.children().unwrap().iter().filter(|c| matches!(c.kind, NodeKind::Path { .. })).count(), 5);
+    // Folded, with a 200 × 300 piece cut 2 (one pair through both layers) and one cut 3.
+    rect_piece(&mut s, 400.0, 200.0, 300.0, json!({"name": "Sleeve", "cut": 2, "mirror": true}));
+    rect_piece(&mut s, 700.0, 100.0, 100.0, json!({"name": "Tab", "cut": 3}));
+    let r = s.execute("marker.make", &json!({"width": 1100, "gap": 0, "folded": true, "origin": [0, 2000]})).unwrap();
+    assert_eq!(r["copies"], 4, "{r}");
+    assert_eq!(r["warnings"], json!(["Tab: cut 3 on folded fabric cuts 4 (pairs)"]));
+    let l = layer(&s, "Marker Main");
+    let fabric = l.children().unwrap().iter().find(|c| c.name.as_deref() == Some("Fabric Main")).unwrap();
+    let NodeKind::Path { path, .. } = &fabric.kind else { panic!() };
+    let f = path.bounds().unwrap();
+    assert!((pt_to_mm(f.height()) - 550.0).abs() < 1e-6, "half the width: {f:?}");
+    assert!(l.children().unwrap().iter().any(|c| c.name.as_deref() == Some("Fold")));
+    let cuts = parts_named(l, "Cutting line");
+    let laid = cuts.iter().find(|(n, _)| n == "Back").unwrap().1[0];
+    assert!((laid.y0 - f.y0).abs() < 1e-6 && (pt_to_mm(laid.height()) - 310.0).abs() < 0.01, "against the fold: {laid:?}");
+    assert_eq!(cuts.iter().filter(|(n, _)| n == "Sleeve (pair)").count(), 1);
+    assert_eq!(cuts.iter().filter(|(n, _)| n == "Tab (pair)").count(), 2);
+    // No fold: back to a half with its allowance all round.
+    s.execute("piece.set", &json!({"id": back.0, "fold": null})).unwrap();
+    assert!(s.execute("piece.info", &json!({"id": back.0})).unwrap().get("fold").is_none());
+}

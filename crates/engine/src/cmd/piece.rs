@@ -51,7 +51,7 @@ pub fn specs() -> Vec<CommandSpec> {
             "Piece Options",
             [],
             None,
-            "{id? (default: the selected piece), name?, cut?: 1..999, mirror?: bool (cut in mirror-image pairs), fabric?, allowance?: mm (every edge without its own), edges?: {\"<edge>\": mm | null (back to the piece's allowance)}, corners?: {\"<corner>\": \"mitre\" | \"square\"} (corner i is where edge i-1 meets edge i), grainline?: {from: [x, y], to: [x, y]} (document points) | \"auto\" (vertical through the middle)} → piece.info",
+            "{id? (default: the selected piece), name?, cut?: 1..999, mirror?: bool (cut in mirror-image pairs), fabric?, allowance?: mm (every edge without its own), edges?: {\"<edge>\": mm | null (back to the piece's allowance)}, corners?: {\"<corner>\": \"mitre\" | \"square\"} (corner i is where edge i-1 meets edge i), grainline?: {from: [x, y], to: [x, y]} (document points) | \"auto\" (vertical through the middle), fold?: edge | \"auto\" (the longest straight edge) | null (the straight edge cut on the fold: no allowance, laid against the fabric's fold or opened out by marker.make)} → piece.info",
             has_doc,
             set
         ),
@@ -455,7 +455,28 @@ fn point_of(v: &Value) -> Option<Pt> {
 fn set(s: &mut Session, p: &Value) -> Result<Value> {
     const CMD: &str = "piece.set";
     let id = one_piece(s, p, CMD)?;
+    // The fold: a straight edge of the seam line.
+    let fold = match p.get("fold") {
+        None => None,
+        Some(Value::Null) => Some(None),
+        Some(Value::String(a)) if a == "auto" => {
+            Some(Some(longest_straight(s, id).ok_or_else(|| bad(CMD, "the piece has no straight edge to cut on the fold"))?))
+        }
+        Some(v) => {
+            let e = v.as_u64().map(|e| e as usize).ok_or_else(|| bad(CMD, "fold is an edge's number (0..), or null"))?;
+            if e >= edge_count(s, id) {
+                return Err(bad(CMD, format!("the piece has no edge {e}")));
+            }
+            if !straight(s, id, e) {
+                return Err(bad(CMD, "the fold must be a straight edge"));
+            }
+            Some(Some(e))
+        }
+    };
     change(s, id, "Piece Options", CMD, |piece| {
+        if let Some(f) = fold {
+            piece.fold = f;
+        }
         if let Some(n) = str_param(p, "name") {
             piece.name = pf_core::piece::check_name(n).map_err(|e| err(CMD, e))?;
         }
@@ -567,6 +588,30 @@ fn edge_count(s: &Session, id: NodeId) -> usize {
             _ => None,
         })
         .unwrap_or(0)
+}
+
+/// The longest straight edge of piece `id`'s seam line.
+fn longest_straight(s: &Session, id: NodeId) -> Option<usize> {
+    let st = s.doc().ok()?;
+    let seam = seam_of(&st.doc, id)?;
+    let NodeKind::Path { path, .. } = &seam.kind else { return None };
+    let sp = path.subpaths.iter().find(|sp| sp.closed)?;
+    (0..sp.segment_count()).filter(|&e| sp.segment_is_line(e)).max_by(|&a, &b| {
+        let len = |e: usize| {
+            let g = sp.segment(e);
+            (g.p3 - g.p0).hypot()
+        };
+        len(a).total_cmp(&len(b))
+    })
+}
+
+/// Whether edge `e` of piece `id`'s seam line is straight.
+fn straight(s: &Session, id: NodeId, e: usize) -> bool {
+    let Ok(st) = s.doc() else { return false };
+    seam_of(&st.doc, id).is_some_and(|n| match &n.kind {
+        NodeKind::Path { path, .. } => path.subpaths.iter().find(|sp| sp.closed).is_some_and(|sp| e < sp.segment_count() && sp.segment_is_line(e)),
+        _ => false,
+    })
 }
 
 fn info_of(doc: &Document, id: NodeId) -> Result<Value> {

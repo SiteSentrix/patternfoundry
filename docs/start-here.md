@@ -70,6 +70,7 @@ DXF-AAMA export (PF-7.1), SVG for cutting (PF-7.2) and the projector PDF (PF-7.3
 progress log in `docs/plan.md`). PF-6 (grading, PF-6.1 to 6.5) is done but for graded DXF-AAMA
 (the rule table), which waits on the owner (see PF-6.3). PF-8 has Ask About Patterns and
 Foundry Account (PF-8.1), the wrap dress's pieces (PF-5.16, 5.17) and Check My Muslin (PF-8.2).
-PF-9 has its first marker (PF-9.1, Pattern › Make Marker…). Next: a real request through the
+PF-9 has markers (PF-9.1, Pattern › Make Marker…) with pieces cut on the fold and folded fabric
+(PF-9.2). Next: a real request through the
 Foundry service, then drafting a garment from a description; the in-app projector view and
 selling patterns on MakerFoundry are still to do.
