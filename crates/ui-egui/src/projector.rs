@@ -41,9 +41,12 @@ pub struct ProjectorState {
     pub trial: f64,
     /// Full screen asked of the window: `Some(on)` until sent.
     pub fullscreen: Option<bool>,
-    /// The outlines, for (document uid, revision, open folds, size).
-    cache: Option<((u64, u64, bool, Option<String>), Value)>,
+    /// The outlines, for the key they were fetched for.
+    cache: Option<(CacheKey, Value)>,
 }
+
+/// What the outlines depend on: the document (uid, revision), open folds, the size.
+type CacheKey = (u64, u64, bool, Option<String>);
 
 impl Default for ProjectorState {
     fn default() -> Self {
