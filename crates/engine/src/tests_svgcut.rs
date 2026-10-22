@@ -61,3 +61,17 @@ fn without_marks_only_the_cuts_are_written() {
     t.execute("shape.rectangle", &json!({"x": 0, "y": 0, "width": 100, "height": 100})).unwrap();
     assert!(t.execute("document.export", &json!({"format": "svgcut"})).unwrap_err().to_string().contains("pattern pieces"));
 }
+
+#[test]
+fn a_piece_cut_on_the_fold_has_its_fold_drawn_or_is_cut_whole() {
+    let mut s = square_piece();
+    s.execute("piece.set", &json!({"fold": 3})).unwrap();
+    // The half (110 mm and 10 round it), its fold dashed in `draw` down the left side.
+    let svg = export(&mut s, json!({"format": "svgcut"}));
+    assert!(svg.contains("width=\"130mm\""), "{svg}");
+    assert!(svg.contains("<path d=\"M10 120 L10 20\" stroke-dasharray=\"6 3\" data-name=\"fold\"/>"), "{svg}");
+    assert!(svg.contains(">Cut 1 on fold</tspan>"), "{svg}");
+    // Opened out: cut whole, 220 mm across.
+    let svg = export(&mut s, json!({"format": "svgcut", "openFolds": true}));
+    assert!(svg.contains("width=\"240mm\"") && !svg.contains("data-name=\"fold\""), "{svg}");
+}

@@ -6,7 +6,8 @@
 //! with a 10 cm test square above the pieces to check the projection by, the pieces set side by
 //! side so none overlaps another (blocks are drafted touching), and optionally white
 //! lines on black (easier to see on fabric and less glare) and the page mirrored (for cutting
-//! with the fabric's wrong side up).
+//! with the fabric's wrong side up). A piece cut on the fold is shown opened out, whole, for fabric
+//! laid out single (PF-7.4), or as the half with its fold line, for fabric folded.
 
 use std::sync::Arc;
 
@@ -47,6 +48,12 @@ pub(super) const OPTIONS: &[FormatOption] = &[
         ty: "string",
         default: "row",
         description: "row: the pieces side by side with the margin between them; asDrawn: where they are in the document",
+    },
+    FormatOption {
+        name: "openFolds",
+        ty: "boolean",
+        default: "true",
+        description: "pieces cut on the fold opened out, whole (false: the half, its fold line dashed, for folded fabric)",
     },
     FormatOption { name: "invert", ty: "boolean", default: "false", description: "white lines on a black page" },
     FormatOption {
@@ -141,6 +148,7 @@ fn shift(piece: &mut pf_aama::Piece, dx: f64, dy: f64) {
     piece.boundary.iter_mut().chain(piece.sew_line.iter_mut()).chain(piece.internal.iter_mut().flatten()).for_each(mv);
     piece.notches.iter_mut().for_each(|n| mv(&mut n.at));
     piece.grain.iter_mut().flatten().for_each(mv);
+    piece.mirror.iter_mut().flatten().for_each(mv);
     mv(&mut piece.text_at);
 }
 
@@ -149,6 +157,7 @@ pub(super) fn encode(doc: &Document, p: &Value) -> Result<Encoded> {
     let line = number(p, "lineWidth", 3.0, 0.1, 20.0)?;
     let invert = p.get("invert").and_then(Value::as_bool).unwrap_or(false);
     let mirror = p.get("mirror").and_then(Value::as_bool).unwrap_or(false);
+    let open = p.get("openFolds").and_then(Value::as_bool).unwrap_or(true);
     let row = match p.get("layout").and_then(Value::as_str) {
         None | Some("row") => true,
         Some("asDrawn") => false,
@@ -159,7 +168,7 @@ pub(super) fn encode(doc: &Document, p: &Value) -> Result<Encoded> {
     if pieces.is_empty() {
         return Err(bad(C, "no pattern pieces to export: make the outlines pattern pieces first (Pattern › Make Pattern Piece)"));
     }
-    let mut pieces = pieces;
+    let mut pieces: Vec<pf_aama::Piece> = if open { pieces.iter().map(super::aama::opened).collect() } else { pieces };
     if row {
         // Side by side, tops level, the margin between them, in the document's order.
         let mut x = 0.0;
@@ -231,12 +240,19 @@ pub(super) fn encode(doc: &Document, p: &Value) -> Result<Encoded> {
         if let Some([a, b]) = piece.grain {
             art.push(page.path(vec![poly(&[at(a), at(b)], false)], 2.0, None, None));
         }
+        // The half of a piece cut on the fold: the fold, dashed, to lay on the fabric's fold.
+        if let Some([a, b]) = piece.mirror {
+            art.push(page.path(vec![poly(&[at(a), at(b)], false)], line, Some(vec![12.0, 6.0]), None));
+        }
         for l in piece.internal.iter().filter(|l| l.len() >= 2) {
             let pts: Vec<Point> = l.iter().map(|q| at(*q)).collect();
             art.push(page.path(vec![poly(&pts, false)], 1.0, None, None));
         }
         let cut = piece.quantity.0 + piece.quantity.1;
         let mut text = format!("{}\nCut {cut}", piece.name);
+        if piece.mirror.is_some() {
+            text.push_str(" on fold");
+        }
         if piece.quantity.1 > 0 {
             text.push_str(" (mirrored pairs)");
         }

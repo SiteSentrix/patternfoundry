@@ -124,3 +124,38 @@ fn touching_pieces_are_set_apart_unless_kept_as_drawn() {
     assert_eq!(cuts(&drawn), [[25.0, 150.0, 120.0, 120.0], [125.0, 150.0, 120.0, 120.0]]);
     assert!(s.execute("document.export", &json!({"format": "projector", "layout": "grid"})).unwrap_err().to_string().contains("layout"));
 }
+
+#[test]
+fn a_piece_cut_on_the_fold_is_projected_whole_or_as_the_half_with_its_fold() {
+    let mut s = square_piece();
+    s.execute("piece.set", &json!({"fold": 3})).unwrap();
+    // Opened out: one cutting line 220 mm across (twice 100 + 10), the seam line 200, and the
+    // notch on both halves; the test square still 10 cm.
+    let doc = export(&mut s, json!({"format": "projector"}));
+    assert_eq!(closed_paths(layer(&doc, "Test square")).iter().map(|(b, _)| mm(*b)).collect::<Vec<_>>(), [[25.0, 25.0, 100.0, 100.0]]);
+    let pieces = closed_paths(layer(&doc, "Pieces"));
+    let cuts: Vec<[f64; 4]> = pieces.iter().filter(|(_, w)| (*w - 3.0).abs() < 1e-6).map(|(b, _)| mm(*b)).collect();
+    assert_eq!(cuts, [[25.0, 150.0, 220.0, 120.0]]);
+    assert!(pieces.iter().any(|(b, w)| (*w - 1.0).abs() < 1e-6 && mm(*b) == [35.0, 160.0, 200.0, 100.0]), "{pieces:?}");
+    let open = |doc: &Document| {
+        let mut v = Vec::new();
+        layer(doc, "Pieces").walk(&mut |c: &Node| {
+            if let NodeKind::Path { path, .. } = &c.kind
+                && path.subpaths.iter().all(|sp| !sp.closed)
+                && let Some(st) = c.appearance.stroke()
+                && (st.width - 3.0).abs() < 1e-6
+            {
+                v.push((st.dash.is_some(), c.geometric_bounds().unwrap()));
+            }
+        });
+        v
+    };
+    assert_eq!(open(&doc).iter().filter(|(dashed, _)| !dashed).count(), 2, "a notch on each half");
+    // As the half, for folded fabric: 110 mm across, the fold dashed down its side.
+    let doc = export(&mut s, json!({"format": "projector", "openFolds": false}));
+    let cuts: Vec<[f64; 4]> = closed_paths(layer(&doc, "Pieces")).iter().filter(|(_, w)| (*w - 3.0).abs() < 1e-6).map(|(b, _)| mm(*b)).collect();
+    assert_eq!(cuts, [[25.0, 150.0, 110.0, 120.0]]);
+    let fold: Vec<Rect> = open(&doc).into_iter().filter(|(dashed, _)| *dashed).map(|(_, b)| b).collect();
+    assert_eq!(fold.len(), 1);
+    assert!(mm(fold[0])[0] == 25.0 && mm(fold[0])[2] == 0.0 && mm(fold[0])[3] == 100.0, "{:?}", mm(fold[0]));
+}

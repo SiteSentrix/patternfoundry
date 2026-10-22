@@ -497,3 +497,16 @@ is built on, plus a pattern mode, the way StitchFoundry adds embroidery:
   fold, opened out single, against the fold when folded, pairs, the odd count, the fold taken
   off). Not yet: the fold in the projector PDF and in DXF-AAMA (its mirror line), a fold that is
   not straight.
+- 2026-10-22, **PF-7.4**: the fold in the exports. **DXF-AAMA** writes a piece cut on the fold as
+  the half with its fold as the mirror line, a LINE on layer 6 ("Mirror line", "Symmetry of
+  fold" in Patro's layer table,
+  https://fabricesalvaire.github.io/Patro/resources/file-format/dxf-astm.html), and reads it back.
+  The **projector PDF** shows such a piece opened out, whole, for fabric laid out single (the
+  cutting line round the whole, the seam line, notches and inner lines on both halves, the fold
+  drawn inside), or with `openFolds: false` the half with its fold dashed, to lay on the fold of
+  folded fabric; its label says "on fold". The **SVG for cutting** keeps the half where it is
+  drawn with its fold dashed in `draw` (opening it out could cut into a neighbouring piece) and
+  cuts it whole with `openFolds: true`. Tests: 1 more each in `pf-aama` (the mirror line),
+  `tests_aama.rs`, `tests_projector.rs` (opened out 220 mm, the half 110 mm, the 10 cm square)
+  and `tests_svgcut.rs`. Not yet: drill holes, the other mirror-line uses in AAMA (symmetric
+  pieces drawn as halves without being cut on the fold).

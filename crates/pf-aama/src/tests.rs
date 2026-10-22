@@ -13,6 +13,7 @@ fn style(version: Version) -> Style {
         sew_line: square(10.0, 60.0, 100.0),
         notches: vec![Notch { at: [60.0, 50.0], angle: 90.0, depth: 6.0, width: 0.0 }],
         grain: Some([[60.0, 70.0], [60.0, 150.0]]),
+        mirror: Some([[0.0, 50.0], [0.0, 170.0]]),
         internal: vec![vec![[20.0, 110.0], [100.0, 110.0]]],
         text_at: [20.0, 100.0],
     };
@@ -77,6 +78,8 @@ fn a_piece_is_a_block_with_its_cutting_line_sew_line_and_marks_on_their_layers()
         let notch = &block_entities(&s, "TEST_SQUARE", "POINT", "4")[0];
         assert_eq!((values(notch, 10), values(notch, 30), values(notch, 50)), (vec![60.0], vec![6.0], vec![90.0]));
         assert_eq!(block_entities(&s, "TEST_SQUARE", "LINE", "7").len(), 1);
+        let m = block_entities(&s, "TEST_SQUARE", "LINE", "6");
+        assert_eq!((m.len(), values(&m[0], 10), values(&m[0], 21)), (1, vec![0.0], vec![170.0]), "the mirror line");
         assert_eq!(block_entities(&s, "TEST_SQUARE", "POLYLINE", "8").len(), 1);
         // The piece system text in the block, the style system text outside it.
         let pst: Vec<String> = block_entities(&s, "TEST_SQUARE", "TEXT", "1").iter().map(|e| text_of(e)).collect();

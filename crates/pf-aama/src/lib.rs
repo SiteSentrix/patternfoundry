@@ -6,7 +6,8 @@
 //!
 //! One block per piece, inserted at the origin, its entities on layers named by number: 1 the
 //! boundary (the cutting line) and the piece system text, 2 turn points and 3 curve points (of
-//! layers 1 and 14), 4 notches (points carrying their depth, width and angle), 7 the grain line,
+//! layers 1 and 14), 4 notches (points carrying their depth, width and angle), 6 the mirror line (the fold a
+//! piece is cut on, "symmetry of fold" in Patro's notes), 7 the grain line,
 //! 8 internal lines, 14 the sew line, and 84 and 87 the quality validation curves (copies of the
 //! boundary and sew line). The style system text is on layer 1 at the origin, outside every
 //! block. Coordinates are millimetres (`Units: METRIC`), y up.
@@ -67,6 +68,9 @@ pub struct Piece {
     pub sew_line: Vec<Mm>,
     pub notches: Vec<Notch>,
     pub grain: Option<[Mm; 2]>,
+    /// The mirror line: the fold the piece is cut on, the piece being one half of what is cut
+    /// (layer 6).
+    pub mirror: Option<[Mm; 2]>,
     /// Lines drawn on the piece but not cut (placements, fold lines, darts).
     pub internal: Vec<Vec<Mm>>,
     /// Where the piece system text starts (inside the piece).
@@ -118,7 +122,7 @@ const TURN_DEGREES: f64 = 15.0;
 /// Turns gentler than this are on a straight line: neither.
 const STRAIGHT_DEGREES: f64 = 0.01;
 /// The layers a file has (layer 0 is not used).
-const LAYERS: [&str; 10] = ["1", "2", "3", "4", "7", "8", "14", "15", "84", "87"];
+const LAYERS: [&str; 11] = ["1", "2", "3", "4", "6", "7", "8", "14", "15", "84", "87"];
 
 /// The handles of the objects every R13 drawing has; entities and table entries count up from
 /// [`FIRST_FREE`].
@@ -337,6 +341,11 @@ pub fn write(style: &Style) -> Result<String, AamaError> {
                 o.f(39, n.width);
             }
             o.f(50, n.angle);
+        }
+        if let Some([a, b]) = piece.mirror {
+            o.entity("LINE", record, "6", "AcDbLine");
+            o.xyz(10, a[0], a[1], 0.0);
+            o.xyz(11, b[0], b[1], 0.0);
         }
         if let Some([a, b]) = piece.grain {
             o.entity("LINE", record, "7", "AcDbLine");
@@ -654,6 +663,7 @@ pub fn read(bytes: &[u8]) -> Result<Style, AamaError> {
                 "POINT" if layer == "4" => {
                     piece.notches.push(Notch { at: shift([num(e, 10), num(e, 20)]), angle: num(e, 50), depth: num(e, 30), width: num(e, 39) })
                 }
+                "LINE" if layer == "6" => piece.mirror = Some([shift([num(e, 10), num(e, 20)]), shift([num(e, 11), num(e, 21)])]),
                 "LINE" if layer == "7" => piece.grain = Some([shift([num(e, 10), num(e, 20)]), shift([num(e, 11), num(e, 21)])]),
                 _ => {}
             }
