@@ -5357,3 +5357,35 @@ file-filter	PDF for projector	PDF projektorhoz
 @msg	Signed out.	Kijelentkezett.
 @msg	Type your email address.	Írja be az e-mail-címét.
 @msg	Pay on the page that opened in your browser, then press Refresh.	Fizessen a böngészőben megnyílt oldalon, majd nyomja meg a Frissítés gombot.
+	Add Photos…	Fotók hozzáadása…
+	Choose the photos in the browser's window…	Válassza ki a fotókat a böngésző ablakában…
+	About the fit	Az illeszkedésről
+	Anything else? For example: folds below the back neck	Valami más? Például: ráncok a hátsó nyakkivágás alatt
+	Check My Muslin	Próbadarabom ellenőrzése
+	Claude looks at the photos with your own Anthropic API key, billed to your Anthropic account. It can be wrong: sew the altered part again in muslin before cutting good fabric.	Claude a saját Anthropic API-kulcsával nézi meg a fotókat, az Anthropic-fiókja terhére. Tévedhet: mielőtt értékes anyagot szab ki, varrja meg újra a módosított részt próbadarabként olcsó vászonból.
+	Final fabric	Végleges anyag
+	Hard to raise my arms	Nehezen emelem fel a karomat
+	How it feels:	Milyen viselni:
+	Include the pattern it was cut from (open now), so it can be altered	A szabásminta csatolása, amelyből kiszabták (most nyitva), hogy módosítani lehessen
+	Loose or gaping somewhere	Valahol bő vagy elálló
+	Muslin fabric	A próbadarab anyaga
+	My muslin ({n} photos)	A próbadarabom ({n} fotó)
+	Photos of your muslin, tried on	Fotók a felpróbált próbadarabról
+	The front, the side and the back, standing straight with your arms down, and close-ups of any folds or pulling.	Elölről, oldalról és hátulról, egyenesen állva, leengedett karral, valamint közeli képek a ráncokról és a húzódásokról.
+	The neckline gapes or pulls	A nyakkivágás elálló vagy húz
+	The photos go to Claude for this check only; PatternFoundry doesn't keep them.	A fotók csak ehhez az ellenőrzéshez kerülnek Claude-hoz; a PatternFoundry nem tárolja őket.
+	The shoulder seams don't sit on my shoulders	A vállvarrások nem a vállamon ülnek
+	Tight across the back or shoulders	Szűk a háton vagy a vállaknál
+	Tight across the bust or chest	Szűk a mellbőségnél
+	Tight at the waist or hips	Szűk a derékon vagy a csípőn
+	Too long or too short	Túl hosszú vagy túl rövid
+	e.g. calico, an old sheet	pl. nyersvászon, egy régi lepedő
+	e.g. cotton poplin, jersey	pl. pamutpoplin, jersey
+	Check My Muslin…	Próbadarabom ellenőrzése…
+@msg	Add a photo of the muslin first.	Előbb adjon hozzá egy fotót a próbadarabról.
+@msg	Check My Muslin needs a build that can reach the AI service	A Próbadarabom ellenőrzése funkcióhoz olyan verzió kell, amely eléri az MI-szolgáltatást
+@msg	The image is too large to send: crop it, or send a smaller copy.	A kép túl nagy a küldéshez: vágja körül, vagy küldjön egy kisebb másolatot.
+@msg	This photo is too large: send a smaller copy.	Ez a fotó túl nagy: küldjön egy kisebb másolatot.
+@msg	no files here	itt nincsenek fájlok
+@msg	At most 6 photos: remove one first.	Legfeljebb 6 fotó: előbb távolítson el egyet.
+@msg	This photo can't be read: save or send it as a JPEG (on an iPhone: Settings › Camera › Formats › Most Compatible).	Ez a fotó nem olvasható: mentse vagy küldje el JPEG formátumban (iPhone-on: Beállítások › Kamera › Formátumok › Legkompatibilisebb).

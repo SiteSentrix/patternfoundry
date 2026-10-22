@@ -374,6 +374,8 @@ pub fn drop_files(app: &mut VectorcraftApp, mut files: Vec<(DropTarget, DropFile
 pub fn drain(app: &mut VectorcraftApp) {
     let arrived: Vec<PlaceArrival> =
         app.services.place_inbox.as_ref().map(|q| std::mem::take(&mut *q.lock().unwrap_or_else(|e| e.into_inner()))).unwrap_or_default();
+    // Photos the browser's picker handed in for Check My Muslin.
+    let arrived = crate::ai::muslin::take_arrivals(app, arrived);
     let mut picked = vec![];
     for a in arrived {
         match a.drop {

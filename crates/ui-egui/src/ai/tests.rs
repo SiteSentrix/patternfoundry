@@ -324,3 +324,80 @@ fn paid_with_credits_the_request_goes_to_the_foundry_service() {
     assert_eq!(app.ai.ask.error.as_deref(), Some("Not enough Foundry credits: buy more in Foundry Account."));
     assert!(window_text(&mut app).iter().any(|t| t.starts_with("Paid with Foundry credits")), "the window says how it is paid");
 }
+
+/// A small PNG standing in for a photo of a muslin.
+fn photo_png(w: u32, h: u32) -> Vec<u8> {
+    let img = image::RgbImage::from_fn(w, h, |x, y| image::Rgb([(x % 256) as u8, (y % 256) as u8, 128]));
+    let mut out = std::io::Cursor::new(Vec::new());
+    image::DynamicImage::ImageRgb8(img).write_to(&mut out, image::ImageFormat::Png).unwrap();
+    out.into_inner()
+}
+
+#[test]
+fn a_muslin_check_sends_the_photos_and_the_pattern_and_alters_it_once_allowed() {
+    let (mut app, sent, _) = app(vec![
+        reply(
+            "tool_use",
+            json!([
+                {"type": "text", "text": "The back is tight across the hips: let out the side seams."},
+                {"type": "tool_use", "id": "t1", "name": "run_command", "input": {"command": "measure.set", "params": {"values": {"hip": 960}}}},
+            ]),
+        ),
+        answer("Done: the hip is 960 mm now, and the skirt is redrafted."),
+    ]);
+    assert!(crate::menus::enabled(&app, "ui.checkMuslin"));
+    skirt(&mut app);
+    app.run("ui.checkMuslin", json!({})).unwrap();
+    // A large photo is made smaller; a file that isn't a picture is refused.
+    super::muslin::add_photo(&mut app, "front.png", &photo_png(2400, 1600));
+    super::muslin::add_photo(&mut app, "notes.txt", b"not a photo");
+    let st = &app.ai.muslin;
+    assert_eq!(st.photos.len(), 1);
+    assert_eq!(st.photos[0].size, (pf_ai::IMAGE_SIDE, pf_ai::IMAGE_SIDE * 2 / 3));
+    assert!(st.error.as_deref().unwrap().contains("can't be read"));
+    app.ai.muslin.fabric = "calico".into();
+    app.ai.muslin.feels[2] = true;
+    app.run("ui.checkMuslin", json!({"check": true})).unwrap();
+    assert!(app.ai.muslin.photos.is_empty() && !app.ai.muslin.open, "the photos are let go of once sent");
+    wait(&mut app);
+    // The photo, the pattern (names, no measured values) and the answers went, with the fitting
+    // instructions.
+    let b = body(&sent, 0);
+    let content = b["messages"][0]["content"].as_array().unwrap();
+    assert_eq!(content.iter().filter(|c| c["type"] == "image").count(), 1);
+    assert_eq!(content[1]["source"]["media_type"], "image/jpeg");
+    let text: Vec<&str> = content.iter().filter_map(|c| c["text"].as_str()).collect();
+    assert!(
+        text.iter().any(|t| t.contains("Skirt Block"))
+            && text.iter().any(|t| t.contains("Muslin fabric: calico") && t.contains("tight at the waist or hips")),
+        "{text:?}"
+    );
+    assert!(!sent.lock().unwrap()[0].body.contains("941"), "no measured value went along");
+    assert!(b["system"].as_str().unwrap().contains("drag lines"));
+    // The answer is in the Ask window, titled for the check; the alteration waits for Allow.
+    let texts = window_text(&mut app);
+    assert!(texts.iter().any(|t| t == "Check My Muslin") && texts.iter().any(|t| t == "My muslin (1 photos)"), "{texts:?}");
+    assert_eq!(app.ai.ask.approval.as_ref().unwrap().changes[0].1, "measure.set");
+    super::ask::decide(&mut app, true);
+    wait(&mut app);
+    let hip = app.session.active().unwrap().doc.measurements.as_deref().unwrap().values["hip"];
+    assert_eq!(hip, 960.0);
+    // The follow-up goes with the same fitting instructions.
+    assert!(body(&sent, 1)["system"].as_str().unwrap().contains("drag lines"));
+    // A new conversation is an Ask again.
+    super::ask::clear(&mut app);
+    assert_eq!(app.ai.ask.mode, super::ask::Mode::Ask);
+}
+
+#[test]
+fn a_muslin_check_needs_a_photo() {
+    let (mut app, sent, _) = app(vec![]);
+    app.run("ui.checkMuslin", json!({})).unwrap();
+    assert_eq!(app.run("ui.checkMuslin", json!({"check": true})).unwrap_err(), "Add a photo of the muslin first.");
+    assert!(sent.lock().unwrap().is_empty());
+    // Closing the window lets the photos go.
+    super::muslin::add_photo(&mut app, "front.png", &photo_png(40, 60));
+    assert_eq!(app.ai.muslin.photos.len(), 1);
+    let mut bare = VectorcraftApp::new(Session::new(), Services::default());
+    assert!(!crate::menus::enabled(&bare, "ui.checkMuslin") && bare.run("ui.checkMuslin", json!({})).is_err());
+}

@@ -4949,3 +4949,35 @@ file-filter	PDF for projector	프로젝터용 PDF
 @msg	Signed out.	로그아웃했습니다.
 @msg	Type your email address.	이메일 주소를 입력하세요.
 @msg	Pay on the page that opened in your browser, then press Refresh.	브라우저에 열린 페이지에서 결제한 다음 새로 고침을 누르세요.
+	Add Photos…	사진 추가…
+	Choose the photos in the browser's window…	브라우저 창에서 사진을 고르세요…
+	About the fit	핏에 대해
+	Anything else? For example: folds below the back neck	더 있나요? 예: 뒷목 아래에 주름이 생김
+	Check My Muslin	내 가봉 확인
+	Claude looks at the photos with your own Anthropic API key, billed to your Anthropic account. It can be wrong: sew the altered part again in muslin before cutting good fabric.	Claude가 사용자의 Anthropic API 키로 사진을 봅니다. 요금은 사용자의 Anthropic 계정에 청구됩니다. 틀릴 수 있으니 좋은 원단을 재단하기 전에 수정한 부분을 광목으로 다시 가봉해 보세요.
+	Final fabric	본 원단
+	Hard to raise my arms	팔을 들기 어려움
+	How it feels:	착용감:
+	Include the pattern it was cut from (open now), so it can be altered	재단에 사용한 패턴(지금 열려 있음)을 함께 보내 수정할 수 있게 하기
+	Loose or gaping somewhere	어딘가 헐렁하거나 들뜸
+	Muslin fabric	가봉용 원단
+	My muslin ({n} photos)	내 가봉(사진 {n}장)
+	Photos of your muslin, tried on	가봉한 옷을 입은 사진
+	The front, the side and the back, standing straight with your arms down, and close-ups of any folds or pulling.	팔을 내리고 똑바로 선 자세로 앞, 옆, 뒤를 찍고, 주름이나 당김이 있는 곳은 근접 사진도 찍어 주세요.
+	The neckline gapes or pulls	목둘레가 들뜨거나 당김
+	The photos go to Claude for this check only; PatternFoundry doesn't keep them.	사진은 이번 확인에만 Claude에 보내지며 PatternFoundry는 보관하지 않습니다.
+	The shoulder seams don't sit on my shoulders	어깨 솔기가 어깨 위에 오지 않음
+	Tight across the back or shoulders	등이나 어깨가 끼임
+	Tight across the bust or chest	가슴이 끼임
+	Tight at the waist or hips	허리나 엉덩이가 끼임
+	Too long or too short	너무 길거나 너무 짧음
+	e.g. calico, an old sheet	예: 광목, 헌 침대 시트
+	e.g. cotton poplin, jersey	예: 면 포플린, 저지
+	Check My Muslin…	내 가봉 확인…
+@msg	Add a photo of the muslin first.	먼저 가봉 사진을 추가하세요.
+@msg	Check My Muslin needs a build that can reach the AI service	'내 가봉 확인'에는 AI 서비스에 연결할 수 있는 빌드가 필요합니다
+@msg	The image is too large to send: crop it, or send a smaller copy.	이미지가 너무 커서 보낼 수 없습니다: 자르거나 더 작은 사본을 보내세요.
+@msg	This photo is too large: send a smaller copy.	이 사진은 너무 큽니다: 더 작은 사본을 보내세요.
+@msg	no files here	여기에 파일이 없습니다
+@msg	At most 6 photos: remove one first.	사진은 최대 6장입니다: 먼저 하나를 제거하세요.
+@msg	This photo can't be read: save or send it as a JPEG (on an iPhone: Settings › Camera › Formats › Most Compatible).	이 사진을 읽을 수 없습니다: JPEG로 저장하거나 보내세요(iPhone: 설정 › 카메라 › 포맷 › 높은 호환성).

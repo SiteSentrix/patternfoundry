@@ -5354,3 +5354,35 @@ file-filter	PDF for projector	PDF untuk proyektor
 @msg	already asking: wait for the answer	sedang bertanya: tunggu jawabannya
 @msg	This conversation is long: start a New Conversation.	Percakapan ini sudah panjang: mulai Percakapan baru.
 @msg	Claude took too many steps: ask again, more simply.	Claude mengambil terlalu banyak langkah: tanyakan lagi dengan lebih sederhana.
+	Add Photos…	Tambah foto…
+	Choose the photos in the browser's window…	Pilih foto di jendela peramban…
+	About the fit	Tentang kepasan
+	Anything else? For example: folds below the back neck	Ada yang lain? Misalnya: kerutan di bawah leher belakang
+	Check My Muslin	Periksa pakaian uji saya
+	Claude looks at the photos with your own Anthropic API key, billed to your Anthropic account. It can be wrong: sew the altered part again in muslin before cutting good fabric.	Claude melihat foto-foto dengan kunci API Anthropic Anda sendiri, ditagihkan ke akun Anthropic Anda. Hasilnya bisa salah: jahit ulang bagian yang diubah sebagai pakaian uji dari kain blacu sebelum memotong kain yang bagus.
+	Final fabric	Kain akhir
+	Hard to raise my arms	Sulit mengangkat lengan
+	How it feels:	Rasanya saat dipakai:
+	Include the pattern it was cut from (open now), so it can be altered	Sertakan pola yang dipakai untuk memotongnya (sedang terbuka), agar bisa diubah
+	Loose or gaping somewhere	Longgar atau menganga di suatu tempat
+	Muslin fabric	Kain pakaian uji
+	My muslin ({n} photos)	Pakaian uji saya ({n} foto)
+	Photos of your muslin, tried on	Foto pakaian uji Anda saat dipakai
+	The front, the side and the back, standing straight with your arms down, and close-ups of any folds or pulling.	Tampak depan, samping, dan belakang, berdiri tegak dengan lengan di bawah, serta foto dekat setiap kerutan atau tarikan.
+	The neckline gapes or pulls	Garis leher menganga atau tertarik
+	The photos go to Claude for this check only; PatternFoundry doesn't keep them.	Foto dikirim ke Claude hanya untuk pemeriksaan ini; PatternFoundry tidak menyimpannya.
+	The shoulder seams don't sit on my shoulders	Jahitan bahu tidak pas di bahu saya
+	Tight across the back or shoulders	Sempit di punggung atau bahu
+	Tight across the bust or chest	Sempit di dada
+	Tight at the waist or hips	Sempit di pinggang atau pinggul
+	Too long or too short	Terlalu panjang atau terlalu pendek
+	e.g. calico, an old sheet	mis. kain blacu, seprai bekas
+	e.g. cotton poplin, jersey	mis. katun poplin, jersey
+	Check My Muslin…	Periksa pakaian uji saya…
+@msg	Add a photo of the muslin first.	Tambahkan foto pakaian uji terlebih dahulu.
+@msg	Check My Muslin needs a build that can reach the AI service	Periksa pakaian uji saya memerlukan build yang dapat menjangkau layanan AI
+@msg	The image is too large to send: crop it, or send a smaller copy.	Gambar terlalu besar untuk dikirim: pangkas, atau kirim salinan yang lebih kecil.
+@msg	This photo is too large: send a smaller copy.	Foto ini terlalu besar: kirim salinan yang lebih kecil.
+@msg	no files here	tidak ada file di sini
+@msg	At most 6 photos: remove one first.	Paling banyak 6 foto: hapus satu terlebih dahulu.
+@msg	This photo can't be read: save or send it as a JPEG (on an iPhone: Settings › Camera › Formats › Most Compatible).	Foto ini tidak dapat dibaca: simpan atau kirim sebagai JPEG (di iPhone: Pengaturan › Kamera › Format › Paling Kompatibel).

@@ -38,9 +38,20 @@ pub enum Entry {
     Note(String),
 }
 
+/// What a conversation is: questions, or a muslin check and the questions after it (Check My
+/// Muslin: [`super::muslin`], its own instructions).
+#[derive(Clone, Copy, Debug, Default, PartialEq, Eq)]
+pub enum Mode {
+    #[default]
+    Ask,
+    Muslin,
+}
+
 /// Ask About Patterns between frames. Not saved: a conversation ends with the app.
 pub struct AskState {
     pub open: bool,
+    /// Questions, or a muslin check and the questions after it.
+    pub mode: Mode,
     /// The question being typed.
     pub input: String,
     /// The conversation as shown.
@@ -68,6 +79,7 @@ impl Default for AskState {
     fn default() -> Self {
         Self {
             open: false,
+            mode: Mode::Ask,
             input: String::new(),
             entries: Vec::new(),
             messages: Vec::new(),
@@ -425,7 +437,8 @@ pub fn ask_as(app: &mut VectorcraftApp, question: &str, shown: &str) -> Result<(
 /// Send the conversation as it stands; the reply comes in through [`poll`].
 fn request(app: &mut VectorcraftApp) -> Result<(), String> {
     let key = super::account::key_to_send(app);
-    let http = match ask::request(&key, &app.ai.ask.messages) {
+    let send = if app.ai.ask.mode == Mode::Muslin { pf_ai::muslin::request } else { ask::request };
+    let http = match send(&key, &app.ai.ask.messages) {
         Ok(h) => h,
         Err(e) => return give_up(app, e.to_string()),
     };
@@ -438,6 +451,33 @@ fn request(app: &mut VectorcraftApp) -> Result<(), String> {
     };
     app.ai.ask.pending = Some(Pending { rx, since: app.ai.now });
     Ok(())
+}
+
+/// Start a muslin check (Check My Muslin): a new conversation in [`Mode::Muslin`] whose first
+/// question is `message` ([`pf_ai::muslin::first_message`]), shown as `shown`.
+pub fn begin_check(app: &mut VectorcraftApp, message: Value, shown: String) -> Result<(), String> {
+    if app.ai.ask.asking() {
+        return Err("already asking: wait for the answer".into());
+    }
+    clear(app);
+    let key = super::account::key_to_send(app);
+    let credits = super::account::paying_with_credits(app);
+    let st = &mut app.ai.ask;
+    st.open = true;
+    st.mode = Mode::Muslin;
+    if let Err(e) = pf_ai::clean_key(&key) {
+        st.show_key = true;
+        let m = e.to_string();
+        st.error = Some(m.clone());
+        return Err(m);
+    }
+    let keep = (st.remember && !credits).then(|| app.ai.key.trim().to_string());
+    let st = &mut app.ai.ask;
+    st.current = Some(Current { question: String::new(), start: 0, rounds: 0, keep });
+    st.messages.push(message);
+    st.entries.push(Entry::Question(shown));
+    st.error = None;
+    request(app)
 }
 
 /// The question got no answer: the conversation goes back to before it (its question stays in
@@ -586,6 +626,7 @@ pub fn clear(app: &mut VectorcraftApp) {
     let st = &mut app.ai.ask;
     st.entries.clear();
     st.messages.clear();
+    st.mode = Mode::Ask;
     st.current = None;
     st.pending = None;
     st.approval = None;
@@ -603,7 +644,8 @@ pub fn window(app: &mut VectorcraftApp, ctx: &egui::Context) {
     let mut ask_now = false;
     let mut new_conversation = false;
     let mut decision = None;
-    egui::Window::new(tl!("Ask About Patterns"))
+    let title = if app.ai.ask.mode == Mode::Muslin { tl!("Check My Muslin") } else { tl!("Ask About Patterns") };
+    egui::Window::new(title)
         .id(egui::Id::new("ask-about-patterns"))
         .open(&mut open)
         .collapsible(false)

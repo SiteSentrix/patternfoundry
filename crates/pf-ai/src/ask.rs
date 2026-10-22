@@ -158,13 +158,19 @@ pub fn tool_results(results: &[ToolResult]) -> Value {
 /// with a question or tool results), with API key `key` (or a Foundry session token, which
 /// [`super::cloud::through_cloud`] moves into the service's own header).
 pub fn request(key: &str, messages: &[Value]) -> Result<HttpRequest, AiError> {
+    request_with(key, system_prompt(), messages)
+}
+
+/// The request for a conversation with instructions `system` and the same tools (Check My
+/// Muslin's too: [`super::muslin`]).
+pub(crate) fn request_with(key: &str, system: String, messages: &[Value]) -> Result<HttpRequest, AiError> {
     let key = clean_key(key)?;
     let body = json!({
         "model": MODEL,
         "max_tokens": MAX_TOKENS,
         "fallbacks": "default",
         "output_config": { "effort": "medium" },
-        "system": system_prompt(),
+        "system": system,
         "tools": tools(),
         "messages": messages,
     });

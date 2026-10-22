@@ -5335,3 +5335,35 @@ file-filter	PDF for projector	PDF projektorille
 @msg	Signed out.	Kirjauduttu ulos.
 @msg	Type your email address.	Kirjoita sähköpostiosoitteesi.
 @msg	Pay on the page that opened in your browser, then press Refresh.	Maksa selaimessa avautuneella sivulla ja paina sitten Päivitä.
+	Add Photos…	Lisää kuvia…
+	Choose the photos in the browser's window…	Valitse kuvat selaimen ikkunassa…
+	About the fit	Istuvuudesta
+	Anything else? For example: folds below the back neck	Jotain muuta? Esimerkiksi: poimuja takaniskan alapuolella
+	Check My Muslin	Tarkista koeasuni
+	Claude looks at the photos with your own Anthropic API key, billed to your Anthropic account. It can be wrong: sew the altered part again in muslin before cutting good fabric.	Claude katsoo kuvat omalla Anthropic API -avaimellasi, ja maksu menee Anthropic-tilillesi. Se voi erehtyä: ompele muutettu osa uudelleen koeasuksi ennen kuin leikkaat hyvää kangasta.
+	Final fabric	Lopullinen kangas
+	Hard to raise my arms	Käsiä on vaikea nostaa
+	How it feels:	Miltä se tuntuu:
+	Include the pattern it was cut from (open now), so it can be altered	Liitä kaava, josta se leikattiin (nyt auki), jotta sitä voi muuttaa
+	Loose or gaping somewhere	Jostain väljä tai irtoaa vartalosta
+	Muslin fabric	Koeasun kangas
+	My muslin ({n} photos)	Koeasuni ({n} kuvaa)
+	Photos of your muslin, tried on	Kuvat koeasustasi päällä
+	The front, the side and the back, standing straight with your arms down, and close-ups of any folds or pulling.	Edestä, sivulta ja takaa suorassa seisten kädet alhaalla, ja lähikuvat kaikista poimuista ja kiristyksistä.
+	The neckline gapes or pulls	Pääntie repsottaa tai kiristää
+	The photos go to Claude for this check only; PatternFoundry doesn't keep them.	Kuvat menevät Claudelle vain tätä tarkistusta varten; PatternFoundry ei säilytä niitä.
+	The shoulder seams don't sit on my shoulders	Olkasaumat eivät ole olkapäideni päällä
+	Tight across the back or shoulders	Kireä selästä tai hartioista
+	Tight across the bust or chest	Kireä rinnan kohdalta
+	Tight at the waist or hips	Kireä vyötäröltä tai lantiolta
+	Too long or too short	Liian pitkä tai liian lyhyt
+	e.g. calico, an old sheet	esim. lakanakangas, vanha lakana
+	e.g. cotton poplin, jersey	esim. puuvillapopliini, trikoo
+	Check My Muslin…	Tarkista koeasuni…
+@msg	Add a photo of the muslin first.	Lisää ensin kuva koeasusta.
+@msg	Check My Muslin needs a build that can reach the AI service	Tarkista koeasuni vaatii version, joka saa yhteyden tekoälypalveluun
+@msg	The image is too large to send: crop it, or send a smaller copy.	Kuva on liian suuri lähetettäväksi: rajaa se tai lähetä pienempi kopio.
+@msg	This photo is too large: send a smaller copy.	Tämä kuva on liian suuri: lähetä pienempi kopio.
+@msg	no files here	täällä ei ole tiedostoja
+@msg	At most 6 photos: remove one first.	Enintään 6 kuvaa: poista ensin yksi.
+@msg	This photo can't be read: save or send it as a JPEG (on an iPhone: Settings › Camera › Formats › Most Compatible).	Tätä kuvaa ei voi lukea: tallenna tai lähetä se JPEG-muodossa (iPhonessa: Asetukset › Kamera › Muodot › Yhteensopivin).

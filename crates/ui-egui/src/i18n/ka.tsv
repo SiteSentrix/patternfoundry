@@ -5279,3 +5279,35 @@ file-filter	PDF for projector	PDF პროექტორისთვის
 @msg	already asking: wait for the answer	კითხვა უკვე დასმულია: დაელოდეთ პასუხს
 @msg	This conversation is long: start a New Conversation.	ეს საუბარი გრძელია: დაიწყეთ ახალი საუბარი.
 @msg	Claude took too many steps: ask again, more simply.	Claude-მ ძალიან ბევრი ნაბიჯი გადადგა: იკითხეთ ხელახლა, უფრო მარტივად.
+	Add Photos…	ფოტოების დამატება…
+	Choose the photos in the browser's window…	აირჩიეთ ფოტოები ბრაუზერის ფანჯარაში…
+	About the fit	მორგების შესახებ
+	Anything else? For example: folds below the back neck	კიდევ რამე? მაგალითად: ნაოჭები უკანა საყელოს ქვემოთ
+	Check My Muslin	ჩემი საცდელი მოდელის შემოწმება
+	Claude looks at the photos with your own Anthropic API key, billed to your Anthropic account. It can be wrong: sew the altered part again in muslin before cutting good fabric.	Claude ფოტოებს თქვენი საკუთარი Anthropic API გასაღებით ათვალიერებს, ღირებულება თქვენს Anthropic ანგარიშს ერიცხება. შეიძლება შეცდეს: კარგი ქსოვილის გამოჭრამდე შეცვლილი ნაწილი ხელახლა შეკერეთ საცდელ მოდელად იაფი ქსოვილისგან.
+	Final fabric	საბოლოო ქსოვილი
+	Hard to raise my arms	ხელების აწევა მიჭირს
+	How it feels:	როგორ ზის:
+	Include the pattern it was cut from (open now), so it can be altered	თარგის დართვა, რომლითაც ის გამოიჭრა (ახლა გახსნილი), რომ მისი შეცვლა შეიძლებოდეს
+	Loose or gaping somewhere	სადღაც ფართოა ან იხსნება
+	Muslin fabric	საცდელი მოდელის ქსოვილი
+	My muslin ({n} photos)	ჩემი საცდელი მოდელი (ფოტო: {n})
+	Photos of your muslin, tried on	თქვენი საცდელი მოდელის ფოტოები, ჩაცმული
+	The front, the side and the back, standing straight with your arms down, and close-ups of any folds or pulling.	წინიდან, გვერდიდან და უკნიდან, სწორად მდგომი, ხელებჩამოშვებული, და ყველა ნაოჭისა თუ დაჭიმულობის ახლო ხედები.
+	The neckline gapes or pulls	საყელო იხსნება ან იჭიმება
+	The photos go to Claude for this check only; PatternFoundry doesn't keep them.	ფოტოები Claude-ს მხოლოდ ამ შემოწმებისთვის ეგზავნება; PatternFoundry მათ არ ინახავს.
+	The shoulder seams don't sit on my shoulders	მხრის ნაკერები ჩემს მხრებზე არ ზის
+	Tight across the back or shoulders	ვიწროა ზურგში ან მხრებში
+	Tight across the bust or chest	ვიწროა მკერდში
+	Tight at the waist or hips	ვიწროა წელში ან თეძოებში
+	Too long or too short	ზედმეტად გრძელია ან მოკლე
+	e.g. calico, an old sheet	მაგ. ბამბის უხეში ქსოვილი, ძველი ზეწარი
+	e.g. cotton poplin, jersey	მაგ. ბამბის პოპლინი, ჯერსი
+	Check My Muslin…	ჩემი საცდელი მოდელის შემოწმება…
+@msg	Add a photo of the muslin first.	ჯერ საცდელი მოდელის ფოტო დაამატეთ.
+@msg	Check My Muslin needs a build that can reach the AI service	„ჩემი საცდელი მოდელის შემოწმება“ საჭიროებს ვერსიას, რომელიც AI სერვისს უკავშირდება
+@msg	The image is too large to send: crop it, or send a smaller copy.	სურათი ძალიან დიდია გასაგზავნად: ჩამოჭერით ან გაგზავნეთ უფრო მცირე ასლი.
+@msg	This photo is too large: send a smaller copy.	ეს ფოტო ძალიან დიდია: გაგზავნეთ უფრო მცირე ასლი.
+@msg	no files here	აქ ფაილები არ არის
+@msg	At most 6 photos: remove one first.	მაქსიმუმ 6 ფოტო: ჯერ ერთი წაშალეთ.
+@msg	This photo can't be read: save or send it as a JPEG (on an iPhone: Settings › Camera › Formats › Most Compatible).	ამ ფოტოს წაკითხვა შეუძლებელია: შეინახეთ ან გაგზავნეთ JPEG ფორმატში (iPhone-ზე: Settings › Camera › Formats › Most Compatible).

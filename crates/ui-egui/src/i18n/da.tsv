@@ -5354,3 +5354,35 @@ file-filter	PDF for projector	PDF til projektor
 @msg	already asking: wait for the answer	spørger allerede: vent på svaret
 @msg	This conversation is long: start a New Conversation.	Denne samtale er lang: start en ny samtale.
 @msg	Claude took too many steps: ask again, more simply.	Claude brugte for mange trin: spørg igen, mere enkelt.
+	Add Photos…	Tilføj fotos…
+	Choose the photos in the browser's window…	Vælg fotoene i browserens vindue…
+	About the fit	Om pasformen
+	Anything else? For example: folds below the back neck	Andet? For eksempel: folder under nakken bagpå
+	Check My Muslin	Tjek min prøvemodel
+	Claude looks at the photos with your own Anthropic API key, billed to your Anthropic account. It can be wrong: sew the altered part again in muslin before cutting good fabric.	Claude ser på fotoene med din egen Anthropic API-nøgle, faktureret til din Anthropic-konto. Det kan tage fejl: sy den ændrede del igen i nessel, før du klipper i godt stof.
+	Final fabric	Endeligt stof
+	Hard to raise my arms	Svært at løfte armene
+	How it feels:	Sådan føles den:
+	Include the pattern it was cut from (open now), so it can be altered	Medtag det mønster, den blev klippet efter (åbent nu), så det kan ændres
+	Loose or gaping somewhere	Løs eller strutter et sted
+	Muslin fabric	Stof til prøvemodellen
+	My muslin ({n} photos)	Min prøvemodel ({n} fotos)
+	Photos of your muslin, tried on	Fotos af din prøvemodel, taget på
+	The front, the side and the back, standing straight with your arms down, and close-ups of any folds or pulling.	Forfra, fra siden og bagfra, stående ret op med armene ned, og nærbilleder af alle folder eller træk.
+	The neckline gapes or pulls	Halsudskæringen strutter eller trækker
+	The photos go to Claude for this check only; PatternFoundry doesn't keep them.	Fotoene sendes kun til Claude til dette tjek; PatternFoundry gemmer dem ikke.
+	The shoulder seams don't sit on my shoulders	Skuldersømmene sidder ikke på mine skuldre
+	Tight across the back or shoulders	Stram over ryggen eller skuldrene
+	Tight across the bust or chest	Stram over brystet
+	Tight at the waist or hips	Stram i taljen eller over hofterne
+	Too long or too short	For lang eller for kort
+	e.g. calico, an old sheet	f.eks. nessel, et gammelt lagen
+	e.g. cotton poplin, jersey	f.eks. bomuldspoplin, jersey
+	Check My Muslin…	Tjek min prøvemodel…
+@msg	Add a photo of the muslin first.	Tilføj først et foto af prøvemodellen.
+@msg	Check My Muslin needs a build that can reach the AI service	Tjek min prøvemodel kræver en version, der kan nå AI-tjenesten
+@msg	The image is too large to send: crop it, or send a smaller copy.	Billedet er for stort til at sende: beskær det, eller send en mindre kopi.
+@msg	This photo is too large: send a smaller copy.	Dette foto er for stort: send en mindre kopi.
+@msg	no files here	ingen filer her
+@msg	At most 6 photos: remove one first.	Højst 6 fotos: fjern et først.
+@msg	This photo can't be read: save or send it as a JPEG (on an iPhone: Settings › Camera › Formats › Most Compatible).	Dette foto kan ikke læses: gem eller send det som JPEG (på en iPhone: Indstillinger › Kamera › Formater › Mest kompatibel).

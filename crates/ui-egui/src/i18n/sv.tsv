@@ -5327,3 +5327,35 @@ file-filter	PDF for projector	PDF för projektor
 @msg	Signed out.	Utloggad.
 @msg	Type your email address.	Skriv din e-postadress.
 @msg	Pay on the page that opened in your browser, then press Refresh.	Betala på sidan som öppnades i webbläsaren och tryck sedan på Uppdatera.
+	Add Photos…	Lägg till foton…
+	Choose the photos in the browser's window…	Välj fotona i webbläsarens fönster…
+	About the fit	Om passformen
+	Anything else? For example: folds below the back neck	Något annat? Till exempel: veck nedanför nacken bak
+	Check My Muslin	Kontrollera min provmodell
+	Claude looks at the photos with your own Anthropic API key, billed to your Anthropic account. It can be wrong: sew the altered part again in muslin before cutting good fabric.	Claude tittar på fotona med din egen API-nyckel från Anthropic, som debiteras ditt Anthropic-konto. Den kan ha fel: sy den ändrade delen igen i nessel innan du klipper till fint tyg.
+	Final fabric	Slutligt tyg
+	Hard to raise my arms	Svårt att lyfta armarna
+	How it feels:	Hur den känns:
+	Include the pattern it was cut from (open now), so it can be altered	Skicka med mönstret den klipptes efter (öppet nu), så att det kan ändras
+	Loose or gaping somewhere	Lös eller glipar någonstans
+	Muslin fabric	Tyg till provmodellen
+	My muslin ({n} photos)	Min provmodell ({n} foton)
+	Photos of your muslin, tried on	Foton av din provmodell, påklädd
+	The front, the side and the back, standing straight with your arms down, and close-ups of any folds or pulling.	Framifrån, från sidan och bakifrån, stående rakt med armarna nere, och närbilder av veck eller drag.
+	The neckline gapes or pulls	Halsringningen glipar eller drar
+	The photos go to Claude for this check only; PatternFoundry doesn't keep them.	Fotona går till Claude bara för den här kontrollen; PatternFoundry sparar dem inte.
+	The shoulder seams don't sit on my shoulders	Axelsömmarna sitter inte på mina axlar
+	Tight across the back or shoulders	Trång över ryggen eller axlarna
+	Tight across the bust or chest	Trång över bysten eller bröstet
+	Tight at the waist or hips	Trång i midjan eller över höfterna
+	Too long or too short	För lång eller för kort
+	e.g. calico, an old sheet	t.ex. nessel, ett gammalt lakan
+	e.g. cotton poplin, jersey	t.ex. bomullspoplin, trikå
+	Check My Muslin…	Kontrollera min provmodell…
+@msg	Add a photo of the muslin first.	Lägg först till ett foto av provmodellen.
+@msg	Check My Muslin needs a build that can reach the AI service	Kontrollera min provmodell kräver en version som kan nå AI-tjänsten
+@msg	The image is too large to send: crop it, or send a smaller copy.	Bilden är för stor för att skickas: beskär den eller skicka en mindre kopia.
+@msg	This photo is too large: send a smaller copy.	Det här fotot är för stort: skicka en mindre kopia.
+@msg	no files here	inga filer här
+@msg	At most 6 photos: remove one first.	Högst 6 foton: ta bort ett först.
+@msg	This photo can't be read: save or send it as a JPEG (on an iPhone: Settings › Camera › Formats › Most Compatible).	Det här fotot kan inte läsas: spara eller skicka det som JPEG (på en iPhone: Inställningar › Kamera › Format › Mest kompatibelt).

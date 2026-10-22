@@ -5335,3 +5335,35 @@ file-filter	PDF for projector	PDF за проектор
 @msg	Signed out.	Излязохте.
 @msg	Type your email address.	Въведете своя имейл адрес.
 @msg	Pay on the page that opened in your browser, then press Refresh.	Платете на страницата, която се отвори в браузъра ви, след това натиснете „Обновяване“.
+	Add Photos…	Добавяне на снимки…
+	Choose the photos in the browser's window…	Изберете снимките в прозореца на браузъра…
+	About the fit	За прилягането
+	Anything else? For example: folds below the back neck	Нещо друго? Например: гънки под задното деколте
+	Check My Muslin	Проверка на пробния модел
+	Claude looks at the photos with your own Anthropic API key, billed to your Anthropic account. It can be wrong: sew the altered part again in muslin before cutting good fabric.	Claude разглежда снимките с вашия собствен API ключ на Anthropic, таксуван към вашия акаунт в Anthropic. Може да греши: ушийте отново променената част като пробен модел от евтин плат, преди да кроите хубав плат.
+	Final fabric	Окончателен плат
+	Hard to raise my arms	Трудно вдигам ръцете си
+	How it feels:	Как стои:
+	Include the pattern it was cut from (open now), so it can be altered	Включване на кройката, по която е скроен (отворена сега), за да може да бъде променена
+	Loose or gaping somewhere	Свободен или отстои някъде
+	Muslin fabric	Плат за пробния модел
+	My muslin ({n} photos)	Моят пробен модел ({n} снимки)
+	Photos of your muslin, tried on	Снимки на пробния ви модел, облечен
+	The front, the side and the back, standing straight with your arms down, and close-ups of any folds or pulling.	Отпред, отстрани и отзад, изправени със спуснати ръце, и близки кадри на всички гънки или опъвания.
+	The neckline gapes or pulls	Деколтето отстои или дърпа
+	The photos go to Claude for this check only; PatternFoundry doesn't keep them.	Снимките отиват при Claude само за тази проверка; PatternFoundry не ги пази.
+	The shoulder seams don't sit on my shoulders	Раменните шевове не стоят на раменете ми
+	Tight across the back or shoulders	Тесен в гърба или раменете
+	Tight across the bust or chest	Тесен в бюста или гърдите
+	Tight at the waist or hips	Тесен в талията или ханша
+	Too long or too short	Твърде дълъг или твърде къс
+	e.g. calico, an old sheet	напр. американ, стар чаршаф
+	e.g. cotton poplin, jersey	напр. памучен поплин, трико
+	Check My Muslin…	Проверка на пробния модел…
+@msg	Add a photo of the muslin first.	Първо добавете снимка на пробния модел.
+@msg	Check My Muslin needs a build that can reach the AI service	„Проверка на пробния модел“ изисква версия, която може да се свърже с услугата с ИИ
+@msg	The image is too large to send: crop it, or send a smaller copy.	Изображението е твърде голямо за изпращане: изрежете го или изпратете по-малко копие.
+@msg	This photo is too large: send a smaller copy.	Тази снимка е твърде голяма: изпратете по-малко копие.
+@msg	no files here	тук няма файлове
+@msg	At most 6 photos: remove one first.	Най-много 6 снимки: първо премахнете една.
+@msg	This photo can't be read: save or send it as a JPEG (on an iPhone: Settings › Camera › Formats › Most Compatible).	Тази снимка не може да бъде прочетена: запазете я или я изпратете като JPEG (на iPhone: Настройки › Камера › Формати › Най-съвместим).
