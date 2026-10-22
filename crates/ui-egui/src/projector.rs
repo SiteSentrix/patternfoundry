@@ -47,7 +47,17 @@ pub struct ProjectorState {
 
 impl Default for ProjectorState {
     fn default() -> Self {
-        Self { on: false, calibrating: false, mirror: false, pan: [0.0, 0.0], open_folds: true, size: None, trial: GUESS, fullscreen: None, cache: None }
+        Self {
+            on: false,
+            calibrating: false,
+            mirror: false,
+            pan: [0.0, 0.0],
+            open_folds: true,
+            size: None,
+            trial: GUESS,
+            fullscreen: None,
+            cache: None,
+        }
     }
 }
 
@@ -307,7 +317,11 @@ mod tests {
     }
 
     fn one(app: &mut VectorcraftApp, ctx: &egui::Context, events: Vec<egui::Event>) {
-        let raw = egui::RawInput { events, screen_rect: Some(egui::Rect::from_min_size(egui::Pos2::ZERO, egui::vec2(1600.0, 1000.0))), ..Default::default() };
+        let raw = egui::RawInput {
+            events,
+            screen_rect: Some(egui::Rect::from_min_size(egui::Pos2::ZERO, egui::vec2(1600.0, 1000.0))),
+            ..Default::default()
+        };
         let mut out = ctx.run_ui(raw, |ui| {
             let ctx = ui.ctx().clone();
             super::input(app, &ctx);
