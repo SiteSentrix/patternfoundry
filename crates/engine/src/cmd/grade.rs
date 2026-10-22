@@ -24,6 +24,9 @@ use vectorcraft_geom::PathData;
 /// The nest layer's name; making the nest again replaces the layer of this name.
 pub(crate) const NEST: &str = "Graded Nest";
 
+/// How far from a seam line's point a point picked on the canvas may be and still name it, mm.
+const PICK_MM: f64 = 10.0;
+
 /// Most sizes in one nest.
 const MAX_SIZES: usize = 60;
 
@@ -56,7 +59,7 @@ pub fn specs() -> Vec<CommandSpec> {
             "Set Grade Rule",
             [],
             None,
-            "{id? (a pattern piece or its part; default: the selected piece), anchor: 0.. (a point of the seam line), step?: [dx, dy] (mm the point moves each size up from the base, the opposite way each size down) | sizes?: {\"<size>\": [dx, dy] (mm from the base)} | clear?: true} x to the right, y down. Points between ruled points move in proportion along the seam line → grade.info",
+            "{id? (a pattern piece or its part; default: the selected piece), anchor: 0.. (a point of the seam line) | point: [x, y] (instead: document points, as a click on the canvas: the seam line's point within 10 mm), step?: [dx, dy] (mm the point moves each size up from the base, the opposite way each size down), across?: mm, down?: mm (the step as a dialog gives it: across to the right, down) | sizes?: {\"<size>\": [dx, dy] (mm from the base)} | clear?: true} x to the right, y down. Points between ruled points move in proportion along the seam line → grade.info",
             has_doc,
             set_rule
         ),
@@ -421,16 +424,35 @@ fn set_rule(s: &mut Session, p: &Value) -> Result<Value> {
     let doc = &s.doc()?.doc;
     let n = doc.node(id).ok_or(EngineError::NoNode(id))?;
     let count = seam_of(n).map_or(0, |(_, pts)| pts.len());
-    let anchor = p
-        .get("anchor")
-        .and_then(Value::as_u64)
-        .and_then(|a| usize::try_from(a).ok())
-        .ok_or_else(|| bad(CMD, "anchor: the seam line's point, from 0"))?;
+    let anchor = match p.get("point") {
+        // A point picked on the canvas: the seam line's point nearest it, within PICK_MM.
+        Some(v) => {
+            let [x, y] = finite_numbers::<2>(v).ok_or_else(|| bad(CMD, "point: [x, y] in document points"))?;
+            let pts = seam_of(n).map(|(_, pts)| pts).unwrap_or_default();
+            pts.iter()
+                .enumerate()
+                .map(|(i, q)| (i, (q.x - x).hypot(q.y - y)))
+                .filter(|(_, d)| *d <= pf_core::mm_to_pt(PICK_MM))
+                .min_by(|a, b| a.1.total_cmp(&b.1))
+                .map(|(i, _)| i)
+                .ok_or_else(|| bad(CMD, "there is no point of the seam line there"))?
+        }
+        None => p
+            .get("anchor")
+            .and_then(Value::as_u64)
+            .and_then(|a| usize::try_from(a).ok())
+            .ok_or_else(|| bad(CMD, "anchor: the seam line's point, from 0"))?,
+    };
     if anchor >= count {
         return Err(bad(CMD, format!("the seam line has points 0 to {}", count.saturating_sub(1))));
     }
     let clear = p.get("clear").and_then(Value::as_bool).unwrap_or(false);
-    let rule = match (p.get("step"), p.get("sizes")) {
+    // across and down, as a dialog gives them: the step.
+    let step = match (p.get("across"), p.get("down")) {
+        (None, None) => p.get("step").cloned(),
+        (dx, dy) => Some(json!([dx.and_then(Value::as_f64).unwrap_or(0.0), dy.and_then(Value::as_f64).unwrap_or(0.0)])),
+    };
+    let rule = match (step.as_ref(), p.get("sizes")) {
         _ if clear => None,
         (Some(v), None) => Some(Rule::Step(move_of(v).ok_or_else(|| bad(CMD, "step: [dx, dy] in mm"))?)),
         (None, Some(Value::Object(m))) => {

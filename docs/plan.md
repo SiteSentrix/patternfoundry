@@ -583,3 +583,12 @@ is built on, plus a pattern mode, the way StitchFoundry adds embroidery:
   `tests_piece.rs`, 1 in `tests_contextmenu.rs` (the items as the menu runs them, the refusal, no
   items without a piece). Not yet: a Notch tool that adds one per click, a notch dragged along its
   edge, allowances picked per edge on the canvas, grade points picked on the canvas.
+- 2026-10-22, **PF-6.6**: an edge's allowance and a grade rule picked on the canvas. Right-click a
+  pattern piece on or near its seam line: **Seam Allowance Here…** sets the allowance of the edge
+  nearest the click (`piece.set {edgeAllowance, at}`), and, in a document with a size range,
+  **Grade This Point…** gives the seam line's point nearest the click (within 10 mm) a grade rule,
+  how far it moves each size, across and down in mm (`grade.setRule {point, across, down}`). Both
+  open the command dialog for the value; the point right-clicked goes along unseen (`__fixed` in
+  a menu item's params, the dialog's fixed params). Tests: 1 in `tests_grade.rs`, 1 in
+  `tests_contextmenu.rs` (each item through its dialog to the piece). Not yet: dragging a graded
+  point to set its rule, per-size rules in the dialog.

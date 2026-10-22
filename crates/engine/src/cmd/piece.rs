@@ -51,7 +51,7 @@ pub fn specs() -> Vec<CommandSpec> {
             "Piece Options",
             [],
             None,
-            "{id? (default: the selected piece), name?, cut?: 1..999, mirror?: bool (cut in mirror-image pairs), fabric?, allowance?: mm (every edge without its own), edges?: {\"<edge>\": mm | null (back to the piece's allowance)}, corners?: {\"<corner>\": \"mitre\" | \"square\"} (corner i is where edge i-1 meets edge i), grainline?: {from: [x, y], to: [x, y]} (document points) | \"auto\" (vertical through the middle), fold?: edge | \"auto\" (the longest straight edge) | null, foldAt?: [x, y] (instead: the straight edge nearest this document point) (the straight edge cut on the fold: no allowance, laid against the fabric's fold or opened out by marker.make)} → piece.info",
+            "{id? (default: the selected piece), name?, cut?: 1..999, mirror?: bool (cut in mirror-image pairs), fabric?, allowance?: mm (every edge without its own), edges?: {\"<edge>\": mm | null (back to the piece's allowance)}, corners?: {\"<corner>\": \"mitre\" | \"square\"} (corner i is where edge i-1 meets edge i), grainline?: {from: [x, y], to: [x, y]} (document points) | \"auto\" (vertical through the middle), fold?: edge | \"auto\" (the longest straight edge) | null, foldAt?: [x, y] (instead: the straight edge nearest this document point), edgeAllowance?: mm | null (the allowance of the edge nearest the point at), at?: [x, y] (document points, with edgeAllowance) (the straight edge cut on the fold: no allowance, laid against the fabric's fold or opened out by marker.make)} → piece.info",
             has_doc,
             set
         ),
@@ -490,9 +490,27 @@ fn set(s: &mut Session, p: &Value) -> Result<Value> {
             Some(Some(e))
         }
     };
+    // One edge's allowance, the edge picked at a point (as a click on the canvas).
+    let edge_allowance = match p.get("edgeAllowance") {
+        None => None,
+        Some(v) => {
+            let q = p.get("at").and_then(point_of).ok_or_else(|| bad(CMD, "at: [x, y], the document point on the edge"))?;
+            let (e, _) = edge_near(s, id, Point::new(q.x, q.y)).ok_or_else(|| bad(CMD, "the point is not on the seam line or in its allowance"))?;
+            Some((e, if v.is_null() { None } else { Some(allowance_param(v, CMD)?) }))
+        }
+    };
     change(s, id, "Piece Options", CMD, |piece| {
         if let Some(f) = fold {
             piece.fold = f;
+        }
+        match edge_allowance {
+            Some((e, Some(mm))) => {
+                piece.edges.insert(e, mm);
+            }
+            Some((e, None)) => {
+                piece.edges.remove(&e);
+            }
+            None => {}
         }
         if let Some(n) = str_param(p, "name") {
             piece.name = pf_core::piece::check_name(n).map_err(|e| err(CMD, e))?;
