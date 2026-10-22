@@ -5394,3 +5394,9 @@ file-filter	PDF for projector	PDF untuk proyektor
 	Cut on fold	Potong di lipatan
 	Folded	Terlipat
 	The straight edge laid on the fabric's fold: no allowance there	Tepi lurus yang diletakkan di lipatan kain: tanpa kampuh di sana
+	Check Sleeve Ease	Periksa kelonggaran kepala lengan
+	Sleeve Ease	Kelonggaran kepala lengan
+	Crown {crown} mm, armhole {armhole} mm (back {back}, front {front}): the crown takes in {ease} mm ({percent}%).	Kepala lengan {crown} mm, lubang lengan {armhole} mm (belakang {back}, depan {front}): kepala lengan mengerut {ease} mm ({percent}%).
+	Less than the {min} to {max} mm it should take in: the sleeve may pull across the cap. Set sleeve_crown to {wanted} mm in Measurements to redraft the sleeve block with the ease in the middle.	Kurang dari {min} sampai {max} mm yang seharusnya dikerutkan: lengan bisa tertarik di kepala lengan. Atur sleeve_crown menjadi {wanted} mm di Ukuran agar pola dasar lengan digambar ulang dengan kelonggaran di tengah.
+	More than the {min} to {max} mm it should take in: the cap may pucker when it is set in. Set sleeve_crown to {wanted} mm in Measurements to redraft the sleeve block with the ease in the middle.	Lebih dari {min} sampai {max} mm yang seharusnya dikerutkan: kepala lengan bisa berkerut saat dipasang. Atur sleeve_crown menjadi {wanted} mm di Ukuran agar pola dasar lengan digambar ulang dengan kelonggaran di tengah.
+	Within the {min} to {max} mm it should take in.	Dalam batas {min} sampai {max} mm yang seharusnya dikerutkan.

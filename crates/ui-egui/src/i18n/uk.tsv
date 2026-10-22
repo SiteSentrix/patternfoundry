@@ -5006,3 +5006,9 @@ file-filter	PDF for projector	PDF для проєктора
 	Cut on fold	Кроїти на згині
 	Folded	Складена
 	The straight edge laid on the fabric's fold: no allowance there	Прямий край на згині тканини: там немає припуску на шов
+	Check Sleeve Ease	Перевірити посадку окату
+	Sleeve Ease	Посадка окату
+	Crown {crown} mm, armhole {armhole} mm (back {back}, front {front}): the crown takes in {ease} mm ({percent}%).	Окат {crown} мм, пройма {armhole} мм (спинка {back}, перед {front}): посадка окату {ease} мм ({percent} %).
+	Less than the {min} to {max} mm it should take in: the sleeve may pull across the cap. Set sleeve_crown to {wanted} mm in Measurements to redraft the sleeve block with the ease in the middle.	Менше за {min}–{max} мм, потрібні на посадку: рукав може тягнути по окату. Задайте sleeve_crown {wanted} мм у «Мірках», щоб перебудувати основу рукава з посадкою посередині діапазону.
+	More than the {min} to {max} mm it should take in: the cap may pucker when it is set in. Set sleeve_crown to {wanted} mm in Measurements to redraft the sleeve block with the ease in the middle.	Більше за {min}–{max} мм, потрібні на посадку: окат може морщити під час втачування. Задайте sleeve_crown {wanted} мм у «Мірках», щоб перебудувати основу рукава з посадкою посередині діапазону.
+	Within the {min} to {max} mm it should take in.	У межах {min}–{max} мм, потрібних на посадку.

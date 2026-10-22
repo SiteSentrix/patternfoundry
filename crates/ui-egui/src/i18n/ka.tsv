@@ -5319,3 +5319,9 @@ file-filter	PDF for projector	PDF პროექტორისთვის
 	Cut on fold	ნაკეცზე გამოჭრა
 	Folded	მოკეცილი
 	The straight edge laid on the fabric's fold: no allowance there	ქსოვილის ნაკეცზე დადებული სწორი კიდე: იქ ნაკერის მარაგი არ არის
+	Check Sleeve Ease	სახელოს თავისუფლების შემოწმება
+	Sleeve Ease	სახელოს თავისუფლება
+	Crown {crown} mm, armhole {armhole} mm (back {back}, front {front}): the crown takes in {ease} mm ({percent}%).	სახელოს თავი {crown} მმ, სახელოს ამოჭრა {armhole} მმ (ზურგი {back}, წინა {front}): თავი იკავებს {ease} მმ-ს ({percent}%).
+	Less than the {min} to {max} mm it should take in: the sleeve may pull across the cap. Set sleeve_crown to {wanted} mm in Measurements to redraft the sleeve block with the ease in the middle.	ნაკლებია, ვიდრე {min}–{max} მმ, რაც უნდა დაიკავოს: სახელო შეიძლება თავზე დაიჭიმოს. Measurements-ში sleeve_crown დააყენეთ {wanted} მმ-ზე და სახელოს ბაზა ხელახლა დაიხაზება თავისუფლებით შუაში.
+	More than the {min} to {max} mm it should take in: the cap may pucker when it is set in. Set sleeve_crown to {wanted} mm in Measurements to redraft the sleeve block with the ease in the middle.	მეტია, ვიდრე {min}–{max} მმ, რაც უნდა დაიკავოს: თავი შეიძლება ჩაკერებისას დაიჭმუჭნოს. Measurements-ში sleeve_crown დააყენეთ {wanted} მმ-ზე და სახელოს ბაზა ხელახლა დაიხაზება თავისუფლებით შუაში.
+	Within the {min} to {max} mm it should take in.	{min}–{max} მმ-ის ფარგლებშია, რაც უნდა დაიკავოს.

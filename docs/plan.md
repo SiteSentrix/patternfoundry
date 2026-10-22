@@ -510,3 +510,21 @@ is built on, plus a pattern mode, the way StitchFoundry adds embroidery:
   `tests_aama.rs`, `tests_projector.rs` (opened out 220 mm, the half 110 mm, the 10 cm square)
   and `tests_svgcut.rs`. Not yet: drill holes, the other mirror-line uses in AAMA (symmetric
   pieces drawn as halves without being cut on the fold).
+- 2026-10-22, **PF-4.4**: the armhole checked against the sleeve head. **Pattern › Check Sleeve
+  Ease** (`ui.checkSleeveEase`; the query `design.sleeveEase`) measures the sleeve's crown from
+  underarm to underarm and the back and front armholes from the shoulder points to the side seam,
+  and tells the ease the crown takes in against the range for the sleeve's style: the University
+  of Kentucky extension's figures, measured notch to notch, 1½ to 2 in for a classic set-in sleeve,
+  ¾ to 1 in for a shorter casual cap, ½ to ¾ in for a shirt sleeve, less for knits (FCS2-807,
+  https://publications.ca.uky.edu/sites/publications.ca.uky.edu/files/fcs2807.pdf), or `min` and
+  `max` given. Too little: the sleeve may pull across the cap; too much: the cap may pucker. It
+  gives the `sleeve_crown` that redrafts the sleeve block with the ease in the middle of the range.
+  The drafted blocks are found by themselves (`pf_core::block::armhole`: where each part's
+  armhole runs, while the part has its drafted anchors); a block changed since is named by hand
+  (`{id, from, to}`, as Seam Length). It showed that the sleeve drafted from the top arm table
+  alone has no ease against the bodice block with the same made-up measurements (crown 430.5 mm,
+  armhole 432 mm): setting `sleeve_crown` as it says fixes that. Tests: 1 in `pf-core` (the
+  anchors against the drafts), 1 in `tests_block.rs` (found and named seams agree, the
+  `sleeve_crown` it gives brings the ease into range, styles, two sleeves), 1 in the UI (the
+  message). Not yet: notches placed for the ease (front and back balance marks), two-piece
+  sleeves.

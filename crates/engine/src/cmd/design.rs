@@ -177,6 +177,15 @@ pub fn specs() -> Vec<CommandSpec> {
             has_doc,
             length
         ),
+        cmd!(
+            query "design.sleeveEase",
+            "Check Sleeve Ease",
+            [],
+            None,
+            "{sleeve?: {id, from, to} (the crown, underarm to underarm), back?: {id, from, to} (the back armhole, shoulder point to side seam), front?: {id, from, to}, style?: \"classic\" (1½ to 2 in, the default) | \"casual\" (¾ to 1 in) | \"shirt\" (½ to ¾ in), min?: mm, max?: mm (the ease wanted instead)} the sleeve's crown against the armhole it is set into, the difference the ease the crown takes in; seams not named are the drafted sleeve and bodice blocks' (one of each; a block changed since, as by a dart moved into the armhole, is named by hand) → {crown, armhole, back, front, ease, percent (of the armhole), min, max (mm), fits: \"tight\" | \"ok\" | \"full\", sleeveCrown (mm: the crown length in the middle of the range, for the sleeve_crown measurement), advice}",
+            has_doc,
+            sleeve_ease
+        ),
     ]
 }
 
@@ -630,6 +639,95 @@ fn length(s: &mut Session, p: &Value) -> Result<Value> {
     let ring = ring_of(&s.doc()?.doc, id, CMD)?;
     let (from, to) = seam(&ring, p, "from", "to", CMD)?;
     Ok(json!({"mm": pt_to_mm(along(&ring, from, to))}))
+}
+
+/// The length of the drafted block part's armhole or crown (`kind`, `part`), when the document
+/// has one such part as drafted; an error when it has several.
+fn block_seam(doc: &Document, kind: pf_core::block::BlockKind, part: usize, what: &str, key: &str, cmd: &str) -> Result<f64> {
+    let Some((from, to, anchors)) = pf_core::block::armhole(kind, part) else { return Err(bad(cmd, format!("{key}: {{id, from, to}}"))) };
+    let mut found = Vec::new();
+    doc.walk(|n| {
+        if n.extras().block.as_deref().is_some_and(|b| b.kind == kind && b.part == part) {
+            found.push(n.id);
+        }
+    });
+    let rings: Vec<Vec<Knot>> = found.iter().filter_map(|id| ring_of(doc, *id, cmd).ok()).filter(|r| r.len() == anchors).collect();
+    match rings.as_slice() {
+        [ring] => Ok(along(ring, from, to)),
+        [] => Err(bad(cmd, format!("no {what} drafted as it was: draft it (Pattern menu), or name the seam ({key}: {{id, from, to}})"))),
+        _ => Err(bad(cmd, format!("more than one {what}: name the seam ({key}: {{id, from, to}})"))),
+    }
+}
+
+fn sleeve_ease(s: &mut Session, p: &Value) -> Result<Value> {
+    const CMD: &str = "design.sleeveEase";
+    use pf_core::block::{BlockKind, SleeveStyle};
+    let doc = &s.doc()?.doc;
+    let length = |key: &str, kind: BlockKind, part: usize, what: &str| -> Result<f64> {
+        match p.get(key) {
+            None | Some(Value::Null) => block_seam(doc, kind, part, what, key, CMD),
+            Some(_) => Ok(seam_param(s, p, key, CMD)?.length()),
+        }
+    };
+    let crown = pt_to_mm(length("sleeve", BlockKind::Sleeve, 0, "sleeve block")?);
+    let back = pt_to_mm(length("back", BlockKind::Bodice, 0, "back bodice block")?);
+    let front = pt_to_mm(length("front", BlockKind::Bodice, 1, "front bodice block")?);
+    let style = match str_param(p, "style") {
+        None => SleeveStyle::Classic,
+        Some(v) => SleeveStyle::parse(v).ok_or_else(|| bad(CMD, "style: classic, casual or shirt"))?,
+    };
+    let (mut min, mut max) = style.ease();
+    let mm = |k: &str| {
+        p.get(k).map(|v| v.as_f64().filter(|v| v.is_finite() && (0.0..=200.0).contains(v)).ok_or_else(|| bad(CMD, format!("{k}: mm, 0 to 200"))))
+    };
+    if let Some(v) = mm("min") {
+        min = v?;
+    }
+    if let Some(v) = mm("max") {
+        max = v?;
+    }
+    if min > max {
+        return Err(bad(CMD, "min is more than max"));
+    }
+    let armhole = back + front;
+    let ease = crown - armhole;
+    let fits = if ease < min - 1e-9 {
+        "tight"
+    } else if ease > max + 1e-9 {
+        "full"
+    } else {
+        "ok"
+    };
+    let r = |v: f64| (v * 10.0).round() / 10.0;
+    let wanted = r(armhole + (min + max) / 2.0);
+    let advice = match fits {
+        "tight" => format!(
+            "The crown takes in {} mm, less than {} to {} mm: the sleeve may pull across the cap. Lengthen the crown: the sleeve block drafted with sleeve_crown {wanted} mm (Measurements) has the ease in the middle of the range.",
+            r(ease),
+            r(min),
+            r(max)
+        ),
+        "full" => format!(
+            "The crown takes in {} mm, more than {} to {} mm: the cap may pucker when it is set in. Shorten the crown: the sleeve block drafted with sleeve_crown {wanted} mm (Measurements) has the ease in the middle of the range.",
+            r(ease),
+            r(min),
+            r(max)
+        ),
+        _ => format!("The crown takes in {} mm, within {} to {} mm: it eases into the armhole.", r(ease), r(min), r(max)),
+    };
+    Ok(json!({
+        "crown": r(crown),
+        "armhole": r(armhole),
+        "back": r(back),
+        "front": r(front),
+        "ease": r(ease),
+        "percent": if armhole > 0.0 { r(ease / armhole * 100.0) } else { 0.0 },
+        "min": r(min),
+        "max": r(max),
+        "fits": fits,
+        "sleeveCrown": wanted,
+        "advice": advice,
+    }))
 }
 
 fn match_length(s: &mut Session, p: &Value) -> Result<Value> {

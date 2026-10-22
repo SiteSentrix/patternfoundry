@@ -5247,3 +5247,9 @@ file-filter	PDF for projector	用于投影仪的 PDF
 	Cut on fold	对折裁剪
 	Folded	对折
 	The straight edge laid on the fabric's fold: no allowance there	放在布料折线上的直边：此处无缝份
+	Check Sleeve Ease	检查袖山吃势
+	Sleeve Ease	袖山吃势
+	Crown {crown} mm, armhole {armhole} mm (back {back}, front {front}): the crown takes in {ease} mm ({percent}%).	袖山 {crown} mm，袖窿 {armhole} mm（后片 {back}，前片 {front}）：袖山吃势 {ease} mm（{percent}%）。
+	Less than the {min} to {max} mm it should take in: the sleeve may pull across the cap. Set sleeve_crown to {wanted} mm in Measurements to redraft the sleeve block with the ease in the middle.	少于应有的 {min} 至 {max} mm 吃势：袖山可能会紧绷。在“量体”中把 sleeve_crown 设为 {wanted} mm，即可按居中的吃势重画袖原型。
+	More than the {min} to {max} mm it should take in: the cap may pucker when it is set in. Set sleeve_crown to {wanted} mm in Measurements to redraft the sleeve block with the ease in the middle.	多于应有的 {min} 至 {max} mm 吃势：上袖时袖山可能起皱。在“量体”中把 sleeve_crown 设为 {wanted} mm，即可按居中的吃势重画袖原型。
+	Within the {min} to {max} mm it should take in.	在应有的 {min} 至 {max} mm 吃势之内。

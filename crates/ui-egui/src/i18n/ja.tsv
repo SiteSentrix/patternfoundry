@@ -5066,3 +5066,9 @@ file-filter	PDF for projector	プロジェクター用 PDF
 	Cut on fold	わで裁つ
 	Folded	二つ折り
 	The straight edge laid on the fabric's fold: no allowance there	布のわに合わせる直線の辺：縫い代なし
+	Check Sleeve Ease	袖山のいせ込みを確認
+	Sleeve Ease	袖山のいせ込み
+	Crown {crown} mm, armhole {armhole} mm (back {back}, front {front}): the crown takes in {ease} mm ({percent}%).	袖山 {crown} mm、袖ぐり {armhole} mm（後ろ {back}、前 {front}）：袖山のいせ込みは {ease} mm（{percent}%）。
+	Less than the {min} to {max} mm it should take in: the sleeve may pull across the cap. Set sleeve_crown to {wanted} mm in Measurements to redraft the sleeve block with the ease in the middle.	いせ込みの目安 {min}〜{max} mm より少ない：袖山がつれることがあります。採寸で sleeve_crown を {wanted} mm にすると、いせ込みが目安の中ほどになるよう袖の原型が引き直されます。
+	More than the {min} to {max} mm it should take in: the cap may pucker when it is set in. Set sleeve_crown to {wanted} mm in Measurements to redraft the sleeve block with the ease in the middle.	いせ込みの目安 {min}〜{max} mm より多い：付けるときに袖山にしわが寄ることがあります。採寸で sleeve_crown を {wanted} mm にすると、いせ込みが目安の中ほどになるよう袖の原型が引き直されます。
+	Within the {min} to {max} mm it should take in.	いせ込みの目安 {min}〜{max} mm の範囲内です。

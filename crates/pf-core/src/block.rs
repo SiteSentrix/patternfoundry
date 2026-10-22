@@ -688,7 +688,65 @@ pub fn draft(kind: BlockKind, env: &mut Env) -> Result<Vec<Part>, BlockError> {
     }
 }
 
+/// Where a block part's armhole (a bodice part's) or crown (the sleeve's, underarm to underarm
+/// over the shoulder point) runs: from one anchor forward along the outline to another, and how
+/// many anchors the outline has as drafted. A part changed since (a dart moved into the armhole)
+/// has other anchors: its seams are named by hand.
+pub fn armhole(kind: BlockKind, part: usize) -> Option<(usize, usize, usize)> {
+    match (kind, part) {
+        // Back: the shoulder point (I) round to the side seam's top (Z).
+        (BlockKind::Bodice, 0) => Some((6, 9, 14)),
+        // Front: the side seam's top (Z) round to the shoulder point (X).
+        (BlockKind::Bodice, 1) => Some((6, 9, 13)),
+        // The crown: from the back underarm over the shoulder point to the front underarm.
+        (BlockKind::Sleeve, 0) => Some((10, 4, 14)),
+        _ => None,
+    }
+}
+
+/// How a set-in sleeve is to sit, for the ease its crown takes in: the University of Kentucky
+/// extension's figures, measured notch to notch (FCS2-807, "Set-in Sleeves",
+/// https://publications.ca.uky.edu/sites/publications.ca.uky.edu/files/fcs2807.pdf). Knits take
+/// less.
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub enum SleeveStyle {
+    /// The regulation or classic sleeve, the highest cap: 1½ to 2 in.
+    Classic,
+    /// The shorter cap of a slightly dropped shoulder: ¾ to 1 in.
+    Casual,
+    /// The flat shirt sleeve: ½ to ¾ in.
+    Shirt,
+}
+
+impl SleeveStyle {
+    /// The ease the crown takes in, least and most, mm.
+    pub fn ease(self) -> (f64, f64) {
+        // The inches, exactly.
+        match self {
+            SleeveStyle::Classic => (38.1, 50.8),
+            SleeveStyle::Casual => (19.05, 25.4),
+            SleeveStyle::Shirt => (12.7, 19.05),
+        }
+    }
+
+    pub fn parse(s: &str) -> Option<Self> {
+        Some(match s {
+            "classic" => SleeveStyle::Classic,
+            "casual" => SleeveStyle::Casual,
+            "shirt" => SleeveStyle::Shirt,
+            _ => return None,
+        })
+    }
+}
+
 impl Part {
+    /// How many anchors the outline has: its segment ends, the last left out when it closes on
+    /// the start.
+    pub fn anchors(&self) -> usize {
+        let c = self.corners();
+        if c.len() > 1 && c.last() == c.first() { c.len() - 1 } else { c.len() }
+    }
+
     /// Every point the outline passes through (segment ends), to measure it.
     pub fn corners(&self) -> Vec<Pt> {
         std::iter::once(self.start)
@@ -890,5 +948,43 @@ mod tests {
         assert!(matches!(trousers(&mut m.env()), Err(BlockError::Impossible(_))));
         m.set_value("crotch_depth", None).unwrap();
         assert_eq!(trousers(&mut m.env()), Err(BlockError::Missing(vec!["crotch_depth".into()])));
+    }
+
+    #[test]
+    fn the_armholes_and_the_crown_are_where_armhole_says() {
+        let p = bodice(&mut me().env()).unwrap();
+        let (back, front) = (p[0].corners(), p[1].corners());
+        let ((bf, bt, bn), (ff, ft, fn_)) = (armhole(BlockKind::Bodice, 0).unwrap(), armhole(BlockKind::Bodice, 1).unwrap());
+        assert_eq!((p[0].anchors(), p[1].anchors()), (bn, fn_));
+        // The back runs from its shoulder point to the side seam's top, where the front's starts.
+        assert!(((back[bf] - back[2]).len() - 132.0).abs() < 1e-9, "the back shoulder point");
+        assert_eq!(back[bt], front[ff]);
+        assert!(((front[ft] - front[10]).len() - 122.0).abs() < 1e-9, "the front shoulder point");
+        // The sleeve's crown, from underarm to underarm, is what sleeve_crown measures.
+        let mut m = me();
+        m.set_value("top_arm", Some(280.0)).unwrap();
+        m.set_value("sleeve_length", Some(590.0)).unwrap();
+        let sl = &sleeve(&mut m.env()).unwrap()[0];
+        let (from, to, n) = armhole(BlockKind::Sleeve, 0).unwrap();
+        assert_eq!(sl.anchors(), n);
+        let c = sl.corners();
+        assert!((c[from].y - c[to].y).abs() < 1e-9 && (c[from].x + c[to].x).abs() < 1e-9 && c[from].x < 0.0, "the underarms");
+        let mut at = sl.start;
+        let mut crown = 0.0;
+        for (i, seg) in sl.segs.iter().enumerate() {
+            let end = match *seg {
+                Seg::Line(e) | Seg::Cubic(_, _, e) => e,
+            };
+            if i >= from || i < to {
+                crown += match *seg {
+                    Seg::Line(e) => (e - at).len(),
+                    Seg::Cubic(c1, c2, e) => cubic_len(at, c1, c2, e),
+                };
+            }
+            at = end;
+        }
+        assert!((crown - sleeve_crown(sl)).abs() < 1e-9);
+        assert_eq!(SleeveStyle::parse("classic").map(SleeveStyle::ease), Some((38.1, 50.8)));
+        assert_eq!(SleeveStyle::parse("dolman"), None);
     }
 }
