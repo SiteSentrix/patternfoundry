@@ -5430,3 +5430,6 @@ file-filter	PDF for projector	PDF pour projecteur
 	Arrows move the pattern 1 cm (Shift: 1 mm) · M mirrors it · C calibrates · Escape leaves	Les flèches déplacent le patron de 1 cm (Maj : 1 mm) · M le met en miroir · C étalonne · Échap quitte
 @msg	no pattern pieces to project: make the outlines pattern pieces first (Pattern › Make Pattern Piece)	aucune pièce de patron à projeter : faites d'abord des contours des pièces de patron (Patron › Créer une pièce de patron)
 @msg	scale: screen points per mm, more than 0	échelle : points d'écran par mm, plus de 0
+	Shorten Dart	Raccourcir la pince
+	Shorten Dart…	Raccourcir la pince…
+	Shorten	Raccourcir

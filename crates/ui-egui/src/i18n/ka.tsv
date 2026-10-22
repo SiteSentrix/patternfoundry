@@ -5339,3 +5339,6 @@ file-filter	PDF for projector	PDF პროექტორისთვის
 	Arrows move the pattern 1 cm (Shift: 1 mm) · M mirrors it · C calibrates · Escape leaves	ისრები გადაადგილებს თარგს 1 სმ-ით (Shift: 1 მმ) · M ასარკავს · C აკალიბრებს · Escape გამოდის
 @msg	no pattern pieces to project: make the outlines pattern pieces first (Pattern › Make Pattern Piece)	საპროექციო თარგის დეტალები არ არის: ჯერ კონტურები გადააქციეთ თარგის დეტალებად (თარგი › თარგის დეტალის შექმნა)
 @msg	scale: screen points per mm, more than 0	მასშტაბი: ეკრანის წერტილები მმ-ზე, 0-ზე მეტი
+	Shorten Dart	გამონაჭრის დამოკლება
+	Shorten Dart…	გამონაჭრის დამოკლება…
+	Shorten	დამოკლება

@@ -5456,3 +5456,6 @@ file-filter	PDF for projector	PDF voor projector
 	Arrows move the pattern 1 cm (Shift: 1 mm) · M mirrors it · C calibrates · Escape leaves	Pijltjes verschuiven het patroon 1 cm (Shift: 1 mm) · M spiegelt het · C kalibreert · Escape sluit af
 @msg	no pattern pieces to project: make the outlines pattern pieces first (Pattern › Make Pattern Piece)	geen patroondelen om te projecteren: maak eerst patroondelen van de omtrekken (Patroon › Patroondeel maken)
 @msg	scale: screen points per mm, more than 0	schaal: schermpunten per mm, meer dan 0
+	Shorten Dart	Figuurnaad inkorten
+	Shorten Dart…	Figuurnaad inkorten…
+	Shorten	Inkorten

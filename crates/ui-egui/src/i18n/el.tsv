@@ -5383,3 +5383,6 @@ file-filter	PDF for projector	PDF για προβολέα
 	Arrows move the pattern 1 cm (Shift: 1 mm) · M mirrors it · C calibrates · Escape leaves	Τα βέλη μετακινούν το πατρόν κατά 1 cm (Shift: 1 mm) · M το καθρεφτίζει · C βαθμονομεί · Escape βγαίνει
 @msg	no pattern pieces to project: make the outlines pattern pieces first (Pattern › Make Pattern Piece)	δεν υπάρχουν κομμάτια πατρόν για προβολή: κάντε πρώτα τα περιγράμματα κομμάτια πατρόν (Πατρόν › Δημιουργία κομματιού)
 @msg	scale: screen points per mm, more than 0	κλίμακα: σημεία οθόνης ανά mm, πάνω από 0
+	Shorten Dart	Κόντεμα πένσας
+	Shorten Dart…	Κόντεμα πένσας…
+	Shorten	Κόντεμα

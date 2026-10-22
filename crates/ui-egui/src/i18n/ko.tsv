@@ -5009,3 +5009,6 @@ file-filter	PDF for projector	프로젝터용 PDF
 	Arrows move the pattern 1 cm (Shift: 1 mm) · M mirrors it · C calibrates · Escape leaves	화살표로 패턴을 1 cm 이동(Shift: 1 mm) · M 좌우 반전 · C 보정 · Escape 나가기
 @msg	no pattern pieces to project: make the outlines pattern pieces first (Pattern › Make Pattern Piece)	투사할 패턴 조각이 없습니다: 먼저 윤곽을 패턴 조각으로 만드세요(패턴 › 패턴 조각 만들기)
 @msg	scale: screen points per mm, more than 0	배율: mm당 화면 포인트, 0보다 크게
+	Shorten Dart	다트 줄이기
+	Shorten Dart…	다트 줄이기…
+	Shorten	줄이기

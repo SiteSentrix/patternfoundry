@@ -5414,3 +5414,6 @@ file-filter	PDF for projector	PDF untuk proyektor
 	Arrows move the pattern 1 cm (Shift: 1 mm) · M mirrors it · C calibrates · Escape leaves	Panah menggeser pola 1 cm (Shift: 1 mm) · M mencerminkannya · C mengkalibrasi · Escape keluar
 @msg	no pattern pieces to project: make the outlines pattern pieces first (Pattern › Make Pattern Piece)	tidak ada potongan pola untuk diproyeksikan: jadikan garis luar sebagai potongan pola dulu (Pola › Buat Potongan Pola)
 @msg	scale: screen points per mm, more than 0	skala: titik layar per mm, lebih dari 0
+	Shorten Dart	Perpendek kup
+	Shorten Dart…	Perpendek kup…
+	Shorten	Perpendek

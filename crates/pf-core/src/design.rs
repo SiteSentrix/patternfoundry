@@ -213,6 +213,42 @@ pub fn opening(ring: &[Knot], i: usize) -> Option<f64> {
     Some(turn(p, ring[(i + 1) % n].p, ring[(i + n - 1) % n].p).abs())
 }
 
+/// A dart shortened by `by` (lengthened when `by` is less than 0): its point, anchor `apex`, moved
+/// along the dart's centre line (toward the middle of its opening, between its legs' ends) by `by`,
+/// and the legs straight from the same ends, so the seam the dart opens on doesn't change: the
+/// way a bust dart is ended short of the bust point (Made by Rae, "Bust Dart Adjustment",
+/// https://www.made-by-rae.com/blog/2015/07/bust-dart-adjustment-how-to-shorten-or-lengthen-a-dart:
+/// "a new point on the dart's center line one inch away from the original point", the legs
+/// redrawn with a straight edge). The legs must be straight; lengths are in the outline's unit.
+pub fn shorten_dart(ring: &[Knot], apex: usize, by: f64) -> Result<Vec<Knot>, DesignError> {
+    let n = ring.len();
+    if apex >= n || n < 4 {
+        return Err(DesignError::BadAnchor("the dart's point is past the outline's end"));
+    }
+    if !by.is_finite() {
+        return Err(DesignError::BadAnchor("the length to shorten by is not a number"));
+    }
+    let (a, b) = (ring[(apex + n - 1) % n], ring[(apex + 1) % n]);
+    let k = ring[apex];
+    let straight = |from: Knot, from_h: Pt, to: Knot, to_h: Pt| (from_h - from.p).len() < 1e-9 && (to_h - to.p).len() < 1e-9;
+    if !straight(a, a.h_out, k, k.h_in) || !straight(k, k.h_out, b, b.h_in) {
+        return Err(DesignError::BadAnchor("the dart's legs must be straight lines"));
+    }
+    if opening(ring, apex).is_none_or(|o| o >= std::f64::consts::FRAC_PI_2) {
+        return Err(DesignError::BadAnchor("that point is not a dart's point: its legs open a right angle or wider"));
+    }
+    let mid = (a.p + b.p) * 0.5;
+    let length = (mid - k.p).len();
+    let dir = (mid - k.p).unit().ok_or(DesignError::BadAnchor("the dart has no length"))?;
+    // At least a millimetre's worth of dart is left (in points or mm, a small length either way).
+    if by >= length - 1.0 {
+        return Err(DesignError::BadAnchor("the dart is not that long"));
+    }
+    let mut out = ring.to_vec();
+    out[apex] = Knot::corner(k.p + dir * by);
+    Ok(out)
+}
+
 /// Another anchor at the same place as anchor `i` (where two darts share their point).
 pub fn coincident(ring: &[Knot], i: usize) -> Option<usize> {
     let p = ring.get(i)?.p;
@@ -1696,5 +1732,24 @@ mod tests {
         bow(&mut ring, 0, 10.0).unwrap();
         let mid = (ring[0].p + ring[0].h_out * 3.0 + ring[1].h_in * 3.0 + ring[1].p) * 0.125;
         assert!((mid - Pt::new(50.0, -10.0)).len() < 1e-9, "{mid:?}");
+    }
+
+    #[test]
+    fn a_dart_is_shortened_along_its_centre_line_and_the_seam_stays() {
+        // A rectangle with a dart 40 wide and 100 deep in its top edge, its point at (50, 100).
+        let pts = [(0.0, 0.0), (30.0, 0.0), (50.0, 100.0), (70.0, 0.0), (100.0, 0.0), (100.0, 200.0), (0.0, 200.0)];
+        let ring: Vec<Knot> = pts.iter().map(|&(x, y)| Knot::corner(Pt::new(x, y))).collect();
+        let out = shorten_dart(&ring, 2, 25.0).unwrap();
+        assert!((out[2].p - Pt::new(50.0, 75.0)).len() < 1e-9, "{:?}", out[2].p);
+        assert_eq!((out[1], out[3]), (ring[1], ring[3]), "the legs' ends stay");
+        // Lengthened back.
+        let back = shorten_dart(&out, 2, -25.0).unwrap();
+        assert!((back[2].p - ring[2].p).len() < 1e-9);
+        // Not past its opening, not a corner, not a curved leg.
+        assert!(shorten_dart(&ring, 2, 100.0).is_err());
+        assert!(shorten_dart(&ring, 5, 10.0).is_err(), "a right angle is no dart");
+        let mut curved = ring.clone();
+        curved[2].h_in = Pt::new(45.0, 60.0);
+        assert!(shorten_dart(&curved, 2, 10.0).is_err());
     }
 }

@@ -5417,3 +5417,6 @@ file-filter	PDF for projector	PDF projektorhoz
 	Arrows move the pattern 1 cm (Shift: 1 mm) · M mirrors it · C calibrates · Escape leaves	A nyilak 1 cm-rel mozgatják a mintát (Shift: 1 mm) · M tükrözi · C kalibrál · Escape kilép
 @msg	no pattern pieces to project: make the outlines pattern pieces first (Pattern › Make Pattern Piece)	nincs kivetíthető szabásminta-darab: előbb alakítsa a körvonalakat szabásminta-darabokká (Minta › Szabásminta-darab készítése)
 @msg	scale: screen points per mm, more than 0	méretarány: képernyőpont mm-enként, 0-nál több
+	Shorten Dart	Varrás rövidítése
+	Shorten Dart…	Varrás rövidítése…
+	Shorten	Rövidítés

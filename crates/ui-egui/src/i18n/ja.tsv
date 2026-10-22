@@ -5086,3 +5086,6 @@ file-filter	PDF for projector	プロジェクター用 PDF
 	Arrows move the pattern 1 cm (Shift: 1 mm) · M mirrors it · C calibrates · Escape leaves	矢印キーで型紙を 1 cm 移動（Shift：1 mm）· M で反転 · C で調整 · Escape で終了
 @msg	no pattern pieces to project: make the outlines pattern pieces first (Pattern › Make Pattern Piece)	投影する型紙パーツがありません：先に輪郭を型紙パーツにしてください（パターン › 型紙パーツを作成）
 @msg	scale: screen points per mm, more than 0	倍率：1 mm あたりの画面ポイント、0 より大きく
+	Shorten Dart	ダーツを短くする
+	Shorten Dart…	ダーツを短くする…
+	Shorten	短くする

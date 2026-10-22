@@ -169,6 +169,15 @@ pub fn specs() -> Vec<CommandSpec> {
             match_length
         ),
         cmd!(
+            "design.shortenDart",
+            "Shorten Dart",
+            [],
+            None,
+            "{id? (a path or a piece; default: the selection), apex?: anchor (the dart's point; default: the one selected point), shorten?: mm (25, as a bust dart is ended 1 in short of the bust point; less than 0 lengthens)} the dart's point moved along its centre line toward its opening, the legs straight from the same ends, so the seam stays as it is → {id, apex: [x, y]}",
+            has_doc,
+            shorten_dart
+        ),
+        cmd!(
             query "design.length",
             "Seam Length",
             [],
@@ -631,6 +640,35 @@ fn seam(ring: &[Knot], p: &Value, from_key: &str, to_key: &str, cmd: &str) -> Re
         return Err(bad(cmd, format!("two different points: the path has points 0 to {}", n.saturating_sub(1))));
     }
     Ok((from, to))
+}
+
+fn shorten_dart(s: &mut Session, p: &Value) -> Result<Value> {
+    const CMD: &str = "design.shortenDart";
+    let id = super::measure::target_path(s, p, CMD)?;
+    let ring = ring_of(&s.doc()?.doc, id, CMD)?;
+    let apex = match anchor_param(p, "apex", CMD)? {
+        Some(a) => a,
+        None => match selected_points(s, id)?[..] {
+            [one] => one,
+            _ => return Err(bad(CMD, "apex: the dart's point (or select that one point)")),
+        },
+    };
+    let by = match p.get("shorten") {
+        None | Some(Value::Null) => 25.0,
+        Some(v) => v.as_f64().filter(|v| v.is_finite() && v.abs() <= 1000.0).ok_or_else(|| bad(CMD, "shorten: mm (less than 0 lengthens)"))?,
+    };
+    let out = pf_core::design::shorten_dart(&ring, apex, pf_core::mm_to_pt(by)).map_err(|e| err(CMD, e))?;
+    let at = out[apex].p;
+    s.edit("Shorten Dart", |d, sel| {
+        let n = d.node(id).ok_or(EngineError::NoNode(id))?;
+        let new = reshaped(n, path_of(&out));
+        if let Some(m) = d.node_mut(id) {
+            *m = new;
+        }
+        sel.set([id]);
+        Ok(())
+    })?;
+    Ok(json!({"id": id.0, "apex": [at.x, at.y]}))
 }
 
 fn length(s: &mut Session, p: &Value) -> Result<Value> {

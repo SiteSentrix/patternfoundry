@@ -5431,3 +5431,6 @@ file-filter	PDF for projector	PDF pro projektor
 	Arrows move the pattern 1 cm (Shift: 1 mm) · M mirrors it · C calibrates · Escape leaves	Šipky posunou střih o 1 cm (Shift: 1 mm) · M ho zrcadlí · C kalibruje · Escape skončí
 @msg	no pattern pieces to project: make the outlines pattern pieces first (Pattern › Make Pattern Piece)	žádné díly střihu k promítnutí: nejdřív udělejte z obrysů díly střihu (Střih › Vytvořit díl střihu)
 @msg	scale: screen points per mm, more than 0	měřítko: body obrazovky na mm, více než 0
+	Shorten Dart	Zkrátit záševek
+	Shorten Dart…	Zkrátit záševek…
+	Shorten	Zkrátit

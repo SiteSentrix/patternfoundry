@@ -5026,3 +5026,6 @@ file-filter	PDF for projector	PDF для проєктора
 	Arrows move the pattern 1 cm (Shift: 1 mm) · M mirrors it · C calibrates · Escape leaves	Стрілки зсувають викрійку на 1 см (Shift: 1 мм) · M віддзеркалює її · C калібрує · Escape виходить
 @msg	no pattern pieces to project: make the outlines pattern pieces first (Pattern › Make Pattern Piece)	немає деталей викрійки для проєкції: спершу зробіть контури деталями викрійки («Викрійка» › «Створити деталь викрійки»)
 @msg	scale: screen points per mm, more than 0	масштаб: екранних точок на мм, більше 0
+	Shorten Dart	Укоротити виточку
+	Shorten Dart…	Укоротити виточку…
+	Shorten	Укоротити

@@ -5267,3 +5267,6 @@ file-filter	PDF for projector	用于投影仪的 PDF
 	Arrows move the pattern 1 cm (Shift: 1 mm) · M mirrors it · C calibrates · Escape leaves	方向键将纸样移动 1 cm（Shift：1 mm）· M 镜像 · C 校准 · Esc 退出
 @msg	no pattern pieces to project: make the outlines pattern pieces first (Pattern › Make Pattern Piece)	没有可投影的衣片：请先把轮廓做成衣片（纸样 › 制作衣片）
 @msg	scale: screen points per mm, more than 0	比例：每毫米屏幕点数，大于 0
+	Shorten Dart	缩短省道
+	Shorten Dart…	缩短省道…
+	Shorten	缩短
