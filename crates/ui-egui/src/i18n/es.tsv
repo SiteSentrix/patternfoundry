@@ -5360,3 +5360,9 @@ file-filter	PDF for projector	PDF para proyector
 	Less than the {min} to {max} mm it should take in: the sleeve may pull across the cap. Set sleeve_crown to {wanted} mm in Measurements to redraft the sleeve block with the ease in the middle.	Menos de los {min} a {max} mm que debería embeber: la manga puede tirar en la copa. Ponga sleeve_crown en {wanted} mm en Medidas para volver a trazar la manga base con el embebido en el centro.
 	More than the {min} to {max} mm it should take in: the cap may pucker when it is set in. Set sleeve_crown to {wanted} mm in Measurements to redraft the sleeve block with the ease in the middle.	Más de los {min} a {max} mm que debería embeber: la copa puede fruncirse al montarla. Ponga sleeve_crown en {wanted} mm en Medidas para volver a trazar la manga base con el embebido en el centro.
 	Within the {min} to {max} mm it should take in.	Dentro de los {min} a {max} mm que debería embeber.
+	Edges: {edges}, notches: {notches}	Bordes: {edges}, piquetes: {notches}
+	Edge {n}	Borde {n}
+	On fold	Al doblez
+	Back to the piece's seam allowance	Volver al margen de costura de la pieza
+	A notch in the middle of the edge	Un piquete en el centro del borde
+	Notch on edge {edge}, {at}% along	Piquete en el borde {edge}, al {at} %

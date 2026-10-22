@@ -528,3 +528,11 @@ is built on, plus a pattern mode, the way StitchFoundry adds embroidery:
   `sleeve_crown` it gives brings the ease into range, styles, two sleeves), 1 in the UI (the
   message). Not yet: notches placed for the ease (front and back balance marks), two-piece
   sleeves.
+- 2026-10-22, **PF-1.2**: edges and notches from the Pieces panel. Under the selected piece, a
+  section (folded at first, its title the edge and notch counts) lists each edge of the seam line
+  with its seam allowance (the piece's own until one is typed for the edge; a button back to the
+  piece's; "On fold" for the fold, which takes none) and an Add Notch button (a notch in the
+  edge's middle), then each notch, where it is (edge, % along) and a button to remove it; all
+  through `piece.set {edges}`, `piece.addNotch` and `piece.removeNotch`. Tests: 1 in
+  `panels/tests_pieces.rs` (the panel's first test). Not yet: notches and allowances picked on the
+  canvas, a notch moved along its edge, the notch kind chosen in the panel.

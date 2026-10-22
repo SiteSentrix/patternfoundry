@@ -5417,3 +5417,9 @@ file-filter	PDF for projector	PDF pro projektor
 	Less than the {min} to {max} mm it should take in: the sleeve may pull across the cap. Set sleeve_crown to {wanted} mm in Measurements to redraft the sleeve block with the ease in the middle.	Méně než {min} až {max} mm, které by měla přidržet: rukáv může v hlavici táhnout. Nastavte sleeve_crown na {wanted} mm v Mírách a základ rukávu se překreslí s přidržením uprostřed.
 	More than the {min} to {max} mm it should take in: the cap may pucker when it is set in. Set sleeve_crown to {wanted} mm in Measurements to redraft the sleeve block with the ease in the middle.	Více než {min} až {max} mm, které by měla přidržet: hlavice se může při všívání zvrásnit. Nastavte sleeve_crown na {wanted} mm v Mírách a základ rukávu se překreslí s přidržením uprostřed.
 	Within the {min} to {max} mm it should take in.	V rozmezí {min} až {max} mm, které by měla přidržet.
+	Edges: {edges}, notches: {notches}	Hrany: {edges}, zářezy: {notches}
+	Edge {n}	Hrana {n}
+	On fold	V lomu
+	Back to the piece's seam allowance	Zpět na švovou záložku dílu
+	A notch in the middle of the edge	Zářez uprostřed hrany
+	Notch on edge {edge}, {at}% along	Zářez na hraně {edge}, {at} % od začátku

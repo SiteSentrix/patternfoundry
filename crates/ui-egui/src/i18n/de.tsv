@@ -4999,3 +4999,9 @@ file-filter	PDF for projector	PDF für Projektor
 	Less than the {min} to {max} mm it should take in: the sleeve may pull across the cap. Set sleeve_crown to {wanted} mm in Measurements to redraft the sleeve block with the ease in the middle.	Weniger als die {min} bis {max} mm, die sie einhalten sollte: der Ärmel kann über der Kugel ziehen. Setzen Sie sleeve_crown in den Maßen auf {wanted} mm, um den Ärmelgrundschnitt mit der Mehrweite in der Mitte neu zu zeichnen.
 	More than the {min} to {max} mm it should take in: the cap may pucker when it is set in. Set sleeve_crown to {wanted} mm in Measurements to redraft the sleeve block with the ease in the middle.	Mehr als die {min} bis {max} mm, die sie einhalten sollte: die Kugel kann beim Einsetzen Falten werfen. Setzen Sie sleeve_crown in den Maßen auf {wanted} mm, um den Ärmelgrundschnitt mit der Mehrweite in der Mitte neu zu zeichnen.
 	Within the {min} to {max} mm it should take in.	Innerhalb der {min} bis {max} mm, die sie einhalten sollte.
+	Edges: {edges}, notches: {notches}	Kanten: {edges}, Knipsmarken: {notches}
+	Edge {n}	Kante {n}
+	On fold	Im Stoffbruch
+	Back to the piece's seam allowance	Zurück zur Nahtzugabe des Teils
+	A notch in the middle of the edge	Eine Knipsmarke in der Mitte der Kante
+	Notch on edge {edge}, {at}% along	Knipsmarke an Kante {edge}, bei {at} %

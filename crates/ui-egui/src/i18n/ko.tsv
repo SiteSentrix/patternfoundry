@@ -4995,3 +4995,9 @@ file-filter	PDF for projector	프로젝터용 PDF
 	Less than the {min} to {max} mm it should take in: the sleeve may pull across the cap. Set sleeve_crown to {wanted} mm in Measurements to redraft the sleeve block with the ease in the middle.	필요한 이세 {min}~{max} mm보다 적습니다: 소매산이 당길 수 있습니다. 치수에서 sleeve_crown을 {wanted} mm로 설정하면 이세가 범위 가운데가 되도록 소매 원형이 다시 그려집니다.
 	More than the {min} to {max} mm it should take in: the cap may pucker when it is set in. Set sleeve_crown to {wanted} mm in Measurements to redraft the sleeve block with the ease in the middle.	필요한 이세 {min}~{max} mm보다 많습니다: 달 때 소매산이 울 수 있습니다. 치수에서 sleeve_crown을 {wanted} mm로 설정하면 이세가 범위 가운데가 되도록 소매 원형이 다시 그려집니다.
 	Within the {min} to {max} mm it should take in.	필요한 이세 {min}~{max} mm 안에 있습니다.
+	Edges: {edges}, notches: {notches}	변: {edges}, 너치: {notches}
+	Edge {n}	변 {n}
+	On fold	골선
+	Back to the piece's seam allowance	패턴 조각의 시접으로 되돌리기
+	A notch in the middle of the edge	변 가운데에 너치
+	Notch on edge {edge}, {at}% along	변 {edge}의 너치, {at}% 위치

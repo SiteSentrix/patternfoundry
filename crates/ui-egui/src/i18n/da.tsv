@@ -5400,3 +5400,9 @@ file-filter	PDF for projector	PDF til projektor
 	Less than the {min} to {max} mm it should take in: the sleeve may pull across the cap. Set sleeve_crown to {wanted} mm in Measurements to redraft the sleeve block with the ease in the middle.	Mindre end de {min} til {max} mm, den bør holde ind: ærmet kan trække over kuplen. Sæt sleeve_crown til {wanted} mm i Mål for at tegne ærmegrundmønsteret igen med indholdet i midten.
 	More than the {min} to {max} mm it should take in: the cap may pucker when it is set in. Set sleeve_crown to {wanted} mm in Measurements to redraft the sleeve block with the ease in the middle.	Mere end de {min} til {max} mm, den bør holde ind: kuplen kan rynke, når den sys i. Sæt sleeve_crown til {wanted} mm i Mål for at tegne ærmegrundmønsteret igen med indholdet i midten.
 	Within the {min} to {max} mm it should take in.	Inden for de {min} til {max} mm, den bør holde ind.
+	Edges: {edges}, notches: {notches}	Kanter: {edges}, hak: {notches}
+	Edge {n}	Kant {n}
+	On fold	På fold
+	Back to the piece's seam allowance	Tilbage til delens sømrum
+	A notch in the middle of the edge	Et hak midt på kanten
+	Notch on edge {edge}, {at}% along	Hak på kant {edge}, {at} % henne

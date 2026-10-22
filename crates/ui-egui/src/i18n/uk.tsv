@@ -5012,3 +5012,9 @@ file-filter	PDF for projector	PDF для проєктора
 	Less than the {min} to {max} mm it should take in: the sleeve may pull across the cap. Set sleeve_crown to {wanted} mm in Measurements to redraft the sleeve block with the ease in the middle.	Менше за {min}–{max} мм, потрібні на посадку: рукав може тягнути по окату. Задайте sleeve_crown {wanted} мм у «Мірках», щоб перебудувати основу рукава з посадкою посередині діапазону.
 	More than the {min} to {max} mm it should take in: the cap may pucker when it is set in. Set sleeve_crown to {wanted} mm in Measurements to redraft the sleeve block with the ease in the middle.	Більше за {min}–{max} мм, потрібні на посадку: окат може морщити під час втачування. Задайте sleeve_crown {wanted} мм у «Мірках», щоб перебудувати основу рукава з посадкою посередині діапазону.
 	Within the {min} to {max} mm it should take in.	У межах {min}–{max} мм, потрібних на посадку.
+	Edges: {edges}, notches: {notches}	Краї: {edges}, надсічки: {notches}
+	Edge {n}	Край {n}
+	On fold	На згині
+	Back to the piece's seam allowance	Повернути припуск деталі
+	A notch in the middle of the edge	Надсічка посередині краю
+	Notch on edge {edge}, {at}% along	Надсічка на краю {edge}, на {at}%

@@ -5253,3 +5253,9 @@ file-filter	PDF for projector	用于投影仪的 PDF
 	Less than the {min} to {max} mm it should take in: the sleeve may pull across the cap. Set sleeve_crown to {wanted} mm in Measurements to redraft the sleeve block with the ease in the middle.	少于应有的 {min} 至 {max} mm 吃势：袖山可能会紧绷。在“量体”中把 sleeve_crown 设为 {wanted} mm，即可按居中的吃势重画袖原型。
 	More than the {min} to {max} mm it should take in: the cap may pucker when it is set in. Set sleeve_crown to {wanted} mm in Measurements to redraft the sleeve block with the ease in the middle.	多于应有的 {min} 至 {max} mm 吃势：上袖时袖山可能起皱。在“量体”中把 sleeve_crown 设为 {wanted} mm，即可按居中的吃势重画袖原型。
 	Within the {min} to {max} mm it should take in.	在应有的 {min} 至 {max} mm 吃势之内。
+	Edges: {edges}, notches: {notches}	边：{edges}，剪口：{notches}
+	Edge {n}	边 {n}
+	On fold	对折
+	Back to the piece's seam allowance	恢复为衣片的缝份
+	A notch in the middle of the edge	在边的中点加剪口
+	Notch on edge {edge}, {at}% along	边 {edge} 上的剪口，位于 {at}%

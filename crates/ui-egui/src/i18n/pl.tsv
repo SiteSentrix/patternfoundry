@@ -5270,3 +5270,9 @@ file-filter	PDF for projector	PDF do projektora
 	Less than the {min} to {max} mm it should take in: the sleeve may pull across the cap. Set sleeve_crown to {wanted} mm in Measurements to redraft the sleeve block with the ease in the middle.	Mniej niż {min}–{max} mm, które powinna przyjąć: rękaw może ciągnąć na główce. Ustaw sleeve_crown na {wanted} mm w Wymiarach, aby przerysować podstawę rękawa z luzem pośrodku.
 	More than the {min} to {max} mm it should take in: the cap may pucker when it is set in. Set sleeve_crown to {wanted} mm in Measurements to redraft the sleeve block with the ease in the middle.	Więcej niż {min}–{max} mm, które powinna przyjąć: główka może się marszczyć przy wszywaniu. Ustaw sleeve_crown na {wanted} mm w Wymiarach, aby przerysować podstawę rękawa z luzem pośrodku.
 	Within the {min} to {max} mm it should take in.	W granicach {min}–{max} mm, które powinna przyjąć.
+	Edges: {edges}, notches: {notches}	Krawędzie: {edges}, znaki montażowe: {notches}
+	Edge {n}	Krawędź {n}
+	On fold	Na złożeniu
+	Back to the piece's seam allowance	Wróć do zapasu na szew elementu
+	A notch in the middle of the edge	Znak montażowy w połowie krawędzi
+	Notch on edge {edge}, {at}% along	Znak montażowy na krawędzi {edge}, w {at}%
