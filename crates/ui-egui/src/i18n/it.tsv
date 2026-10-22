@@ -5026,3 +5026,9 @@ file-filter	PDF for projector	PDF per proiettore
 	Cut on fold	Tagliare in piega
 	Folded	Piegato
 	The straight edge laid on the fabric's fold: no allowance there	Il bordo dritto sulla piega del tessuto: lì niente margine di cucitura
+	Check Sleeve Ease	Controlla agio della manica
+	Sleeve Ease	Agio della manica
+	Crown {crown} mm, armhole {armhole} mm (back {back}, front {front}): the crown takes in {ease} mm ({percent}%).	Testa della manica {crown} mm, giromanica {armhole} mm (dietro {back}, davanti {front}): la testa assorbe {ease} mm ({percent}%).
+	Less than the {min} to {max} mm it should take in: the sleeve may pull across the cap. Set sleeve_crown to {wanted} mm in Measurements to redraft the sleeve block with the ease in the middle.	Meno dei {min}–{max} mm che dovrebbe assorbire: la manica può tirare sulla testa. Imposta sleeve_crown a {wanted} mm in Misure per ritracciare la manica base con l'agio a metà.
+	More than the {min} to {max} mm it should take in: the cap may pucker when it is set in. Set sleeve_crown to {wanted} mm in Measurements to redraft the sleeve block with the ease in the middle.	Più dei {min}–{max} mm che dovrebbe assorbire: la testa può fare pieghe quando la monti. Imposta sleeve_crown a {wanted} mm in Misure per ritracciare la manica base con l'agio a metà.
+	Within the {min} to {max} mm it should take in.	Entro i {min}–{max} mm che dovrebbe assorbire.

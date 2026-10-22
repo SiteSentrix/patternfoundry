@@ -5394,3 +5394,9 @@ file-filter	PDF for projector	PDF til projektor
 	Cut on fold	Klip på fold
 	Folded	Foldet
 	The straight edge laid on the fabric's fold: no allowance there	Den lige kant lagt på stoffets fold: ingen sømrum der
+	Check Sleeve Ease	Kontrollér ærmets indhold
+	Sleeve Ease	Ærmets indhold
+	Crown {crown} mm, armhole {armhole} mm (back {back}, front {front}): the crown takes in {ease} mm ({percent}%).	Ærmekuppel {crown} mm, ærmegab {armhole} mm (ryg {back}, forstykke {front}): kuplen holder {ease} mm ind ({percent} %).
+	Less than the {min} to {max} mm it should take in: the sleeve may pull across the cap. Set sleeve_crown to {wanted} mm in Measurements to redraft the sleeve block with the ease in the middle.	Mindre end de {min} til {max} mm, den bør holde ind: ærmet kan trække over kuplen. Sæt sleeve_crown til {wanted} mm i Mål for at tegne ærmegrundmønsteret igen med indholdet i midten.
+	More than the {min} to {max} mm it should take in: the cap may pucker when it is set in. Set sleeve_crown to {wanted} mm in Measurements to redraft the sleeve block with the ease in the middle.	Mere end de {min} til {max} mm, den bør holde ind: kuplen kan rynke, når den sys i. Sæt sleeve_crown til {wanted} mm i Mål for at tegne ærmegrundmønsteret igen med indholdet i midten.
+	Within the {min} to {max} mm it should take in.	Inden for de {min} til {max} mm, den bør holde ind.

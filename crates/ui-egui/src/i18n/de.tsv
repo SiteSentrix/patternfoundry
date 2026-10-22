@@ -4993,3 +4993,9 @@ file-filter	PDF for projector	PDF für Projektor
 	Folded	Gefaltet
 	The straight edge laid on the fabric's fold: no allowance there	Die gerade Kante am Stoffbruch: dort keine Nahtzugabe
 	Edge	Kante
+	Check Sleeve Ease	Ärmeleinsatz prüfen
+	Sleeve Ease	Ärmeleinhalteweite
+	Crown {crown} mm, armhole {armhole} mm (back {back}, front {front}): the crown takes in {ease} mm ({percent}%).	Armkugel {crown} mm, Armloch {armhole} mm (Rücken {back}, Vorderteil {front}): die Armkugel hält {ease} mm ein ({percent} %).
+	Less than the {min} to {max} mm it should take in: the sleeve may pull across the cap. Set sleeve_crown to {wanted} mm in Measurements to redraft the sleeve block with the ease in the middle.	Weniger als die {min} bis {max} mm, die sie einhalten sollte: der Ärmel kann über der Kugel ziehen. Setzen Sie sleeve_crown in den Maßen auf {wanted} mm, um den Ärmelgrundschnitt mit der Mehrweite in der Mitte neu zu zeichnen.
+	More than the {min} to {max} mm it should take in: the cap may pucker when it is set in. Set sleeve_crown to {wanted} mm in Measurements to redraft the sleeve block with the ease in the middle.	Mehr als die {min} bis {max} mm, die sie einhalten sollte: die Kugel kann beim Einsetzen Falten werfen. Setzen Sie sleeve_crown in den Maßen auf {wanted} mm, um den Ärmelgrundschnitt mit der Mehrweite in der Mitte neu zu zeichnen.
+	Within the {min} to {max} mm it should take in.	Innerhalb der {min} bis {max} mm, die sie einhalten sollte.

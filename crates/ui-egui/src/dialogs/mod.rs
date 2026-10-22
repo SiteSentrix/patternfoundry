@@ -88,6 +88,7 @@ pub mod save_swatch_library;
 pub mod script_check;
 mod shapes;
 pub mod shortcut_import;
+pub mod sleeve_ease;
 pub mod slices;
 pub mod spot_colors;
 pub(crate) mod svg_options;

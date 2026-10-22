@@ -5354,3 +5354,9 @@ file-filter	PDF for projector	PDF para proyector
 	Cut on fold	Cortar al doblez
 	Folded	Doblada
 	The straight edge laid on the fabric's fold: no allowance there	El borde recto colocado en el doblez de la tela: sin margen de costura ahí
+	Check Sleeve Ease	Comprobar embebido de manga
+	Sleeve Ease	Embebido de manga
+	Crown {crown} mm, armhole {armhole} mm (back {back}, front {front}): the crown takes in {ease} mm ({percent}%).	Copa {crown} mm, sisa {armhole} mm (espalda {back}, delantero {front}): la copa embebe {ease} mm ({percent} %).
+	Less than the {min} to {max} mm it should take in: the sleeve may pull across the cap. Set sleeve_crown to {wanted} mm in Measurements to redraft the sleeve block with the ease in the middle.	Menos de los {min} a {max} mm que debería embeber: la manga puede tirar en la copa. Ponga sleeve_crown en {wanted} mm en Medidas para volver a trazar la manga base con el embebido en el centro.
+	More than the {min} to {max} mm it should take in: the cap may pucker when it is set in. Set sleeve_crown to {wanted} mm in Measurements to redraft the sleeve block with the ease in the middle.	Más de los {min} a {max} mm que debería embeber: la copa puede fruncirse al montarla. Ponga sleeve_crown en {wanted} mm en Medidas para volver a trazar la manga base con el embebido en el centro.
+	Within the {min} to {max} mm it should take in.	Dentro de los {min} a {max} mm que debería embeber.

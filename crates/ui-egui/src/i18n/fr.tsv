@@ -5410,3 +5410,9 @@ file-filter	PDF for projector	PDF pour projecteur
 	Cut on fold	Couper au pli
 	Folded	Plié
 	The straight edge laid on the fabric's fold: no allowance there	Le bord droit posé sur le pli du tissu : pas de marge de couture à cet endroit
+	Check Sleeve Ease	Vérifier l'embu de manche
+	Sleeve Ease	Embu de manche
+	Crown {crown} mm, armhole {armhole} mm (back {back}, front {front}): the crown takes in {ease} mm ({percent}%).	Tête de manche {crown} mm, emmanchure {armhole} mm (dos {back}, devant {front}) : la tête de manche résorbe {ease} mm ({percent} %).
+	Less than the {min} to {max} mm it should take in: the sleeve may pull across the cap. Set sleeve_crown to {wanted} mm in Measurements to redraft the sleeve block with the ease in the middle.	Moins que les {min} à {max} mm qu'elle devrait résorber : la manche risque de tirer sur la tête. Réglez sleeve_crown sur {wanted} mm dans Mesures pour retracer la manche de base avec l'embu au milieu.
+	More than the {min} to {max} mm it should take in: the cap may pucker when it is set in. Set sleeve_crown to {wanted} mm in Measurements to redraft the sleeve block with the ease in the middle.	Plus que les {min} à {max} mm qu'elle devrait résorber : la tête risque de faire des plis au montage. Réglez sleeve_crown sur {wanted} mm dans Mesures pour retracer la manche de base avec l'embu au milieu.
+	Within the {min} to {max} mm it should take in.	Dans les {min} à {max} mm qu'elle devrait résorber.

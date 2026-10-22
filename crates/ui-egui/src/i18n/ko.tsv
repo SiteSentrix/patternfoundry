@@ -4989,3 +4989,9 @@ file-filter	PDF for projector	프로젝터용 PDF
 	Cut on fold	골선으로 재단
 	Folded	접은
 	The straight edge laid on the fabric's fold: no allowance there	원단 골선에 놓는 직선 변: 그곳엔 시접 없음
+	Check Sleeve Ease	소매 이세 확인
+	Sleeve Ease	소매 이세
+	Crown {crown} mm, armhole {armhole} mm (back {back}, front {front}): the crown takes in {ease} mm ({percent}%).	소매산 {crown} mm, 진동둘레 {armhole} mm (뒤 {back}, 앞 {front}): 소매산 이세 {ease} mm ({percent}%).
+	Less than the {min} to {max} mm it should take in: the sleeve may pull across the cap. Set sleeve_crown to {wanted} mm in Measurements to redraft the sleeve block with the ease in the middle.	필요한 이세 {min}~{max} mm보다 적습니다: 소매산이 당길 수 있습니다. 치수에서 sleeve_crown을 {wanted} mm로 설정하면 이세가 범위 가운데가 되도록 소매 원형이 다시 그려집니다.
+	More than the {min} to {max} mm it should take in: the cap may pucker when it is set in. Set sleeve_crown to {wanted} mm in Measurements to redraft the sleeve block with the ease in the middle.	필요한 이세 {min}~{max} mm보다 많습니다: 달 때 소매산이 울 수 있습니다. 치수에서 sleeve_crown을 {wanted} mm로 설정하면 이세가 범위 가운데가 되도록 소매 원형이 다시 그려집니다.
+	Within the {min} to {max} mm it should take in.	필요한 이세 {min}~{max} mm 안에 있습니다.

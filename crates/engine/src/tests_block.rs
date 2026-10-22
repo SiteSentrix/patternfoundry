@@ -194,3 +194,44 @@ fn the_trouser_block_drafts_inside_the_artboard_and_follows_the_hip() {
     let m = s.execute("block.measurements", &json!({"block": "trousers"})).unwrap();
     assert_eq!(m["missing"], json!([]));
 }
+
+#[test]
+fn the_sleeve_crown_is_checked_against_the_armhole() {
+    let mut s = measured();
+    s.execute("measure.set", &json!({"values": {"top_arm": 280, "sleeve_length": 590}})).unwrap();
+    let bodice = s.execute("block.bodice", &json!({"origin": [0, 0]})).unwrap();
+    let sleeve = s.execute("block.sleeve", &json!({"origin": [2000, 0]})).unwrap();
+    let r = s.execute("design.sleeveEase", &json!({})).unwrap();
+    let f = |k: &str| r[k].as_f64().unwrap();
+    // The crown is the sleeve block's own; the armhole the back's and the front's.
+    assert!((f("crown") - sleeve["crown"].as_f64().unwrap()).abs() < 0.05, "{r}");
+    assert!((f("armhole") - f("back") - f("front")).abs() < 0.15 && (f("ease") - (f("crown") - f("armhole"))).abs() < 0.15, "{r}");
+    // The same seams named by hand measure the same.
+    let (back, front, sl) = (bodice["ids"][0].clone(), bodice["ids"][1].clone(), sleeve["ids"][0].clone());
+    let named = s
+        .execute(
+            "design.sleeveEase",
+            &json!({"sleeve": {"id": sl, "from": 10, "to": 4}, "back": {"id": back, "from": 6, "to": 9}, "front": {"id": front, "from": 6, "to": 9}}),
+        )
+        .unwrap();
+    assert_eq!(named["crown"], r["crown"]);
+    assert_eq!(named["armhole"], r["armhole"]);
+    // The sleeve_crown it gives redrafts the sleeve with the ease in the middle of the range
+    // (1½ to 2 in for a classic sleeve).
+    s.execute("measure.set", &json!({"values": {"sleeve_crown": r["sleeveCrown"]}})).unwrap();
+    let r = s.execute("design.sleeveEase", &json!({})).unwrap();
+    assert_eq!(r["fits"], "ok", "{r}");
+    assert!((r["ease"].as_f64().unwrap() - 44.45).abs() < 0.15, "{r}");
+    assert_eq!((r["min"].as_f64(), r["max"].as_f64()), (Some(38.1), Some(50.8)));
+    // A shirt sleeve takes in less: the same crown is too full for one.
+    let shirt = s.execute("design.sleeveEase", &json!({"style": "shirt"})).unwrap();
+    assert_eq!(shirt["fits"], "full");
+    assert!(shirt["advice"].as_str().unwrap().contains("pucker"), "{shirt}");
+    let tight = s.execute("design.sleeveEase", &json!({"min": 60, "max": 70})).unwrap();
+    assert_eq!(tight["fits"], "tight");
+    assert!(s.execute("design.sleeveEase", &json!({"style": "dolman"})).is_err());
+    assert!(s.execute("design.sleeveEase", &json!({"min": 50, "max": 40})).is_err());
+    // A second sleeve block: which one is meant must be said.
+    s.execute("block.sleeve", &json!({"origin": [3000, 0]})).unwrap();
+    assert!(s.execute("design.sleeveEase", &json!({})).is_err());
+}

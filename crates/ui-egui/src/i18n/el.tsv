@@ -5363,3 +5363,9 @@ file-filter	PDF for projector	PDF για προβολέα
 	Cut on fold	Κοπή στο δίπλωμα
 	Folded	Διπλωμένο
 	The straight edge laid on the fabric's fold: no allowance there	Η ευθεία άκρη πάνω στο δίπλωμα του υφάσματος: χωρίς ραφή εκεί
+	Check Sleeve Ease	Έλεγχος χαλαρότητας μανικιού
+	Sleeve Ease	Χαλαρότητα μανικιού
+	Crown {crown} mm, armhole {armhole} mm (back {back}, front {front}): the crown takes in {ease} mm ({percent}%).	Κορυφή μανικιού {crown} mm, αμπαδούρα {armhole} mm (πλάτη {back}, μπροστά {front}): η κορυφή μαζεύει {ease} mm ({percent}%).
+	Less than the {min} to {max} mm it should take in: the sleeve may pull across the cap. Set sleeve_crown to {wanted} mm in Measurements to redraft the sleeve block with the ease in the middle.	Λιγότερο από τα {min} έως {max} mm που πρέπει να μαζεύει: το μανίκι μπορεί να τραβάει στην κορυφή. Ορίστε το sleeve_crown στα {wanted} mm στις Μετρήσεις για να ξανασχεδιαστεί το βασικό μανίκι με τη χαλαρότητα στη μέση.
+	More than the {min} to {max} mm it should take in: the cap may pucker when it is set in. Set sleeve_crown to {wanted} mm in Measurements to redraft the sleeve block with the ease in the middle.	Περισσότερο από τα {min} έως {max} mm που πρέπει να μαζεύει: η κορυφή μπορεί να ζαρώσει όταν ραφτεί. Ορίστε το sleeve_crown στα {wanted} mm στις Μετρήσεις για να ξανασχεδιαστεί το βασικό μανίκι με τη χαλαρότητα στη μέση.
+	Within the {min} to {max} mm it should take in.	Μέσα στα {min} έως {max} mm που πρέπει να μαζεύει.

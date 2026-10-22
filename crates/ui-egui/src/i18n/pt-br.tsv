@@ -5329,3 +5329,9 @@ file-filter	PDF for projector	PDF para projetor
 	Cut on fold	Cortar na dobra
 	Folded	Dobrado
 	The straight edge laid on the fabric's fold: no allowance there	A borda reta colocada na dobra do tecido: sem margem de costura ali
+	Check Sleeve Ease	Verificar folga da manga
+	Sleeve Ease	Folga da manga
+	Crown {crown} mm, armhole {armhole} mm (back {back}, front {front}): the crown takes in {ease} mm ({percent}%).	Cabeça da manga {crown} mm, cava {armhole} mm (costas {back}, frente {front}): a cabeça embebe {ease} mm ({percent}%).
+	Less than the {min} to {max} mm it should take in: the sleeve may pull across the cap. Set sleeve_crown to {wanted} mm in Measurements to redraft the sleeve block with the ease in the middle.	Menos que os {min} a {max} mm que deveria embeber: a manga pode repuxar na cabeça. Defina sleeve_crown como {wanted} mm em Medidas para redesenhar a manga base com a folga no meio.
+	More than the {min} to {max} mm it should take in: the cap may pucker when it is set in. Set sleeve_crown to {wanted} mm in Measurements to redraft the sleeve block with the ease in the middle.	Mais que os {min} a {max} mm que deveria embeber: a cabeça pode franzir ao ser pregada. Defina sleeve_crown como {wanted} mm em Medidas para redesenhar a manga base com a folga no meio.
+	Within the {min} to {max} mm it should take in.	Dentro dos {min} a {max} mm que deveria embeber.
