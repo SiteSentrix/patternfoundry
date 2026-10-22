@@ -562,3 +562,15 @@ is built on, plus a pattern mode, the way StitchFoundry adds embroidery:
   can hold. Tests: 1 in `tests_store.rs` (saved, listed without values, loaded into another
   session's pattern and undone, damaged files skipped, deleted), 1 in the panel. Not yet: a set
   chosen when drafting a block, sets synced between the user's computers (only if they ask).
+- 2026-10-22, **PF-5.18**: dart shortening. **Pattern › Shorten Dart…** (`design.shortenDart`)
+  moves a dart's point along its centre line toward its opening, 25 mm by default (a bust dart is
+  ended about 1 in short of the bust point), the legs straight from the same ends so the seam it
+  opens on stays as it is, as Made by Rae shows it ("a new point on the dart's center line one inch
+  away from the original point", the legs redrawn with a straight edge:
+  https://www.made-by-rae.com/blog/2015/07/bust-dart-adjustment-how-to-shorten-or-lengthen-a-dart);
+  less than 0 lengthens it. The point is `apex` or the one selected point; a point whose legs open
+  a right angle or wider, curved legs, and a shortening as long as the dart are refused. Tests: 1
+  in `pf-core` (along the centre line, the legs' ends kept, lengthened back, refusals), 1 in
+  `tests_design.rs` (the bodice block's shoulder bust dart ended 25 mm short of the bust point,
+  the waist dart's point at the same bust point kept, one undo step). Not yet: curved dart legs, the
+  new point dragged on the canvas.
