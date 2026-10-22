@@ -45,6 +45,7 @@ pub mod library;
 pub mod linkfiles;
 pub mod links;
 mod live;
+mod marker;
 pub(crate) mod maskedit;
 pub(crate) mod measure;
 pub(crate) mod menucmds;
@@ -220,6 +221,7 @@ pub fn command_specs() -> &'static [CommandSpec] {
         v.extend(block::specs());
         v.extend(design::specs());
         v.extend(grade::specs());
+        v.extend(marker::specs());
         v.extend(object::specs());
         v.extend(path::specs());
         v.extend(select::specs());

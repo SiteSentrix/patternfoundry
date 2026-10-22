@@ -5355,3 +5355,8 @@ file-filter	PDF for projector	PDF για προβολέα
 @msg	no files here	δεν υπάρχουν αρχεία εδώ
 @msg	At most 6 photos: remove one first.	Το πολύ 6 φωτογραφίες: αφαιρέστε πρώτα μία.
 @msg	This photo can't be read: save or send it as a JPEG (on an iPhone: Settings › Camera › Formats › Most Compatible).	Αυτή η φωτογραφία δεν μπορεί να διαβαστεί: αποθηκεύστε ή στείλτε τη ως JPEG (σε iPhone: Ρυθμίσεις › Κάμερα › Μορφές › Πιο συμβατό).
+	Make Marker	Δημιουργία σχεδίου κοπής
+	Make Marker…	Δημιουργία σχεδίου κοπής…
+	Gap	Κενό
+	Precision	Ακρίβεια
+	One Way	Μία κατεύθυνση

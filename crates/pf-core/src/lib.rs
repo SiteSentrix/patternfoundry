@@ -16,6 +16,7 @@
 //!   skirt, the one-piece sleeve, the trousers).
 //! * [`design`] – design tools on an outline: pivot a dart elsewhere, split a piece in two.
 //! * [`grade`] – grade rules: how a piece's points move from size to size.
+//! * [`marker`] – marker making: every piece to cut laid on the fabric's width, closely.
 //! * [`tiling`] – what a printed page of a tiled pattern carries: its name, overlap lines and the
 //!   10 cm and 1 in test squares.
 //!
@@ -30,6 +31,7 @@ pub mod design;
 pub mod draft;
 pub mod expr;
 pub mod grade;
+pub mod marker;
 pub mod marks;
 pub mod measure;
 pub mod piece;

@@ -5367,3 +5367,8 @@ file-filter	PDF for projector	PDF за проектор
 @msg	no files here	тук няма файлове
 @msg	At most 6 photos: remove one first.	Най-много 6 снимки: първо премахнете една.
 @msg	This photo can't be read: save or send it as a JPEG (on an iPhone: Settings › Camera › Formats › Most Compatible).	Тази снимка не може да бъде прочетена: запазете я или я изпратете като JPEG (на iPhone: Настройки › Камера › Формати › Най-съвместим).
+	Make Marker	Създаване на кройна подредба
+	Make Marker…	Създаване на кройна подредба…
+	Gap	Отстояние
+	Precision	Точност
+	One Way	В една посока

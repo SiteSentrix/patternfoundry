@@ -4998,3 +4998,8 @@ file-filter	PDF for projector	PDF для проєктора
 @msg	The image is too large to send: crop it, or send a smaller copy.	Зображення завелике для надсилання: обріжте його або надішліть меншу копію.
 @msg	At most 6 photos: remove one first.	Не більше 6 фото: спершу приберіть одне.
 @msg	This photo can't be read: save or send it as a JPEG (on an iPhone: Settings › Camera › Formats › Most Compatible).	Це фото не читається: збережіть або надішліть його як JPEG (на iPhone: Параметри › Камера › Формати › Найсумісніший).
+	Make Marker	Створити розкладку
+	Make Marker…	Створити розкладку…
+	Gap	Зазор
+	Precision	Точність
+	One Way	В одному напрямку

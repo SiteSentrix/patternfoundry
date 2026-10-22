@@ -5311,3 +5311,8 @@ file-filter	PDF for projector	PDF პროექტორისთვის
 @msg	no files here	აქ ფაილები არ არის
 @msg	At most 6 photos: remove one first.	მაქსიმუმ 6 ფოტო: ჯერ ერთი წაშალეთ.
 @msg	This photo can't be read: save or send it as a JPEG (on an iPhone: Settings › Camera › Formats › Most Compatible).	ამ ფოტოს წაკითხვა შეუძლებელია: შეინახეთ ან გაგზავნეთ JPEG ფორმატში (iPhone-ზე: Settings › Camera › Formats › Most Compatible).
+	Make Marker	გამოჭრის განლაგების შექმნა
+	Make Marker…	გამოჭრის განლაგების შექმნა…
+	Gap	დაშორება
+	Precision	სიზუსტე
+	One Way	ერთი მიმართულებით

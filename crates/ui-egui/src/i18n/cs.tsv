@@ -5403,3 +5403,8 @@ file-filter	PDF for projector	PDF pro projektor
 @msg	The image is too large to send: crop it, or send a smaller copy.	Obraz je příliš velký na odeslání: ořízněte ho nebo pošlete menší kopii.
 @msg	At most 6 photos: remove one first.	Nejvýš 6 fotek: nejdřív jednu odeberte.
 @msg	This photo can't be read: save or send it as a JPEG (on an iPhone: Settings › Camera › Formats › Most Compatible).	Tuto fotku nelze přečíst: uložte nebo pošlete ji jako JPEG (na iPhonu: Nastavení › Fotoaparát › Formáty › Nejkompatibilnější).
+	Make Marker	Vytvořit polohu střihu
+	Make Marker…	Vytvořit polohu střihu…
+	Gap	Mezera
+	Precision	Přesnost
+	One Way	Jedním směrem

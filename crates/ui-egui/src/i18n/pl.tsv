@@ -5256,3 +5256,8 @@ file-filter	PDF for projector	PDF do projektora
 @msg	no files here	brak plików
 @msg	At most 6 photos: remove one first.	Najwyżej 6 zdjęć: najpierw usuń jedno.
 @msg	This photo can't be read: save or send it as a JPEG (on an iPhone: Settings › Camera › Formats › Most Compatible).	Nie można odczytać tego zdjęcia: zapisz je lub wyślij jako JPEG (na iPhonie: Ustawienia › Aparat › Formaty › Najbardziej zgodne).
+	Make Marker	Utwórz układ kroju
+	Make Marker…	Utwórz układ kroju…
+	Gap	Odstęp
+	Precision	Dokładność
+	One Way	W jednym kierunku

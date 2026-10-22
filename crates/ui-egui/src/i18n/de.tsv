@@ -4984,3 +4984,8 @@ file-filter	PDF for projector	PDF für Projektor
 @msg	The image is too large to send: crop it, or send a smaller copy.	Das Bild ist zu groß zum Senden: Beschneiden Sie es oder senden Sie eine kleinere Kopie.
 @msg	At most 6 photos: remove one first.	Höchstens 6 Fotos: Entfernen Sie zuerst eines.
 @msg	This photo can't be read: save or send it as a JPEG (on an iPhone: Settings › Camera › Formats › Most Compatible).	Dieses Foto kann nicht gelesen werden: Speichern oder senden Sie es als JPEG (auf dem iPhone: Einstellungen › Kamera › Formate › Maximale Kompatibilität).
+	Make Marker	Zuschnittplan erstellen
+	Make Marker…	Zuschnittplan erstellen…
+	Gap	Abstand
+	Precision	Genauigkeit
+	One Way	In eine Richtung
