@@ -1282,6 +1282,8 @@ pub struct Session {
     /// Where the saved PDF presets are kept, one file each; `None`: only for the session
     /// ([`Session::attach_pdf_preset_store`]).
     pdf_preset_dir: Option<std::path::PathBuf>,
+    /// Where the user's measurement sets are kept (PF-3.4), when an app attached a folder.
+    measurement_dir: Option<std::path::PathBuf>,
     /// Where the ICC profiles `color.loadProfile` loads are kept; `None`: only for the process
     /// ([`Session::attach_profile_store`]).
     profile_dir: Option<std::path::PathBuf>,
@@ -1381,6 +1383,7 @@ impl Session {
             style_libraries: Default::default(),
             libraries: Default::default(),
             pdf_preset_dir: None,
+            measurement_dir: None,
             profile_dir: None,
             plugin_dir: None,
             recent_urls: vec![],

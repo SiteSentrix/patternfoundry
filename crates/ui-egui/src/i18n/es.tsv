@@ -5374,3 +5374,12 @@ file-filter	PDF for projector	PDF para proyector
 	Arrows move the pattern 1 cm (Shift: 1 mm) · M mirrors it · C calibrates · Escape leaves	Las flechas mueven el patrón 1 cm (Mayús: 1 mm) · M lo refleja · C calibra · Esc sale
 @msg	no pattern pieces to project: make the outlines pattern pieces first (Pattern › Make Pattern Piece)	no hay piezas de patrón que proyectar: convierta primero los contornos en piezas de patrón (Patrón › Crear pieza de patrón)
 @msg	scale: screen points per mm, more than 0	escala: puntos de pantalla por mm, más de 0
+	Delete Saved Measurements	Eliminar medidas guardadas
+	Load Measurements	Cargar medidas
+	My Measurements	Mis medidas
+	Save to My Measurements	Guardar en Mis medidas
+	Delete from this computer	Eliminar de este equipo
+	Kept on this computer only, to load into any pattern	Se guardan solo en este equipo, para cargarlas en cualquier patrón
+	Load	Cargar
+	Use these measurements in this pattern	Usar estas medidas en este patrón
+	Whose (Me)	De quién (Yo)

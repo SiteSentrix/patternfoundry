@@ -5046,3 +5046,12 @@ file-filter	PDF for projector	PDF per proiettore
 	Arrows move the pattern 1 cm (Shift: 1 mm) · M mirrors it · C calibrates · Escape leaves	Le frecce spostano il cartamodello di 1 cm (Maiusc: 1 mm) · M lo specchia · C calibra · Esc esce
 @msg	no pattern pieces to project: make the outlines pattern pieces first (Pattern › Make Pattern Piece)	nessun pezzo da proiettare: trasforma prima i contorni in pezzi del cartamodello (Cartamodello › Crea pezzo)
 @msg	scale: screen points per mm, more than 0	scala: punti schermo per mm, più di 0
+	Delete Saved Measurements	Elimina misure salvate
+	Load Measurements	Carica misure
+	My Measurements	Le mie misure
+	Save to My Measurements	Salva in Le mie misure
+	Delete from this computer	Elimina da questo computer
+	Kept on this computer only, to load into any pattern	Conservate solo su questo computer, da caricare in qualsiasi cartamodello
+	Load	Carica
+	Use these measurements in this pattern	Usa queste misure in questo cartamodello
+	Whose (Me)	Di chi (Io)

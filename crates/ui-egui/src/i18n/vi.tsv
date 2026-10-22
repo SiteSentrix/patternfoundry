@@ -5026,3 +5026,12 @@ file-filter	PDF for projector	PDF cho máy chiếu
 	Arrows move the pattern 1 cm (Shift: 1 mm) · M mirrors it · C calibrates · Escape leaves	Phím mũi tên dời rập 1 cm (Shift: 1 mm) · M lật gương · C hiệu chỉnh · Escape thoát
 @msg	no pattern pieces to project: make the outlines pattern pieces first (Pattern › Make Pattern Piece)	không có chi tiết rập để chiếu: hãy biến các đường viền thành chi tiết rập trước (Rập › Tạo chi tiết rập)
 @msg	scale: screen points per mm, more than 0	tỷ lệ: điểm màn hình trên mm, lớn hơn 0
+	Delete Saved Measurements	Xóa số đo đã lưu
+	Load Measurements	Tải số đo
+	My Measurements	Số đo của tôi
+	Save to My Measurements	Lưu vào Số đo của tôi
+	Delete from this computer	Xóa khỏi máy tính này
+	Kept on this computer only, to load into any pattern	Chỉ lưu trên máy tính này, để tải vào bất kỳ rập nào
+	Load	Tải
+	Use these measurements in this pattern	Dùng các số đo này trong rập này
+	Whose (Me)	Của ai (Tôi)

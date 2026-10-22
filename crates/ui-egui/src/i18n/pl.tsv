@@ -5284,3 +5284,12 @@ file-filter	PDF for projector	PDF do projektora
 	Arrows move the pattern 1 cm (Shift: 1 mm) · M mirrors it · C calibrates · Escape leaves	Strzałki przesuwają wykrój o 1 cm (Shift: 1 mm) · M odbija go · C kalibruje · Escape kończy
 @msg	no pattern pieces to project: make the outlines pattern pieces first (Pattern › Make Pattern Piece)	brak elementów wykroju do wyświetlenia: najpierw zamień obrysy w elementy wykroju (Wykrój › Utwórz element wykroju)
 @msg	scale: screen points per mm, more than 0	skala: punkty ekranu na mm, więcej niż 0
+	Delete Saved Measurements	Usuń zapisane wymiary
+	Load Measurements	Wczytaj wymiary
+	My Measurements	Moje wymiary
+	Save to My Measurements	Zapisz w Moich wymiarach
+	Delete from this computer	Usuń z tego komputera
+	Kept on this computer only, to load into any pattern	Przechowywane tylko na tym komputerze, do wczytania w dowolnym wykroju
+	Load	Wczytaj
+	Use these measurements in this pattern	Użyj tych wymiarów w tym wykroju
+	Whose (Me)	Czyje (Moje)
