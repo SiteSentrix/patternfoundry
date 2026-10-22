@@ -236,9 +236,53 @@ fn every_context_label_is_a_menu_string() {
     app.run("layer.setProps", json!({"ids": [a.0], "locked": true})).unwrap();
     app.ui.context_locked = Some((app.session.active().unwrap().uid, vec![a]));
     shown.extend(labels(&menus::context_items(&app)));
+    // A pattern piece right-clicked.
+    app.ui.context_locked = None;
+    let c = rect(&mut app, 200.0, 0.0);
+    app.run("piece.make", json!({"ids": [c.0]})).unwrap();
+    app.ui.context_point = Some((app.session.active().unwrap().uid, [250.0, 0.0]));
+    shown.extend(labels(&menus::context_items(&app)));
     let missing: Vec<_> = shown.iter().filter(|l| !strings.contains(**l)).collect();
     assert!(missing.is_empty(), "context menu labels missing from menu_strings: {missing:?}");
     for label in menus::CONTEXT_LABELS {
         assert!(shown.contains(label), "`{label}` is listed but the context menu never shows it");
     }
+}
+
+/// A pattern piece right-clicked on its seam line: Add Notch Here puts a notch on the nearest edge
+/// where the click was, Cut on Fold Here makes that edge the fold; away from the seam line, a
+/// refusal.
+#[test]
+fn a_piece_right_clicked_on_its_seam_line_takes_a_notch_or_a_fold_there() {
+    let mut app = app();
+    let r = rect(&mut app, 50.0, 50.0);
+    let id = app.run("piece.make", json!({"ids": [r.0]})).unwrap()["ids"][0].as_u64().unwrap();
+    app.run("select.set", json!({"ids": [id]})).unwrap();
+    let uid = app.session.active().unwrap().uid;
+    // On the top edge, a quarter along; then the menu item as the menu runs it.
+    app.ui.context_point = Some((uid, [75.0, 51.0]));
+    let item = |app: &VectorcraftApp, label: &str| {
+        menus::context_items(app)
+            .into_iter()
+            .find_map(|i| match i {
+                Item::Cmd(l, id, params) if l == label => Some((id.to_string(), params)),
+                _ => None,
+            })
+            .unwrap()
+    };
+    let (cmd, p) = item(&app, "Add Notch Here");
+    menus::invoke(&mut app, &cmd, p);
+    let info = app.run("piece.info", json!({"id": id})).unwrap();
+    assert_eq!(info["notches"][0]["edge"], 0);
+    assert!((info["notches"][0]["at"].as_f64().unwrap() - 0.25).abs() < 1e-6, "{info}");
+    // The left side on the fold.
+    app.ui.context_point = Some((uid, [48.0, 100.0]));
+    let (cmd, p) = item(&app, "Cut on Fold Here");
+    menus::invoke(&mut app, &cmd, p);
+    assert_eq!(app.run("piece.info", json!({"id": id})).unwrap()["fold"], 3);
+    // In the middle of the piece, far from the seam line: refused, nothing added.
+    assert!(app.run("piece.addNotch", json!({"id": id, "point": [100.0, 100.0]})).is_err());
+    // Nothing selected, or a plain path: no such items.
+    app.run("select.set", json!({"ids": []})).unwrap();
+    assert!(!labels(&menus::context_items(&app)).contains(&"Add Notch Here"));
 }

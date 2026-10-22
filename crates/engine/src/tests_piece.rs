@@ -211,3 +211,18 @@ fn a_piece_exports_with_its_cutting_line_notches_grainline_and_label() {
     assert!(svg.contains("stroke-dasharray"), "the seam line is dashed: {svg}");
     assert!(svg.contains("Yoke"), "{svg}");
 }
+
+#[test]
+fn a_notch_or_the_fold_goes_where_the_seam_line_is_picked() {
+    let (mut s, id) = square();
+    let piece = make(&mut s, json!({"ids": [id.0]}));
+    // Just outside the top edge, three quarters along it, within the allowance.
+    let r = s.execute("piece.addNotch", &json!({"id": piece.0, "point": [cm10() * 0.75, -mm_to_pt(4.0)]})).unwrap();
+    assert_eq!(r["notches"][0]["edge"], 0);
+    assert!((r["notches"][0]["at"].as_f64().unwrap() - 0.75).abs() < 1e-6, "{r}");
+    // Too far from the seam line: refused.
+    assert!(s.execute("piece.addNotch", &json!({"id": piece.0, "point": [cm10() / 2.0, cm10() / 2.0]})).is_err());
+    // The left side on the fold, picked just inside it.
+    let r = s.execute("piece.set", &json!({"id": piece.0, "foldAt": [mm_to_pt(1.0), cm10() / 2.0]})).unwrap();
+    assert_eq!(r["fold"], 3);
+}

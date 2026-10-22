@@ -562,3 +562,12 @@ is built on, plus a pattern mode, the way StitchFoundry adds embroidery:
   can hold. Tests: 1 in `tests_store.rs` (saved, listed without values, loaded into another
   session's pattern and undone, damaged files skipped, deleted), 1 in the panel. Not yet: a set
   chosen when drafting a block, sets synced between the user's computers (only if they ask).
+- 2026-10-22, **PF-1.3**: notches and the fold picked on the canvas. Right-click a pattern piece
+  on or near its seam line: **Add Notch Here** puts a notch on the nearest edge, where the click
+  was along it; **Cut on Fold Here** makes the nearest straight edge the fold. The commands take
+  the point (`piece.addNotch {point}`, `piece.set {foldAt}`): the nearest edge of the seam line,
+  within its allowance and 5 mm more, else a refusal (a click in the middle of the piece adds
+  nothing). The right-click's document point is kept while the menu is open. Tests: 1 in
+  `tests_piece.rs`, 1 in `tests_contextmenu.rs` (the items as the menu runs them, the refusal, no
+  items without a piece). Not yet: a Notch tool that adds one per click, a notch dragged along its
+  edge, allowances picked per edge on the canvas, grade points picked on the canvas.
