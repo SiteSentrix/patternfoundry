@@ -3,7 +3,8 @@
 //! true to scale in any reader. Each piece's cutting line is a closed red hairline path in the
 //! `cut` group, its notches short blue cuts in `notches`, and (with `marks`, the default) its
 //! seam line (dashed), grainline, the lines drawn inside it and its name and cut count in black in
-//! `draw`, which a cutter can be told to skip or to draw with a pen.
+//! `draw`, which a cutter can be told to skip or to draw with a pen. A piece cut on the fold has its
+//! fold dashed in `draw`; with `openFolds` it is cut opened out, whole, where it is drawn (PF-7.4).
 
 use serde_json::Value;
 use vectorcraft_doc::Document;
@@ -25,6 +26,12 @@ pub(super) const OPTIONS: &[FormatOption] = &[
         ty: "boolean",
         default: "true",
         description: "also the seam lines, grainlines, lines inside the pieces and their names (group `draw`, not cut)",
+    },
+    FormatOption {
+        name: "openFolds",
+        ty: "boolean",
+        default: "false",
+        description: "pieces cut on the fold cut opened out, whole, where they are drawn (leave room beside the fold); false: the half, its fold dashed in `draw`",
     },
     FormatOption {
         name: "size",
@@ -71,6 +78,8 @@ pub(super) fn encode(doc: &Document, p: &Value) -> Result<Encoded> {
     let marks = p.get("marks").and_then(Value::as_bool).unwrap_or(true);
     // The pieces in points, y down (as the document is).
     let pieces = super::aama::pieces(doc)?;
+    let pieces: Vec<pf_aama::Piece> =
+        if p.get("openFolds").and_then(Value::as_bool).unwrap_or(false) { pieces.iter().map(super::aama::opened).collect() } else { pieces };
     if pieces.is_empty() {
         return Err(bad(C, "no pattern pieces to export: make the outlines pattern pieces first (Pattern › Make Pattern Piece)"));
     }
@@ -131,6 +140,9 @@ pub(super) fn encode(doc: &Document, p: &Value) -> Result<Encoded> {
             if let Some([a, b]) = piece.grain {
                 out.push_str(&format!("    <path d=\"{}\"/>\n", d(&[at(a), at(b)], false)));
             }
+            if let Some([a, b]) = piece.mirror {
+                out.push_str(&format!("    <path d=\"{}\" stroke-dasharray=\"6 3\" data-name=\"fold\"/>\n", d(&[at(a), at(b)], false)));
+            }
             for l in piece.internal.iter().filter(|l| l.len() >= 2) {
                 let pts: Vec<[f64; 2]> = l.iter().map(|q| at(*q)).collect();
                 out.push_str(&format!("    <path d=\"{}\"/>\n", d(&pts, false)));
@@ -138,6 +150,9 @@ pub(super) fn encode(doc: &Document, p: &Value) -> Result<Encoded> {
             let t = at(piece.text_at);
             let cut = piece.quantity.0 + piece.quantity.1;
             let mut second = format!("Cut {cut}");
+            if piece.mirror.is_some() {
+                second.push_str(" on fold");
+            }
             if piece.quantity.1 > 0 {
                 second.push_str(" (mirrored pairs)");
             }

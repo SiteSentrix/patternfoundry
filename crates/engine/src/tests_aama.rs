@@ -114,3 +114,24 @@ fn unnamed_pieces_go_by_their_block_part_and_every_name_is_once_in_the_file() {
         assert!(dxf.contains(&format!("\nPiece Name: {name}\n")), "{name}");
     }
 }
+
+#[test]
+fn a_piece_cut_on_the_fold_is_the_half_with_its_mirror_line_on_layer_6() {
+    let mut s = square_piece(1, false);
+    // The left side (edge 3) on the fold.
+    s.execute("piece.set", &json!({"fold": 3})).unwrap();
+    let dxf = export(&mut s, json!({"format": "aama"}));
+    let verts = |layer: &str| entities(&dxf, "VERTEX", layer);
+    let xs = |layer: &str| verts(layer).iter().flat_map(|e| values(e, 10)).collect::<Vec<_>>();
+    // The half: 110 mm across (no allowance on the fold), the seam line still 100.
+    assert!((span(&xs("1")) - 110.0).abs() < 1e-6 && (span(&xs("14")) - 100.0).abs() < 1e-6, "{:?}", xs("1"));
+    // The mirror line: down the fold, where the cutting line and the seam line meet, 100 mm long.
+    let m = entities(&dxf, "LINE", "6");
+    assert_eq!(m.len(), 1);
+    let (x, y) = ([values(&m[0], 10)[0], values(&m[0], 11)[0]], [values(&m[0], 20)[0], values(&m[0], 21)[0]]);
+    let left = xs("1").iter().cloned().fold(f64::INFINITY, f64::min);
+    assert!((x[0] - left).abs() < 1e-6 && (x[1] - left).abs() < 1e-6 && ((y[0] - y[1]).abs() - 100.0).abs() < 1e-6, "{x:?} {y:?}");
+    // Without a fold there is none.
+    s.execute("piece.set", &json!({"fold": null})).unwrap();
+    assert!(entities(&export(&mut s, json!({"format": "aama"})), "LINE", "6").is_empty());
+}

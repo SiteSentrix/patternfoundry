@@ -2,7 +2,8 @@
 //! as an ASTM D6673 file for cutting rooms, grading and nesting systems
 //! ([`pf_aama::write`]). Each piece gives its cutting line (the boundary), its seam
 //! line (the sew line), its notches (on the cutting line, cut toward the seam line), its grainline,
-//! and the paths the user added inside it as internal lines; in millimetres, y up, every piece
+//! the fold it is cut on as its mirror line (PF-7.4, the piece written as the half), and the
+//! paths the user added inside it as internal lines; in millimetres, y up, every piece
 //! where it is in the document relative to the others.
 
 use pf_aama::{Mm, Notch as AamaNotch, Piece as AamaPiece, Style as AamaStyle, Version};
@@ -133,6 +134,14 @@ pub(super) fn pieces(doc: &Document) -> Result<Vec<AamaPiece>> {
             }
         }
         let grain = piece.grainline.or_else(|| pf_core::marks::default_grainline(&outline));
+        // The fold: the seam line's fold edge, which the cutting line runs along.
+        let mirror = piece.fold.and_then(|e| {
+            let sp = path.subpaths.iter().find(|sp| sp.closed)?;
+            (e < sp.segment_count()).then(|| {
+                let seg = sp.segment(e);
+                [[seg.p0.x, seg.p0.y], [seg.p3.x, seg.p3.y]]
+            })
+        });
         let mut internal = Vec::new();
         for c in children.iter().filter(|c| mark_of(c).is_none()) {
             internal_lines(c, &mut internal);
@@ -152,6 +161,7 @@ pub(super) fn pieces(doc: &Document) -> Result<Vec<AamaPiece>> {
                 .map(|(at, inward, depth, width)| AamaNotch { at: mm(at), angle: (-inward.y).atan2(inward.x).to_degrees(), depth, width })
                 .collect(),
             grain: grain.map(|g| [mm(g.from), mm(g.to)]),
+            mirror,
             internal: internal.iter().map(|l| l.iter().map(|p| mm(*p)).collect()).collect(),
             text_at: mm(text_at),
         });
@@ -168,6 +178,40 @@ pub(super) fn pieces(doc: &Document) -> Result<Vec<AamaPiece>> {
         seen.push(p.name.clone());
     }
     Ok(out)
+}
+
+/// The whole of a piece cut on the fold (one with a mirror line), in points, y down: its
+/// cutting line opened out across the fold, and its sew line, notches and internal lines on both
+/// halves; the piece as it is when it has no mirror line or can't be opened out.
+pub(super) fn opened(piece: &AamaPiece) -> AamaPiece {
+    let Some([a, b]) = piece.mirror else { return piece.clone() };
+    let (pa, pb) = (Pt::new(a[0], a[1]), Pt::new(b[0], b[1]));
+    let pts = |v: &[Mm]| v.iter().map(|q| Pt::new(q[0], q[1])).collect::<Vec<_>>();
+    let mm = |v: Vec<Pt>| v.into_iter().map(|q| [q.x, q.y]).collect::<Vec<Mm>>();
+    let Some(boundary) = pf_core::marker::opened_out(&pts(&piece.boundary), pa, pb) else { return piece.clone() };
+    let Some(d) = (pb - pa).unit() else { return piece.clone() };
+    let flip = |q: Mm| {
+        let v = Pt::new(q[0], q[1]) - pa;
+        let r = pa + d * (2.0 * v.dot(d)) - v;
+        [r.x, r.y]
+    };
+    let mut out = piece.clone();
+    out.boundary = mm(boundary);
+    out.mirror = None;
+    if piece.sew_line.len() >= 3 {
+        out.sew_line = pf_core::marker::opened_out(&pts(&piece.sew_line), pa, pb).map(mm).unwrap_or_else(|| piece.sew_line.clone());
+    }
+    for n in &piece.notches {
+        // The direction turns over too: its angle is counter-clockwise with y up, y runs down.
+        let (s, c) = n.angle.to_radians().sin_cos();
+        let v = Pt::new(c, -s);
+        let r = d * (2.0 * v.dot(d)) - v;
+        out.notches.push(AamaNotch { at: flip(n.at), angle: (-r.y).atan2(r.x).to_degrees(), ..*n });
+    }
+    out.internal.extend(piece.internal.iter().map(|l| l.iter().map(|q| flip(*q)).collect()));
+    // The fold itself, drawn inside the whole piece.
+    out.internal.push(vec![a, b]);
+    out
 }
 
 /// Points (y down, anywhere) to millimetres (y up), the pieces' bounds starting at x 0 and
@@ -187,6 +231,9 @@ fn to_mm(pieces: &mut [AamaPiece]) {
         p.internal.iter_mut().flatten().for_each(f);
         if let Some(g) = &mut p.grain {
             g.iter_mut().for_each(f);
+        }
+        if let Some(m) = &mut p.mirror {
+            m.iter_mut().for_each(f);
         }
         f(&mut p.text_at);
         for n in &mut p.notches {
