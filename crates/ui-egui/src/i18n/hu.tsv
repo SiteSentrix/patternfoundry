@@ -5409,6 +5409,14 @@ file-filter	PDF for projector	PDF projektorhoz
 	Back to the piece's seam allowance	Vissza a darab varrásráhagyásához
 	A notch in the middle of the edge	Bevágás az él közepén
 	Notch on edge {edge}, {at}% along	Bevágás a(z) {edge}. élen, {at}%-nál
+	Piece Outlines	Szabásminta-darabok körvonalai
+	Projector	Projektor
+	Projector Scale (screen points per mm, 0: not calibrated)	Projektor méretaránya (képernyőpont mm-enként, 0: nincs kalibrálva)
+	Projector View	Projektornézet
+	Measure the square on the cutting mat: it should be 10 cm each way. The arrows make it bigger or smaller (with Shift, faster); Enter keeps it; Escape leaves. Scale: {scale} points per mm.	Mérje meg a négyzetet a vágóalátéten: mindkét irányban 10 cm-nek kell lennie. A nyilak nagyítják vagy kicsinyítik (Shifttel gyorsabban); az Enter megtartja; az Escape kilép. Méretarány: {scale} pont mm-enként.
+	Arrows move the pattern 1 cm (Shift: 1 mm) · M mirrors it · C calibrates · Escape leaves	A nyilak 1 cm-rel mozgatják a mintát (Shift: 1 mm) · M tükrözi · C kalibrál · Escape kilép
+@msg	no pattern pieces to project: make the outlines pattern pieces first (Pattern › Make Pattern Piece)	nincs kivetíthető szabásminta-darab: előbb alakítsa a körvonalakat szabásminta-darabokká (Minta › Szabásminta-darab készítése)
+@msg	scale: screen points per mm, more than 0	méretarány: képernyőpont mm-enként, 0-nál több
 	Delete Saved Measurements	Mentett méretek törlése
 	Load Measurements	Méretek betöltése
 	My Measurements	Saját méretek

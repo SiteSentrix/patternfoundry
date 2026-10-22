@@ -46,6 +46,7 @@ pub mod picks;
 pub mod place;
 pub mod prefs_dialog;
 pub mod print;
+pub mod projector;
 pub mod recovery;
 pub mod render_worker;
 pub mod screen_color;
@@ -469,6 +470,8 @@ pub struct VectorcraftApp {
     pub place: place::PlaceState,
     /// Ask About Patterns and Foundry Account (PF-8).
     pub ai: ai::AiState,
+    /// The projector view (PF-7.5).
+    pub projector: projector::ProjectorState,
     /// The Paste commands can paste from the system clipboard alone: it holds something to paste
     /// (SVG without a `system_clipboard`) while the internal clipboard is empty. It enables the
     /// Paste menu items.
@@ -592,6 +595,7 @@ impl VectorcraftApp {
             graphics_adapter: None,
             place: Default::default(),
             ai: Default::default(),
+            projector: Default::default(),
             system_paste: false,
             system_paste_at: f64::NEG_INFINITY,
             clipboard_probe: None,
@@ -1295,7 +1299,8 @@ impl VectorcraftApp {
         }
         self.drain_inbox();
         native_menu::run(self, ctx);
-        if self.fonts_ready {
+        // The projector view takes its keys first; while it is on, the shortcuts are left alone.
+        if self.fonts_ready && !projector::input(self, ctx) {
             shortcuts::handle(self, ctx);
         }
         // Native only: the web host reads dropped files asynchronously and feeds the inboxes.
@@ -1494,6 +1499,7 @@ impl VectorcraftApp {
         floating::show(self, &ctx);
         dialogs::show(self, &ctx);
         ai::frame(self, &ctx);
+        projector::frame(self, &ctx);
         export_progress::show(self, &ctx);
         palette::show(self, &ctx);
         if self.custom_titlebar {

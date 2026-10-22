@@ -5406,6 +5406,14 @@ file-filter	PDF for projector	PDF untuk proyektor
 	Back to the piece's seam allowance	Kembali ke kampuh potongan
 	A notch in the middle of the edge	Takik di tengah tepi
 	Notch on edge {edge}, {at}% along	Takik di tepi {edge}, pada {at}%
+	Piece Outlines	Garis luar potongan
+	Projector	Proyektor
+	Projector Scale (screen points per mm, 0: not calibrated)	Skala proyektor (titik layar per mm, 0: belum dikalibrasi)
+	Projector View	Tampilan proyektor
+	Measure the square on the cutting mat: it should be 10 cm each way. The arrows make it bigger or smaller (with Shift, faster); Enter keeps it; Escape leaves. Scale: {scale} points per mm.	Ukur persegi di alas potong: tiap sisinya harus 10 cm. Tombol panah memperbesar atau memperkecilnya (dengan Shift lebih cepat); Enter menyimpannya; Escape keluar. Skala: {scale} titik per mm.
+	Arrows move the pattern 1 cm (Shift: 1 mm) · M mirrors it · C calibrates · Escape leaves	Panah menggeser pola 1 cm (Shift: 1 mm) · M mencerminkannya · C mengkalibrasi · Escape keluar
+@msg	no pattern pieces to project: make the outlines pattern pieces first (Pattern › Make Pattern Piece)	tidak ada potongan pola untuk diproyeksikan: jadikan garis luar sebagai potongan pola dulu (Pola › Buat Potongan Pola)
+@msg	scale: screen points per mm, more than 0	skala: titik layar per mm, lebih dari 0
 	Delete Saved Measurements	Hapus ukuran tersimpan
 	Load Measurements	Muat ukuran
 	My Measurements	Ukuran Saya

@@ -5387,6 +5387,14 @@ file-filter	PDF for projector	PDF projektorille
 	Back to the piece's seam allowance	Takaisin kappaleen saumanvaraan
 	A notch in the middle of the edge	Merkkilovi reunan keskelle
 	Notch on edge {edge}, {at}% along	Merkkilovi reunalla {edge}, {at} %:n kohdalla
+	Piece Outlines	Kaavaosien ääriviivat
+	Projector	Projektori
+	Projector Scale (screen points per mm, 0: not calibrated)	Projektorin mittakaava (näyttöpisteitä millille, 0: kalibroimatta)
+	Projector View	Projektorinäkymä
+	Measure the square on the cutting mat: it should be 10 cm each way. The arrows make it bigger or smaller (with Shift, faster); Enter keeps it; Escape leaves. Scale: {scale} points per mm.	Mittaa neliö leikkuualustalta: sen pitäisi olla 10 cm kumpaankin suuntaan. Nuolet suurentavat tai pienentävät sitä (vaihtonäppäimen kanssa nopeammin); Enter säilyttää sen; Esc poistuu. Mittakaava: {scale} pistettä millille.
+	Arrows move the pattern 1 cm (Shift: 1 mm) · M mirrors it · C calibrates · Escape leaves	Nuolet siirtävät kaavaa 1 cm (vaihto: 1 mm) · M peilaa sen · C kalibroi · Esc poistuu
+@msg	no pattern pieces to project: make the outlines pattern pieces first (Pattern › Make Pattern Piece)	ei projisoitavia kaavaosia: tee ääriviivoista ensin kaavaosia (Kaava › Tee kaavaosa)
+@msg	scale: screen points per mm, more than 0	mittakaava: näyttöpisteitä millille, yli 0
 	Delete Saved Measurements	Poista tallennetut mitat
 	Load Measurements	Lataa mitat
 	My Measurements	Omat mitat

@@ -5038,6 +5038,14 @@ file-filter	PDF for projector	PDF per proiettore
 	Back to the piece's seam allowance	Torna al margine di cucitura del pezzo
 	A notch in the middle of the edge	Una tacca a metà del bordo
 	Notch on edge {edge}, {at}% along	Tacca sul bordo {edge}, al {at}%
+	Piece Outlines	Contorni dei pezzi
+	Projector	Proiettore
+	Projector Scale (screen points per mm, 0: not calibrated)	Scala del proiettore (punti schermo per mm, 0: non calibrato)
+	Projector View	Vista proiettore
+	Measure the square on the cutting mat: it should be 10 cm each way. The arrows make it bigger or smaller (with Shift, faster); Enter keeps it; Escape leaves. Scale: {scale} points per mm.	Misura il quadrato sul tappetino da taglio: deve essere 10 cm per lato. Le frecce lo ingrandiscono o lo rimpiccioliscono (con Maiusc, più in fretta); Invio lo conserva; Esc esce. Scala: {scale} punti per mm.
+	Arrows move the pattern 1 cm (Shift: 1 mm) · M mirrors it · C calibrates · Escape leaves	Le frecce spostano il cartamodello di 1 cm (Maiusc: 1 mm) · M lo specchia · C calibra · Esc esce
+@msg	no pattern pieces to project: make the outlines pattern pieces first (Pattern › Make Pattern Piece)	nessun pezzo da proiettare: trasforma prima i contorni in pezzi del cartamodello (Cartamodello › Crea pezzo)
+@msg	scale: screen points per mm, more than 0	scala: punti schermo per mm, più di 0
 	Delete Saved Measurements	Elimina misure salvate
 	Load Measurements	Carica misure
 	My Measurements	Le mie misure

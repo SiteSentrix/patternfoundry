@@ -5259,6 +5259,14 @@ file-filter	PDF for projector	用于投影仪的 PDF
 	Back to the piece's seam allowance	恢复为衣片的缝份
 	A notch in the middle of the edge	在边的中点加剪口
 	Notch on edge {edge}, {at}% along	边 {edge} 上的剪口，位于 {at}%
+	Piece Outlines	衣片轮廓
+	Projector	投影仪
+	Projector Scale (screen points per mm, 0: not calibrated)	投影仪比例（每毫米屏幕点数，0：未校准）
+	Projector View	投影视图
+	Measure the square on the cutting mat: it should be 10 cm each way. The arrows make it bigger or smaller (with Shift, faster); Enter keeps it; Escape leaves. Scale: {scale} points per mm.	在裁剪垫上量正方形：横竖都应为 10 cm。方向键放大或缩小（按住 Shift 更快）；回车保留；Esc 退出。比例：每毫米 {scale} 点。
+	Arrows move the pattern 1 cm (Shift: 1 mm) · M mirrors it · C calibrates · Escape leaves	方向键将纸样移动 1 cm（Shift：1 mm）· M 镜像 · C 校准 · Esc 退出
+@msg	no pattern pieces to project: make the outlines pattern pieces first (Pattern › Make Pattern Piece)	没有可投影的衣片：请先把轮廓做成衣片（纸样 › 制作衣片）
+@msg	scale: screen points per mm, more than 0	比例：每毫米屏幕点数，大于 0
 	Delete Saved Measurements	删除保存的尺寸
 	Load Measurements	载入尺寸
 	My Measurements	我的尺寸

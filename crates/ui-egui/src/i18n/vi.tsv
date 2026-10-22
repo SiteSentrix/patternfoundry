@@ -5018,6 +5018,14 @@ file-filter	PDF for projector	PDF cho máy chiếu
 	Back to the piece's seam allowance	Trở về đường may chừa của chi tiết
 	A notch in the middle of the edge	Một dấu bấm ở giữa cạnh
 	Notch on edge {edge}, {at}% along	Dấu bấm trên cạnh {edge}, tại {at}%
+	Piece Outlines	Đường viền chi tiết
+	Projector	Máy chiếu
+	Projector Scale (screen points per mm, 0: not calibrated)	Tỷ lệ máy chiếu (điểm màn hình trên mm, 0: chưa hiệu chỉnh)
+	Projector View	Chế độ máy chiếu
+	Measure the square on the cutting mat: it should be 10 cm each way. The arrows make it bigger or smaller (with Shift, faster); Enter keeps it; Escape leaves. Scale: {scale} points per mm.	Đo hình vuông trên tấm lót cắt: mỗi chiều phải là 10 cm. Các phím mũi tên làm nó to hơn hoặc nhỏ hơn (giữ Shift để nhanh hơn); Enter giữ lại; Escape thoát. Tỷ lệ: {scale} điểm trên mm.
+	Arrows move the pattern 1 cm (Shift: 1 mm) · M mirrors it · C calibrates · Escape leaves	Phím mũi tên dời rập 1 cm (Shift: 1 mm) · M lật gương · C hiệu chỉnh · Escape thoát
+@msg	no pattern pieces to project: make the outlines pattern pieces first (Pattern › Make Pattern Piece)	không có chi tiết rập để chiếu: hãy biến các đường viền thành chi tiết rập trước (Rập › Tạo chi tiết rập)
+@msg	scale: screen points per mm, more than 0	tỷ lệ: điểm màn hình trên mm, lớn hơn 0
 	Delete Saved Measurements	Xóa số đo đã lưu
 	Load Measurements	Tải số đo
 	My Measurements	Số đo của tôi

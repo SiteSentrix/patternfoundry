@@ -83,7 +83,7 @@ fn internal_lines(n: &Node, out: &mut Vec<Vec<Pt>>) {
 }
 
 /// The pieces of `doc` in paint order, in points (y down).
-pub(super) fn pieces(doc: &Document) -> Result<Vec<AamaPiece>> {
+pub(crate) fn pieces(doc: &Document) -> Result<Vec<AamaPiece>> {
     let mut nodes = Vec::new();
     doc.walk(|n| {
         if piece_on(n).is_some() {
@@ -183,7 +183,7 @@ pub(super) fn pieces(doc: &Document) -> Result<Vec<AamaPiece>> {
 /// The whole of a piece cut on the fold (one with a mirror line), in points, y down: its
 /// cutting line opened out across the fold, and its sew line, notches and internal lines on both
 /// halves; the piece as it is when it has no mirror line or can't be opened out.
-pub(super) fn opened(piece: &AamaPiece) -> AamaPiece {
+pub(crate) fn opened(piece: &AamaPiece) -> AamaPiece {
     let Some([a, b]) = piece.mirror else { return piece.clone() };
     let (pa, pb) = (Pt::new(a[0], a[1]), Pt::new(b[0], b[1]));
     let pts = |v: &[Mm]| v.iter().map(|q| Pt::new(q[0], q[1])).collect::<Vec<_>>();

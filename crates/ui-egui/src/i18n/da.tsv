@@ -5406,6 +5406,14 @@ file-filter	PDF for projector	PDF til projektor
 	Back to the piece's seam allowance	Tilbage til delens sømrum
 	A notch in the middle of the edge	Et hak midt på kanten
 	Notch on edge {edge}, {at}% along	Hak på kant {edge}, {at} % henne
+	Piece Outlines	Mønsterdelenes omrids
+	Projector	Projektor
+	Projector Scale (screen points per mm, 0: not calibrated)	Projektorskala (skærmpunkter pr. mm, 0: ikke kalibreret)
+	Projector View	Projektorvisning
+	Measure the square on the cutting mat: it should be 10 cm each way. The arrows make it bigger or smaller (with Shift, faster); Enter keeps it; Escape leaves. Scale: {scale} points per mm.	Mål kvadratet på skæremåtten: det skal være 10 cm hver vej. Pilene gør det større eller mindre (med Skift hurtigere); Enter beholder det; Escape afslutter. Skala: {scale} punkter pr. mm.
+	Arrows move the pattern 1 cm (Shift: 1 mm) · M mirrors it · C calibrates · Escape leaves	Pilene flytter mønsteret 1 cm (Skift: 1 mm) · M spejlvender det · C kalibrerer · Escape afslutter
+@msg	no pattern pieces to project: make the outlines pattern pieces first (Pattern › Make Pattern Piece)	ingen mønsterdele at projicere: gør først omridsene til mønsterdele (Mønster › Lav mønsterdel)
+@msg	scale: screen points per mm, more than 0	skala: skærmpunkter pr. mm, mere end 0
 	Delete Saved Measurements	Slet gemte mål
 	Load Measurements	Indlæs mål
 	My Measurements	Mine mål

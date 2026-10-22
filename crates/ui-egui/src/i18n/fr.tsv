@@ -5422,6 +5422,14 @@ file-filter	PDF for projector	PDF pour projecteur
 	Back to the piece's seam allowance	Revenir à la marge de couture de la pièce
 	A notch in the middle of the edge	Un cran au milieu du bord
 	Notch on edge {edge}, {at}% along	Cran sur le bord {edge}, à {at} %
+	Piece Outlines	Contours des pièces
+	Projector	Projecteur
+	Projector Scale (screen points per mm, 0: not calibrated)	Échelle du projecteur (points d'écran par mm, 0 : non étalonné)
+	Projector View	Vue projecteur
+	Measure the square on the cutting mat: it should be 10 cm each way. The arrows make it bigger or smaller (with Shift, faster); Enter keeps it; Escape leaves. Scale: {scale} points per mm.	Mesurez le carré sur le tapis de coupe : il doit faire 10 cm dans chaque sens. Les flèches l'agrandissent ou le réduisent (avec Maj, plus vite) ; Entrée le garde ; Échap quitte. Échelle : {scale} points par mm.
+	Arrows move the pattern 1 cm (Shift: 1 mm) · M mirrors it · C calibrates · Escape leaves	Les flèches déplacent le patron de 1 cm (Maj : 1 mm) · M le met en miroir · C étalonne · Échap quitte
+@msg	no pattern pieces to project: make the outlines pattern pieces first (Pattern › Make Pattern Piece)	aucune pièce de patron à projeter : faites d'abord des contours des pièces de patron (Patron › Créer une pièce de patron)
+@msg	scale: screen points per mm, more than 0	échelle : points d'écran par mm, plus de 0
 	Delete Saved Measurements	Supprimer les mesures enregistrées
 	Load Measurements	Charger des mesures
 	My Measurements	Mes mesures
