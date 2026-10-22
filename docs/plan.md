@@ -430,3 +430,16 @@ is built on, plus a pattern mode, the way StitchFoundry adds embroidery:
   shoulder, nothing past it, cut 2 mirrored, one undo; a bowed edge and refusals). Not yet: the
   ties and the waistband, the back's matching changes (the source's lowered armhole, extended
   shoulder).
+- 2026-10-22, **PF-5.17**: the wrap dress's other pieces. **Make Wrap Front** with `edge:
+  "straight"` makes a wrap skirt's front: the skirt block's front opened out across centre front
+  and cut by an edge parallel to it, `overlap` past it, from the waist to the hem (Sewing with
+  Numbers marks where "top wrap ends" on the waistline,
+  https://sewingwithnumbers.substack.com/p/how-to-draft-a-wrap-skirt; Rookie's overlap panel
+  extends past centre front, https://www.rookiemag.com/2015/06/diy-wrap-skirt/); without
+  `overlap`, the whole front (to match a wrap bodice that ends at the far side's waist). An edge
+  that runs down a dart's opening is warned about. **Make Band** (`design.band`) draws a straight
+  band to make a piece: a waistband (Ploen Patterns: about 8 cm wide, 1.5 to 2 times the waist),
+  ties (Rookie: 3.5 × 25 in), cuffs, with a dashed fold line along its middle. Tests: 1 more in
+  `tests_design.rs`. So a wrap dress is: the bodice back; the front's bust dart rotated into the
+  armhole, then Make Wrap Front; the skirt back; the skirt front with Make Wrap Front (straight);
+  a waistband and ties with Make Band.

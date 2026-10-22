@@ -137,9 +137,18 @@ pub fn specs() -> Vec<CommandSpec> {
             "Make Wrap Front",
             ["Pattern"],
             None,
-            "{id? (a half front, cut on the fold: a path or a piece; default: the selection), fold?: [a, b] (the centre front edge's two neighbouring points; default: the longest straight edge on the outline's left or right side), shoulder?: mm (where the wrap line starts: this far along the outline from the highest point, the neck, away from the fold; default 45), from?: [x, y] (instead: document points on the outline), to?: [x, y] (where it ends, on the mirrored half; default the far side seam's lowest point, the side waist), curve?: mm (the wrap edge bowed this far into the piece, which stops it gaping; default 0)} the half opened out across centre front and cut along the wrap line, as a wrap top's front is drafted; move a bust dart out of the shoulder first (design.rotateDart), else the wrap line cuts it away (a warning says so); a dart of the far side the wrap line crosses is left out; a piece is then cut as a mirrored pair (2, not on the fold) → {id, anchors, from: [x, y], to: [x, y], warnings}",
+            "{id? (a half front, cut on the fold: a path or a piece; default: the selection), fold?: [a, b] (the centre front edge's two neighbouring points; default: the longest straight edge on the outline's left or right side), shoulder?: mm (where the wrap line starts: this far along the outline from the highest point, the neck, away from the fold; default 45), from?: [x, y] (instead: document points on the outline), to?: [x, y] (where it ends, on the mirrored half; default the far side seam's lowest point, the side waist), curve?: mm (the wrap edge bowed this far into the piece, which stops it gaping; default 0), edge?: \"diagonal\" (default: from the shoulder to the far side waist, a bodice) | \"straight\" (a skirt: the wrap edge parallel to centre front, `overlap` past it, from the waist to the hem; an overlap reaching the far side keeps the whole front), overlap?: mm (with straight; default the whole front)} the half opened out across centre front and cut along the wrap line, as a wrap top's front is drafted; move a bust dart out of the shoulder first (design.rotateDart), else the wrap line cuts it away (a warning says so); a dart of the far side the wrap line crosses is left out; a piece is then cut as a mirrored pair (2, not on the fold) → {id, anchors, from: [x, y], to: [x, y], warnings}",
             has_doc,
             wrap_front
+        ),
+        cmd!(
+            "design.band",
+            "Make Band",
+            ["Pattern"],
+            None,
+            "{length: mm, width: mm (as cut: a band folded in half lengthwise is twice its finished width), name?: \"Waistband\" (default) | \"Tie\" | text, origin?: [x, y] (document points: its top-left; default 20 mm inside the first artboard), fold?: bool (a dashed fold line along its middle; default true)} a straight band, a rectangle to make a pattern piece: a waistband, ties, cuffs. A wrap top's waistband is about 8 cm wide and 1.5 to 2 times the waist long (Ploen Patterns); a wrap skirt's ties 3.5 × 25 in (Rookie) → {id, fold?}",
+            has_doc,
+            band
         ),
         cmd!(
             "design.split",
@@ -400,6 +409,14 @@ fn wrap_front(s: &mut Session, p: &Value) -> Result<Value> {
     let axis_x = half[a].p.x;
     let away = |q: Pt| (q.x - axis_x).abs();
     let mut ring = whole;
+    let straight = match str_param(p, "edge") {
+        None | Some("diagonal") => false,
+        Some("straight") => true,
+        Some(o) => return Err(bad(CMD, format!("edge: \"diagonal\" or \"straight\", not {o:?}"))),
+    };
+    if straight {
+        return wrap_straight(s, p, id, &half, ring, axis_x, CMD);
+    }
     // Where the wrap line starts: given, or `shoulder` along from the highest point (the neck),
     // away from the fold.
     let from_pt = match p.get("from") {
@@ -506,6 +523,84 @@ fn wrap_front(s: &mut Session, p: &Value) -> Result<Value> {
         Ok(())
     })?;
     Ok(json!({"id": id.0, "anchors": count, "from": [from_pt.x, from_pt.y], "to": [to_pt.x, to_pt.y], "warnings": warnings}))
+}
+
+/// A wrap skirt's front: the opened-out outline `whole` cut by a straight edge parallel to the
+/// fold (the line `x = axis_x`), `overlap` past it on the mirrored side, from the top edge to the
+/// bottom one. As a wrap skirt's front is drafted: the front reflected across centre front and
+/// the place marked "on waistline where top wrap ends" (Sewing with Numbers,
+/// <https://sewingwithnumbers.substack.com/p/how-to-draft-a-wrap-skirt>); the overlap panel
+/// extending past centre front (Rookie, <https://www.rookiemag.com/2015/06/diy-wrap-skirt/>).
+fn wrap_straight(s: &mut Session, p: &Value, id: NodeId, half: &[Knot], whole: Vec<Knot>, axis_x: f64, cmd: &str) -> Result<Value> {
+    let doc = &s.doc()?.doc;
+    let far = half.iter().map(|k| (k.p.x - axis_x).abs()).fold(0.0, f64::max);
+    // The mirrored side lies opposite the half's own.
+    let own = half.iter().map(|k| k.p.x - axis_x).fold(0.0, |acc: f64, v| if v.abs() > acc.abs() { v } else { acc }).signum();
+    let overlap = match p.get("overlap") {
+        None | Some(Value::Null) => far,
+        Some(v) => {
+            pf_core::mm_to_pt(v.as_f64().filter(|v| v.is_finite() && *v > 0.0).ok_or_else(|| bad(cmd, "overlap: mm past centre front, more than 0"))?)
+        }
+    };
+    let mut ring = whole;
+    let mut cut = None;
+    let mut warnings: Vec<String> = Vec::new();
+    if overlap < far - 1e-6 {
+        // Where the edge crosses the outline: its top (the waist) and its bottom (the hem).
+        let x = axis_x - own * overlap;
+        let path = path_of(&ring);
+        let (y0, y1) = ring.iter().fold((f64::INFINITY, f64::NEG_INFINITY), |(a, b), k| (a.min(k.p.y), b.max(k.p.y)));
+        let line = kurbo::Line::new((x, y0 - 1000.0), (x, y1 + 1000.0));
+        let sp = &path.subpaths[0];
+        let mut hits: Vec<Point> = (0..ring.len())
+            .flat_map(|k| {
+                let seg = kurbo::PathSeg::Cubic(sp.segment(k));
+                seg.intersect_line(line).into_iter().map(move |h| kurbo::ParamCurve::eval(&seg, h.segment_t))
+            })
+            .collect();
+        hits.sort_by(|a, b| a.y.total_cmp(&b.y));
+        let (Some(top), Some(bottom)) = (hits.first().copied(), hits.last().copied()) else {
+            return Err(bad(cmd, "overlap: the edge misses the outline"));
+        };
+        if (bottom - top).hypot() < 1e-6 {
+            return Err(bad(cmd, "overlap: the edge misses the outline"));
+        }
+        // Starting well below the top: the edge runs down a dart's opening, not across the waist.
+        if top.y - y0 > pf_core::mm_to_pt(30.0) {
+            warnings.push("the wrap edge runs through a dart on the waist: move it with overlap".to_string());
+        }
+        let (mut i, _) = point_on(&mut ring, top, "overlap", cmd)?;
+        let (j, inserted) = point_on(&mut ring, bottom, "overlap", cmd)?;
+        if inserted && j <= i {
+            i += 1;
+        }
+        let (one, two) = pf_core::design::split(&ring, i, j).map_err(|e| err(cmd, e))?;
+        // The front keeps the half's own side.
+        let side = |r: &[Knot]| r.iter().map(|k| (k.p.x - axis_x) * own).fold(f64::NEG_INFINITY, f64::max);
+        ring = if side(&one) > side(&two) { one } else { two };
+        cut = Some([[top.x, top.y], [bottom.x, bottom.y]]);
+    }
+    let count = ring.len();
+    let parent = doc.parent_of(id).filter(|_| in_piece(doc, id));
+    s.edit("Make Wrap Front", |d, sel| {
+        let node = d.node(id).ok_or(EngineError::NoNode(id))?;
+        let new = reshaped(node, path_of(&ring));
+        if let Some(m) = d.node_mut(id) {
+            *m = new;
+        }
+        if let Some(g) = parent
+            && let Some(gn) = d.node_mut(g)
+            && let Some(pf_core::PatternTag::Piece(piece)) = gn.extras_mut().pattern.as_deref_mut()
+        {
+            piece.cut = piece.cut.max(2);
+            piece.mirror = true;
+        }
+        sel.set([parent.unwrap_or(id)]);
+        Ok(())
+    })?;
+    Ok(
+        json!({"id": id.0, "anchors": count, "edge": cut, "overlapMm": (pf_core::pt_to_mm(overlap.min(far)) * 10.0).round() / 10.0, "warnings": warnings}),
+    )
 }
 
 /// The length in points along `ring` from anchor `from` forward to anchor `to`.
@@ -1404,4 +1499,64 @@ fn shirt_collar(s: &mut Session, p: &Value) -> Result<Value> {
         Ok((sid, lid, fid))
     })?;
     Ok(json!({"stand": ids.0.0, "centreFront": ids.1.0, "fall": ids.2.0, "neck": bl + fl}))
+}
+
+fn band(s: &mut Session, p: &Value) -> Result<Value> {
+    const CMD: &str = "design.band";
+    let mm = |k: &str| -> Result<f64> {
+        p.get(k)
+            .and_then(Value::as_f64)
+            .filter(|v| v.is_finite() && *v > 0.0 && *v <= 10_000.0)
+            .ok_or_else(|| bad(CMD, format!("{k}: mm, more than 0")))
+    };
+    let (length, width) = (mm("length")?, mm("width")?);
+    let name = match str_param(p, "name") {
+        Some(n) if !n.trim().is_empty() => n.trim().chars().take(100).collect::<String>(),
+        _ => "Waistband".to_string(),
+    };
+    let fold = match p.get("fold") {
+        None | Some(Value::Null) => true,
+        Some(v) => v.as_bool().ok_or_else(|| bad(CMD, "fold: true or false"))?,
+    };
+    let doc = &s.doc()?.doc;
+    let origin = match p.get("origin") {
+        None | Some(Value::Null) => {
+            let o = doc.artboards.first().map_or(Point::ZERO, |a| a.rect.origin());
+            Point::new(o.x + pf_core::mm_to_pt(20.0), o.y + pf_core::mm_to_pt(20.0))
+        }
+        Some(v) => {
+            let [x, y] = finite_numbers::<2>(v).ok_or_else(|| bad(CMD, "origin: [x, y] in document points"))?;
+            Point::new(x, y)
+        }
+    };
+    let (w, h) = (pf_core::mm_to_pt(length), pf_core::mm_to_pt(width));
+    let corners = [origin, Point::new(origin.x + w, origin.y), Point::new(origin.x + w, origin.y + h), Point::new(origin.x, origin.y + h)];
+    let parent = s.doc()?.insertion_parent();
+    let (id, fid) = s.edit("Make Band", |d, sel| {
+        let black = || vectorcraft_color::Paint::solid(vectorcraft_color::Color::BLACK);
+        let id = d.alloc_id();
+        let mut n = Node::path(
+            id,
+            PathData::single(SubPath::polyline(&corners, true)),
+            vectorcraft_doc::Appearance::basic(vectorcraft_color::Paint::None, black(), 1.0),
+        );
+        n.name = Some(name.clone());
+        d.insert(parent, usize::MAX, n)?;
+        let mut fid = None;
+        if fold {
+            let mut a = vectorcraft_doc::Appearance::basic(vectorcraft_color::Paint::None, black(), 0.75);
+            if let Some(st) = a.stroke_mut() {
+                st.dash = Some(vectorcraft_doc::Dash { pattern: vec![4.0, 2.0], ..Default::default() });
+            }
+            let f = d.alloc_id();
+            let mid = origin.y + h / 2.0;
+            let mut m = Node::path(f, PathData::single(SubPath::polyline(&[Point::new(origin.x, mid), Point::new(origin.x + w, mid)], false)), a);
+            m.name = Some(format!("{name} fold line"));
+            d.insert(parent, usize::MAX, m)?;
+            fid = Some(f);
+        }
+        sel.set([id]);
+        Ok((id, fid))
+    })?;
+    Ok(json!({"id": id.0, "fold": fid.map(|f| f.0)}))
 }

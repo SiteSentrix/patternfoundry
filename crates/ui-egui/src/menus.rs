@@ -2714,6 +2714,7 @@ pub fn menu_tree_named(english_names: bool) -> Vec<(&'static str, Vec<Item>)> {
                 c("Rotate Dart", "design.rotateDart"),
                 c("Split at Points", "design.split"),
                 c("Make Wrap Front", "design.wrapFront"),
+                c("Make Band", "design.band"),
                 c("Make Facing", "design.facing"),
                 c("Gather", "design.gather"),
                 c("Draft Collar", "design.collar"),
