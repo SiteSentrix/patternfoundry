@@ -5049,3 +5049,11 @@ file-filter	PDF for projector	PDF cho máy chiếu
 	The same move for each size, from the size above the base	Cùng một độ dời cho mọi cỡ, theo cỡ trên cỡ gốc
 	Per size	Theo từng cỡ
 	A move for each size of its own	Mỗi cỡ một độ dời riêng
+	Add Drill Hole Here	Thêm lỗ khoan tại đây
+	Remove Drill Hole Here	Xóa lỗ khoan tại đây
+	Add Drill Hole	Thêm lỗ khoan
+	Remove Drill Hole	Xóa lỗ khoan
+	Drill holes: {count}	Lỗ khoan: {count}
+	Right-click inside the piece: Add Drill Hole Here	Nhấp chuột phải bên trong chi tiết: Thêm lỗ khoan tại đây
+	Drill hole {n}, {mm} mm	Lỗ khoan {n}, {mm} mm
+	Drill hole {n}	Lỗ khoan {n}

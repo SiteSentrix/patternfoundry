@@ -5410,3 +5410,11 @@ file-filter	PDF for projector	PDF för projektor
 	The same move for each size, from the size above the base	Samma förflyttning för varje storlek, från storleken över basen
 	Per size	Per storlek
 	A move for each size of its own	En egen förflyttning för varje storlek
+	Add Drill Hole Here	Lägg till borrhål här
+	Remove Drill Hole Here	Ta bort borrhål här
+	Add Drill Hole	Lägg till borrhål
+	Remove Drill Hole	Ta bort borrhål
+	Drill holes: {count}	Borrhål: {count}
+	Right-click inside the piece: Add Drill Hole Here	Högerklicka inuti delen: Lägg till borrhål här
+	Drill hole {n}, {mm} mm	Borrhål {n}, {mm} mm
+	Drill hole {n}	Borrhål {n}

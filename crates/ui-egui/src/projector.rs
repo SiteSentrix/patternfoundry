@@ -273,6 +273,18 @@ pub fn frame(app: &mut VectorcraftApp, ctx: &egui::Context) {
             for l in piece["lines"].as_array().into_iter().flatten() {
                 painter.add(Shape::line(pts(l), Stroke::new(1.0, white)));
             }
+            // Drill holes: a cross, and the punch's circle.
+            for d in piece["drills"].as_array().into_iter().flatten() {
+                let Some(c) = to(&d["at"]) else { continue };
+                let arm = (pf_core::marks::DRILL_CROSS_MM * scale) as f32;
+                let stroke = Stroke::new(2.0, white);
+                painter.line_segment([c + Vec2::new(-arm, -arm), c + Vec2::new(arm, arm)], stroke);
+                painter.line_segment([c + Vec2::new(-arm, arm), c + Vec2::new(arm, -arm)], stroke);
+                let r = (d["diameter"].as_f64().unwrap_or_default() / 2.0 * scale) as f32;
+                if r > 0.0 {
+                    painter.circle_stroke(c, r, stroke);
+                }
+            }
             if let [a, b] = pts(&piece["grain"])[..] {
                 painter.arrow(a, b - a, Stroke::new(1.5, white));
             }

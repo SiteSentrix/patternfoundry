@@ -5372,3 +5372,11 @@ file-filter	PDF for projector	PDF para projetor
 	The same move for each size, from the size above the base	O mesmo deslocamento para cada tamanho, o do tamanho acima da base
 	Per size	Por tamanho
 	A move for each size of its own	Um deslocamento próprio para cada tamanho
+	Add Drill Hole Here	Adicionar furo aqui
+	Remove Drill Hole Here	Remover furo aqui
+	Add Drill Hole	Adicionar furo
+	Remove Drill Hole	Remover furo
+	Drill holes: {count}	Furos: {count}
+	Right-click inside the piece: Add Drill Hole Here	Clique com o botão direito dentro da peça: Adicionar furo aqui
+	Drill hole {n}, {mm} mm	Furo {n}, {mm} mm
+	Drill hole {n}	Furo {n}

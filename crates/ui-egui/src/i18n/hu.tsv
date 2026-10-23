@@ -5440,3 +5440,11 @@ file-filter	PDF for projector	PDF projektorhoz
 	The same move for each size, from the size above the base	Minden méretnél ugyanaz az elmozdulás, az alapméret feletti méretből
 	Per size	Méretenként
 	A move for each size of its own	Minden méretnek saját elmozdulás
+	Add Drill Hole Here	Fúrt lyuk hozzáadása ide
+	Remove Drill Hole Here	Fúrt lyuk eltávolítása innen
+	Add Drill Hole	Fúrt lyuk hozzáadása
+	Remove Drill Hole	Fúrt lyuk eltávolítása
+	Drill holes: {count}	Fúrt lyukak: {count}
+	Right-click inside the piece: Add Drill Hole Here	Kattintson jobb gombbal a darabon belül: Fúrt lyuk hozzáadása ide
+	Drill hole {n}, {mm} mm	{n}. fúrt lyuk, {mm} mm
+	Drill hole {n}	{n}. fúrt lyuk

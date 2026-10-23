@@ -5065,3 +5065,11 @@ file-filter	PDF for projector	PDF для проектора
 	The same move for each size, from the size above the base	Одинаковое смещение для каждого размера, по размеру над базовым
 	Per size	По размерам
 	A move for each size of its own	Своё смещение для каждого размера
+	Add Drill Hole Here	Добавить отверстие здесь
+	Remove Drill Hole Here	Удалить отверстие здесь
+	Add Drill Hole	Добавить отверстие
+	Remove Drill Hole	Удалить отверстие
+	Drill holes: {count}	Отверстия: {count}
+	Right-click inside the piece: Add Drill Hole Here	Щёлкните правой кнопкой внутри детали: Добавить отверстие здесь
+	Drill hole {n}, {mm} mm	Отверстие {n}, {mm} мм
+	Drill hole {n}	Отверстие {n}

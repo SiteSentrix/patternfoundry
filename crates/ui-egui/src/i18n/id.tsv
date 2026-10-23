@@ -5437,3 +5437,11 @@ file-filter	PDF for projector	PDF untuk proyektor
 	The same move for each size, from the size above the base	Pergeseran yang sama tiap ukuran, dari ukuran di atas dasar
 	Per size	Per ukuran
 	A move for each size of its own	Pergeseran sendiri untuk tiap ukuran
+	Add Drill Hole Here	Tambah Lubang Bor di Sini
+	Remove Drill Hole Here	Hapus Lubang Bor di Sini
+	Add Drill Hole	Tambah Lubang Bor
+	Remove Drill Hole	Hapus Lubang Bor
+	Drill holes: {count}	Lubang bor: {count}
+	Right-click inside the piece: Add Drill Hole Here	Klik kanan di dalam potongan: Tambah Lubang Bor di Sini
+	Drill hole {n}, {mm} mm	Lubang bor {n}, {mm} mm
+	Drill hole {n}	Lubang bor {n}

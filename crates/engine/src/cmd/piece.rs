@@ -74,11 +74,29 @@ pub fn specs() -> Vec<CommandSpec> {
             remove_notch
         ),
         cmd!(
+            "piece.addDrill",
+            "Add Drill Hole",
+            [],
+            None,
+            "{id?, point: [x, y] (document points, inside the piece's cutting line), diameter?: mm (0: a mark only; up to 50)} a drill hole, the punch mark for a dart's point, a pocket's corners or a button, drawn as a cross and written to DXF-AAMA on layer 13 → piece.info",
+            has_doc,
+            add_drill
+        ),
+        cmd!(
+            "piece.removeDrill",
+            "Remove Drill Hole",
+            [],
+            None,
+            "{id?, index: the drill hole's place in piece.info's drills | point: [x, y] (instead: the drill hole nearest this document point, within 5 mm)} → piece.info",
+            has_doc,
+            remove_drill
+        ),
+        cmd!(
             query "piece.info",
             "Piece Info",
             [],
             None,
-            "{id? (default: the selected piece)} → {id, seam (the seam line's id), name, cut, mirror, fabric, allowance, edges, corners, notches, grainline, edgeCount, seamLength (mm), area (cm², inside the seam line), problem (why there is no cutting line, if there is none)}",
+            "{id? (default: the selected piece)} → {id, seam (the seam line's id), name, cut, mirror, fabric, allowance, edges, corners, notches, grainline, drills, edgeCount, seamLength (mm), area (cm², inside the seam line), problem (why there is no cutting line, if there is none)}",
             has_doc,
             info
         ),
@@ -88,7 +106,7 @@ pub fn specs() -> Vec<CommandSpec> {
             "Piece Outlines",
             [],
             None,
-            "{openFolds?: bool (true: pieces cut on the fold opened out, whole), size? (a size of the size range or chart)} every piece's lines in millimetres, y down, where they are in the document, as the projector view draws them → {pieces: [{name, text (the label: name and how to cut), cut: [[x, y]] (closed), seam: [[x, y]] (closed), notches: [[[x, y], [x, y]]], grain: [[x, y], [x, y]] | null, fold: [[x, y], [x, y]] | null (the half's fold line), lines: [[[x, y]]] (drawn inside), label: [x, y]}], bounds: [x0, y0, x1, y1]}",
+            "{openFolds?: bool (true: pieces cut on the fold opened out, whole), size? (a size of the size range or chart)} every piece's lines in millimetres, y down, where they are in the document, as the projector view draws them → {pieces: [{name, text (the label: name and how to cut), cut: [[x, y]] (closed), seam: [[x, y]] (closed), notches: [[[x, y], [x, y]]], grain: [[x, y], [x, y]] | null, fold: [[x, y], [x, y]] | null (the half's fold line), lines: [[[x, y]]] (drawn inside), drills: [{at: [x, y], diameter: mm}], label: [x, y]}], bounds: [x0, y0, x1, y1]}",
             has_doc,
             outlines
         ),
@@ -234,6 +252,7 @@ fn mark_node(id: NodeId, mark: Mark, kind: NodeKind, appearance: Appearance) -> 
             Mark::Notches => "Notches",
             Mark::Grainline => "Grainline",
             Mark::Label => "Label",
+            Mark::Drills => "Drill holes",
         }
         .into(),
     );
@@ -298,6 +317,11 @@ fn rebuild(doc: &mut Document, id: NodeId) -> Result<()> {
         if !notches.is_empty() {
             let a = Appearance::basic(Paint::None, black(), 1.0);
             parts.push(Arc::new(mark_node(ids(Mark::Notches, doc), Mark::Notches, path_kind(notches), a)));
+        }
+        let drills: Vec<SubPath> = piece.drills.iter().flat_map(|d| pf_core::marks::drill(d, mm)).map(|l| polyline(&l, false)).collect();
+        if !drills.is_empty() {
+            let a = Appearance::basic(Paint::None, black(), 0.75);
+            parts.push(Arc::new(mark_node(ids(Mark::Drills, doc), Mark::Drills, path_kind(drills), a)));
         }
         // The label, beside the grainline's middle, on the side of the piece with more room.
         let at = grain.map(|g| (g.from + g.to) * 0.5).unwrap_or_default();
@@ -651,6 +675,70 @@ fn remove_notch(s: &mut Session, p: &Value) -> Result<Value> {
     })
 }
 
+fn add_drill(s: &mut Session, p: &Value) -> Result<Value> {
+    const CMD: &str = "piece.addDrill";
+    let id = one_piece(s, p, CMD)?;
+    let at = p.get("point").and_then(point_of).ok_or_else(|| bad(CMD, "point: [x, y] in document points"))?;
+    let diameter = match p.get("diameter") {
+        None | Some(Value::Null) => 0.0,
+        Some(v) => mm_param(v).ok_or_else(|| bad(CMD, "diameter: a number of mm, or a length with its unit (\"1/8 in\")"))?,
+    };
+    if !inside_cut(s, id, at) {
+        return Err(bad(CMD, "the point is not inside the piece"));
+    }
+    change(s, id, "Add Drill Hole", CMD, |piece| piece.add_drill(pf_core::Drill { at, diameter }).map_err(|e| err(CMD, e)))
+}
+
+fn remove_drill(s: &mut Session, p: &Value) -> Result<Value> {
+    const CMD: &str = "piece.removeDrill";
+    let id = one_piece(s, p, CMD)?;
+    let drills = s.doc()?.doc.node(id).and_then(piece_on).map(|pc| pc.drills.clone()).unwrap_or_default();
+    let index = match p.get("point") {
+        Some(v) => {
+            let q = point_of(v).ok_or_else(|| bad(CMD, "point: [x, y] in document points"))?;
+            drills
+                .iter()
+                .enumerate()
+                .map(|(i, d)| (i, (d.at - q).len()))
+                .filter(|(_, dist)| *dist <= mm_to_pt(PICK_MM))
+                .min_by(|a, b| a.1.total_cmp(&b.1))
+                .map(|(i, _)| i)
+                .ok_or_else(|| bad(CMD, "no drill hole near the point"))?
+        }
+        None => p
+            .get("index")
+            .and_then(Value::as_u64)
+            .and_then(|i| usize::try_from(i).ok())
+            .ok_or_else(|| bad(CMD, "index: the drill hole's place in the list, from 0 (or point)"))?,
+    };
+    change(s, id, "Remove Drill Hole", CMD, |piece| {
+        if index >= piece.drills.len() {
+            return Err(bad(CMD, "no drill hole with that index"));
+        }
+        piece.drills.remove(index);
+        Ok(())
+    })
+}
+
+/// Whether document point `q` is inside piece `id`'s cutting line (its seam line when it has none).
+fn inside_cut(s: &Session, id: NodeId, q: Pt) -> bool {
+    let Ok(st) = s.doc() else { return false };
+    let Some(piece) = st.doc.node(id).and_then(piece_on) else { return false };
+    let Some(seam) = seam_of(&st.doc, id) else { return false };
+    let NodeKind::Path { path, .. } = &seam.kind else { return false };
+    let Some((outline, _)) = outline_of(path) else { return false };
+    let ring = pf_core::cutting_line(&outline, |e| mm_to_pt(piece.allowance_of(e)), |c| piece.corner_of(c)).unwrap_or(outline.points);
+    // Even-odd: a ray to the right crosses the ring an odd number of times from inside.
+    let mut inside = false;
+    for i in 0..ring.len() {
+        let (a, b) = (ring[i], ring[(i + 1) % ring.len()]);
+        if (a.y > q.y) != (b.y > q.y) && q.x < a.x + (q.y - a.y) / (b.y - a.y) * (b.x - a.x) {
+            inside = !inside;
+        }
+    }
+    inside
+}
+
 fn seam_of(doc: &Document, id: NodeId) -> Option<Arc<Node>> {
     doc.node(id)?.children()?.iter().find(|c| mark_of(c) == Some(Mark::Seam)).cloned()
 }
@@ -789,6 +877,7 @@ fn outlines(s: &mut Session, p: &Value) -> Result<Value> {
             "grain": piece.grain.map(|g| [mm(g[0]), mm(g[1])]),
             "fold": piece.mirror.map(|g| [mm(g[0]), mm(g[1])]),
             "lines": piece.internal.iter().map(|l| ring(l)).collect::<Vec<_>>(),
+            "drills": piece.drills.iter().map(|d| json!({"at": mm(d.at), "diameter": (pt_to_mm(d.diameter) * 1000.0).round() / 1000.0})).collect::<Vec<_>>(),
             "label": mm(piece.text_at),
         }));
     }

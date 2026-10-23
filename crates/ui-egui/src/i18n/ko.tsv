@@ -5032,3 +5032,11 @@ file-filter	PDF for projector	프로젝터용 PDF
 	The same move for each size, from the size above the base	모든 사이즈에 같은 이동(기준 위 사이즈 기준)
 	Per size	사이즈별
 	A move for each size of its own	사이즈마다 따로 이동
+	Add Drill Hole Here	여기에 드릴 구멍 추가
+	Remove Drill Hole Here	여기의 드릴 구멍 제거
+	Add Drill Hole	드릴 구멍 추가
+	Remove Drill Hole	드릴 구멍 제거
+	Drill holes: {count}	드릴 구멍: {count}
+	Right-click inside the piece: Add Drill Hole Here	조각 안쪽을 마우스 오른쪽 버튼으로 클릭: 여기에 드릴 구멍 추가
+	Drill hole {n}, {mm} mm	드릴 구멍 {n}, {mm} mm
+	Drill hole {n}	드릴 구멍 {n}

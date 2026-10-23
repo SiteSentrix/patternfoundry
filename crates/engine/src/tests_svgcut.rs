@@ -75,3 +75,16 @@ fn a_piece_cut_on_the_fold_has_its_fold_drawn_or_is_cut_whole() {
     let svg = export(&mut s, json!({"format": "svgcut", "openFolds": true}));
     assert!(svg.contains("width=\"240mm\"") && !svg.contains("data-name=\"fold\""), "{svg}");
 }
+
+#[test]
+fn drill_holes_are_punch_circles_or_crosses() {
+    let mut s = square_piece();
+    let c = 40.0 + mm_to_pt(50.0);
+    s.execute("piece.addDrill", &json!({"point": [c, c], "diameter": 3})).unwrap();
+    s.execute("piece.addDrill", &json!({"point": [c, 60]})).unwrap();
+    let svg = export(&mut s, json!({"format": "svgcut", "marks": false}));
+    // The middle of the square: 10 mm margin and 10 mm allowance, then 50 mm.
+    assert!(svg.contains("<g id=\"drill\""), "{svg}");
+    assert!(svg.contains("<circle cx=\"70\" cy=\"70\" r=\"1.5\"/>"), "{svg}");
+    assert_eq!(svg.matches("<circle").count(), 1);
+}

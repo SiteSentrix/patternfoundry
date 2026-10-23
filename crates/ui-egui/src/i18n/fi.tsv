@@ -5418,3 +5418,11 @@ file-filter	PDF for projector	PDF projektorille
 	The same move for each size, from the size above the base	Sama siirto jokaiselle koolle, peruskokoa seuraavan koon mukaan
 	Per size	Koon mukaan
 	A move for each size of its own	Oma siirto jokaiselle koolle
+	Add Drill Hole Here	Lisää porareikä tähän
+	Remove Drill Hole Here	Poista porareikä tästä
+	Add Drill Hole	Lisää porareikä
+	Remove Drill Hole	Poista porareikä
+	Drill holes: {count}	Porareiät: {count}
+	Right-click inside the piece: Add Drill Hole Here	Napsauta kappaleen sisällä hiiren oikealla: Lisää porareikä tähän
+	Drill hole {n}, {mm} mm	Porareikä {n}, {mm} mm
+	Drill hole {n}	Porareikä {n}

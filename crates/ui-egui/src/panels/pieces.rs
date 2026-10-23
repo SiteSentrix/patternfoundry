@@ -1,7 +1,8 @@
 //! Pattern Pieces panel (PF-1): the document's pattern pieces, and the selected piece's name, cut
 //! count, fabric, seam allowance, the edge cut on the fold, and its edges (each one's allowance)
-//! and notches. Everything it shows comes from `piece.list` and `piece.info`; every change goes
-//! through `piece.set`, `piece.addNotch`, `piece.removeNotch`, `piece.make` and `piece.release`.
+//! and notches, and its drill holes. Everything it shows comes from `piece.list` and `piece.info`;
+//! every change goes through `piece.set`, `piece.addNotch`, `piece.removeNotch`,
+//! `piece.removeDrill`, `piece.make` and `piece.release`.
 
 use egui::Ui;
 use serde_json::{Value, json};
@@ -107,6 +108,31 @@ fn edges_section(app: &mut VectorcraftApp, ui: &mut Ui, info: &Value, id: u64, e
     });
 }
 
+/// The piece's drill holes, each with its punch's diameter and a button to remove it; they are
+/// added by right-clicking inside the piece.
+fn drills_section(app: &mut VectorcraftApp, ui: &mut Ui, info: &Value, id: u64) {
+    let drills = info["drills"].as_array().cloned().unwrap_or_default();
+    let title = crate::i18n::fmt(tl!("Drill holes: {count}"), &[("count", &drills.len().to_string())]);
+    egui::CollapsingHeader::new(title).id_salt("pieces-drills").show(ui, |ui| {
+        if drills.is_empty() {
+            widgets::dim_label(ui, tl!("Right-click inside the piece: Add Drill Hole Here"));
+        }
+        for (i, d) in drills.iter().enumerate() {
+            ui.horizontal(|ui| {
+                let n = (i + 1).to_string();
+                let text = match d["diameter"].as_f64().filter(|v| *v > 0.0) {
+                    Some(mm) => crate::i18n::fmt(tl!("Drill hole {n}, {mm} mm"), &[("n", &n), ("mm", &mm.to_string())]),
+                    None => crate::i18n::fmt(tl!("Drill hole {n}"), &[("n", &n)]),
+                };
+                ui.label(egui::RichText::new(text).size(12.0));
+                if ui.small_button("×").on_hover_text(tl!("Remove Drill Hole")).clicked() {
+                    run(app, "piece.removeDrill", json!({ "id": id, "index": i }));
+                }
+            });
+        }
+    });
+}
+
 pub fn show(app: &mut VectorcraftApp, ui: &mut Ui) {
     let Some(c) = fetch(app, ui.ctx()) else {
         widgets::dim_label(ui, tl!("No document"));
@@ -154,6 +180,7 @@ pub fn show(app: &mut VectorcraftApp, ui: &mut Ui) {
             }
         });
         edges_section(app, ui, info, id, edges);
+        drills_section(app, ui, info, id);
         super::doc_info::row(ui, tl!("Seam line length"), format!("{} mm", info["seamLength"].as_f64().unwrap_or_default()));
         if let Some(problem) = info["problem"].as_str() {
             widgets::dim_label(ui, &crate::i18n::message(crate::i18n::current(), problem));

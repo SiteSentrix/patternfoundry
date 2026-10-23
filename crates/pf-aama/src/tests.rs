@@ -15,6 +15,7 @@ fn style(version: Version) -> Style {
         grain: Some([[60.0, 70.0], [60.0, 150.0]]),
         mirror: Some([[0.0, 50.0], [0.0, 170.0]]),
         internal: vec![vec![[20.0, 110.0], [100.0, 110.0]]],
+        drills: vec![Drill { at: [40.0, 90.0], diameter: 3.0 }, Drill { at: [80.0, 90.0], diameter: 0.0 }],
         text_at: [20.0, 100.0],
     };
     Style {
@@ -81,6 +82,12 @@ fn a_piece_is_a_block_with_its_cutting_line_sew_line_and_marks_on_their_layers()
         let m = block_entities(&s, "TEST_SQUARE", "LINE", "6");
         assert_eq!((m.len(), values(&m[0], 10), values(&m[0], 21)), (1, vec![0.0], vec![170.0]), "the mirror line");
         assert_eq!(block_entities(&s, "TEST_SQUARE", "POLYLINE", "8").len(), 1);
+        // The drill holes: points on layer 13, the punch's diameter their z.
+        let drills = block_entities(&s, "TEST_SQUARE", "POINT", "13");
+        assert_eq!(
+            drills.iter().map(|e| (values(e, 10)[0], values(e, 20)[0], values(e, 30)[0])).collect::<Vec<_>>(),
+            [(40.0, 90.0, 3.0), (80.0, 90.0, 0.0)]
+        );
         // The piece system text in the block, the style system text outside it.
         let pst: Vec<String> = block_entities(&s, "TEST_SQUARE", "TEXT", "1").iter().map(|e| text_of(e)).collect();
         assert_eq!(pst, ["Piece Name: Test Square", "Quantity: 1,1", "Material: Main"]);

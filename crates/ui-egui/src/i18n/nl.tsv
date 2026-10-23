@@ -5479,3 +5479,11 @@ file-filter	PDF for projector	PDF voor projector
 	The same move for each size, from the size above the base	Dezelfde verschuiving voor elke maat, die van de maat boven de basis
 	Per size	Per maat
 	A move for each size of its own	Een eigen verschuiving voor elke maat
+	Add Drill Hole Here	Boorgat hier toevoegen
+	Remove Drill Hole Here	Boorgat hier verwijderen
+	Add Drill Hole	Boorgat toevoegen
+	Remove Drill Hole	Boorgat verwijderen
+	Drill holes: {count}	Boorgaten: {count}
+	Right-click inside the piece: Add Drill Hole Here	Rechtsklik in het patroondeel: Boorgat hier toevoegen
+	Drill hole {n}, {mm} mm	Boorgat {n}, {mm} mm
+	Drill hole {n}	Boorgat {n}

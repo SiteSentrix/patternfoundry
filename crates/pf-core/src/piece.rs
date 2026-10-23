@@ -19,6 +19,8 @@ pub const MAX_CUT: u32 = 999;
 pub const MAX_NOTCHES: usize = 500;
 /// Longest piece name or fabric name, in characters.
 pub const MAX_NAME: usize = 200;
+/// The widest drill hole, in mm.
+pub const MAX_DRILL_MM: f64 = 50.0;
 
 /// The default seam allowance, 1 cm (common in sewing patterns sold in Europe; 5/8 in, 15.875 mm,
 /// is the common one in North America and a preference away).
@@ -68,6 +70,20 @@ pub struct Grainline {
     pub to: Pt,
 }
 
+/// A drill hole (PF-7.6): a punch mark through the piece, for a dart's point, a pocket's corners
+/// or a button, in document coordinates.
+#[derive(Clone, Copy, Debug, PartialEq, Serialize, Deserialize)]
+pub struct Drill {
+    pub at: Pt,
+    /// The punch's diameter, in mm; 0 for a mark only.
+    #[serde(default, skip_serializing_if = "is_zero")]
+    pub diameter: f64,
+}
+
+fn is_zero(v: &f64) -> bool {
+    *v == 0.0
+}
+
 /// A pattern piece.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
@@ -105,6 +121,9 @@ pub struct Piece {
     /// and the piece cut is the whole, opened out across it.
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub fold: Option<usize>,
+    /// Drill holes (PF-7.6), in the order they were added.
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub drills: Vec<Drill>,
 }
 
 fn one() -> u32 {
@@ -129,6 +148,7 @@ impl Default for Piece {
             grainline: None,
             grade: Vec::new(),
             fold: None,
+            drills: Vec::new(),
         }
     }
 }
@@ -146,6 +166,10 @@ pub enum PieceError {
     TooManyNotches,
     /// A name longer than [`MAX_NAME`] characters.
     NameTooLong,
+    /// A drill hole off the page (not a number) or a diameter outside 0 to [`MAX_DRILL_MM`].
+    Drill(f64),
+    /// More than [`MAX_NOTCHES`] drill holes.
+    TooManyDrills,
 }
 
 impl std::fmt::Display for PieceError {
@@ -158,6 +182,8 @@ impl std::fmt::Display for PieceError {
             PieceError::NotchAt(v) => write!(f, "notch position {v}: give 0 (the edge's start) to 1 (its end)"),
             PieceError::TooManyNotches => write!(f, "a piece takes at most {MAX_NOTCHES} notches"),
             PieceError::NameTooLong => write!(f, "names take at most {MAX_NAME} characters"),
+            PieceError::Drill(v) => write!(f, "drill hole {v}: give a point and a diameter of 0 to {MAX_DRILL_MM} mm"),
+            PieceError::TooManyDrills => write!(f, "a piece takes at most {MAX_NOTCHES} drill holes"),
         }
     }
 }
@@ -210,6 +236,21 @@ impl Piece {
         Ok(())
     }
 
+    /// Add a drill hole.
+    pub fn add_drill(&mut self, d: Drill) -> Result<(), PieceError> {
+        if !(d.at.is_finite()) {
+            return Err(PieceError::Drill(f64::NAN));
+        }
+        if !(d.diameter.is_finite() && (0.0..=MAX_DRILL_MM).contains(&d.diameter)) {
+            return Err(PieceError::Drill(d.diameter));
+        }
+        if self.drills.len() >= MAX_NOTCHES {
+            return Err(PieceError::TooManyDrills);
+        }
+        self.drills.push(d);
+        Ok(())
+    }
+
     /// Forget what refers to edges a seam line of `edges` edges doesn't have (after points were
     /// deleted): their allowances, corners and notches.
     pub fn fit_edges(&mut self, edges: usize) {
@@ -236,11 +277,15 @@ impl Piece {
         format!("{name}\n{cut}")
     }
 
-    /// Move the positions the piece stores (its grainline) by `f`, as the host transforms the piece.
+    /// Move the positions the piece stores (its grainline and drill holes) by `f`, as the host
+    /// transforms the piece.
     pub fn transform(&mut self, f: impl Fn(Pt) -> Pt) {
         if let Some(g) = &mut self.grainline {
             g.from = f(g.from);
             g.to = f(g.to);
+        }
+        for d in &mut self.drills {
+            d.at = f(d.at);
         }
     }
 }
@@ -259,6 +304,8 @@ pub enum Mark {
     Grainline,
     /// The label, generated.
     Label,
+    /// The drill holes, generated.
+    Drills,
 }
 
 /// What the host keeps on a node of a pattern: the piece (on the group holding it) or which part
@@ -296,6 +343,7 @@ mod tests {
         p.corners.insert(1, Corner::Square);
         p.add_notch(Notch { edge: 1, at: 0.5, kind: NotchKind::Double }).unwrap();
         p.grainline = Some(Grainline { from: Pt::new(1.0, 2.0), to: Pt::new(1.0, 50.0) });
+        p.add_drill(Drill { at: Pt::new(20.0, 30.0), diameter: 0.0 }).unwrap();
         let tag = PatternTag::Piece(Box::new(p.clone()));
         let back: PatternTag = serde_json::from_str(&serde_json::to_string(&tag).unwrap()).unwrap();
         assert_eq!(back, tag);
@@ -317,6 +365,12 @@ mod tests {
         assert!(p.add_notch(Notch { edge: 0, at: 1.5, kind: NotchKind::Slit }).is_err());
         assert!(p.add_notch(Notch { edge: 0, at: f64::NAN, kind: NotchKind::Slit }).is_err());
         assert!(check_name(&"x".repeat(201)).is_err());
+        assert!(p.add_drill(Drill { at: Pt::new(f64::NAN, 0.0), diameter: 0.0 }).is_err());
+        assert!(p.add_drill(Drill { at: Pt::new(0.0, 0.0), diameter: 51.0 }).is_err());
+        assert!(p.add_drill(Drill { at: Pt::new(0.0, 0.0), diameter: -1.0 }).is_err());
+        assert_eq!(p.add_drill(Drill { at: Pt::new(3.0, 4.0), diameter: 3.0 }), Ok(()));
+        p.transform(|q| q + Pt::new(1.0, 1.0));
+        assert_eq!(p.drills, [Drill { at: Pt::new(4.0, 5.0), diameter: 3.0 }]);
         assert_eq!(check_name("  Sleeve "), Ok("Sleeve".into()));
     }
 

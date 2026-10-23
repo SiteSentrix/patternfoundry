@@ -5418,3 +5418,11 @@ file-filter	PDF for projector	PDF за проектор
 	The same move for each size, from the size above the base	Една и съща промяна за всеки размер, от размера над основния
 	Per size	По размери
 	A move for each size of its own	Своя промяна за всеки размер
+	Add Drill Hole Here	Добавяне на отвор тук
+	Remove Drill Hole Here	Премахване на отвора тук
+	Add Drill Hole	Добавяне на отвор
+	Remove Drill Hole	Премахване на отвор
+	Drill holes: {count}	Отвори: {count}
+	Right-click inside the piece: Add Drill Hole Here	Щракнете с десния бутон в детайла: Добавяне на отвор тук
+	Drill hole {n}, {mm} mm	Отвор {n}, {mm} мм
+	Drill hole {n}	Отвор {n}

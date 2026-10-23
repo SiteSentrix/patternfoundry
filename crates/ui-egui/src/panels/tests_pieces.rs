@@ -79,3 +79,16 @@ fn edges_take_their_own_allowance_and_notches_are_added_and_removed() {
     app.run("piece.set", json!({"id": id, "fold": 3})).unwrap();
     assert!(panel.texts(&mut app).iter().any(|t| t == "On fold"));
 }
+
+#[test]
+fn drill_holes_are_listed_and_removed() {
+    let (mut app, id) = square();
+    let mut panel = Panel::new();
+    assert!(panel.texts(&mut app).iter().any(|t| t == "Drill holes: 0"));
+    app.run("piece.addDrill", json!({"id": id, "point": [100, 100], "diameter": 3})).unwrap();
+    panel.click(&mut app, "Drill holes: 1");
+    assert!(panel.texts(&mut app).iter().any(|t| t == "Drill hole 1, 3 mm"));
+    panel.click(&mut app, "×");
+    assert_eq!(app.run("piece.info", json!({"id": id})).unwrap().get("drills"), None);
+    assert!(panel.texts(&mut app).iter().any(|t| t == "Right-click inside the piece: Add Drill Hole Here"));
+}

@@ -304,7 +304,7 @@ fn make(s: &mut Session, p: &Value) -> Result<Value> {
             let xf = Affine::translate(origin.to_vec2() + Vec2::new(at.offset.x, at.offset.y)) * turn * c.base;
             let mut parts: Vec<Arc<Node>> = Vec::new();
             for child in c.group.children().into_iter().flatten() {
-                if !matches!(super::piece::mark_of(child), Some(Mark::Cut | Mark::Seam | Mark::Grainline | Mark::Notches)) {
+                if !matches!(super::piece::mark_of(child), Some(Mark::Cut | Mark::Seam | Mark::Grainline | Mark::Notches | Mark::Drills)) {
                     continue;
                 }
                 let cutting = super::piece::mark_of(child) == Some(Mark::Cut);

@@ -3168,12 +3168,19 @@ pub fn context_items(app: &VectorcraftApp) -> Vec<Item> {
             && uid == st.uid
             && piece.extras().pattern.as_deref().and_then(pf_core::PatternTag::piece).is_some()
         {
-            let allowance = piece.extras().pattern.as_deref().and_then(pf_core::PatternTag::piece).map_or(10.0, |pc| pc.allowance);
+            let data = piece.extras().pattern.as_deref().and_then(pf_core::PatternTag::piece);
+            let allowance = data.map_or(10.0, |pc| pc.allowance);
             v.extend([
                 cp("Add Notch Here", "piece.addNotch", json!({ "id": piece.id.0, "point": at })),
                 cp("Cut on Fold Here", "piece.set", json!({ "id": piece.id.0, "foldAt": at })),
                 cp("Seam Allowance Here…", "piece.set", json!({ "edgeAllowance": allowance, "__fixed": { "id": piece.id.0, "at": at } })),
+                cp("Add Drill Hole Here", "piece.addDrill", json!({ "id": piece.id.0, "point": at })),
             ]);
+            // A drill hole within 5 mm of the click: it can go.
+            let near = pf_core::mm_to_pt(5.0);
+            if data.is_some_and(|pc| pc.drills.iter().any(|d| (d.at - pf_core::Pt::new(at[0], at[1])).len() <= near)) {
+                v.push(cp("Remove Drill Hole Here", "piece.removeDrill", json!({ "id": piece.id.0, "point": at })));
+            }
             // With a size range: a grade rule for the seam line's point there.
             if st.doc.grade_sizes.is_some() {
                 v.push(cp("Grade This Point…", "grade.setRule", json!({ "across": 0, "down": 0, "__fixed": { "id": piece.id.0, "point": at } })));
@@ -4035,6 +4042,8 @@ pub const CONTEXT_LABELS: &[&str] = &[
     "Cut on Fold Here",
     "Seam Allowance Here…",
     "Grade This Point…",
+    "Add Drill Hole Here",
+    "Remove Drill Hole Here",
 ];
 
 /// The labels [`dynamic_label`] can show in place of an item's own (Show/Hide pairs and the like),

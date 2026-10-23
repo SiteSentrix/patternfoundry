@@ -243,6 +243,10 @@ fn every_context_label_is_a_menu_string() {
     app.run("piece.make", json!({"ids": [c.0]})).unwrap();
     app.ui.context_point = Some((app.session.active().unwrap().uid, [250.0, 0.0]));
     shown.extend(labels(&menus::context_items(&app)));
+    // Over one of its drill holes.
+    let piece = app.run("piece.list", json!({})).unwrap()["pieces"][0]["id"].clone();
+    app.run("piece.addDrill", json!({"id": piece, "point": [250.0, 2.0]})).unwrap();
+    shown.extend(labels(&menus::context_items(&app)));
     let missing: Vec<_> = shown.iter().filter(|l| !strings.contains(**l)).collect();
     assert!(missing.is_empty(), "context menu labels missing from menu_strings: {missing:?}");
     for label in menus::CONTEXT_LABELS {
@@ -281,6 +285,16 @@ fn a_piece_right_clicked_on_its_seam_line_takes_a_notch_or_a_fold_there() {
     let (cmd, p) = item(&app, "Cut on Fold Here");
     menus::invoke(&mut app, &cmd, p);
     assert_eq!(app.run("piece.info", json!({"id": id})).unwrap()["fold"], 3);
+    // A drill hole in the middle, and then the item that takes it away again.
+    app.ui.context_point = Some((uid, [100.0, 100.0]));
+    assert!(!labels(&menus::context_items(&app)).contains(&"Remove Drill Hole Here"));
+    let (cmd, p) = item(&app, "Add Drill Hole Here");
+    menus::invoke(&mut app, &cmd, p);
+    assert_eq!(app.run("piece.info", json!({"id": id})).unwrap()["drills"][0]["at"], json!({"x": 100.0, "y": 100.0}));
+    app.ui.context_point = Some((uid, [102.0, 101.0]));
+    let (cmd, p) = item(&app, "Remove Drill Hole Here");
+    menus::invoke(&mut app, &cmd, p);
+    assert!(app.run("piece.info", json!({"id": id})).unwrap().get("drills").is_none());
     // In the middle of the piece, far from the seam line: refused, nothing added.
     assert!(app.run("piece.addNotch", json!({"id": id, "point": [100.0, 100.0]})).is_err());
     // Nothing selected, or a plain path: no such items.

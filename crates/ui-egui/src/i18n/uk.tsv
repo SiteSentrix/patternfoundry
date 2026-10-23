@@ -5049,3 +5049,11 @@ file-filter	PDF for projector	PDF для проєктора
 	The same move for each size, from the size above the base	Однаковий зсув для кожного розміру, за розміром над базовим
 	Per size	За розмірами
 	A move for each size of its own	Свій зсув для кожного розміру
+	Add Drill Hole Here	Додати отвір тут
+	Remove Drill Hole Here	Видалити отвір тут
+	Add Drill Hole	Додати отвір
+	Remove Drill Hole	Видалити отвір
+	Drill holes: {count}	Отвори: {count}
+	Right-click inside the piece: Add Drill Hole Here	Клацніть правою кнопкою всередині деталі: Додати отвір тут
+	Drill hole {n}, {mm} mm	Отвір {n}, {mm} мм
+	Drill hole {n}	Отвір {n}

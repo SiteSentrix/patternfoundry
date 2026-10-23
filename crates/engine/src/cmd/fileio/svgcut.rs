@@ -1,7 +1,8 @@
 //! SVG for cutting (`document.export {format: svgcut}`, PF-7.2): the document's pattern pieces as
 //! an SVG for laser cutters, cutting machines and print shops, sized in millimetres so it is
 //! true to scale in any reader. Each piece's cutting line is a closed red hairline path in the
-//! `cut` group, its notches short blue cuts in `notches`, and (with `marks`, the default) its
+//! `cut` group, its notches short blue cuts in `notches`, its drill holes (PF-7.6) green in `drill`
+//! (a punch as its circle, a mark only as a cross), and (with `marks`, the default) its
 //! seam line (dashed), grainline, the lines drawn inside it and its name and cut count in black in
 //! `draw`, which a cutter can be told to skip or to draw with a pen. A piece cut on the fold has its
 //! fold dashed in `draw`; with `openFolds` it is cut opened out, whole, where it is drawn (PF-7.4).
@@ -128,6 +129,28 @@ pub(super) fn encode(doc: &Document, p: &Value) -> Result<Encoded> {
         for nd in notches {
             out.push_str(&format!("    <path d=\"{nd}\"/>\n"));
         }
+        out.push_str("  </g>\n");
+    }
+    // Drill holes: a punch as its circle, a mark only as a cross.
+    let drills: Vec<String> = pieces
+        .iter()
+        .flat_map(|piece| &piece.drills)
+        .map(|dr| {
+            let c = at(dr.at);
+            let r = pt_to_mm(dr.diameter) / 2.0;
+            if r > 0.0 {
+                format!("    <circle cx=\"{}\" cy=\"{}\" r=\"{}\"/>\n", n(c[0]), n(c[1]), n(r))
+            } else {
+                let a = pf_core::marks::DRILL_CROSS_MM;
+                let x = [[c[0] - a, c[1] - a], [c[0] + a, c[1] + a]];
+                let y = [[c[0] - a, c[1] + a], [c[0] + a, c[1] - a]];
+                format!("    <path d=\"{} {}\"/>\n", d(&x, false), d(&y, false))
+            }
+        })
+        .collect();
+    if !drills.is_empty() {
+        out.push_str("  <g id=\"drill\" fill=\"none\" stroke=\"#00a000\" stroke-width=\"0.1\">\n");
+        drills.iter().for_each(|l| out.push_str(l));
         out.push_str("  </g>\n");
     }
     if marks {

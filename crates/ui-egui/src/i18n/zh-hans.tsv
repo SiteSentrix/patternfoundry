@@ -5290,3 +5290,11 @@ file-filter	PDF for projector	用于投影仪的 PDF
 	The same move for each size, from the size above the base	每个尺码相同的移动（取基础码上一码）
 	Per size	按尺码
 	A move for each size of its own	每个尺码各自的移动
+	Add Drill Hole Here	在此添加钻孔
+	Remove Drill Hole Here	删除此处的钻孔
+	Add Drill Hole	添加钻孔
+	Remove Drill Hole	删除钻孔
+	Drill holes: {count}	钻孔：{count}
+	Right-click inside the piece: Add Drill Hole Here	在衣片内右键单击：在此添加钻孔
+	Drill hole {n}, {mm} mm	钻孔 {n}，{mm} mm
+	Drill hole {n}	钻孔 {n}
