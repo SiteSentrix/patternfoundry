@@ -855,3 +855,49 @@ fn design_steps_on_a_block_are_made_again_when_the_measurements_change() {
     t.execute("measure.set", &json!({"values": {"bust": 800}})).unwrap();
     assert_eq!(points(&t, tid), kept, "the last outline is kept");
 }
+
+/// Splitting, slashing and spreading, and truing a seam on block parts are made again too
+/// (PF-5.21): after a measurement changes each comes out as drafting at the new measurement and
+/// making the same steps does.
+#[test]
+fn split_spread_and_matched_seams_are_made_again_when_the_measurements_change() {
+    use vectorcraft_geom::kurbo::ParamCurve;
+    let same = |a: &[Point], b: &[Point]| a.len() == b.len() && a.iter().zip(b).all(|(p, q)| (*p - *q).hypot() < 1e-6);
+    let half_way = |s: &Session, id: NodeId, seg: usize| -> Point {
+        let NodeKind::Path { path, .. } = &s.doc().unwrap().doc.node(id).unwrap().kind else { panic!("a path") };
+        path.subpaths[0].segment(seg).eval(0.5)
+    };
+    // The princess bodice: the bust dart into the armhole, split through the bust point, the side
+    // front's seam trued to 250 mm.
+    let princess = |s: &mut Session, id: NodeId| -> Vec<NodeId> {
+        let r = s.execute("design.rotateDart", &json!({"id": id.0, "apex": 11, "toAnchor": 8})).unwrap();
+        let r = s.execute("design.split", &json!({"id": id.0, "anchors": [r["apex"]]})).unwrap();
+        let ids: Vec<NodeId> = r["ids"].as_array().unwrap().iter().map(|v| NodeId(v.as_u64().unwrap())).collect();
+        s.execute("design.matchLength", &json!({"id": ids[1].0, "from": 5, "to": 1, "length": 250})).unwrap();
+        ids
+    };
+    let (mut s, id) = front();
+    let panels = princess(&mut s, id);
+    s.execute("measure.set", &json!({"values": {"bust": 960}})).unwrap();
+    let (mut fresh, fid) = front();
+    fresh.execute("measure.set", &json!({"values": {"bust": 960}})).unwrap();
+    let made = princess(&mut fresh, fid);
+    for (a, b) in panels.iter().zip(&made) {
+        assert!(same(&points(&s, *a), &points(&fresh, *b)), "panel {a:?}");
+    }
+    let steps = s.execute("block.options", &json!({"id": panels[1].0})).unwrap()["steps"].clone();
+    assert_eq!(steps.as_array().unwrap().len(), 3, "{steps}");
+    assert_eq!(steps[2], json!({"step": "matchLength", "from": 5, "to": 1, "length": 250.0}));
+    // The skirt front flared from half way along the hem to half way along the waist.
+    let flare = |s: &mut Session, id: NodeId| {
+        let (hem, top) = (half_way(s, id, 1), half_way(s, id, 7));
+        s.execute("design.spread", &json!({"id": id.0, "from": [hem.x, hem.y], "to": [top.x, top.y], "amount": 50})).unwrap();
+    };
+    let (mut s, id, _) = skirt_front();
+    flare(&mut s, id);
+    s.execute("measure.set", &json!({"values": {"hip": 1000}})).unwrap();
+    let (mut fresh, fid, _) = skirt_front();
+    fresh.execute("measure.set", &json!({"values": {"hip": 1000}})).unwrap();
+    flare(&mut fresh, fid);
+    assert!(same(&points(&s, id), &points(&fresh, fid)));
+}

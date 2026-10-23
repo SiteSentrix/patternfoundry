@@ -757,3 +757,13 @@ is built on, plus a pattern mode, the way StitchFoundry adds embroidery:
   outline), the princess bodice test (the rotated front follows a bigger bust, undo puts it
   back). Not yet: the other design tools (split, spread, pleats, gathers, match length, smoothing,
   wrap front), a list of the steps in the Pieces panel to change or remove one.
+- 2026-10-23, **PF-5.21**: more design steps made again when the measurements change: splitting
+  a block part along a line (each panel keeps its block, and the step names the two anchors and
+  the panel kept), slash and spread (its two points given on the outline as edge and place along
+  it, the amount and the way it spreads) and truing a seam to a length (`design.matchLength`; the
+  step records the length in mm, so after a change the seam is trued to that length again). The
+  panels of a princess bodice now follow the bust, and so does a flared skirt. Tests: 1 in
+  `tests_design.rs` (a princess front split and its side seam trued to 250 mm at 88 cm, changed to
+  96 cm: the same outline as drafting at 96 cm and making the same steps; a skirt slashed and
+  spread 50 mm, the hip changed). Not yet: pleats, gathers and smoothing (they also make separate
+  mark nodes), wrap fronts, the steps list in the Pieces panel.
