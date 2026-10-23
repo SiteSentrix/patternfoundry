@@ -4,7 +4,7 @@
 //! when a measurement changes, [`refresh`] draws it again (inside a pattern piece too: the piece
 //! then redraws its cutting line).
 use super::*;
-use pf_core::block::{BlockKind, BlockRef, Part, Seg};
+use pf_core::block::{BlockKind, BlockRef, Options, Part, Seg};
 use pf_core::{Pt, mm_to_pt};
 use serde_json::{Value, json};
 use vectorcraft_doc::{Appearance, Document, Node, NodeId, NodeKind};
@@ -17,7 +17,7 @@ pub fn specs() -> Vec<CommandSpec> {
             "Draft Bodice Block",
             ["Pattern"],
             None,
-            "{origin?: [x, y] (document points: the back neck's top-left construction corner; default 20 mm inside the first artboard's top-left corner)} draft the close-fitting bodice block (back and front, half bodies) from the measurements: bust, waist, nape_to_waist, back_width, chest, shoulder, neck, armscye_depth (mm; measure.set). Each part follows the measurements when they change → {ids}",
+            "{origin?: [x, y] (document points: the back neck's top-left construction corner; default 20 mm inside the first artboard's top-left corner), options?: {name: mm} (the block's ease and darts, see block.options)} draft the close-fitting bodice block (back and front, half bodies) from the measurements: bust, waist, nape_to_waist, back_width, chest, shoulder, neck, armscye_depth (mm; measure.set). Each part follows the measurements when they change → {ids}",
             has_doc,
             bodice
         ),
@@ -26,7 +26,7 @@ pub fn specs() -> Vec<CommandSpec> {
             "Draft Skirt Block",
             ["Pattern"],
             None,
-            "{origin?: [x, y] (document points: the centre back at the waist; default 20 mm inside the first artboard's top-left corner)} draft the basic straight skirt block (back and front, half bodies) from the measurements: waist, hip, waist_to_hip, skirt_length (mm; measure.set). Each part follows the measurements when they change → {ids}",
+            "{origin?: [x, y] (document points: the centre back at the waist; default 20 mm inside the first artboard's top-left corner), options?: {name: mm} (the block's ease and darts, see block.options)} draft the basic straight skirt block (back and front, half bodies) from the measurements: waist, hip, waist_to_hip, skirt_length (mm; measure.set). Each part follows the measurements when they change → {ids}",
             has_doc,
             skirt
         ),
@@ -35,7 +35,7 @@ pub fn specs() -> Vec<CommandSpec> {
             "Draft Sleeve Block",
             ["Pattern"],
             None,
-            "{origin?: [x, y] (document points: the shoulder point at the top of the crown; default: the sleeve 20 mm inside the first artboard's top-left corner)} draft the one-piece straight sleeve block from the measurements: top_arm, sleeve_length (mm; measure.set), and sleeve_crown if the set has it (the crown's length: the bodice's armhole plus the ease to set it in, 3 to 4.5 cm; a formula such as \"armhole + 30\"), which sets the crown depth instead of the top arm table. It follows the measurements when they change → {ids, crown (mm: the crown's length, underarm to underarm)}",
+            "{origin?: [x, y] (document points: the shoulder point at the top of the crown; default: the sleeve 20 mm inside the first artboard's top-left corner), options?: {name: mm} (the block's ease and darts, see block.options)} draft the one-piece straight sleeve block from the measurements: top_arm, sleeve_length (mm; measure.set), and sleeve_crown if the set has it (the crown's length: the bodice's armhole plus the ease to set it in, 3 to 4.5 cm; a formula such as \"armhole + 30\"), which sets the crown depth instead of the top arm table. It follows the measurements when they change → {ids, crown (mm: the crown's length, underarm to underarm)}",
             has_doc,
             sleeve
         ),
@@ -44,9 +44,27 @@ pub fn specs() -> Vec<CommandSpec> {
             "Draft Trouser Block",
             ["Pattern"],
             None,
-            "{origin?: [x, y] (document points: the frame's top-left corner, at the centre front's waist line; default: the block 20 mm inside the first artboard's top-left corner)} draft the basic trouser block (front and back, side by side) from the measurements: waist, hip, waist_to_hip, crotch_depth, waist_to_knee, waist_to_ankle, trouser_hem (mm; measure.set). Each part follows the measurements when they change → {ids}",
+            "{origin?: [x, y] (document points: the frame's top-left corner, at the centre front's waist line; default: the block 20 mm inside the first artboard's top-left corner), options?: {name: mm} (the block's ease and darts, see block.options)} draft the basic trouser block (front and back, side by side) from the measurements: waist, hip, waist_to_hip, crotch_depth, waist_to_knee, waist_to_ankle, trouser_hem (mm; measure.set). Each part follows the measurements when they change → {ids}",
             has_doc,
             trousers
+        ),
+        cmd!(
+            query "block.options",
+            "Block Options Info",
+            [],
+            None,
+            "{id? (default: the selected block part)} the drafted block's options, its ease and darts → {id, block, part, options: [{name, what, value (mm, null: the default), default (mm, null: worked out from the measurements), min, max}]}",
+            has_doc,
+            options
+        ),
+        cmd!(
+            "block.setOptions",
+            "Block Options",
+            [],
+            None,
+            "{id? (default: the selected block part), options: {name: mm | null (back to the block's default)}} change a drafted block's ease and darts (block.options lists them); every part of the block (drafted together, where it was drafted) is drawn again, and pieces made from it follow → {id, block, parts, options}",
+            has_doc,
+            set_options
         ),
         cmd!(
             query "block.measurements",
@@ -108,7 +126,8 @@ fn trousers(s: &mut Session, p: &Value) -> Result<Value> {
 
 fn sleeve(s: &mut Session, p: &Value) -> Result<Value> {
     let mut r = make(s, p, BlockKind::Sleeve, "block.sleeve", "Draft Sleeve Block")?;
-    let parts = pf_core::block::draft(BlockKind::Sleeve, &mut env_of(&s.doc()?.doc)).map_err(|e| bad("block.sleeve", e.to_string()))?;
+    let options = options_param(p, BlockKind::Sleeve, "block.sleeve")?;
+    let parts = pf_core::block::draft(BlockKind::Sleeve, &mut env_of(&s.doc()?.doc), &options).map_err(|e| bad("block.sleeve", e.to_string()))?;
     let crown = parts.first().map_or(0.0, pf_core::block::sleeve_crown);
     r["crown"] = json!(crown);
     Ok(r)
@@ -123,7 +142,8 @@ fn make(s: &mut Session, p: &Value, kind: BlockKind, cmd: &'static str, label: &
         }
         None => None,
     };
-    let parts = pf_core::block::draft(kind, &mut env_of(&st.doc)).map_err(|e| bad(cmd, e.to_string()))?;
+    let options = options_param(p, kind, cmd)?;
+    let parts = pf_core::block::draft(kind, &mut env_of(&st.doc), &options).map_err(|e| bad(cmd, e.to_string()))?;
     // By default the drawing (not its origin) starts 20 mm inside the first artboard's corner.
     let origin = origin.unwrap_or_else(|| {
         let o = st.doc.artboards.first().map_or(Point::ZERO, |a| a.rect.origin());
@@ -141,7 +161,7 @@ fn make(s: &mut Session, p: &Value, kind: BlockKind, cmd: &'static str, label: &
                 Appearance::basic(vectorcraft_color::Paint::None, vectorcraft_color::Paint::solid(vectorcraft_color::Color::BLACK), 1.0),
             );
             n.name = Some(part.name.to_string());
-            n.extras_mut().block = Some(Box::new(BlockRef { kind, part: i, origin }));
+            n.extras_mut().block = Some(Box::new(BlockRef { kind, part: i, origin, options: options.clone() }));
             d.insert(parent, usize::MAX, n)?;
             ids.push(id);
         }
@@ -150,6 +170,110 @@ fn make(s: &mut Session, p: &Value, kind: BlockKind, cmd: &'static str, label: &
         Ok(ids)
     })?;
     Ok(json!({ "ids": ids.iter().map(|i| i.0).collect::<Vec<_>>() }))
+}
+
+/// The `options` param: `{name: mm}` options of `kind`, checked.
+fn options_param(p: &Value, kind: BlockKind, cmd: &str) -> Result<Options> {
+    let Some(v) = p.get("options").filter(|v| !v.is_null()) else { return Ok(Options::new()) };
+    let o = v.as_object().ok_or_else(|| bad(cmd, "options: {name: mm}"))?;
+    let mut out = Options::new();
+    for (k, v) in o {
+        let mm = super::piece::mm_param(v).ok_or_else(|| bad(cmd, format!("{k}: a number of mm, or a length with its unit")))?;
+        out.insert(k.clone(), mm);
+    }
+    pf_core::block::check_options(kind, &out).map_err(|e| bad(cmd, e.to_string()))?;
+    Ok(out)
+}
+
+/// The drafted block part `id` (default: the one selected): its id and reference.
+fn block_part(s: &Session, p: &Value, cmd: &str) -> Result<(NodeId, BlockRef)> {
+    let st = s.doc()?;
+    let id = match p.get("id") {
+        Some(v) => NodeId(v.as_u64().ok_or_else(|| bad(cmd, "id: a block part's id"))?),
+        None => {
+            // A selected block part, or the seam line of a selected piece made from one.
+            let drafted = |id: NodeId| -> Option<NodeId> {
+                let n = st.doc.node(id)?;
+                if n.extras().block.is_some() {
+                    return Some(id);
+                }
+                n.children()?.iter().find(|c| c.extras().block.is_some()).map(|c| c.id)
+            };
+            st.selection
+                .in_paint_order(&st.doc)
+                .into_iter()
+                .find_map(drafted)
+                .ok_or_else(|| bad(cmd, "select a drafted block part (Pattern › Draft … Block)"))?
+        }
+    };
+    let b = st.doc.node(id).and_then(|n| n.extras().block.as_deref()).cloned().ok_or_else(|| bad(cmd, "not a drafted block part"))?;
+    Ok((id, b))
+}
+
+/// The options of a drafted block and its parts.
+fn options_info(kind: BlockKind, set: &Options) -> Value {
+    let list: Vec<Value> = pf_core::block::options(kind)
+        .iter()
+        .map(|o| json!({"name": o.name, "what": o.what, "value": set.get(o.name), "default": o.default, "min": o.min, "max": o.max}))
+        .collect();
+    json!(list)
+}
+
+fn kind_name(kind: BlockKind) -> &'static str {
+    match kind {
+        BlockKind::Bodice => "bodice",
+        BlockKind::Skirt => "skirt",
+        BlockKind::Sleeve => "sleeve",
+        BlockKind::Trousers => "trousers",
+    }
+}
+
+fn options(s: &mut Session, p: &Value) -> Result<Value> {
+    let (id, b) = block_part(s, p, "block.options")?;
+    Ok(json!({"id": id.0, "block": kind_name(b.kind), "part": b.part, "options": options_info(b.kind, &b.options)}))
+}
+
+fn set_options(s: &mut Session, p: &Value) -> Result<Value> {
+    const CMD: &str = "block.setOptions";
+    let (id, b) = block_part(s, p, CMD)?;
+    let given = p.get("options").and_then(Value::as_object).ok_or_else(|| bad(CMD, "options: {name: mm | null (back to the default)}"))?;
+    let mut next = b.options.clone();
+    for (k, v) in given {
+        if v.is_null() {
+            next.remove(k);
+        } else {
+            let mm = super::piece::mm_param(v).ok_or_else(|| bad(CMD, format!("{k}: a number of mm, or a length with its unit")))?;
+            next.insert(k.clone(), mm);
+        }
+    }
+    pf_core::block::check_options(b.kind, &next).map_err(|e| bad(CMD, e.to_string()))?;
+    // The block must still draft with them.
+    pf_core::block::draft(b.kind, &mut env_of(&s.doc()?.doc), &next).map_err(|e| bad(CMD, e.to_string()))?;
+    // Every part of the block: the same kind, drafted at the same origin with the same options.
+    let mut ids = Vec::new();
+    s.doc()?.doc.walk(|n| {
+        if let Some(o) = n.extras().block.as_deref()
+            && o.kind == b.kind
+            && o.origin == b.origin
+            && o.options == b.options
+        {
+            ids.push(n.id);
+        }
+    });
+    if !ids.contains(&id) {
+        ids.push(id);
+    }
+    s.edit("Block Options", |d, _| {
+        for i in &ids {
+            if let Some(n) = d.node_mut(*i)
+                && let Some(r) = n.extras_mut().block.as_deref_mut()
+            {
+                r.options = next.clone();
+            }
+        }
+        refresh(d)
+    })?;
+    Ok(json!({"id": id.0, "block": kind_name(b.kind), "parts": ids.iter().map(|i| i.0).collect::<Vec<_>>(), "options": options_info(b.kind, &next)}))
 }
 
 fn measurements(s: &mut Session, p: &Value) -> Result<Value> {
@@ -181,13 +305,14 @@ pub(crate) fn refresh(doc: &mut Document) -> Result<()> {
         return Ok(());
     }
     let mut env = env_of(doc);
-    let mut drafted: Vec<(BlockKind, Option<Vec<Part>>)> = Vec::new();
+    // Each block drafted once for each set of options its parts have.
+    let mut drafted: Vec<(BlockKind, Options, Option<Vec<Part>>)> = Vec::new();
     for (id, b) in parts {
-        let made = match drafted.iter().find(|(k, _)| *k == b.kind) {
-            Some((_, m)) => m.clone(),
+        let made = match drafted.iter().find(|(k, o, _)| *k == b.kind && *o == b.options) {
+            Some((_, _, m)) => m.clone(),
             None => {
-                let m = pf_core::block::draft(b.kind, &mut env).ok();
-                drafted.push((b.kind, m.clone()));
+                let m = pf_core::block::draft(b.kind, &mut env, &b.options).ok();
+                drafted.push((b.kind, b.options.clone(), m.clone()));
                 m
             }
         };

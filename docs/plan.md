@@ -653,6 +653,21 @@ is built on, plus a pattern mode, the way StitchFoundry adds embroidery:
   invert, mirror and marks as fields and checkboxes. Tests: 1 in `dialogs/tests_export.rs` (Export
   As DXF-AAMA → its options → an R12 file with the style named; the projector PDF the same way).
   Not yet: the options remembered from one export to the next.
+- 2026-10-23, **PF-4.5**: block options. Each block's ease and darts are options it keeps with its
+  parts (`BlockRef.options`, by name in mm; one left out is the block's default, the value the
+  source gives): the bodice's ease across the half bust (5 cm), waist ease (3 cm), bust dart (by
+  default worked out from the bust) and back shoulder dart (1 cm); the skirt's ease at the half
+  hip (1 cm) and its back and front dart lengths (14 and 10 cm); the sleeve's ease round the top
+  arm (5 cm); the trousers' ease at the half hip (2 cm) and back dart width and length (2 and
+  10 cm). **Pattern › Block Options…** (`ui.blockOptions`) shows the selected block's options with
+  their defaults and a button back to each; OK runs `block.setOptions {options: {name: mm | null}}`,
+  which draws every part of the block again (drafted together, where it was drafted), pieces made
+  from it following; `block.options` lists them, and the `block.*` drafts take `options` from the
+  start. The parts still follow the measurements. Tests: 1 in `pf-core` (each option changes the
+  draft; unknown and out-of-range options refused), 1 in `tests_block.rs` (7 cm ease puts the
+  bodice's centre front 2 cm out on both parts, with the bust still followed; refusals, back to
+  the default, undo, a piece selected), 1 in `dialogs/block_options.rs`. Not yet: options graded
+  per size, more options (the armhole's depth, the front neck drop).
 - 2026-10-23, **PF-4.6**: the trouser seams walked. **Pattern › Check Trouser Seams**
   (`ui.checkTrouserSeams`; the query `design.trouserSeams`) walks the drafted trouser block's front
   against its back as The Shapes of Fabric's tutorial checks it ("first walk the inseams from the
