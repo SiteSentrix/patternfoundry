@@ -5449,3 +5449,7 @@ file-filter	PDF for projector	PDF pour projecteur
 	Edge Allowance	Valeur de couture du bord
 	Across	À l'horizontale
 	Down	Vers le bas
+	One step	Un seul pas
+	The same move for each size, from the size above the base	Le même déplacement pour chaque taille, celui de la taille au-dessus de la base
+	Per size	Par taille
+	A move for each size of its own	Un déplacement propre à chaque taille

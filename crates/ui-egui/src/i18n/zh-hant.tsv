@@ -5082,3 +5082,7 @@ file-filter	PDF for projector	用於投影機的 PDF
 	Edge Allowance	邊的縫份
 	Across	橫向
 	Down	向下
+	One step	統一檔差
+	The same move for each size, from the size above the base	每個尺碼相同的移動（取基礎碼上一碼）
+	Per size	按尺碼
+	A move for each size of its own	每個尺碼各自的移動

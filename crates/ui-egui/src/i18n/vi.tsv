@@ -5045,3 +5045,7 @@ file-filter	PDF for projector	PDF cho máy chiếu
 	Edge Allowance	Đường may chừa của cạnh
 	Across	Theo chiều ngang
 	Down	Xuống dưới
+	One step	Một bước
+	The same move for each size, from the size above the base	Cùng một độ dời cho mọi cỡ, theo cỡ trên cỡ gốc
+	Per size	Theo từng cỡ
+	A move for each size of its own	Mỗi cỡ một độ dời riêng

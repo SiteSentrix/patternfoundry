@@ -5061,3 +5061,7 @@ file-filter	PDF for projector	PDF для проектора
 	Edge Allowance	Припуск края
 	Across	По горизонтали
 	Down	Вниз
+	One step	Один шаг
+	The same move for each size, from the size above the base	Одинаковое смещение для каждого размера, по размеру над базовым
+	Per size	По размерам
+	A move for each size of its own	Своё смещение для каждого размера

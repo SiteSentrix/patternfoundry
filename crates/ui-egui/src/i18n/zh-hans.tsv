@@ -5286,3 +5286,7 @@ file-filter	PDF for projector	用于投影仪的 PDF
 	Edge Allowance	边的缝份
 	Across	横向
 	Down	向下
+	One step	统一档差
+	The same move for each size, from the size above the base	每个尺码相同的移动（取基础码上一码）
+	Per size	按尺码
+	A move for each size of its own	每个尺码各自的移动

@@ -5045,3 +5045,7 @@ file-filter	PDF for projector	PDF для проєктора
 	Edge Allowance	Припуск краю
 	Across	По горизонталі
 	Down	Вниз
+	One step	Один крок
+	The same move for each size, from the size above the base	Однаковий зсув для кожного розміру, за розміром над базовим
+	Per size	За розмірами
+	A move for each size of its own	Свій зсув для кожного розміру

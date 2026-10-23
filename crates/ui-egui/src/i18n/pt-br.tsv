@@ -5368,3 +5368,7 @@ file-filter	PDF for projector	PDF para projetor
 	Edge Allowance	Margem da borda
 	Across	Na horizontal
 	Down	Para baixo
+	One step	Um só passo
+	The same move for each size, from the size above the base	O mesmo deslocamento para cada tamanho, o do tamanho acima da base
+	Per size	Por tamanho
+	A move for each size of its own	Um deslocamento próprio para cada tamanho
