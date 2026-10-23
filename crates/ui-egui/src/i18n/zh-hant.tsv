@@ -5128,3 +5128,14 @@ file-filter	PDF for projector	用於投影機的 PDF
 	Draft Trouser Waistband	繪製褲腰
 	Flap Pocket…	袋蓋口袋…
 	Crown ease	袖山吃勢
+	Remove Design Step	刪除設計步驟
+	Dart moved	已轉移褶子
+	Dart shortened {mm} mm	褶子已縮短 {mm} mm
+	Slashed and spread {mm} mm	已剪開並展開 {mm} mm
+	Seam trued to {mm} mm	縫線已調整為 {mm} mm
+	Split into panels	已分割為裁片
+	Design step	設計步驟
+	Design steps: {count}	設計步驟：{count}
+	Design changes made on the block (darts, splits, spreads, seam lengths) show here; each is made again when the measurements change	在原型上所做的變更（褶子、分割、展開、縫線長度）顯示在這裡；尺寸改變時每項都會重新執行
+	Remove this step and the ones after it (they were made on the outline it made)	刪除此步驟及其後的步驟（它們是在此步驟得到的輪廓上進行的）
+	Selected block part	選取的原型部分

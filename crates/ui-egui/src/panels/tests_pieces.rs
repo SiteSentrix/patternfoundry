@@ -41,6 +41,11 @@ impl Panel {
     /// Click the first text `label`.
     fn click(&mut self, app: &mut VectorcraftApp, label: &str) {
         let at = super::tests_appearance::text_rect(&self.frame(app, vec![]), label).center();
+        self.click_at(app, at);
+    }
+
+    /// Click at `at`.
+    fn click_at(&mut self, app: &mut VectorcraftApp, at: egui::Pos2) {
         let button = |pressed| egui::Event::PointerButton { pos: at, button: egui::PointerButton::Primary, pressed, modifiers: Default::default() };
         for e in [egui::Event::PointerMoved(at), button(true), button(false)] {
             self.frame(app, vec![e]);
@@ -95,4 +100,28 @@ fn drill_holes_are_listed_and_removed() {
     panel.click(&mut app, "×");
     assert_eq!(app.run("piece.info", json!({"id": id})).unwrap().get("drills"), None);
     assert!(panel.texts(&mut app).iter().any(|t| t == "Right-click inside the piece: Add Drill Hole Here"));
+}
+
+#[test]
+fn a_block_parts_design_steps_are_listed_and_removed() {
+    let mut app = VectorcraftApp::new(Session::new(), Default::default());
+    app.run("file.new", json!({"width": 1400, "height": 1000})).unwrap();
+    let m =
+        json!({"bust": 880, "waist": 680, "nape_to_waist": 410, "back_width": 345, "chest": 325, "shoulder": 122, "neck": 370, "armscye_depth": 210});
+    app.run("measure.set", json!({"values": m})).unwrap();
+    let id = app.run("block.bodice", json!({"origin": [0, 0]})).unwrap()["ids"][1].as_u64().unwrap();
+    app.run("select.set", json!({"ids": [id]})).unwrap();
+    let mut panel = Panel::new();
+    assert!(panel.texts(&mut app).iter().any(|t| t == "Design steps: 0"));
+    let r = app.run("design.rotateDart", json!({"id": id, "apex": 11, "toAnchor": 8})).unwrap();
+    app.run("design.shortenDart", json!({"id": id, "apex": r["apex"], "shorten": 20})).unwrap();
+    panel.click(&mut app, "Design steps: 2");
+    let texts = panel.texts(&mut app);
+    assert!(texts.iter().any(|t| t == "1. Dart moved") && texts.iter().any(|t| t == "2. Dart shortened 20 mm"), "{texts:?}");
+    // The last step's button: the dart stays moved.
+    let last = panel.frame(&mut app, vec![]).into_iter().rfind(|(t, _)| t == "×").unwrap().1;
+    panel.click_at(&mut app, last.center());
+    let texts = panel.texts(&mut app);
+    assert!(texts.iter().any(|t| t == "1. Dart moved") && !texts.iter().any(|t| t.contains("Dart shortened")), "{texts:?}");
+    assert_eq!(app.run("block.options", json!({"id": id})).unwrap()["steps"].as_array().unwrap().len(), 1);
 }

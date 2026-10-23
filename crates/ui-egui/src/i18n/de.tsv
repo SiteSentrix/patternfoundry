@@ -5078,3 +5078,14 @@ file-filter	PDF for projector	PDF für Projektor
 	Draft Trouser Waistband	Hosenbund zeichnen
 	Flap Pocket…	Paspeltasche mit Patte…
 	Crown ease	Kugelmehrweite
+	Remove Design Step	Designschritt entfernen
+	Dart moved	Abnäher verlegt
+	Dart shortened {mm} mm	Abnäher um {mm} mm gekürzt
+	Slashed and spread {mm} mm	Aufgeschnitten und {mm} mm gespreizt
+	Seam trued to {mm} mm	Naht auf {mm} mm angeglichen
+	Split into panels	In Teile geteilt
+	Design step	Designschritt
+	Design steps: {count}	Designschritte: {count}
+	Design changes made on the block (darts, splits, spreads, seam lengths) show here; each is made again when the measurements change	Änderungen am Grundschnitt (Abnäher, Teilungen, Spreizungen, Nahtlängen) stehen hier; jede wird wieder ausgeführt, wenn sich die Maße ändern
+	Remove this step and the ones after it (they were made on the outline it made)	Diesen Schritt und die folgenden entfernen (sie wurden an dem Umriss ausgeführt, den er ergab)
+	Selected block part	Ausgewähltes Grundschnittteil

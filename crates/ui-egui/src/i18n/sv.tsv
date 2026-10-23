@@ -5452,3 +5452,14 @@ file-filter	PDF for projector	PDF för projektor
 	Draft Trouser Waistband	Rita byxlinning
 	Flap Pocket…	Paspelficka med lock…
 	Crown ease	Ärmkullens vidd
+	Remove Design Step	Ta bort designsteg
+	Dart moved	Inprovning flyttad
+	Dart shortened {mm} mm	Inprovning kortad {mm} mm
+	Slashed and spread {mm} mm	Uppklippt och spridd {mm} mm
+	Seam trued to {mm} mm	Söm anpassad till {mm} mm
+	Split into panels	Delad i paneler
+	Design step	Designsteg
+	Design steps: {count}	Designsteg: {count}
+	Design changes made on the block (darts, splits, spreads, seam lengths) show here; each is made again when the measurements change	Ändringar på grundmönstret (inprovningar, delningar, spridningar, sömlängder) visas här; var och en görs om när måtten ändras
+	Remove this step and the ones after it (they were made on the outline it made)	Ta bort det här steget och de efter det (de gjordes på konturen det gav)
+	Selected block part	Markerad del av grundmönstret

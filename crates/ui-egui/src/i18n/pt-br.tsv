@@ -5414,3 +5414,14 @@ file-filter	PDF for projector	PDF para projetor
 	Draft Trouser Waistband	Traçar o cós da calça
 	Flap Pocket…	Bolso embutido com lapela…
 	Crown ease	Folga da cabeça da manga
+	Remove Design Step	Remover etapa de modelagem
+	Dart moved	Pence girada
+	Dart shortened {mm} mm	Pence encurtada {mm} mm
+	Slashed and spread {mm} mm	Cortado e aberto {mm} mm
+	Seam trued to {mm} mm	Costura acertada para {mm} mm
+	Split into panels	Dividido em recortes
+	Design step	Etapa de modelagem
+	Design steps: {count}	Etapas de modelagem: {count}
+	Design changes made on the block (darts, splits, spreads, seam lengths) show here; each is made again when the measurements change	As mudanças feitas no molde base (pences, recortes, aberturas, comprimentos de costura) aparecem aqui; cada uma é refeita quando as medidas mudam
+	Remove this step and the ones after it (they were made on the outline it made)	Remover esta etapa e as seguintes (elas foram feitas no contorno que ela gerou)
+	Selected block part	Parte do molde base selecionada

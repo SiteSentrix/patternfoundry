@@ -5448,3 +5448,14 @@ file-filter	PDF for projector	PDF για προβολέα
 	Draft Trouser Waistband	Σχεδίαση ζώνης παντελονιού
 	Flap Pocket…	Τσέπη με καπάκι…
 	Crown ease	Άνεση κορυφής μανικιού
+	Remove Design Step	Αφαίρεση βήματος σχεδίασης
+	Dart moved	Η πένσα μετακινήθηκε
+	Dart shortened {mm} mm	Η πένσα κονταίνει κατά {mm} mm
+	Slashed and spread {mm} mm	Κόπηκε και ανοίχτηκε κατά {mm} mm
+	Seam trued to {mm} mm	Η ραφή προσαρμόστηκε στα {mm} mm
+	Split into panels	Χωρίστηκε σε κομμάτια
+	Design step	Βήμα σχεδίασης
+	Design steps: {count}	Βήματα σχεδίασης: {count}
+	Design changes made on the block (darts, splits, spreads, seam lengths) show here; each is made again when the measurements change	Οι αλλαγές στο βασικό πατρόν (πένσες, διαιρέσεις, ανοίγματα, μήκη ραφών) εμφανίζονται εδώ· η καθεμία γίνεται ξανά όταν αλλάζουν οι μετρήσεις
+	Remove this step and the ones after it (they were made on the outline it made)	Αφαίρεση αυτού του βήματος και των επόμενων (έγιναν στο περίγραμμα που αυτό έδωσε)
+	Selected block part	Επιλεγμένο τμήμα βασικού πατρόν

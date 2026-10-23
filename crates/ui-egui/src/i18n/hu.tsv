@@ -5482,3 +5482,14 @@ file-filter	PDF for projector	PDF projektorhoz
 	Draft Trouser Waistband	Nadrágpánt szerkesztése
 	Flap Pocket…	Fedőlapos zseb…
 	Crown ease	Ujjafej bedolgozás
+	Remove Design Step	Szerkesztési lépés eltávolítása
+	Dart moved	Varrás áthelyezve
+	Dart shortened {mm} mm	Varrás rövidítve {mm} mm-rel
+	Slashed and spread {mm} mm	Felvágva és {mm} mm-rel szétnyitva
+	Seam trued to {mm} mm	Varrás {mm} mm-re igazítva
+	Split into panels	Részekre osztva
+	Design step	Szerkesztési lépés
+	Design steps: {count}	Szerkesztési lépések: {count}
+	Design changes made on the block (darts, splits, spreads, seam lengths) show here; each is made again when the measurements change	Az alapszabásmintán végzett módosítások (varrások, osztások, szétnyitások, varráshosszak) itt jelennek meg; mindegyik újra elkészül, ha a méretek változnak
+	Remove this step and the ones after it (they were made on the outline it made)	E lépés és az utána következők eltávolítása (azokat az általa létrehozott körvonalon végezték)
+	Selected block part	Kijelölt alapszabásminta-rész

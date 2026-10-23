@@ -5479,3 +5479,14 @@ file-filter	PDF for projector	PDF til projektor
 	Draft Trouser Waistband	Tegn buksens linning
 	Flap Pocket…	Paspellomme med klap…
 	Crown ease	Ærmekuplens vidde
+	Remove Design Step	Fjern designtrin
+	Dart moved	Indsnit flyttet
+	Dart shortened {mm} mm	Indsnit afkortet {mm} mm
+	Slashed and spread {mm} mm	Klippet op og spredt {mm} mm
+	Seam trued to {mm} mm	Søm tilpasset til {mm} mm
+	Split into panels	Delt i paneler
+	Design step	Designtrin
+	Design steps: {count}	Designtrin: {count}
+	Design changes made on the block (darts, splits, spreads, seam lengths) show here; each is made again when the measurements change	Ændringer på grundmønsteret (indsnit, delinger, spredninger, sømlængder) vises her; hver bliver lavet igen, når målene ændres
+	Remove this step and the ones after it (they were made on the outline it made)	Fjern dette trin og dem efter det (de blev lavet på det omrids, det gav)
+	Selected block part	Markeret del af grundmønsteret

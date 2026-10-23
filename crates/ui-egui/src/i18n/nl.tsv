@@ -5521,3 +5521,14 @@ file-filter	PDF for projector	PDF voor projector
 	Draft Trouser Waistband	Broekband tekenen
 	Flap Pocket…	Paspelzak met klep…
 	Crown ease	Inhalen van de mouwkop
+	Remove Design Step	Ontwerpstap verwijderen
+	Dart moved	Figuurnaad verlegd
+	Dart shortened {mm} mm	Figuurnaad {mm} mm ingekort
+	Slashed and spread {mm} mm	Ingeknipt en {mm} mm uitgespreid
+	Seam trued to {mm} mm	Naad op {mm} mm gebracht
+	Split into panels	In panelen gesplitst
+	Design step	Ontwerpstap
+	Design steps: {count}	Ontwerpstappen: {count}
+	Design changes made on the block (darts, splits, spreads, seam lengths) show here; each is made again when the measurements change	Wijzigingen aan het basispatroon (figuurnaden, splitsingen, uitspreidingen, naadlengtes) staan hier; elke wordt opnieuw gedaan als de maten veranderen
+	Remove this step and the ones after it (they were made on the outline it made)	Deze stap en de volgende verwijderen (ze zijn gedaan op de omtrek die deze opleverde)
+	Selected block part	Geselecteerd deel van het basispatroon

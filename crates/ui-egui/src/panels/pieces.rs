@@ -2,7 +2,9 @@
 //! count, fabric, seam allowance, the edge cut on the fold, and its edges (each one's allowance)
 //! and notches, and its drill holes. Everything it shows comes from `piece.list` and `piece.info`;
 //! every change goes through `piece.set`, `piece.addNotch`, `piece.setNotch` (a notch's shape),
-//! `piece.removeNotch`, `piece.removeDrill`, `piece.make` and `piece.release`.
+//! `piece.removeNotch`, `piece.removeDrill`, `piece.make` and `piece.release`. For a drafted block
+//! part (or a piece made from one) it lists the design steps made on it (`block.options`), each with
+//! a button to remove it and the steps after it (`block.removeStep`, PF-5.22).
 
 use egui::Ui;
 use serde_json::{Value, json};
@@ -18,6 +20,8 @@ struct Cache {
     key: Option<(u64, u64)>,
     list: Vec<Value>,
     info: Option<Value>,
+    /// `block.options` of the selected block part.
+    block: Option<Value>,
 }
 
 fn fetch(app: &mut VectorcraftApp, ctx: &egui::Context) -> Option<Cache> {
@@ -27,6 +31,7 @@ fn fetch(app: &mut VectorcraftApp, ctx: &egui::Context) -> Option<Cache> {
     if c.key != key {
         c.list = app.session.execute("piece.list", &json!({})).ok().and_then(|v| v["pieces"].as_array().cloned()).unwrap_or_default();
         c.info = app.session.execute("piece.info", &json!({})).ok();
+        c.block = app.session.execute("block.options", &json!({})).ok();
         c.key = key;
         set_pstate(ctx, "pieces-cache", c.clone());
     }
@@ -149,6 +154,43 @@ fn drills_section(app: &mut VectorcraftApp, ui: &mut Ui, info: &Value, id: u64) 
     });
 }
 
+/// A design step, as `block.options` lists it, in words.
+fn step_text(step: &Value) -> String {
+    let mm = |k: &str| step[k].as_f64().map(|v| ((v * 10.0).round() / 10.0).to_string()).unwrap_or_default();
+    match step["step"].as_str().unwrap_or_default() {
+        "rotateDart" => tl!("Dart moved").to_string(),
+        "shortenDart" => crate::i18n::fmt(tl!("Dart shortened {mm} mm"), &[("mm", &mm("by"))]),
+        "spread" => crate::i18n::fmt(tl!("Slashed and spread {mm} mm"), &[("mm", &mm("amount"))]),
+        "matchLength" => crate::i18n::fmt(tl!("Seam trued to {mm} mm"), &[("mm", &mm("length"))]),
+        "split" => tl!("Split into panels").to_string(),
+        _ => tl!("Design step").to_string(),
+    }
+}
+
+/// The design steps made on the selected block part, in order, each with a button to remove it and
+/// the steps after it; the part is drafted again from the measurements and the steps before it
+/// made again. A split stays (it made two panels).
+fn steps_section(app: &mut VectorcraftApp, ui: &mut Ui, block: &Value) {
+    let Some(id) = block["id"].as_u64() else { return };
+    let steps = block["steps"].as_array().cloned().unwrap_or_default();
+    let title = crate::i18n::fmt(tl!("Design steps: {count}"), &[("count", &steps.len().to_string())]);
+    egui::CollapsingHeader::new(title).id_salt("pieces-steps").show(ui, |ui| {
+        if steps.is_empty() {
+            widgets::dim_label(ui, tl!("Design changes made on the block (darts, splits, spreads, seam lengths) show here; each is made again when the measurements change"));
+        }
+        // Steps up to the last split stay.
+        let kept = steps.iter().rposition(|st| st["step"] == "split").map_or(0, |i| i + 1);
+        for (i, step) in steps.iter().enumerate() {
+            ui.horizontal(|ui| {
+                ui.label(egui::RichText::new(format!("{}. {}", i + 1, step_text(step))).size(12.0));
+                if i >= kept && ui.small_button("×").on_hover_text(tl!("Remove this step and the ones after it (they were made on the outline it made)")).clicked() {
+                    run(app, "block.removeStep", json!({ "id": id, "index": i }));
+                }
+            });
+        }
+    });
+}
+
 pub fn show(app: &mut VectorcraftApp, ui: &mut Ui) {
     let Some(c) = fetch(app, ui.ctx()) else {
         widgets::dim_label(ui, tl!("No document"));
@@ -197,12 +239,22 @@ pub fn show(app: &mut VectorcraftApp, ui: &mut Ui) {
         });
         edges_section(app, ui, info, id, edges);
         drills_section(app, ui, info, id);
+        if let Some(block) = &c.block {
+            steps_section(app, ui, block);
+        }
         super::doc_info::row(ui, tl!("Seam line length"), format!("{} mm", info["seamLength"].as_f64().unwrap_or_default()));
         if let Some(problem) = info["problem"].as_str() {
             widgets::dim_label(ui, &crate::i18n::message(crate::i18n::current(), problem));
         }
         if ui.button(tl!("Release Pattern Piece")).clicked() {
             run(app, "piece.release", json!({ "id": id }));
+        }
+        widgets::divider(ui);
+    } else if let Some(block) = &c.block {
+        widgets::subheader(ui, tl!("Selected block part"));
+        steps_section(app, ui, block);
+        if ui.button(tl!("Make Pattern Piece")).on_hover_text(tl!("Each selected closed path becomes a piece: the path is its seam line")).clicked() {
+            run(app, "piece.make", json!({}));
         }
         widgets::divider(ui);
     } else if ui

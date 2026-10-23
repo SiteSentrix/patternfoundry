@@ -5349,3 +5349,14 @@ file-filter	PDF for projector	PDF do projektora
 	Draft Trouser Waistband	Wykreśl pasek spodni
 	Flap Pocket…	Kieszeń z patką…
 	Crown ease	Wdanie główki rękawa
+	Remove Design Step	Usuń krok modelowania
+	Dart moved	Zaszewka przeniesiona
+	Dart shortened {mm} mm	Zaszewka skrócona o {mm} mm
+	Slashed and spread {mm} mm	Rozcięte i rozsunięte o {mm} mm
+	Seam trued to {mm} mm	Szew dopasowany do {mm} mm
+	Split into panels	Podzielone na panele
+	Design step	Krok modelowania
+	Design steps: {count}	Kroki modelowania: {count}
+	Design changes made on the block (darts, splits, spreads, seam lengths) show here; each is made again when the measurements change	Zmiany wprowadzone w formie podstawowej (zaszewki, podziały, rozsunięcia, długości szwów) widać tutaj; każda jest wykonywana ponownie, gdy zmienią się wymiary
+	Remove this step and the ones after it (they were made on the outline it made)	Usuń ten krok i następne (wykonano je na obrysie, który on utworzył)
+	Selected block part	Zaznaczona część formy podstawowej

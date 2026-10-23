@@ -5091,3 +5091,14 @@ file-filter	PDF for projector	PDF для проєктора
 	Draft Trouser Waistband	Побудувати пояс штанів
 	Flap Pocket…	Кишеня з клапаном…
 	Crown ease	Посадка окату
+	Remove Design Step	Видалити крок моделювання
+	Dart moved	Виточку переведено
+	Dart shortened {mm} mm	Виточку вкорочено на {mm} мм
+	Slashed and spread {mm} mm	Розрізано й розсунуто на {mm} мм
+	Seam trued to {mm} mm	Шов вирівняно до {mm} мм
+	Split into panels	Розділено на частини
+	Design step	Крок моделювання
+	Design steps: {count}	Кроки моделювання: {count}
+	Design changes made on the block (darts, splits, spreads, seam lengths) show here; each is made again when the measurements change	Зміни базової викрійки (виточки, членування, розсування, довжини швів) показано тут; кожна виконується знову, коли змінюються мірки
+	Remove this step and the ones after it (they were made on the outline it made)	Видалити цей крок і наступні (їх зроблено на контурі, який він дав)
+	Selected block part	Вибрана частина базової викрійки

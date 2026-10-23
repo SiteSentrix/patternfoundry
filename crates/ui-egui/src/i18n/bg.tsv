@@ -5460,3 +5460,14 @@ file-filter	PDF for projector	PDF за проектор
 	Draft Trouser Waistband	Начертаване на колан на панталона
 	Flap Pocket…	Джоб с капак…
 	Crown ease	Набиране на ръкавната глава
+	Remove Design Step	Премахване на стъпка от моделирането
+	Dart moved	Пенсът е преместен
+	Dart shortened {mm} mm	Пенсът е скъсен с {mm} мм
+	Slashed and spread {mm} mm	Разрязано и раздалечено с {mm} мм
+	Seam trued to {mm} mm	Шевът е изравнен до {mm} мм
+	Split into panels	Разделено на части
+	Design step	Стъпка от моделирането
+	Design steps: {count}	Стъпки от моделирането: {count}
+	Design changes made on the block (darts, splits, spreads, seam lengths) show here; each is made again when the measurements change	Промените в основната кройка (пенсове, разделяния, раздалечавания, дължини на шевове) се показват тук; всяка се прави отново, когато мерките се променят
+	Remove this step and the ones after it (they were made on the outline it made)	Премахване на тази стъпка и следващите (те са направени върху контура, който тя даде)
+	Selected block part	Избрана част от основната кройка

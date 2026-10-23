@@ -5151,3 +5151,14 @@ file-filter	PDF for projector	プロジェクター用 PDF
 	Draft Trouser Waistband	パンツのウエストベルトを作図
 	Flap Pocket…	フラップポケット…
 	Crown ease	袖山のいせ分量
+	Remove Design Step	デザイン手順を削除
+	Dart moved	ダーツを移動しました
+	Dart shortened {mm} mm	ダーツを {mm} mm 短くしました
+	Slashed and spread {mm} mm	切り開いて {mm} mm 展開しました
+	Seam trued to {mm} mm	縫い目を {mm} mm に合わせました
+	Split into panels	パネルに分割しました
+	Design step	デザイン手順
+	Design steps: {count}	デザイン手順: {count}
+	Design changes made on the block (darts, splits, spreads, seam lengths) show here; each is made again when the measurements change	原型に加えた変更（ダーツ、分割、展開、縫い目の長さ）はここに表示されます。採寸値が変わると、それぞれがやり直されます
+	Remove this step and the ones after it (they were made on the outline it made)	この手順とそれ以降の手順を削除（それ以降はこの手順でできた輪郭の上で行われています）
+	Selected block part	選択した原型パーツ

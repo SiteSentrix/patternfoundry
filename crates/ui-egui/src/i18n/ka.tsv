@@ -5404,3 +5404,14 @@ file-filter	PDF for projector	PDF პროექტორისთვის
 	Draft Trouser Waistband	შარვლის ქამრის აგება
 	Flap Pocket…	ჯიბე სარქველით…
 	Crown ease	სახელოს თავის მონატება
+	Remove Design Step	დიზაინის ნაბიჯის წაშლა
+	Dart moved	გამონაჭერი გადატანილია
+	Dart shortened {mm} mm	გამონაჭერი დამოკლებულია {mm} მმ-ით
+	Slashed and spread {mm} mm	გაჭრილია და გაშლილია {mm} მმ-ით
+	Seam trued to {mm} mm	ნაკერი გასწორებულია {mm} მმ-მდე
+	Split into panels	დაყოფილია ნაწილებად
+	Design step	დიზაინის ნაბიჯი
+	Design steps: {count}	დიზაინის ნაბიჯები: {count}
+	Design changes made on the block (darts, splits, spreads, seam lengths) show here; each is made again when the measurements change	საბაზისო თარგზე შეტანილი ცვლილებები (გამონაჭრები, დაყოფები, გაშლები, ნაკერების სიგრძეები) აქ ჩანს; თითოეული ხელახლა სრულდება, როცა ზომები იცვლება
+	Remove this step and the ones after it (they were made on the outline it made)	ამ ნაბიჯისა და მომდევნოების წაშლა (ისინი მის მიერ მიღებულ კონტურზე შესრულდა)
+	Selected block part	საბაზისო თარგის არჩეული ნაწილი

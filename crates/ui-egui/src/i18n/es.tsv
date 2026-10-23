@@ -5439,3 +5439,14 @@ file-filter	PDF for projector	PDF para proyector
 	Draft Trouser Waistband	Trazar la pretina del pantalón
 	Flap Pocket…	Bolsillo de vivo con cartera…
 	Crown ease	Embebido de la copa
+	Remove Design Step	Quitar paso de transformación
+	Dart moved	Pinza girada
+	Dart shortened {mm} mm	Pinza acortada {mm} mm
+	Slashed and spread {mm} mm	Cortado y abierto {mm} mm
+	Seam trued to {mm} mm	Costura igualada a {mm} mm
+	Split into panels	Dividido en paneles
+	Design step	Paso de transformación
+	Design steps: {count}	Pasos de transformación: {count}
+	Design changes made on the block (darts, splits, spreads, seam lengths) show here; each is made again when the measurements change	Los cambios hechos en el patrón base (pinzas, divisiones, aperturas, largos de costura) aparecen aquí; cada uno se vuelve a hacer cuando cambian las medidas
+	Remove this step and the ones after it (they were made on the outline it made)	Quitar este paso y los siguientes (se hicieron sobre el contorno que este dejó)
+	Selected block part	Parte del patrón base seleccionada
