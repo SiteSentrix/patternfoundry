@@ -5066,3 +5066,11 @@ file-filter	PDF for projector	PDF для проєктора
 	U notch	U-надсічка
 	As drawn	Як намальовано
 	Side by side	Поруч
+	Check Trouser Seams	Перевірити шви штанів
+	Trouser Seams	Шви штанів
+	Inseam, knee to hem	Кроковий шов, від коліна до низу
+	Inseam, crotch to knee	Кроковий шов, від сидіння до коліна
+	Side seam, knee to hem	Бічний шов, від коліна до низу
+	Side seam, waist to knee	Бічний шов, від талії до коліна
+	{seam}: front {front} mm, back {back} mm ({difference} mm)	{seam}: перед {front} мм, задня половина {back} мм ({difference} мм)
+	Walk them on the pattern too: where a line doesn't run on smoothly from front to back, find the point half way between the two and correct both lines. The back inseam is more curved, so it is often longer: lowering the back crotch curve slightly to match is fine.	Перевірте їх і на викрійці: там, де лінія не переходить плавно з переду на задню половину, знайдіть точку посередині між ними й виправте обидві лінії. Кроковий шов задньої половини вигнутий сильніше, тому часто довший: трохи опустити лінію сидіння ззаду, щоб він збігся, — нормально.

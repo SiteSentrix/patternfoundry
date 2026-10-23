@@ -653,3 +653,17 @@ is built on, plus a pattern mode, the way StitchFoundry adds embroidery:
   invert, mirror and marks as fields and checkboxes. Tests: 1 in `dialogs/tests_export.rs` (Export
   As DXF-AAMA → its options → an R12 file with the style named; the projector PDF the same way).
   Not yet: the options remembered from one export to the next.
+- 2026-10-23, **PF-4.6**: the trouser seams walked. **Pattern › Check Trouser Seams**
+  (`ui.checkTrouserSeams`; the query `design.trouserSeams`) walks the drafted trouser block's front
+  against its back as The Shapes of Fabric's tutorial checks it ("first walk the inseams from the
+  kneeline to the hemline", then from the kneeline to the crotch point, and the side seams from the
+  kneeline to the hemline and to the waistline:
+  https://www.theshapesoffabric.com/2020/08/16/learn-how-to-draft-the-basic-pants-pattern/), and
+  tells each run's lengths and how much longer the back's is, with the tutorial's advice (where a
+  line doesn't run on smoothly, correct both lines to the point half way between; the back inseam
+  is more curved, so often longer, and lowering the back crotch curve slightly is fine). The runs
+  are anchor ranges of the block as drafted (`pf_core::block::TROUSER_SEAMS`). Tests: 1 in
+  `pf-core` (every run starts or ends at the knee), 1 in `tests_block.rs` (the tutorial's example:
+  four runs, knee to hem about 44 cm, the back inseam longer above the knee), 1 in
+  `dialogs/trouser_seams.rs`. Not yet: notches matched along the walked seams (design.walk does it
+  for seams named by hand), the seams of a block changed since it was drafted.

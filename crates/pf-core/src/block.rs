@@ -704,6 +704,23 @@ pub fn armhole(kind: BlockKind, part: usize) -> Option<(usize, usize, usize)> {
     }
 }
 
+/// A run along a block part's outline: from one anchor forward to another.
+pub type Run = (usize, usize);
+
+/// The trouser block's seams that sew front to back, walked in two runs each as The Shapes of
+/// Fabric's tutorial checks them ("first walk the inseams from the kneeline to the hemline", then
+/// from the kneeline to the crotch point, and the side seams from the kneeline to the hemline and
+/// to the waistline): the run's name, then each part's run (from one anchor forward to another).
+pub const TROUSER_SEAMS: &[(&str, Run, Run)] = &[
+    ("inseam, knee to hem", (3, 4), (9, 10)),
+    ("inseam, crotch to knee", (2, 3), (10, 11)),
+    ("side seam, knee to hem", (5, 6), (7, 8)),
+    ("side seam, waist to knee", (6, 9), (4, 7)),
+];
+
+/// How many anchors the trouser block's front and back have as drafted.
+pub const TROUSER_ANCHORS: (usize, usize) = (10, 13);
+
 /// How a set-in sleeve is to sit, for the ease its crown takes in: the University of Kentucky
 /// extension's figures, measured notch to notch (FCS2-807, "Set-in Sleeves",
 /// https://publications.ca.uky.edu/sites/publications.ca.uky.edu/files/fcs2807.pdf). Knits take
@@ -986,5 +1003,34 @@ mod tests {
         assert!((crown - sleeve_crown(sl)).abs() < 1e-9);
         assert_eq!(SleeveStyle::parse("classic").map(SleeveStyle::ease), Some((38.1, 50.8)));
         assert_eq!(SleeveStyle::parse("dolman"), None);
+    }
+
+    #[test]
+    fn the_trouser_seams_run_between_the_knee_hem_crotch_and_waist_points() {
+        let mut m = Measurements::default();
+        for (k, v) in [
+            ("waist", 740.0),
+            ("hip", 960.0),
+            ("waist_to_hip", 200.0),
+            ("crotch_depth", 260.0),
+            ("waist_to_knee", 600.0),
+            ("waist_to_ankle", 1040.0),
+            ("trouser_hem", 460.0),
+        ] {
+            m.set_value(k, Some(v)).unwrap();
+        }
+        let p = trousers(&mut m.env()).unwrap();
+        // The outlines come back to their starts: the last corner is the first.
+        let (front, back) = (p[0].corners(), p[1].corners());
+        assert_eq!((front.len() - 1, back.len() - 1), TROUSER_ANCHORS);
+        let y = |pts: &[Pt], i: usize| pts[i].y;
+        // Knee 600, hem 1040, crotch line 275, waist line about 0.
+        for (_, (f0, f1), (b0, b1)) in TROUSER_SEAMS {
+            for (pts, a, b) in [(&front, *f0, *f1), (&back, *b0, *b1)] {
+                let ends = [y(pts, a).round(), y(pts, b).round()];
+                assert!(ends.contains(&600.0), "{ends:?}: every run starts or ends at the knee");
+                assert!(ends.iter().any(|e| [1040.0, 275.0].contains(e) || *e < 20.0), "{ends:?}");
+            }
+        }
     }
 }

@@ -5103,3 +5103,11 @@ file-filter	PDF for projector	用於投影機的 PDF
 	U notch	U 形剪口
 	As drawn	依繪製
 	Side by side	並排
+	Check Trouser Seams	檢查褲子縫線
+	Trouser Seams	褲子縫線
+	Inseam, knee to hem	內側縫，膝到褲口
+	Inseam, crotch to knee	內側縫，襠到膝
+	Side seam, knee to hem	側縫，膝到褲口
+	Side seam, waist to knee	側縫，腰到膝
+	{seam}: front {front} mm, back {back} mm ({difference} mm)	{seam}：前片 {front} mm，後片 {back} mm（{difference} mm）
+	Walk them on the pattern too: where a line doesn't run on smoothly from front to back, find the point half way between the two and correct both lines. The back inseam is more curved, so it is often longer: lowering the back crotch curve slightly to match is fine.	也請在紙型上對一對：前後片之間線條不順接的地方，找到兩線之間的中點並同時修正兩條線。後片內側縫弧度較大，所以常常較長：把後襠弧線稍微降低一點來對齊是可以的。

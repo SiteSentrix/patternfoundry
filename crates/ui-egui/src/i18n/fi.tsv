@@ -5435,3 +5435,11 @@ file-filter	PDF for projector	PDF projektorille
 	U notch	U-lovi
 	As drawn	Kuten piirretty
 	Side by side	Rinnakkain
+	Check Trouser Seams	Tarkista housujen saumat
+	Trouser Seams	Housujen saumat
+	Inseam, knee to hem	Sisäsauma, polvesta helmaan
+	Inseam, crotch to knee	Sisäsauma, haarasta polveen
+	Side seam, knee to hem	Sivusauma, polvesta helmaan
+	Side seam, waist to knee	Sivusauma, vyötäröltä polveen
+	{seam}: front {front} mm, back {back} mm ({difference} mm)	{seam}: etu {front} mm, taka {back} mm ({difference} mm)
+	Walk them on the pattern too: where a line doesn't run on smoothly from front to back, find the point half way between the two and correct both lines. The back inseam is more curved, so it is often longer: lowering the back crotch curve slightly to match is fine.	Kulje ne myös kaavalla: missä viiva ei jatku tasaisesti edestä taakse, etsi kohta näiden puolivälistä ja korjaa molemmat viivat. Takasisäsauma on kaarevampi ja siksi usein pidempi: takahaaran kaaren laskeminen hieman, jotta se sopii, on hyvä.

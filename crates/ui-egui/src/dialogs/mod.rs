@@ -103,6 +103,7 @@ pub mod tile_edge_color;
 mod tools;
 pub(crate) mod transform;
 pub mod transform_each;
+pub mod trouser_seams;
 pub mod variables;
 mod warp_effect;
 pub mod width_point;
