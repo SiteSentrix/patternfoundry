@@ -245,6 +245,58 @@ fn path_of(ring: &[Knot]) -> PathData {
     PathData::single(SubPath::new(anchors, true))
 }
 
+/// The node with a new outline made by design step `step`: a drafted block part keeps following its
+/// block, the step kept to be made again when the block is drawn again (PF-5.20); any other path
+/// is [`reshaped`].
+fn stepped(n: &Node, path: PathData, step: pf_core::design::DesignStep) -> Node {
+    if n.extras().block.is_none() {
+        return reshaped(n, path);
+    }
+    let mut n = n.clone();
+    if let NodeKind::Path { path: p, live, .. } = &mut n.kind {
+        *p = path;
+        *live = None;
+    }
+    if let Some(b) = n.extras_mut().block.as_deref_mut() {
+        b.steps.push(step);
+    }
+    n.extras_mut().draft = None;
+    n
+}
+
+/// `path` (a block part's outline as drafted) with the design steps `steps` made on it again, in
+/// order; none when one of them no longer works (the part then keeps its last outline).
+pub(crate) fn replay(path: &PathData, steps: &[pf_core::design::DesignStep]) -> Option<PathData> {
+    use pf_core::design::{DesignStep, StepPoint};
+    let sp = path.subpaths.first().filter(|sp| sp.closed)?;
+    let mut ring: Vec<Knot> = sp.anchors.iter().map(|a| Knot { p: to_pt(a.p), h_in: to_pt(a.h_in), h_out: to_pt(a.h_out) }).collect();
+    for step in steps {
+        ring = match *step {
+            DesignStep::RotateDart { apex, to, amount, side } => {
+                let mut apex = apex;
+                let at = match to {
+                    StepPoint::Anchor(a) => a,
+                    StepPoint::OnEdge { edge, t } => {
+                        let mut sp = path_of(&ring).subpaths.into_iter().next()?;
+                        if edge >= sp.segment_count() || !(0.0..=1.0).contains(&t) {
+                            return None;
+                        }
+                        let i = sp.insert_anchor(edge, t);
+                        ring = sp.anchors.iter().map(|a| Knot { p: to_pt(a.p), h_in: to_pt(a.h_in), h_out: to_pt(a.h_out) }).collect();
+                        if i <= apex {
+                            apex += 1;
+                        }
+                        i
+                    }
+                };
+                pf_core::design::rotate_dart(&ring, apex, at, amount, side).ok()?.0
+            }
+            DesignStep::ShortenDart { apex, by } => pf_core::design::shorten_dart(&ring, apex, pf_core::mm_to_pt(by)).ok()?,
+        };
+    }
+    Some(path_of(&ring))
+}
+
 /// The node with a new outline; it no longer follows a block or point formulas.
 fn reshaped(n: &Node, path: PathData) -> Node {
     let mut n = n.clone();
@@ -316,23 +368,30 @@ fn rotate_dart(s: &mut Session, p: &Value) -> Result<Value> {
     if apex >= ring.len() {
         return Err(bad(CMD, format!("the path has points 0 to {}", ring.len().saturating_sub(1))));
     }
-    // A point on the outline: a new anchor there, unless one is already there.
-    let at = match (at, target) {
-        (Some(t), _) => t,
+    // A point on the outline: a new anchor there, unless one is already there. The step keeps
+    // the outline before it: the apex then, and where the new anchor went (edge and place).
+    let first_apex = apex;
+    let (at, to) = match (at, target) {
+        (Some(t), _) => (t, pf_core::design::StepPoint::Anchor(t)),
         (None, Some(q)) => {
-            let (i, inserted) = point_on(&mut ring, q, "to", CMD)?;
+            let (i, inserted, edge) = point_on_at(&mut ring, q, "to", CMD)?;
             if inserted && i <= apex {
                 apex += 1;
             }
-            i
+            let to = match edge {
+                Some((edge, t)) => pf_core::design::StepPoint::OnEdge { edge, t },
+                None => pf_core::design::StepPoint::Anchor(i),
+            };
+            (i, to)
         }
         (None, None) => return Err(bad(CMD, "to or toAnchor: where the dart moves to")),
     };
     let (out, new_apex) = pf_core::design::rotate_dart(&ring, apex, at, amount, side).map_err(|e| err(CMD, e))?;
     let count = out.len();
+    let step = pf_core::design::DesignStep::RotateDart { apex: first_apex, to, amount, side };
     s.edit("Rotate Dart", |d, sel| {
         let n = d.node(id).ok_or(EngineError::NoNode(id))?;
-        let new = reshaped(n, path_of(&out));
+        let new = stepped(n, path_of(&out), step.clone());
         if let Some(m) = d.node_mut(id) {
             *m = new;
         }
@@ -677,9 +736,10 @@ fn shorten_dart(s: &mut Session, p: &Value) -> Result<Value> {
     };
     let out = pf_core::design::shorten_dart(&ring, apex, pf_core::mm_to_pt(by)).map_err(|e| err(CMD, e))?;
     let at = out[apex].p;
+    let step = pf_core::design::DesignStep::ShortenDart { apex, by };
     s.edit("Shorten Dart", |d, sel| {
         let n = d.node(id).ok_or(EngineError::NoNode(id))?;
-        let new = reshaped(n, path_of(&out));
+        let new = stepped(n, path_of(&out), step.clone());
         if let Some(m) = d.node_mut(id) {
             *m = new;
         }
@@ -875,18 +935,27 @@ fn match_length(s: &mut Session, p: &Value) -> Result<Value> {
 /// The anchor at `q` on the outline: the one there, or a new one put there (then `true`). Within
 /// 5 mm of the outline.
 fn point_on(ring: &mut Vec<Knot>, q: Point, key: &str, cmd: &str) -> Result<(usize, bool)> {
+    point_on_at(ring, q, key, cmd).map(|(i, inserted, _)| (i, inserted))
+}
+
+/// Where [`point_on_at`] put its anchor: its index, whether it is new, and (when new) the edge and
+/// the place along it.
+type Placed = (usize, bool, Option<(usize, f64)>);
+
+/// [`point_on`], with the edge and the place along it where an anchor was put.
+fn point_on_at(ring: &mut Vec<Knot>, q: Point, key: &str, cmd: &str) -> Result<Placed> {
     let path = path_of(ring);
     let (_, seg, t, hit, dist) = path.nearest(q).ok_or_else(|| bad(cmd, "the path has no outline"))?;
     if dist > pf_core::mm_to_pt(5.0) {
         return Err(bad(cmd, format!("{key}: a point on the outline (within 5 mm of it)")));
     }
     if let Some(i) = ring.iter().position(|k| (to_point(k.p) - hit).hypot() < 1e-6) {
-        return Ok((i, false));
+        return Ok((i, false, None));
     }
     let mut sp = path.subpaths[0].clone();
     let i = sp.insert_anchor(seg, t);
     *ring = sp.anchors.iter().map(|a| Knot { p: to_pt(a.p), h_in: to_pt(a.h_in), h_out: to_pt(a.h_out) }).collect();
-    Ok((i, true))
+    Ok((i, true, Some((seg, t))))
 }
 
 /// An anchor param: a point's number, or `[x, y]` (document points) on the outline.

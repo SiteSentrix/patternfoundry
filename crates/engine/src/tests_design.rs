@@ -66,10 +66,17 @@ fn a_princess_bodice_from_the_block() {
     // The armhole dart's legs are as long.
     let legs = ((after[apex - 1] - bust_point).hypot(), (after[apex + 1] - bust_point).hypot());
     assert!((legs.0 - legs.1).abs() < 1e-9);
-    // It no longer follows the measurements.
+    // It still follows the measurements, the dart moved again (PF-5.20): a bigger bust draws it
+    // again with the dart in the armhole, the shoulder dart still closed; undo puts it back.
     let was = bounds(&s, id);
     s.execute("measure.set", &json!({"values": {"bust": 960}})).unwrap();
-    assert_eq!(bounds(&s, id), was);
+    let grown = points(&s, id);
+    assert_eq!(grown.len(), 13);
+    assert!(bounds(&s, id) != was && grown != after);
+    let steps = s.execute("block.options", &json!({"id": id.0})).unwrap()["steps"].clone();
+    assert_eq!(steps, json!([{"step": "rotateDart", "apex": 11, "to": 8, "amount": 1.0, "side": "auto"}]));
+    s.execute("edit.undo", &json!({})).unwrap();
+    assert_eq!(points(&s, id), after);
     // Split through the bust point the two darts share: the centre front and side front panels.
     let r = s.execute("design.split", &json!({"id": id.0, "anchors": [apex]})).unwrap();
     let ids: Vec<NodeId> = r["ids"].as_array().unwrap().iter().map(|v| NodeId(v.as_u64().unwrap())).collect();
@@ -106,7 +113,7 @@ fn a_princess_bodice_from_the_block() {
     // One undo step each.
     s.execute("edit.undo", &json!({})).unwrap();
     assert_eq!(points(&s, id), after);
-    s.execute("edit.undo", &json!({})).unwrap();
+    // The rotation (the bust change was undone above).
     s.execute("edit.undo", &json!({})).unwrap();
     assert_eq!(points(&s, id), before);
 }
@@ -799,4 +806,52 @@ fn a_bust_dart_is_ended_short_of_the_bust_point() {
     assert_eq!(points(&s, id), before);
     assert!(s.execute("design.shortenDart", &json!({"id": id.0, "apex": 5})).is_err());
     assert!(s.execute("design.shortenDart", &json!({"id": id.0, "apex": 11, "shorten": 900})).is_err());
+}
+
+/// Design steps on a block part are made again when it is drawn again (PF-5.20): rotating the bust
+/// dart to a point half way along an armhole curve, then shortening it, on the 88 cm bust, and
+/// changing the bust to 96 cm, gives the outline that drafting at 96 cm and making the same two
+/// steps gives.
+#[test]
+fn design_steps_on_a_block_are_made_again_when_the_measurements_change() {
+    use vectorcraft_geom::kurbo::ParamCurve;
+    let half_way = |s: &Session, id: NodeId| -> Point {
+        let NodeKind::Path { path, .. } = &s.doc().unwrap().doc.node(id).unwrap().kind else { panic!("a path") };
+        path.subpaths[0].segment(7).eval(0.5)
+    };
+    let steps = |s: &mut Session, id: NodeId| {
+        let q = half_way(s, id);
+        let r = s.execute("design.rotateDart", &json!({"id": id.0, "apex": 11, "to": [q.x, q.y]})).unwrap();
+        s.execute("design.shortenDart", &json!({"id": id.0, "apex": r["apex"], "shorten": 20})).unwrap();
+    };
+    let (mut s, id) = front();
+    steps(&mut s, id);
+    let info = s.execute("block.options", &json!({"id": id.0})).unwrap();
+    assert_eq!(info["steps"].as_array().unwrap().len(), 2, "{info}");
+    assert_eq!(info["steps"][0]["to"]["edge"], json!(7));
+    assert!((info["steps"][0]["to"]["t"].as_f64().unwrap() - 0.5).abs() < 1e-9, "{info}");
+    s.execute("measure.set", &json!({"values": {"bust": 960}})).unwrap();
+    let replayed = points(&s, id);
+    // The same steps by hand on a bodice drafted at 96 cm.
+    let (mut fresh, fid) = front();
+    fresh.execute("measure.set", &json!({"values": {"bust": 960}})).unwrap();
+    steps(&mut fresh, fid);
+    let made = points(&fresh, fid);
+    assert_eq!(replayed.len(), made.len());
+    for (a, b) in replayed.iter().zip(&made) {
+        assert!((*a - *b).hypot() < 1e-6, "{a:?} {b:?}");
+    }
+    // A step the measurements no longer allow keeps the last outline: a bust dart shortened by
+    // nearly all of itself at 96 cm is longer than the whole dart at a smaller bust.
+    let (mut t, tid) = front();
+    t.execute("measure.set", &json!({"values": {"bust": 960}})).unwrap();
+    let r = t.execute("design.rotateDart", &json!({"id": tid.0, "apex": 11, "toAnchor": 8})).unwrap();
+    let (apex, ring) = (r["apex"].as_u64().unwrap() as usize, points(&t, tid));
+    // The dart's centre line: from its point to the middle of its opening.
+    let mouth = Point::new((ring[apex - 1].x + ring[apex + 1].x) / 2.0, (ring[apex - 1].y + ring[apex + 1].y) / 2.0);
+    let centre = pf_core::pt_to_mm((mouth - ring[apex]).hypot());
+    t.execute("design.shortenDart", &json!({"id": tid.0, "apex": apex, "shorten": centre - 1.0})).unwrap();
+    let kept = points(&t, tid);
+    t.execute("measure.set", &json!({"values": {"bust": 800}})).unwrap();
+    assert_eq!(points(&t, tid), kept, "the last outline is kept");
 }

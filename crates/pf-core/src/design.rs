@@ -55,7 +55,8 @@ impl Knot {
 }
 
 /// Which side of the outline swings round the dart point.
-#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+#[derive(Clone, Copy, Debug, PartialEq, Eq, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
 pub enum Side {
     /// The side with fewer anchors (the forward side on a tie).
     Auto,
@@ -63,6 +64,29 @@ pub enum Side {
     After,
     /// From the new dart forward to the dart's first leg.
     Before,
+}
+
+/// Where on the outline a design step acts: an anchor, or a point on an edge where an anchor is
+/// put first (edge `i` runs from anchor `i` to the next; `t` along its curve).
+#[derive(Clone, Copy, Debug, PartialEq, serde::Serialize, serde::Deserialize)]
+#[serde(untagged)]
+pub enum StepPoint {
+    Anchor(usize),
+    OnEdge { edge: usize, t: f64 },
+}
+
+/// A design step made on a drafted block part (PF-5.20), kept with it so it is made again when the
+/// block is drawn again (the measurements or the block's options changed). Anchors are the
+/// outline's as it was before the step; lengths are in mm.
+#[derive(Clone, Debug, PartialEq, serde::Serialize, serde::Deserialize)]
+#[serde(tag = "step", rename_all = "camelCase")]
+pub enum DesignStep {
+    /// [`rotate_dart`]: the dart at `apex` moved to `to` (`amount` of it, `side` swinging).
+    #[serde(rename_all = "camelCase")]
+    RotateDart { apex: usize, to: StepPoint, amount: f64, side: Side },
+    /// [`shorten_dart`]: the dart's point `by` mm toward its opening.
+    #[serde(rename_all = "camelCase")]
+    ShortenDart { apex: usize, by: f64 },
 }
 
 /// Why a design tool can't do what was asked.

@@ -193,7 +193,7 @@ fn make(s: &mut Session, p: &Value, kind: BlockKind, cmd: &'static str, label: &
                 Appearance::basic(vectorcraft_color::Paint::None, vectorcraft_color::Paint::solid(vectorcraft_color::Color::BLACK), 1.0),
             );
             n.name = Some(part.name.to_string());
-            n.extras_mut().block = Some(Box::new(BlockRef { kind, part: i, origin, options: options.clone() }));
+            n.extras_mut().block = Some(Box::new(BlockRef { kind, part: i, origin, options: options.clone(), steps: Vec::new() }));
             d.insert(parent, usize::MAX, n)?;
             ids.push(id);
         }
@@ -262,7 +262,7 @@ fn kind_name(kind: BlockKind) -> &'static str {
 
 fn options(s: &mut Session, p: &Value) -> Result<Value> {
     let (id, b) = block_part(s, p, "block.options")?;
-    Ok(json!({"id": id.0, "block": kind_name(b.kind), "part": b.part, "options": options_info(b.kind, &b.options)}))
+    Ok(json!({"id": id.0, "block": kind_name(b.kind), "part": b.part, "options": options_info(b.kind, &b.options), "steps": b.steps}))
 }
 
 fn set_options(s: &mut Session, p: &Value) -> Result<Value> {
@@ -350,7 +350,17 @@ pub(crate) fn refresh(doc: &mut Document) -> Result<()> {
             }
         };
         let Some(part) = made.as_ref().and_then(|m| m.get(b.part)) else { continue };
-        let new = path_of(part, b.origin);
+        let drafted = path_of(part, b.origin);
+        // The design steps made on it, again (PF-5.20); one that no longer works keeps the last
+        // outline.
+        let new = if b.steps.is_empty() {
+            drafted
+        } else {
+            match super::design::replay(&drafted, &b.steps) {
+                Some(p) => p,
+                None => continue,
+            }
+        };
         let same = doc.node(id).is_some_and(|n| matches!(&n.kind, NodeKind::Path { path, .. } if *path == new));
         if !same
             && let Some(n) = doc.node_mut(id)
