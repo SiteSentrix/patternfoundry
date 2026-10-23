@@ -87,6 +87,15 @@ pub enum DesignStep {
     /// [`shorten_dart`]: the dart's point `by` mm toward its opening.
     #[serde(rename_all = "camelCase")]
     ShortenDart { apex: usize, by: f64 },
+    /// [`spread`]: slashed from `from` to `to` (`to` placed after `from`) and opened `amount` mm.
+    #[serde(rename_all = "camelCase")]
+    Spread { from: StepPoint, to: StepPoint, amount: f64, mode: Spread },
+    /// The seam from anchor `from` to `to` made `length` mm long by moving its end along it.
+    #[serde(rename_all = "camelCase")]
+    MatchLength { from: usize, to: usize, length: f64 },
+    /// [`split`] between anchors `a` and `b`, keeping piece `keep` (0 or 1) of the two.
+    #[serde(rename_all = "camelCase")]
+    Split { a: usize, b: usize, keep: usize },
 }
 
 /// Why a design tool can't do what was asked.
@@ -315,7 +324,8 @@ pub fn split(ring: &[Knot], i: usize, j: usize) -> Result<(Vec<Knot>, Vec<Knot>)
 }
 
 /// How a slash opens.
-#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+#[derive(Clone, Copy, Debug, PartialEq, Eq, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "camelCase")]
 pub enum Spread {
     /// Hinged at the slash's far end: the gap is `amount` wide at its start and closes to nothing
     /// at the hinge (flare added at a hem, the waist kept).

@@ -270,31 +270,81 @@ pub(crate) fn replay(path: &PathData, steps: &[pf_core::design::DesignStep]) -> 
     use pf_core::design::{DesignStep, StepPoint};
     let sp = path.subpaths.first().filter(|sp| sp.closed)?;
     let mut ring: Vec<Knot> = sp.anchors.iter().map(|a| Knot { p: to_pt(a.p), h_in: to_pt(a.h_in), h_out: to_pt(a.h_out) }).collect();
+    // A step's point: the anchor, or a new one put on its edge (then `true`).
+    let resolve = |ring: &mut Vec<Knot>, at: StepPoint| -> Option<(usize, bool)> {
+        match at {
+            StepPoint::Anchor(a) => (a < ring.len()).then_some((a, false)),
+            StepPoint::OnEdge { edge, t } => {
+                let mut sp = path_of(ring).subpaths.into_iter().next()?;
+                if edge >= sp.segment_count() || !(0.0..=1.0).contains(&t) {
+                    return None;
+                }
+                let i = sp.insert_anchor(edge, t);
+                *ring = sp.anchors.iter().map(|a| Knot { p: to_pt(a.p), h_in: to_pt(a.h_in), h_out: to_pt(a.h_out) }).collect();
+                Some((i, true))
+            }
+        }
+    };
     for step in steps {
         ring = match *step {
             DesignStep::RotateDart { apex, to, amount, side } => {
                 let mut apex = apex;
-                let at = match to {
-                    StepPoint::Anchor(a) => a,
-                    StepPoint::OnEdge { edge, t } => {
-                        let mut sp = path_of(&ring).subpaths.into_iter().next()?;
-                        if edge >= sp.segment_count() || !(0.0..=1.0).contains(&t) {
-                            return None;
-                        }
-                        let i = sp.insert_anchor(edge, t);
-                        ring = sp.anchors.iter().map(|a| Knot { p: to_pt(a.p), h_in: to_pt(a.h_in), h_out: to_pt(a.h_out) }).collect();
-                        if i <= apex {
-                            apex += 1;
-                        }
-                        i
-                    }
-                };
+                let (at, inserted) = resolve(&mut ring, to)?;
+                if inserted && at <= apex {
+                    apex += 1;
+                }
                 pf_core::design::rotate_dart(&ring, apex, at, amount, side).ok()?.0
             }
             DesignStep::ShortenDart { apex, by } => pf_core::design::shorten_dart(&ring, apex, pf_core::mm_to_pt(by)).ok()?,
+            DesignStep::Spread { from, to, amount, mode } => {
+                let (mut from, _) = resolve(&mut ring, from)?;
+                let (to, inserted) = resolve(&mut ring, to)?;
+                if inserted && to <= from {
+                    from += 1;
+                }
+                pf_core::design::spread(&ring, from, to, pf_core::mm_to_pt(amount), mode).ok()?
+            }
+            DesignStep::MatchLength { from, to, length } => {
+                if from >= ring.len() || to >= ring.len() || from == to {
+                    return None;
+                }
+                matched(&ring, from, to, pf_core::mm_to_pt(length))?.0
+            }
+            DesignStep::Split { a, b, keep } => {
+                let (x, y) = pf_core::design::split(&ring, a, b).ok()?;
+                if keep == 0 { x } else { y }
+            }
         };
     }
     Some(path_of(&ring))
+}
+
+/// `ring` with the seam from `from` to `to` made `target` long by moving its end (`to`) along the
+/// direction it arrives in, and how far it moved; none when no move makes it that long.
+fn matched(ring: &[Knot], from: usize, to: usize, target: f64) -> Option<(Vec<Knot>, f64)> {
+    let n = ring.len();
+    let end = ring[to];
+    let back = if (end.p - end.h_in).len() > 1e-9 { end.h_in } else { ring[(to + n - 1) % n].p };
+    let dir = (end.p - back).unit()?;
+    let moved = |d: f64| {
+        let mut r = ring.to_vec();
+        let k = &mut r[to];
+        let v = dir * d;
+        *k = Knot { p: k.p + v, h_in: k.h_in + v, h_out: k.h_out + v };
+        r
+    };
+    let error = |d: f64| along(&moved(d), from, to) - target;
+    let (mut d0, mut d1) = (0.0, target - along(ring, from, to));
+    let (mut e0, mut e1) = (error(d0), error(d1));
+    for _ in 0..40 {
+        if e1.abs() < 1e-9 || (e1 - e0).abs() < 1e-15 {
+            break;
+        }
+        let d2 = d1 - e1 * (d1 - d0) / (e1 - e0);
+        (d0, e0, d1) = (d1, e1, d2);
+        e1 = error(d1);
+    }
+    (e1.abs() <= 1e-6).then(|| (moved(d1), d1))
 }
 
 /// The node with a new outline; it no longer follows a block or point formulas.
@@ -431,7 +481,8 @@ fn split(s: &mut Session, p: &Value) -> Result<Value> {
         let n = d.node(id).ok_or(EngineError::NoNode(id))?.clone();
         let mut parts = Vec::new();
         for (k, ring) in [a, b].iter().enumerate() {
-            let mut m = reshaped(&n, path_of(ring));
+            // A block part's panels keep following it (PF-5.21): each the split's side it is.
+            let mut m = stepped(&n, path_of(ring), pf_core::design::DesignStep::Split { a: i, b: j, keep: k });
             m.id = d.alloc_id();
             m.name = n.name.as_ref().map(|nm| format!("{nm} {}", k + 1));
             parts.push(m);
@@ -892,37 +943,11 @@ fn match_length(s: &mut Session, p: &Value) -> Result<Value> {
     };
     // The seam's end moves along the direction the seam arrives in (its handle, or the segment
     // from the point before), with its handles: the edge after it follows.
-    let n = ring.len();
-    let end = ring[to];
-    let back = if (end.p - end.h_in).len() > 1e-9 { end.h_in } else { ring[(to + n - 1) % n].p };
-    let dir = (end.p - back).unit().ok_or_else(|| bad(CMD, "the seam's end has no direction"))?;
-    let moved = |d: f64| {
-        let mut r = ring.clone();
-        let k = &mut r[to];
-        let v = dir * d;
-        *k = Knot { p: k.p + v, h_in: k.h_in + v, h_out: k.h_out + v };
-        r
-    };
-    let error = |d: f64| along(&moved(d), from, to) - target;
-    // Secant steps from no move and the length's difference (the length changes about one for
-    // one with the move).
-    let (mut d0, mut d1) = (0.0, target - along(&ring, from, to));
-    let (mut e0, mut e1) = (error(d0), error(d1));
-    for _ in 0..40 {
-        if e1.abs() < 1e-9 || (e1 - e0).abs() < 1e-15 {
-            break;
-        }
-        let d2 = d1 - e1 * (d1 - d0) / (e1 - e0);
-        (d0, e0, d1) = (d1, e1, d2);
-        e1 = error(d1);
-    }
-    if e1.abs() > 1e-6 {
-        return Err(bad(CMD, "can't make the seam that long by moving its end"));
-    }
-    let out = moved(d1);
+    let (out, d1) = matched(&ring, from, to, target).ok_or_else(|| bad(CMD, "can't make the seam that long by moving its end"))?;
+    let step = pf_core::design::DesignStep::MatchLength { from, to, length: pt_to_mm(target) };
     s.edit("Match Seam Length", |d, sel| {
         let n = d.node(id).ok_or(EngineError::NoNode(id))?;
-        let new = reshaped(n, path_of(&out));
+        let new = stepped(n, path_of(&out), step.clone());
         if let Some(m) = d.node_mut(id) {
             *m = new;
         }
@@ -958,6 +983,24 @@ fn point_on_at(ring: &mut Vec<Knot>, q: Point, key: &str, cmd: &str) -> Result<P
     Ok((i, true, Some((seg, t))))
 }
 
+/// [`place`], with the point as a design step keeps it (PF-5.21): the anchor, or the edge and the
+/// place along it where a new one went.
+fn place_at(ring: &mut Vec<Knot>, p: &Value, key: &str, cmd: &str) -> Result<(usize, bool, pf_core::design::StepPoint)> {
+    use pf_core::design::StepPoint;
+    match p.get(key) {
+        Some(Value::Array(_)) => {
+            let [x, y] = finite_numbers::<2>(&p[key]).ok_or_else(|| bad(cmd, format!("{key}: [x, y] in document points")))?;
+            let (i, inserted, edge) = point_on_at(ring, Point::new(x, y), key, cmd)?;
+            let at = match edge {
+                Some((edge, t)) => StepPoint::OnEdge { edge, t },
+                None => StepPoint::Anchor(i),
+            };
+            Ok((i, inserted, at))
+        }
+        _ => place(ring, p, key, cmd).map(|(i, inserted)| (i, inserted, StepPoint::Anchor(i))),
+    }
+}
+
 /// An anchor param: a point's number, or `[x, y]` (document points) on the outline.
 fn place(ring: &mut Vec<Knot>, p: &Value, key: &str, cmd: &str) -> Result<(usize, bool)> {
     match p.get(key) {
@@ -985,16 +1028,17 @@ fn spread(s: &mut Session, p: &Value) -> Result<Value> {
         Some("parallel") => pf_core::design::Spread::Parallel,
         Some(o) => return Err(bad(CMD, format!("mode: \"hinge\" or \"parallel\", not {o:?}"))),
     };
-    let (mut from, _) = place(&mut ring, p, "from", CMD)?;
-    let (to, inserted) = place(&mut ring, p, "to", CMD)?;
+    let (mut from, _, from_at) = place_at(&mut ring, p, "from", CMD)?;
+    let (to, inserted, to_at) = place_at(&mut ring, p, "to", CMD)?;
     if inserted && to <= from {
         from += 1;
     }
     let out = pf_core::design::spread(&ring, from, to, pf_core::mm_to_pt(amount), how).map_err(|e| err(CMD, e))?;
     let count = out.len();
+    let step = pf_core::design::DesignStep::Spread { from: from_at, to: to_at, amount, mode: how };
     s.edit("Slash and Spread", |d, sel| {
         let n = d.node(id).ok_or(EngineError::NoNode(id))?;
-        let new = reshaped(n, path_of(&out));
+        let new = stepped(n, path_of(&out), step.clone());
         if let Some(m) = d.node_mut(id) {
             *m = new;
         }
