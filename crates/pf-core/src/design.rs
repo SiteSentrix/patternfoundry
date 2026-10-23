@@ -642,9 +642,22 @@ fn arrow(from: [Pt; 2], to: [Pt; 2], head: f64) -> [Vec<Pt>; 2] {
 /// A pleat `depth` deep along the slash from anchor `from` to anchor `to`: the outline spread
 /// parallel by twice the depth for a knife pleat (folding toward the side that stays, from
 /// `from` forward to `to`), or four times for an inverted pleat (both edges of the spread
-/// folded to its middle) or a box pleat (folds a depth in from both edges, brought out a depth
-/// past them). `head` is the arrows' head length.
-pub fn pleat(ring: &[Knot], from: usize, to: usize, depth: f64, kind: PleatKind, head: f64) -> Result<(Vec<Knot>, PleatMarks), DesignError> {
+/// folded to its middle) or a box pleat (two knife pleats turned away from each other, each
+/// folding twice the depth under; the box between their folds `face` wide, twice the depth when
+/// `face` is None, centred on the spread). `head` is the arrows' head length.
+pub fn pleat(
+    ring: &[Knot],
+    from: usize,
+    to: usize,
+    depth: f64,
+    kind: PleatKind,
+    face: Option<f64>,
+    head: f64,
+) -> Result<(Vec<Knot>, PleatMarks), DesignError> {
+    let face = face.unwrap_or(2.0 * depth);
+    if !(face.is_finite() && face > 0.0) {
+        return Err(DesignError::BadAnchor("the box pleat's face is more than 0 wide"));
+    }
     let width = match kind {
         PleatKind::Knife => 2.0,
         PleatKind::Inverted | PleatKind::Box => 4.0,
@@ -662,11 +675,13 @@ pub fn pleat(ring: &[Knot], from: usize, to: usize, depth: f64, kind: PleatKind,
             PleatMarks { folds: vec![slash, moved], placements: vec![middle], arrows: vec![arrow(slash, middle, head), arrow(moved, middle, head)] }
         }
         PleatKind::Box => {
-            // Across the spread, toward the side that moved.
-            let across = (moved[0] - slash[0]).unit().unwrap_or(Pt::new(1.0, 0.0)) * depth;
-            let shift = |l: [Pt; 2], by: f64| [l[0] + across * by, l[1] + across * by];
-            let folds = [shift(slash, 1.0), shift(moved, -1.0)];
-            let placements = [shift(slash, -1.0), shift(moved, 1.0)];
+            // Across the spread, toward the side that moved, from its middle: the folds half the
+            // face out, each brought out twice the depth (the fabric it folds under).
+            let across = (moved[0] - slash[0]).unit().unwrap_or(Pt::new(1.0, 0.0));
+            let middle = [(slash[0] + moved[0]) * 0.5, (slash[1] + moved[1]) * 0.5];
+            let shift = |by: f64| [middle[0] + across * by, middle[1] + across * by];
+            let folds = [shift(-face / 2.0), shift(face / 2.0)];
+            let placements = [shift(-face / 2.0 - 2.0 * depth), shift(face / 2.0 + 2.0 * depth)];
             PleatMarks {
                 folds: folds.to_vec(),
                 placements: placements.to_vec(),
@@ -1697,7 +1712,7 @@ mod tests {
     #[test]
     fn a_knife_pleat_takes_twice_its_depth_and_folds_toward_the_side_that_stays() {
         let r = panel();
-        let (out, m) = pleat(&r, 4, 1, 20.0, PleatKind::Knife, 5.0).unwrap();
+        let (out, m) = pleat(&r, 4, 1, 20.0, PleatKind::Knife, None, 5.0).unwrap();
         // Spread 40: the waist and the hem 40 longer.
         assert!(near(out[4].p, Pt::new(140.0, 0.0)) && near(out[7].p, Pt::new(140.0, 300.0)));
         // The placement line is the slash, the fold line the moved edge, 40 to the right.
@@ -1707,13 +1722,13 @@ mod tests {
         let [shaft, head] = &m.arrows[0];
         assert!(shaft[0].x > shaft[1].x && near(shaft[1], Pt::new(104.0, 150.0)));
         assert!(near(head[1], shaft[1]) && head[0].x > head[1].x && head[2].x > head[1].x);
-        assert!(pleat(&r, 4, 1, 0.0, PleatKind::Knife, 5.0).is_err());
+        assert!(pleat(&r, 4, 1, 0.0, PleatKind::Knife, None, 5.0).is_err());
     }
 
     #[test]
     fn an_inverted_pleat_takes_four_times_its_depth_and_folds_both_edges_to_the_middle() {
         let r = panel();
-        let (out, m) = pleat(&r, 4, 1, 20.0, PleatKind::Inverted, 5.0).unwrap();
+        let (out, m) = pleat(&r, 4, 1, 20.0, PleatKind::Inverted, None, 5.0).unwrap();
         // Spread 80; both edges fold, to the middle 40 in.
         assert!(near(out[4].p, Pt::new(180.0, 0.0)) && near(out[5].p, Pt::new(280.0, 0.0)));
         assert_eq!(m.folds.len(), 2);
@@ -1727,7 +1742,7 @@ mod tests {
     #[test]
     fn a_box_pleat_folds_out_past_both_edges_of_its_spread() {
         let r = panel();
-        let (out, m) = pleat(&r, 4, 1, 20.0, PleatKind::Box, 5.0).unwrap();
+        let (out, m) = pleat(&r, 4, 1, 20.0, PleatKind::Box, None, 5.0).unwrap();
         // Spread 80, like an inverted pleat; the folds 20 in from its edges (100 and 180), each
         // brought 20 out past its edge.
         assert!(near(out[4].p, Pt::new(180.0, 0.0)));
@@ -1738,6 +1753,19 @@ mod tests {
         // The arrows point away from each other, out to the placements.
         let (a, b) = (&m.arrows[0][0], &m.arrows[1][0]);
         assert!(a[1].x < a[0].x && b[1].x > b[0].x && a[1].x > 80.0 && b[1].x < 200.0);
+    }
+
+    #[test]
+    fn a_box_pleat_wider_than_twice_its_depth_keeps_its_folds_round_the_middle() {
+        let r = panel();
+        // The same spread (80, from 100 to 180, its middle 140); a 100 face: the folds at 90 and
+        // 190, each brought 40 out, to 50 and 230.
+        let (out, m) = pleat(&r, 4, 1, 20.0, PleatKind::Box, Some(100.0), 5.0).unwrap();
+        assert!(near(out[4].p, Pt::new(180.0, 0.0)));
+        let xs = |l: &[[Pt; 2]]| l.iter().map(|l| l[0].x).collect::<Vec<_>>();
+        assert!(xs(&m.folds).iter().zip([90.0, 190.0]).all(|(a, b)| (a - b).abs() < 1e-9), "{:?}", m.folds);
+        assert!(xs(&m.placements).iter().zip([50.0, 230.0]).all(|(a, b)| (a - b).abs() < 1e-9), "{:?}", m.placements);
+        assert!(pleat(&r, 4, 1, 20.0, PleatKind::Box, Some(0.0), 5.0).is_err());
     }
 
     #[test]

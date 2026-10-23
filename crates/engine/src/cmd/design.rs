@@ -47,7 +47,7 @@ pub fn specs() -> Vec<CommandSpec> {
             "Add Pleat",
             ["Pattern"],
             None,
-            "{id? (a path or a piece; default: the selection), from: anchor | [x, y] (document points on the outline), to: anchor | [x, y] (the pleat's line runs from one to the other), depth: mm (how far it folds under), kind?: \"knife\" (default) | \"inverted\" | \"box\"} a pleat: for a knife pleat the outline spread parallel by twice the depth, folding toward the side that stays (from forward to to); for an inverted pleat four times, both edges folded to the middle; for a box pleat four times, folds a depth in from both edges brought out a depth past them. Its fold lines (solid, with arrows to the placements) and placement lines (dashed) added in the piece or above the path → {id, anchors, fold, placement}",
+            "{id? (a path or a piece; default: the selection), from: anchor | [x, y] (document points on the outline), to: anchor | [x, y] (the pleat's line runs from one to the other), depth: mm (how far it folds under), kind?: \"knife\" (default) | \"inverted\" | \"box\", face?: mm (a box pleat's width between its folds; twice the depth), notches?: true (default: on a pattern piece, a notch where each fold and placement line meets the seam line, at both ends) | false} a pleat: for a knife pleat the outline spread parallel by twice the depth, folding toward the side that stays (from forward to to); for an inverted pleat four times, both edges folded to the middle; for a box pleat four times, two knife pleats turned away from each other round the spread's middle, their folds the face apart, each brought out twice the depth. Its fold lines (solid, with arrows to the placements) and placement lines (dashed) added in the piece or above the path → {id, anchors, fold, placement, notches}",
             has_doc,
             pleat
         ),
@@ -1157,10 +1157,29 @@ fn pleat(s: &mut Session, p: &Value) -> Result<Value> {
         Some("box") => pf_core::design::PleatKind::Box,
         Some(o) => return Err(bad(CMD, format!("kind: \"knife\", \"inverted\" or \"box\", not {o:?}"))),
     };
-    let (out, marks) = pf_core::design::pleat(&ring, from, to, pf_core::mm_to_pt(depth), kind, pf_core::mm_to_pt(4.0)).map_err(|e| err(CMD, e))?;
+    let face = match p.get("face") {
+        None | Some(Value::Null) => None,
+        Some(v) => {
+            Some(v.as_f64().filter(|f| f.is_finite() && *f > 0.0).ok_or_else(|| bad(CMD, "face: the box pleat's width between its folds, mm"))?)
+        }
+    };
+    if face.is_some() && kind != pf_core::design::PleatKind::Box {
+        return Err(bad(CMD, "face: only a box pleat has one"));
+    }
+    let face = face.map(pf_core::mm_to_pt);
+    let (out, marks) =
+        pf_core::design::pleat(&ring, from, to, pf_core::mm_to_pt(depth), kind, face, pf_core::mm_to_pt(4.0)).map_err(|e| err(CMD, e))?;
     // The marks go in the piece (they move with it) or above the path.
     let group = doc.parent_of(id).filter(|_| in_piece(doc, id));
     let count = out.len();
+    // On a piece, a notch where each fold and placement line meets the seam line (PF-5.25).
+    let notches: Vec<(usize, f64)> = match group {
+        Some(_) if p.get("notches").and_then(Value::as_bool) != Some(false) => {
+            let seam = path_of(&out);
+            marks.folds.iter().chain(&marks.placements).flat_map(|l| [l[0], l[1]]).filter_map(|q| on_edge(&seam, to_point(q))).collect()
+        }
+        _ => Vec::new(),
+    };
     let ids = s.edit("Add Pleat", |d, sel| {
         let n = d.node(id).ok_or(EngineError::NoNode(id))?;
         let new = reshaped(n, path_of(&out));
@@ -1189,13 +1208,42 @@ fn pleat(s: &mut Session, p: &Value) -> Result<Value> {
             Some(g) => {
                 d.insert(Some(g), usize::MAX, placement)?;
                 d.insert(Some(g), usize::MAX, fold)?;
+                if !notches.is_empty() {
+                    let mut piece = d.node(g).and_then(super::piece::piece_on).cloned().ok_or(EngineError::NoNode(g))?;
+                    for &(edge, at) in &notches {
+                        piece.add_notch(pf_core::Notch { edge, at, kind: Default::default() }).map_err(|e| err(CMD, e))?;
+                    }
+                    if let Some(n) = d.node_mut(g) {
+                        n.extras_mut().pattern = Some(Box::new(pf_core::PatternTag::Piece(Box::new(piece))));
+                    }
+                    super::piece::rebuild(d, g)?;
+                }
             }
             None => d.insert_beside(vec![(id, vec![placement, fold])], false)?,
         }
         sel.set([id]);
         Ok([fold_id, place_id])
     })?;
-    Ok(json!({"id": id.0, "anchors": count, "fold": ids[0].0, "placement": ids[1].0}))
+    Ok(json!({"id": id.0, "anchors": count, "fold": ids[0].0, "placement": ids[1].0, "notches": notches.len()}))
+}
+
+/// The edge of the closed outline `path` nearest point `q` (within 5 mm: a mark's end where a
+/// curved edge has moved under it), and where along it, by length (0 its start, 1 its end).
+fn on_edge(path: &PathData, q: Point) -> Option<(usize, f64)> {
+    use vectorcraft_geom::kurbo::{ParamCurve, ParamCurveArclen, ParamCurveNearest};
+    let sp = path.subpaths.iter().find(|sp| sp.closed)?;
+    let (mut best, mut best_d) = (None, f64::INFINITY);
+    for i in 0..sp.segment_count() {
+        let seg = sp.segment(i);
+        let near = seg.nearest(q, 1e-9);
+        if near.distance_sq < best_d {
+            best_d = near.distance_sq;
+            let total = seg.arclen(1e-9);
+            let at = if total > 1e-9 { seg.subsegment(0.0..near.t).arclen(1e-9) / total } else { 0.5 };
+            best = Some((i, at.clamp(0.0, 1.0)));
+        }
+    }
+    best.filter(|_| best_d.sqrt() <= pf_core::mm_to_pt(5.0))
 }
 
 fn gather(s: &mut Session, p: &Value) -> Result<Value> {

@@ -984,3 +984,36 @@ fn a_darts_legs_are_curved_and_made_again_when_the_measurements_change() {
     let mouth = (h[10].0.x + h[12].0.x) / 2.0;
     assert!((h[11].1.x - mouth).abs() < (h[10].0.x - mouth).abs(), "a concave leg's handle is nearer the centre");
 }
+
+/// A box pleat wider than twice its depth in a skirt piece, notched where its fold and placement
+/// lines meet the seam line (PF-5.25).
+#[test]
+fn a_wide_box_pleat_is_notched_at_its_lines_ends() {
+    let (mut s, id, before) = skirt_front();
+    s.execute("select.set", &json!({"ids": [id.0]})).unwrap();
+    let g = NodeId(s.execute("piece.make", &json!({"name": "Skirt Front"})).unwrap()["ids"][0].as_u64().unwrap());
+    let top = Point::new((before[7].x + before[0].x) / 2.0, (before[7].y + before[0].y) / 2.0);
+    let hem = Point::new(top.x, before[1].y);
+    let pleat = json!({"id": g.0, "from": [hem.x, hem.y], "to": [top.x, top.y], "depth": 20, "kind": "box", "face": 60});
+    let r = s.execute("design.pleat", &pleat).unwrap();
+    // Two folds and two placements, each notched at the waist and at the hem.
+    assert_eq!(r["notches"], json!(8), "{r}");
+    let info = s.execute("piece.info", &json!({"id": g.0})).unwrap();
+    assert_eq!(info["notches"].as_array().unwrap().len(), 8, "{info}");
+    // The folds 60 apart.
+    let doc = &s.doc().unwrap().doc;
+    let NodeKind::Path { path, .. } = &doc.node(NodeId(r["fold"].as_u64().unwrap())).unwrap().kind else { panic!("a path") };
+    let ends: Vec<Point> = path.subpaths[..2].iter().map(|sp| sp.anchors[0].p).collect();
+    assert!((pf_core::pt_to_mm((ends[1] - ends[0]).hypot()) - 60.0).abs() < 1e-6, "{ends:?}");
+    // One undo: the outline, the marks and the notches all go.
+    s.execute("edit.undo", &json!({})).unwrap();
+    assert_eq!(points(&s, id), before);
+    assert!(s.execute("piece.info", &json!({"id": g.0})).unwrap()["notches"].as_array().is_none_or(|n| n.is_empty()));
+    // Without notches; a face on another kind of pleat is refused.
+    let mut quiet = pleat.clone();
+    quiet["notches"] = json!(false);
+    assert_eq!(s.execute("design.pleat", &quiet).unwrap()["notches"], json!(0));
+    let mut knife = pleat.clone();
+    knife["kind"] = json!("knife");
+    assert!(s.execute("design.pleat", &knife).is_err());
+}
