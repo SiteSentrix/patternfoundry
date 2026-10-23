@@ -5023,3 +5023,7 @@ file-filter	PDF for projector	프로젝터용 PDF
 	Shorten	줄이기
 	Add Notch Here	여기에 너치 추가
 	Cut on Fold Here	여기를 골선으로
+	One step	한 단계
+	The same move for each size, from the size above the base	모든 사이즈에 같은 이동(기준 위 사이즈 기준)
+	Per size	사이즈별
+	A move for each size of its own	사이즈마다 따로 이동

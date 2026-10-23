@@ -5431,3 +5431,7 @@ file-filter	PDF for projector	PDF projektorhoz
 	Shorten	Rövidítés
 	Add Notch Here	Bevágás hozzáadása ide
 	Cut on Fold Here	Itt hajtásra szabni
+	One step	Egy lépés
+	The same move for each size, from the size above the base	Minden méretnél ugyanaz az elmozdulás, az alapméret feletti méretből
+	Per size	Méretenként
+	A move for each size of its own	Minden méretnek saját elmozdulás

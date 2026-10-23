@@ -583,3 +583,9 @@ is built on, plus a pattern mode, the way StitchFoundry adds embroidery:
   `tests_piece.rs`, 1 in `tests_contextmenu.rs` (the items as the menu runs them, the refusal, no
   items without a piece). Not yet: a Notch tool that adds one per click, a notch dragged along its
   edge, allowances picked per edge on the canvas, grade points picked on the canvas.
+- 2026-10-23, **PF-6.7**: per-size grade rules edited in the Grading panel. Each point's rule is a
+  step (the same move a size) with a **Per size** button: then a row for each size but the base,
+  its own move from the base across and down in mm (filled from the step to start with), and a
+  change sends them all (`grade.setRule {sizes}`), for grades that are not even from size to size.
+  **One step** goes back to a step, the move of the size above the base. Tests: 1 more in
+  `panels/tests_grading.rs`.
