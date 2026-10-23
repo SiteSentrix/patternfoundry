@@ -527,7 +527,23 @@ fn a_stand_collar_for_the_bodice_block() {
     let p = points(&s, id);
     assert!((pf_core::pt_to_mm((p[p.len() - 1] - p[0]).hypot()) - 35.0).abs() < 1e-6);
     assert!(s.execute("design.standCollar", &json!({"height": -5})).is_err());
-    s.execute("edit.undo", &json!({})).unwrap();
+    // Rounded and winged fronts: the neck edge the same length, one anchor more for the rounded
+    // corner, the wing tip 35 mm past the front end.
+    s.execute("select.set", &json!({"ids": [back, front]})).unwrap();
+    let r = s.execute("design.standCollar", &json!({"extension": 15, "frontShape": "rounded"})).unwrap();
+    let rid = NodeId(r["id"].as_u64().unwrap());
+    assert!((length(&mut s, rid, 0, 3) - edge).abs() < 1e-6);
+    assert_eq!(points(&s, rid).len(), p.len() + 1);
+    s.execute("select.set", &json!({"ids": [back, front]})).unwrap();
+    let r = s.execute("design.standCollar", &json!({"extension": 15, "frontShape": "winged"})).unwrap();
+    let wid = NodeId(r["id"].as_u64().unwrap());
+    let w = points(&s, wid);
+    assert!((length(&mut s, wid, 0, 3) - edge).abs() < 1e-6);
+    assert!((pf_core::pt_to_mm((w[4] - p[4]).hypot()) - 35.0).abs() < 1e-6, "{:?} {:?}", w[4], p[4]);
+    assert!(s.execute("design.standCollar", &json!({"frontShape": "pointy"})).is_err());
+    for _ in 0..3 {
+        s.execute("edit.undo", &json!({})).unwrap();
+    }
     assert!(s.doc().unwrap().doc.node(id).is_none());
 }
 

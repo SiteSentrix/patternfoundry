@@ -1024,6 +1024,21 @@ pub struct StandCollar {
     /// How long the top edge is from centre back to centre front (where a shirt collar's fall
     /// is sewn on).
     pub top: f64,
+    /// The outline's anchor at the top of the front end (after the neck edge's front end).
+    pub corner: usize,
+}
+
+/// The front end of a stand collar.
+#[derive(Clone, Copy, Debug, PartialEq)]
+pub enum CollarFront {
+    /// Square to the neck edge.
+    Square,
+    /// The top corner rounded, half the stand's height round (less where the extension past
+    /// centre front is shorter).
+    Rounded,
+    /// The top edge run on past the front end by the length given, to a wing tip that turns down
+    /// when worn, the front end curving in to it.
+    Winged(f64),
 }
 
 /// A stand collar for a neckline `back` long from centre back to the shoulder and `front` from
@@ -1079,7 +1094,85 @@ pub fn stand_collar(back: f64, front: f64, depth: f64, rise: f64, extension: f64
     let top_length = run_length(&to_cf, 0, to_cf.len().saturating_sub(1));
     let mut outline = base;
     outline.extend(top.iter().rev().map(|k| Knot { p: k.p, h_in: k.h_out, h_out: k.h_in }));
-    Ok(StandCollar { outline, shoulder: s, centre_front: [kc.p, c_top], top: top_length })
+    let corner = if extension > 1e-9 { 4 } else { 3 };
+    Ok(StandCollar { outline, shoulder: s, centre_front: [kc.p, c_top], top: top_length, corner })
+}
+
+/// The cubic `c` split at `t` (de Casteljau): the part before and the part after.
+fn split_cubic(c: [Pt; 4], t: f64) -> ([Pt; 4], [Pt; 4]) {
+    let l = |a: Pt, b: Pt| a + (b - a) * t;
+    let (ab, bc, cd) = (l(c[0], c[1]), l(c[1], c[2]), l(c[2], c[3]));
+    let (abc, bcd) = (l(ab, bc), l(bc, cd));
+    let m = l(abc, bcd);
+    ([c[0], ab, abc, m], [m, bcd, cd, c[3]])
+}
+
+/// A stand collar's front end shaped (PF-5.24). Rounded: the top corner rounded with a quarter
+/// circle, half the stand's height round (or 0.9 of the top edge's first stretch where that is
+/// shorter, as with a short extension past centre front), the curve's construction as in the
+/// mandarin collar of "Pattern Making Instructions"
+/// (<https://www.scribd.com/document/36932530/Pattern-Making-Instructions>: the front corner's
+/// angle bisected and the curve drawn through a point on it). Winged: as that handout's wing
+/// collar ("After constructing the basic mandarin collar, extend 3.5cm from F. Join F-H with an
+/// inward curve"), the top edge run on `wing` past the corner to the tip and the front end drawn
+/// from the neck edge's end to it, curving in by a quarter of the wing. The neck edge, its
+/// length and the centre front line don't change.
+pub fn collar_front(c: &StandCollar, depth: f64, front: CollarFront) -> Result<StandCollar, DesignError> {
+    let o = &c.outline;
+    let n = o.len();
+    let i = c.corner;
+    if i == 0 || i + 1 >= n || !(depth.is_finite() && depth > 0.0) {
+        return Err(DesignError::BadAnchor("not a stand collar's outline"));
+    }
+    let (e, t, next) = (o[i - 1], o[i], o[i + 1]);
+    let mut out = o.clone();
+    match front {
+        CollarFront::Square => {}
+        CollarFront::Rounded => {
+            let seg = [t.p, t.h_out, next.h_in, next.p];
+            let len = run_length(&[t, next], 0, 1);
+            let r = (depth / 2.0).min(len * 0.9);
+            // Where the top edge is `r` along from the corner.
+            let (mut lo, mut hi) = (0.0, 1.0);
+            for _ in 0..50 {
+                let mid = (lo + hi) / 2.0;
+                let (a, _) = split_cubic(seg, mid);
+                let l = run_length(&[Knot { p: a[0], h_in: a[0], h_out: a[1] }, Knot { p: a[3], h_in: a[2], h_out: a[3] }], 0, 1);
+                if l < r {
+                    lo = mid;
+                } else {
+                    hi = mid;
+                }
+            }
+            let (_, rest) = split_cubic(seg, (lo + hi) / 2.0);
+            let down = (e.p - t.p).unit().ok_or(DesignError::BadAnchor("the front end has no length"))?;
+            let p1 = t.p + down * r;
+            let p2 = rest[0];
+            let k = 0.552_284_75;
+            let a = Knot { p: p1, h_in: p1, h_out: p1 + (t.p - p1) * k };
+            let b = Knot { p: p2, h_in: p2 + (t.p - p2) * k, h_out: rest[1] };
+            out[i + 1].h_in = rest[2];
+            out.splice(i..=i, [a, b]);
+        }
+        CollarFront::Winged(wing) => {
+            if !(wing.is_finite() && wing > 0.0) {
+                return Err(DesignError::BadAnchor("the wing is more than 0 long"));
+            }
+            // The top edge's direction at the corner, run on outward.
+            let back = if (t.h_out - t.p).len() > 1e-9 { t.h_out } else { next.p };
+            let fwd = (t.p - back).unit().ok_or(DesignError::BadAnchor("the top edge has no length"))?;
+            let tip = t.p + fwd * wing;
+            // The top edge's first stretch now starts at the tip, its handle moved with it.
+            out[i] = Knot { p: tip, h_in: tip, h_out: tip + (t.h_out - t.p) };
+            // The front end curved in: bowed away from the old corner.
+            let d = tip - e.p;
+            let left = Pt::new(d.y, -d.x);
+            let toward = left.dot(t.p - (e.p + d * 0.5)) > 0.0;
+            bow(&mut out, i - 1, if toward { -wing / 4.0 } else { wing / 4.0 })?;
+        }
+    }
+    let corner = i;
+    Ok(StandCollar { outline: out, corner, ..c.clone() })
 }
 
 /// An in-seam pocket's bag, drafted on the piece it hangs inside.
@@ -1802,6 +1895,39 @@ mod tests {
         // Edge to edge: no extension, the front end at centre front.
         assert_eq!(stand_collar(90.0, 105.0, 35.0, 15.0, 0.0).unwrap().outline.len(), o.len() - 2);
         assert!(stand_collar(90.0, 105.0, 0.0, 15.0, 0.0).is_err() && stand_collar(90.0, 10.0, 35.0, 15.0, 0.0).is_err());
+    }
+
+    #[test]
+    fn a_stand_collars_front_is_rounded_or_winged_and_its_neck_edge_stays() {
+        for extension in [15.0, 0.0] {
+            let c = stand_collar(90.0, 105.0, 35.0, 15.0, extension).unwrap();
+            let (o, i) = (&c.outline, c.corner);
+            let neck = run_length(o, 0, i - 1);
+            assert_eq!(collar_front(&c, 35.0, CollarFront::Square).unwrap(), c);
+            // Rounded: the corner gone, two anchors where the curve meets the front end and the
+            // top edge, as far from the old corner (17.5, or less where the extension is short).
+            let r = collar_front(&c, 35.0, CollarFront::Rounded).unwrap();
+            let ro = &r.outline;
+            assert_eq!(ro.len(), o.len() + 1);
+            assert!((run_length(ro, 0, i - 1) - neck).abs() < 1e-9, "the neck edge stays");
+            let (d1, d2) = ((ro[i].p - o[i].p).len(), (ro[i + 1].p - o[i].p).len());
+            let want = if extension > 0.0 { 13.5 } else { 17.5 };
+            assert!((d1 - want).abs() < 1e-6 && (d2 - want).abs() < 0.2, "{d1} {d2}");
+            // The quarter circle's middle is inside the old corner, about r(1 - 1/√2) in.
+            let mid = (ro[i].p + ro[i].h_out * 3.0 + ro[i + 1].h_in * 3.0 + ro[i + 1].p) * 0.125;
+            assert!((mid - o[i].p).len() > want * 0.3, "{mid:?}");
+            // Winged: the top run on 35 past the corner, the front end curving in.
+            let w = collar_front(&c, 35.0, CollarFront::Winged(35.0)).unwrap();
+            let wo = &w.outline;
+            assert_eq!(wo.len(), o.len());
+            assert!(((wo[i].p - o[i].p).len() - 35.0).abs() < 1e-9);
+            assert!((run_length(wo, 0, i - 1) - neck).abs() < 1e-9, "the neck edge stays");
+            let m = (wo[i - 1].p + wo[i - 1].h_out * 3.0 + wo[i].h_in * 3.0 + wo[i].p) * 0.125;
+            let chord = (wo[i - 1].p + wo[i].p) * 0.5;
+            assert!(((m - chord).len() - 35.0 / 4.0).abs() < 1e-9);
+            assert!((m - o[i].p).len() > (chord - o[i].p).len(), "curving in, away from the old corner");
+            assert!(collar_front(&c, 35.0, CollarFront::Winged(0.0)).is_err());
+        }
     }
 
     #[test]
