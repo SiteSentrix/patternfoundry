@@ -154,6 +154,12 @@ fn confirm(app: &mut VectorcraftApp, d: &Dialog) -> Result<Value, String> {
                 eps_options::open(app, &params);
                 return Ok(Value::Null);
             }
+            // The pattern exports (DXF-AAMA, SVG for cutting, PDF for projector): their options from
+            // the format table, then the file.
+            if matches!(f.id, "aama" | "svgcut" | "projector") {
+                io::open_options(app, "file.exportAs", f, &path, false);
+                return Ok(Value::Null);
+            }
             io::export(app, Some(f.id), Some(path), &params)
         }
     }

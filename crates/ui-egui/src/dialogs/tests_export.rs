@@ -266,3 +266,40 @@ fn export_as_writes_only_the_chosen_artboard_in_every_format() {
         }
     }
 }
+
+/// The pattern exports (DXF-AAMA, SVG for cutting, PDF for projector) ask for their options after
+/// Export As; the size comes from the document's size range.
+#[test]
+fn export_as_dxf_aama_asks_for_its_options_then_writes_the_file() {
+    let (mut app, written) = app(1);
+    app.run("select.all", json!({})).unwrap();
+    app.run("piece.make", json!({"name": "Front"})).unwrap();
+    app.run("grade.setSizes", json!({"sizes": ["S", "M", "L"], "base": "M"})).unwrap();
+    app.run("file.exportAs", json!({"format": "aama"})).unwrap();
+    assert_eq!(kind(&app), Some("exportAs"));
+    set(&mut app, "format", json!("aama"));
+    confirm(&mut app).unwrap();
+    assert_eq!(kind(&app), Some("saveOptions"), "the DXF-AAMA options follow");
+    assert!(written.borrow().is_empty());
+    frame(&mut app);
+    set(&mut app, "styleName", json!("Test Style"));
+    set(&mut app, "version", json!("R12"));
+    set(&mut app, "size", json!("L"));
+    frame(&mut app);
+    confirm(&mut app).unwrap();
+    assert!(app.ui.dialog.is_none());
+    let (path, bytes) = written.borrow()[0].clone();
+    let text = String::from_utf8(bytes).unwrap();
+    assert!(path.ends_with(".dxf"), "{path}");
+    assert!(text.contains("Style Name: Test Style") && text.contains("AC1009"), "R12, the style named");
+    // The projector PDF too: its options, then the file.
+    app.run("file.exportAs", json!({})).unwrap();
+    set(&mut app, "format", json!("projector"));
+    confirm(&mut app).unwrap();
+    assert_eq!(kind(&app), Some("saveOptions"));
+    frame(&mut app);
+    set(&mut app, "layout", json!("asDrawn"));
+    set(&mut app, "invert", json!(true));
+    confirm(&mut app).unwrap();
+    assert!(written.borrow()[1].1.starts_with(b"%PDF"));
+}
