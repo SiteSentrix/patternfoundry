@@ -2115,8 +2115,12 @@ mod tests {
             e.live_paint_gaps = Some(Box::default());
             e.pattern = Some(Box::new(pf_core::PatternTag::Mark(pf_core::Mark::Seam)));
             e.draft = Some(Box::default());
-            e.block =
-                Some(Box::new(pf_core::block::BlockRef { kind: pf_core::block::BlockKind::Bodice, part: 1, origin: pf_core::Pt::new(1.0, 2.0) }));
+            e.block = Some(Box::new(pf_core::block::BlockRef {
+                kind: pf_core::block::BlockKind::Bodice,
+                part: 1,
+                origin: pf_core::Pt::new(1.0, 2.0),
+                options: Default::default(),
+            }));
         }
         /// The top-level keys of a JSON object, in the order written.
         struct Keys(Vec<String>);

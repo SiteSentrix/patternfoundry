@@ -235,3 +235,42 @@ fn the_sleeve_crown_is_checked_against_the_armhole() {
     s.execute("block.sleeve", &json!({"origin": [3000, 0]})).unwrap();
     assert!(s.execute("design.sleeveEase", &json!({})).is_err());
 }
+
+#[test]
+fn a_blocks_ease_and_darts_are_its_options_and_both_parts_follow() {
+    let mut s = measured();
+    let r = s.execute("block.bodice", &json!({"origin": [0, 0]})).unwrap();
+    let (back, front) = (NodeId(r["ids"][0].as_u64().unwrap()), NodeId(r["ids"][1].as_u64().unwrap()));
+    let info = s.execute("block.options", &json!({"id": front.0})).unwrap();
+    assert_eq!(info["block"], "bodice");
+    let ease = info["options"].as_array().unwrap().iter().find(|o| o["name"] == "ease").unwrap().clone();
+    assert_eq!((ease["value"].clone(), ease["default"].clone()), (json!(null), json!(50.0)));
+    // 7 cm ease: the front 2 cm wider; the back drawn with it too (its waist dart takes more in).
+    let back_before = s.doc().unwrap().doc.node(back).unwrap().clone();
+    s.execute("select.set", &json!({"ids": [front.0]})).unwrap();
+    let r = s.execute("block.setOptions", &json!({"options": {"ease": 70, "shoulder_dart": "1.5 cm"}})).unwrap();
+    assert_eq!(r["parts"].as_array().unwrap().len(), 2, "{r}");
+    assert!(near(bounds(&s, front).x1, mm_to_pt(510.0)));
+    assert_ne!(*s.doc().unwrap().doc.node(back).unwrap(), back_before);
+    // They stay with the measurements: a bigger bust still grows it, with the ease.
+    s.execute("measure.set", &json!({"values": {"bust": 960}})).unwrap();
+    assert!(near(bounds(&s, front).x1, mm_to_pt(550.0)));
+    // Bad options are refused and change nothing; null goes back to the default; undo works.
+    assert!(s.execute("block.setOptions", &json!({"options": {"ease": 900}})).is_err());
+    assert!(s.execute("block.setOptions", &json!({"options": {"hem": 5}})).is_err());
+    s.execute("block.setOptions", &json!({"id": back.0, "options": {"ease": null}})).unwrap();
+    assert!(near(bounds(&s, front).x1, mm_to_pt(530.0)));
+    s.execute("edit.undo", &json!({})).unwrap();
+    assert!(near(bounds(&s, front).x1, mm_to_pt(550.0)));
+    // A piece made from the block: selected, its options are the block's.
+    s.execute("select.set", &json!({"ids": [front.0]})).unwrap();
+    s.execute("piece.make", &json!({})).unwrap();
+    assert_eq!(s.execute("block.options", &json!({})).unwrap()["id"], json!(front.0));
+    // Drafted with options from the start.
+    s.execute("measure.set", &json!({"values": {"top_arm": 380, "sleeve_length": 640}})).unwrap();
+    let r = s.execute("block.sleeve", &json!({"origin": [800, 0], "options": {"ease": 30}})).unwrap();
+    let sleeve = r["ids"][0].as_u64().unwrap();
+    let info = s.execute("block.options", &json!({"id": sleeve})).unwrap();
+    assert_eq!(info["options"][0]["value"], json!(30.0));
+    assert!(s.execute("block.skirt", &json!({"options": {"bust_dart": 10}})).is_err());
+}
