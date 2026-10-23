@@ -5450,6 +5450,10 @@ file-filter	PDF for projector	PDF pro projektor
 	Edge Allowance	Záložka hrany
 	Across	Vodorovně
 	Down	Dolů
+	One step	Jeden krok
+	The same move for each size, from the size above the base	Stejný posun pro každou velikost, podle velikosti nad základní
+	Per size	Po velikostech
+	A move for each size of its own	Vlastní posun pro každou velikost
 	Add Drill Hole Here	Přidat vrtaný otvor sem
 	Remove Drill Hole Here	Odebrat vrtaný otvor zde
 	Add Drill Hole	Přidat vrtaný otvor

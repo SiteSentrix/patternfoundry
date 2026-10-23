@@ -5358,6 +5358,10 @@ file-filter	PDF for projector	PDF პროექტორისთვის
 	Edge Allowance	კიდის მარაგი
 	Across	ჰორიზონტალურად
 	Down	ქვემოთ
+	One step	ერთი ნაბიჯი
+	The same move for each size, from the size above the base	ერთი და იგივე გადაადგილება ყველა ზომისთვის, საბაზისოს ზემოთა ზომიდან
+	Per size	ზომების მიხედვით
+	A move for each size of its own	თითოეულ ზომას თავისი გადაადგილება
 	Add Drill Hole Here	ნახვრეტის დამატება აქ
 	Remove Drill Hole Here	ნახვრეტის წაშლა აქ
 	Add Drill Hole	ნახვრეტის დამატება

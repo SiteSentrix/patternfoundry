@@ -5303,6 +5303,10 @@ file-filter	PDF for projector	PDF do projektora
 	Edge Allowance	Zapas krawędzi
 	Across	W poziomie
 	Down	W dół
+	One step	Jeden krok
+	The same move for each size, from the size above the base	To samo przesunięcie dla każdego rozmiaru, z rozmiaru nad bazowym
+	Per size	Według rozmiaru
+	A move for each size of its own	Własne przesunięcie dla każdego rozmiaru
 	Add Drill Hole Here	Dodaj otwór tutaj
 	Remove Drill Hole Here	Usuń otwór tutaj
 	Add Drill Hole	Dodaj otwór

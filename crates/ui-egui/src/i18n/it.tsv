@@ -5065,6 +5065,10 @@ file-filter	PDF for projector	PDF per proiettore
 	Edge Allowance	Margine del bordo
 	Across	In orizzontale
 	Down	In basso
+	One step	Un passo
+	The same move for each size, from the size above the base	Lo stesso spostamento per ogni taglia, da quella sopra la base
+	Per size	Per taglia
+	A move for each size of its own	Uno spostamento proprio per ogni taglia
 	Add Drill Hole Here	Aggiungi foro qui
 	Remove Drill Hole Here	Rimuovi foro qui
 	Add Drill Hole	Aggiungi foro

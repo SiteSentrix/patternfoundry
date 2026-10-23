@@ -5105,6 +5105,10 @@ file-filter	PDF for projector	プロジェクター用 PDF
 	Edge Allowance	辺の縫い代
 	Across	横方向
 	Down	下方向
+	One step	同じ刻み
+	The same move for each size, from the size above the base	各サイズで同じ移動量（基準の一つ上のサイズから）
+	Per size	サイズごと
+	A move for each size of its own	サイズごとに個別の移動量
 	Add Drill Hole Here	ここにドリル穴を追加
 	Remove Drill Hole Here	ここのドリル穴を削除
 	Add Drill Hole	ドリル穴を追加

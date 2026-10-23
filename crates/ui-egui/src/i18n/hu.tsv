@@ -5436,6 +5436,10 @@ file-filter	PDF for projector	PDF projektorhoz
 	Edge Allowance	Az él ráhagyása
 	Across	Vízszintesen
 	Down	Lefelé
+	One step	Egy lépés
+	The same move for each size, from the size above the base	Minden méretnél ugyanaz az elmozdulás, az alapméret feletti méretből
+	Per size	Méretenként
+	A move for each size of its own	Minden méretnek saját elmozdulás
 	Add Drill Hole Here	Fúrt lyuk hozzáadása ide
 	Remove Drill Hole Here	Fúrt lyuk eltávolítása innen
 	Add Drill Hole	Fúrt lyuk hozzáadása

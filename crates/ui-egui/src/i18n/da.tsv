@@ -5433,6 +5433,10 @@ file-filter	PDF for projector	PDF til projektor
 	Edge Allowance	Kantens sømrum
 	Across	Vandret
 	Down	Nedad
+	One step	Ét trin
+	The same move for each size, from the size above the base	Samme flytning for hver størrelse, fra størrelsen over basen
+	Per size	Pr. størrelse
+	A move for each size of its own	En egen flytning for hver størrelse
 	Add Drill Hole Here	Tilføj borehul her
 	Remove Drill Hole Here	Fjern borehul her
 	Add Drill Hole	Tilføj borehul

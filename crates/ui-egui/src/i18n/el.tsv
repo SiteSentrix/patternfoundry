@@ -5402,6 +5402,10 @@ file-filter	PDF for projector	PDF για προβολέα
 	Edge Allowance	Ραφή άκρης
 	Across	Οριζόντια
 	Down	Προς τα κάτω
+	One step	Ένα βήμα
+	The same move for each size, from the size above the base	Η ίδια μετακίνηση για κάθε μέγεθος, από το μέγεθος πάνω από τη βάση
+	Per size	Ανά μέγεθος
+	A move for each size of its own	Δική του μετακίνηση για κάθε μέγεθος
 	Add Drill Hole Here	Προσθήκη οπής εδώ
 	Remove Drill Hole Here	Αφαίρεση οπής εδώ
 	Add Drill Hole	Προσθήκη οπής

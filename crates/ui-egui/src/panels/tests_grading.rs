@@ -100,3 +100,22 @@ fn copy_rules_to_gives_another_piece_the_rules() {
     assert_eq!(rules.as_array().unwrap().len(), 1, "{rules}");
     assert_eq!(rules[0]["step"], json!([10.0, 0.0]));
 }
+
+#[test]
+fn a_point_is_graded_size_by_size_and_back_to_one_step() {
+    let (mut app, id) = square();
+    // Point 0 moves 2 mm across and 1 down a size.
+    app.run("grade.setRule", json!({"id": id, "anchor": 0, "step": [2, 1]})).unwrap();
+    app.run("select.set", json!({"ids": [id]})).unwrap();
+    // A step rule offers to go size by size.
+    assert!(panel(&mut app).contains("Per size"));
+    // A rule naming the sizes shows a row for each size but the base, its move from the base.
+    app.run("grade.setRule", json!({"id": id, "anchor": 0, "sizes": {"S": [-1, 0], "L": [3, 2]}})).unwrap();
+    let text = panel(&mut app);
+    assert!(text.contains("per size") && text.contains("   S") && text.contains("   L") && !text.contains("   M"), "{text}");
+    assert!(text.contains("3.0") && text.contains("-1.0") && text.contains("One step"), "{text}");
+    // One step: the move of the size above the base.
+    click(&mut app, "One step");
+    let info = app.run("grade.info", json!({"id": id})).unwrap();
+    assert_eq!(info["rules"], json!([{"anchor": 0, "step": [3.0, 2.0]}]), "{info}");
+}
