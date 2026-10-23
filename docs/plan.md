@@ -244,8 +244,9 @@ is built on, plus a pattern mode, the way StitchFoundry adds embroidery:
   tutorial's own example and gets its numbers (forks 6 and 9 cm out, hems 22 and 24 cm, waists 20
   and 19 cm). The curves the tutorial leaves to its drawings are chosen in the code and marked;
   the block was looked at as an exported picture. Tests: 1 more in `pf-core`, 1 more engine test.
-  Not yet: a front dart (the author's comments add about 1 cm at the front side seam for one),
-  walking the inseams and side seams (the tutorial's own check), a waistband.
+  Not yet: a front dart (the author's comments add about 1 cm at the front side seam for one;
+  done: PF-4.7), walking the inseams and side seams (the tutorial's own check; done: PF-4.6), a
+  waistband.
 - 2026-10-21, **PF-7.1**: DXF-AAMA export for cutting rooms (`document.export {format: aama}`,
   File › Export › Export As › DXF-AAMA (cutting room)), written from the published descriptions of
   ASTM D6673 (DH Patterns and Fit's overview,
@@ -682,3 +683,15 @@ is built on, plus a pattern mode, the way StitchFoundry adds embroidery:
   four runs, knee to hem about 44 cm, the back inseam longer above the knee), 1 in
   `dialogs/trouser_seams.rs`. Not yet: notches matched along the walked seams (design.walk does it
   for seams named by hand), the seams of a block changed since it was drafted.
+- 2026-10-23, **PF-4.7**: a front dart for the trouser block. The trouser block's `front_dart`
+  option (none by default; Pattern › Block Options…) adds a waist dart in the middle of the front
+  waist, square to it, `front_dart_length` long (8 cm unless set: the source leaves it open), and
+  adds its width at the front side seam so the waist is as it was with the dart closed, as the
+  tutorial's author answers a reader ("If you want to add a dart to the front, too, just add that
+  extra width to the side seam of the front piece", "could be even just 1cm wide":
+  https://www.theshapesoffabric.com/2020/08/16/learn-how-to-draft-the-basic-pants-pattern/).
+  Check Trouser Seams walks a front with a dart too. Tests: 1 in `pf-core` (the side seam's waist
+  end 1 cm further out, the legs 1 cm apart, the point 8 cm down, the back unchanged), 1 more step
+  in `tests_block.rs` (the seams below the knee as they were, the front side seam to the waist
+  shorter, standing straighter). Not
+  yet: the dart's place chosen (on the crease line, as some methods put it).

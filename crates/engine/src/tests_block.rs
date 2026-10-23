@@ -300,4 +300,19 @@ fn the_trouser_seams_are_walked_front_against_back_run_by_run() {
     // The back inseam is more curved, so longer above the knee, as the tutorial expects.
     assert!(runs[1]["difference"].as_f64().unwrap() > 0.0, "{}", runs[1]);
     assert!(r["largest"].as_f64().unwrap() >= runs[1]["difference"].as_f64().unwrap());
+    // With a 1 cm front dart the front waist is 1 cm wider at the side seam; the seams still walk.
+    // The side seam's waist end moves out toward the side line, so it slants less: shorter.
+    let ids: Vec<u64> = {
+        let mut v = Vec::new();
+        s.doc().unwrap().doc.walk(|n| {
+            if n.extras().block.as_deref().is_some_and(|b| b.kind == pf_core::block::BlockKind::Trousers) {
+                v.push(n.id.0);
+            }
+        });
+        v
+    };
+    s.execute("block.setOptions", &json!({"id": ids[0], "options": {"front_dart": 10}})).unwrap();
+    let with = s.execute("design.trouserSeams", &json!({})).unwrap();
+    assert_eq!(with["runs"][0], runs[0], "below the knee nothing changes");
+    assert!(with["runs"][3]["front"].as_f64().unwrap() < runs[3]["front"].as_f64().unwrap(), "{}", with["runs"][3]);
 }

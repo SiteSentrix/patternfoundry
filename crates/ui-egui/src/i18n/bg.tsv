@@ -5439,11 +5439,11 @@ file-filter	PDF for projector	PDF за проектор
 	Block Options	Настройки на основната кройка
 	Ease	Свободна добавка
 	Waist ease	Добавка в талията
-	Bust dart	Гръдна вытачка
-	Shoulder dart	Раменна вытачка
-	Back dart	Вытачка на гърба
-	Back dart length	Дължина на вытачката на гърба
-	Front dart length	Дължина на предната вытачка
+	Bust dart	Гръден пенс
+	Shoulder dart	Раменен пенс
+	Back dart	Пенс на гърба
+	Back dart length	Дължина на пенса на гърба
+	Front dart length	Дължина на предния пенс
 	Option	Настройка
 	Back to the block's default	Обратно към стойността по подразбиране
 	from the measurements	от мерките
@@ -5456,3 +5456,4 @@ file-filter	PDF for projector	PDF за проектор
 	Side seam, waist to knee	Страничен шев, от талията до коляното
 	{seam}: front {front} mm, back {back} mm ({difference} mm)	{seam}: предница {front} мм, гръб {back} мм ({difference} мм)
 	Walk them on the pattern too: where a line doesn't run on smoothly from front to back, find the point half way between the two and correct both lines. The back inseam is more curved, so it is often longer: lowering the back crotch curve slightly to match is fine.	Проверете ги и по кройката: където линия не продължава гладко от предницата към гърба, намерете точката по средата между двете и коригирайте и двете линии. Задният вътрешен шев е по-извит и затова често е по-дълъг: леко сваляне на задната крива на чатала, за да съвпадне, е наред.
+	Front dart	Преден пенс
