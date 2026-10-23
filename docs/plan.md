@@ -596,6 +596,18 @@ is built on, plus a pattern mode, the way StitchFoundry adds embroidery:
   `tests_design.rs` (the bodice block's shoulder bust dart ended 25 mm short of the bust point,
   the waist dart's point at the same bust point kept, one undo step). Not yet: curved dart legs, the
   new point dragged on the canvas.
+- 2026-10-23, **PF-1.4**: a piece's edge data follows its seam line. Notches, per-edge
+  allowances, corner styles and the fold are kept by edge number, so when the seam line gained or
+  lost an anchor (an anchor added with the pen, or a design tool such as a pleat or a spread on a
+  piece) they ended up on whichever edge then had their number. Now, inside the edit, the piece
+  is compared with the document before it: when its seam line's anchor count changed, each notch
+  is put back where it was (the nearest point on the new seam line), each new edge takes the
+  allowance of the old edge its middle lies on (both halves of a split edge keep it), each corner
+  style stays at the anchor in the same place, and the fold moves to the one edge along it (or
+  comes off when the fold edge itself was split). Notches the edit adds itself (a pleat's) are
+  already on the new seam line and are kept as they are. Test: 1 in `tests_piece.rs` (an anchor
+  in the middle of a square's top edge: the notches, both halves' allowance, the bottom's
+  allowance, the fold and the squared corner where they were; undo).
 - 2026-10-22, **PF-1.3**: notches and the fold picked on the canvas. Right-click a pattern piece
   on or near its seam line: **Add Notch Here** puts a notch on the nearest edge, where the click
   was along it; **Cut on Fold Here** makes the nearest straight edge the fold. The commands take

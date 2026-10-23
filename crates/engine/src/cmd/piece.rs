@@ -368,6 +368,88 @@ pub(crate) fn rebuild(doc: &mut Document, id: NodeId) -> Result<()> {
     Ok(())
 }
 
+/// The seam line path of piece group `id` in `doc`.
+fn seam_path(doc: &Document, id: NodeId) -> Option<PathData> {
+    let g = doc.node(id)?;
+    g.children()?.iter().find(|c| mark_of(c) == Some(Mark::Seam)).and_then(|c| match &c.kind {
+        NodeKind::Path { path, .. } => Some(path.clone()),
+        _ => None,
+    })
+}
+
+/// How many anchors the closed outline of `path` has.
+fn anchors_of(path: &PathData) -> Option<usize> {
+    path.subpaths.iter().find(|sp| sp.closed).map(|sp| sp.anchors.len())
+}
+
+/// The edge of closed outline `sp` nearest `q`, and where along it by length (0 to 1), with the
+/// distance.
+fn nearest_edge(sp: &SubPath, q: Point) -> Option<(usize, f64, f64)> {
+    use vectorcraft_geom::kurbo::{ParamCurve, ParamCurveArclen, ParamCurveNearest};
+    let mut best: Option<(usize, f64, f64)> = None;
+    for i in 0..sp.segment_count() {
+        let seg = sp.segment(i);
+        let near = seg.nearest(q, 1e-9);
+        let d = near.distance_sq.sqrt();
+        if best.is_none_or(|b| d < b.2) {
+            let total = seg.arclen(1e-9);
+            let at = if total > 1e-9 { seg.subsegment(0.0..near.t).arclen(1e-9) / total } else { 0.5 };
+            best = Some((i, at.clamp(0.0, 1.0), d));
+        }
+    }
+    best
+}
+
+/// The point `at` of the way along edge `e` of `sp` by length.
+fn point_along(sp: &SubPath, e: usize, at: f64) -> Option<Point> {
+    use vectorcraft_geom::kurbo::{ParamCurve, ParamCurveArclen};
+    if e >= sp.segment_count() {
+        return None;
+    }
+    let seg = sp.segment(e);
+    let t = seg.inv_arclen(seg.arclen(1e-9) * at.clamp(0.0, 1.0), 1e-9);
+    Some(seg.eval(t))
+}
+
+/// A piece's edge data carried from its old seam line to its new one when the seam line gained or
+/// lost anchors (a design tool, or an anchor added by hand), so they stay where they were rather
+/// than on whichever edge now has their number: each notch at the place it was, each new edge's
+/// own allowance that of the old edge its middle lies on (both halves of a split edge keep it),
+/// each corner's style at the anchor in the same place, the fold on the edge that lies along it.
+fn follow_seam(piece: &mut Piece, old: &PathData, new: &PathData) {
+    let (Some(o), Some(n)) = (old.subpaths.iter().find(|sp| sp.closed), new.subpaths.iter().find(|sp| sp.closed)) else { return };
+    let near = mm_to_pt(0.5);
+    let old_edge_of = |q: Point| nearest_edge(o, q).filter(|b| b.2 <= near).map(|b| b.0);
+    let mid = |sp: &SubPath, e: usize| point_along(sp, e, 0.5);
+    let notches = std::mem::take(&mut piece.notches);
+    for nt in notches {
+        let Some(q) = point_along(o, nt.edge, nt.at) else { continue };
+        if let Some((edge, at, _)) = nearest_edge(n, q) {
+            piece.notches.push(Notch { edge, at, kind: nt.kind });
+        }
+    }
+    let edges = std::mem::take(&mut piece.edges);
+    for e in 0..n.segment_count() {
+        if let Some(mm) = mid(n, e).and_then(old_edge_of).and_then(|oe| edges.get(&oe)) {
+            piece.edges.insert(e, *mm);
+        }
+    }
+    let corners = std::mem::take(&mut piece.corners);
+    for (c, style) in corners {
+        let Some(p) = o.anchors.get(c).map(|a| a.p) else { continue };
+        if let Some(i) = n.anchors.iter().position(|a| (a.p - p).hypot() <= near) {
+            piece.corners.insert(i, style);
+        }
+    }
+    piece.fold = piece.fold.and_then(|f| {
+        let on: Vec<usize> = (0..n.segment_count()).filter(|&e| mid(n, e).and_then(old_edge_of) == Some(f)).collect();
+        match on[..] {
+            [one] => Some(one),
+            _ => None,
+        }
+    });
+}
+
 /// Called inside every edit: pieces whose seam line or data changed are drawn again, in the same
 /// undo step. Returns at once in documents without pieces.
 pub(crate) fn refresh(before: &Document, doc: &mut Document) -> Result<()> {
@@ -385,6 +467,26 @@ pub(crate) fn refresh(before: &Document, doc: &mut Document) -> Result<()> {
         let (Some(now), then) = (doc.node(id), before.node(id)) else { continue };
         if then.is_some_and(|t| t == now) {
             continue;
+        }
+        // The seam line gained or lost anchors: the edge data follows it.
+        if let (Some(old), Some(new)) = (seam_path(before, id), seam_path(doc, id))
+            && anchors_of(&old) != anchors_of(&new)
+            && let Some(was) = doc.node(id).and_then(piece_on).cloned()
+        {
+            // From the edge data as it was before this edit; notches the edit added itself (a
+            // pleat's) are already on the new seam line.
+            let src = before.node(id).and_then(piece_on).cloned().unwrap_or_else(|| was.clone());
+            let added: Vec<Notch> = was.notches.iter().filter(|n| !src.notches.contains(n)).copied().collect();
+            let mut piece = was.clone();
+            (piece.notches, piece.edges, piece.corners, piece.fold) = (src.notches, src.edges, src.corners, src.fold);
+            follow_seam(&mut piece, &old, &new);
+            piece.notches.extend(added);
+            piece.notches.sort_by(|a, b| a.edge.cmp(&b.edge).then(a.at.total_cmp(&b.at)));
+            if piece != was
+                && let Some(n) = doc.node_mut(id)
+            {
+                n.extras_mut().pattern = Some(Box::new(PatternTag::Piece(Box::new(piece))));
+            }
         }
         rebuild(doc, id)?;
     }
