@@ -5044,3 +5044,10 @@ file-filter	PDF for projector	PDF für Projektor
 	Right-click inside the piece: Add Drill Hole Here	Rechtsklick in das Teil: Bohrloch hier hinzufügen
 	Drill hole {n}, {mm} mm	Bohrloch {n}, {mm} mm
 	Drill hole {n}	Bohrloch {n}
+	Notch Shape	Knipsmarkenform
+	Slit notch	Schlitz-Knipsmarke
+	Double notch	Doppelte Knipsmarke
+	V notch	V-Knipsmarke
+	T notch	T-Knipsmarke
+	Castle notch	Kastenknipsmarke
+	U notch	U-Knipsmarke

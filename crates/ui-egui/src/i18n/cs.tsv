@@ -5462,3 +5462,10 @@ file-filter	PDF for projector	PDF pro projektor
 	Right-click inside the piece: Add Drill Hole Here	Klikněte pravým tlačítkem uvnitř dílu: Přidat vrtaný otvor sem
 	Drill hole {n}, {mm} mm	Vrtaný otvor {n}, {mm} mm
 	Drill hole {n}	Vrtaný otvor {n}
+	Notch Shape	Tvar zářezu
+	Slit notch	Rovný zářez
+	Double notch	Dvojitý zářez
+	V notch	Zářez V
+	T notch	Zářez T
+	Castle notch	Hranatý zářez
+	U notch	Zářez U

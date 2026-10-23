@@ -5057,3 +5057,10 @@ file-filter	PDF for projector	PDF для проєктора
 	Right-click inside the piece: Add Drill Hole Here	Клацніть правою кнопкою всередині деталі: Додати отвір тут
 	Drill hole {n}, {mm} mm	Отвір {n}, {mm} мм
 	Drill hole {n}	Отвір {n}
+	Notch Shape	Форма надсічки
+	Slit notch	Пряма надсічка
+	Double notch	Подвійна надсічка
+	V notch	V-надсічка
+	T notch	T-надсічка
+	Castle notch	Прямокутна надсічка
+	U notch	U-надсічка

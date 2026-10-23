@@ -158,3 +158,27 @@ fn drill_holes_are_points_on_layer_13_with_their_diameter() {
     assert_eq!(out["pieces"][0]["drills"].as_array().unwrap().len(), 2);
     assert_eq!(out["pieces"][0]["drills"][0]["diameter"], json!(4.0));
 }
+
+#[test]
+fn t_castle_and_u_notches_are_points_on_their_own_layers() {
+    let mut s = square_piece(1, false);
+    // The square's one notch, on the top edge, made a castle notch; a T on the right, a U below.
+    s.execute("piece.setNotch", &json!({"index": 0, "kind": "castle"})).unwrap();
+    s.execute("piece.addNotch", &json!({"edge": 1, "kind": "t"})).unwrap();
+    s.execute("piece.addNotch", &json!({"edge": 2, "kind": "u"})).unwrap();
+    assert!(s.execute("piece.setNotch", &json!({"index": 0, "kind": "star"})).is_err());
+    assert!(s.execute("piece.setNotch", &json!({"index": 9, "kind": "t"})).is_err());
+    let dxf = export(&mut s, json!({"format": "aama"}));
+    assert!(entities(&dxf, "POINT", "4").is_empty());
+    let castle = &entities(&dxf, "POINT", "81")[0];
+    assert_eq!((values(castle, 30), values(castle, 39)), (vec![6.0], vec![3.0]));
+    // The T notch's point at its depth: 6 mm in from the cutting line's right side (x 120).
+    let t = &entities(&dxf, "POINT", "80")[0];
+    assert!((values(t, 10)[0] - 114.0).abs() < 1e-6 && (values(t, 50)[0].to_radians().cos() + 1.0).abs() < 1e-9, "{t:?}");
+    assert_eq!(entities(&dxf, "POINT", "83").len(), 1);
+    // They read back as they were written.
+    let back = pf_aama::read(dxf.replace('\n', "\r\n").as_bytes()).unwrap();
+    let shapes: Vec<_> = back.pieces[0].notches.iter().map(|n| n.shape).collect();
+    assert_eq!(shapes, [pf_aama::NotchShape::Castle, pf_aama::NotchShape::T, pf_aama::NotchShape::U]);
+    assert!((back.pieces[0].notches[1].at[0] - 120.0).abs() < 1e-6);
+}

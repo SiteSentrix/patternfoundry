@@ -10,6 +10,8 @@ use crate::piece::{Drill, Grainline, Notch, NotchKind};
 pub const NOTCH_DEPTH_MM: f64 = 6.0;
 /// How far apart the two slits of a double notch are, in mm.
 pub const DOUBLE_NOTCH_GAP_MM: f64 = 4.0;
+/// How wide a T notch's bar and a castle or U notch's cut are, in mm.
+pub const NOTCH_WIDTH_MM: f64 = 3.0;
 /// How long a grainline's arrowheads are, in mm.
 pub const ARROW_MM: f64 = 6.0;
 /// How far a drill hole's cross reaches each way from its centre, in mm.
@@ -18,7 +20,10 @@ pub const DRILL_CROSS_MM: f64 = 3.0;
 /// The marks of `notch`: one polyline per slit (or one V). `allowance` is the notch's edge's seam
 /// allowance and `mm` one millimetre, both in the outline's unit. A notch is cut in from the
 /// cutting line toward the seam line, [`NOTCH_DEPTH_MM`] deep but never past the seam line when
-/// there is an allowance; on an edge without allowance it is cut in from the seam line.
+/// there is an allowance; on an edge without allowance it is cut in from the seam line. The shapes
+/// are those of ASTM D6673 as DH Patterns and Fit's overview describes them: a T notch is a slit
+/// with a bar [`NOTCH_WIDTH_MM`] wide at its depth, a castle notch a cut of even width with a square
+/// end, a U notch the same with a semicircle reaching the depth.
 pub fn notch(outline: &Outline, n: &Notch, allowance: f64, mm: f64) -> Vec<Vec<Pt>> {
     let Some((p, dir, out)) = outline.point_on_edge(n.edge, n.at) else {
         return vec![];
@@ -37,6 +42,27 @@ pub fn notch(outline: &Outline, n: &Notch, allowance: f64, mm: f64) -> Vec<Vec<P
         NotchKind::V => {
             let h = depth / 2.0;
             vec![vec![outer - dir * h, inner, outer + dir * h]]
+        }
+        NotchKind::T => {
+            let h = NOTCH_WIDTH_MM * mm / 2.0;
+            vec![vec![outer, inner], vec![inner - dir * h, inner + dir * h]]
+        }
+        NotchKind::Castle => {
+            let h = NOTCH_WIDTH_MM * mm / 2.0;
+            vec![vec![outer - dir * h, inner - dir * h, inner + dir * h, outer + dir * h]]
+        }
+        NotchKind::U => {
+            let h = (NOTCH_WIDTH_MM * mm / 2.0).min(depth);
+            // The round end's centre, a half-width back from the depth.
+            let c = inner + out * h;
+            let mut line = vec![outer - dir * h];
+            const STEPS: usize = 8;
+            for i in 0..=STEPS {
+                let (s, k) = (i as f64 * std::f64::consts::PI / STEPS as f64).sin_cos();
+                line.push(c - dir * (h * k) - out * (h * s));
+            }
+            line.push(outer + dir * h);
+            vec![line]
         }
     }
 }
@@ -120,6 +146,14 @@ mod tests {
         let v = notch(&square(), &Notch { edge: 0, at: 0.5, kind: NotchKind::V }, 10.0, 1.0);
         assert_eq!(v, [vec![Pt::new(47.0, -10.0), Pt::new(50.0, -4.0), Pt::new(53.0, -10.0)]]);
         assert!(notch(&square(), &Notch { edge: 7, at: 0.5, kind: NotchKind::V }, 10.0, 1.0).is_empty());
+        // The ASTM shapes: a T's bar at the depth, a castle's square end, a U's round end.
+        let t = notch(&square(), &Notch { edge: 0, at: 0.5, kind: NotchKind::T }, 10.0, 1.0);
+        assert_eq!(t, [vec![Pt::new(50.0, -10.0), Pt::new(50.0, -4.0)], vec![Pt::new(48.5, -4.0), Pt::new(51.5, -4.0)]]);
+        let c = notch(&square(), &Notch { edge: 0, at: 0.5, kind: NotchKind::Castle }, 10.0, 1.0);
+        assert_eq!(c, [vec![Pt::new(48.5, -10.0), Pt::new(48.5, -4.0), Pt::new(51.5, -4.0), Pt::new(51.5, -10.0)]]);
+        let u = &notch(&square(), &Notch { edge: 0, at: 0.5, kind: NotchKind::U }, 10.0, 1.0)[0];
+        let deepest = u.iter().map(|p| p.y).fold(f64::NEG_INFINITY, f64::max);
+        assert!((deepest + 4.0).abs() < 1e-9 && (u[0].x - 48.5).abs() < 1e-9 && (u[u.len() - 1].x - 51.5).abs() < 1e-9, "{u:?}");
     }
 
     #[test]

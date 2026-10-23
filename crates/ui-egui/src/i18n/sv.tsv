@@ -5418,3 +5418,10 @@ file-filter	PDF for projector	PDF för projektor
 	Right-click inside the piece: Add Drill Hole Here	Högerklicka inuti delen: Lägg till borrhål här
 	Drill hole {n}, {mm} mm	Borrhål {n}, {mm} mm
 	Drill hole {n}	Borrhål {n}
+	Notch Shape	Hackets form
+	Slit notch	Skårhack
+	Double notch	Dubbelhack
+	V notch	V-hack
+	T notch	T-hack
+	Castle notch	Kantad hack
+	U notch	U-hack

@@ -5461,3 +5461,10 @@ file-filter	PDF for projector	PDF pour projecteur
 	Right-click inside the piece: Add Drill Hole Here	Clic droit dans la pièce : Ajouter un trou de perçage ici
 	Drill hole {n}, {mm} mm	Trou de perçage {n}, {mm} mm
 	Drill hole {n}	Trou de perçage {n}
+	Notch Shape	Forme du cran
+	Slit notch	Cran fente
+	Double notch	Cran double
+	V notch	Cran en V
+	T notch	Cran en T
+	Castle notch	Cran créneau
+	U notch	Cran en U

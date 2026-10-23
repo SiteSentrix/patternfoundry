@@ -5117,3 +5117,10 @@ file-filter	PDF for projector	プロジェクター用 PDF
 	Right-click inside the piece: Add Drill Hole Here	パーツの内側を右クリック: ここにドリル穴を追加
 	Drill hole {n}, {mm} mm	ドリル穴 {n}、{mm} mm
 	Drill hole {n}	ドリル穴 {n}
+	Notch Shape	ノッチの形
+	Slit notch	切り込みノッチ
+	Double notch	ダブルノッチ
+	V notch	Vノッチ
+	T notch	Tノッチ
+	Castle notch	キャッスルノッチ
+	U notch	Uノッチ

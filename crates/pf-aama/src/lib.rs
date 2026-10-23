@@ -6,7 +6,8 @@
 //!
 //! One block per piece, inserted at the origin, its entities on layers named by number: 1 the
 //! boundary (the cutting line) and the piece system text, 2 turn points and 3 curve points (of
-//! layers 1 and 14), 4 notches (points carrying their depth, width and angle), 6 the mirror line (the fold a
+//! layers 1 and 14), 4 slit and V notches (points carrying their depth, width and angle), 80 T
+//! notches (the point at the notch's depth), 81 castle notches and 83 U notches, 6 the mirror line (the fold a
 //! piece is cut on, "symmetry of fold" in Patro's notes), 7 the grain line,
 //! 8 internal lines, 13 drill holes (points whose z is the punch's diameter, as DH Patterns and
 //! Fit's overview describes them), 14 the sew line, and 84 and 87 the quality validation curves (copies of the
@@ -42,7 +43,32 @@ impl Version {
     }
 }
 
-/// A notch as ASTM describes it with a point on layer 4.
+/// The shape of a notch, which the layer of its point gives.
+#[derive(Clone, Copy, Debug, Default, PartialEq, Eq)]
+pub enum NotchShape {
+    /// A slit, or a V when it has a width (layer 4).
+    #[default]
+    Plain,
+    /// A slit with a bar of the width across its end (layer 80).
+    T,
+    /// A cut of even width with a square end (layer 81).
+    Castle,
+    /// A cut of even width with a semicircle reaching the depth (layer 83).
+    U,
+}
+
+impl NotchShape {
+    fn layer(self) -> &'static str {
+        match self {
+            NotchShape::Plain => "4",
+            NotchShape::T => "80",
+            NotchShape::Castle => "81",
+            NotchShape::U => "83",
+        }
+    }
+}
+
+/// A notch as ASTM describes it with a point on layer 4, 80, 81 or 83.
 #[derive(Clone, Copy, Debug, PartialEq)]
 pub struct Notch {
     /// On the boundary (the middle of a V notch's opening).
@@ -50,8 +76,39 @@ pub struct Notch {
     /// The direction it is cut, into the piece: degrees counter-clockwise from +x.
     pub angle: f64,
     pub depth: f64,
-    /// The opening's width at the boundary: 0 for a slit, more for a V notch.
+    /// The opening's width at the boundary: 0 for a slit, more for a V notch; a T notch's bar, a
+    /// castle or U notch's cut.
     pub width: f64,
+    pub shape: NotchShape,
+}
+
+impl Notch {
+    /// The notch's cut as polylines. Its angle is counter-clockwise from +x with y up; with
+    /// `y_down` the points are in a y-down space (as a document's) and the angle turned to match.
+    pub fn lines(&self, y_down: bool) -> Vec<Vec<Mm>> {
+        let (s, c) = self.angle.to_radians().sin_cos();
+        let into = if y_down { [c, -s] } else { [c, s] };
+        let side = [-into[1], into[0]];
+        let p = |along: f64, across: f64| [self.at[0] + into[0] * along + side[0] * across, self.at[1] + into[1] * along + side[1] * across];
+        let (d, h) = (self.depth, self.width / 2.0);
+        match self.shape {
+            NotchShape::Plain if h > 0.0 => vec![vec![p(0.0, h), p(d, 0.0), p(0.0, -h)]],
+            NotchShape::Plain => vec![vec![p(0.0, 0.0), p(d, 0.0)]],
+            NotchShape::T => vec![vec![p(0.0, 0.0), p(d, 0.0)], vec![p(d, h), p(d, -h)]],
+            NotchShape::Castle => vec![vec![p(0.0, h), p(d, h), p(d, -h), p(0.0, -h)]],
+            NotchShape::U => {
+                let r = h.min(d);
+                let mut line = vec![p(0.0, h)];
+                const STEPS: usize = 8;
+                for i in 0..=STEPS {
+                    let (s, k) = (i as f64 * std::f64::consts::PI / STEPS as f64).sin_cos();
+                    line.push(p(d - r + r * s, h * k));
+                }
+                line.push(p(0.0, -h));
+                vec![line]
+            }
+        }
+    }
 }
 
 /// A drill hole: a point on layer 13.
@@ -132,7 +189,7 @@ const TURN_DEGREES: f64 = 15.0;
 /// Turns gentler than this are on a straight line: neither.
 const STRAIGHT_DEGREES: f64 = 0.01;
 /// The layers a file has (layer 0 is not used).
-const LAYERS: [&str; 12] = ["1", "2", "3", "4", "6", "7", "8", "13", "14", "15", "84", "87"];
+const LAYERS: [&str; 15] = ["1", "2", "3", "4", "6", "7", "8", "13", "14", "15", "80", "81", "83", "84", "87"];
 
 /// The handles of the objects every R13 drawing has; entities and table entries count up from
 /// [`FIRST_FREE`].
@@ -344,9 +401,16 @@ pub fn write(style: &Style) -> Result<String, AamaError> {
             o.point(record, "3", p);
         }
         for n in &piece.notches {
-            // ASTM: the depth is the point's z, the width its thickness, the direction its angle.
-            o.entity("POINT", record, "4", "AcDbPoint");
-            o.xyz(10, n.at[0], n.at[1], n.depth);
+            // ASTM: the depth is the point's z, the width its thickness, the direction its angle;
+            // a T notch's point is at its depth.
+            o.entity("POINT", record, n.shape.layer(), "AcDbPoint");
+            let at = if n.shape == NotchShape::T {
+                let (s, c) = n.angle.to_radians().sin_cos();
+                [n.at[0] + c * n.depth, n.at[1] + s * n.depth]
+            } else {
+                n.at
+            };
+            o.xyz(10, at[0], at[1], n.depth);
             if n.width > 0.0 {
                 o.f(39, n.width);
             }
@@ -674,8 +738,20 @@ pub fn read(bytes: &[u8]) -> Result<Style, AamaError> {
                         _ => {}
                     }
                 }
-                "POINT" if layer == "4" => {
-                    piece.notches.push(Notch { at: shift([num(e, 10), num(e, 20)]), angle: num(e, 50), depth: num(e, 30), width: num(e, 39) })
+                "POINT" if matches!(layer.as_str(), "4" | "80" | "81" | "83") => {
+                    let shape = match layer.as_str() {
+                        "80" => NotchShape::T,
+                        "81" => NotchShape::Castle,
+                        "83" => NotchShape::U,
+                        _ => NotchShape::Plain,
+                    };
+                    let (angle, depth) = (num(e, 50), num(e, 30));
+                    let mut at = shift([num(e, 10), num(e, 20)]);
+                    if shape == NotchShape::T {
+                        let (s, c) = angle.to_radians().sin_cos();
+                        at = [at[0] - c * depth, at[1] - s * depth];
+                    }
+                    piece.notches.push(Notch { at, angle, depth, width: num(e, 39), shape })
                 }
                 "POINT" if layer == "13" => piece.drills.push(Drill { at: shift([num(e, 10), num(e, 20)]), diameter: num(e, 30) }),
                 "LINE" if layer == "6" => piece.mirror = Some([shift([num(e, 10), num(e, 20)]), shift([num(e, 11), num(e, 21)])]),

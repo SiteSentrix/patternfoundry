@@ -5077,3 +5077,10 @@ file-filter	PDF for projector	PDF per proiettore
 	Right-click inside the piece: Add Drill Hole Here	Clic destro dentro il pezzo: Aggiungi foro qui
 	Drill hole {n}, {mm} mm	Foro {n}, {mm} mm
 	Drill hole {n}	Foro {n}
+	Notch Shape	Forma della tacca
+	Slit notch	Tacca a taglio
+	Double notch	Tacca doppia
+	V notch	Tacca a V
+	T notch	Tacca a T
+	Castle notch	Tacca a castello
+	U notch	Tacca a U

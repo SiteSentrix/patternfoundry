@@ -5380,3 +5380,10 @@ file-filter	PDF for projector	PDF para projetor
 	Right-click inside the piece: Add Drill Hole Here	Clique com o botão direito dentro da peça: Adicionar furo aqui
 	Drill hole {n}, {mm} mm	Furo {n}, {mm} mm
 	Drill hole {n}	Furo {n}
+	Notch Shape	Forma do pique
+	Slit notch	Pique de corte
+	Double notch	Pique duplo
+	V notch	Pique em V
+	T notch	Pique em T
+	Castle notch	Pique castelo
+	U notch	Pique em U

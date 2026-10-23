@@ -5370,3 +5370,10 @@ file-filter	PDF for projector	PDF პროექტორისთვის
 	Right-click inside the piece: Add Drill Hole Here	დააწკაპუნეთ მარჯვენა ღილაკით დეტალის შიგნით: ნახვრეტის დამატება აქ
 	Drill hole {n}, {mm} mm	ნახვრეტი {n}, {mm} მმ
 	Drill hole {n}	ნახვრეტი {n}
+	Notch Shape	ჭრილის ფორმა
+	Slit notch	სწორი ჭრილი
+	Double notch	ორმაგი ჭრილი
+	V notch	V ჭრილი
+	T notch	T ჭრილი
+	Castle notch	მართკუთხა ჭრილი
+	U notch	U ჭრილი

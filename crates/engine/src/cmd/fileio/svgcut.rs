@@ -106,23 +106,12 @@ pub(super) fn encode(doc: &Document, p: &Value) -> Result<Encoded> {
         out.push_str(&format!("    <path id=\"cut-{}\" data-name=\"{}\" d=\"{}\"/>\n", i + 1, escape(&piece.name), d(&pts, true)));
     }
     out.push_str("  </g>\n");
+    // Each notch as its cut; the document's y runs down.
     let notches: Vec<String> = pieces
         .iter()
         .flat_map(|piece| &piece.notches)
-        .map(|nt| {
-            // The notch's angle is counter-clockwise with y up; the document's y runs down.
-            let (s, c) = nt.angle.to_radians().sin_cos();
-            let into = [c, -s];
-            let a = at(nt.at);
-            let (depth, half) = (pt_to_mm(nt.depth), pt_to_mm(nt.width) / 2.0);
-            let tip = [a[0] + into[0] * depth, a[1] + into[1] * depth];
-            if half > 0.0 {
-                let side = [-into[1] * half, into[0] * half];
-                d(&[[a[0] + side[0], a[1] + side[1]], tip, [a[0] - side[0], a[1] - side[1]]], false)
-            } else {
-                d(&[a, tip], false)
-            }
-        })
+        .flat_map(|nt| nt.lines(true))
+        .map(|l| d(&l.iter().map(|q| at(*q)).collect::<Vec<_>>(), false))
         .collect();
     if !notches.is_empty() {
         out.push_str("  <g id=\"notches\" fill=\"none\" stroke=\"#0000ff\" stroke-width=\"0.1\">\n");

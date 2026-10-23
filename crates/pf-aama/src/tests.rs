@@ -11,7 +11,12 @@ fn style(version: Version) -> Style {
         material: "Main".into(),
         boundary: square(0.0, 50.0, 120.0),
         sew_line: square(10.0, 60.0, 100.0),
-        notches: vec![Notch { at: [60.0, 50.0], angle: 90.0, depth: 6.0, width: 0.0 }],
+        notches: vec![
+            Notch { at: [60.0, 50.0], angle: 90.0, depth: 6.0, width: 0.0, shape: NotchShape::Plain },
+            Notch { at: [120.0, 110.0], angle: 180.0, depth: 6.0, width: 3.0, shape: NotchShape::T },
+            Notch { at: [40.0, 170.0], angle: -90.0, depth: 6.0, width: 3.0, shape: NotchShape::Castle },
+            Notch { at: [0.0, 110.0], angle: 0.0, depth: 6.0, width: 3.0, shape: NotchShape::U },
+        ],
         grain: Some([[60.0, 70.0], [60.0, 150.0]]),
         mirror: Some([[0.0, 50.0], [0.0, 170.0]]),
         internal: vec![vec![[20.0, 110.0], [100.0, 110.0]]],
@@ -78,6 +83,11 @@ fn a_piece_is_a_block_with_its_cutting_line_sew_line_and_marks_on_their_layers()
         // The notch: a point on the cutting line, 6 deep, cut at 90°.
         let notch = &block_entities(&s, "TEST_SQUARE", "POINT", "4")[0];
         assert_eq!((values(notch, 10), values(notch, 30), values(notch, 50)), (vec![60.0], vec![6.0], vec![90.0]));
+        // The other shapes on their own layers; a T notch's point is at its depth, 6 mm in.
+        let t = &block_entities(&s, "TEST_SQUARE", "POINT", "80")[0];
+        assert_eq!((values(t, 10), values(t, 39)), (vec![114.0], vec![3.0]));
+        assert_eq!(block_entities(&s, "TEST_SQUARE", "POINT", "81").len(), 1);
+        assert_eq!(block_entities(&s, "TEST_SQUARE", "POINT", "83").len(), 1);
         assert_eq!(block_entities(&s, "TEST_SQUARE", "LINE", "7").len(), 1);
         let m = block_entities(&s, "TEST_SQUARE", "LINE", "6");
         assert_eq!((m.len(), values(&m[0], 10), values(&m[0], 21)), (1, vec![0.0], vec![170.0]), "the mirror line");
@@ -145,4 +155,23 @@ fn corners_are_turn_points_and_bends_curve_points() {
     poly.push([0.0, 0.0]);
     let (turns, curves) = turn_and_curve_points(&poly);
     assert_eq!((turns.len(), curves.len()), (3, 8));
+}
+
+#[test]
+fn each_notch_shape_is_drawn_as_its_cut() {
+    let n = |shape, width| Notch { at: [0.0, 0.0], angle: 90.0, depth: 6.0, width, shape };
+    let near = |a: Mm, b: Mm| (a[0] - b[0]).abs() < 1e-9 && (a[1] - b[1]).abs() < 1e-9;
+    // Cut upward (y up) from the origin; with y down the same angle cuts toward -y.
+    let slit = n(NotchShape::Plain, 0.0).lines(false);
+    assert!(near(slit[0][1], [0.0, 6.0]));
+    assert!(near(n(NotchShape::Plain, 0.0).lines(true)[0][1], [0.0, -6.0]));
+    let v = n(NotchShape::Plain, 4.0).lines(false);
+    assert!(near(v[0][0], [-2.0, 0.0]) && near(v[0][1], [0.0, 6.0]) && near(v[0][2], [2.0, 0.0]), "{v:?}");
+    let t = n(NotchShape::T, 3.0).lines(false);
+    assert!(t.len() == 2 && near(t[1][0], [-1.5, 6.0]) && near(t[1][1], [1.5, 6.0]), "{t:?}");
+    let c = n(NotchShape::Castle, 3.0).lines(false);
+    assert!(near(c[0][1], [-1.5, 6.0]) && near(c[0][2], [1.5, 6.0]), "{c:?}");
+    let u = &n(NotchShape::U, 3.0).lines(false)[0];
+    let top = u.iter().map(|p| p[1]).fold(f64::NEG_INFINITY, f64::max);
+    assert!((top - 6.0).abs() < 1e-9 && near(u[0], [-1.5, 0.0]) && near(u[u.len() - 1], [1.5, 0.0]), "{u:?}");
 }

@@ -1,8 +1,8 @@
 //! Pattern Pieces panel (PF-1): the document's pattern pieces, and the selected piece's name, cut
 //! count, fabric, seam allowance, the edge cut on the fold, and its edges (each one's allowance)
 //! and notches, and its drill holes. Everything it shows comes from `piece.list` and `piece.info`;
-//! every change goes through `piece.set`, `piece.addNotch`, `piece.removeNotch`,
-//! `piece.removeDrill`, `piece.make` and `piece.release`.
+//! every change goes through `piece.set`, `piece.addNotch`, `piece.setNotch` (a notch's shape),
+//! `piece.removeNotch`, `piece.removeDrill`, `piece.make` and `piece.release`.
 
 use egui::Ui;
 use serde_json::{Value, json};
@@ -100,6 +100,22 @@ fn edges_section(app: &mut VectorcraftApp, ui: &mut Ui, info: &Value, id: u64, e
                 let at = (n["at"].as_f64().unwrap_or_default() * 100.0).round().to_string();
                 let edge = n["edge"].as_u64().unwrap_or_default().to_string();
                 ui.label(egui::RichText::new(crate::i18n::fmt(tl!("Notch on edge {edge}, {at}% along"), &[("edge", &edge), ("at", &at)])).size(12.0));
+                let kind = n["kind"].as_str().unwrap_or("slit");
+                let name = |k: &str| match k {
+                    "double" => tl!("Double notch"),
+                    "v" => tl!("V notch"),
+                    "t" => tl!("T notch"),
+                    "castle" => tl!("Castle notch"),
+                    "u" => tl!("U notch"),
+                    _ => tl!("Slit notch"),
+                };
+                egui::ComboBox::from_id_salt(("pieces-notch-kind", i)).selected_text(name(kind)).show_ui(ui, |ui| {
+                    for k in ["slit", "double", "v", "t", "castle", "u"] {
+                        if ui.selectable_label(k == kind, name(k)).clicked() && k != kind {
+                            run(app, "piece.setNotch", json!({ "id": id, "index": i, "kind": k }));
+                        }
+                    }
+                });
                 if ui.small_button("×").on_hover_text(tl!("Remove Notch")).clicked() {
                     run(app, "piece.removeNotch", json!({ "id": id, "index": i }));
                 }

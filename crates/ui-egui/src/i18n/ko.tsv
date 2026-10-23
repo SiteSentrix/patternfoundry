@@ -5040,3 +5040,10 @@ file-filter	PDF for projector	프로젝터용 PDF
 	Right-click inside the piece: Add Drill Hole Here	조각 안쪽을 마우스 오른쪽 버튼으로 클릭: 여기에 드릴 구멍 추가
 	Drill hole {n}, {mm} mm	드릴 구멍 {n}, {mm} mm
 	Drill hole {n}	드릴 구멍 {n}
+	Notch Shape	너치 모양
+	Slit notch	슬릿 너치
+	Double notch	이중 너치
+	V notch	V 너치
+	T notch	T 너치
+	Castle notch	캐슬 너치
+	U notch	U 너치
