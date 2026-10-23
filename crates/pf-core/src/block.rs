@@ -1119,6 +1119,9 @@ mod tests {
         assert!(matches!(draft(BlockKind::Sleeve, &mut m.env(), &opts(&[("bust_dart", 10.0)])), Err(BlockError::Option(_))));
         assert!(matches!(draft(BlockKind::Sleeve, &mut m.env(), &opts(&[("ease", -1.0)])), Err(BlockError::Option(_))));
         assert!(options(BlockKind::Trousers).iter().any(|o| o.name == "back_dart" && o.default == Some(20.0)));
+    }
+
+    #[test]
     fn the_trouser_seams_run_between_the_knee_hem_crotch_and_waist_points() {
         let mut m = Measurements::default();
         for (k, v) in [

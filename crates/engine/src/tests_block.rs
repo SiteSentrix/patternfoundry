@@ -273,6 +273,9 @@ fn a_blocks_ease_and_darts_are_its_options_and_both_parts_follow() {
     let info = s.execute("block.options", &json!({"id": sleeve})).unwrap();
     assert_eq!(info["options"][0]["value"], json!(30.0));
     assert!(s.execute("block.skirt", &json!({"options": {"bust_dart": 10}})).is_err());
+}
+
+#[test]
 fn the_trouser_seams_are_walked_front_against_back_run_by_run() {
     let mut s = measured();
     assert!(s.execute("design.trouserSeams", &json!({})).is_err(), "no trouser block drafted");
