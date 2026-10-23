@@ -708,3 +708,16 @@ is built on, plus a pattern mode, the way StitchFoundry adds embroidery:
   waist give or take the curves, 6 cm wide, cut 2 in pairs, the notch the front waist along, the
   seam line 2 × (length + 6 cm) round, undo, the same length with a front dart). Not yet: a
   shaped (contour) waistband, button and buttonhole overlap.
+- 2026-10-23, **PF-5.19**: flap pockets. `design.weltPocket {flap: mm, flapShape?: square | rounded
+  | pointed}` (Pattern › Flap Pocket…, a rounded 5 cm flap to start from) adds the flap to the welt
+  pocket's pieces, as The Shapes of Fabric's welt pocket tutorial makes one ("The length of the
+  flap should be the same as your finished welt pocket, or maybe 2mm smaller", "Draw a shape you
+  like and then add seam allowance all around", "cut 2 pieces per pocket and interface one of
+  them", the welt's allowance at least along the top:
+  https://www.theshapesoffabric.com/2019/06/24/welt-pocket-tutorial/): 2 mm narrower than the
+  opening, the welt's side allowance all round (a rounded corner's radius grows with it; a
+  point's sides are moved out, mitred), its stitching line dashed inside, beside the upper bag.
+  The rounding (a third of the depth) and the point (a third of the depth below the corners) are
+  chosen here. Tests: 1 in `pf-core` (each shape: the stitching line 118 × 50 mm, the cutting
+  line 7 mm out all round), 1 in `tests_design.rs`. Not yet: a flap on a patch pocket, the
+  flap's buttonhole.

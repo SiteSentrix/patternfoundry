@@ -119,7 +119,7 @@ pub fn specs() -> Vec<CommandSpec> {
             "Welt Pocket",
             ["Pattern"],
             None,
-            "{opening?: mm (120: how long), welts?: \"single\" (default) | \"double\", welt?: mm (each welt's finished height: 15 single, 7 double), depth?: mm (150: the bags below the opening), side?: mm (7: allowance along the welt), end?: mm (15: allowance at its ends), origin?: [x, y] (document points: the welt's top-left; default 20 mm inside the first artboard), on?: id (a garment path or piece: where the opening is marked), at?: [x, y] (document points: the opening's top-left on it; given with on)} a welt pocket's pieces: the welt strip with its fold line (cut two for double welts) and the lower and upper pocket bags; with on and at, the opening (dashed) and where it is cut marked on the garment → {ids, fold, opening?, cuts?}",
+            "{opening?: mm (120: how long), welts?: \"single\" (default) | \"double\", welt?: mm (each welt's finished height: 15 single, 7 double), depth?: mm (150: the bags below the opening), side?: mm (7: allowance along the welt), end?: mm (15: allowance at its ends), flap?: mm (a flap this deep when finished, sewn in at the opening's top; none by default), flapShape?: \"square\" (default) | \"rounded\" | \"pointed\", origin?: [x, y] (document points: the welt's top-left; default 20 mm inside the first artboard), on?: id (a garment path or piece: where the opening is marked), at?: [x, y] (document points: the opening's top-left on it; given with on)} a welt pocket's pieces: the welt strip with its fold line (cut two for double welts), the lower and upper pocket bags, and with flap the flap (2 mm narrower than the opening, the welt's side allowance round it, its stitching line dashed; cut 2, interface 1); with on and at, the opening (dashed) and where it is cut marked on the garment → {ids, fold, flap?, flapLine?, opening?, cuts?}",
             has_doc,
             welt_pocket
         ),
@@ -1547,8 +1547,20 @@ fn welt_pocket(s: &mut Session, p: &Value) -> Result<Value> {
         }
     };
     let welt = mm("welt", if welts == pf_core::design::Welts::Single { 15.0 } else { 7.0 })?;
-    let pk = pf_core::design::welt_pocket(mm("opening", 120.0)?, welt, mm("depth", 150.0)?, welts, mm("side", 7.0)?, mm("end", 15.0)?)
-        .map_err(|e| err(CMD, e))?;
+    let (opening, side) = (mm("opening", 120.0)?, mm("side", 7.0)?);
+    let pk = pf_core::design::welt_pocket(opening, welt, mm("depth", 150.0)?, welts, side, mm("end", 15.0)?).map_err(|e| err(CMD, e))?;
+    // A flap (PF-5.19): 2 mm narrower than the opening, the welt's allowance round it.
+    let flap = match p.get("flap") {
+        None | Some(Value::Null) => None,
+        Some(_) if mm("flap", 0.0)? == 0.0 => None,
+        Some(_) => {
+            let shape = match str_param(p, "flapShape") {
+                None => pf_core::design::FlapShape::Square,
+                Some(v) => pf_core::design::FlapShape::parse(v).ok_or_else(|| bad(CMD, "flapShape: \"square\", \"rounded\" or \"pointed\""))?,
+            };
+            Some(pf_core::design::pocket_flap(opening - 2.0, mm("flap", 0.0)?, shape, side).map_err(|e| err(CMD, e))?)
+        }
+    };
     let doc = &s.doc()?.doc;
     let point = |k: &str| -> Result<Option<Point>> {
         match p.get(k) {
@@ -1601,6 +1613,22 @@ fn welt_pocket(s: &mut Session, p: &Value) -> Result<Value> {
         let mut f = Node::path(fid, PathData::single(line(&pk.fold, origin)), dashed());
         f.name = Some("Welt fold line".into());
         d.insert(parent, usize::MAX, f)?;
+        // The flap beside the upper bag: its cutting line (cut 2, interface 1) and stitching line.
+        let mut flap_ids = None;
+        if let Some((cut, sew)) = &flap {
+            let (right, top) = pk.bags[1].iter().fold((f64::NEG_INFINITY, f64::INFINITY), |(r, t), k| (r.max(k.p.x), t.min(k.p.y)));
+            let at = Point::new(origin.x + pf_core::mm_to_pt(right + 20.0), origin.y + pf_core::mm_to_pt(top));
+            let cid = d.alloc_id();
+            let mut c = Node::path(cid, path_of(&moved(cut, at)), solid());
+            c.name = Some("Flap (cut 2, interface 1)".into());
+            d.insert(parent, usize::MAX, c)?;
+            let sid = d.alloc_id();
+            let mut l = Node::path(sid, path_of(&moved(sew, at)), dashed());
+            l.name = Some("Flap stitching line".into());
+            d.insert(parent, usize::MAX, l)?;
+            ids.push(cid);
+            flap_ids = Some((cid, sid));
+        }
         let mut marks = None;
         if let Some((group, target, at)) = place {
             let oid = d.alloc_id();
@@ -1619,9 +1647,13 @@ fn welt_pocket(s: &mut Session, p: &Value) -> Result<Value> {
             marks = Some((oid, cid));
         }
         sel.set(ids.iter().copied());
-        Ok((ids, fid, marks))
+        Ok((ids, fid, marks, flap_ids))
     })?;
     let mut r = json!({"ids": ids.0.iter().map(|i| i.0).collect::<Vec<_>>(), "fold": ids.1.0});
+    if let Some((c, l)) = ids.3 {
+        r["flap"] = json!(c.0);
+        r["flapLine"] = json!(l.0);
+    }
     if let Some((o, c)) = ids.2 {
         r["opening"] = json!(o.0);
         r["cuts"] = json!(c.0);
