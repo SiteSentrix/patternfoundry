@@ -101,7 +101,7 @@ pub fn specs() -> Vec<CommandSpec> {
             "Draft Stand Collar",
             ["Pattern"],
             None,
-            "{back: {id, from?, to?, shoulder?}, front: {id, from?, to?, shoulder?} (the necklines, as for design.collar; without them the bodice block's back and front among the selection), height?: mm (35: the stand's height), rise?: mm (15: how far the neck edge curves up at centre front), extension?: mm (0: past centre front; half the button stand where the fronts meet, all of it where they overlap), origin?: [x, y] (document points: centre back at the neck edge; default above the back)} a stand (mandarin) collar, half of it (centre back on the fold): as long as the neckline, the neck edge curving up toward centre front, the top edge parallel, with its centre front line (dashed) → {id, centreFront, neck (mm), shoulder (mm from centre back)}",
+            "{back: {id, from?, to?, shoulder?}, front: {id, from?, to?, shoulder?} (the necklines, as for design.collar; without them the bodice block's back and front among the selection), height?: mm (35: the stand's height), rise?: mm (15: how far the neck edge curves up at centre front), extension?: mm (0: past centre front; half the button stand where the fronts meet, all of it where they overlap), frontShape?: \"square\" (default) | \"rounded\" (the top corner rounded, half the height round) | \"winged\" (the top edge run on to a wing tip that turns down, the front end curving in to it), wing?: mm (35: how far past the front end a wing tip reaches), origin?: [x, y] (document points: centre back at the neck edge; default above the back)} a stand (mandarin) collar, half of it (centre back on the fold): as long as the neckline, the neck edge curving up toward centre front, the top edge parallel, with its centre front line (dashed) → {id, centreFront, neck (mm), shoulder (mm from centre back)}",
             has_doc,
             stand_collar
         ),
@@ -1327,7 +1327,14 @@ fn stand_collar(s: &mut Session, p: &Value) -> Result<Value> {
     let (height, rise, extension) = (mm("height", 35.0)?, mm("rise", 15.0)?, mm("extension", 0.0)?);
     let ((back_id, back, bf, bt, _), (_, front, ff, ft, _)) = necklines(s, p, CMD)?;
     let (bl, fl) = (pt_to_mm(pf_core::design::run_length(&back, bf, bt)), pt_to_mm(pf_core::design::run_length(&front, ff, ft)));
+    let front_shape = match str_param(p, "frontShape") {
+        None | Some("square") => pf_core::design::CollarFront::Square,
+        Some("rounded") => pf_core::design::CollarFront::Rounded,
+        Some("winged") => pf_core::design::CollarFront::Winged(mm("wing", 35.0)?),
+        Some(_) => return Err(bad(CMD, "frontShape: \"square\", \"rounded\" or \"winged\"")),
+    };
     let c = pf_core::design::stand_collar(bl, fl, height, rise, extension).map_err(|e| err(CMD, e))?;
+    let c = pf_core::design::collar_front(&c, height, front_shape).map_err(|e| err(CMD, e))?;
     let origin = match p.get("origin") {
         None | Some(Value::Null) => {
             let cb = back.get(bf).map(|k| k.p).unwrap_or(Pt::new(0.0, 0.0));

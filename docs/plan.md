@@ -789,3 +789,17 @@ is built on, plus a pattern mode, the way StitchFoundry adds embroidery:
   the centre line or toward it; the ends stay; too deep, twice and a corner refused), 1 in
   `tests_design.rs` (the bodice's dart curved, the bust changed: the same outline and handles as
   drafting at the new bust and curving it). Not yet: truing a princess seam over the bust.
+- 2026-10-23, **PF-5.24**: rounded and winged stand-collar fronts. `design.standCollar` takes
+  `frontShape: "square" | "rounded" | "winged"` and `wing` (35 mm); Pattern › Draft Rounded Stand
+  Collar and Draft Wing Collar. Rounded: the top front corner rounded with a quarter circle, half
+  the stand's height round (or 0.9 of the extension where that is shorter). Winged: the top edge
+  run on past the front end to a wing tip that turns down when worn, the front end curving in to
+  it by a quarter of the wing, after the wing collar in "Pattern Making Instructions"
+  (https://www.scribd.com/document/36932530/Pattern-Making-Instructions: "After constructing the
+  basic mandarin collar, extend 3.5cm from F. Join F-H with an inward curve"). The neck edge, its
+  length, the shoulder notch and the centre front line don't change; a shirt collar's stand stays
+  square. `pf_core::design::collar_front`, `CollarFront`. The radius and the curve's depth are our
+  choice (the sources leave them to the eye). Tests: 1 in `pf-core` (with and without an extension:
+  the rounded corner's two anchors as far from the old corner, the curve inside it; the wing tip
+  35 past it, the front end curving in by 35/4; the neck edge the same length), the bodice stand
+  collar test (both fronts on the bodice block's neckline, a front not known refused).
