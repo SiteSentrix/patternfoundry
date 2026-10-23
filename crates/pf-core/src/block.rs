@@ -65,6 +65,10 @@ pub struct BlockRef {
     /// The block's options set (PF-4.5): its ease and darts; the rest are the block's defaults.
     #[serde(default, skip_serializing_if = "Options::is_empty")]
     pub options: Options,
+    /// The design steps made on the part since it was drafted (PF-5.20), made again, in order, when
+    /// it is drawn again.
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub steps: Vec<crate::design::DesignStep>,
 }
 
 impl BlockRef {

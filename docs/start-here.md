@@ -63,6 +63,12 @@ anything he clicks through.
 ## The owner decides (ask, don't assume)
 Money, legal wording, anything public, domains, and the open decisions in `docs/plan.md`.
 
+**Standing instruction (2026-10-23):** the owner has no pattern-making experience and wants the
+work carried on through the list without stopping for questions: on pattern-making and technical
+choices, do what you recommend and record why (in `docs/plan.md`, citing the public source).
+Still ask before spending money, publishing anything, or touching accounts and services outside
+this repository; note what such an item needs and work around it.
+
 ## Next task
 PF-0 to PF-4 are done (with PF-4.1 and PF-4.2, the sleeve and trouser blocks; PF-4.4, Check Sleeve Ease;
 PF-3.4, My Measurements kept on this computer; PF-1.1, the cutting

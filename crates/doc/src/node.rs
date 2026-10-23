@@ -2120,6 +2120,7 @@ mod tests {
                 part: 1,
                 origin: pf_core::Pt::new(1.0, 2.0),
                 options: Default::default(),
+                steps: Vec::new(),
             }));
         }
         /// The top-level keys of a JSON object, in the order written.

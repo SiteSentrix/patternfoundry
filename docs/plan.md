@@ -743,3 +743,17 @@ is built on, plus a pattern mode, the way StitchFoundry adds embroidery:
   in `tests_block.rs` (drafted in either order, following the bust, the option), the Check Sleeve
   Ease dialog test (within range, then tight with no crown ease). Not yet: more than one bodice
   in a document (the first one's armhole is used).
+- 2026-10-23, **PF-5.20**: design steps made again when the measurements change (first part: dart
+  rotation and dart shortening). A design step made on a drafted block part used to cut it loose
+  from its block (it stopped following the measurements). Now Rotate Dart and Shorten Dart on a
+  block part keep it with its block and record the step (`BlockRef.steps`: a
+  `pf_core::design::DesignStep`, its anchors as the outline was before it, a point given on the
+  outline as its edge and the place along it, lengths in mm); when the block is drawn again (the
+  measurements or its options changed) the part is drafted and its steps made again in order, and
+  a step that no longer works keeps the last outline. `block.options` lists a part's steps. Tests:
+  1 in `tests_design.rs` (the bust dart moved half way along an armhole curve and shortened 20 mm
+  at 88 cm, the bust changed to 96 cm: the same outline as drafting at 96 cm and making the same
+  two steps, to a millionth of a point; a step the new measurements don't allow keeps the last
+  outline), the princess bodice test (the rotated front follows a bigger bust, undo puts it
+  back). Not yet: the other design tools (split, spread, pleats, gathers, match length, smoothing,
+  wrap front), a list of the steps in the Pieces panel to change or remove one.
