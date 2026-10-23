@@ -584,6 +584,8 @@ pub const UI_COMMANDS: &[(&str, &str, &str, &str)] = &[
         "Block Options…",
         "",
         "{id? (default: the selected block part)} open Block Options (dialog `blockOptions`: one field per option of block.options, mm or null for the default); OK runs block.setOptions",
+    ),
+    (
         "ui.checkTrouserSeams",
         "Check Trouser Seams",
         "",
