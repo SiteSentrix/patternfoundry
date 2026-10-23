@@ -5457,3 +5457,4 @@ file-filter	PDF for projector	PDF projektorille
 	{seam}: front {front} mm, back {back} mm ({difference} mm)	{seam}: etu {front} mm, taka {back} mm ({difference} mm)
 	Walk them on the pattern too: where a line doesn't run on smoothly from front to back, find the point half way between the two and correct both lines. The back inseam is more curved, so it is often longer: lowering the back crotch curve slightly to match is fine.	Kulje ne myös kaavalla: missä viiva ei jatku tasaisesti edestä taakse, etsi kohta näiden puolivälistä ja korjaa molemmat viivat. Takasisäsauma on kaarevampi ja siksi usein pidempi: takahaaran kaaren laskeminen hieman, jotta se sopii, on hyvä.
 	Front dart	Etusauma
+	Draft Trouser Waistband	Piirrä housujen vyötärökaitale

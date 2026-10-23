@@ -316,3 +316,44 @@ fn the_trouser_seams_are_walked_front_against_back_run_by_run() {
     assert_eq!(with["runs"][0], runs[0], "below the knee nothing changes");
     assert!(with["runs"][3]["front"].as_f64().unwrap() < runs[3]["front"].as_f64().unwrap(), "{}", with["runs"][3]);
 }
+
+#[test]
+fn the_trouser_waistband_is_half_the_waist_long_and_notched_at_the_side_seam() {
+    let mut s = measured();
+    assert!(s.execute("design.trouserWaistband", &json!({})).is_err(), "no trouser block drafted");
+    s.execute(
+        "measure.set",
+        &json!({"values": {"hip": 960, "waist": 740, "waist_to_hip": 200, "crotch_depth": 260, "waist_to_knee": 600, "waist_to_ankle": 1040, "trouser_hem": 460}}),
+    )
+    .unwrap();
+    s.execute("block.trousers", &json!({})).unwrap();
+    let r = s.execute("design.trouserWaistband", &json!({})).unwrap();
+    // Half the 74 cm waist, give or take the waist curves; 2 × 3 cm wide.
+    let length = r["length"].as_f64().unwrap();
+    assert!((365.0..380.0).contains(&length), "{r}");
+    assert_eq!(r["width"], json!(60.0));
+    let id = NodeId(r["id"].as_u64().unwrap());
+    let info = s.execute("piece.info", &json!({"id": id.0})).unwrap();
+    assert_eq!((info["name"].as_str(), info["cut"].as_u64(), info["mirror"].as_bool()), (Some("Waistband"), Some(2), Some(true)));
+    let notches = info["notches"].as_array().unwrap();
+    assert_eq!(notches.len(), 2);
+    let at = notches[0]["at"].as_f64().unwrap();
+    assert!((at - r["front"].as_f64().unwrap() / length).abs() < 1e-3, "{info}");
+    // True scale: the seam line is the band, 2 × (length + 60) round.
+    assert!((info["seamLength"].as_f64().unwrap() - 2.0 * (length + 60.0)).abs() < 0.2, "{info}");
+    // One undo step.
+    s.execute("edit.undo", &json!({})).unwrap();
+    assert!(s.execute("piece.info", &json!({"id": id.0})).is_err());
+    // With a front dart the waist is as long with the dart closed.
+    let mut front = None;
+    s.doc().unwrap().doc.walk(|n| {
+        if n.extras().block.as_deref().is_some_and(|b| b.kind == pf_core::block::BlockKind::Trousers && b.part == 0) {
+            front = Some(n.id.0);
+        }
+    });
+    s.execute("block.setOptions", &json!({"id": front.unwrap(), "options": {"front_dart": 10}})).unwrap();
+    let darted = s.execute("design.trouserWaistband", &json!({"height": 40})).unwrap();
+    assert!((darted["length"].as_f64().unwrap() - length).abs() < 2.0, "{darted} {r}");
+    assert_eq!(darted["width"], json!(80.0));
+    assert!(s.execute("design.trouserWaistband", &json!({"height": 500})).is_err());
+}

@@ -246,7 +246,7 @@ is built on, plus a pattern mode, the way StitchFoundry adds embroidery:
   the block was looked at as an exported picture. Tests: 1 more in `pf-core`, 1 more engine test.
   Not yet: a front dart (the author's comments add about 1 cm at the front side seam for one;
   done: PF-4.7), walking the inseams and side seams (the tutorial's own check; done: PF-4.6), a
-  waistband.
+  waistband (done: PF-4.8).
 - 2026-10-21, **PF-7.1**: DXF-AAMA export for cutting rooms (`document.export {format: aama}`,
   File › Export › Export As › DXF-AAMA (cutting room)), written from the published descriptions of
   ASTM D6673 (DH Patterns and Fit's overview,
@@ -695,3 +695,16 @@ is built on, plus a pattern mode, the way StitchFoundry adds embroidery:
   in `tests_block.rs` (the seams below the knee as they were, the front side seam to the waist
   shorter, standing straighter). Not
   yet: the dart's place chosen (on the crease line, as some methods put it).
+- 2026-10-23, **PF-4.8**: the trouser waistband. **Pattern › Draft Trouser Waistband**
+  (`design.trouserWaistband {height?: mm (30)}`) makes The Shapes of Fabric's straight waistband
+  for the drafted trouser block ("You can make a straight waistband for your pants": its "width is
+  twice the waistband height (max. 3 + 3cm)", its length half the waist, the side seam marked with
+  a notch:
+  https://www.theshapesoffabric.com/2020/08/16/learn-how-to-draft-the-basic-pants-pattern/): a
+  pattern piece cut twice in mirror-image pairs, twice the height wide with a dashed fold line
+  along its middle, as long as the block's front and back waists with their darts closed (so it
+  fits the trousers as drafted, front dart or not), the centre front at its left end and a notch
+  at the side seam on both long edges; one undo step. Tests: 1 in `tests_block.rs` (half the 74 cm
+  waist give or take the curves, 6 cm wide, cut 2 in pairs, the notch the front waist along, the
+  seam line 2 × (length + 6 cm) round, undo, the same length with a front dart). Not yet: a
+  shaped (contour) waistband, button and buttonhole overlap.

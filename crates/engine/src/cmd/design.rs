@@ -187,6 +187,15 @@ pub fn specs() -> Vec<CommandSpec> {
             length
         ),
         cmd!(
+            "design.trouserWaistband",
+            "Draft Trouser Waistband",
+            ["Pattern"],
+            None,
+            "{height?: mm (30, the finished band's height: the tutorial's is at most 3 cm), origin?: [x, y] (document points: its top-left; default 20 mm inside the first artboard)} the drafted trouser block's straight waistband, as The Shapes of Fabric's tutorial makes it: twice the height wide with a fold line along its middle, as long as the front and back waists with their darts closed (half the waist), a notch at the side seam on both long edges; a pattern piece cut twice in mirror-image pairs → {id, length, width, front, back (mm)}",
+            has_doc,
+            trouser_waistband
+        ),
+        cmd!(
             query "design.trouserSeams",
             "Check Trouser Seams",
             [],
@@ -1672,6 +1681,74 @@ fn shirt_collar(s: &mut Session, p: &Value) -> Result<Value> {
         Ok((sid, lid, fid))
     })?;
     Ok(json!({"stand": ids.0.0, "centreFront": ids.1.0, "fall": ids.2.0, "neck": bl + fl}))
+}
+
+/// The trouser block's waistband (PF-4.8), The Shapes of Fabric's straight one: "twice the
+/// waistband height" wide (folded along its middle), as long as the half waist the block's front
+/// and back waists make with their darts closed, a notch at the side seam; a pattern piece, cut
+/// twice in mirror-image pairs (one for each half).
+fn trouser_waistband(s: &mut Session, p: &Value) -> Result<Value> {
+    const CMD: &str = "design.trouserWaistband";
+    use pf_core::block::{BlockKind, TROUSER_ANCHORS, TROUSER_FRONT_DART_ANCHORS};
+    let height = match p.get("height") {
+        None | Some(Value::Null) => 30.0,
+        Some(v) => v
+            .as_f64()
+            .filter(|h| h.is_finite() && (10.0..=100.0).contains(h))
+            .ok_or_else(|| bad(CMD, "height: mm, 10 to 100 (the tutorial's is at most 30)"))?,
+    };
+    let doc = &s.doc()?.doc;
+    // The waists along the outlines, the darts' legs left out (closed, they fold away).
+    let front = match block_ring(doc, BlockKind::Trousers, 0, TROUSER_ANCHORS.0, "front trouser block", "front", CMD) {
+        Ok(ring) => along(&ring, 9, 0),
+        Err(_) => {
+            let ring = block_ring(doc, BlockKind::Trousers, 0, TROUSER_FRONT_DART_ANCHORS, "front trouser block", "front", CMD)?;
+            along(&ring, 9, 10) + along(&ring, 12, 0)
+        }
+    };
+    let back_ring = block_ring(doc, BlockKind::Trousers, 1, TROUSER_ANCHORS.1, "back trouser block", "back", CMD)?;
+    let back = along(&back_ring, 0, 1) + along(&back_ring, 3, 4);
+    let (w, h) = (front + back, pf_core::mm_to_pt(2.0 * height));
+    let origin = match p.get("origin") {
+        None | Some(Value::Null) => {
+            let o = doc.artboards.first().map_or(Point::ZERO, |a| a.rect.origin());
+            Point::new(o.x + pf_core::mm_to_pt(20.0), o.y + pf_core::mm_to_pt(20.0))
+        }
+        Some(v) => {
+            let [x, y] = finite_numbers::<2>(v).ok_or_else(|| bad(CMD, "origin: [x, y] in document points"))?;
+            Point::new(x, y)
+        }
+    };
+    // The centre front at the left end: the side seam's notch the front waist along, on both long
+    // edges (the top runs left to right, the bottom right to left).
+    let at = front / w;
+    let corners = [origin, Point::new(origin.x + w, origin.y), Point::new(origin.x + w, origin.y + h), Point::new(origin.x, origin.y + h)];
+    let mut piece = pf_core::Piece { name: "Waistband".into(), cut: 2, mirror: true, ..pf_core::Piece::default() };
+    for (edge, t) in [(0, at), (2, 1.0 - at)] {
+        piece.add_notch(pf_core::Notch { edge, at: t, kind: pf_core::NotchKind::Slit }).map_err(|e| bad(CMD, e.to_string()))?;
+    }
+    let parent = s.doc()?.insertion_parent();
+    let id = s.edit("Draft Trouser Waistband", |d, sel| {
+        let black = || vectorcraft_color::Paint::solid(vectorcraft_color::Color::BLACK);
+        let seam = Node::path(d.alloc_id(), PathData::single(SubPath::polyline(&corners, true)), vectorcraft_doc::Appearance::default());
+        let mut a = vectorcraft_doc::Appearance::basic(vectorcraft_color::Paint::None, black(), 0.75);
+        if let Some(st) = a.stroke_mut() {
+            st.dash = Some(vectorcraft_doc::Dash { pattern: vec![4.0, 2.0], ..Default::default() });
+        }
+        let mid = origin.y + h / 2.0;
+        let mut fold =
+            Node::path(d.alloc_id(), PathData::single(SubPath::polyline(&[Point::new(origin.x, mid), Point::new(origin.x + w, mid)], false)), a);
+        fold.name = Some("Waistband fold line".into());
+        let gid = d.alloc_id();
+        let group = super::piece::new_piece(gid, seam, piece.clone(), vec![fold]);
+        d.insert(parent, usize::MAX, group)?;
+        d.pieces = true;
+        super::piece::rebuild(d, gid)?;
+        sel.set([gid]);
+        Ok(gid)
+    })?;
+    let round = |v: f64| (pt_to_mm(v) * 10.0).round() / 10.0;
+    Ok(json!({"id": id.0, "length": round(w), "width": 2.0 * height, "front": round(front), "back": round(back)}))
 }
 
 fn band(s: &mut Session, p: &Value) -> Result<Value> {
