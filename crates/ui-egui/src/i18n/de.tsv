@@ -5089,3 +5089,6 @@ file-filter	PDF for projector	PDF für Projektor
 	Design changes made on the block (darts, splits, spreads, seam lengths) show here; each is made again when the measurements change	Änderungen am Grundschnitt (Abnäher, Teilungen, Spreizungen, Nahtlängen) stehen hier; jede wird wieder ausgeführt, wenn sich die Maße ändern
 	Remove this step and the ones after it (they were made on the outline it made)	Diesen Schritt und die folgenden entfernen (sie wurden an dem Umriss ausgeführt, den er ergab)
 	Selected block part	Ausgewähltes Grundschnittteil
+	Curve Dart Legs…	Abnäherschenkel wölben…
+	Curve Dart Legs	Abnäherschenkel wölben
+	Dart legs curved {mm} mm	Abnäherschenkel um {mm} mm gewölbt

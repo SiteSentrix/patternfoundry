@@ -5139,3 +5139,6 @@ file-filter	PDF for projector	用於投影機的 PDF
 	Design changes made on the block (darts, splits, spreads, seam lengths) show here; each is made again when the measurements change	在原型上所做的變更（褶子、分割、展開、縫線長度）顯示在這裡；尺寸改變時每項都會重新執行
 	Remove this step and the ones after it (they were made on the outline it made)	刪除此步驟及其後的步驟（它們是在此步驟得到的輪廓上進行的）
 	Selected block part	選取的原型部分
+	Curve Dart Legs…	彎曲褶子邊…
+	Curve Dart Legs	彎曲褶子邊
+	Dart legs curved {mm} mm	褶子邊已彎曲 {mm} mm

@@ -936,3 +936,35 @@ fn a_design_step_is_removed_and_the_ones_before_made_again() {
         assert!(e.contains("split"), "{e}");
     }
 }
+
+/// A dart's legs curved (convex, then concave), and on a block part made again when the
+/// measurements change.
+#[test]
+fn a_darts_legs_are_curved_and_made_again_when_the_measurements_change() {
+    let curved = |s: &mut Session, id: NodeId, depth: f64| {
+        s.execute("design.curveDart", &json!({"id": id.0, "apex": 11, "depth": depth})).unwrap();
+    };
+    let (mut s, id) = front();
+    let before = points(&s, id);
+    curved(&mut s, id, 3.0);
+    assert_eq!(points(&s, id), before, "the anchors stay: only the legs curve");
+    let info = s.execute("block.options", &json!({"id": id.0})).unwrap();
+    assert_eq!(info["steps"], json!([{"step": "curveDart", "apex": 11, "depth": 3.0}]), "{info}");
+    assert!(s.execute("design.curveDart", &json!({"id": id.0, "apex": 11})).is_err(), "curved already");
+    s.execute("measure.set", &json!({"values": {"bust": 960}})).unwrap();
+    let (mut fresh, fid) = front();
+    fresh.execute("measure.set", &json!({"values": {"bust": 960}})).unwrap();
+    curved(&mut fresh, fid, 3.0);
+    let handles = |s: &Session, id: NodeId| match &s.doc().unwrap().doc.node(id).unwrap().kind {
+        NodeKind::Path { path, .. } => path.subpaths[0].anchors.iter().map(|a| (a.p, a.h_in, a.h_out)).collect::<Vec<_>>(),
+        _ => panic!("not a path"),
+    };
+    let (a, b) = (handles(&s, id), handles(&fresh, fid));
+    assert!(a.len() == b.len() && a.iter().zip(&b).all(|(p, q)| (p.0 - q.0).hypot() + (p.1 - q.1).hypot() + (p.2 - q.2).hypot() < 1e-6));
+    // Concave: the legs bowed toward each other.
+    let (mut t, tid) = front();
+    curved(&mut t, tid, -3.0);
+    let h = handles(&t, tid);
+    let mouth = (h[10].0.x + h[12].0.x) / 2.0;
+    assert!((h[11].1.x - mouth).abs() < (h[10].0.x - mouth).abs(), "a concave leg's handle is nearer the centre");
+}

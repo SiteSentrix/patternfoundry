@@ -178,6 +178,15 @@ pub fn specs() -> Vec<CommandSpec> {
             shorten_dart
         ),
         cmd!(
+            "design.curveDart",
+            "Curve Dart Legs",
+            [],
+            None,
+            "{id? (a path or a piece; default: the selection), apex?: anchor (the dart's point; default: the one selected point), depth?: mm (3; more than 0 bows the legs out, a convex dart that takes in more fabric between its ends and its point; less than 0 bows them in, a concave dart that gives room there)} the dart's straight legs curved, each bowed depth at its middle; its ends and point stay, so the seam stays as it is → {id, apex: [x, y]}",
+            has_doc,
+            curve_dart
+        ),
+        cmd!(
             query "design.length",
             "Seam Length",
             [],
@@ -296,6 +305,7 @@ pub(crate) fn replay(path: &PathData, steps: &[pf_core::design::DesignStep]) -> 
                 pf_core::design::rotate_dart(&ring, apex, at, amount, side).ok()?.0
             }
             DesignStep::ShortenDart { apex, by } => pf_core::design::shorten_dart(&ring, apex, pf_core::mm_to_pt(by)).ok()?,
+            DesignStep::CurveDart { apex, depth } => pf_core::design::curve_dart(&ring, apex, pf_core::mm_to_pt(depth)).ok()?,
             DesignStep::Spread { from, to, amount, mode } => {
                 let (mut from, _) = resolve(&mut ring, from)?;
                 let (to, inserted) = resolve(&mut ring, to)?;
@@ -789,6 +799,36 @@ fn shorten_dart(s: &mut Session, p: &Value) -> Result<Value> {
     let at = out[apex].p;
     let step = pf_core::design::DesignStep::ShortenDart { apex, by };
     s.edit("Shorten Dart", |d, sel| {
+        let n = d.node(id).ok_or(EngineError::NoNode(id))?;
+        let new = stepped(n, path_of(&out), step.clone());
+        if let Some(m) = d.node_mut(id) {
+            *m = new;
+        }
+        sel.set([id]);
+        Ok(())
+    })?;
+    Ok(json!({"id": id.0, "apex": [at.x, at.y]}))
+}
+
+fn curve_dart(s: &mut Session, p: &Value) -> Result<Value> {
+    const CMD: &str = "design.curveDart";
+    let id = super::measure::target_path(s, p, CMD)?;
+    let ring = ring_of(&s.doc()?.doc, id, CMD)?;
+    let apex = match anchor_param(p, "apex", CMD)? {
+        Some(a) => a,
+        None => match selected_points(s, id)?[..] {
+            [one] => one,
+            _ => return Err(bad(CMD, "apex: the dart's point (or select that one point)")),
+        },
+    };
+    let depth = match p.get("depth") {
+        None | Some(Value::Null) => 3.0,
+        Some(v) => v.as_f64().filter(|v| v.is_finite() && v.abs() <= 1000.0).ok_or_else(|| bad(CMD, "depth: mm (less than 0 bows the legs in)"))?,
+    };
+    let out = pf_core::design::curve_dart(&ring, apex, pf_core::mm_to_pt(depth)).map_err(|e| err(CMD, e))?;
+    let at = out[apex].p;
+    let step = pf_core::design::DesignStep::CurveDart { apex, depth };
+    s.edit("Curve Dart Legs", |d, sel| {
         let n = d.node(id).ok_or(EngineError::NoNode(id))?;
         let new = stepped(n, path_of(&out), step.clone());
         if let Some(m) = d.node_mut(id) {

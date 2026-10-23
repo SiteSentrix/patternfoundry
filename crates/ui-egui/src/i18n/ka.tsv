@@ -5415,3 +5415,6 @@ file-filter	PDF for projector	PDF პროექტორისთვის
 	Design changes made on the block (darts, splits, spreads, seam lengths) show here; each is made again when the measurements change	საბაზისო თარგზე შეტანილი ცვლილებები (გამონაჭრები, დაყოფები, გაშლები, ნაკერების სიგრძეები) აქ ჩანს; თითოეული ხელახლა სრულდება, როცა ზომები იცვლება
 	Remove this step and the ones after it (they were made on the outline it made)	ამ ნაბიჯისა და მომდევნოების წაშლა (ისინი მის მიერ მიღებულ კონტურზე შესრულდა)
 	Selected block part	საბაზისო თარგის არჩეული ნაწილი
+	Curve Dart Legs…	გამონაჭრის გვერდების მოხრა…
+	Curve Dart Legs	გამონაჭრის გვერდების მოხრა
+	Dart legs curved {mm} mm	გამონაჭრის გვერდები მოხრილია {mm} მმ-ით

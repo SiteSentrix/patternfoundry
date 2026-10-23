@@ -5085,3 +5085,6 @@ file-filter	PDF for projector	프로젝터용 PDF
 	Design changes made on the block (darts, splits, spreads, seam lengths) show here; each is made again when the measurements change	원형에 적용한 변경(다트, 분할, 벌림, 솔기 길이)이 여기에 표시되며, 치수가 바뀌면 각각 다시 적용됩니다
 	Remove this step and the ones after it (they were made on the outline it made)	이 단계와 그 이후 단계 제거(이후 단계는 이 단계가 만든 윤곽선에서 수행됨)
 	Selected block part	선택한 원형 조각
+	Curve Dart Legs…	다트 선 곡선화…
+	Curve Dart Legs	다트 선 곡선화
+	Dart legs curved {mm} mm	다트 선을 {mm} mm 곡선화함

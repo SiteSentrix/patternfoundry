@@ -87,6 +87,9 @@ pub enum DesignStep {
     /// [`shorten_dart`]: the dart's point `by` mm toward its opening.
     #[serde(rename_all = "camelCase")]
     ShortenDart { apex: usize, by: f64 },
+    /// [`curve_dart`]: the dart's legs bowed `depth` mm (more than 0 away from its centre line).
+    #[serde(rename_all = "camelCase")]
+    CurveDart { apex: usize, depth: f64 },
     /// [`spread`]: slashed from `from` to `to` (`to` placed after `from`) and opened `amount` mm.
     #[serde(rename_all = "camelCase")]
     Spread { from: StepPoint, to: StepPoint, amount: f64, mode: Spread },
@@ -279,6 +282,47 @@ pub fn shorten_dart(ring: &[Knot], apex: usize, by: f64) -> Result<Vec<Knot>, De
     }
     let mut out = ring.to_vec();
     out[apex] = Knot::corner(k.p + dir * by);
+    Ok(out)
+}
+
+/// A dart's legs curved, each bowed `depth` at its middle (in the outline's unit): more than 0 bows
+/// them away from the dart's centre line (a convex dart, which takes in more fabric between its
+/// ends and its point), less than 0 toward it (a concave dart, which gives room there). Threads,
+/// "Darts build shape into a garment"
+/// (https://www.threadsmagazine.com/project-guides/learn-to-sew/darts-build-shape-into-a-garment):
+/// curving the legs inward makes a concave dart that adds room in the dart area, and a convex dart
+/// with outward-curving legs removes excess fullness. The legs must be straight; the dart's ends
+/// and point stay where they are, so the seams it opens on don't change.
+pub fn curve_dart(ring: &[Knot], apex: usize, depth: f64) -> Result<Vec<Knot>, DesignError> {
+    let n = ring.len();
+    if apex >= n || n < 4 {
+        return Err(DesignError::BadAnchor("the dart's point is past the outline's end"));
+    }
+    if !depth.is_finite() {
+        return Err(DesignError::BadAnchor("the depth to curve the legs by is not a number"));
+    }
+    let (ia, ib) = ((apex + n - 1) % n, (apex + 1) % n);
+    let (a, k, b) = (ring[ia], ring[apex], ring[ib]);
+    let straight = |from: Knot, from_h: Pt, to: Knot, to_h: Pt| (from_h - from.p).len() < 1e-9 && (to_h - to.p).len() < 1e-9;
+    if !straight(a, a.h_out, k, k.h_in) || !straight(k, k.h_out, b, b.h_in) {
+        return Err(DesignError::BadAnchor("the dart's legs must be straight lines"));
+    }
+    if opening(ring, apex).is_none_or(|o| o >= std::f64::consts::FRAC_PI_2) {
+        return Err(DesignError::BadAnchor("that point is not a dart's point: its legs open a right angle or wider"));
+    }
+    // At most a quarter of the dart's opening: a leg's middle is about that far from the centre
+    // line, so the legs can't cross.
+    if depth.abs() >= (b.p - a.p).len() * 0.25 {
+        return Err(DesignError::BadAnchor("the legs can't curve that far: the dart isn't wide enough"));
+    }
+    let mut out = ring.to_vec();
+    // Each leg bowed away from the other leg's end (the dart's inside), by `depth`.
+    for (from, to, other) in [(ia, apex, b.p), (apex, ib, a.p)] {
+        let d = ring[to].p - ring[from].p;
+        let left = Pt::new(d.y, -d.x);
+        let inside = left.dot(other - (ring[from].p + d * 0.5)) > 0.0;
+        bow(&mut out, from, if inside { -depth } else { depth })?;
+    }
     Ok(out)
 }
 
@@ -1871,6 +1915,26 @@ mod tests {
         let mut curved = ring.clone();
         curved[2].h_in = Pt::new(45.0, 60.0);
         assert!(shorten_dart(&curved, 2, 10.0).is_err());
+    }
+
+    #[test]
+    fn a_darts_legs_are_curved_out_or_in_and_its_ends_stay() {
+        // The dart of the shortening test: 40 wide, its point at (50, 100).
+        let pts = [(0.0, 0.0), (30.0, 0.0), (50.0, 100.0), (70.0, 0.0), (100.0, 0.0), (100.0, 200.0), (0.0, 200.0)];
+        let ring: Vec<Knot> = pts.iter().map(|&(x, y)| Knot::corner(Pt::new(x, y))).collect();
+        let mid = |r: &[Knot], i: usize| (r[i].p + r[i].h_out * 3.0 + r[i + 1].h_in * 3.0 + r[i + 1].p) * 0.125;
+        let convex = curve_dart(&ring, 2, 3.0).unwrap();
+        let (l, r) = (mid(&convex, 1), mid(&convex, 2));
+        // Each leg's middle 3 off the straight leg's, away from the centre line (x = 50).
+        assert!(((l - Pt::new(40.0, 50.0)).len() - 3.0).abs() < 1e-9 && l.x < 40.0, "{l:?}");
+        assert!(((r - Pt::new(60.0, 50.0)).len() - 3.0).abs() < 1e-9 && r.x > 60.0, "{r:?}");
+        assert!((1..4).all(|i| convex[i].p == ring[i].p), "the ends and the point stay");
+        let concave = curve_dart(&ring, 2, -3.0).unwrap();
+        assert!(mid(&concave, 1).x > 40.0 && mid(&concave, 2).x < 60.0);
+        // Not so far the legs cross, not twice (the legs are curved), not a corner.
+        assert!(curve_dart(&ring, 2, 10.0).is_err() && curve_dart(&ring, 2, -10.0).is_err());
+        assert!(curve_dart(&convex, 2, 3.0).is_err());
+        assert!(curve_dart(&ring, 5, 3.0).is_err(), "a right angle is no dart");
     }
 
     #[test]

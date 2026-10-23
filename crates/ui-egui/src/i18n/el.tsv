@@ -5459,3 +5459,6 @@ file-filter	PDF for projector	PDF για προβολέα
 	Design changes made on the block (darts, splits, spreads, seam lengths) show here; each is made again when the measurements change	Οι αλλαγές στο βασικό πατρόν (πένσες, διαιρέσεις, ανοίγματα, μήκη ραφών) εμφανίζονται εδώ· η καθεμία γίνεται ξανά όταν αλλάζουν οι μετρήσεις
 	Remove this step and the ones after it (they were made on the outline it made)	Αφαίρεση αυτού του βήματος και των επόμενων (έγιναν στο περίγραμμα που αυτό έδωσε)
 	Selected block part	Επιλεγμένο τμήμα βασικού πατρόν
+	Curve Dart Legs…	Καμπύλωση πλευρών πένσας…
+	Curve Dart Legs	Καμπύλωση πλευρών πένσας
+	Dart legs curved {mm} mm	Οι πλευρές της πένσας καμπυλώθηκαν κατά {mm} mm

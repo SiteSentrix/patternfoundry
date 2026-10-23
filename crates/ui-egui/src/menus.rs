@@ -2761,6 +2761,7 @@ pub fn menu_tree_named(english_names: bool) -> Vec<(&'static str, Vec<Item>)> {
                 Sep,
                 c("Rotate Dart", "design.rotateDart"),
                 cp("Shorten Dart…", "design.shortenDart", json!({"shorten": 25})),
+                cp("Curve Dart Legs…", "design.curveDart", json!({"depth": 3})),
                 c("Split at Points", "design.split"),
                 c("Make Wrap Front", "design.wrapFront"),
                 c("Make Band", "design.band"),

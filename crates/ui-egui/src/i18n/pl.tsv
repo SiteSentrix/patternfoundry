@@ -5360,3 +5360,6 @@ file-filter	PDF for projector	PDF do projektora
 	Design changes made on the block (darts, splits, spreads, seam lengths) show here; each is made again when the measurements change	Zmiany wprowadzone w formie podstawowej (zaszewki, podziały, rozsunięcia, długości szwów) widać tutaj; każda jest wykonywana ponownie, gdy zmienią się wymiary
 	Remove this step and the ones after it (they were made on the outline it made)	Usuń ten krok i następne (wykonano je na obrysie, który on utworzył)
 	Selected block part	Zaznaczona część formy podstawowej
+	Curve Dart Legs…	Wygnij ramiona zaszewki…
+	Curve Dart Legs	Wygnij ramiona zaszewki
+	Dart legs curved {mm} mm	Ramiona zaszewki wygięte o {mm} mm

@@ -5102,3 +5102,6 @@ file-filter	PDF for projector	PDF cho máy chiếu
 	Design changes made on the block (darts, splits, spreads, seam lengths) show here; each is made again when the measurements change	Các thay đổi trên rập cơ bản (pen, đường tách, phần mở rộng, chiều dài đường may) hiện ở đây; mỗi thay đổi được làm lại khi số đo thay đổi
 	Remove this step and the ones after it (they were made on the outline it made)	Xóa bước này và các bước sau nó (chúng được làm trên đường viền mà bước này tạo ra)
 	Selected block part	Phần rập cơ bản đã chọn
+	Curve Dart Legs…	Uốn cong cạnh pen…
+	Curve Dart Legs	Uốn cong cạnh pen
+	Dart legs curved {mm} mm	Đã uốn cong cạnh pen {mm} mm

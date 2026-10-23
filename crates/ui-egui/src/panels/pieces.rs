@@ -160,6 +160,7 @@ fn step_text(step: &Value) -> String {
     match step["step"].as_str().unwrap_or_default() {
         "rotateDart" => tl!("Dart moved").to_string(),
         "shortenDart" => crate::i18n::fmt(tl!("Dart shortened {mm} mm"), &[("mm", &mm("by"))]),
+        "curveDart" => crate::i18n::fmt(tl!("Dart legs curved {mm} mm"), &[("mm", &mm("depth"))]),
         "spread" => crate::i18n::fmt(tl!("Slashed and spread {mm} mm"), &[("mm", &mm("amount"))]),
         "matchLength" => crate::i18n::fmt(tl!("Seam trued to {mm} mm"), &[("mm", &mm("length"))]),
         "split" => tl!("Split into panels").to_string(),
