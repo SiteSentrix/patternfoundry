@@ -1,10 +1,10 @@
-//! The marks drawn on a piece: notches and the grainline arrow.
+//! The marks drawn on a piece: notches, the grainline arrow and drill holes.
 //!
 //! Every function returns open polylines in the outline's unit; the host strokes them.
 
 use crate::Pt;
 use crate::allowance::Outline;
-use crate::piece::{Grainline, Notch, NotchKind};
+use crate::piece::{Drill, Grainline, Notch, NotchKind};
 
 /// How far a notch reaches in from the cutting line, in mm (a quarter inch is the usual snip).
 pub const NOTCH_DEPTH_MM: f64 = 6.0;
@@ -12,6 +12,8 @@ pub const NOTCH_DEPTH_MM: f64 = 6.0;
 pub const DOUBLE_NOTCH_GAP_MM: f64 = 4.0;
 /// How long a grainline's arrowheads are, in mm.
 pub const ARROW_MM: f64 = 6.0;
+/// How far a drill hole's cross reaches each way from its centre, in mm.
+pub const DRILL_CROSS_MM: f64 = 3.0;
 
 /// The marks of `notch`: one polyline per slit (or one V). `allowance` is the notch's edge's seam
 /// allowance and `mm` one millimetre, both in the outline's unit. A notch is cut in from the
@@ -69,6 +71,28 @@ pub fn default_grainline(outline: &Outline) -> Option<Grainline> {
     (h > 0.0).then(|| Grainline { from: Pt::new(cx, cy - h / 3.0), to: Pt::new(cx, cy + h / 3.0) })
 }
 
+/// A drill hole drawn as polylines: a cross [`DRILL_CROSS_MM`] each way (as cutting rooms show a
+/// drill point), and the punch's circle when it has a diameter. `mm` is one millimetre in the
+/// outline's unit.
+pub fn drill(d: &Drill, mm: f64) -> Vec<Vec<Pt>> {
+    let c = d.at;
+    let a = DRILL_CROSS_MM * mm;
+    let mut out = vec![vec![c + Pt::new(-a, -a), c + Pt::new(a, a)], vec![c + Pt::new(-a, a), c + Pt::new(a, -a)]];
+    if d.diameter > 0.0 {
+        let r = d.diameter * mm / 2.0;
+        const SIDES: usize = 32;
+        out.push(
+            (0..=SIDES)
+                .map(|i| {
+                    let (s, k) = (i as f64 * std::f64::consts::TAU / SIDES as f64).sin_cos();
+                    c + Pt::new(k * r, s * r)
+                })
+                .collect(),
+        );
+    }
+    out
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -107,5 +131,14 @@ mod tests {
         assert_eq!(lines[1][1], g.to);
         assert_eq!(lines[2][1], g.from);
         assert!(grainline(&Grainline { from: Pt::new(1.0, 1.0), to: Pt::new(1.0, 1.0) }, 1.0).is_empty());
+    }
+
+    #[test]
+    fn a_drill_hole_is_a_cross_and_its_punch_circle() {
+        let mark = drill(&Drill { at: Pt::new(10.0, 20.0), diameter: 0.0 }, 1.0);
+        assert_eq!(mark, vec![vec![Pt::new(7.0, 17.0), Pt::new(13.0, 23.0)], vec![Pt::new(7.0, 23.0), Pt::new(13.0, 17.0)]]);
+        let punched = drill(&Drill { at: Pt::new(0.0, 0.0), diameter: 4.0 }, 2.0);
+        assert_eq!(punched.len(), 3);
+        assert!(punched[2].iter().all(|p| (p.len() - 4.0).abs() < 1e-9), "radius 2 mm at 2 units a mm");
     }
 }

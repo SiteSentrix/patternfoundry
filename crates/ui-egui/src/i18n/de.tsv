@@ -5032,3 +5032,11 @@ file-filter	PDF for projector	PDF für Projektor
 	Edge Allowance	Nahtzugabe der Kante
 	Across	Waagerecht
 	Down	Nach unten
+	Add Drill Hole Here	Bohrloch hier hinzufügen
+	Remove Drill Hole Here	Bohrloch hier entfernen
+	Add Drill Hole	Bohrloch hinzufügen
+	Remove Drill Hole	Bohrloch entfernen
+	Drill holes: {count}	Bohrlöcher: {count}
+	Right-click inside the piece: Add Drill Hole Here	Rechtsklick in das Teil: Bohrloch hier hinzufügen
+	Drill hole {n}, {mm} mm	Bohrloch {n}, {mm} mm
+	Drill hole {n}	Bohrloch {n}

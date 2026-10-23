@@ -5045,3 +5045,11 @@ file-filter	PDF for projector	PDF cho máy chiếu
 	Edge Allowance	Đường may chừa của cạnh
 	Across	Theo chiều ngang
 	Down	Xuống dưới
+	Add Drill Hole Here	Thêm lỗ khoan tại đây
+	Remove Drill Hole Here	Xóa lỗ khoan tại đây
+	Add Drill Hole	Thêm lỗ khoan
+	Remove Drill Hole	Xóa lỗ khoan
+	Drill holes: {count}	Lỗ khoan: {count}
+	Right-click inside the piece: Add Drill Hole Here	Nhấp chuột phải bên trong chi tiết: Thêm lỗ khoan tại đây
+	Drill hole {n}, {mm} mm	Lỗ khoan {n}, {mm} mm
+	Drill hole {n}	Lỗ khoan {n}

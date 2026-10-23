@@ -264,7 +264,7 @@ is built on, plus a pattern mode, the way StitchFoundry adds embroidery:
   file, the cutting line 120), and the skirt block's file read by an independent reader (ezdxf
   1.4.5's recover and strict readers: no errors, no fixes), drawn the right way up. Tests: 3 in
   `vectorcraft-cad`, 3 engine tests (`tests_aama.rs`). Not yet: grading (graded nests and the rule
-  table, PF-6), drill holes, mirror lines and the NM attribute, notch shapes besides slit and V
+  table, PF-6), drill holes (done: PF-7.6), mirror lines and the NM attribute, notch shapes besides slit and V
   (layers 80 to 83), opening AAMA files, an options dialog (the style name and sample size are
   parameters), a test in a cutting-room program. Seen while checking: the cutting line runs its
   allowance round a dart's legs, as if the dart were cut out; a cutting line should bridge the
@@ -592,3 +592,20 @@ is built on, plus a pattern mode, the way StitchFoundry adds embroidery:
   a menu item's params, the dialog's fixed params). Tests: 1 in `tests_grade.rs`, 1 in
   `tests_contextmenu.rs` (each item through its dialog to the piece). Not yet: dragging a graded
   point to set its rule, per-size rules in the dialog.
+- 2026-10-23, **PF-7.6**: drill holes. A piece keeps its drill holes (`Piece.drills`: a point and
+  the punch's diameter in mm, 0 for a mark only), which move with it and are drawn as a 3 mm cross
+  (and the punch's circle) in a generated **Drill holes** part. Right-click inside a piece: **Add
+  Drill Hole Here** (`piece.addDrill {point, diameter?}`, refused outside the cutting line), and
+  over one, **Remove Drill Hole Here** (`piece.removeDrill {point | index}`, within 5 mm); the
+  Pieces panel lists them, each with a button to remove it. DXF-AAMA writes each as a POINT on
+  layer 13 with the diameter as its z, as DH Patterns and Fit's overview of ASTM D6673 describes
+  ("Drill holes are placed on layer 13 … defined by a DXF point element … The Z-coordinate of the
+  point can be edited to define the diameter of the punch hole":
+  https://dorthehansen.com/wp-content/uploads/2014/10/ePattern-ASTM-Standard.pdf), and reads them
+  back. The projector PDF and the projector view draw them; the SVG for cutting puts them in a
+  `drill` group (a punch as its circle, a mark only as a cross); a piece opened out across its
+  fold has them on both halves; marker copies carry them. Tests: 1 in `pf-core` marks, piece
+  checks, the `pf-aama` round trip, 1 each in `tests_piece.rs`, `tests_aama.rs` (the point 60 mm
+  in and 120 mm up, z 4), `tests_svgcut.rs`, `tests_contextmenu.rs` and `panels/tests_pieces.rs`.
+  Not yet: the NM (not mirrored) attribute and drill-type numbers, a diameter set from the panel,
+  drill holes graded with the piece.

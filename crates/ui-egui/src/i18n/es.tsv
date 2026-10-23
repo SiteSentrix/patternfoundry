@@ -5393,3 +5393,11 @@ file-filter	PDF for projector	PDF para proyector
 	Edge Allowance	Margen del borde
 	Across	En horizontal
 	Down	Hacia abajo
+	Add Drill Hole Here	Añadir perforación aquí
+	Remove Drill Hole Here	Quitar perforación aquí
+	Add Drill Hole	Añadir perforación
+	Remove Drill Hole	Quitar perforación
+	Drill holes: {count}	Perforaciones: {count}
+	Right-click inside the piece: Add Drill Hole Here	Clic derecho dentro de la pieza: Añadir perforación aquí
+	Drill hole {n}, {mm} mm	Perforación {n}, {mm} mm
+	Drill hole {n}	Perforación {n}

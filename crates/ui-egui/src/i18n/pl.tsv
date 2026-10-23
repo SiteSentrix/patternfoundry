@@ -5303,3 +5303,11 @@ file-filter	PDF for projector	PDF do projektora
 	Edge Allowance	Zapas krawędzi
 	Across	W poziomie
 	Down	W dół
+	Add Drill Hole Here	Dodaj otwór tutaj
+	Remove Drill Hole Here	Usuń otwór tutaj
+	Add Drill Hole	Dodaj otwór
+	Remove Drill Hole	Usuń otwór
+	Drill holes: {count}	Otwory: {count}
+	Right-click inside the piece: Add Drill Hole Here	Kliknij prawym przyciskiem wewnątrz elementu: Dodaj otwór tutaj
+	Drill hole {n}, {mm} mm	Otwór {n}, {mm} mm
+	Drill hole {n}	Otwór {n}

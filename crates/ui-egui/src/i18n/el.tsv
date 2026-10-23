@@ -5402,3 +5402,11 @@ file-filter	PDF for projector	PDF για προβολέα
 	Edge Allowance	Ραφή άκρης
 	Across	Οριζόντια
 	Down	Προς τα κάτω
+	Add Drill Hole Here	Προσθήκη οπής εδώ
+	Remove Drill Hole Here	Αφαίρεση οπής εδώ
+	Add Drill Hole	Προσθήκη οπής
+	Remove Drill Hole	Αφαίρεση οπής
+	Drill holes: {count}	Οπές: {count}
+	Right-click inside the piece: Add Drill Hole Here	Δεξί κλικ μέσα στο κομμάτι: Προσθήκη οπής εδώ
+	Drill hole {n}, {mm} mm	Οπή {n}, {mm} mm
+	Drill hole {n}	Οπή {n}

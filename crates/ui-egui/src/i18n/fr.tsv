@@ -5449,3 +5449,11 @@ file-filter	PDF for projector	PDF pour projecteur
 	Edge Allowance	Valeur de couture du bord
 	Across	À l'horizontale
 	Down	Vers le bas
+	Add Drill Hole Here	Ajouter un trou de perçage ici
+	Remove Drill Hole Here	Supprimer le trou de perçage ici
+	Add Drill Hole	Ajouter un trou de perçage
+	Remove Drill Hole	Supprimer le trou de perçage
+	Drill holes: {count}	Trous de perçage : {count}
+	Right-click inside the piece: Add Drill Hole Here	Clic droit dans la pièce : Ajouter un trou de perçage ici
+	Drill hole {n}, {mm} mm	Trou de perçage {n}, {mm} mm
+	Drill hole {n}	Trou de perçage {n}

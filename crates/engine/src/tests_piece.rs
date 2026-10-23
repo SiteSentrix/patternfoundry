@@ -226,3 +226,35 @@ fn a_notch_or_the_fold_goes_where_the_seam_line_is_picked() {
     let r = s.execute("piece.set", &json!({"id": piece.0, "foldAt": [mm_to_pt(1.0), cm10() / 2.0]})).unwrap();
     assert_eq!(r["fold"], 3);
 }
+
+#[test]
+fn drill_holes_are_crosses_inside_the_piece_that_move_with_it() {
+    let (mut s, _) = square();
+    let g = make(&mut s, json!({}));
+    let c = cm10() / 2.0;
+    let info = s.execute("piece.addDrill", &json!({"point": [c, c], "diameter": 3})).unwrap();
+    assert_eq!(info["drills"], json!([{"at": {"x": c, "y": c}, "diameter": 3.0}]));
+    s.execute("piece.addDrill", &json!({"point": [20, 20]})).unwrap();
+    // Two crosses, and the punch's circle: 3 mm across.
+    let drills = part(&s, g, Mark::Drills).unwrap();
+    let NodeKind::Path { path, .. } = &drills.kind else { panic!() };
+    assert_eq!(path.subpaths.len(), 5);
+    let b = bounds(&drills);
+    assert!(near(b.x1, c + mm_to_pt(3.0)) && near(b.x0, 20.0 - mm_to_pt(3.0)), "{b:?}");
+    // In the allowance is still on the piece; past the cutting line is not.
+    assert!(s.execute("piece.addDrill", &json!({"point": [-mm_to_pt(5.0), c]})).is_ok());
+    assert!(s.execute("piece.addDrill", &json!({"point": [-mm_to_pt(15.0), c]})).is_err());
+    assert!(s.execute("piece.addDrill", &json!({"point": [c, c], "diameter": 60})).is_err());
+    assert!(s.execute("piece.addDrill", &json!({"point": [c, c], "diameter": "wide"})).is_err());
+    s.execute("select.set", &json!({"ids": [g.0]})).unwrap();
+    s.execute("object.move", &json!({"dx": 10, "dy": 5})).unwrap();
+    let info = s.execute("piece.info", &json!({})).unwrap();
+    assert_eq!(info["drills"][1]["at"], json!({"x": 30.0, "y": 25.0}));
+    // Removed by a click near one, or by its place in the list.
+    s.execute("piece.removeDrill", &json!({"point": [31, 26]})).unwrap();
+    assert!(s.execute("piece.removeDrill", &json!({"point": [300, 300]})).is_err());
+    s.execute("piece.removeDrill", &json!({"index": 1})).unwrap();
+    s.execute("piece.removeDrill", &json!({"index": 0})).unwrap();
+    assert!(part(&s, g, Mark::Drills).is_none());
+    assert!(s.execute("piece.removeDrill", &json!({"index": 0})).is_err());
+}

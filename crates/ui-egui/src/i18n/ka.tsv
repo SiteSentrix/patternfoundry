@@ -5358,3 +5358,11 @@ file-filter	PDF for projector	PDF პროექტორისთვის
 	Edge Allowance	კიდის მარაგი
 	Across	ჰორიზონტალურად
 	Down	ქვემოთ
+	Add Drill Hole Here	ნახვრეტის დამატება აქ
+	Remove Drill Hole Here	ნახვრეტის წაშლა აქ
+	Add Drill Hole	ნახვრეტის დამატება
+	Remove Drill Hole	ნახვრეტის წაშლა
+	Drill holes: {count}	ნახვრეტები: {count}
+	Right-click inside the piece: Add Drill Hole Here	დააწკაპუნეთ მარჯვენა ღილაკით დეტალის შიგნით: ნახვრეტის დამატება აქ
+	Drill hole {n}, {mm} mm	ნახვრეტი {n}, {mm} მმ
+	Drill hole {n}	ნახვრეტი {n}

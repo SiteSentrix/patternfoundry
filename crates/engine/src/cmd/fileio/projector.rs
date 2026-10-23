@@ -18,7 +18,7 @@ use vectorcraft_geom::{Affine, PathData, Point, Rect, SubPath};
 
 use super::super::*;
 use super::{Encoded, FormatOption};
-use pf_core::mm_to_pt;
+use pf_core::{mm_to_pt, pt_to_mm};
 
 const C: &str = "document.export";
 /// The test square's side and the grid's: 10 cm.
@@ -147,6 +147,7 @@ fn shift(piece: &mut pf_aama::Piece, dx: f64, dy: f64) {
     let mv = |q: &mut [f64; 2]| *q = [q[0] + dx, q[1] + dy];
     piece.boundary.iter_mut().chain(piece.sew_line.iter_mut()).chain(piece.internal.iter_mut().flatten()).for_each(mv);
     piece.notches.iter_mut().for_each(|n| mv(&mut n.at));
+    piece.drills.iter_mut().for_each(|d| mv(&mut d.at));
     piece.grain.iter_mut().flatten().for_each(mv);
     piece.mirror.iter_mut().flatten().for_each(mv);
     mv(&mut piece.text_at);
@@ -247,6 +248,13 @@ pub(super) fn encode(doc: &Document, p: &Value) -> Result<Encoded> {
         for l in piece.internal.iter().filter(|l| l.len() >= 2) {
             let pts: Vec<Point> = l.iter().map(|q| at(*q)).collect();
             art.push(page.path(vec![poly(&pts, false)], 1.0, None, None));
+        }
+        // Drill holes as their crosses (and punch circles): the diameter is in points here.
+        for dr in &piece.drills {
+            let d = pf_core::Drill { at: pf_core::Pt::new(dr.at[0], dr.at[1]), diameter: pt_to_mm(dr.diameter) };
+            let subs =
+                pf_core::marks::drill(&d, mm_to_pt(1.0)).iter().map(|l| poly(&l.iter().map(|q| at([q.x, q.y])).collect::<Vec<_>>(), false)).collect();
+            art.push(page.path(subs, line, None, None));
         }
         let cut = piece.quantity.0 + piece.quantity.1;
         let mut text = format!("{}\nCut {cut}", piece.name);

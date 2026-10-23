@@ -5414,3 +5414,11 @@ file-filter	PDF for projector	PDF projektorille
 	Edge Allowance	Reunan saumanvara
 	Across	Vaakasuunnassa
 	Down	Alaspäin
+	Add Drill Hole Here	Lisää porareikä tähän
+	Remove Drill Hole Here	Poista porareikä tästä
+	Add Drill Hole	Lisää porareikä
+	Remove Drill Hole	Poista porareikä
+	Drill holes: {count}	Porareiät: {count}
+	Right-click inside the piece: Add Drill Hole Here	Napsauta kappaleen sisällä hiiren oikealla: Lisää porareikä tähän
+	Drill hole {n}, {mm} mm	Porareikä {n}, {mm} mm
+	Drill hole {n}	Porareikä {n}

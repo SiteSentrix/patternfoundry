@@ -5475,3 +5475,11 @@ file-filter	PDF for projector	PDF voor projector
 	Edge Allowance	Naadtoeslag van de rand
 	Across	Horizontaal
 	Down	Omlaag
+	Add Drill Hole Here	Boorgat hier toevoegen
+	Remove Drill Hole Here	Boorgat hier verwijderen
+	Add Drill Hole	Boorgat toevoegen
+	Remove Drill Hole	Boorgat verwijderen
+	Drill holes: {count}	Boorgaten: {count}
+	Right-click inside the piece: Add Drill Hole Here	Rechtsklik in het patroondeel: Boorgat hier toevoegen
+	Drill hole {n}, {mm} mm	Boorgat {n}, {mm} mm
+	Drill hole {n}	Boorgat {n}

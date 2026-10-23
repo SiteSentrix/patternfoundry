@@ -5061,3 +5061,11 @@ file-filter	PDF for projector	PDF для проектора
 	Edge Allowance	Припуск края
 	Across	По горизонтали
 	Down	Вниз
+	Add Drill Hole Here	Добавить отверстие здесь
+	Remove Drill Hole Here	Удалить отверстие здесь
+	Add Drill Hole	Добавить отверстие
+	Remove Drill Hole	Удалить отверстие
+	Drill holes: {count}	Отверстия: {count}
+	Right-click inside the piece: Add Drill Hole Here	Щёлкните правой кнопкой внутри детали: Добавить отверстие здесь
+	Drill hole {n}, {mm} mm	Отверстие {n}, {mm} мм
+	Drill hole {n}	Отверстие {n}

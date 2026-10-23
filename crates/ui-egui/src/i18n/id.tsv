@@ -5433,3 +5433,11 @@ file-filter	PDF for projector	PDF untuk proyektor
 	Edge Allowance	Kampuh tepi
 	Across	Mendatar
 	Down	Ke bawah
+	Add Drill Hole Here	Tambah Lubang Bor di Sini
+	Remove Drill Hole Here	Hapus Lubang Bor di Sini
+	Add Drill Hole	Tambah Lubang Bor
+	Remove Drill Hole	Hapus Lubang Bor
+	Drill holes: {count}	Lubang bor: {count}
+	Right-click inside the piece: Add Drill Hole Here	Klik kanan di dalam potongan: Tambah Lubang Bor di Sini
+	Drill hole {n}, {mm} mm	Lubang bor {n}, {mm} mm
+	Drill hole {n}	Lubang bor {n}

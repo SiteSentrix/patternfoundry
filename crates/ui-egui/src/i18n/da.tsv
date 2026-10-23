@@ -5433,3 +5433,11 @@ file-filter	PDF for projector	PDF til projektor
 	Edge Allowance	Kantens sømrum
 	Across	Vandret
 	Down	Nedad
+	Add Drill Hole Here	Tilføj borehul her
+	Remove Drill Hole Here	Fjern borehul her
+	Add Drill Hole	Tilføj borehul
+	Remove Drill Hole	Fjern borehul
+	Drill holes: {count}	Borehuller: {count}
+	Right-click inside the piece: Add Drill Hole Here	Højreklik inde i delen: Tilføj borehul her
+	Drill hole {n}, {mm} mm	Borehul {n}, {mm} mm
+	Drill hole {n}	Borehul {n}

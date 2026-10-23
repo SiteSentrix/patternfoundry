@@ -135,3 +135,26 @@ fn a_piece_cut_on_the_fold_is_the_half_with_its_mirror_line_on_layer_6() {
     s.execute("piece.set", &json!({"fold": null})).unwrap();
     assert!(entities(&export(&mut s, json!({"format": "aama"})), "LINE", "6").is_empty());
 }
+
+#[test]
+fn drill_holes_are_points_on_layer_13_with_their_diameter() {
+    let mut s = square_piece(1, false);
+    // At the middle of the square, a 4 mm punch.
+    let c = 40.0 + mm_to_pt(50.0);
+    s.execute("piece.addDrill", &json!({"point": [c, c], "diameter": 4})).unwrap();
+    let dxf = export(&mut s, json!({"format": "aama"}));
+    let d = entities(&dxf, "POINT", "13");
+    assert_eq!(d.len(), 1);
+    // The cutting line starts at x 0; the middle is 10 + 50 mm in, and 60 mm up from its bottom,
+    // which is 60 mm above the style text.
+    let (x, y, z) = (values(&d[0], 10)[0], values(&d[0], 20)[0], values(&d[0], 30)[0]);
+    assert!((x - 60.0).abs() < 1e-6 && (y - 120.0).abs() < 1e-6 && (z - 4.0).abs() < 1e-6, "{x} {y} {z}");
+    // It reads back.
+    let back = pf_aama::read(dxf.replace('\n', "\r\n").as_bytes()).unwrap();
+    assert_eq!(back.pieces[0].drills.len(), 1);
+    // A piece cut on the fold, opened out, has it on both halves.
+    s.execute("piece.set", &json!({"fold": 3})).unwrap();
+    let out = s.execute("piece.outlines", &json!({})).unwrap();
+    assert_eq!(out["pieces"][0]["drills"].as_array().unwrap().len(), 2);
+    assert_eq!(out["pieces"][0]["drills"][0]["diameter"], json!(4.0));
+}

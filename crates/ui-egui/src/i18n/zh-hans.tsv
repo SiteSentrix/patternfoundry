@@ -5286,3 +5286,11 @@ file-filter	PDF for projector	用于投影仪的 PDF
 	Edge Allowance	边的缝份
 	Across	横向
 	Down	向下
+	Add Drill Hole Here	在此添加钻孔
+	Remove Drill Hole Here	删除此处的钻孔
+	Add Drill Hole	添加钻孔
+	Remove Drill Hole	删除钻孔
+	Drill holes: {count}	钻孔：{count}
+	Right-click inside the piece: Add Drill Hole Here	在衣片内右键单击：在此添加钻孔
+	Drill hole {n}, {mm} mm	钻孔 {n}，{mm} mm
+	Drill hole {n}	钻孔 {n}

@@ -5436,3 +5436,11 @@ file-filter	PDF for projector	PDF projektorhoz
 	Edge Allowance	Az él ráhagyása
 	Across	Vízszintesen
 	Down	Lefelé
+	Add Drill Hole Here	Fúrt lyuk hozzáadása ide
+	Remove Drill Hole Here	Fúrt lyuk eltávolítása innen
+	Add Drill Hole	Fúrt lyuk hozzáadása
+	Remove Drill Hole	Fúrt lyuk eltávolítása
+	Drill holes: {count}	Fúrt lyukak: {count}
+	Right-click inside the piece: Add Drill Hole Here	Kattintson jobb gombbal a darabon belül: Fúrt lyuk hozzáadása ide
+	Drill hole {n}, {mm} mm	{n}. fúrt lyuk, {mm} mm
+	Drill hole {n}	{n}. fúrt lyuk

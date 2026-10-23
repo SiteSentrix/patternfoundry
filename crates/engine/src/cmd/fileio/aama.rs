@@ -2,11 +2,12 @@
 //! as an ASTM D6673 file for cutting rooms, grading and nesting systems
 //! ([`pf_aama::write`]). Each piece gives its cutting line (the boundary), its seam
 //! line (the sew line), its notches (on the cutting line, cut toward the seam line), its grainline,
-//! the fold it is cut on as its mirror line (PF-7.4, the piece written as the half), and the
+//! the fold it is cut on as its mirror line (PF-7.4, the piece written as the half), its drill
+//! holes (PF-7.6, with the punch's diameter), and the
 //! paths the user added inside it as internal lines; in millimetres, y up, every piece
 //! where it is in the document relative to the others.
 
-use pf_aama::{Mm, Notch as AamaNotch, Piece as AamaPiece, Style as AamaStyle, Version};
+use pf_aama::{Drill as AamaDrill, Mm, Notch as AamaNotch, Piece as AamaPiece, Style as AamaStyle, Version};
 use serde_json::Value;
 use vectorcraft_doc::{Document, Node, NodeKind};
 use vectorcraft_geom::{BezPath, SubPath};
@@ -163,6 +164,7 @@ pub(crate) fn pieces(doc: &Document) -> Result<Vec<AamaPiece>> {
             grain: grain.map(|g| [mm(g.from), mm(g.to)]),
             mirror,
             internal: internal.iter().map(|l| l.iter().map(|p| mm(*p)).collect()).collect(),
+            drills: piece.drills.iter().map(|d| AamaDrill { at: mm(d.at), diameter: mm_to_pt(d.diameter) }).collect(),
             text_at: mm(text_at),
         });
     }
@@ -209,6 +211,7 @@ pub(crate) fn opened(piece: &AamaPiece) -> AamaPiece {
         out.notches.push(AamaNotch { at: flip(n.at), angle: (-r.y).atan2(r.x).to_degrees(), ..*n });
     }
     out.internal.extend(piece.internal.iter().map(|l| l.iter().map(|q| flip(*q)).collect()));
+    out.drills.extend(piece.drills.iter().map(|d| AamaDrill { at: flip(d.at), ..*d }));
     // The fold itself, drawn inside the whole piece.
     out.internal.push(vec![a, b]);
     out
@@ -240,6 +243,10 @@ fn to_mm(pieces: &mut [AamaPiece]) {
             f(&mut n.at);
             n.depth = pt_to_mm(n.depth);
             n.width = pt_to_mm(n.width);
+        }
+        for d in &mut p.drills {
+            f(&mut d.at);
+            d.diameter = pt_to_mm(d.diameter);
         }
     }
 }

@@ -5065,3 +5065,11 @@ file-filter	PDF for projector	PDF per proiettore
 	Edge Allowance	Margine del bordo
 	Across	In orizzontale
 	Down	In basso
+	Add Drill Hole Here	Aggiungi foro qui
+	Remove Drill Hole Here	Rimuovi foro qui
+	Add Drill Hole	Aggiungi foro
+	Remove Drill Hole	Rimuovi foro
+	Drill holes: {count}	Fori: {count}
+	Right-click inside the piece: Add Drill Hole Here	Clic destro dentro il pezzo: Aggiungi foro qui
+	Drill hole {n}, {mm} mm	Foro {n}, {mm} mm
+	Drill hole {n}	Foro {n}
