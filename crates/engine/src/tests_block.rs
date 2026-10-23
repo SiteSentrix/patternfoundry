@@ -203,6 +203,10 @@ fn the_sleeve_crown_is_checked_against_the_armhole() {
     let sleeve = s.execute("block.sleeve", &json!({"origin": [2000, 0]})).unwrap();
     let r = s.execute("design.sleeveEase", &json!({})).unwrap();
     let f = |k: &str| r[k].as_f64().unwrap();
+    // Drafted where there is a bodice, the sleeve is set into its armhole with the middle of a
+    // classic sleeve's ease (PF-4.9, the owner's decision).
+    assert_eq!(r["fits"], "ok", "{r}");
+    assert!((f("ease") - 44.45).abs() < 0.15, "{r}");
     // The crown is the sleeve block's own; the armhole the back's and the front's.
     assert!((f("crown") - sleeve["crown"].as_f64().unwrap()).abs() < 0.05, "{r}");
     assert!((f("armhole") - f("back") - f("front")).abs() < 0.15 && (f("ease") - (f("crown") - f("armhole"))).abs() < 0.15, "{r}");
@@ -356,4 +360,25 @@ fn the_trouser_waistband_is_half_the_waist_long_and_notched_at_the_side_seam() {
     assert!((darted["length"].as_f64().unwrap() - length).abs() < 2.0, "{darted} {r}");
     assert_eq!(darted["width"], json!(80.0));
     assert!(s.execute("design.trouserWaistband", &json!({"height": 500})).is_err());
+}
+
+#[test]
+fn a_sleeve_drafted_first_is_set_into_the_bodice_drafted_after_it_and_follows_it() {
+    let mut s = measured();
+    s.execute("measure.set", &json!({"values": {"top_arm": 280, "sleeve_length": 590}})).unwrap();
+    // Alone, from the top arm table.
+    let sleeve = s.execute("block.sleeve", &json!({"origin": [2000, 0]})).unwrap();
+    let alone = sleeve["crown"].as_f64().unwrap();
+    s.execute("block.bodice", &json!({"origin": [0, 0]})).unwrap();
+    let r = s.execute("design.sleeveEase", &json!({})).unwrap();
+    assert!((r["ease"].as_f64().unwrap() - 44.45).abs() < 0.15 && r["crown"].as_f64().unwrap() > alone, "{r} {alone}");
+    // A bigger bust makes a bigger armhole: the sleeve's crown follows it.
+    s.execute("measure.set", &json!({"values": {"bust": 960}})).unwrap();
+    let r2 = s.execute("design.sleeveEase", &json!({})).unwrap();
+    assert!(r2["armhole"].as_f64() != r["armhole"].as_f64() && (r2["ease"].as_f64().unwrap() - 44.45).abs() < 0.15, "{r2}");
+    // The crown ease is the sleeve's option.
+    let id = sleeve["ids"][0].as_u64().unwrap();
+    s.execute("block.setOptions", &json!({"id": id, "options": {"crown_ease": 30}})).unwrap();
+    let r3 = s.execute("design.sleeveEase", &json!({})).unwrap();
+    assert!((r3["ease"].as_f64().unwrap() - 30.0).abs() < 0.15 && r3["fits"] == "tight", "{r3}");
 }

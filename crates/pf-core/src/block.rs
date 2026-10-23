@@ -172,7 +172,20 @@ pub const SKIRT_OPTIONS: &[BlockOption] = &[
 ];
 
 /// The sleeve block's options.
-pub const SLEEVE_OPTIONS: &[BlockOption] = &[opt("ease", "ease round the top arm", Some(50.0), 0.0, 300.0)];
+pub const SLEEVE_OPTIONS: &[BlockOption] = &[
+    opt("ease", "ease round the top arm", Some(50.0), 0.0, 300.0),
+    opt(
+        "crown_ease",
+        "ease the crown takes in over the bodice's armhole, when the document has a bodice block (by default the middle of a classic sleeve's 1½ to 2 in)",
+        Some(CLASSIC_CROWN_EASE),
+        0.0,
+        100.0,
+    ),
+];
+
+/// The ease a classic sleeve's crown takes in by default: the middle of 1½ to 2 in (University of
+/// Kentucky, FCS2-807), mm.
+pub const CLASSIC_CROWN_EASE: f64 = 44.45;
 
 /// The trouser block's options.
 pub const TROUSER_OPTIONS: &[BlockOption] = &[
@@ -588,6 +601,15 @@ fn sleeve_part(top_arm: f64, length: f64, depth: f64, ease: f64) -> Part {
 /// crown is to be: the bodice's armhole plus the ease to set it in, `armhole + 30`), the depth is
 /// found that makes the crown that long instead.
 pub fn sleeve(env: &mut Env, o: &Options) -> Result<Vec<Part>, BlockError> {
+    sleeve_for(env, o, None)
+}
+
+/// [`sleeve`] set into a bodice whose armhole (back and front, mm) is `armhole` (PF-4.9, the
+/// owner's decision, 2026-10-23): without a `sleeve_crown` measurement the crown is that armhole
+/// plus the `crown_ease` option (the middle of a classic sleeve's ease by default), instead of the
+/// depth from the top arm table, which leaves a crown about as long as the armhole, without ease.
+pub fn sleeve_for(env: &mut Env, o: &Options, armhole: Option<f64>) -> Result<Vec<Part>, BlockError> {
+    check_options(BlockKind::Sleeve, o)?;
     let ease = value(o, "ease", 50.0);
     let v = need(env, SLEEVE_MEASUREMENTS)?;
     let &[top_arm, length] = v.as_slice() else {
@@ -601,7 +623,7 @@ pub fn sleeve(env: &mut Env, o: &Options) -> Result<Vec<Part>, BlockError> {
             _ => return Err(BlockError::Missing(vec!["sleeve_crown".into()])),
         }
     } else {
-        None
+        armhole.filter(|a| a.is_finite() && *a > 0.0).map(|a| a + value(o, "crown_ease", CLASSIC_CROWN_EASE))
     };
     let depth = match target {
         None => crown_depth(top_arm),
@@ -786,6 +808,39 @@ pub fn trousers(env: &mut Env, o: &Options) -> Result<Vec<Part>, BlockError> {
         ],
     };
     Ok(vec![front, back])
+}
+
+/// The length along `part`'s outline from anchor `from` forward to anchor `to` (mm): anchor 0 is
+/// the start, anchor `i` the end of segment `i - 1`; going past the last anchor comes round.
+pub fn run_length(part: &Part, from: usize, to: usize) -> f64 {
+    let n = part.segs.len();
+    if n == 0 {
+        return 0.0;
+    }
+    let corners = part.corners();
+    let mut total = 0.0;
+    let mut i = from % n;
+    while i != to % n {
+        let at = corners[i];
+        total += match part.segs[i] {
+            Seg::Line(e) => (e - at).len(),
+            Seg::Cubic(c1, c2, e) => cubic_len(at, c1, c2, e),
+        };
+        i = (i + 1) % n;
+    }
+    total
+}
+
+/// The bodice block's armhole as drafted with `o` (mm): the back's and the front's, shoulder point
+/// to side seam.
+pub fn bodice_armhole(env: &mut Env, o: &Options) -> Result<f64, BlockError> {
+    let parts = draft(BlockKind::Bodice, env, o)?;
+    let mut total = 0.0;
+    for (i, part) in parts.iter().enumerate() {
+        let (from, to, _) = armhole(BlockKind::Bodice, i).ok_or(BlockError::Impossible("the bodice has no armhole"))?;
+        total += run_length(part, from, to);
+    }
+    Ok(total)
 }
 
 /// The parts of a block.
@@ -1207,5 +1262,27 @@ mod tests {
         assert!((dist(b[10], b[12]) - 10.0).abs() < 1e-6);
         assert!((dist(b[11], (b[10] + b[12]) * 0.5) - 80.0).abs() < 1e-6);
         assert_eq!(plain[1], darted[1], "the back is as it was");
+    }
+
+    #[test]
+    fn with_a_bodice_the_sleeve_takes_in_classic_ease_over_its_armhole() {
+        let mut m = me();
+        m.set_value("top_arm", Some(280.0)).unwrap();
+        m.set_value("sleeve_length", Some(590.0)).unwrap();
+        let armhole = bodice_armhole(&mut m.env(), &Options::new()).unwrap();
+        assert!(armhole > 300.0 && armhole < 600.0, "{armhole}");
+        // From the table alone the crown is about the armhole: no ease.
+        let table = sleeve_crown(&sleeve(&mut m.env(), &Options::new()).unwrap()[0]);
+        assert!((table - armhole).abs() < 20.0, "{table} {armhole}");
+        // Set into that armhole: the armhole and 44.45 mm (1¾ in); the option changes it.
+        let set = sleeve_crown(&sleeve_for(&mut m.env(), &Options::new(), Some(armhole)).unwrap()[0]);
+        assert!((set - armhole - CLASSIC_CROWN_EASE).abs() < 1e-3, "{set} {armhole}");
+        let o = [("crown_ease".to_string(), 30.0)].into_iter().collect::<Options>();
+        let less = sleeve_crown(&sleeve_for(&mut m.env(), &o, Some(armhole)).unwrap()[0]);
+        assert!((less - armhole - 30.0).abs() < 1e-3);
+        // A sleeve_crown measurement still wins.
+        m.set_formula("sleeve_crown", Some("500")).unwrap();
+        let measured = sleeve_crown(&sleeve_for(&mut m.env(), &Options::new(), Some(armhole)).unwrap()[0]);
+        assert!((measured - 500.0).abs() < 1e-3);
     }
 }

@@ -64,8 +64,16 @@ is built on, plus a pattern mode, the way StitchFoundry adds embroidery:
   `crates/pf-core/src/block.rs`. Fashion Capital's was the other candidate (more detailed curves,
   but a step cut off in its text).
 
+- App or mode (2026-10-23): PatternFoundry is **not its own app**; it becomes a **mode inside
+  StitchFoundry** (both are VectorCraft and a mode of their own). Until the move is planned (PF-11:
+  how the pattern crates, commands, panels and documents go into github.com/Stitchwright/StitchFoundry)
+  the work goes on here.
+- Sleeve ease (2026-10-23): the sleeve block drafted where there is a bodice block is set into its
+  armhole with the middle of a classic sleeve's ease (PF-4.9), not drafted from the top arm table
+  alone.
+
 ## Open decisions (the owner's)
-- Whether PatternFoundry is its own app (as planned) or a mode inside StitchFoundry.
+- How and when PatternFoundry moves into StitchFoundry (PF-11).
 
 ## Progress log
 - 2026-10-19, **PF-0**: VectorCraft 0.13.1 (upstream `a466625c`) merged with its history
@@ -721,3 +729,17 @@ is built on, plus a pattern mode, the way StitchFoundry adds embroidery:
   chosen here. Tests: 1 in `pf-core` (each shape: the stitching line 118 × 50 mm, the cutting
   line 7 mm out all round), 1 in `tests_design.rs`. Not yet: a flap on a patch pocket, the
   flap's buttonhole.
+- 2026-10-23, **PF-4.9**: the sleeve set into the bodice's armhole (the owner's decision). Where
+  the document has a bodice block, the sleeve block's crown is that bodice's armhole (back and
+  front, shoulder point to side seam, drafted with the bodice's options) plus the sleeve's new
+  `crown_ease` option, by default 44.45 mm, the middle of a classic sleeve's 1½ to 2 in
+  (University of Kentucky, FCS2-807); the crown depth is solved to make it that long, as for a
+  `sleeve_crown` measurement, which still wins. Without a bodice it is drafted from the top arm
+  table as before. It follows the bodice: a sleeve drafted first is set in once the bodice is
+  drafted, and a bigger bust (or other bodice options) redraws it. Check Sleeve Ease now finds
+  the blocks within the range; before, the table-drafted crown came out about 1.6 mm shorter than
+  the armhole. `pf_core::block::sleeve_for`, `bodice_armhole`, `run_length`. Tests: 1 in `pf-core`
+  (the crown the armhole and 44.45 mm, the option, the measurement winning), 1 more and 1 more step
+  in `tests_block.rs` (drafted in either order, following the bust, the option), the Check Sleeve
+  Ease dialog test (within range, then tight with no crown ease). Not yet: more than one bodice
+  in a document (the first one's armhole is used).

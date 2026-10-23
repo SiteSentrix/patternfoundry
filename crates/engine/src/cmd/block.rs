@@ -35,7 +35,7 @@ pub fn specs() -> Vec<CommandSpec> {
             "Draft Sleeve Block",
             ["Pattern"],
             None,
-            "{origin?: [x, y] (document points: the shoulder point at the top of the crown; default: the sleeve 20 mm inside the first artboard's top-left corner), options?: {name: mm} (the block's ease and darts, see block.options)} draft the one-piece straight sleeve block from the measurements: top_arm, sleeve_length (mm; measure.set), and sleeve_crown if the set has it (the crown's length: the bodice's armhole plus the ease to set it in, 3 to 4.5 cm; a formula such as \"armhole + 30\"), which sets the crown depth instead of the top arm table. It follows the measurements when they change → {ids, crown (mm: the crown's length, underarm to underarm)}",
+            "{origin?: [x, y] (document points: the shoulder point at the top of the crown; default: the sleeve 20 mm inside the first artboard's top-left corner), options?: {name: mm} (the block's ease and darts, see block.options)} draft the one-piece straight sleeve block from the measurements: top_arm, sleeve_length (mm; measure.set), and sleeve_crown if the set has it (the crown's length: the bodice's armhole plus the ease to set it in, 3 to 4.5 cm; a formula such as \"armhole + 30\"), which sets the crown depth instead of the top arm table; without it, where the document has a bodice block, the crown is that bodice's armhole plus the crown_ease option (44.45 mm, the middle of a classic sleeve's ease). It follows the measurements and the bodice when they change → {ids, crown (mm: the crown's length, underarm to underarm)}",
             has_doc,
             sleeve
         ),
@@ -108,6 +108,37 @@ fn path_of(part: &Part, origin: Pt) -> PathData {
     PathData::single(SubPath::new(anchors, true))
 }
 
+/// The armhole of the document's bodice block (mm), drafted with its options: the sleeve block is
+/// set into it (PF-4.9). None without a bodice block, or one the measurements can't make.
+fn bodice_armhole(doc: &Document, env: &mut pf_core::expr::Env) -> Option<f64> {
+    let mut options = None;
+    doc.walk(|n| {
+        if options.is_none()
+            && let Some(b) = n.extras().block.as_deref()
+            && b.kind == BlockKind::Bodice
+        {
+            options = Some(b.options.clone());
+        }
+    });
+    pf_core::block::bodice_armhole(env, &options?).ok()
+}
+
+/// A block's parts as `doc` drafts them: the sleeve set into the document's bodice armhole.
+fn draft_in(
+    doc: &Document,
+    kind: BlockKind,
+    env: &mut pf_core::expr::Env,
+    options: &Options,
+) -> std::result::Result<Vec<Part>, pf_core::block::BlockError> {
+    match kind {
+        BlockKind::Sleeve => {
+            let armhole = bodice_armhole(doc, env);
+            pf_core::block::sleeve_for(env, options, armhole)
+        }
+        _ => pf_core::block::draft(kind, env, options),
+    }
+}
+
 fn env_of(doc: &Document) -> pf_core::expr::Env {
     doc.measurements.as_deref().map(pf_core::measure::Measurements::env).unwrap_or_default()
 }
@@ -127,7 +158,8 @@ fn trousers(s: &mut Session, p: &Value) -> Result<Value> {
 fn sleeve(s: &mut Session, p: &Value) -> Result<Value> {
     let mut r = make(s, p, BlockKind::Sleeve, "block.sleeve", "Draft Sleeve Block")?;
     let options = options_param(p, BlockKind::Sleeve, "block.sleeve")?;
-    let parts = pf_core::block::draft(BlockKind::Sleeve, &mut env_of(&s.doc()?.doc), &options).map_err(|e| bad("block.sleeve", e.to_string()))?;
+    let doc = &s.doc()?.doc;
+    let parts = draft_in(doc, BlockKind::Sleeve, &mut env_of(doc), &options).map_err(|e| bad("block.sleeve", e.to_string()))?;
     let crown = parts.first().map_or(0.0, pf_core::block::sleeve_crown);
     r["crown"] = json!(crown);
     Ok(r)
@@ -143,7 +175,7 @@ fn make(s: &mut Session, p: &Value, kind: BlockKind, cmd: &'static str, label: &
         None => None,
     };
     let options = options_param(p, kind, cmd)?;
-    let parts = pf_core::block::draft(kind, &mut env_of(&st.doc), &options).map_err(|e| bad(cmd, e.to_string()))?;
+    let parts = draft_in(&st.doc, kind, &mut env_of(&st.doc), &options).map_err(|e| bad(cmd, e.to_string()))?;
     // By default the drawing (not its origin) starts 20 mm inside the first artboard's corner.
     let origin = origin.unwrap_or_else(|| {
         let o = st.doc.artboards.first().map_or(Point::ZERO, |a| a.rect.origin());
@@ -248,7 +280,8 @@ fn set_options(s: &mut Session, p: &Value) -> Result<Value> {
     }
     pf_core::block::check_options(b.kind, &next).map_err(|e| bad(CMD, e.to_string()))?;
     // The block must still draft with them.
-    pf_core::block::draft(b.kind, &mut env_of(&s.doc()?.doc), &next).map_err(|e| bad(CMD, e.to_string()))?;
+    let doc = &s.doc()?.doc;
+    draft_in(doc, b.kind, &mut env_of(doc), &next).map_err(|e| bad(CMD, e.to_string()))?;
     // Every part of the block: the same kind, drafted at the same origin with the same options.
     let mut ids = Vec::new();
     s.doc()?.doc.walk(|n| {
@@ -311,7 +344,7 @@ pub(crate) fn refresh(doc: &mut Document) -> Result<()> {
         let made = match drafted.iter().find(|(k, o, _)| *k == b.kind && *o == b.options) {
             Some((_, _, m)) => m.clone(),
             None => {
-                let m = pf_core::block::draft(b.kind, &mut env, &b.options).ok();
+                let m = draft_in(doc, b.kind, &mut env, &b.options).ok();
                 drafted.push((b.kind, b.options.clone(), m.clone()));
                 m
             }
