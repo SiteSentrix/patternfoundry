@@ -67,6 +67,15 @@ pub fn specs() -> Vec<CommandSpec> {
             set_options
         ),
         cmd!(
+            "block.removeStep",
+            "Remove Design Step",
+            [],
+            None,
+            "{id? (default: the selected block part), index (the step's place in block.options' steps, from 0)} remove a design step from a drafted block part, and the steps after it (they were made on the outline it made): the part is drafted again and the steps before it made again in order. A split can't be removed (it made two panels: delete the one not wanted) → {id, steps (those left)}",
+            has_doc,
+            remove_step
+        ),
+        cmd!(
             query "block.measurements",
             "Block Measurements",
             [],
@@ -307,6 +316,29 @@ fn set_options(s: &mut Session, p: &Value) -> Result<Value> {
         refresh(d)
     })?;
     Ok(json!({"id": id.0, "block": kind_name(b.kind), "parts": ids.iter().map(|i| i.0).collect::<Vec<_>>(), "options": options_info(b.kind, &next)}))
+}
+
+fn remove_step(s: &mut Session, p: &Value) -> Result<Value> {
+    const CMD: &str = "block.removeStep";
+    let (id, b) = block_part(s, p, CMD)?;
+    let index = p.get("index").and_then(Value::as_u64).ok_or_else(|| bad(CMD, "index: the step's place, from 0"))? as usize;
+    if index >= b.steps.len() {
+        return Err(bad(CMD, format!("index: the part has {} design steps", b.steps.len())));
+    }
+    // A later step's anchors are on the outline this one made, so they go with it.
+    if b.steps[index..].iter().any(|st| matches!(st, pf_core::design::DesignStep::Split { .. })) {
+        return Err(bad(CMD, "a split made two panels: delete the panel you don't want instead"));
+    }
+    let steps = b.steps[..index].to_vec();
+    s.edit("Remove Design Step", |d, _| {
+        if let Some(n) = d.node_mut(id)
+            && let Some(r) = n.extras_mut().block.as_deref_mut()
+        {
+            r.steps = steps.clone();
+        }
+        refresh(d)
+    })?;
+    Ok(json!({"id": id.0, "steps": steps}))
 }
 
 fn measurements(s: &mut Session, p: &Value) -> Result<Value> {

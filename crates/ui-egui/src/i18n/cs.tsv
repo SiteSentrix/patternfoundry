@@ -5496,3 +5496,14 @@ file-filter	PDF for projector	PDF pro projektor
 	Draft Trouser Waistband	Narýsovat pas kalhot
 	Flap Pocket…	Kapsa s patkou…
 	Crown ease	Přidání v hlavici rukávu
+	Remove Design Step	Odebrat krok úpravy
+	Dart moved	Záševek přesunut
+	Dart shortened {mm} mm	Záševek zkrácen o {mm} mm
+	Slashed and spread {mm} mm	Rozstřiženo a rozevřeno o {mm} mm
+	Seam trued to {mm} mm	Šev upraven na {mm} mm
+	Split into panels	Rozděleno na díly
+	Design step	Krok úpravy
+	Design steps: {count}	Kroky úprav: {count}
+	Design changes made on the block (darts, splits, spreads, seam lengths) show here; each is made again when the measurements change	Úpravy základního střihu (záševky, dělení, rozevření, délky švů) se zobrazují zde; každá se provede znovu, když se změní míry
+	Remove this step and the ones after it (they were made on the outline it made)	Odebrat tento krok a ty po něm (byly provedeny na obrysu, který vytvořil)
+	Selected block part	Vybraná část základního střihu

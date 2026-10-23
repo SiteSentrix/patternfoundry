@@ -767,3 +767,13 @@ is built on, plus a pattern mode, the way StitchFoundry adds embroidery:
   96 cm: the same outline as drafting at 96 cm and making the same steps; a skirt slashed and
   spread 50 mm, the hip changed). Not yet: pleats, gathers and smoothing (they also make separate
   mark nodes), wrap fronts, the steps list in the Pieces panel.
+- 2026-10-23, **PF-5.22**: the design steps of a block part listed in the Pieces panel. With a
+  drafted block part selected (or a piece made from one), Pattern Pieces shows "Design steps: n",
+  each step in words (dart moved, dart shortened 20 mm, slashed and spread 50 mm, seam trued to
+  250 mm, split into panels) with a button to remove it. `block.removeStep {id?, index}` removes
+  the step and the ones after it, because a later step's anchors are on the outline the earlier one
+  made; the part is drafted again from the measurements and the steps before it made again, in one
+  undo. A split stays (it made two panels: delete the panel not wanted), and so do the steps before
+  it. Tests: 1 in `tests_design.rs` (the last step and then the first removed, each outline as
+  drafting and making the steps left; undo; a split refused), 1 in `tests_pieces.rs` (the list and
+  its button). Not yet: changing a step's amount in place.

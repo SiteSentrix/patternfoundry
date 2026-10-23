@@ -5495,3 +5495,14 @@ file-filter	PDF for projector	PDF pour projecteur
 	Draft Trouser Waistband	Tracer la ceinture du pantalon
 	Flap Pocket…	Poche passepoilée à rabat…
 	Crown ease	Embu de tête de manche
+	Remove Design Step	Supprimer l'étape de transformation
+	Dart moved	Pince pivotée
+	Dart shortened {mm} mm	Pince raccourcie de {mm} mm
+	Slashed and spread {mm} mm	Coupé et écarté de {mm} mm
+	Seam trued to {mm} mm	Couture ajustée à {mm} mm
+	Split into panels	Coupé en panneaux
+	Design step	Étape de transformation
+	Design steps: {count}	Étapes de transformation : {count}
+	Design changes made on the block (darts, splits, spreads, seam lengths) show here; each is made again when the measurements change	Les transformations faites sur le patron de base (pinces, découpes, écartements, longueurs de couture) s'affichent ici ; chacune est refaite quand les mesures changent
+	Remove this step and the ones after it (they were made on the outline it made)	Supprimer cette étape et les suivantes (elles ont été faites sur le contour qu'elle a produit)
+	Selected block part	Partie du patron de base sélectionnée

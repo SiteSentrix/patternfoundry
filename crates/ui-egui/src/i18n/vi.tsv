@@ -5091,3 +5091,14 @@ file-filter	PDF for projector	PDF cho máy chiếu
 	Draft Trouser Waistband	Dựng cạp quần
 	Flap Pocket…	Túi có nắp…
 	Crown ease	Độ lơi đầu tay
+	Remove Design Step	Xóa bước thiết kế
+	Dart moved	Đã xoay pen
+	Dart shortened {mm} mm	Đã rút ngắn pen {mm} mm
+	Slashed and spread {mm} mm	Đã cắt và mở rộng {mm} mm
+	Seam trued to {mm} mm	Đã chỉnh đường may thành {mm} mm
+	Split into panels	Đã tách thành các mảnh
+	Design step	Bước thiết kế
+	Design steps: {count}	Các bước thiết kế: {count}
+	Design changes made on the block (darts, splits, spreads, seam lengths) show here; each is made again when the measurements change	Các thay đổi trên rập cơ bản (pen, đường tách, phần mở rộng, chiều dài đường may) hiện ở đây; mỗi thay đổi được làm lại khi số đo thay đổi
+	Remove this step and the ones after it (they were made on the outline it made)	Xóa bước này và các bước sau nó (chúng được làm trên đường viền mà bước này tạo ra)
+	Selected block part	Phần rập cơ bản đã chọn

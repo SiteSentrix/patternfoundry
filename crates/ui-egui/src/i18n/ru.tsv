@@ -5107,3 +5107,14 @@ file-filter	PDF for projector	PDF для проектора
 	Draft Trouser Waistband	Построить пояс брюк
 	Flap Pocket…	Карман с клапаном…
 	Crown ease	Посадка оката
+	Remove Design Step	Удалить шаг моделирования
+	Dart moved	Вытачка переведена
+	Dart shortened {mm} mm	Вытачка укорочена на {mm} мм
+	Slashed and spread {mm} mm	Разрезано и раздвинуто на {mm} мм
+	Seam trued to {mm} mm	Шов выровнен до {mm} мм
+	Split into panels	Разделено на части
+	Design step	Шаг моделирования
+	Design steps: {count}	Шаги моделирования: {count}
+	Design changes made on the block (darts, splits, spreads, seam lengths) show here; each is made again when the measurements change	Изменения базовой выкройки (вытачки, членения, раздвижки, длины швов) показаны здесь; каждое выполняется заново при изменении мерок
+	Remove this step and the ones after it (they were made on the outline it made)	Удалить этот шаг и следующие (они сделаны на контуре, который он дал)
+	Selected block part	Выбранная часть базовой выкройки

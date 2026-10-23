@@ -5111,3 +5111,14 @@ file-filter	PDF for projector	PDF per proiettore
 	Draft Trouser Waistband	Traccia la cintura dei pantaloni
 	Flap Pocket…	Tasca a filetto con pattina…
 	Crown ease	Agio del giro manica
+	Remove Design Step	Rimuovi passaggio di modifica
+	Dart moved	Pince ruotata
+	Dart shortened {mm} mm	Pince accorciata di {mm} mm
+	Slashed and spread {mm} mm	Tagliato e aperto di {mm} mm
+	Seam trued to {mm} mm	Cucitura portata a {mm} mm
+	Split into panels	Diviso in teli
+	Design step	Passaggio di modifica
+	Design steps: {count}	Passaggi di modifica: {count}
+	Design changes made on the block (darts, splits, spreads, seam lengths) show here; each is made again when the measurements change	Le modifiche fatte sul cartamodello base (pince, divisioni, aperture, lunghezze delle cuciture) compaiono qui; ognuna viene rifatta quando cambiano le misure
+	Remove this step and the ones after it (they were made on the outline it made)	Rimuovi questo passaggio e quelli successivi (sono stati fatti sul contorno che ha prodotto)
+	Selected block part	Parte del cartamodello base selezionata

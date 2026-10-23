@@ -5460,3 +5460,14 @@ file-filter	PDF for projector	PDF projektorille
 	Draft Trouser Waistband	Piirrä housujen vyötärökaitale
 	Flap Pocket…	Läppätasku…
 	Crown ease	Hihankuvun väljyys
+	Remove Design Step	Poista suunnitteluvaihe
+	Dart moved	Laskos siirretty
+	Dart shortened {mm} mm	Laskosta lyhennetty {mm} mm
+	Slashed and spread {mm} mm	Leikattu auki ja levitetty {mm} mm
+	Seam trued to {mm} mm	Sauma sovitettu {mm} mm:iin
+	Split into panels	Jaettu kappaleisiin
+	Design step	Suunnitteluvaihe
+	Design steps: {count}	Suunnitteluvaiheet: {count}
+	Design changes made on the block (darts, splits, spreads, seam lengths) show here; each is made again when the measurements change	Peruskaavaan tehdyt muutokset (laskokset, jaot, levitykset, saumojen pituudet) näkyvät tässä; jokainen tehdään uudelleen, kun mitat muuttuvat
+	Remove this step and the ones after it (they were made on the outline it made)	Poista tämä vaihe ja sen jälkeiset (ne tehtiin sen tuottamaan ääriviivaan)
+	Selected block part	Valittu peruskaavan osa

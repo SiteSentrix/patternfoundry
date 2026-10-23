@@ -901,3 +901,38 @@ fn split_spread_and_matched_seams_are_made_again_when_the_measurements_change() 
     flare(&mut fresh, fid);
     assert!(same(&points(&s, id), &points(&fresh, fid)));
 }
+
+/// A design step is removed from a block part (PF-5.22), with the steps after it (their anchors are
+/// on the outline it made): the part comes out as drafting it and making the steps before does; a
+/// split and an index past the steps are refused, and undo puts the steps back.
+#[test]
+fn a_design_step_is_removed_and_the_ones_before_made_again() {
+    let (mut s, id) = front();
+    let drafted = points(&s, id);
+    let r = s.execute("design.rotateDart", &json!({"id": id.0, "apex": 11, "toAnchor": 8})).unwrap();
+    let (apex, rotated) = (r["apex"].clone(), points(&s, id));
+    s.execute("design.shortenDart", &json!({"id": id.0, "apex": apex, "shorten": 20})).unwrap();
+    let both = points(&s, id);
+    assert!(s.execute("block.removeStep", &json!({"id": id.0, "index": 2})).is_err(), "only 2 steps");
+    // The last step: the dart moved, not shortened.
+    let r = s.execute("block.removeStep", &json!({"id": id.0, "index": 1})).unwrap();
+    assert_eq!(r["steps"].as_array().unwrap().len(), 1, "{r}");
+    assert_eq!(points(&s, id), rotated);
+    s.execute("edit.undo", &json!({})).unwrap();
+    assert_eq!(points(&s, id), both);
+    // The first: both go, the block as drafted.
+    let r = s.execute("block.removeStep", &json!({"id": id.0, "index": 0})).unwrap();
+    assert_eq!(r["steps"], json!([]));
+    assert_eq!(points(&s, id), drafted);
+    s.execute("edit.undo", &json!({})).unwrap();
+    assert_eq!(points(&s, id), both);
+    // A split made two panels: it stays, and so do the steps before it (the princess bodice: the
+    // moved dart split through its point).
+    s.execute("edit.undo", &json!({})).unwrap();
+    let r = s.execute("design.split", &json!({"id": id.0, "anchors": [apex]})).unwrap();
+    let panel = r["ids"][0].as_u64().unwrap();
+    for i in 0..2 {
+        let e = s.execute("block.removeStep", &json!({"id": panel, "index": i})).unwrap_err().to_string();
+        assert!(e.contains("split"), "{e}");
+    }
+}
