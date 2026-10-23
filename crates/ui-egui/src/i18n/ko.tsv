@@ -5023,6 +5023,11 @@ file-filter	PDF for projector	프로젝터용 PDF
 	Shorten	줄이기
 	Add Notch Here	여기에 너치 추가
 	Cut on Fold Here	여기를 골선으로
+	Seam Allowance Here…	여기 시접…
+	Grade This Point…	이 점 그레이딩…
+	Edge Allowance	변의 시접
+	Across	가로
+	Down	아래로
 	One step	한 단계
 	The same move for each size, from the size above the base	모든 사이즈에 같은 이동(기준 위 사이즈 기준)
 	Per size	사이즈별

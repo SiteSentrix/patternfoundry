@@ -5444,6 +5444,11 @@ file-filter	PDF for projector	PDF pour projecteur
 	Shorten	Raccourcir
 	Add Notch Here	Ajouter un cran ici
 	Cut on Fold Here	Couper au pli ici
+	Seam Allowance Here…	Valeur de couture ici…
+	Grade This Point…	Grader ce point…
+	Edge Allowance	Valeur de couture du bord
+	Across	À l'horizontale
+	Down	Vers le bas
 	One step	Un seul pas
 	The same move for each size, from the size above the base	Le même déplacement pour chaque taille, celui de la taille au-dessus de la base
 	Per size	Par taille

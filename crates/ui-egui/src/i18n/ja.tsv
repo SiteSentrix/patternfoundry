@@ -5100,6 +5100,11 @@ file-filter	PDF for projector	プロジェクター用 PDF
 	Shorten	短くする
 	Add Notch Here	ここに合印を追加
 	Cut on Fold Here	ここをわにする
+	Seam Allowance Here…	ここの縫い代…
+	Grade This Point…	この点をグレーディング…
+	Edge Allowance	辺の縫い代
+	Across	横方向
+	Down	下方向
 	One step	同じ刻み
 	The same move for each size, from the size above the base	各サイズで同じ移動量（基準の一つ上のサイズから）
 	Per size	サイズごと

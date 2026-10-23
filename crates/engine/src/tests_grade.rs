@@ -352,3 +352,17 @@ fn rules_copied_to_the_opposite_half_turn_the_other_way() {
     assert!(s.execute("grade.copyRules", &json!({"from": front, "to": [back]})).unwrap_err().to_string().contains("no grade rules"));
     assert!(s.execute("grade.copyRules", &json!({"from": back, "to": [front], "mirror": "z"})).unwrap_err().to_string().contains("mirror"));
 }
+
+#[test]
+fn a_grade_rule_takes_the_seam_line_point_nearest_a_picked_point() {
+    let mut s = Session::new();
+    s.execute("file.new", &json!({"width": 800, "height": 800})).unwrap();
+    let r = s.execute("shape.rectangle", &json!({"x": 0, "y": 0, "width": 200, "height": 200})).unwrap();
+    let id = s.execute("piece.make", &json!({"ids": [r["id"]]})).unwrap()["ids"][0].clone();
+    s.execute("grade.setSizes", &json!({"sizes": ["S", "M", "L"], "base": "M"})).unwrap();
+    // Near the bottom-right corner (point 2), across and down as a dialog gives them.
+    let info = s.execute("grade.setRule", &json!({"id": id, "point": [198, 203], "across": 5, "down": -2})).unwrap();
+    assert_eq!(info["rules"], json!([{"anchor": 2, "step": [5.0, -2.0]}]), "{info}");
+    // Far from every point: refused.
+    assert!(s.execute("grade.setRule", &json!({"id": id, "point": [100, 100], "across": 5})).is_err());
+}

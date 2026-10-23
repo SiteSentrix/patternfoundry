@@ -5077,6 +5077,11 @@ file-filter	PDF for projector	用於投影機的 PDF
 	Shorten	縮短
 	Add Notch Here	在此新增剪口
 	Cut on Fold Here	此處對摺裁剪
+	Seam Allowance Here…	此處的縫份…
+	Grade This Point…	放碼此點…
+	Edge Allowance	邊的縫份
+	Across	橫向
+	Down	向下
 	One step	統一檔差
 	The same move for each size, from the size above the base	每個尺碼相同的移動（取基礎碼上一碼）
 	Per size	按尺碼

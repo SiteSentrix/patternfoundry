@@ -236,8 +236,9 @@ fn every_context_label_is_a_menu_string() {
     app.run("layer.setProps", json!({"ids": [a.0], "locked": true})).unwrap();
     app.ui.context_locked = Some((app.session.active().unwrap().uid, vec![a]));
     shown.extend(labels(&menus::context_items(&app)));
-    // A pattern piece right-clicked.
+    // A pattern piece right-clicked, in a document with a size range.
     app.ui.context_locked = None;
+    app.run("grade.setSizes", json!({"sizes": ["S", "M"], "base": "M"})).unwrap();
     let c = rect(&mut app, 200.0, 0.0);
     app.run("piece.make", json!({"ids": [c.0]})).unwrap();
     app.ui.context_point = Some((app.session.active().unwrap().uid, [250.0, 0.0]));
@@ -285,4 +286,47 @@ fn a_piece_right_clicked_on_its_seam_line_takes_a_notch_or_a_fold_there() {
     // Nothing selected, or a plain path: no such items.
     app.run("select.set", json!({"ids": []})).unwrap();
     assert!(!labels(&menus::context_items(&app)).contains(&"Add Notch Here"));
+}
+
+/// Seam Allowance Here… and Grade This Point… open a dialog for the value; the point right-clicked
+/// goes along, unseen, and names the edge or the seam line's point.
+#[test]
+fn an_edge_allowance_and_a_grade_rule_are_set_where_the_piece_is_right_clicked() {
+    let mut app = app();
+    let r = rect(&mut app, 50.0, 50.0);
+    let id = app.run("piece.make", json!({"ids": [r.0]})).unwrap()["ids"][0].as_u64().unwrap();
+    app.run("select.set", json!({"ids": [id]})).unwrap();
+    let uid = app.session.active().unwrap().uid;
+    let open = |app: &mut VectorcraftApp, label: &str| {
+        let (cmd, p) = menus::context_items(app)
+            .into_iter()
+            .find_map(|i| match i {
+                Item::Cmd(l, id, params) if l == label => Some((id, params)),
+                _ => None,
+            })
+            .unwrap_or_else(|| panic!("no {label}"));
+        let (cmd, p) = menus::click_target(label, cmd, &p);
+        menus::invoke(app, &cmd, p);
+        assert_eq!(app.ui.dialog.as_ref().map(|d| d.kind.as_str()), Some("command"));
+    };
+    // The right side (edge 1) right-clicked: its allowance set to 25 mm; the click's point unseen.
+    app.ui.context_point = Some((uid, [151.0, 100.0]));
+    open(&mut app, "Seam Allowance Here…");
+    let fields = &app.ui.dialog.as_ref().unwrap().fields;
+    assert!(fields.contains_key("edgeAllowance") && !fields.contains_key("at") && !fields.contains_key("__fixed"));
+    app.ui.dialog.as_mut().unwrap().fields.insert("edgeAllowance".into(), json!(25));
+    crate::dialogs::confirm(&mut app).unwrap();
+    assert_eq!(app.run("piece.info", json!({"id": id})).unwrap()["edges"], json!({"1": 25.0}));
+    // Without a size range, no grade item; with one, the corner right-clicked (seam point 2) moves
+    // 3 mm across and 4 down a size.
+    assert!(!labels(&menus::context_items(&app)).contains(&"Grade This Point…"));
+    app.run("grade.setSizes", json!({"sizes": ["S", "M", "L"], "base": "M"})).unwrap();
+    app.ui.context_point = Some((uid, [149.0, 151.0]));
+    open(&mut app, "Grade This Point…");
+    let d = app.ui.dialog.as_mut().unwrap();
+    d.fields.insert("across".into(), json!(3));
+    d.fields.insert("down".into(), json!(4));
+    crate::dialogs::confirm(&mut app).unwrap();
+    let info = app.run("grade.info", json!({"id": id})).unwrap();
+    assert_eq!(info["rules"], json!([{"anchor": 2, "step": [3.0, 4.0]}]), "{info}");
 }

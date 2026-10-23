@@ -5431,6 +5431,11 @@ file-filter	PDF for projector	PDF projektorhoz
 	Shorten	Rövidítés
 	Add Notch Here	Bevágás hozzáadása ide
 	Cut on Fold Here	Itt hajtásra szabni
+	Seam Allowance Here…	Varrásráhagyás itt…
+	Grade This Point…	E pont fokozása…
+	Edge Allowance	Az él ráhagyása
+	Across	Vízszintesen
+	Down	Lefelé
 	One step	Egy lépés
 	The same move for each size, from the size above the base	Minden méretnél ugyanaz az elmozdulás, az alapméret feletti méretből
 	Per size	Méretenként
