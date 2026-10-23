@@ -803,3 +803,16 @@ is built on, plus a pattern mode, the way StitchFoundry adds embroidery:
   the rounded corner's two anchors as far from the old corner, the curve inside it; the wing tip
   35 past it, the front end curving in by 35/4; the neck edge the same length), the bodice stand
   collar test (both fronts on the bodice block's neckline, a front not known refused).
+- 2026-10-23, **PF-5.25**: box pleats of any width, and notches at a pleat's lines. `design.pleat`
+  takes `face` (mm) for a box pleat: the width of the box between its two folds (twice the depth,
+  as before, when it isn't given). A box pleat is two knife pleats turned away from each other, so
+  each fold is brought out twice the depth (the fabric it folds under) and the spread stays four
+  times the depth; the folds sit half the face either side of the spread's middle. On a pattern
+  piece, each fold and placement line is notched where it meets the seam line, at both ends (the
+  waist it is sewn into and the hem it is pressed to), in the same undo step; `notches: false`
+  leaves them off. `pf_core::design::pleat(…, face, …)`. Tests: 1 more in `pf-core` (a 100 face
+  on a 20 deep pleat: the folds at 90 and 190, the placements at 50 and 230; the old box pleat the
+  same), 1 in `tests_design.rs` (a 60 face in the skirt piece: 8 notches, the folds 60 apart, one
+  undo, without notches, a face on a knife pleat refused). Not yet: pleats from the Pattern menu
+  (they need two points picked on the canvas), notches already on a piece kept on their edges
+  when a design tool adds anchors to its seam line.
