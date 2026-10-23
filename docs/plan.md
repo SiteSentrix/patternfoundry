@@ -265,7 +265,7 @@ is built on, plus a pattern mode, the way StitchFoundry adds embroidery:
   1.4.5's recover and strict readers: no errors, no fixes), drawn the right way up. Tests: 3 in
   `vectorcraft-cad`, 3 engine tests (`tests_aama.rs`). Not yet: grading (graded nests and the rule
   table, PF-6), drill holes (done: PF-7.6), mirror lines and the NM attribute, notch shapes besides slit and V
-  (layers 80 to 83; done but the check notch: PF-7.7), opening AAMA files, an options dialog (the style name and sample size are
+  (layers 80 to 83; done but the check notch: PF-7.7), opening AAMA files (done: PF-7.8), an options dialog (the style name and sample size are
   parameters), a test in a cutting-room program. Seen while checking: the cutting line runs its
   allowance round a dart's legs, as if the dart were cut out; a cutting line should bridge the
   dart (PF-1 follow-up).
@@ -630,3 +630,17 @@ is built on, plus a pattern mode, the way StitchFoundry adds embroidery:
   `pf-aama` (the layers, the T point at the depth, the round trip, each shape's lines), 1 in
   `tests_aama.rs`, the Pieces panel test. Not yet: the check notch (layer 82; the overview's
   sign for its opening is unclear), notch width and depth set per notch.
+- 2026-10-23, **PF-7.8**: DXF-AAMA files open as pattern pieces. A `.dxf` with piece system text
+  ("Piece Name:") that reads as ASTM D6673 (`pf_aama::read`) opens, or is placed, as its pieces
+  on a "Pattern pieces" layer, in millimetres; any other DXF opens as a drawing as before. Each
+  piece's sew line is its seam line (its cutting line when it has none); each edge's seam
+  allowance is how far the cutting line is from the edge's middle, the piece's allowance the
+  middle value and edges that differ keeping their own (a dart's legs are left out, as the cutting
+  line bridges darts); the mirror line is the fold when it lies along a seam edge; notches go to the
+  nearest seam edge with their shapes; the grainline, drill holes, internal lines, quantity (right
+  and left pieces as the cut count and mirrored pairs) and material come along. Tests: 3 in
+  `tests_aama.rs` (a square with a fold, a 40 mm hem, a castle notch and a drill hole written and
+  opened again as the same piece; the skirt block's curves back with one allowance each and its
+  cutting lines measuring as before to 0.02 mm; a plain DXF still a drawing). Not yet: a test with
+  a file from a cutting-room program, the grade rules (.RUL, waiting on the standard), the
+  annotation text (layer 15).
