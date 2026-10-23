@@ -62,8 +62,14 @@ mod tests {
         let m = json!({"bust": 880, "waist": 680, "nape_to_waist": 410, "back_width": 345, "chest": 325, "shoulder": 122, "neck": 370, "armscye_depth": 210, "top_arm": 280, "sleeve_length": 590});
         app.run("measure.set", json!({"values": m})).unwrap();
         app.run("block.bodice", json!({"origin": [0, 0]})).unwrap();
-        app.run("block.sleeve", json!({"origin": [2000, 0]})).unwrap();
-        // Drafted from the top arm table alone, the crown is about the armhole's length: no ease.
+        let sleeve = app.run("block.sleeve", json!({"origin": [2000, 0]})).unwrap()["ids"][0].clone();
+        // Set into the bodice's armhole with a classic sleeve's ease: within the range.
+        let r = app.run("ui.checkSleeveEase", json!({})).unwrap();
+        assert_eq!(r["fits"], "ok");
+        assert!(app.ui.dialog.as_ref().unwrap().str("detail").contains("Within the"));
+        // With no crown ease the crown is about the armhole's length: too little.
+        app.ui.dialog = None;
+        app.run("block.setOptions", json!({"id": sleeve, "options": {"crown_ease": 0}})).unwrap();
         let r = app.run("ui.checkSleeveEase", json!({})).unwrap();
         assert_eq!(r["fits"], "tight");
         let d = app.ui.dialog.as_ref().unwrap();

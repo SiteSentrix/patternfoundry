@@ -35,6 +35,8 @@ anything he clicks through.
   StitchFoundry.
 - We build our own and never copy (see `CLAUDE.md`): commercial software is studied only through
   its public documentation, to match and beat its features.
+- **Not its own app** (owner's decision, 2026-10-23): PatternFoundry becomes a mode inside
+  StitchFoundry. The work goes on in this repository until the move (PF-11) is planned.
 
 ## Hosting, accounts and AI (owner's decisions, 2026-10-19)
 - **Hosting:** GitHub Pages for the web build and GitHub Releases for the desktop downloads, as
