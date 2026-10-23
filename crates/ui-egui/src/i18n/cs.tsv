@@ -5512,3 +5512,8 @@ file-filter	PDF for projector	PDF pro projektor
 	Dart legs curved {mm} mm	Ramena záševku prohnuta o {mm} mm
 	Draft Rounded Stand Collar	Konstruovat stojáček se zaoblenými rohy
 	Draft Wing Collar	Konstruovat límec s křidélky
+	Check Marker	Zkontrolovat polohu střihu
+	{length} cm long, {efficiency}% of the fabric used	{length} cm dlouhé, využito {efficiency} % látky
+	{a} overlaps {b}	{a} se překrývá s {b}
+	{piece} is off the fabric	{piece} je mimo látku
+	No pieces overlap, and all are on the fabric.	Žádné díly se nepřekrývají a všechny jsou na látce.

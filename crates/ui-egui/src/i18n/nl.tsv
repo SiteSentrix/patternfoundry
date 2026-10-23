@@ -5537,3 +5537,8 @@ file-filter	PDF for projector	PDF voor projector
 	Dart legs curved {mm} mm	Benen van de figuurnaad {mm} mm gewelfd
 	Draft Rounded Stand Collar	Opstaande kraag met ronde hoeken tekenen
 	Draft Wing Collar	Vleugelkraag tekenen
+	Check Marker	Legplan controleren
+	{length} cm long, {efficiency}% of the fabric used	{length} cm lang, {efficiency}% van de stof gebruikt
+	{a} overlaps {b}	{a} overlapt {b}
+	{piece} is off the fabric	{piece} ligt buiten de stof
+	No pieces overlap, and all are on the fabric.	Geen delen overlappen en alle liggen op de stof.

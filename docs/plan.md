@@ -506,6 +506,19 @@ is built on, plus a pattern mode, the way StitchFoundry adds embroidery:
   fold, opened out single, against the fold when folded, pairs, the odd count, the fold taken
   off). Not yet: the fold in the projector PDF and in DXF-AAMA (its mirror line), a fold that is
   not straight.
+- 2026-10-23, **PF-9.3**: markers checked after moving pieces by hand. A marker's copies are
+  plain groups, so they can be moved with the selection tool (or `object.move`); **Pattern ›
+  Check Marker** (`ui.checkMarker`, `marker.check {layer?}`) then draws the fabric's outline (and
+  the fold, on folded fabric) to the last piece again, brings the caption's length and % used up
+  to date in one undo step, and tells in a message which copies overlap (their cutting lines
+  cross, or one lies inside another: `pf_core::marker::overlaps`) and which lie off the fabric
+  (past a selvedge or before its start). The marker it checks is the one the selection is on, or
+  the document's only one. Tests: 1 in `pf-core` (crossing, nested, touching, apart, a square in
+  an L's notch), 1 in `tests_marker.rs` (as laid nothing wrong; a copy moved 200 mm along: the
+  fabric and caption 200 mm longer; moved onto the other copy: an overlap; past the selvedge: off
+  the fabric; not a marker's layer refused), 1 for the message. Not yet: plaid and stripe
+  matching, the check made as pieces are dragged, turning a copy by hand off its grain warned
+  about, the marker in DXF-AAMA.
 - 2026-10-22, **PF-7.4**: the fold in the exports. **DXF-AAMA** writes a piece cut on the fold as
   the half with its fold as the mirror line, a LINE on layer 6 ("Mirror line", "Symmetry of
   fold" in Patro's layer table,

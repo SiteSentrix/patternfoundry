@@ -5464,3 +5464,8 @@ file-filter	PDF for projector	PDF για προβολέα
 	Dart legs curved {mm} mm	Οι πλευρές της πένσας καμπυλώθηκαν κατά {mm} mm
 	Draft Rounded Stand Collar	Σχεδίαση όρθιου γιακά με στρογγυλές άκρες
 	Draft Wing Collar	Σχεδίαση γιακά με φτερά
+	Check Marker	Έλεγχος σχεδίου κοπής
+	{length} cm long, {efficiency}% of the fabric used	Μήκος {length} cm, χρησιμοποιείται το {efficiency}% του υφάσματος
+	{a} overlaps {b}	Το {a} επικαλύπτει το {b}
+	{piece} is off the fabric	Το {piece} βγαίνει έξω από το ύφασμα
+	No pieces overlap, and all are on the fabric.	Κανένα κομμάτι δεν επικαλύπτεται και όλα είναι πάνω στο ύφασμα.

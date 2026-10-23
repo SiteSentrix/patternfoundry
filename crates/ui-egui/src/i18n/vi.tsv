@@ -5107,3 +5107,8 @@ file-filter	PDF for projector	PDF cho máy chiếu
 	Dart legs curved {mm} mm	Đã uốn cong cạnh pen {mm} mm
 	Draft Rounded Stand Collar	Dựng cổ đứng bo tròn
 	Draft Wing Collar	Dựng cổ cánh
+	Check Marker	Kiểm tra sơ đồ cắt
+	{length} cm long, {efficiency}% of the fabric used	Dài {length} cm, dùng {efficiency}% vải
+	{a} overlaps {b}	{a} chồng lên {b}
+	{piece} is off the fabric	{piece} nằm ngoài vải
+	No pieces overlap, and all are on the fabric.	Không có chi tiết nào chồng nhau, tất cả đều nằm trên vải.

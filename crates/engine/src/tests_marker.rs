@@ -192,3 +192,57 @@ fn a_piece_on_the_fold_opens_out_or_lies_against_the_fold() {
     s.execute("piece.set", &json!({"id": back.0, "fold": null})).unwrap();
     assert!(s.execute("piece.info", &json!({"id": back.0})).unwrap().get("fold").is_none());
 }
+
+/// Pieces moved by hand on a marker (PF-9.3): Check Marker draws the fabric to the last piece
+/// again, brings the caption's length and % used up to date, and lists overlaps and pieces off
+/// the fabric.
+#[test]
+fn a_marker_checked_after_moving_pieces_by_hand() {
+    let mut s = Session::new();
+    s.execute("file.new", &json!({"width": 2000, "height": 2000})).unwrap();
+    rect_piece(&mut s, 0.0, 300.0, 500.0, json!({"name": "Panel", "cut": 2}));
+    let r = s.execute("marker.make", &json!({"width": "110 cm", "gap": 0, "origin": [0, 2000]})).unwrap();
+    let id = NodeId(r["layer"].as_u64().unwrap());
+    let made = r["lengthMm"].as_f64().unwrap();
+    // As laid: the same length, nothing wrong.
+    let c = s.execute("marker.check", &json!({})).unwrap();
+    assert!((c["lengthMm"].as_f64().unwrap() - made).abs() < 0.1, "{c} {r}");
+    assert_eq!((c["overlaps"].clone(), c["offFabric"].clone()), (json!([]), json!([])));
+    // The second copy moved 200 mm along: the fabric 200 longer, less of it used.
+    let groups: Vec<NodeId> =
+        layer(&s, "Marker Main").children().unwrap().iter().filter(|g| matches!(g.kind, NodeKind::Group { .. })).map(|g| g.id).collect();
+    let far = *laid(layer(&s, "Marker Main")).iter().zip(&groups).max_by(|a, b| a.0.1.x1.total_cmp(&b.0.1.x1)).map(|(_, g)| g).unwrap();
+    s.execute("select.set", &json!({"ids": [far.0]})).unwrap();
+    s.execute("object.move", &json!({"dx": mm_to_pt(200.0)})).unwrap();
+    let c = s.execute("marker.check", &json!({})).unwrap();
+    assert!((c["lengthMm"].as_f64().unwrap() - (made + 200.0)).abs() < 0.1, "{c}");
+    let fabric = layer(&s, "Marker Main").children().unwrap().iter().find(|n| n.name.as_deref() == Some("Fabric Main")).unwrap().clone();
+    let NodeKind::Path { path, .. } = &fabric.kind else { panic!("a path") };
+    assert!((pt_to_mm(path.bounds().unwrap().width()) - (made + 200.0)).abs() < 0.1);
+    let caption = layer(&s, "Marker Main")
+        .children()
+        .unwrap()
+        .iter()
+        .find_map(|n| match &n.kind {
+            NodeKind::Text(t) => Some(t.plain_text()),
+            _ => None,
+        })
+        .unwrap();
+    assert!(
+        caption.starts_with("Main: 110 cm wide, ") && caption.contains(&format!("{} cm long", ((made + 200.0) / 10.0 * 10.0).round() / 10.0)),
+        "{caption}"
+    );
+    // Back, and 100 mm across onto the other copy (they lie side by side across the width): they
+    // overlap. 900 mm across: past the selvedge.
+    let (a, b) = (laid(layer(&s, "Marker Main"))[0].1, laid(layer(&s, "Marker Main"))[1].1);
+    let (moved, other) = if far == groups[0] { (a, b) } else { (b, a) };
+    let toward = moved.y0 - other.y0;
+    s.execute("object.move", &json!({"dx": -mm_to_pt(200.0), "dy": other.y0 + mm_to_pt(100.0) * toward.signum() - moved.y0})).unwrap();
+    let c = s.execute("marker.check", &json!({"layer": id.0})).unwrap();
+    assert_eq!(c["overlaps"].as_array().unwrap().len(), 1, "{c}");
+    assert!((c["lengthMm"].as_f64().unwrap() - made).abs() < 0.1, "{c}");
+    s.execute("object.move", &json!({"dy": toward.signum() * mm_to_pt(1000.0)})).unwrap();
+    let c = s.execute("marker.check", &json!({})).unwrap();
+    assert_eq!(c["offFabric"].as_array().unwrap().len(), 1, "{c}");
+    assert!(s.execute("marker.check", &json!({"layer": 1})).is_err(), "not a marker's layer");
+}

@@ -5455,3 +5455,8 @@ file-filter	PDF for projector	PDF para proyector
 	Dart legs curved {mm} mm	Lados de la pinza curvados {mm} mm
 	Draft Rounded Stand Collar	Trazar cuello mao redondeado
 	Draft Wing Collar	Trazar cuello de pajarita
+	Check Marker	Comprobar la marcada
+	{length} cm long, {efficiency}% of the fabric used	{length} cm de largo, {efficiency} % de la tela usada
+	{a} overlaps {b}	{a} se superpone con {b}
+	{piece} is off the fabric	{piece} queda fuera de la tela
+	No pieces overlap, and all are on the fabric.	Ninguna pieza se superpone y todas están sobre la tela.

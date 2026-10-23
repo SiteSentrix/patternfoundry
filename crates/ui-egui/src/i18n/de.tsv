@@ -5094,3 +5094,8 @@ file-filter	PDF for projector	PDF für Projektor
 	Dart legs curved {mm} mm	Abnäherschenkel um {mm} mm gewölbt
 	Draft Rounded Stand Collar	Stehkragen mit runden Ecken konstruieren
 	Draft Wing Collar	Kläppchenkragen konstruieren
+	Check Marker	Schnittbild prüfen
+	{length} cm long, {efficiency}% of the fabric used	{length} cm lang, {efficiency} % des Stoffs genutzt
+	{a} overlaps {b}	{a} überlappt {b}
+	{piece} is off the fabric	{piece} liegt außerhalb des Stoffs
+	No pieces overlap, and all are on the fabric.	Keine Teile überlappen, alle liegen auf dem Stoff.

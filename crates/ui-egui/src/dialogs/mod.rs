@@ -13,6 +13,7 @@ pub mod blend_options;
 pub mod block_options;
 mod brush_art_options;
 pub mod brush_options;
+pub mod check_marker;
 pub mod color_balance;
 pub mod color_guide_options;
 mod color_picker;

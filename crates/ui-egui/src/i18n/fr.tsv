@@ -5511,3 +5511,8 @@ file-filter	PDF for projector	PDF pour projecteur
 	Dart legs curved {mm} mm	Branches de la pince galbées de {mm} mm
 	Draft Rounded Stand Collar	Tracer un col officier arrondi
 	Draft Wing Collar	Tracer un col cassé
+	Check Marker	Vérifier le placement
+	{length} cm long, {efficiency}% of the fabric used	{length} cm de long, {efficiency} % du tissu utilisé
+	{a} overlaps {b}	{a} chevauche {b}
+	{piece} is off the fabric	{piece} dépasse du tissu
+	No pieces overlap, and all are on the fabric.	Aucune pièce ne se chevauche, toutes sont sur le tissu.

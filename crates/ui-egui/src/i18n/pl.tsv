@@ -5365,3 +5365,8 @@ file-filter	PDF for projector	PDF do projektora
 	Dart legs curved {mm} mm	Ramiona zaszewki wygięte o {mm} mm
 	Draft Rounded Stand Collar	Konstruuj stójkę z zaokrąglonymi rogami
 	Draft Wing Collar	Konstruuj kołnierzyk ze skrzydełkami
+	Check Marker	Sprawdź układ
+	{length} cm long, {efficiency}% of the fabric used	{length} cm długości, wykorzystano {efficiency}% tkaniny
+	{a} overlaps {b}	{a} nachodzi na {b}
+	{piece} is off the fabric	{piece} wychodzi poza tkaninę
+	No pieces overlap, and all are on the fabric.	Żadne elementy nie nachodzą na siebie, wszystkie leżą na tkaninie.

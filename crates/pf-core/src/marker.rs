@@ -97,6 +97,64 @@ pub fn area(points: &[Pt]) -> f64 {
     (0..n).map(|i| points[i].cross(points[(i + 1) % n])).sum::<f64>().abs() / 2.0
 }
 
+/// Whether point `q` is inside polygon `pts` (even-odd).
+fn inside(pts: &[Pt], q: Pt) -> bool {
+    let n = pts.len();
+    let mut c = false;
+    for i in 0..n {
+        let (a, b) = (pts[i], pts[(i + 1) % n]);
+        if (a.y > q.y) != (b.y > q.y) && q.x < a.x + (q.y - a.y) / (b.y - a.y) * (b.x - a.x) {
+            c = !c;
+        }
+    }
+    c
+}
+
+/// Whether segments `a0`–`a1` and `b0`–`b1` cross (touching at an end counts as not crossing).
+fn crosses(a0: Pt, a1: Pt, b0: Pt, b1: Pt) -> bool {
+    let (da, db) = (a1 - a0, b1 - b0);
+    let den = da.cross(db);
+    if den.abs() < 1e-12 {
+        return false;
+    }
+    let t = (b0 - a0).cross(db) / den;
+    let u = (b0 - a0).cross(da) / den;
+    let e = 1e-9;
+    t > e && t < 1.0 - e && u > e && u < 1.0 - e
+}
+
+/// Whether polygons `a` and `b` overlap: their outlines cross, or one lies inside the other
+/// (pieces laid by hand on a marker, PF-9.3). Outlines that only touch don't overlap.
+pub fn overlaps(a: &[Pt], b: &[Pt]) -> bool {
+    if a.len() < 3 || b.len() < 3 {
+        return false;
+    }
+    let bounds = |p: &[Pt]| {
+        p.iter().fold((f64::INFINITY, f64::INFINITY, f64::NEG_INFINITY, f64::NEG_INFINITY), |(x0, y0, x1, y1), q| {
+            (x0.min(q.x), y0.min(q.y), x1.max(q.x), y1.max(q.y))
+        })
+    };
+    let (ba, bb) = (bounds(a), bounds(b));
+    if ba.2 <= bb.0 || bb.2 <= ba.0 || ba.3 <= bb.1 || bb.3 <= ba.1 {
+        return false;
+    }
+    let (na, nb) = (a.len(), b.len());
+    for i in 0..na {
+        for j in 0..nb {
+            if crosses(a[i], a[(i + 1) % na], b[j], b[(j + 1) % nb]) {
+                return true;
+            }
+        }
+    }
+    // No crossing: one inside the other, or apart. A vertex on the other's outline is ambiguous,
+    // so test each polygon's middle-most vertex: its centroid when that is inside it.
+    let probe = |p: &[Pt]| {
+        let c = p.iter().fold(Pt::new(0.0, 0.0), |s, q| s + *q) * (1.0 / p.len() as f64);
+        if inside(p, c) { c } else { p[0] }
+    };
+    inside(b, probe(a)) || inside(a, probe(b))
+}
+
 /// A part's cells: per grid row, from its top, half-open runs of columns.
 struct Cells {
     cols: usize,
@@ -337,6 +395,21 @@ pub fn opened_out(points: &[Pt], a: Pt, b: Pt) -> Option<Vec<Pt>> {
 
 #[cfg(test)]
 mod tests {
+    #[test]
+    fn pieces_laid_by_hand_overlap_when_their_outlines_cross_or_nest() {
+        use super::overlaps;
+        let sq = |x: f64, y: f64, w: f64| vec![Pt::new(x, y), Pt::new(x + w, y), Pt::new(x + w, y + w), Pt::new(x, y + w)];
+        assert!(overlaps(&sq(0.0, 0.0, 10.0), &sq(5.0, 5.0, 10.0)), "crossing");
+        assert!(overlaps(&sq(0.0, 0.0, 10.0), &sq(2.0, 2.0, 3.0)), "one inside the other");
+        assert!(overlaps(&sq(2.0, 2.0, 3.0), &sq(0.0, 0.0, 10.0)));
+        assert!(!overlaps(&sq(0.0, 0.0, 10.0), &sq(10.0, 0.0, 10.0)), "touching edges");
+        assert!(!overlaps(&sq(0.0, 0.0, 10.0), &sq(20.0, 0.0, 10.0)), "apart");
+        // An L whose notch holds a square that doesn't touch it.
+        let l = vec![Pt::new(0.0, 0.0), Pt::new(30.0, 0.0), Pt::new(30.0, 10.0), Pt::new(10.0, 10.0), Pt::new(10.0, 30.0), Pt::new(0.0, 30.0)];
+        assert!(!overlaps(&l, &sq(15.0, 15.0, 10.0)));
+        assert!(overlaps(&l, &sq(5.0, 5.0, 2.0)));
+    }
+
     use super::*;
 
     fn rect(w: f64, h: f64) -> Vec<Pt> {

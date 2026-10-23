@@ -5498,3 +5498,8 @@ file-filter	PDF for projector	PDF projektorhoz
 	Dart legs curved {mm} mm	Varrásszárak ívelve {mm} mm-rel
 	Draft Rounded Stand Collar	Lekerekített állógallér szerkesztése
 	Draft Wing Collar	Szárnyas gallér szerkesztése
+	Check Marker	Szabásterv ellenőrzése
+	{length} cm long, {efficiency}% of the fabric used	{length} cm hosszú, az anyag {efficiency}%-a felhasználva
+	{a} overlaps {b}	{a} átfedi ezt: {b}
+	{piece} is off the fabric	{piece} kilóg az anyagról
+	No pieces overlap, and all are on the fabric.	Egyik darab sem fedi át a másikat, és mind az anyagon van.

@@ -5127,3 +5127,8 @@ file-filter	PDF for projector	PDF per proiettore
 	Dart legs curved {mm} mm	Lati della pince curvati di {mm} mm
 	Draft Rounded Stand Collar	Traccia collo alla coreana arrotondato
 	Draft Wing Collar	Traccia collo diplomatico
+	Check Marker	Controlla il piazzamento
+	{length} cm long, {efficiency}% of the fabric used	{length} cm di lunghezza, {efficiency}% del tessuto usato
+	{a} overlaps {b}	{a} si sovrappone a {b}
+	{piece} is off the fabric	{piece} è fuori dal tessuto
+	No pieces overlap, and all are on the fabric.	Nessun pezzo si sovrappone e tutti sono sul tessuto.

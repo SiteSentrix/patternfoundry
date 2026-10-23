@@ -5420,3 +5420,8 @@ file-filter	PDF for projector	PDF პროექტორისთვის
 	Dart legs curved {mm} mm	გამონაჭრის გვერდები მოხრილია {mm} მმ-ით
 	Draft Rounded Stand Collar	მომრგვალებული მდგომი საყელოს აგება
 	Draft Wing Collar	ფრთიანი საყელოს აგება
+	Check Marker	განლაგების შემოწმება
+	{length} cm long, {efficiency}% of the fabric used	სიგრძე {length} სმ, გამოყენებულია ქსოვილის {efficiency}%
+	{a} overlaps {b}	{a} ფარავს {b}-ს
+	{piece} is off the fabric	{piece} ქსოვილის გარეთაა
+	No pieces overlap, and all are on the fabric.	არცერთი დეტალი არ ფარავს მეორეს და ყველა ქსოვილზეა.

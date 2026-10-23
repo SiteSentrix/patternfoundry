@@ -5167,3 +5167,8 @@ file-filter	PDF for projector	プロジェクター用 PDF
 	Dart legs curved {mm} mm	ダーツ線を {mm} mm カーブさせました
 	Draft Rounded Stand Collar	角の丸いスタンドカラーを製図
 	Draft Wing Collar	ウィングカラーを製図
+	Check Marker	マーカーを確認
+	{length} cm long, {efficiency}% of the fabric used	長さ {length} cm、生地の {efficiency}% を使用
+	{a} overlaps {b}	{a} が {b} と重なっています
+	{piece} is off the fabric	{piece} が生地からはみ出しています
+	No pieces overlap, and all are on the fabric.	重なっているパーツはなく、すべて生地の上にあります。
