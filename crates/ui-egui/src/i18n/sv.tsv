@@ -5463,3 +5463,6 @@ file-filter	PDF for projector	PDF för projektor
 	Design changes made on the block (darts, splits, spreads, seam lengths) show here; each is made again when the measurements change	Ändringar på grundmönstret (inprovningar, delningar, spridningar, sömlängder) visas här; var och en görs om när måtten ändras
 	Remove this step and the ones after it (they were made on the outline it made)	Ta bort det här steget och de efter det (de gjordes på konturen det gav)
 	Selected block part	Markerad del av grundmönstret
+	Curve Dart Legs…	Böj inprovningens ben…
+	Curve Dart Legs	Böj inprovningens ben
+	Dart legs curved {mm} mm	Inprovningens ben böjda {mm} mm

@@ -777,3 +777,15 @@ is built on, plus a pattern mode, the way StitchFoundry adds embroidery:
   it. Tests: 1 in `tests_design.rs` (the last step and then the first removed, each outline as
   drafting and making the steps left; undo; a split refused), 1 in `tests_pieces.rs` (the list and
   its button). Not yet: changing a step's amount in place.
+- 2026-10-23, **PF-5.23**: curved dart legs. Pattern › Curve Dart Legs… (`design.curveDart {apex,
+  depth: 3 mm}`) bows a dart's two straight legs by the depth at their middle: more than 0 bows
+  them out (a convex dart, which takes in more fabric between its ends and its point), less than 0
+  bows them in (a concave dart, which gives room there), as Threads, "Darts build shape into a
+  garment" (https://www.threadsmagazine.com/project-guides/learn-to-sew/darts-build-shape-into-a-garment)
+  describes them. The dart's ends and point stay, so the seams it opens on don't change; the depth
+  is at most a quarter of the dart's opening so the legs can't cross. On a block part it is a
+  design step (`curveDart`), made again when the measurements change and listed in the Pieces
+  panel. `pf_core::design::curve_dart`. Tests: 1 in `pf-core` (each leg's middle 3 off, away from
+  the centre line or toward it; the ends stay; too deep, twice and a corner refused), 1 in
+  `tests_design.rs` (the bodice's dart curved, the bust changed: the same outline and handles as
+  drafting at the new bust and curving it). Not yet: truing a princess seam over the bust.

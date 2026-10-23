@@ -5450,3 +5450,6 @@ file-filter	PDF for projector	PDF para proyector
 	Design changes made on the block (darts, splits, spreads, seam lengths) show here; each is made again when the measurements change	Los cambios hechos en el patrón base (pinzas, divisiones, aperturas, largos de costura) aparecen aquí; cada uno se vuelve a hacer cuando cambian las medidas
 	Remove this step and the ones after it (they were made on the outline it made)	Quitar este paso y los siguientes (se hicieron sobre el contorno que este dejó)
 	Selected block part	Parte del patrón base seleccionada
+	Curve Dart Legs…	Curvar los lados de la pinza…
+	Curve Dart Legs	Curvar los lados de la pinza
+	Dart legs curved {mm} mm	Lados de la pinza curvados {mm} mm

@@ -5507,3 +5507,6 @@ file-filter	PDF for projector	PDF pro projektor
 	Design changes made on the block (darts, splits, spreads, seam lengths) show here; each is made again when the measurements change	Úpravy základního střihu (záševky, dělení, rozevření, délky švů) se zobrazují zde; každá se provede znovu, když se změní míry
 	Remove this step and the ones after it (they were made on the outline it made)	Odebrat tento krok a ty po něm (byly provedeny na obrysu, který vytvořil)
 	Selected block part	Vybraná část základního střihu
+	Curve Dart Legs…	Prohnout ramena záševku…
+	Curve Dart Legs	Prohnout ramena záševku
+	Dart legs curved {mm} mm	Ramena záševku prohnuta o {mm} mm

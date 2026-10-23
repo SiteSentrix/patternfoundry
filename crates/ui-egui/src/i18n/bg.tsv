@@ -5471,3 +5471,6 @@ file-filter	PDF for projector	PDF за проектор
 	Design changes made on the block (darts, splits, spreads, seam lengths) show here; each is made again when the measurements change	Промените в основната кройка (пенсове, разделяния, раздалечавания, дължини на шевове) се показват тук; всяка се прави отново, когато мерките се променят
 	Remove this step and the ones after it (they were made on the outline it made)	Премахване на тази стъпка и следващите (те са направени върху контура, който тя даде)
 	Selected block part	Избрана част от основната кройка
+	Curve Dart Legs…	Извиване на страните на пенса…
+	Curve Dart Legs	Извиване на страните на пенса
+	Dart legs curved {mm} mm	Страните на пенса са извити с {mm} мм

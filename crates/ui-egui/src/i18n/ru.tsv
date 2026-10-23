@@ -5118,3 +5118,6 @@ file-filter	PDF for projector	PDF для проектора
 	Design changes made on the block (darts, splits, spreads, seam lengths) show here; each is made again when the measurements change	Изменения базовой выкройки (вытачки, членения, раздвижки, длины швов) показаны здесь; каждое выполняется заново при изменении мерок
 	Remove this step and the ones after it (they were made on the outline it made)	Удалить этот шаг и следующие (они сделаны на контуре, который он дал)
 	Selected block part	Выбранная часть базовой выкройки
+	Curve Dart Legs…	Изогнуть стороны вытачки…
+	Curve Dart Legs	Изогнуть стороны вытачки
+	Dart legs curved {mm} mm	Стороны вытачки изогнуты на {mm} мм

@@ -5471,3 +5471,6 @@ file-filter	PDF for projector	PDF projektorille
 	Design changes made on the block (darts, splits, spreads, seam lengths) show here; each is made again when the measurements change	Peruskaavaan tehdyt muutokset (laskokset, jaot, levitykset, saumojen pituudet) näkyvät tässä; jokainen tehdään uudelleen, kun mitat muuttuvat
 	Remove this step and the ones after it (they were made on the outline it made)	Poista tämä vaihe ja sen jälkeiset (ne tehtiin sen tuottamaan ääriviivaan)
 	Selected block part	Valittu peruskaavan osa
+	Curve Dart Legs…	Kaarra laskoksen sivut…
+	Curve Dart Legs	Kaarra laskoksen sivut
+	Dart legs curved {mm} mm	Laskoksen sivuja kaarrettu {mm} mm

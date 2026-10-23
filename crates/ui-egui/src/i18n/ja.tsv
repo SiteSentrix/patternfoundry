@@ -5162,3 +5162,6 @@ file-filter	PDF for projector	プロジェクター用 PDF
 	Design changes made on the block (darts, splits, spreads, seam lengths) show here; each is made again when the measurements change	原型に加えた変更（ダーツ、分割、展開、縫い目の長さ）はここに表示されます。採寸値が変わると、それぞれがやり直されます
 	Remove this step and the ones after it (they were made on the outline it made)	この手順とそれ以降の手順を削除（それ以降はこの手順でできた輪郭の上で行われています）
 	Selected block part	選択した原型パーツ
+	Curve Dart Legs…	ダーツ線をカーブさせる…
+	Curve Dart Legs	ダーツ線をカーブさせる
+	Dart legs curved {mm} mm	ダーツ線を {mm} mm カーブさせました

@@ -5122,3 +5122,6 @@ file-filter	PDF for projector	PDF per proiettore
 	Design changes made on the block (darts, splits, spreads, seam lengths) show here; each is made again when the measurements change	Le modifiche fatte sul cartamodello base (pince, divisioni, aperture, lunghezze delle cuciture) compaiono qui; ognuna viene rifatta quando cambiano le misure
 	Remove this step and the ones after it (they were made on the outline it made)	Rimuovi questo passaggio e quelli successivi (sono stati fatti sul contorno che ha prodotto)
 	Selected block part	Parte del cartamodello base selezionata
+	Curve Dart Legs…	Curva i lati della pince…
+	Curve Dart Legs	Curva i lati della pince
+	Dart legs curved {mm} mm	Lati della pince curvati di {mm} mm

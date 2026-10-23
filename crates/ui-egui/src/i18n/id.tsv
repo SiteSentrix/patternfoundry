@@ -5490,3 +5490,6 @@ file-filter	PDF for projector	PDF untuk proyektor
 	Design changes made on the block (darts, splits, spreads, seam lengths) show here; each is made again when the measurements change	Perubahan pada pola dasar (kup, pisahan, bukaan, panjang jahitan) tampil di sini; masing-masing dibuat ulang saat ukuran berubah
 	Remove this step and the ones after it (they were made on the outline it made)	Hapus langkah ini dan yang sesudahnya (dibuat pada garis tepi hasil langkah ini)
 	Selected block part	Bagian pola dasar terpilih
+	Curve Dart Legs…	Lengkungkan sisi kup…
+	Curve Dart Legs	Lengkungkan sisi kup
+	Dart legs curved {mm} mm	Sisi kup dilengkungkan {mm} mm

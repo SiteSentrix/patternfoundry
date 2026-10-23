@@ -5493,3 +5493,6 @@ file-filter	PDF for projector	PDF projektorhoz
 	Design changes made on the block (darts, splits, spreads, seam lengths) show here; each is made again when the measurements change	Az alapszabásmintán végzett módosítások (varrások, osztások, szétnyitások, varráshosszak) itt jelennek meg; mindegyik újra elkészül, ha a méretek változnak
 	Remove this step and the ones after it (they were made on the outline it made)	E lépés és az utána következők eltávolítása (azokat az általa létrehozott körvonalon végezték)
 	Selected block part	Kijelölt alapszabásminta-rész
+	Curve Dart Legs…	Varrásszárak ívelése…
+	Curve Dart Legs	Varrásszárak ívelése
+	Dart legs curved {mm} mm	Varrásszárak ívelve {mm} mm-rel

@@ -5532,3 +5532,6 @@ file-filter	PDF for projector	PDF voor projector
 	Design changes made on the block (darts, splits, spreads, seam lengths) show here; each is made again when the measurements change	Wijzigingen aan het basispatroon (figuurnaden, splitsingen, uitspreidingen, naadlengtes) staan hier; elke wordt opnieuw gedaan als de maten veranderen
 	Remove this step and the ones after it (they were made on the outline it made)	Deze stap en de volgende verwijderen (ze zijn gedaan op de omtrek die deze opleverde)
 	Selected block part	Geselecteerd deel van het basispatroon
+	Curve Dart Legs…	Benen van de figuurnaad welven…
+	Curve Dart Legs	Benen van de figuurnaad welven
+	Dart legs curved {mm} mm	Benen van de figuurnaad {mm} mm gewelfd
