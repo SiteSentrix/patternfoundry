@@ -158,7 +158,7 @@ impl Outline {
 }
 
 /// A dart is a sharp inward corner of two straight legs: legs closer than this (degrees).
-const DART_DEGREES: f64 = 50.0;
+pub const DART_DEGREES: f64 = 50.0;
 
 /// `p` turned by `angle` (radians) about `about`.
 fn turn_about(p: Pt, about: Pt, angle: f64) -> Pt {

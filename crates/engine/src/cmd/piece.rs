@@ -241,7 +241,7 @@ fn black() -> Paint {
 }
 
 /// The seam line's look: a thin dashed line, no fill.
-fn seam_look() -> Appearance {
+pub(crate) fn seam_look() -> Appearance {
     let mut a = Appearance::basic(Paint::None, black(), 0.5);
     if let Some(st) = a.stroke_mut() {
         st.dash = Some(vectorcraft_doc::Dash { pattern: vec![4.0, 2.0], ..Default::default() });
@@ -281,8 +281,21 @@ fn problem(seam: Option<&Node>) -> Option<String> {
     pf_core::cutting_line(&outline, |_| 0.0, |_| Corner::Mitre).err().map(|e| e.to_string())
 }
 
+/// A new piece group with id `gid` of the closed path `seam` (its seam line), `piece`'s data and
+/// `inside` (drawn inside it, kept as they are). Its parts are drawn by [`rebuild`] once it is in
+/// a document.
+pub(crate) fn new_piece(gid: NodeId, mut seam: Node, piece: Piece, inside: Vec<Node>) -> Node {
+    seam.extras_mut().pattern = Some(Box::new(PatternTag::Mark(Mark::Seam)));
+    seam.appearance = seam_look().into();
+    let mut children = vec![Arc::new(seam)];
+    children.extend(inside.into_iter().map(Arc::new));
+    let mut group = Node::group(gid, children);
+    group.extras_mut().pattern = Some(Box::new(PatternTag::Piece(Box::new(piece))));
+    group
+}
+
 /// Draw the parts of the piece group `id` again from its seam line and data, keeping their ids.
-fn rebuild(doc: &mut Document, id: NodeId) -> Result<()> {
+pub(crate) fn rebuild(doc: &mut Document, id: NodeId) -> Result<()> {
     let Some(group) = doc.node(id) else { return Ok(()) };
     let Some(mut piece) = piece_on(group).cloned() else { return Ok(()) };
     let children: Vec<Arc<Node>> = group.children().cloned().unwrap_or_default();

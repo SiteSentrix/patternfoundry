@@ -182,3 +182,75 @@ fn t_castle_and_u_notches_are_points_on_their_own_layers() {
     assert_eq!(shapes, [pf_aama::NotchShape::Castle, pf_aama::NotchShape::T, pf_aama::NotchShape::U]);
     assert!((back.pieces[0].notches[1].at[0] - 120.0).abs() < 1e-6);
 }
+
+#[test]
+fn a_dxf_aama_file_opens_as_its_pattern_pieces() {
+    let mut s = square_piece(2, true);
+    let c = 40.0 + mm_to_pt(50.0);
+    s.execute("piece.addDrill", &json!({"point": [c, c], "diameter": 4})).unwrap();
+    s.execute("piece.addNotch", &json!({"edge": 1, "kind": "castle"})).unwrap();
+    s.execute("piece.set", &json!({"fold": 3, "edges": {"2": 40}, "grainline": {"from": [c, 60], "to": [c, 260]}})).unwrap();
+    let r = s.execute("document.export", &json!({"format": "aama", "styleName": "Square"})).unwrap();
+    let data = r["dataBase64"].as_str().unwrap().to_string();
+    let opened = s.execute("document.open", &json!({"name": "square.dxf", "dataBase64": data})).unwrap();
+    assert_eq!(opened["warnings"], json!([]), "{opened}");
+    let list = s.execute("piece.list", &json!({})).unwrap();
+    assert_eq!(list["pieces"].as_array().unwrap().len(), 1, "{list}");
+    let id = list["pieces"][0]["id"].clone();
+    let info = s.execute("piece.info", &json!({"id": id})).unwrap();
+    assert_eq!(
+        (info["name"].as_str(), info["cut"].as_u64(), info["mirror"].as_bool(), info["fabric"].as_str()),
+        (Some("Front"), Some(2), Some(true), Some("Main"))
+    );
+    // True scale: the seam line is the 10 cm square again (400 mm round), the allowance 10 mm.
+    assert!((info["seamLength"].as_f64().unwrap() - 400.0).abs() < 0.01 && (info["allowance"].as_f64().unwrap() - 10.0).abs() < 0.01, "{info}");
+    // The left side on the fold, the two notches with their shapes, the drill hole and the grainline.
+    assert_eq!((info["fold"].as_u64(), &info["edges"]), (Some(3), &json!({"2": 40.0})), "{info}");
+    let kinds: Vec<&str> = info["notches"].as_array().unwrap().iter().filter_map(|n| n["kind"].as_str()).collect();
+    assert!(kinds.contains(&"slit") && kinds.contains(&"castle"), "{kinds:?}");
+    assert_eq!(info["drills"][0]["diameter"], json!(4.0));
+    assert!(info["grainline"].is_object());
+    // Written out again: 110 mm across (no allowance on the fold), 150 mm down (the 40 mm hem).
+    let dxf = export(&mut s, json!({"format": "aama"}));
+    let xs: Vec<f64> = entities(&dxf, "VERTEX", "1").iter().flat_map(|e| values(e, 10)).collect();
+    let ys: Vec<f64> = entities(&dxf, "VERTEX", "1").iter().flat_map(|e| values(e, 20)).collect();
+    assert!((span(&xs) - 110.0).abs() < 1e-3 && (span(&ys) - 150.0).abs() < 1e-3, "{} {}", span(&xs), span(&ys));
+    assert_eq!(entities(&dxf, "POINT", "13").len(), 1);
+    // A plain DXF still opens as a drawing.
+    let plain = s.execute("document.export", &json!({"format": "dxf"})).unwrap();
+    s.execute("document.open", &json!({"name": "plain.dxf", "dataBase64": plain["dataBase64"]})).unwrap();
+    assert_eq!(s.execute("piece.list", &json!({})).unwrap()["pieces"], json!([]));
+}
+
+#[test]
+fn the_skirt_blocks_curves_come_back_with_one_allowance_each() {
+    let mut s = Session::new();
+    s.execute("file.new", &json!({"width": 800, "height": 800})).unwrap();
+    s.execute("measure.set", &json!({"values": {"waist": 680, "hip": 940, "waist_to_hip": 200, "skirt_length": 600}})).unwrap();
+    s.execute("block.skirt", &json!({"origin": [0, 0]})).unwrap();
+    s.execute("select.all", &json!({})).unwrap();
+    s.execute("piece.make", &json!({})).unwrap();
+    let before = s.execute("piece.list", &json!({})).unwrap()["pieces"].as_array().unwrap().len();
+    let r = s.execute("document.export", &json!({"format": "aama"})).unwrap();
+    let first = String::from_utf8(vectorcraft_format::base64_decode(r["dataBase64"].as_str().unwrap()).unwrap()).unwrap().replace("\r\n", "\n");
+    let widths = |dxf: &str| {
+        let xs: Vec<f64> = entities(dxf, "VERTEX", "1").iter().flat_map(|e| values(e, 10)).collect();
+        let ys: Vec<f64> = entities(dxf, "VERTEX", "1").iter().flat_map(|e| values(e, 20)).collect();
+        (span(&xs), span(&ys))
+    };
+    let opened = s.execute("document.open", &json!({"name": "skirt.dxf", "dataBase64": r["dataBase64"]})).unwrap();
+    assert_eq!(opened["warnings"], json!([]), "{opened}");
+    let list = s.execute("piece.list", &json!({})).unwrap();
+    let pieces = list["pieces"].as_array().unwrap();
+    assert_eq!(pieces.len(), before);
+    for p in pieces {
+        let info = s.execute("piece.info", &json!({"id": p["id"]})).unwrap();
+        // The curves flattened into many short edges, each the piece's allowance.
+        assert!(info["edgeCount"].as_u64().unwrap() > 10 && info.get("edges").is_none(), "{info}");
+        assert!(info["problem"].is_null(), "{info}");
+    }
+    // True scale: the cutting lines written out again measure as they did, to a fiftieth of a mm.
+    let (w0, h0) = widths(&first);
+    let (w1, h1) = widths(&export(&mut s, json!({"format": "aama"})));
+    assert!((w0 - w1).abs() < 0.02 && (h0 - h1).abs() < 0.02, "{w0}×{h0} then {w1}×{h1}");
+}
