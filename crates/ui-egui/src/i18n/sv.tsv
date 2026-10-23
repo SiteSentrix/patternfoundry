@@ -5468,3 +5468,8 @@ file-filter	PDF for projector	PDF för projektor
 	Dart legs curved {mm} mm	Inprovningens ben böjda {mm} mm
 	Draft Rounded Stand Collar	Konstruera ståkrage med rundade hörn
 	Draft Wing Collar	Konstruera vingkrage
+	Check Marker	Kontrollera utläggningen
+	{length} cm long, {efficiency}% of the fabric used	{length} cm lång, {efficiency} % av tyget används
+	{a} overlaps {b}	{a} överlappar {b}
+	{piece} is off the fabric	{piece} ligger utanför tyget
+	No pieces overlap, and all are on the fabric.	Inga delar överlappar, och alla ligger på tyget.

@@ -5476,3 +5476,8 @@ file-filter	PDF for projector	PDF projektorille
 	Dart legs curved {mm} mm	Laskoksen sivuja kaarrettu {mm} mm
 	Draft Rounded Stand Collar	Piirrä pyöristetty pystykaulus
 	Draft Wing Collar	Piirrä siipikaulus
+	Check Marker	Tarkista leikkuukaavio
+	{length} cm long, {efficiency}% of the fabric used	{length} cm pitkä, {efficiency} % kankaasta käytetty
+	{a} overlaps {b}	{a} on päällekkäin kappaleen {b} kanssa
+	{piece} is off the fabric	{piece} on kankaan ulkopuolella
+	No pieces overlap, and all are on the fabric.	Mitkään kappaleet eivät ole päällekkäin, ja kaikki ovat kankaalla.

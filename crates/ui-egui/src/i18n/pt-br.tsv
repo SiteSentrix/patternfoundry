@@ -5430,3 +5430,8 @@ file-filter	PDF for projector	PDF para projetor
 	Dart legs curved {mm} mm	Pernas da pence curvadas {mm} mm
 	Draft Rounded Stand Collar	Traçar gola padre arredondada
 	Draft Wing Collar	Traçar gola de bico virado
+	Check Marker	Verificar o encaixe
+	{length} cm long, {efficiency}% of the fabric used	{length} cm de comprimento, {efficiency}% do tecido usado
+	{a} overlaps {b}	{a} sobrepõe {b}
+	{piece} is off the fabric	{piece} está fora do tecido
+	No pieces overlap, and all are on the fabric.	Nenhuma peça se sobrepõe e todas estão sobre o tecido.

@@ -5090,3 +5090,8 @@ file-filter	PDF for projector	프로젝터용 PDF
 	Dart legs curved {mm} mm	다트 선을 {mm} mm 곡선화함
 	Draft Rounded Stand Collar	둥근 스탠드 칼라 제도
 	Draft Wing Collar	윙 칼라 제도
+	Check Marker	마커 확인
+	{length} cm long, {efficiency}% of the fabric used	길이 {length} cm, 원단의 {efficiency}% 사용
+	{a} overlaps {b}	{a}이(가) {b}와(과) 겹칩니다
+	{piece} is off the fabric	{piece}이(가) 원단 밖에 있습니다
+	No pieces overlap, and all are on the fabric.	겹치는 조각이 없고 모두 원단 위에 있습니다.

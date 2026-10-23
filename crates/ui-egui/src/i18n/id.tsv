@@ -5495,3 +5495,8 @@ file-filter	PDF for projector	PDF untuk proyektor
 	Dart legs curved {mm} mm	Sisi kup dilengkungkan {mm} mm
 	Draft Rounded Stand Collar	Buat pola kerah berdiri ujung bulat
 	Draft Wing Collar	Buat pola kerah sayap
+	Check Marker	Periksa tata letak potong
+	{length} cm long, {efficiency}% of the fabric used	Panjang {length} cm, {efficiency}% kain terpakai
+	{a} overlaps {b}	{a} bertumpuk dengan {b}
+	{piece} is off the fabric	{piece} keluar dari kain
+	No pieces overlap, and all are on the fabric.	Tidak ada bagian yang bertumpuk, semuanya di atas kain.

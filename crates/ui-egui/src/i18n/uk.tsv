@@ -5107,3 +5107,8 @@ file-filter	PDF for projector	PDF для проєктора
 	Dart legs curved {mm} mm	Сторони виточки вигнуто на {mm} мм
 	Draft Rounded Stand Collar	Побудувати комір-стійку із заокругленими кінцями
 	Draft Wing Collar	Побудувати комір «метелик»
+	Check Marker	Перевірити розкладку
+	{length} cm long, {efficiency}% of the fabric used	Довжина {length} см, використано {efficiency}% тканини
+	{a} overlaps {b}	{a} перекриває {b}
+	{piece} is off the fabric	{piece} виходить за тканину
+	No pieces overlap, and all are on the fabric.	Деталі не перекриваються, усі лежать на тканині.

@@ -5348,3 +5348,8 @@ file-filter	PDF for projector	用于投影仪的 PDF
 	Dart legs curved {mm} mm	省道边已弯曲 {mm} mm
 	Draft Rounded Stand Collar	绘制圆角立领
 	Draft Wing Collar	绘制翼领
+	Check Marker	检查排料图
+	{length} cm long, {efficiency}% of the fabric used	长 {length} 厘米，用料 {efficiency}%
+	{a} overlaps {b}	{a} 与 {b} 重叠
+	{piece} is off the fabric	{piece} 超出面料
+	No pieces overlap, and all are on the fabric.	没有裁片重叠，全部都在面料上。

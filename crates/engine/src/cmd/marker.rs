@@ -40,15 +40,26 @@ const STEP_MM: f64 = 5.0;
 const MAX_COPIES: usize = 2_000;
 
 pub fn specs() -> Vec<CommandSpec> {
-    vec![cmd!(
-        "marker.make",
-        "Make Marker",
-        [],
-        None,
-        "{width: mm (the fabric's width; or a length with its unit, \"150 cm\", \"60 in\"), fabric? (the fabric whose pieces to lay; default: the first piece's; a piece with none is Main), ids? (these pieces instead), gap?: mm (2, between pieces), oneWay?: bool (a nap or one-way print: every piece the same way up), size? (a size of the size range or chart: that size's pieces), precision?: mm (5; 1 to 20, smaller lays closer but takes longer), folded?: bool (the fabric folded lengthwise, selvedges together: pieces on the fold against the fold, the others laid once a pair; pieces on the fold are opened out otherwise), origin?: [x, y] (document points: the marker's top-left; default below the art)} lays every copy of the pieces (their cut counts, mirror-image pairs flipped) on the fabric with the grainlines along its length, as short as it goes, on the layer \"Marker <fabric>\" (made again it replaces it) → {layer, fabric, widthMm, lengthMm, efficiency (% of the fabric the pieces use), copies, notLaid: [names too wide for the fabric], warnings}",
-        has_doc,
-        make
-    )]
+    vec![
+        cmd!(
+            "marker.make",
+            "Make Marker",
+            [],
+            None,
+            "{width: mm (the fabric's width; or a length with its unit, \"150 cm\", \"60 in\"), fabric? (the fabric whose pieces to lay; default: the first piece's; a piece with none is Main), ids? (these pieces instead), gap?: mm (2, between pieces), oneWay?: bool (a nap or one-way print: every piece the same way up), size? (a size of the size range or chart: that size's pieces), precision?: mm (5; 1 to 20, smaller lays closer but takes longer), folded?: bool (the fabric folded lengthwise, selvedges together: pieces on the fold against the fold, the others laid once a pair; pieces on the fold are opened out otherwise), origin?: [x, y] (document points: the marker's top-left; default below the art)} lays every copy of the pieces (their cut counts, mirror-image pairs flipped) on the fabric with the grainlines along its length, as short as it goes, on the layer \"Marker <fabric>\" (made again it replaces it) → {layer, fabric, widthMm, lengthMm, efficiency (% of the fabric the pieces use), copies, notLaid: [names too wide for the fabric], warnings}",
+            has_doc,
+            make
+        ),
+        cmd!(
+            "marker.check",
+            "Check Marker",
+            [],
+            None,
+            "{layer? (a marker's layer id; default: the marker the selection is on, or the document's only one)} after the marker's pieces are moved by hand: the fabric's length drawn again to the last piece and the caption's length and % used brought up to date; copies that overlap and copies off the fabric (past a selvedge, or before its start) are listed → {layer, lengthMm, efficiency, copies, overlaps: [[name, name]], offFabric: [name]}",
+            has_doc,
+            check
+        ),
+    ]
 }
 
 /// One copy to lay: the piece's group, which copy it is, and whether it is the mirror image.
@@ -370,6 +381,133 @@ fn make(s: &mut Session, p: &Value) -> Result<Value> {
         "notLaid": not_laid,
         "folded": folded,
         "warnings": warnings,
+    }))
+}
+
+/// The marker layer `p` names, or the one the selection is on, or the document's only one.
+fn marker_layer(s: &Session, p: &Value, cmd: &str) -> Result<NodeId> {
+    let st = s.doc()?;
+    let is_marker = |id: NodeId| st.doc.layers.iter().any(|l| l.id == id && l.name.as_deref().is_some_and(|n| n.starts_with("Marker ")));
+    if let Some(v) = p.get("layer").filter(|v| !v.is_null()) {
+        let id = NodeId(v.as_u64().ok_or_else(|| bad(cmd, "layer: a marker layer's id"))?);
+        return if is_marker(id) { Ok(id) } else { Err(bad(cmd, "not a marker's layer (Pattern › Make Marker…)")) };
+    }
+    let mut on = st.selection.in_paint_order(&st.doc).into_iter().filter_map(|id| {
+        let mut at = id;
+        loop {
+            if is_marker(at) {
+                return Some(at);
+            }
+            at = st.doc.parent_of(at)?;
+        }
+    });
+    if let Some(id) = on.next() {
+        return Ok(id);
+    }
+    let all: Vec<NodeId> = st.doc.layers.iter().map(|l| l.id).filter(|id| is_marker(*id)).collect();
+    match all[..] {
+        [one] => Ok(one),
+        [] => Err(bad(cmd, "the document has no marker (Pattern › Make Marker…)")),
+        _ => Err(bad(cmd, "select a piece on the marker to check")),
+    }
+}
+
+/// The corners of a path's first outline, in document points (its anchors: cutting lines are
+/// polylines).
+fn outline_of(n: &Node) -> Vec<Pt> {
+    match &n.kind {
+        NodeKind::Path { path, .. } => path.subpaths.first().map(|sp| sp.anchors.iter().map(|a| Pt::new(a.p.x, a.p.y)).collect()).unwrap_or_default(),
+        _ => Vec::new(),
+    }
+}
+
+fn check(s: &mut Session, p: &Value) -> Result<Value> {
+    const C: &str = "marker.check";
+    let layer = marker_layer(s, p, C)?;
+    let doc = &s.doc()?.doc;
+    let l = doc.node(layer).ok_or(EngineError::NoNode(layer))?;
+    let children = l.children().map(|c| c.to_vec()).unwrap_or_default();
+    let fabric = children
+        .iter()
+        .find(|c| c.name.as_deref().is_some_and(|n| n.starts_with("Fabric ")))
+        .ok_or_else(|| bad(C, "the marker has lost its fabric outline"))?;
+    let corners = outline_of(fabric);
+    let (x0, y0, y1) = corners.iter().fold((f64::INFINITY, f64::INFINITY, f64::NEG_INFINITY), |(a, b, c), q| (a.min(q.x), b.min(q.y), c.max(q.y)));
+    if !(x0.is_finite() && y1 > y0) {
+        return Err(bad(C, "the marker has lost its fabric outline"));
+    }
+    // Each copy: its name and its cutting line.
+    let copies: Vec<(String, Vec<Pt>)> = children
+        .iter()
+        .filter(|c| matches!(c.kind, NodeKind::Group { .. }))
+        .filter_map(|g| {
+            let cut = g.children()?.iter().find(|c| c.name.as_deref() == Some("Cutting line"))?;
+            let pts = outline_of(cut);
+            (pts.len() >= 3).then(|| (g.name.clone().unwrap_or_default(), pts))
+        })
+        .collect();
+    if copies.is_empty() {
+        return Err(bad(C, "the marker has no pieces"));
+    }
+    let e = mm_to_pt(0.05);
+    let end = copies.iter().flat_map(|(_, pts)| pts.iter().map(|q| q.x)).fold(x0, f64::max);
+    let length = end - x0;
+    let width = y1 - y0;
+    let used: f64 = copies.iter().map(|(_, pts)| area(pts)).sum();
+    let efficiency = if length > 0.0 { used / (length * width) * 100.0 } else { 0.0 };
+    let off: Vec<String> =
+        copies.iter().filter(|(_, pts)| pts.iter().any(|q| q.y < y0 - e || q.y > y1 + e || q.x < x0 - e)).map(|(n, _)| n.clone()).collect();
+    let mut overlaps = Vec::new();
+    for i in 0..copies.len() {
+        for j in i + 1..copies.len() {
+            if pf_core::marker::overlaps(&copies[i].1, &copies[j].1) {
+                overlaps.push(json!([copies[i].0, copies[j].0]));
+            }
+        }
+    }
+    let r1 = |v: f64| (v * 10.0).round() / 10.0;
+    let fold = children.iter().find(|c| c.name.as_deref() == Some("Fold")).map(|c| c.id);
+    let (fabric_id, caption) = (fabric.id, children.iter().find(|c| matches!(c.kind, NodeKind::Text(_))).map(|c| c.id));
+    let new_caption = caption.and_then(|id| match &doc.node(id)?.kind {
+        NodeKind::Text(t) => {
+            let old = t.plain_text();
+            // "<fabric>…: W cm wide…, L cm long, E% used": the length and the share again.
+            let head = old.rsplit_once(", ").and_then(|(h, _)| h.rsplit_once(", ")).map(|(h, _)| h.to_string())?;
+            Some(format!("{head}, {} cm long, {}% used", r1(pt_to_mm(length) / 10.0), efficiency.round()))
+        }
+        _ => None,
+    });
+    let at = Point::new(x0, y0 - mm_to_pt(6.0));
+    s.edit("Check Marker", |d, _| {
+        let ring = [Point::new(x0, y0), Point::new(x0 + length, y0), Point::new(x0 + length, y1), Point::new(x0, y1)];
+        if let Some(n) = d.node_mut(fabric_id)
+            && let NodeKind::Path { path, .. } = &mut n.kind
+        {
+            *path = PathData::single(SubPath::polyline(&ring, true));
+        }
+        // Folded fabric: the fold along the top edge, as long.
+        if let Some(id) = fold
+            && let Some(n) = d.node_mut(id)
+            && let NodeKind::Path { path, .. } = &mut n.kind
+        {
+            *path = PathData::single(SubPath::polyline(&ring[..2], false));
+        }
+        if let (Some(id), Some(text_now)) = (caption, &new_caption) {
+            let mut fresh = text(d, text_now, at, false, Paint::solid(Color::BLACK));
+            fresh.id = id;
+            if let Some(n) = d.node_mut(id) {
+                *n = fresh;
+            }
+        }
+        Ok(())
+    })?;
+    Ok(json!({
+        "layer": layer.0,
+        "lengthMm": r1(pt_to_mm(length)),
+        "efficiency": r1(efficiency),
+        "copies": copies.len(),
+        "overlaps": overlaps,
+        "offFabric": off,
     }))
 }
 

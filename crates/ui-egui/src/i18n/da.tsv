@@ -5495,3 +5495,8 @@ file-filter	PDF for projector	PDF til projektor
 	Dart legs curved {mm} mm	Indsnittets ben bukket {mm} mm
 	Draft Rounded Stand Collar	Tegn standkrave med runde hjørner
 	Draft Wing Collar	Tegn vingekrave
+	Check Marker	Kontrollér lægningen
+	{length} cm long, {efficiency}% of the fabric used	{length} cm lang, {efficiency} % af stoffet brugt
+	{a} overlaps {b}	{a} overlapper {b}
+	{piece} is off the fabric	{piece} ligger uden for stoffet
+	No pieces overlap, and all are on the fabric.	Ingen dele overlapper, og alle ligger på stoffet.

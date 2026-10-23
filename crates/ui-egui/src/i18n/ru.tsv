@@ -5123,3 +5123,8 @@ file-filter	PDF for projector	PDF для проектора
 	Dart legs curved {mm} mm	Стороны вытачки изогнуты на {mm} мм
 	Draft Rounded Stand Collar	Построить воротник-стойку со скруглёнными концами
 	Draft Wing Collar	Построить воротник «бабочка»
+	Check Marker	Проверить раскладку
+	{length} cm long, {efficiency}% of the fabric used	Длина {length} см, использовано {efficiency}% ткани
+	{a} overlaps {b}	{a} перекрывает {b}
+	{piece} is off the fabric	{piece} выходит за ткань
+	No pieces overlap, and all are on the fabric.	Детали не перекрываются, все лежат на ткани.

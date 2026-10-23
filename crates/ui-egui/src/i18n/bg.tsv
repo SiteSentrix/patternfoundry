@@ -5476,3 +5476,8 @@ file-filter	PDF for projector	PDF за проектор
 	Dart legs curved {mm} mm	Страните на пенса са извити с {mm} мм
 	Draft Rounded Stand Collar	Конструиране на права яка със заоблени краища
 	Draft Wing Collar	Конструиране на яка с крилца
+	Check Marker	Проверка на разкроя
+	{length} cm long, {efficiency}% of the fabric used	Дължина {length} см, използвани {efficiency}% от плата
+	{a} overlaps {b}	{a} се застъпва с {b}
+	{piece} is off the fabric	{piece} излиза извън плата
+	No pieces overlap, and all are on the fabric.	Няма застъпващи се детайли и всички са върху плата.
