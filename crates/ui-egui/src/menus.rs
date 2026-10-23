@@ -2756,6 +2756,7 @@ pub fn menu_tree_named(english_names: bool) -> Vec<(&'static str, Vec<Item>)> {
                 c("Draft Skirt Block", "block.skirt"),
                 c("Draft Sleeve Block", "block.sleeve"),
                 c("Draft Trouser Block", "block.trousers"),
+                c("Draft Trouser Waistband", "design.trouserWaistband"),
                 c("Block Options…", "ui.blockOptions"),
                 Sep,
                 c("Rotate Dart", "design.rotateDart"),
