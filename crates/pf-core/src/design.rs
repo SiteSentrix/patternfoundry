@@ -1158,6 +1158,92 @@ pub fn welt_pocket(opening: f64, welt: f64, depth: f64, welts: Welts, side: f64,
     })
 }
 
+/// The shape of a pocket flap's lower edge.
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub enum FlapShape {
+    /// Square corners.
+    Square,
+    /// Rounded corners, a third of the depth round.
+    Rounded,
+    /// A point in the middle, a third of the depth below the corners.
+    Pointed,
+}
+
+impl FlapShape {
+    pub fn parse(s: &str) -> Option<Self> {
+        match s {
+            "square" => Some(FlapShape::Square),
+            "rounded" => Some(FlapShape::Rounded),
+            "pointed" => Some(FlapShape::Pointed),
+            _ => None,
+        }
+    }
+}
+
+/// A pocket flap (PF-5.19), `width` across and `depth` deep when finished, its top edge the one
+/// sewn into the opening: its cutting line (`allowance` out all round) and its stitching line,
+/// with the cutting line's top-left at (0, 0), y down. The Shapes of Fabric's welt pocket
+/// tutorial leaves the shape to the maker ("Draw a shape you like and then add seam allowance all
+/// around") and makes the flap "the same as your finished welt pocket, or maybe 2mm smaller";
+/// the corners' rounding and the point's depth (a third of the depth) are chosen here.
+pub fn pocket_flap(width: f64, depth: f64, shape: FlapShape, allowance: f64) -> Result<(Vec<Knot>, Vec<Knot>), DesignError> {
+    if ![width, depth, allowance].iter().all(|v| v.is_finite()) || width <= 0.0 || depth <= 0.0 || allowance < 0.0 {
+        return Err(DesignError::BadAnchor("the flap's width and depth are more than 0, its allowance 0 or more"));
+    }
+    if depth > width * 2.0 {
+        return Err(DesignError::BadAnchor("the flap is deeper than twice its width"));
+    }
+    let a = allowance;
+    // The finished shape, offset by `grow` (the allowance for the cutting line), at (a, a).
+    let outline = |grow: f64| -> Vec<Knot> {
+        let (x0, y0, x1, y1) = (a - grow, a - grow, a + width + grow, a + depth + grow);
+        match shape {
+            FlapShape::Square => rect(x0, y0, x1 - x0, y1 - y0),
+            FlapShape::Rounded => {
+                // The corner's centre stays put: its radius grows with the line.
+                let r0 = (depth / 3.0).min(width / 2.0);
+                let r = r0 + grow;
+                let k = 0.552_284_75 * r;
+                let (cx0, cx1, cy) = (a + r0, a + width - r0, a + depth - r0);
+                vec![
+                    Knot::corner(Pt::new(x0, y0)),
+                    Knot::corner(Pt::new(x1, y0)),
+                    Knot { p: Pt::new(x1, cy), h_in: Pt::new(x1, cy), h_out: Pt::new(x1, cy + k) },
+                    Knot { p: Pt::new(cx1, y1), h_in: Pt::new(cx1 + k, y1), h_out: Pt::new(cx1, y1) },
+                    Knot { p: Pt::new(cx0, y1), h_in: Pt::new(cx0, y1), h_out: Pt::new(cx0 - k, y1) },
+                    Knot { p: Pt::new(x0, cy), h_in: Pt::new(x0, cy + k), h_out: Pt::new(x0, cy) },
+                ]
+            }
+            FlapShape::Pointed => {
+                // The finished pentagon's sides moved out by `grow` (mitred corners).
+                let drop = depth / 3.0;
+                let fin = [
+                    Pt::new(a, a),
+                    Pt::new(a + width, a),
+                    Pt::new(a + width, a + depth - drop),
+                    Pt::new(a + width / 2.0, a + depth),
+                    Pt::new(a, a + depth - drop),
+                ];
+                let n = fin.len();
+                let out = |i: usize| {
+                    let d = (fin[(i + 1) % n] - fin[i]).unit().unwrap_or(Pt::new(1.0, 0.0));
+                    // Clockwise with y down: the outside is to the left of the direction.
+                    Pt::new(d.y, -d.x)
+                };
+                (0..n)
+                    .map(|i| {
+                        let (n0, n1) = (out((i + n - 1) % n), out(i));
+                        let m = n0 + n1;
+                        let scale = grow / (1.0 + n0.dot(n1)).max(1e-9);
+                        Knot::corner(fin[i] + m * scale)
+                    })
+                    .collect()
+            }
+        }
+    };
+    Ok((outline(a), outline(0.0)))
+}
+
 /// A shirt collar's fall (the collar that turns down over its stand), drafted flat with centre
 /// back at the neck edge at (0, 0), the neck edge along +x and the fall above it (toward -y).
 /// The neck edge is `neck` long (the stand's top edge, centre back to centre front) and curves
@@ -1751,5 +1837,29 @@ mod tests {
         let mut curved = ring.clone();
         curved[2].h_in = Pt::new(45.0, 60.0);
         assert!(shorten_dart(&curved, 2, 10.0).is_err());
+    }
+
+    #[test]
+    fn a_pocket_flap_is_its_shape_with_the_allowance_all_round() {
+        let bounds = |ks: &[Knot]| {
+            ks.iter().fold((f64::INFINITY, f64::INFINITY, f64::NEG_INFINITY, f64::NEG_INFINITY), |(a, b, c, d), k| {
+                (a.min(k.p.x), b.min(k.p.y), c.max(k.p.x), d.max(k.p.y))
+            })
+        };
+        for shape in [FlapShape::Square, FlapShape::Rounded, FlapShape::Pointed] {
+            let (cut, sew) = pocket_flap(118.0, 50.0, shape, 7.0).unwrap();
+            // The stitching line 118 × 50 at (7, 7); the cutting line 7 out all round.
+            let (x0, y0, x1, y1) = bounds(&sew);
+            assert!((x0 - 7.0).abs() < 1e-9 && (y0 - 7.0).abs() < 1e-9 && (x1 - 125.0).abs() < 1e-9 && (y1 - 57.0).abs() < 1e-9, "{shape:?}");
+            let (x0, y0, x1, y1) = bounds(&cut);
+            // A point's mitre reaches a little further than the allowance below it.
+            let low = if shape == FlapShape::Pointed { y1 > 64.0 && y1 < 65.0 } else { (y1 - 64.0).abs() < 1e-9 };
+            assert!(x0.abs() < 1e-9 && y0.abs() < 1e-9 && (x1 - 132.0).abs() < 1e-9 && low, "{shape:?} {:?}", bounds(&cut));
+        }
+        // The point: the middle of the lower edge, straight below it on the cutting line.
+        let (cut, sew) = pocket_flap(118.0, 50.0, FlapShape::Pointed, 7.0).unwrap();
+        assert_eq!((sew.len(), cut[3].p.x), (5, 66.0));
+        assert_eq!(FlapShape::parse("rounded"), Some(FlapShape::Rounded));
+        assert!(pocket_flap(0.0, 50.0, FlapShape::Square, 7.0).is_err() && pocket_flap(50.0, 150.0, FlapShape::Square, 7.0).is_err());
     }
 }

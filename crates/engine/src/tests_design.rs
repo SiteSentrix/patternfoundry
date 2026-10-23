@@ -585,6 +585,31 @@ fn a_welt_pocket_marked_on_the_skirt_front() {
     assert!(s.execute("design.weltPocket", &json!({"on": id.0})).is_err());
 }
 
+/// A welt pocket with a flap (PF-5.19): as wide as the opening less 2 mm ("the same as your
+/// finished welt pocket, or maybe 2mm smaller", The Shapes of Fabric), the welt's allowance round
+/// it, beside the upper bag.
+#[test]
+fn a_welt_pocket_with_a_rounded_flap() {
+    let mut s = Session::new();
+    s.execute("file.new", &json!({"width": 1400, "height": 1000})).unwrap();
+    let r = s.execute("design.weltPocket", &json!({"flap": 50, "flapShape": "rounded"})).unwrap();
+    let ids: Vec<NodeId> = r["ids"].as_array().unwrap().iter().map(|v| NodeId(v.as_u64().unwrap())).collect();
+    assert_eq!(ids.len(), 4);
+    let (flap, line) = (NodeId(r["flap"].as_u64().unwrap()), NodeId(r["flapLine"].as_u64().unwrap()));
+    assert_eq!(ids[3], flap);
+    assert_eq!(s.doc().unwrap().doc.node(flap).unwrap().name.as_deref(), Some("Flap (cut 2, interface 1)"));
+    let mm = |r: Rect| (pf_core::pt_to_mm(r.width()), pf_core::pt_to_mm(r.height()));
+    let (w, h) = mm(bounds(&s, line));
+    assert!((w - 118.0).abs() < 1e-6 && (h - 50.0).abs() < 1e-6, "{w} {h}");
+    let (w, h) = mm(bounds(&s, flap));
+    assert!((w - 132.0).abs() < 1e-6 && (h - 64.0).abs() < 1e-6, "{w} {h}");
+    // Clear of the upper bag, to its right.
+    assert!(bounds(&s, flap).x0 > bounds(&s, ids[2]).x1);
+    assert!(s.execute("design.weltPocket", &json!({"flap": 50, "flapShape": "wavy"})).is_err());
+    let none = s.execute("design.weltPocket", &json!({"flap": 0})).unwrap();
+    assert!(none.get("flap").is_none() && none["ids"].as_array().unwrap().len() == 3);
+}
+
 #[test]
 fn a_shirt_collar_for_the_bodice_block() {
     let mut s = Session::new();
