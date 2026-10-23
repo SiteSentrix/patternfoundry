@@ -1508,6 +1508,9 @@ pub fn run_ui_command(app: &mut VectorcraftApp, id: &str, p: &Value) -> Option<R
             let mut fields = p.get("params").and_then(Value::as_object).cloned().unwrap_or_default();
             fields.insert("__command".into(), json!(cmd));
             fields.insert("__label".into(), json!(s("label").unwrap_or(cmd.clone())));
+            if let Some(fixed) = p.get("fixed").filter(|f| f.is_object()) {
+                fields.insert("__params".into(), fixed.clone());
+            }
             app.ui.dialog = Some(crate::state::Dialog { kind: "command".into(), fields });
             Ok(Value::Null)
         }
@@ -3165,11 +3168,17 @@ pub fn context_items(app: &VectorcraftApp) -> Vec<Item> {
             && uid == st.uid
             && piece.extras().pattern.as_deref().and_then(pf_core::PatternTag::piece).is_some()
         {
+            let allowance = piece.extras().pattern.as_deref().and_then(pf_core::PatternTag::piece).map_or(10.0, |pc| pc.allowance);
             v.extend([
                 cp("Add Notch Here", "piece.addNotch", json!({ "id": piece.id.0, "point": at })),
                 cp("Cut on Fold Here", "piece.set", json!({ "id": piece.id.0, "foldAt": at })),
-                Sep,
+                cp("Seam Allowance Here…", "piece.set", json!({ "edgeAllowance": allowance, "__fixed": { "id": piece.id.0, "at": at } })),
             ]);
+            // With a size range: a grade rule for the seam line's point there.
+            if st.doc.grade_sizes.is_some() {
+                v.push(cp("Grade This Point…", "grade.setRule", json!({ "across": 0, "down": 0, "__fixed": { "id": piece.id.0, "point": at } })));
+            }
+            v.push(Sep);
         }
         if let [one] = roots.as_slice()
             && one.is_container()
@@ -3436,7 +3445,14 @@ pub fn click_target(label: &str, id: &str, p: &Value) -> (String, Value) {
         && p.as_object().is_some_and(|o| !o.is_empty())
         && !matches!(id, "effect.dialog" | "window.panel" | "window.brightness" | "view.screenMode" | "plugin.dialog");
     if dialog {
-        return ("ui.paramDialog".into(), json!({"command": id, "label": label.trim_end_matches('…'), "params": p}));
+        // `__fixed`: params the command takes as they are, not shown (where a click was).
+        let mut fields = p.clone();
+        let fixed = fields.as_object_mut().and_then(|o| o.remove("__fixed"));
+        let mut v = json!({"command": id, "label": label.trim_end_matches('…'), "params": fields});
+        if let Some(f) = fixed {
+            v["fixed"] = f;
+        }
+        return ("ui.paramDialog".into(), v);
     }
     (id.to_string(), if p.is_null() { json!({}) } else { p.clone() })
 }
@@ -4017,6 +4033,8 @@ pub const CONTEXT_LABELS: &[&str] = &[
     "Select All",
     "Add Notch Here",
     "Cut on Fold Here",
+    "Seam Allowance Here…",
+    "Grade This Point…",
 ];
 
 /// The labels [`dynamic_label`] can show in place of an item's own (Show/Hide pairs and the like),
