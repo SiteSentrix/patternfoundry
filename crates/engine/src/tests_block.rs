@@ -274,3 +274,30 @@ fn a_blocks_ease_and_darts_are_its_options_and_both_parts_follow() {
     assert_eq!(info["options"][0]["value"], json!(30.0));
     assert!(s.execute("block.skirt", &json!({"options": {"bust_dart": 10}})).is_err());
 }
+
+#[test]
+fn the_trouser_seams_are_walked_front_against_back_run_by_run() {
+    let mut s = measured();
+    assert!(s.execute("design.trouserSeams", &json!({})).is_err(), "no trouser block drafted");
+    s.execute(
+        "measure.set",
+        &json!({"values": {"hip": 960, "waist": 740, "waist_to_hip": 200, "crotch_depth": 260, "waist_to_knee": 600, "waist_to_ankle": 1040, "trouser_hem": 460}}),
+    )
+    .unwrap();
+    s.execute("block.trousers", &json!({})).unwrap();
+    let r = s.execute("design.trouserSeams", &json!({})).unwrap();
+    let runs = r["runs"].as_array().unwrap();
+    let seams: Vec<&str> = runs.iter().filter_map(|x| x["seam"].as_str()).collect();
+    assert_eq!(seams, ["inseam, knee to hem", "inseam, crotch to knee", "side seam, knee to hem", "side seam, waist to knee"]);
+    for run in runs {
+        let (f, b, d) = (run["front"].as_f64().unwrap(), run["back"].as_f64().unwrap(), run["difference"].as_f64().unwrap());
+        assert!(f > 0.0 && b > 0.0 && (b - f - d).abs() < 0.11, "{run}");
+    }
+    // Knee to hem is 44 cm down; the legs slant a little, front and back alike.
+    for run in &runs[..1] {
+        assert!((440.0..446.0).contains(&run["front"].as_f64().unwrap()), "{run}");
+    }
+    // The back inseam is more curved, so longer above the knee, as the tutorial expects.
+    assert!(runs[1]["difference"].as_f64().unwrap() > 0.0, "{}", runs[1]);
+    assert!(r["largest"].as_f64().unwrap() >= runs[1]["difference"].as_f64().unwrap());
+}

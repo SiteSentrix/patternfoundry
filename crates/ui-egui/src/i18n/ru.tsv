@@ -5095,3 +5095,11 @@ file-filter	PDF for projector	PDF для проектора
 	Back to the block's default	Вернуть значение по умолчанию
 	from the measurements	по меркам
 	Block Options Info	Сведения о параметрах базовой выкройки
+	Check Trouser Seams	Проверить швы брюк
+	Trouser Seams	Швы брюк
+	Inseam, knee to hem	Шаговый шов, от колена до низа
+	Inseam, crotch to knee	Шаговый шов, от сидения до колена
+	Side seam, knee to hem	Боковой шов, от колена до низа
+	Side seam, waist to knee	Боковой шов, от талии до колена
+	{seam}: front {front} mm, back {back} mm ({difference} mm)	{seam}: перед {front} мм, спинка {back} мм ({difference} мм)
+	Walk them on the pattern too: where a line doesn't run on smoothly from front to back, find the point half way between the two and correct both lines. The back inseam is more curved, so it is often longer: lowering the back crotch curve slightly to match is fine.	Проверьте их и на выкройке: там, где линия не переходит плавно с переда на спинку, найдите точку посередине между ними и исправьте обе линии. Шаговый шов задней половины изогнут сильнее, поэтому часто длиннее: немного опустить линию сидения сзади, чтобы он совпал, — нормально.

@@ -5392,3 +5392,11 @@ file-filter	PDF for projector	PDF პროექტორისთვის
 	Back to the block's default	დაბრუნება ნაგულისხმევ მნიშვნელობაზე
 	from the measurements	ზომებიდან
 	Block Options Info	საბაზისო თარგის პარამეტრების ინფორმაცია
+	Check Trouser Seams	შარვლის ნაკერების შემოწმება
+	Trouser Seams	შარვლის ნაკერები
+	Inseam, knee to hem	შიდა ნაკერი, მუხლიდან ბოლომდე
+	Inseam, crotch to knee	შიდა ნაკერი, ბიჯიდან მუხლამდე
+	Side seam, knee to hem	გვერდითი ნაკერი, მუხლიდან ბოლომდე
+	Side seam, waist to knee	გვერდითი ნაკერი, წელიდან მუხლამდე
+	{seam}: front {front} mm, back {back} mm ({difference} mm)	{seam}: წინა {front} მმ, უკანა {back} მმ ({difference} მმ)
+	Walk them on the pattern too: where a line doesn't run on smoothly from front to back, find the point half way between the two and correct both lines. The back inseam is more curved, so it is often longer: lowering the back crotch curve slightly to match is fine.	შეამოწმეთ ისინი თარგზეც: სადაც ხაზი წინადან უკანამდე გლუვად არ გრძელდება, იპოვეთ შუა წერტილი ორს შორის და შეასწორეთ ორივე ხაზი. უკანა შიდა ნაკერი უფრო მრუდეა და ამიტომ ხშირად გრძელია: უკანა ბიჯის მრუდის ოდნავ დაწევა, რომ დაემთხვეს, ნორმალურია.

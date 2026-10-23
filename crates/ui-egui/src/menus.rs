@@ -586,6 +586,12 @@ pub const UI_COMMANDS: &[(&str, &str, &str, &str)] = &[
         "{id? (default: the selected block part)} open Block Options (dialog `blockOptions`: one field per option of block.options, mm or null for the default); OK runs block.setOptions",
     ),
     (
+        "ui.checkTrouserSeams",
+        "Check Trouser Seams",
+        "",
+        "{} walk the drafted trouser block's front against its back, told in a message: each run's lengths (the inseams and side seams, from the knee to the hem and up) and what to do where they don't match → design.trouserSeams",
+    ),
+    (
         "ui.checkSleeveEase",
         "Check Sleeve Ease",
         "",
@@ -1598,6 +1604,7 @@ pub fn run_ui_command(app: &mut VectorcraftApp, id: &str, p: &Value) -> Option<R
         "ui.askAboutPatterns" => crate::ai::ask::open(app, p),
         "ui.checkSleeveEase" => crate::dialogs::sleeve_ease::check(app, p),
         "ui.blockOptions" => crate::dialogs::block_options::open(app, p),
+        "ui.checkTrouserSeams" => crate::dialogs::trouser_seams::check(app, p),
         "ui.projector" => crate::projector::command(app, p),
         "ui.checkMuslin" => crate::ai::muslin::open(app, p).and_then(|v| {
             if p.get("check").and_then(Value::as_bool) == Some(true) {
@@ -2301,7 +2308,7 @@ pub fn enabled(app: &VectorcraftApp, id: &str) -> bool {
         id if crate::panels::paragraph::ALIGN_COMMANDS.iter().any(|c| c.0 == id) => crate::panels::character::text_style(app).is_some(),
         "file.reveal" => app.services.reveal.is_some() && app.session.active().is_some_and(|d| d.path.is_some()),
         "ui.askAboutPatterns" | "ui.checkMuslin" | "ui.account" => crate::ai::available(app),
-        "ui.checkSleeveEase" | "ui.projector" | "ui.blockOptions" => app.session.active().is_some(),
+        "ui.checkSleeveEase" | "ui.checkTrouserSeams" | "ui.projector" | "ui.blockOptions" => app.session.active().is_some(),
         "file.cancelExport" | "file.exportInBackground" => app.background.jobs.iter().any(|j| j.progress.is_some() && !j.cancelled()),
         "file.place"
         | "file.export.svg"
@@ -2757,6 +2764,7 @@ pub fn menu_tree_named(english_names: bool) -> Vec<(&'static str, Vec<Item>)> {
                 c("Make Wrap Front", "design.wrapFront"),
                 c("Make Band", "design.band"),
                 c("Check Sleeve Ease", "ui.checkSleeveEase"),
+                c("Check Trouser Seams", "ui.checkTrouserSeams"),
                 c("Make Facing", "design.facing"),
                 c("Gather", "design.gather"),
                 c("Draft Collar", "design.collar"),

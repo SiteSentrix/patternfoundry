@@ -5079,3 +5079,11 @@ file-filter	PDF for projector	PDF cho máy chiếu
 	Back to the block's default	Trở về mặc định của rập cơ bản
 	from the measurements	theo số đo
 	Block Options Info	Thông tin tùy chọn rập cơ bản
+	Check Trouser Seams	Kiểm tra đường may quần
+	Trouser Seams	Đường may quần
+	Inseam, knee to hem	Đường may trong, gối đến lai
+	Inseam, crotch to knee	Đường may trong, đáy đến gối
+	Side seam, knee to hem	Đường may sườn, gối đến lai
+	Side seam, waist to knee	Đường may sườn, eo đến gối
+	{seam}: front {front} mm, back {back} mm ({difference} mm)	{seam}: trước {front} mm, sau {back} mm ({difference} mm)
+	Walk them on the pattern too: where a line doesn't run on smoothly from front to back, find the point half way between the two and correct both lines. The back inseam is more curved, so it is often longer: lowering the back crotch curve slightly to match is fine.	Hãy kiểm tra cả trên rập: chỗ nào đường không nối mượt từ thân trước sang thân sau, tìm điểm ở giữa hai đường và sửa cả hai. Đường may trong thân sau cong hơn nên thường dài hơn: hạ nhẹ đường cong đáy sau cho khớp là được.

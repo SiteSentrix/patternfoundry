@@ -5483,3 +5483,11 @@ file-filter	PDF for projector	PDF pour projecteur
 	Back to the block's default	Revenir à la valeur par défaut du patron de base
 	from the measurements	d'après les mesures
 	Block Options Info	Infos sur les options du patron de base
+	Check Trouser Seams	Vérifier les coutures du pantalon
+	Trouser Seams	Coutures du pantalon
+	Inseam, knee to hem	Entrejambe, du genou à l'ourlet
+	Inseam, crotch to knee	Entrejambe, de la fourche au genou
+	Side seam, knee to hem	Couture de côté, du genou à l'ourlet
+	Side seam, waist to knee	Couture de côté, de la taille au genou
+	{seam}: front {front} mm, back {back} mm ({difference} mm)	{seam} : devant {front} mm, dos {back} mm ({difference} mm)
+	Walk them on the pattern too: where a line doesn't run on smoothly from front to back, find the point half way between the two and correct both lines. The back inseam is more curved, so it is often longer: lowering the back crotch curve slightly to match is fine.	Vérifiez-les aussi sur le patron : là où une ligne ne se prolonge pas en douceur du devant au dos, trouvez le point à mi-chemin entre les deux et corrigez les deux lignes. L'entrejambe du dos est plus courbe, donc souvent plus long : abaisser légèrement la courbe de fourche du dos pour l'ajuster convient.

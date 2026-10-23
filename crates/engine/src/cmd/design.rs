@@ -187,6 +187,15 @@ pub fn specs() -> Vec<CommandSpec> {
             length
         ),
         cmd!(
+            query "design.trouserSeams",
+            "Check Trouser Seams",
+            [],
+            None,
+            "{} walk the drafted trouser block's front against its back (one of each, as drafted), as The Shapes of Fabric's tutorial checks it: the inseams from the knee to the hem and to the crotch point, the side seams from the knee to the hem and to the waist → {runs: [{seam, front, back, difference (mm: the back's less the front's)}], largest (mm)}",
+            has_doc,
+            trouser_seams
+        ),
+        cmd!(
             query "design.sleeveEase",
             "Check Sleeve Ease",
             [],
@@ -683,18 +692,44 @@ fn length(s: &mut Session, p: &Value) -> Result<Value> {
 /// has one such part as drafted; an error when it has several.
 fn block_seam(doc: &Document, kind: pf_core::block::BlockKind, part: usize, what: &str, key: &str, cmd: &str) -> Result<f64> {
     let Some((from, to, anchors)) = pf_core::block::armhole(kind, part) else { return Err(bad(cmd, format!("{key}: {{id, from, to}}"))) };
+    Ok(along(&block_ring(doc, kind, part, anchors, what, key, cmd)?, from, to))
+}
+
+/// The outline of the one drafted `kind` block part `part` that has `anchors` anchors (as drafted).
+fn block_ring(doc: &Document, kind: pf_core::block::BlockKind, part: usize, anchors: usize, what: &str, key: &str, cmd: &str) -> Result<Vec<Knot>> {
     let mut found = Vec::new();
     doc.walk(|n| {
         if n.extras().block.as_deref().is_some_and(|b| b.kind == kind && b.part == part) {
             found.push(n.id);
         }
     });
-    let rings: Vec<Vec<Knot>> = found.iter().filter_map(|id| ring_of(doc, *id, cmd).ok()).filter(|r| r.len() == anchors).collect();
+    let mut rings: Vec<Vec<Knot>> = found.iter().filter_map(|id| ring_of(doc, *id, cmd).ok()).filter(|r| r.len() == anchors).collect();
     match rings.as_slice() {
-        [ring] => Ok(along(ring, from, to)),
+        [_] => Ok(rings.remove(0)),
         [] => Err(bad(cmd, format!("no {what} drafted as it was: draft it (Pattern menu), or name the seam ({key}: {{id, from, to}})"))),
         _ => Err(bad(cmd, format!("more than one {what}: name the seam ({key}: {{id, from, to}})"))),
     }
+}
+
+/// The trouser block's front and back seams walked against each other, run by run (the tutorial's
+/// check): each run's lengths and how much longer the back's is.
+fn trouser_seams(s: &mut Session, _p: &Value) -> Result<Value> {
+    const CMD: &str = "design.trouserSeams";
+    use pf_core::block::{BlockKind, TROUSER_ANCHORS, TROUSER_SEAMS};
+    let doc = &s.doc()?.doc;
+    let front = block_ring(doc, BlockKind::Trousers, 0, TROUSER_ANCHORS.0, "front trouser block", "front", CMD)?;
+    let back = block_ring(doc, BlockKind::Trousers, 1, TROUSER_ANCHORS.1, "back trouser block", "back", CMD)?;
+    let round = |v: f64| (v * 10.0).round() / 10.0;
+    let mut worst: f64 = 0.0;
+    let runs: Vec<Value> = TROUSER_SEAMS
+        .iter()
+        .map(|(name, (f0, f1), (b0, b1))| {
+            let (f, b) = (pt_to_mm(along(&front, *f0, *f1)), pt_to_mm(along(&back, *b0, *b1)));
+            worst = worst.max((b - f).abs());
+            json!({"seam": name, "front": round(f), "back": round(b), "difference": round(b - f)})
+        })
+        .collect();
+    Ok(json!({"runs": runs, "largest": round(worst)}))
 }
 
 fn sleeve_ease(s: &mut Session, p: &Value) -> Result<Value> {

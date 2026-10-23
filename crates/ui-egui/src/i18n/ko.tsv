@@ -5062,3 +5062,11 @@ file-filter	PDF for projector	프로젝터용 PDF
 	Back to the block's default	원형 기본값으로 되돌리기
 	from the measurements	치수에서
 	Block Options Info	원형 옵션 정보
+	Check Trouser Seams	바지 솔기 확인
+	Trouser Seams	바지 솔기
+	Inseam, knee to hem	안솔기, 무릎에서 밑단
+	Inseam, crotch to knee	안솔기, 밑위에서 무릎
+	Side seam, knee to hem	옆솔기, 무릎에서 밑단
+	Side seam, waist to knee	옆솔기, 허리에서 무릎
+	{seam}: front {front} mm, back {back} mm ({difference} mm)	{seam}: 앞 {front} mm, 뒤 {back} mm ({difference} mm)
+	Walk them on the pattern too: where a line doesn't run on smoothly from front to back, find the point half way between the two and correct both lines. The back inseam is more curved, so it is often longer: lowering the back crotch curve slightly to match is fine.	패턴 위에서도 맞춰 보세요. 앞에서 뒤로 선이 매끄럽게 이어지지 않는 곳은 두 선의 중간점을 찾아 두 선을 모두 고치세요. 뒤 안솔기는 더 굽어 있어 대개 더 깁니다. 맞추기 위해 뒤 밑위 곡선을 조금 낮추는 것은 괜찮습니다.

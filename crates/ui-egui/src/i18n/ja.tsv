@@ -5139,3 +5139,11 @@ file-filter	PDF for projector	プロジェクター用 PDF
 	Back to the block's default	原型の既定値に戻す
 	from the measurements	寸法から
 	Block Options Info	原型のオプション情報
+	Check Trouser Seams	パンツの縫い目を確認
+	Trouser Seams	パンツの縫い目
+	Inseam, knee to hem	股下、ひざから裾
+	Inseam, crotch to knee	股下、股からひざ
+	Side seam, knee to hem	脇、ひざから裾
+	Side seam, waist to knee	脇、ウエストからひざ
+	{seam}: front {front} mm, back {back} mm ({difference} mm)	{seam}: 前 {front} mm、後ろ {back} mm（{difference} mm）
+	Walk them on the pattern too: where a line doesn't run on smoothly from front to back, find the point half way between the two and correct both lines. The back inseam is more curved, so it is often longer: lowering the back crotch curve slightly to match is fine.	型紙の上でも合わせてください。前から後ろへ線がなめらかにつながらないところは、両者の中間の点を見つけて両方の線を直します。後ろの股下はカーブが強いので長くなりがちです。合わせるために後ろの股ぐりを少し下げるのは問題ありません。
