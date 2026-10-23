@@ -5426,3 +5426,10 @@ file-filter	PDF for projector	PDF projektorille
 	Right-click inside the piece: Add Drill Hole Here	Napsauta kappaleen sisällä hiiren oikealla: Lisää porareikä tähän
 	Drill hole {n}, {mm} mm	Porareikä {n}, {mm} mm
 	Drill hole {n}	Porareikä {n}
+	Notch Shape	Loven muoto
+	Slit notch	Viiltolovi
+	Double notch	Kaksoislovi
+	V notch	V-lovi
+	T notch	T-lovi
+	Castle notch	Linnalovi
+	U notch	U-lovi

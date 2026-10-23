@@ -5448,3 +5448,10 @@ file-filter	PDF for projector	PDF projektorhoz
 	Right-click inside the piece: Add Drill Hole Here	Kattintson jobb gombbal a darabon belül: Fúrt lyuk hozzáadása ide
 	Drill hole {n}, {mm} mm	{n}. fúrt lyuk, {mm} mm
 	Drill hole {n}	{n}. fúrt lyuk
+	Notch Shape	Bevágás alakja
+	Slit notch	Egyenes bevágás
+	Double notch	Dupla bevágás
+	V notch	V bevágás
+	T notch	T bevágás
+	Castle notch	Szögletes bevágás
+	U notch	U bevágás

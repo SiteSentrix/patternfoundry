@@ -5298,3 +5298,10 @@ file-filter	PDF for projector	用于投影仪的 PDF
 	Right-click inside the piece: Add Drill Hole Here	在衣片内右键单击：在此添加钻孔
 	Drill hole {n}, {mm} mm	钻孔 {n}，{mm} mm
 	Drill hole {n}	钻孔 {n}
+	Notch Shape	剪口形状
+	Slit notch	直剪口
+	Double notch	双剪口
+	V notch	V 形剪口
+	T notch	T 形剪口
+	Castle notch	方形剪口
+	U notch	U 形剪口

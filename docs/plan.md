@@ -265,7 +265,7 @@ is built on, plus a pattern mode, the way StitchFoundry adds embroidery:
   1.4.5's recover and strict readers: no errors, no fixes), drawn the right way up. Tests: 3 in
   `vectorcraft-cad`, 3 engine tests (`tests_aama.rs`). Not yet: grading (graded nests and the rule
   table, PF-6), drill holes (done: PF-7.6), mirror lines and the NM attribute, notch shapes besides slit and V
-  (layers 80 to 83), opening AAMA files, an options dialog (the style name and sample size are
+  (layers 80 to 83; done but the check notch: PF-7.7), opening AAMA files, an options dialog (the style name and sample size are
   parameters), a test in a cutting-room program. Seen while checking: the cutting line runs its
   allowance round a dart's legs, as if the dart were cut out; a cutting line should bridge the
   dart (PF-1 follow-up).
@@ -615,3 +615,18 @@ is built on, plus a pattern mode, the way StitchFoundry adds embroidery:
   in and 120 mm up, z 4), `tests_svgcut.rs`, `tests_contextmenu.rs` and `panels/tests_pieces.rs`.
   Not yet: the NM (not mirrored) attribute and drill-type numbers, a diameter set from the panel,
   drill holes graded with the piece.
+- 2026-10-23, **PF-7.7**: T, castle and U notches. A notch can be a slit, a double slit, a V, or
+  now a **T notch** (a slit with a 3 mm bar across its end), a **castle notch** (a 3 mm cut with a
+  square end) or a **U notch** (the same with a round end), as DH Patterns and Fit's overview of
+  ASTM D6673 describes them ("T-notch: Split with zero width at the boundary and symmetrical "T"
+  width at the depth … Castle-notch: Rectangular shaped notch … U-notch: Shaped as a castle notch
+  but with a semicircle reaching the depth":
+  https://dorthehansen.com/wp-content/uploads/2014/10/ePattern-ASTM-Standard.pdf).
+  `piece.addNotch {kind}` takes them, `piece.setNotch {index, kind}` changes one, and the Pieces
+  panel picks each notch's shape from a list. DXF-AAMA writes them on layers 80, 81 and 83 (a T
+  notch's point at its depth, as the overview says) and reads them back; the projector PDF, the
+  projector view and the SVG for cutting draw each shape, from one drawing
+  (`pf_aama::Notch::lines`) in place of three copies. Tests: `pf-core` marks (each shape),
+  `pf-aama` (the layers, the T point at the depth, the round trip, each shape's lines), 1 in
+  `tests_aama.rs`, the Pieces panel test. Not yet: the check notch (layer 82; the overview's
+  sign for its opening is unclear), notch width and depth set per notch.

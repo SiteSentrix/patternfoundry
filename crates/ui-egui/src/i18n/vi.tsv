@@ -5057,3 +5057,10 @@ file-filter	PDF for projector	PDF cho máy chiếu
 	Right-click inside the piece: Add Drill Hole Here	Nhấp chuột phải bên trong chi tiết: Thêm lỗ khoan tại đây
 	Drill hole {n}, {mm} mm	Lỗ khoan {n}, {mm} mm
 	Drill hole {n}	Lỗ khoan {n}
+	Notch Shape	Hình dạng dấu bấm
+	Slit notch	Dấu bấm khe
+	Double notch	Dấu bấm đôi
+	V notch	Dấu bấm chữ V
+	T notch	Dấu bấm chữ T
+	Castle notch	Dấu bấm vuông
+	U notch	Dấu bấm chữ U

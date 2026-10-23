@@ -60,9 +60,18 @@ pub fn specs() -> Vec<CommandSpec> {
             "Add Notch",
             [],
             None,
-            "{id?, edge: 0.., at?: 0..1 (0.5; along the edge by length) | point: [x, y] (instead: document points on the seam line or in its allowance, as a click on the canvas: the nearest edge there), kind?: \"slit\" (default) | \"double\" | \"v\"} → piece.info",
+            "{id?, edge: 0.., at?: 0..1 (0.5; along the edge by length) | point: [x, y] (instead: document points on the seam line or in its allowance, as a click on the canvas: the nearest edge there), kind?: \"slit\" (default) | \"double\" | \"v\" | \"t\" | \"castle\" | \"u\"} → piece.info",
             has_doc,
             add_notch
+        ),
+        cmd!(
+            "piece.setNotch",
+            "Notch Shape",
+            [],
+            None,
+            "{id?, index: the notch's place in piece.info's notches, kind: \"slit\" | \"double\" | \"v\" | \"t\" | \"castle\" | \"u\"} → piece.info",
+            has_doc,
+            set_notch
         ),
         cmd!(
             "piece.removeNotch",
@@ -645,17 +654,44 @@ fn add_notch(s: &mut Session, p: &Value) -> Result<Value> {
             (edge, at)
         }
     };
-    let kind = match str_param(p, "kind") {
-        None | Some("slit") => NotchKind::Slit,
-        Some("double") => NotchKind::Double,
-        Some("v") => NotchKind::V,
-        Some(_) => return Err(bad(CMD, "kind: \"slit\", \"double\" or \"v\"")),
-    };
+    let kind = notch_kind(p, CMD)?;
     let edges = edge_count(s, id);
     if edge >= edges {
         return Err(bad(CMD, format!("the piece has edges 0 to {}", edges.saturating_sub(1))));
     }
     change(s, id, "Add Notch", CMD, |piece| piece.add_notch(Notch { edge, at, kind }).map_err(|e| err(CMD, e)))
+}
+
+/// The `kind` param: a slit when there is none.
+fn notch_kind(p: &Value, cmd: &str) -> Result<NotchKind> {
+    match str_param(p, "kind") {
+        None | Some("slit") => Ok(NotchKind::Slit),
+        Some("double") => Ok(NotchKind::Double),
+        Some("v") => Ok(NotchKind::V),
+        Some("t") => Ok(NotchKind::T),
+        Some("castle") => Ok(NotchKind::Castle),
+        Some("u") => Ok(NotchKind::U),
+        Some(_) => Err(bad(cmd, "kind: \"slit\", \"double\", \"v\", \"t\", \"castle\" or \"u\"")),
+    }
+}
+
+fn set_notch(s: &mut Session, p: &Value) -> Result<Value> {
+    const CMD: &str = "piece.setNotch";
+    let id = one_piece(s, p, CMD)?;
+    let index = p
+        .get("index")
+        .and_then(Value::as_u64)
+        .and_then(|i| usize::try_from(i).ok())
+        .ok_or_else(|| bad(CMD, "index: the notch's place in the list, from 0"))?;
+    if p.get("kind").is_none() {
+        return Err(bad(CMD, "kind: the notch's new shape"));
+    }
+    let kind = notch_kind(p, CMD)?;
+    change(s, id, "Notch Shape", CMD, |piece| {
+        let n = piece.notches.get_mut(index).ok_or_else(|| bad(CMD, "no notch with that index"))?;
+        n.kind = kind;
+        Ok(())
+    })
 }
 
 fn remove_notch(s: &mut Session, p: &Value) -> Result<Value> {
@@ -841,22 +877,7 @@ fn outlines(s: &mut Session, p: &Value) -> Result<Value> {
             (x0, y0, x1, y1) = (x0.min(q[0]), y0.min(q[1]), x1.max(q[0]), y1.max(q[1]));
         }
         // Each notch as the cut it makes: its angle is counter-clockwise with y up, y runs down.
-        let notches: Vec<Vec<[f64; 2]>> = piece
-            .notches
-            .iter()
-            .map(|n| {
-                let (sn, c) = n.angle.to_radians().sin_cos();
-                let into = [c, -sn];
-                let tip = [n.at[0] + into[0] * n.depth, n.at[1] + into[1] * n.depth];
-                let half = n.width / 2.0;
-                if half > 0.0 {
-                    let side = [-into[1] * half, into[0] * half];
-                    vec![mm([n.at[0] + side[0], n.at[1] + side[1]]), mm(tip), mm([n.at[0] - side[0], n.at[1] - side[1]])]
-                } else {
-                    vec![mm(n.at), mm(tip)]
-                }
-            })
-            .collect();
+        let notches: Vec<Vec<[f64; 2]>> = piece.notches.iter().flat_map(|n| n.lines(true)).map(|l| ring(&l)).collect();
         let cut = piece.quantity.0 + piece.quantity.1;
         let mut text = format!("{}\nCut {cut}", piece.name);
         if piece.mirror.is_some() {

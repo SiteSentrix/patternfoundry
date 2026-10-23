@@ -5414,3 +5414,10 @@ file-filter	PDF for projector	PDF για προβολέα
 	Right-click inside the piece: Add Drill Hole Here	Δεξί κλικ μέσα στο κομμάτι: Προσθήκη οπής εδώ
 	Drill hole {n}, {mm} mm	Οπή {n}, {mm} mm
 	Drill hole {n}	Οπή {n}
+	Notch Shape	Σχήμα εγκοπής
+	Slit notch	Εγκοπή σχισμή
+	Double notch	Διπλή εγκοπή
+	V notch	Εγκοπή V
+	T notch	Εγκοπή T
+	Castle notch	Ορθογώνια εγκοπή
+	U notch	Εγκοπή U

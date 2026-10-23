@@ -1,13 +1,14 @@
 //! DXF-AAMA export (`document.export {format: aama}`, PF-7.1): the document's pattern pieces
 //! as an ASTM D6673 file for cutting rooms, grading and nesting systems
 //! ([`pf_aama::write`]). Each piece gives its cutting line (the boundary), its seam
-//! line (the sew line), its notches (on the cutting line, cut toward the seam line), its grainline,
+//! line (the sew line), its notches (on the cutting line, cut toward the seam line; slits and V
+//! notches on layer 4, T, castle and U notches on 80, 81 and 83, PF-7.7), its grainline,
 //! the fold it is cut on as its mirror line (PF-7.4, the piece written as the half), its drill
 //! holes (PF-7.6, with the punch's diameter), and the
 //! paths the user added inside it as internal lines; in millimetres, y up, every piece
 //! where it is in the document relative to the others.
 
-use pf_aama::{Drill as AamaDrill, Mm, Notch as AamaNotch, Piece as AamaPiece, Style as AamaStyle, Version};
+use pf_aama::{Drill as AamaDrill, Mm, Notch as AamaNotch, NotchShape, Piece as AamaPiece, Style as AamaStyle, Version};
 use serde_json::Value;
 use vectorcraft_doc::{Document, Node, NodeKind};
 use vectorcraft_geom::{BezPath, SubPath};
@@ -123,15 +124,19 @@ pub(crate) fn pieces(doc: &Document) -> Result<Vec<AamaPiece>> {
             let depth =
                 if allowance > 0.0 { mm_to_pt(pf_core::marks::NOTCH_DEPTH_MM).min(allowance) } else { mm_to_pt(pf_core::marks::NOTCH_DEPTH_MM) };
             let inward = Pt::new(-outward.x, -outward.y);
-            let mut add = |at: Pt, width: f64| notches.push((at, inward, depth, width));
+            let mut add = |at: Pt, width: f64, shape: NotchShape| notches.push((at, inward, depth, width, shape));
+            let width = mm_to_pt(pf_core::marks::NOTCH_WIDTH_MM);
             match nt.kind {
-                NotchKind::Slit => add(at, 0.0),
+                NotchKind::Slit => add(at, 0.0, NotchShape::Plain),
                 NotchKind::Double => {
                     let h = mm_to_pt(pf_core::marks::DOUBLE_NOTCH_GAP_MM) / 2.0;
-                    add(at - dir * h, 0.0);
-                    add(at + dir * h, 0.0);
+                    add(at - dir * h, 0.0, NotchShape::Plain);
+                    add(at + dir * h, 0.0, NotchShape::Plain);
                 }
-                NotchKind::V => add(at, depth),
+                NotchKind::V => add(at, depth, NotchShape::Plain),
+                NotchKind::T => add(at, width, NotchShape::T),
+                NotchKind::Castle => add(at, width, NotchShape::Castle),
+                NotchKind::U => add(at, width, NotchShape::U),
             }
         }
         let grain = piece.grainline.or_else(|| pf_core::marks::default_grainline(&outline));
@@ -159,7 +164,13 @@ pub(crate) fn pieces(doc: &Document) -> Result<Vec<AamaPiece>> {
             sew_line: outline.points.iter().map(|p| mm(*p)).collect(),
             notches: notches
                 .into_iter()
-                .map(|(at, inward, depth, width)| AamaNotch { at: mm(at), angle: (-inward.y).atan2(inward.x).to_degrees(), depth, width })
+                .map(|(at, inward, depth, width, shape)| AamaNotch {
+                    at: mm(at),
+                    angle: (-inward.y).atan2(inward.x).to_degrees(),
+                    depth,
+                    width,
+                    shape,
+                })
                 .collect(),
             grain: grain.map(|g| [mm(g.from), mm(g.to)]),
             mirror,

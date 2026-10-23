@@ -224,18 +224,9 @@ pub(super) fn encode(doc: &Document, p: &Value) -> Result<Encoded> {
             let pts: Vec<Point> = piece.sew_line.iter().map(|q| at(*q)).collect();
             art.push(page.path(vec![poly(&pts, true)], 1.0, Some(vec![6.0, 3.0]), None));
         }
-        for nt in &piece.notches {
-            // The notch's angle is counter-clockwise with y up; the document's y runs down.
-            let (s, c) = nt.angle.to_radians().sin_cos();
-            let into = [c, -s];
-            let tip = [nt.at[0] + into[0] * nt.depth, nt.at[1] + into[1] * nt.depth];
-            let half = nt.width / 2.0;
-            let pts = if half > 0.0 {
-                let side = [-into[1] * half, into[0] * half];
-                vec![at([nt.at[0] + side[0], nt.at[1] + side[1]]), at(tip), at([nt.at[0] - side[0], nt.at[1] - side[1]])]
-            } else {
-                vec![at(nt.at), at(tip)]
-            };
+        // Each notch as its cut; the document's y runs down.
+        for l in piece.notches.iter().flat_map(|nt| nt.lines(true)) {
+            let pts: Vec<Point> = l.iter().map(|q| at(*q)).collect();
             art.push(page.path(vec![poly(&pts, false)], line, None, None));
         }
         if let Some([a, b]) = piece.grain {

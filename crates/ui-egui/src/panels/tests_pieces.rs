@@ -67,6 +67,10 @@ fn edges_take_their_own_allowance_and_notches_are_added_and_removed() {
     let info = app.run("piece.info", json!({"id": id})).unwrap();
     assert_eq!(info["notches"], json!([{"edge": 0, "at": 0.5, "kind": "slit"}]));
     assert!(panel.texts(&mut app).iter().any(|t| t == "Notch on edge 0, 50% along"));
+    // Its shape: a slit, picked from the list as a castle notch.
+    panel.click(&mut app, "Slit notch");
+    panel.click(&mut app, "Castle notch");
+    assert_eq!(app.run("piece.info", json!({"id": id})).unwrap()["notches"][0]["kind"], "castle");
     panel.click(&mut app, "×");
     assert_eq!(app.run("piece.info", json!({"id": id})).unwrap().get("notches"), None);
     // An edge with its own allowance has a button back to the piece's.

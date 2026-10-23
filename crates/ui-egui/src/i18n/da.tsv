@@ -5445,3 +5445,10 @@ file-filter	PDF for projector	PDF til projektor
 	Right-click inside the piece: Add Drill Hole Here	Højreklik inde i delen: Tilføj borehul her
 	Drill hole {n}, {mm} mm	Borehul {n}, {mm} mm
 	Drill hole {n}	Borehul {n}
+	Notch Shape	Hakkets form
+	Slit notch	Snithak
+	Double notch	Dobbelt hak
+	V notch	V-hak
+	T notch	T-hak
+	Castle notch	Tårnhak
+	U notch	U-hak

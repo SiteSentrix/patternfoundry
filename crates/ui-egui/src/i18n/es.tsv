@@ -5405,3 +5405,10 @@ file-filter	PDF for projector	PDF para proyector
 	Right-click inside the piece: Add Drill Hole Here	Clic derecho dentro de la pieza: Añadir perforación aquí
 	Drill hole {n}, {mm} mm	Perforación {n}, {mm} mm
 	Drill hole {n}	Perforación {n}
+	Notch Shape	Forma del piquete
+	Slit notch	Piquete de corte
+	Double notch	Piquete doble
+	V notch	Piquete en V
+	T notch	Piquete en T
+	Castle notch	Piquete almenado
+	U notch	Piquete en U

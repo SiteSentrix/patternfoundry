@@ -5487,3 +5487,10 @@ file-filter	PDF for projector	PDF voor projector
 	Right-click inside the piece: Add Drill Hole Here	Rechtsklik in het patroondeel: Boorgat hier toevoegen
 	Drill hole {n}, {mm} mm	Boorgat {n}, {mm} mm
 	Drill hole {n}	Boorgat {n}
+	Notch Shape	Vorm van de inknip
+	Slit notch	Inknip als spleet
+	Double notch	Dubbele inknip
+	V notch	V-inknip
+	T notch	T-inknip
+	Castle notch	Kantelinknip
+	U notch	U-inknip

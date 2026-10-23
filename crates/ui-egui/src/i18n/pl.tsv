@@ -5315,3 +5315,10 @@ file-filter	PDF for projector	PDF do projektora
 	Right-click inside the piece: Add Drill Hole Here	Kliknij prawym przyciskiem wewnątrz elementu: Dodaj otwór tutaj
 	Drill hole {n}, {mm} mm	Otwór {n}, {mm} mm
 	Drill hole {n}	Otwór {n}
+	Notch Shape	Kształt nacięcia
+	Slit notch	Nacięcie proste
+	Double notch	Nacięcie podwójne
+	V notch	Nacięcie V
+	T notch	Nacięcie T
+	Castle notch	Nacięcie prostokątne
+	U notch	Nacięcie U

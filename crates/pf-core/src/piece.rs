@@ -50,6 +50,12 @@ pub enum NotchKind {
     Double,
     /// A V-shaped notch in the allowance.
     V,
+    /// A slit with a bar across its end (PF-7.7).
+    T,
+    /// A square-ended cut of even width (a castle notch).
+    Castle,
+    /// A cut of even width with a round end.
+    U,
 }
 
 /// A notch: a mark on an edge, matched with the notch on the piece it is sewn to.
