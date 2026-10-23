@@ -651,7 +651,7 @@ fn write_plan(app: &mut VectorcraftApp, plan: SavePlan) -> Result<Value, String>
 
 /// Open the save options dialog of format `f` before writing `path`: `action` is the save command
 /// it finishes, and `pick` (the web's Save As) also names the file and chooses the format.
-fn open_options(app: &mut VectorcraftApp, action: &str, f: &Format, path: &str, pick: bool) -> Value {
+pub(crate) fn open_options(app: &mut VectorcraftApp, action: &str, f: &Format, path: &str, pick: bool) -> Value {
     let mut fields = dialogs::save_options::option_values(app, f);
     fields.insert("__action".into(), json!(action));
     fields.insert("__pick".into(), json!(pick));

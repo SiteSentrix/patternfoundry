@@ -644,3 +644,12 @@ is built on, plus a pattern mode, the way StitchFoundry adds embroidery:
   cutting lines measuring as before to 0.02 mm; a plain DXF still a drawing). Not yet: a test with
   a file from a cutting-room program, the grade rules (.RUL, waiting on the standard), the
   annotation text (layer 15).
+- 2026-10-23, **PF-7.9**: options for the pattern exports. **File › Export As…** with DXF-AAMA,
+  SVG for cutting or PDF for projector now asks for the format's options before writing the file
+  (it used to write it with the defaults): the rows come from the format's options in the engine's
+  format table (the save options dialog, its action `file.exportAs`), with lists for the size (the
+  document's size range, or As drawn), the projector's layout (Side by side or As drawn) and the
+  DXF-AAMA version (R13 or R12); the style name, sample size, margin, line width, open folds,
+  invert, mirror and marks as fields and checkboxes. Tests: 1 in `dialogs/tests_export.rs` (Export
+  As DXF-AAMA → its options → an R12 file with the style named; the projector PDF the same way).
+  Not yet: the options remembered from one export to the next.
