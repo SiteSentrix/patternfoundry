@@ -62,6 +62,9 @@ pub struct BlockRef {
     /// The part (for the bodice: 0 back, 1 front).
     pub part: usize,
     pub origin: Pt,
+    /// The block's options set (PF-4.5): its ease and darts; the rest are the block's defaults.
+    #[serde(default, skip_serializing_if = "Options::is_empty")]
+    pub options: Options,
 }
 
 impl BlockRef {
@@ -134,6 +137,78 @@ pub fn measurements(kind: BlockKind) -> &'static [(&'static str, &'static str)] 
     }
 }
 
+/// A block's options (PF-4.5) by name, in mm: an option left out is the block's default.
+pub type Options = std::collections::BTreeMap<String, f64>;
+
+/// One option of a block: its ease or a dart's size, which the source gives one value and a
+/// pattern maker changes for the fit or the style.
+#[derive(Clone, Copy, Debug, PartialEq)]
+pub struct BlockOption {
+    pub name: &'static str,
+    pub what: &'static str,
+    /// The source's value (mm); none when it is worked out from the measurements.
+    pub default: Option<f64>,
+    pub min: f64,
+    pub max: f64,
+}
+
+const fn opt(name: &'static str, what: &'static str, default: Option<f64>, min: f64, max: f64) -> BlockOption {
+    BlockOption { name, what, default, min, max }
+}
+
+/// The bodice block's options.
+pub const BODICE_OPTIONS: &[BlockOption] = &[
+    opt("ease", "ease across the half bust, at the chest line", Some(50.0), 0.0, 300.0),
+    opt("waist_ease", "ease at the half waist, before the darts take the rest in", Some(30.0), 0.0, 200.0),
+    opt("bust_dart", "the bust dart's width at the shoulder (by default 7 cm at an 88 cm bust, 0.6 cm more each 4 cm more)", None, 0.0, 200.0),
+    opt("shoulder_dart", "the back shoulder dart's width", Some(10.0), 0.0, 50.0),
+];
+
+/// The skirt block's options.
+pub const SKIRT_OPTIONS: &[BlockOption] = &[
+    opt("ease", "ease at the half hip", Some(10.0), 0.0, 300.0),
+    opt("back_dart_length", "the back darts' length (never past 3 cm above the hip line)", Some(140.0), 10.0, 400.0),
+    opt("front_dart_length", "the front darts' length (never past 3 cm above the hip line)", Some(100.0), 10.0, 400.0),
+];
+
+/// The sleeve block's options.
+pub const SLEEVE_OPTIONS: &[BlockOption] = &[opt("ease", "ease round the top arm", Some(50.0), 0.0, 300.0)];
+
+/// The trouser block's options.
+pub const TROUSER_OPTIONS: &[BlockOption] = &[
+    opt("ease", "ease at the half hip", Some(20.0), 0.0, 300.0),
+    opt("back_dart", "the back waist dart's width", Some(20.0), 0.0, 100.0),
+    opt("back_dart_length", "the back waist dart's length", Some(100.0), 10.0, 300.0),
+];
+
+/// A block's options.
+pub fn options(kind: BlockKind) -> &'static [BlockOption] {
+    match kind {
+        BlockKind::Bodice => BODICE_OPTIONS,
+        BlockKind::Skirt => SKIRT_OPTIONS,
+        BlockKind::Sleeve => SLEEVE_OPTIONS,
+        BlockKind::Trousers => TROUSER_OPTIONS,
+    }
+}
+
+/// Whether `o` are options of `kind` in their ranges.
+pub fn check_options(kind: BlockKind, o: &Options) -> Result<(), BlockError> {
+    for (name, v) in o {
+        let Some(spec) = options(kind).iter().find(|s| s.name == name) else {
+            return Err(BlockError::Option(format!("the block has no option `{name}`")));
+        };
+        if !(v.is_finite() && (spec.min..=spec.max).contains(v)) {
+            return Err(BlockError::Option(format!("{name} {v} mm: give {} to {} mm", spec.min, spec.max)));
+        }
+    }
+    Ok(())
+}
+
+/// Option `name`'s value in `o`, else `default`.
+fn value(o: &Options, name: &str, default: f64) -> f64 {
+    o.get(name).copied().unwrap_or(default)
+}
+
 /// Why a block can't be drafted.
 #[derive(Clone, Debug, PartialEq)]
 pub enum BlockError {
@@ -141,6 +216,8 @@ pub enum BlockError {
     Missing(Vec<String>),
     /// Measurements that don't make a bodice (a shoulder too short to reach the armhole line…).
     Impossible(&'static str),
+    /// An option the block doesn't have, or out of its range.
+    Option(String),
 }
 
 impl std::fmt::Display for BlockError {
@@ -148,6 +225,7 @@ impl std::fmt::Display for BlockError {
         match self {
             BlockError::Missing(m) => write!(f, "the block needs these measurements: {}", m.join(", ")),
             BlockError::Impossible(why) => write!(f, "these measurements don't make a bodice: {why}"),
+            BlockError::Option(why) => f.write_str(why),
         }
     }
 }
@@ -179,17 +257,18 @@ fn reach(from: Pt, y: f64, len: f64, dir: f64) -> Option<Pt> {
 }
 
 /// The back and front of the close-fitting bodice block (parts 0 and 1).
-pub fn bodice(env: &mut Env) -> Result<Vec<Part>, BlockError> {
+pub fn bodice(env: &mut Env, opts: &Options) -> Result<Vec<Part>, BlockError> {
     let v = need(env, BODICE_MEASUREMENTS)?;
     let &[bust, waist, nape_to_waist, back_width, chest, shoulder, neck, depth] = v.as_slice() else {
         return Err(BlockError::Missing(vec![]));
     };
     let half_bust = bust / 2.0;
+    let (ease, waist_ease) = (value(opts, "ease", 50.0), value(opts, "waist_ease", 30.0));
     // The construction frame.
     let o = Pt::new(0.0, 0.0);
     let a = Pt::new(0.0, 15.0);
     let b = Pt::new(0.0, a.y + depth + 5.0);
-    let c = Pt::new(half_bust + 50.0, b.y);
+    let c = Pt::new(half_bust + ease, b.y);
     // The front neck rises above the back's top line for larger busts: an eighth of the bust over
     // 92 cm.
     let d = Pt::new(c.x, o.y - ((bust - 920.0) / 8.0).max(0.0));
@@ -201,12 +280,13 @@ pub fn bodice(env: &mut Env) -> Result<Vec<Part>, BlockError> {
     let g = Pt::new(neck / 5.0 - 2.0, o.y);
     let h = Pt::new(0.0, a.y + depth / 5.0 - 7.0);
     let i = reach(g, h.y, shoulder + 10.0, 1.0).ok_or(BlockError::Impossible("the shoulder is too short to reach the armhole line"))?;
-    // The back shoulder dart: 1 cm wide at the shoulder, its point 5 cm below and 1 cm toward the
-    // centre back from the shoulder's middle.
+    // The back shoulder dart: 1 cm wide at the shoulder (the `shoulder_dart` option), its point
+    // 5 cm below and 1 cm toward the centre back from the shoulder's middle.
     let j = mid(g, i);
     let k = Pt::new(j.x - 10.0, j.y + 50.0);
     let along = (i - g).unit().unwrap_or(Pt::new(1.0, 0.0));
-    let (dart_in, dart_out) = (j - along * 5.0, j + along * 5.0);
+    let sd = value(opts, "shoulder_dart", 10.0) / 2.0;
+    let (dart_in, dart_out) = (j - along * sd, j + along * sd);
     // Back width line and armhole points.
     let l = Pt::new(back_width / 2.0 + 5.0, b.y);
     let m = Pt::new(l.x, h.y);
@@ -216,8 +296,9 @@ pub fn bodice(env: &mut Env) -> Result<Vec<Part>, BlockError> {
     // Front neck.
     let r = Pt::new(d.x - (neck / 5.0 + 7.0), d.y);
     let s = Pt::new(d.x, d.y + neck / 5.0 - 2.0);
-    // The bust dart: 7 cm at an 88 cm bust, 0.6 cm more for every 4 cm more bust.
-    let dart = 70.0 + 6.0 * (bust - 880.0) / 40.0;
+    // The bust dart: 7 cm at an 88 cm bust, 0.6 cm more for every 4 cm more bust (unless the
+    // `bust_dart` option sets it).
+    let dart = value(opts, "bust_dart", 70.0 + 6.0 * (bust - 880.0) / 40.0);
     if dart <= 0.0 {
         return Err(BlockError::Impossible("the bust is too small for the bust dart"));
     }
@@ -256,7 +337,7 @@ pub fn bodice(env: &mut Env) -> Result<Vec<Part>, BlockError> {
     };
     // Waist darts: what the waist takes in, half a body, shared back 2.5 : side 3 : front 3.5 (the
     // source's widths, scaled to what there is to take in).
-    let take = (half_bust + 50.0) - (waist / 2.0 + 30.0);
+    let take = (half_bust + ease) - (waist / 2.0 + waist_ease);
     let scale = (take / 90.0).max(0.0);
     let (back_dart, side_dart, front_dart) = (25.0 * scale, 30.0 * scale, 35.0 * scale);
     let q = Pt::new(p.x, e.y);
@@ -322,7 +403,7 @@ pub fn bodice(env: &mut Env) -> Result<Vec<Part>, BlockError> {
 
 /// The back and front of the basic straight skirt block (parts 0 and 1): centre back at x = 0,
 /// centre front at half the hip plus ease, the waist at y = 0.
-pub fn skirt(env: &mut Env) -> Result<Vec<Part>, BlockError> {
+pub fn skirt(env: &mut Env, o: &Options) -> Result<Vec<Part>, BlockError> {
     let v = need(env, SKIRT_MEASUREMENTS)?;
     let &[waist, hip, waist_to_hip, length] = v.as_slice() else {
         return Err(BlockError::Missing(vec![]));
@@ -330,7 +411,7 @@ pub fn skirt(env: &mut Env) -> Result<Vec<Part>, BlockError> {
     if waist_to_hip >= length {
         return Err(BlockError::Impossible("the skirt is shorter than the waist to hip depth"));
     }
-    let width = hip / 2.0 + 10.0;
+    let width = hip / 2.0 + value(o, "ease", 10.0);
     let side = width / 2.0;
     let take = width - waist / 2.0;
     if take < 0.0 {
@@ -343,7 +424,8 @@ pub fn skirt(env: &mut Env) -> Result<Vec<Part>, BlockError> {
     let (back_dart, front_dart) = (darts * 0.6, darts * 0.4);
     // Dart lengths are left to the drawings: here 14 cm at the back and 10 cm at the front, and
     // always 3 cm short of the hip line.
-    let (back_len, front_len) = (140.0_f64.min(waist_to_hip - 30.0), 100.0_f64.min(waist_to_hip - 30.0));
+    let (back_len, front_len) =
+        (value(o, "back_dart_length", 140.0).min(waist_to_hip - 30.0), value(o, "front_dart_length", 100.0).min(waist_to_hip - 30.0));
     if back_len <= 0.0 {
         return Err(BlockError::Impossible("the waist to hip depth is too short for darts"));
     }
@@ -459,10 +541,10 @@ pub fn sleeve_crown(part: &Part) -> f64 {
 }
 
 /// The sleeve's outline for a crown `depth`.
-fn sleeve_part(top_arm: f64, length: f64, depth: f64) -> Part {
-    // 5 cm ease round the top arm, half each side of the centre line; the back and front lines a
-    // quarter of the width in from the underarms.
-    let half = (top_arm + 50.0) / 2.0;
+fn sleeve_part(top_arm: f64, length: f64, depth: f64, ease: f64) -> Part {
+    // 5 cm ease round the top arm (the `ease` option), half each side of the centre line; the back
+    // and front lines a quarter of the width in from the underarms.
+    let half = (top_arm + ease) / 2.0;
     let (back_under, front_under) = (Pt::new(-half, depth), Pt::new(half, depth));
     let (back_line, front_line) = (-half / 2.0, half / 2.0);
     let (back_mark, front_mark) = (Pt::new(back_line, depth - 55.0), Pt::new(front_line, depth - 60.0));
@@ -497,7 +579,8 @@ fn sleeve_part(top_arm: f64, length: f64, depth: f64) -> Part {
 /// depth comes from the top arm by the table; when the set has a `sleeve_crown` (the length the
 /// crown is to be: the bodice's armhole plus the ease to set it in, `armhole + 30`), the depth is
 /// found that makes the crown that long instead.
-pub fn sleeve(env: &mut Env) -> Result<Vec<Part>, BlockError> {
+pub fn sleeve(env: &mut Env, o: &Options) -> Result<Vec<Part>, BlockError> {
+    let ease = value(o, "ease", 50.0);
     let v = need(env, SLEEVE_MEASUREMENTS)?;
     let &[top_arm, length] = v.as_slice() else {
         return Err(BlockError::Missing(vec![]));
@@ -516,7 +599,7 @@ pub fn sleeve(env: &mut Env) -> Result<Vec<Part>, BlockError> {
         None => crown_depth(top_arm),
         Some(t) => {
             // The crown grows with its depth: halve the interval until it is the length asked.
-            let len = |d: f64| sleeve_crown(&sleeve_part(top_arm, length, d));
+            let len = |d: f64| sleeve_crown(&sleeve_part(top_arm, length, d, ease));
             let (mut lo, mut hi) = (61.0, 400.0);
             if !(len(lo) <= t && t <= len(hi)) {
                 return Err(BlockError::Impossible("no crown depth gives a crown that long for this top arm"));
@@ -535,14 +618,14 @@ pub fn sleeve(env: &mut Env) -> Result<Vec<Part>, BlockError> {
     if length <= depth + 50.0 {
         return Err(BlockError::Impossible("the sleeve is shorter than its crown"));
     }
-    Ok(vec![sleeve_part(top_arm, length, depth)])
+    Ok(vec![sleeve_part(top_arm, length, depth, ease)])
 }
 
 /// The front and back of the basic trouser block (parts 0 and 1), side by side in one frame: the
 /// top of the frame (the side seams' waist line) at y = 0, the front's half on the left (its
 /// centre front at x = 0), the back's on the right (its centre back at the frame's right edge),
 /// the side seams on the frame's middle line down to the crotch line.
-pub fn trousers(env: &mut Env) -> Result<Vec<Part>, BlockError> {
+pub fn trousers(env: &mut Env, o: &Options) -> Result<Vec<Part>, BlockError> {
     let v = need(env, TROUSER_MEASUREMENTS)?;
     let &[waist, hip, waist_to_hip, crotch_depth, waist_to_knee, waist_to_ankle, hem] = v.as_slice() else {
         return Err(BlockError::Missing(vec![]));
@@ -550,7 +633,7 @@ pub fn trousers(env: &mut Env) -> Result<Vec<Part>, BlockError> {
     let (half_hip, half_waist) = (hip / 2.0, waist / 2.0);
     // The frame: half the hip and 2 cm ease wide, waist to ankle long; the crotch line 1.5 cm
     // below the crotch depth.
-    let width = half_hip + 20.0;
+    let width = half_hip + value(o, "ease", 20.0);
     let side = width / 2.0;
     let (hip_y, crotch_y, knee_y, hem_y) = (waist_to_hip, crotch_depth + 15.0, waist_to_knee, waist_to_ankle);
     if !(hip_y < crotch_y && crotch_y < knee_y && knee_y < hem_y) {
@@ -650,10 +733,11 @@ pub fn trousers(env: &mut Env) -> Result<Vec<Part>, BlockError> {
     // inseam, the crotch and the centre back.
     let along = (back_side_top - cb_top).unit().unwrap_or(Pt::new(-1.0, 0.0));
     let mid_waist = (cb_top + back_side_top) * 0.5;
-    let (dart_cb, dart_side) = (mid_waist - along * 10.0, mid_waist + along * 10.0);
+    let half_dart = value(o, "back_dart", 20.0) / 2.0;
+    let (dart_cb, dart_side) = (mid_waist - along * half_dart, mid_waist + along * half_dart);
     let down = Pt::new(-along.y, along.x);
     let down = if down.y < 0.0 { down * -1.0 } else { down };
-    let dart_point = mid_waist + down * 100.0;
+    let dart_point = mid_waist + down * value(o, "back_dart_length", 100.0);
     let cb_square = Pt::new(-cb_dir.y, cb_dir.x).unit().unwrap_or(Pt::new(-1.0, 0.0));
     let cb_square = if cb_square.x > 0.0 { cb_square * -1.0 } else { cb_square };
     let back = Part {
@@ -679,12 +763,13 @@ pub fn trousers(env: &mut Env) -> Result<Vec<Part>, BlockError> {
 }
 
 /// The parts of a block.
-pub fn draft(kind: BlockKind, env: &mut Env) -> Result<Vec<Part>, BlockError> {
+pub fn draft(kind: BlockKind, env: &mut Env, o: &Options) -> Result<Vec<Part>, BlockError> {
+    check_options(kind, o)?;
     match kind {
-        BlockKind::Bodice => bodice(env),
-        BlockKind::Skirt => skirt(env),
-        BlockKind::Sleeve => sleeve(env),
-        BlockKind::Trousers => trousers(env),
+        BlockKind::Bodice => bodice(env, o),
+        BlockKind::Skirt => skirt(env, o),
+        BlockKind::Sleeve => sleeve(env, o),
+        BlockKind::Trousers => trousers(env, o),
     }
 }
 
@@ -786,7 +871,7 @@ mod tests {
 
     #[test]
     fn the_bodice_block_is_half_the_bust_with_ease_across_and_waist_length_down() {
-        let parts = bodice(&mut me().env()).unwrap();
+        let parts = bodice(&mut me().env(), &Options::new()).unwrap();
         assert_eq!(parts.len(), 2);
         let (back, front) = (&parts[0], &parts[1]);
         let (bx0, _, bx1, by1) = bounds(back);
@@ -804,7 +889,7 @@ mod tests {
 
     #[test]
     fn the_shoulders_measure_the_shoulder_and_the_darts_follow_the_bust() {
-        let p = bodice(&mut me().env()).unwrap();
+        let p = bodice(&mut me().env(), &Options::new()).unwrap();
         let back = p[0].corners();
         // Back neck point (G) to shoulder point (I): the shoulder plus 1 cm, the dart taken out.
         let (g, i) = (back[2], back[6]);
@@ -818,7 +903,7 @@ mod tests {
         assert!(((r - wd).len() - 70.0).abs() < 1e-9);
         let mut big = me();
         big.set_value("bust", Some(960.0)).unwrap();
-        let front = bodice(&mut big.env()).unwrap()[1].corners();
+        let front = bodice(&mut big.env(), &Options::new()).unwrap()[1].corners();
         assert!(((front[12] - front[10]).len() - 82.0).abs() < 1e-9);
     }
 
@@ -828,7 +913,7 @@ mod tests {
         for (k, v) in [("waist", 720.0), ("hip", 960.0), ("waist_to_hip", 200.0), ("skirt_length", 580.0)] {
             m.set_value(k, Some(v)).unwrap();
         }
-        let p = skirt(&mut m.env()).unwrap();
+        let p = skirt(&mut m.env(), &Options::new()).unwrap();
         let (back, front) = (bounds(&p[0]), bounds(&p[1]));
         assert!(back.0.abs() < 1e-9 && (front.2 - 490.0).abs() < 1e-9 && (back.3 - 580.0).abs() < 1e-9);
         // Both halves meet at the side seam at the hip line, half way across.
@@ -842,9 +927,9 @@ mod tests {
         assert!(b[3].x - b[1].x > f[7].x - f[5].x);
         let mut m2 = m.clone();
         m2.set_value("skirt_length", Some(150.0)).unwrap();
-        assert!(matches!(skirt(&mut m2.env()), Err(BlockError::Impossible(_))));
+        assert!(matches!(skirt(&mut m2.env(), &Options::new()), Err(BlockError::Impossible(_))));
         m2.set_value("hip", None).unwrap();
-        assert!(matches!(skirt(&mut m2.env()), Err(BlockError::Missing(_))));
+        assert!(matches!(skirt(&mut m2.env(), &Options::new()), Err(BlockError::Missing(_))));
     }
 
     #[test]
@@ -852,21 +937,21 @@ mod tests {
         let mut m = me();
         m.set_value("neck", None).unwrap();
         m.set_value("shoulder", None).unwrap();
-        assert_eq!(bodice(&mut m.env()), Err(BlockError::Missing(vec!["shoulder".into(), "neck".into()])));
+        assert_eq!(bodice(&mut m.env(), &Options::new()), Err(BlockError::Missing(vec!["shoulder".into(), "neck".into()])));
         // The armhole between back and front is open: the chest leaves room past the back width.
-        let p = bodice(&mut me().env()).unwrap();
+        let p = bodice(&mut me().env(), &Options::new()).unwrap();
         let side = p[0].corners()[9];
         assert!(side.x > 345.0 / 2.0 + 5.0 + 40.0, "{side:?}");
         let mut m = me();
         m.set_value("nape_to_waist", Some(100.0)).unwrap();
-        assert!(matches!(bodice(&mut m.env()), Err(BlockError::Impossible(_))));
+        assert!(matches!(bodice(&mut m.env(), &Options::new()), Err(BlockError::Impossible(_))));
         let mut m = me();
         m.set_value("shoulder", Some(5.0)).unwrap();
-        assert!(matches!(bodice(&mut m.env()), Err(BlockError::Impossible(_))));
+        assert!(matches!(bodice(&mut m.env(), &Options::new()), Err(BlockError::Impossible(_))));
         // A formula can stand for a measurement.
         let mut m = me();
         m.set_formula("waist", Some("bust - 200")).unwrap();
-        assert!(bodice(&mut m.env()).is_ok());
+        assert!(bodice(&mut m.env(), &Options::new()).is_ok());
     }
 
     #[test]
@@ -879,7 +964,7 @@ mod tests {
         for (k, v) in [("top_arm", 380.0), ("sleeve_length", 640.0)] {
             m.set_value(k, Some(v)).unwrap();
         }
-        let p = sleeve(&mut m.env()).unwrap();
+        let p = sleeve(&mut m.env(), &Options::new()).unwrap();
         assert_eq!(p.len(), 1);
         let (l, t, r, b) = bounds(&p[0]);
         // 43 cm wide (38 + 5), the shoulder point at the top, 64 cm long at the back line.
@@ -891,21 +976,21 @@ mod tests {
         // A crown fitted to an armhole: the depth that makes it that long.
         let table = sleeve_crown(&p[0]);
         m.set_formula("sleeve_crown", Some(&format!("{table} + 30"))).unwrap();
-        let fitted = sleeve(&mut m.env()).unwrap();
+        let fitted = sleeve(&mut m.env(), &Options::new()).unwrap();
         assert!((sleeve_crown(&fitted[0]) - (table + 30.0)).abs() < 1e-6);
         // A deeper crown, the width kept.
         let c = fitted[0].corners();
         assert!(c[4].x == 215.0 && c[10] == Pt::new(-215.0, c[4].y) && c[4].y > 150.0, "{:?} {:?}", c[4], c[10]);
         assert!(bounds(&fitted[0]).3 == b);
         m.set_formula("sleeve_crown", Some("armhole + 30")).unwrap();
-        assert_eq!(sleeve(&mut m.env()), Err(BlockError::Missing(vec!["sleeve_crown".into()])));
+        assert_eq!(sleeve(&mut m.env(), &Options::new()), Err(BlockError::Missing(vec!["sleeve_crown".into()])));
         m.set_formula("sleeve_crown", Some("2000")).unwrap();
-        assert!(matches!(sleeve(&mut m.env()), Err(BlockError::Impossible(_))));
+        assert!(matches!(sleeve(&mut m.env(), &Options::new()), Err(BlockError::Impossible(_))));
         m.set_formula("sleeve_crown", None).unwrap();
         m.set_value("sleeve_length", Some(180.0)).unwrap();
-        assert!(matches!(sleeve(&mut m.env()), Err(BlockError::Impossible(_))));
+        assert!(matches!(sleeve(&mut m.env(), &Options::new()), Err(BlockError::Impossible(_))));
         m.set_value("top_arm", None).unwrap();
-        assert!(matches!(sleeve(&mut m.env()), Err(BlockError::Missing(_))));
+        assert!(matches!(sleeve(&mut m.env(), &Options::new()), Err(BlockError::Missing(_))));
     }
 
     #[test]
@@ -924,7 +1009,7 @@ mod tests {
         ] {
             m.set_value(k, Some(v)).unwrap();
         }
-        let p = trousers(&mut m.env()).unwrap();
+        let p = trousers(&mut m.env(), &Options::new()).unwrap();
         let (f, b) = (p[0].corners(), p[1].corners());
         // The forks: 6 cm out from the centre front, 9 cm from the centre back, on the crotch
         // line 27.5 cm down.
@@ -945,14 +1030,14 @@ mod tests {
         // Both sides meet the side line at the hip and crotch lines.
         assert!(f.contains(&Pt::new(250.0, 200.0)) && b.contains(&Pt::new(250.0, 275.0)));
         m.set_value("waist_to_knee", Some(250.0)).unwrap();
-        assert!(matches!(trousers(&mut m.env()), Err(BlockError::Impossible(_))));
+        assert!(matches!(trousers(&mut m.env(), &Options::new()), Err(BlockError::Impossible(_))));
         m.set_value("crotch_depth", None).unwrap();
-        assert_eq!(trousers(&mut m.env()), Err(BlockError::Missing(vec!["crotch_depth".into()])));
+        assert_eq!(trousers(&mut m.env(), &Options::new()), Err(BlockError::Missing(vec!["crotch_depth".into()])));
     }
 
     #[test]
     fn the_armholes_and_the_crown_are_where_armhole_says() {
-        let p = bodice(&mut me().env()).unwrap();
+        let p = bodice(&mut me().env(), &Options::new()).unwrap();
         let (back, front) = (p[0].corners(), p[1].corners());
         let ((bf, bt, bn), (ff, ft, fn_)) = (armhole(BlockKind::Bodice, 0).unwrap(), armhole(BlockKind::Bodice, 1).unwrap());
         assert_eq!((p[0].anchors(), p[1].anchors()), (bn, fn_));
@@ -964,7 +1049,7 @@ mod tests {
         let mut m = me();
         m.set_value("top_arm", Some(280.0)).unwrap();
         m.set_value("sleeve_length", Some(590.0)).unwrap();
-        let sl = &sleeve(&mut m.env()).unwrap()[0];
+        let sl = &sleeve(&mut m.env(), &Options::new()).unwrap()[0];
         let (from, to, n) = armhole(BlockKind::Sleeve, 0).unwrap();
         assert_eq!(sl.anchors(), n);
         let c = sl.corners();
@@ -986,5 +1071,36 @@ mod tests {
         assert!((crown - sleeve_crown(sl)).abs() < 1e-9);
         assert_eq!(SleeveStyle::parse("classic").map(SleeveStyle::ease), Some((38.1, 50.8)));
         assert_eq!(SleeveStyle::parse("dolman"), None);
+    }
+
+    #[test]
+    fn options_change_the_ease_and_the_darts_and_bad_ones_are_refused() {
+        let opts = |pairs: &[(&str, f64)]| pairs.iter().map(|(k, v)| (k.to_string(), *v)).collect::<Options>();
+        // The bodice: 2 cm more ease puts the centre front 2 cm further out; a wider bust dart.
+        let plain = bodice(&mut me().env(), &Options::new()).unwrap();
+        let roomy = draft(BlockKind::Bodice, &mut me().env(), &opts(&[("ease", 70.0), ("bust_dart", 90.0)])).unwrap();
+        assert!((bounds(&roomy[1]).2 - bounds(&plain[1]).2 - 20.0).abs() < 1e-9);
+        assert_ne!(roomy[1], plain[1]);
+        // The skirt: 2 cm more ease at the half hip is 2 cm wider.
+        let mut m = Measurements::default();
+        for (k, v) in [("waist", 720.0), ("hip", 960.0), ("waist_to_hip", 200.0), ("skirt_length", 580.0)] {
+            m.set_value(k, Some(v)).unwrap();
+        }
+        let a = skirt(&mut m.env(), &Options::new()).unwrap();
+        let b = draft(BlockKind::Skirt, &mut m.env(), &opts(&[("ease", 30.0)])).unwrap();
+        assert!((bounds(&b[1]).2 - bounds(&a[1]).2 - 20.0).abs() < 1e-9);
+        // The sleeve: 3 cm ease round the top arm is 2 cm narrower than the source's 5.
+        let mut m = Measurements::default();
+        for (k, v) in [("top_arm", 380.0), ("sleeve_length", 640.0)] {
+            m.set_value(k, Some(v)).unwrap();
+        }
+        let a = sleeve(&mut m.env(), &Options::new()).unwrap();
+        let b = draft(BlockKind::Sleeve, &mut m.env(), &opts(&[("ease", 30.0)])).unwrap();
+        let w = |p: &Part| bounds(p).2 - bounds(p).0;
+        assert!((w(&a[0]) - w(&b[0]) - 20.0).abs() < 1e-9, "{} {}", w(&a[0]), w(&b[0]));
+        // Unknown options and values out of range are refused.
+        assert!(matches!(draft(BlockKind::Sleeve, &mut m.env(), &opts(&[("bust_dart", 10.0)])), Err(BlockError::Option(_))));
+        assert!(matches!(draft(BlockKind::Sleeve, &mut m.env(), &opts(&[("ease", -1.0)])), Err(BlockError::Option(_))));
+        assert!(options(BlockKind::Trousers).iter().any(|o| o.name == "back_dart" && o.default == Some(20.0)));
     }
 }
