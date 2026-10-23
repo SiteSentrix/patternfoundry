@@ -177,6 +177,14 @@ pub const SLEEVE_OPTIONS: &[BlockOption] = &[opt("ease", "ease round the top arm
 /// The trouser block's options.
 pub const TROUSER_OPTIONS: &[BlockOption] = &[
     opt("ease", "ease at the half hip", Some(20.0), 0.0, 300.0),
+    opt(
+        "front_dart",
+        "a front waist dart's width, added at the front side seam (none by default; the source's author suggests about 1 cm)",
+        Some(0.0),
+        0.0,
+        60.0,
+    ),
+    opt("front_dart_length", "the front waist dart's length", Some(80.0), 10.0, 200.0),
     opt("back_dart", "the back waist dart's width", Some(20.0), 0.0, 100.0),
     opt("back_dart_length", "the back waist dart's length", Some(100.0), 10.0, 300.0),
 ];
@@ -660,7 +668,10 @@ pub fn trousers(env: &mut Env, o: &Options) -> Result<Vec<Part>, BlockError> {
         let d2 = len * len - from.y * from.y;
         (d2 > 0.0).then(|| Pt::new(from.x + dir * d2.sqrt(), 0.0))
     };
-    let front_len = half_waist / 2.0 + 15.0;
+    // A front dart (the `front_dart` option, none by default) takes its width out again: the
+    // tutorial's author adds "that extra width to the side seam of the front piece" for one.
+    let front_dart = value(o, "front_dart", 0.0);
+    let front_len = half_waist / 2.0 + 15.0 + front_dart;
     let back_len = half_waist / 2.0 + 5.0;
     let front_side_top = to_top(cf_top, front_len, 1.0).ok_or(BlockError::Impossible("the waist is too small"))?;
     let back_side_top = to_top(cb_top, back_len, -1.0).ok_or(BlockError::Impossible("the waist is too small"))?;
@@ -708,7 +719,7 @@ pub fn trousers(env: &mut Env, o: &Options) -> Result<Vec<Part>, BlockError> {
     let cb_dir = cb_hip - cb_top;
     // Front: from the centre front at the waist, down the centre front and the crotch, down the
     // inseam, across the hem, up the side seam, the waist.
-    let front = Part {
+    let mut front = Part {
         name: "Front Trouser Block",
         start: cf_top,
         segs: vec![
@@ -721,13 +732,28 @@ pub fn trousers(env: &mut Env, o: &Options) -> Result<Vec<Part>, BlockError> {
             Seg::Cubic(up(fks, fhs, thigh * 0.35), Pt::new(side, crotch_y + thigh * 0.35), side_crotch),
             Seg::Line(side_hip),
             Seg::Cubic(Pt::new(side, hip_y * 0.6), front_side_top + (side_hip - front_side_top) * 0.3, front_side_top),
-            Seg::Cubic(
-                front_side_top + (cf_top - front_side_top) * 0.33,
-                cf_top + Pt::new(cf_dir.y, -cf_dir.x).unit().unwrap_or(Pt::new(1.0, 0.0)) * (front_len * 0.33),
-                cf_top,
-            ),
         ],
     };
+    let cf_square = Pt::new(cf_dir.y, -cf_dir.x).unit().unwrap_or(Pt::new(1.0, 0.0));
+    if front_dart > 0.0 {
+        // The dart in the middle of the waist, square to it, `front_dart_length` long (8 cm unless
+        // set: the length is left open, chosen here).
+        let along = (cf_top - front_side_top).unit().unwrap_or(Pt::new(-1.0, 0.0));
+        let mid_waist = (front_side_top + cf_top) * 0.5;
+        let (leg_side, leg_cf) = (mid_waist - along * (front_dart / 2.0), mid_waist + along * (front_dart / 2.0));
+        let down = Pt::new(-along.y, along.x);
+        let down = if down.y < 0.0 { down * -1.0 } else { down };
+        let point = mid_waist + down * value(o, "front_dart_length", 80.0);
+        let rest = (cf_top - leg_cf).len();
+        front.segs.extend([
+            Seg::Line(leg_side),
+            Seg::Line(point),
+            Seg::Line(leg_cf),
+            Seg::Cubic(leg_cf + (cf_top - leg_cf) * 0.33, cf_top + cf_square * (rest * 0.33), cf_top),
+        ]);
+    } else {
+        front.segs.push(Seg::Cubic(front_side_top + (cf_top - front_side_top) * 0.33, cf_top + cf_square * (front_len * 0.33), cf_top));
+    }
     // Back: from the centre back at the waist, across the waist with its dart (2 cm wide, 10 cm
     // long, square to the waist at its middle), down the side seam, across the hem, up the
     // inseam, the crotch and the centre back.
@@ -803,8 +829,12 @@ pub const TROUSER_SEAMS: &[(&str, Run, Run)] = &[
     ("side seam, waist to knee", (6, 9), (4, 7)),
 ];
 
-/// How many anchors the trouser block's front and back have as drafted.
+/// How many anchors the trouser block's front and back have as drafted (the front 3 more with a
+/// front dart, which comes after the side seam's waist end).
 pub const TROUSER_ANCHORS: (usize, usize) = (10, 13);
+
+/// The trouser front's anchors with a front dart.
+pub const TROUSER_FRONT_DART_ANCHORS: usize = 13;
 
 /// How a set-in sleeve is to sit, for the ease its crown takes in: the University of Kentucky
 /// extension's figures, measured notch to notch (FCS2-807, "Set-in Sleeves",
@@ -1148,5 +1178,34 @@ mod tests {
                 assert!(ends.iter().any(|e| [1040.0, 275.0].contains(e) || *e < 20.0), "{ends:?}");
             }
         }
+    }
+
+    #[test]
+    fn a_front_dart_widens_the_front_waist_by_its_width_and_takes_it_in_again() {
+        let mut m = Measurements::default();
+        for (k, v) in [
+            ("waist", 740.0),
+            ("hip", 960.0),
+            ("waist_to_hip", 200.0),
+            ("crotch_depth", 260.0),
+            ("waist_to_knee", 600.0),
+            ("waist_to_ankle", 1040.0),
+            ("trouser_hem", 460.0),
+        ] {
+            m.set_value(k, Some(v)).unwrap();
+        }
+        let opts = [("front_dart".to_string(), 10.0)].into_iter().collect::<Options>();
+        let plain = trousers(&mut m.env(), &Options::new()).unwrap();
+        let darted = trousers(&mut m.env(), &opts).unwrap();
+        let (a, b) = (plain[0].corners(), darted[0].corners());
+        assert_eq!(b.len() - 1, TROUSER_FRONT_DART_ANCHORS);
+        // The side seam's waist end (anchor 9) moves out along the waist; the seams before it stay.
+        assert_eq!(a[..9], b[..9]);
+        let dist = |p: Pt, q: Pt| (p - q).len();
+        assert!((dist(b[9], b[0]) - dist(a[9], a[0]) - 10.0).abs() < 0.5, "{} {}", dist(b[9], b[0]), dist(a[9], a[0]));
+        // The dart: legs 1 cm apart at the waist, its point 8 cm below their middle.
+        assert!((dist(b[10], b[12]) - 10.0).abs() < 1e-6);
+        assert!((dist(b[11], (b[10] + b[12]) * 0.5) - 80.0).abs() < 1e-6);
+        assert_eq!(plain[1], darted[1], "the back is as it was");
     }
 }

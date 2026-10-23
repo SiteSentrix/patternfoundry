@@ -47,6 +47,7 @@ fn label(name: &str) -> &'static str {
         "bust_dart" => tl!("Bust dart"),
         "shoulder_dart" => tl!("Shoulder dart"),
         "back_dart" => tl!("Back dart"),
+        "front_dart" => tl!("Front dart"),
         "back_dart_length" => tl!("Back dart length"),
         "front_dart_length" => tl!("Front dart length"),
         _ => tl!("Option"),

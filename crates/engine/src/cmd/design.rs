@@ -717,7 +717,9 @@ fn trouser_seams(s: &mut Session, _p: &Value) -> Result<Value> {
     const CMD: &str = "design.trouserSeams";
     use pf_core::block::{BlockKind, TROUSER_ANCHORS, TROUSER_SEAMS};
     let doc = &s.doc()?.doc;
-    let front = block_ring(doc, BlockKind::Trousers, 0, TROUSER_ANCHORS.0, "front trouser block", "front", CMD)?;
+    // With a front dart the front has 3 anchors more, after the seams walked.
+    let front = block_ring(doc, BlockKind::Trousers, 0, TROUSER_ANCHORS.0, "front trouser block", "front", CMD)
+        .or_else(|_| block_ring(doc, BlockKind::Trousers, 0, pf_core::block::TROUSER_FRONT_DART_ANCHORS, "front trouser block", "front", CMD))?;
     let back = block_ring(doc, BlockKind::Trousers, 1, TROUSER_ANCHORS.1, "back trouser block", "back", CMD)?;
     let round = |v: f64| (v * 10.0).round() / 10.0;
     let mut worst: f64 = 0.0;
