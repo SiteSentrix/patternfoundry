@@ -258,3 +258,31 @@ fn drill_holes_are_crosses_inside_the_piece_that_move_with_it() {
     assert!(part(&s, g, Mark::Drills).is_none());
     assert!(s.execute("piece.removeDrill", &json!({"index": 0})).is_err());
 }
+
+/// An anchor added to a piece's seam line (by hand, or by a design tool) keeps its notches, edge
+/// allowances, corners and fold where they were, not on whichever edge now has their number.
+#[test]
+fn edge_data_follows_the_seam_line_when_it_gains_an_anchor() {
+    let (mut s, rect) = square();
+    let g = make(&mut s, json!({"allowance": 10}));
+    // Edges 0 top, 1 right, 2 bottom, 3 left: notches on the top and the bottom, the top and the
+    // bottom their own allowances, the left on the fold, the bottom-left corner squared.
+    s.execute("piece.addNotch", &json!({"id": g.0, "edge": 0, "at": 0.25})).unwrap();
+    s.execute("piece.addNotch", &json!({"id": g.0, "edge": 2, "at": 0.5})).unwrap();
+    s.execute("piece.set", &json!({"id": g.0, "edges": {"0": 15, "2": 20}, "fold": 3, "corners": {"3": "square"}})).unwrap();
+    let before = s.execute("piece.info", &json!({"id": g.0})).unwrap();
+    // An anchor in the middle of the top edge: the top is now edges 0 and 1, the bottom edge 3.
+    s.execute("path.insertAnchor", &json!({"id": rect.0, "segment": 0, "t": 0.5})).unwrap();
+    let info = s.execute("piece.info", &json!({"id": g.0})).unwrap();
+    let notches: Vec<(u64, f64)> =
+        info["notches"].as_array().unwrap().iter().map(|n| (n["edge"].as_u64().unwrap(), n["at"].as_f64().unwrap())).collect();
+    assert_eq!(notches.len(), 2, "{info}");
+    assert!(notches[0].0 == 0 && (notches[0].1 - 0.5).abs() < 1e-6, "{notches:?}");
+    assert!(notches[1].0 == 3 && (notches[1].1 - 0.5).abs() < 1e-6, "{notches:?}");
+    assert_eq!(info["edges"], json!({"0": 15.0, "1": 15.0, "3": 20.0}), "{info} {before}");
+    assert_eq!(info["fold"], json!(4), "{info}");
+    assert_eq!(info["corners"], json!({"4": "square"}), "{info}");
+    // Undone, as it was.
+    s.execute("edit.undo", &json!({})).unwrap();
+    assert_eq!(s.execute("piece.info", &json!({"id": g.0})).unwrap(), before);
+}
