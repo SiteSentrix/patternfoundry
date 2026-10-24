@@ -79,3 +79,43 @@ fn the_avatar_exports_as_an_obj_mesh() {
     assert_eq!(std::fs::read_to_string(&path).unwrap(), obj);
     std::fs::remove_dir_all(&dir).ok();
 }
+
+/// glTF export (PF-10.5): the avatar as a binary glTF file, metres, y up, its triangles facing out.
+#[test]
+fn the_avatar_exports_as_gltf() {
+    let mut s = measured();
+    let r = s.execute("avatar.exportGlb", &json!({})).unwrap();
+    let bytes = vectorcraft_format::base64_decode(r["dataBase64"].as_str().unwrap()).unwrap();
+    let (gltf, bin) = pf_core::gltf::read_glb(&bytes).unwrap();
+    let prim = &gltf["meshes"][0]["primitives"][0];
+    let acc = |k: &serde_json::Value| &gltf["accessors"][k.as_u64().unwrap() as usize];
+    let pos = acc(&prim["attributes"]["POSITION"]);
+    assert_eq!(pos["count"].as_u64(), r["vertices"].as_u64());
+    assert_eq!(acc(&prim["indices"])["count"].as_u64().unwrap(), r["triangles"].as_u64().unwrap() * 3);
+    assert!((pos["max"][1].as_f64().unwrap() - (1040.0 + 63.0 * 410.0 / 416.0 + 410.0) / 1000.0).abs() < 1e-4, "{pos}");
+    // Counter-clockwise seen from outside: the body encloses a positive volume.
+    let view = |a: &serde_json::Value| {
+        let v = &gltf["bufferViews"][a["bufferView"].as_u64().unwrap() as usize];
+        let o = v["byteOffset"].as_u64().unwrap() as usize;
+        bin[o..o + v["byteLength"].as_u64().unwrap() as usize].chunks(4).map(|b| [b[0], b[1], b[2], b[3]]).collect::<Vec<_>>()
+    };
+    let p: Vec<f64> = view(pos).into_iter().map(|b| f32::from_le_bytes(b) as f64).collect();
+    let idx: Vec<usize> = view(acc(&prim["indices"])).into_iter().map(|b| u32::from_le_bytes(b) as usize).collect();
+    let at = |i: usize| [p[i * 3], p[i * 3 + 1], p[i * 3 + 2]];
+    let vol: f64 = idx
+        .chunks(3)
+        .map(|t| {
+            let (a, b, c) = (at(t[0]), at(t[1]), at(t[2]));
+            a[0] * (b[1] * c[2] - b[2] * c[1]) - a[1] * (b[0] * c[2] - b[2] * c[0]) + a[2] * (b[0] * c[1] - b[1] * c[0])
+        })
+        .sum::<f64>()
+        / 6.0;
+    // Some tens of litres.
+    assert!((0.02..0.2).contains(&vol), "{vol}");
+    let dir = std::env::temp_dir().join(format!("pf-avatar-glb-{}", std::process::id()));
+    std::fs::create_dir_all(&dir).unwrap();
+    let path = dir.join("me.glb");
+    s.execute("avatar.exportGlb", &json!({"path": path.to_str().unwrap()})).unwrap();
+    assert_eq!(std::fs::read(&path).unwrap(), bytes);
+    std::fs::remove_dir_all(&dir).ok();
+}

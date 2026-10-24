@@ -5673,3 +5673,7 @@ menu	Pattern	Mönster
 	Drape on Avatar	Drapera på avatar
 @msg	the drape view's picture is the wrong size	fallvyns bild har fel storlek
 @msg	the drape view: {e}	fallvyn: {e}
+	Export Avatar as glTF	Exportera avatar som glTF
+	Export Avatar as glTF…	Exportera avatar som glTF…
+	Export Drape as glTF…	Exportera fall som glTF…
+@msg	format: "obj" or "glb"	format: "obj" eller "glb"

@@ -5312,3 +5312,7 @@ menu	Pattern	Викрійка
 	Drape on Avatar	Драпірувати на аватарі
 @msg	the drape view's picture is the wrong size	зображення вигляду драпірування неправильного розміру
 @msg	the drape view: {e}	вигляд драпірування: {e}
+	Export Avatar as glTF	Експортувати аватар у glTF
+	Export Avatar as glTF…	Експортувати аватар у glTF…
+	Export Drape as glTF…	Експортувати драпірування у glTF…
+@msg	format: "obj" or "glb"	format: "obj" або "glb"
