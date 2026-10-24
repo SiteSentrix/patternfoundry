@@ -5371,3 +5371,190 @@ file-filter	PDF for projector	PDF do projektora
 	{piece} is off the fabric	{piece} wychodzi poza tkaninę
 	No pieces overlap, and all are on the fabric.	Żadne elementy nie nachodzą na siebie, wszystkie leżą na tkaninie.
 	Plaid	Krata
+menu	Pattern	Wykrój
+@msg	a and b are two pieces (or paths) that sew together	a i b to dwa elementy (lub ścieżki), które się zszywa
+@msg	a corner is "mitre" or "square"	narożnik to "mitre" lub "square"
+@msg	a facing runs along part of the outline	odszycie biegnie wzdłuż części obrysu
+@msg	a facing runs between two different points of the outline	odszycie biegnie między dwoma różnymi punktami obrysu
+@msg	a name takes at most 200 characters	nazwa może mieć najwyżej 200 znaków
+@msg	a neckline runs between two different points of its outline, and the shoulder point is one of them	linia dekoltu biegnie między dwoma różnymi punktami swojego obrysu, a punkt barkowy jest jednym z nich
+@msg	a seam allowance is a number of mm, or a length with its unit ("5/8 in")	zapas na szew to liczba mm lub długość z jednostką ("5/8 in")
+@msg	a seam has no length	szew nie ma długości
+@msg	a shoulder point is on its neck point	punkt barkowy leży w punkcie szyjnym
+@msg	a slash runs between two points of the outline that aren't neighbours	cięcie biegnie między dwoma niesąsiednimi punktami obrysu
+@msg	a split leaves a piece with fewer than three anchors	podział zostawia element z mniej niż trzema punktami kontrolnymi
+@msg	a split made two panels: delete the panel you don't want instead	podział dał dwie części: zamiast tego usuń niepotrzebną część
+@msg	a split needs two different anchors on the outline	podział wymaga dwóch różnych punktów kontrolnych na obrysie
+@msg	amount: a share of the dart, (0, 1]	amount: część zaszewki, (0, 1]
+@msg	amount: how far it opens, mm	amount: o ile się rozsuwa, mm
+@msg	anchor: the point's number along the path, from 0	anchor: numer punktu wzdłuż ścieżki, od 0
+@msg	anchor: the seam line's point, from 0	anchor: punkt linii szycia, od 0
+@msg	anchors: [a, b] or [a]	anchors: [a, b] lub [a]
+@msg	anchors: point numbers along the path	anchors: numery punktów wzdłuż ścieżki
+@msg	apex: the dart's point (or select that one point)	apex: wierzchołek zaszewki (lub zaznacz tylko ten punkt)
+@msg	at: 0 (the edge's start) to 1 (its end)	at: od 0 (początek krawędzi) do 1 (jej koniec)
+@msg	at: [x, y], the document point on the edge	at: [x, y], punkt dokumentu na krawędzi
+@msg	base: the size the pattern is drawn in	base: rozmiar, w którym narysowano wykrój
+@msg	block: "bodice", "skirt", "sleeve" or "trousers"	block: "bodice", "skirt", "sleeve" lub "trousers"
+@msg	can't make the seam that long by moving its end	nie można tak wydłużyć szwu przez przesunięcie jego końca
+@msg	curve: mm the wrap edge bows into the piece	curve: mm, o ile krawędź zakładki kopertowej wygina się w głąb elementu
+@msg	cut is a whole number, 1 to 999	cut to liczba całkowita od 1 do 999
+@msg	data: the chart's text	data: tekst tabeli
+@msg	depth: how deep the pleat folds under, mm	depth: jak głęboko zakładka zagina się pod spód, mm
+@msg	depth: mm (less than 0 bows the legs in)	depth: mm (poniżej 0 wygina ramiona do środka)
+@msg	diameter: a number of mm, or a length with its unit ("1/8 in")	diameter: liczba mm lub długość z jednostką ("1/8 in")
+@msg	edge: the edge's number, from 0 (or point)	edge: numer krawędzi, od 0 (lub point)
+@msg	edges and corners are numbered from 0	krawędzie i narożniki numeruje się od 0
+@msg	every: mm, at least 10	every: mm, co najmniej 10
+@msg	face: only a box pleat has one	face: ma ją tylko kontrafałda
+@msg	face: the box pleat's width between its folds, mm	face: szerokość kontrafałdy między jej złamaniami, mm
+@msg	flapShape: "square", "rounded" or "pointed"	flapShape: "square", "rounded" lub "pointed"
+@msg	fold is an edge's number (0..), or null	fold to numer krawędzi (0..) lub null
+@msg	fold: [a, b], the centre front edge's two points	fold: [a, b], dwa punkty krawędzi środka przodu
+@msg	fold: true or false	fold: true lub false
+@msg	foldAt: [x, y] in document points	foldAt: [x, y] w punktach dokumentu
+@msg	folded: true or false	folded: true lub false
+@msg	from: [x, y] in document points	from: [x, y] w punktach dokumentu
+@msg	from: not a pattern piece	from: to nie jest element wykroju
+@msg	from: the pattern piece whose rules are copied	from: element wykroju, którego reguły są kopiowane
+@msg	from: the piece has no seam line	from: element nie ma linii szycia
+@msg	frontShape: "square", "rounded" or "winged"	frontShape: "square", "rounded" lub "winged"
+@msg	gathering runs between two different points of the outline	marszczenie biegnie między dwoma różnymi punktami obrysu
+@msg	give apex and one of to or toAnchor (or select the two points)	podaj apex oraz to albo toAnchor (lub zaznacz dwa punkty)
+@msg	height: mm, 10 to 100 (the tutorial's is at most 30)	height: mm, od 10 do 100 (w samouczku najwyżej 30)
+@msg	id: a block part's id	id: id części formy podstawowej
+@msg	index: the drill hole's place in the list, from 0 (or point)	index: pozycja otworu na liście, od 0 (lub point)
+@msg	index: the notch's place in the list, from 0	index: pozycja znaku montażowego na liście, od 0
+@msg	index: the step's place, from 0	index: pozycja kroku, od 0
+@msg	into: the length it gathers into, mm	into: długość, do której się marszczy, mm
+@msg	kind: "slit", "double", "v", "t", "castle" or "u"	kind: "slit", "double", "v", "t", "castle" lub "u"
+@msg	kind: the notch's new shape	kind: nowy kształt znaku montażowego
+@msg	layer: a marker layer's id	layer: id warstwy układu kroju
+@msg	length (mm) or likeId with likeFrom and likeTo: the seam to match	length (mm) lub likeId z likeFrom i likeTo: szew do dopasowania
+@msg	length: mm, more than 0	length: mm, więcej niż 0
+@msg	line: "cut" or "seam"	line: "cut" lub "seam"
+@msg	match: the seam it sews to is shorter than the pocket opening's end	match: szew, z którym się go zszywa, kończy się przed końcem wejścia do kieszeni
+@msg	min is more than max	min jest większe niż max
+@msg	mirror is true or false	mirror to true lub false
+@msg	mirror: "none", "x", "y" or "xy"	mirror: "none", "x", "y" lub "xy"
+@msg	name: the saved set's name	name: nazwa zapisanego zestawu
+@msg	name: whose measurements they are ("Me")	name: czyje to wymiary ("Me")
+@msg	no drill hole near the point	brak otworu w pobliżu punktu
+@msg	no drill hole with that index	brak otworu o tym indeksie
+@msg	no notch with that index	brak znaku montażowego o tym indeksie
+@msg	no object with that id	brak obiektu o tym id
+@msg	no pattern pieces to grade: make the outlines pattern pieces first (Pattern › Make Pattern Piece)	brak elementów wykroju do stopniowania: najpierw zamień obrysy w elementy wykroju (Wykrój › Utwórz element wykroju)
+@msg	no straight centre front edge on the outline's side: name it with fold: [a, b]	brak prostej krawędzi środka przodu po tej stronie obrysu: wskaż ją przez fold: [a, b]
+@msg	not a drafted block part	to nie jest część skonstruowanej formy podstawowej
+@msg	not a marker's layer (Pattern › Make Marker…)	to nie jest warstwa układu kroju (Wykrój › Utwórz układ kroju…)
+@msg	not a pattern piece	to nie jest element wykroju
+@msg	not a stand collar's outline	to nie jest obrys stójki
+@msg	notches go on pattern pieces: make both seams' paths pieces first (Pattern › Make Pattern Piece)	znaki montażowe umieszcza się na elementach wykroju: najpierw zamień ścieżki obu szwów w elementy (Wykrój › Utwórz element wykroju)
+@msg	notches: [mm, …]	notches: [mm, …]
+@msg	notches: distances from the seams' starts, mm	notches: odległości od początków szwów, mm
+@msg	on and at go together: the garment piece and where the opening's top-left corner goes on it	on i at podaje się razem: element odzieży i miejsce, w którym znajdzie się lewy górny róg otworu
+@msg	on and at go together: the garment piece and where the pocket's top-left corner goes on it	on i at podaje się razem: element odzieży i miejsce, w którym znajdzie się lewy górny róg kieszeni
+@msg	one point splits only where another point is at the same place (two darts' point)	pojedynczy punkt dzieli tylko tam, gdzie w tym samym miejscu leży inny punkt (wierzchołek dwóch zaszewek)
+@msg	oneWay: true or false	oneWay: true lub false
+@msg	openFolds: true or false	openFolds: true lub false
+@msg	origin: [x, y] in document points	origin: [x, y] w punktach dokumentu
+@msg	overlap: mm past centre front, more than 0	overlap: mm poza środek przodu, więcej niż 0
+@msg	overlap: the edge misses the outline	overlap: krawędź nie trafia w obrys
+@msg	plaid: the repeat (mm, or [along, across])	plaid: raport (mm lub [along, across])
+@msg	plaid: the repeat along and across, 1 to 10 000 mm each	plaid: raport wzdłuż i w poprzek, każdy od 1 do 10 000 mm
+@msg	point: [x, y] in document points	point: [x, y] w punktach dokumentu
+@msg	select a drafted block part (Pattern › Draft … Block)	zaznacz część skonstruowanej formy podstawowej (Wykrój › Skonstruuj formę podstawową …)
+@msg	select a path or a pattern piece	zaznacz ścieżkę lub element wykroju
+@msg	select a pattern piece (Pattern › Make Pattern Piece makes one)	zaznacz element wykroju (tworzy go Wykrój › Utwórz element wykroju)
+@msg	select a piece on the marker to check	zaznacz element w układzie kroju do sprawdzenia
+@msg	select closed paths: each becomes a piece, the path its seam line	zaznacz zamknięte ścieżki: każda stanie się elementem, a ścieżka jego linią szycia
+@msg	select one path	zaznacz jedną ścieżkę
+@msg	select one pattern piece	zaznacz jeden element wykroju
+@msg	select two points of one path (or one that two darts share)	zaznacz dwa punkty jednej ścieżki (lub jeden, wspólny dla dwóch zaszewek)
+@msg	select two points of one path: the dart's point and where the dart moves to	zaznacz dwa punkty jednej ścieżki: wierzchołek zaszewki i miejsce, do którego ją przenieść
+@msg	select two points of one path: the ends of the edge to face	zaznacz dwa punkty jednej ścieżki: końce krawędzi do odszycia
+@msg	select two points of one path: the ends of the edge to gather	zaznacz dwa punkty jednej ścieżki: końce krawędzi do zmarszczenia
+@msg	share is true or false	share to true lub false
+@msg	shorten: mm (less than 0 lengthens)	shorten: mm (poniżej 0 wydłuża)
+@msg	shoulder: longer than the outline	shoulder: dłuższe niż obrys
+@msg	shoulder: mm, 0 or more	shoulder: mm, 0 lub więcej
+@msg	size: one of the chart's sizes	size: jeden z rozmiarów z tabeli
+@msg	size: the name of a size of the size range or chart	size: nazwa rozmiaru z zakresu rozmiarów lub tabeli
+@msg	sizes: name one size at least	sizes: podaj co najmniej jeden rozmiar
+@msg	sizes: the sizes' names	sizes: nazwy rozmiarów
+@msg	sizes: the sizes' names, smallest first (null removes them)	sizes: nazwy rozmiarów, od najmniejszego (null je usuwa)
+@msg	split the seam line on its own: release the piece first (Pattern › Release Pattern Piece)	aby podzielić samą linię szycia, najpierw uwolnij element (Wykrój › Uwolnij element wykroju)
+@msg	step: [dx, dy] in mm	step: [dx, dy] w mm
+@msg	style: classic, casual or shirt	style: classic, casual lub shirt
+@msg	that anchor's neighbours don't make a dart	sąsiednie punkty tego punktu kontrolnego nie tworzą zaszewki
+@msg	that point is not a dart's point: its legs open a right angle or wider	ten punkt nie jest wierzchołkiem zaszewki: jego ramiona tworzą kąt prosty lub większy
+@msg	the amount is a share of the dart, more than 0 and at most 1	wartość to część zaszewki, większa od 0 i najwyżej 1
+@msg	the back's outline encloses no area	obrys tyłu nie obejmuje żadnej powierzchni
+@msg	the box pleat's face is more than 0 wide	lico kontrafałdy ma szerokość większą od 0
+@msg	the chart is larger than 1 MB	tabela jest większa niż 1 MB
+@msg	the curve has no length at the meeting point	krzywa nie ma długości w punkcie styku
+@msg	the curves leave the seam the same way	krzywe odchodzą od szwu w tę samą stronę
+@msg	the dart has no length	zaszewka nie ma długości
+@msg	the dart is not that long	zaszewka nie jest aż tak długa
+@msg	the dart point or the new dart's anchor is not on the outline	wierzchołek zaszewki lub punkt kontrolny nowej zaszewki nie leży na obrysie
+@msg	the dart's legs must be straight lines	ramiona zaszewki muszą być liniami prostymi
+@msg	the dart's point is past the outline's end	wierzchołek zaszewki wypada za końcem obrysu
+@msg	the depth to curve the legs by is not a number	głębokość wygięcia ramion nie jest liczbą
+@msg	the document has no marker (Pattern › Make Marker…)	dokument nie ma układu kroju (Wykrój › Utwórz układ kroju…)
+@msg	the document has no measurements to save	dokument nie ma wymiarów do zapisania
+@msg	the document has no size chart (measure.importChart)	dokument nie ma tabeli rozmiarów (measure.importChart)
+@msg	the drop at the front is less than half the neck edge	obniżenie z przodu jest mniejsze niż połowa krawędzi szyi
+@msg	the edge has no length	krawędź nie ma długości
+@msg	the edge's anchor is past the outline's end	punkt kontrolny krawędzi wypada za końcem obrysu
+@msg	the fabric's width must be more than 0	szerokość tkaniny musi być większa od 0
+@msg	the flap is deeper than twice its width	patka jest głębsza niż dwukrotność jej szerokości
+@msg	the flap's width and depth are more than 0, its allowance 0 or more	szerokość i głębokość patki są większe od 0, jej zapas 0 lub więcej
+@msg	the fold edge has no length	krawędź złożenia nie ma długości
+@msg	the fold edge's anchors are past the outline's end	punkty kontrolne krawędzi złożenia wypadają za końcem obrysu
+@msg	the fold edge's two anchors must be neighbours on the outline	dwa punkty kontrolne krawędzi złożenia muszą sąsiadować na obrysie
+@msg	the fold must be a straight edge	złożenie musi być prostą krawędzią
+@msg	the front end has no length	przedni koniec nie ma długości
+@msg	the gap must be 0 or more	odstęp musi wynosić 0 lub więcej
+@msg	the grainline's ends are the same point	końce linii nitki prostej są tym samym punktem
+@msg	the legs can't curve that far: the dart isn't wide enough	nie można tak mocno wygiąć ramion: zaszewka jest za wąska
+@msg	the length to shorten by is not a number	długość skrócenia nie jest liczbą
+@msg	the marker has lost its fabric outline	układ kroju utracił obrys tkaniny
+@msg	the marker has no pieces	układ kroju nie ma elementów
+@msg	the marker is too large at this precision: give a coarser one	układ kroju jest za duży przy tej dokładności: podaj mniejszą dokładność
+@msg	the measurements could not be saved	nie udało się zapisać wymiarów
+@msg	the meeting point and the seam's other end are points of the outline	punkt styku i drugi koniec szwu są punktami obrysu
+@msg	the neckline has no length	linia dekoltu nie ma długości
+@msg	the neckline lengths and the stand's height are more than 0, the rise and extension 0 or more	długości dekoltu i wysokość stójki są większe od 0, wzniesienie i przedłużenie 0 lub więcej
+@msg	the new dart is on the old dart	nowa zaszewka leży na starej
+@msg	the opening is longer than twice its height	otwór jest dłuższy niż dwukrotność jego wysokości
+@msg	the opening, depth and width are more than 0, the width more than the allowance	otwór, głębokość i szerokość są większe od 0, a szerokość większa od zapasu
+@msg	the opening, the welt and the depth are more than 0, the allowances 0 or more	otwór, wypustka i głębokość są większe od 0, zapasy 0 lub więcej
+@msg	the outline encloses no area	obrys nie obejmuje żadnej powierzchni
+@msg	the outline has no side seam	obrys nie ma szwu bocznego
+@msg	the path has no outline	ścieżka nie ma obrysu
+@msg	the path must be one closed outline	ścieżka musi być jednym zamkniętym obrysem
+@msg	the piece has no grade rules to copy	element nie ma reguł stopniowania do skopiowania
+@msg	the piece has no straight edge to cut on the fold	element nie ma prostej krawędzi do krojenia na złożeniu
+@msg	the pieces have no cutting lines to lay	elementy nie mają linii cięcia do ułożenia
+@msg	the plaid's repeat must be more than 0 along and across	raport kraty musi być większy od 0 wzdłuż i w poprzek
+@msg	the pocket (its opening and the allowance past both ends) fits on the seam	kieszeń (jej otwór i zapas za obu końcami) mieści się na szwie
+@msg	the point is not inside the piece	punkt nie leży wewnątrz elementu
+@msg	the point is not on the seam line or in its allowance	punkt nie leży na linii szycia ani w jej zapasie
+@msg	the precision must be more than 0	dokładność musi być większa od 0
+@msg	the rise at centre front is less than the front neckline is long	wzniesienie na środku przodu jest mniejsze niż długość dekoltu przodu
+@msg	the seam has no length there	w tym miejscu szew nie ma długości
+@msg	the seam runs between two different points of the outline	szew biegnie między dwoma różnymi punktami obrysu
+@msg	the seam's other end is a neighbour of the meeting point	drugi koniec szwu sąsiaduje z punktem styku
+@msg	the top edge has no length	górna krawędź nie ma długości
+@msg	the wing is more than 0 long	skrzydełko ma długość większą od 0
+@msg	there is no folder to keep measurement sets in here (the desktop app keeps them next to its preferences)	nie ma tu folderu na zestawy wymiarów (aplikacja na komputer przechowuje je obok swoich preferencji)
+@msg	there is no point of the seam line there	w tym miejscu nie ma punktu linii szycia
+@msg	to or toAnchor: where the dart moves to	to lub toAnchor: miejsce, do którego przenieść zaszewkę
+@msg	to: [x, y] in document points	to: [x, y] w punktach dokumentu
+@msg	to: the pieces to copy the rules to (select them, or name them)	to: elementy, do których skopiować reguły (zaznacz je lub podaj ich nazwy)
+@msg	too many objects at once	za dużo obiektów naraz
+@msg	too many pieces at once	za dużo elementów naraz
+@msg	too many pieces to lay at once	za dużo elementów do ułożenia naraz
+@msg	too many sizes at once	za dużo rozmiarów naraz
+@msg	unit: "mm", "cm" or "in"	unit: "mm", "cm" lub "in"
+@msg	width: mm, more than 0	width: mm, więcej niż 0

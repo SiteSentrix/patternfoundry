@@ -5543,3 +5543,190 @@ file-filter	PDF for projector	PDF voor projector
 	{piece} is off the fabric	{piece} ligt buiten de stof
 	No pieces overlap, and all are on the fabric.	Geen delen overlappen en alle liggen op de stof.
 	Plaid	Ruit
+menu	Pattern	Patroon
+@msg	a and b are two pieces (or paths) that sew together	a en b zijn twee patroondelen (of paden) die aan elkaar worden genaaid
+@msg	a corner is "mitre" or "square"	een hoek is "mitre" of "square"
+@msg	a facing runs along part of the outline	een beleg loopt langs een deel van de omtrek
+@msg	a facing runs between two different points of the outline	een beleg loopt tussen twee verschillende punten van de omtrek
+@msg	a name takes at most 200 characters	een naam heeft maximaal 200 tekens
+@msg	a neckline runs between two different points of its outline, and the shoulder point is one of them	een halslijn loopt tussen twee verschillende punten van de omtrek, en het schouderpunt is er een van
+@msg	a seam allowance is a number of mm, or a length with its unit ("5/8 in")	een naadtoeslag is een aantal mm, of een lengte met eenheid ("5/8 in")
+@msg	a seam has no length	een naad heeft geen lengte
+@msg	a shoulder point is on its neck point	een schouderpunt ligt op het halspunt
+@msg	a slash runs between two points of the outline that aren't neighbours	een insnede loopt tussen twee punten van de omtrek die niet naast elkaar liggen
+@msg	a split leaves a piece with fewer than three anchors	een splitsing laat een patroondeel met minder dan drie ankerpunten over
+@msg	a split made two panels: delete the panel you don't want instead	een splitsing heeft twee panelen opgeleverd: verwijder in plaats daarvan het paneel dat u niet wilt
+@msg	a split needs two different anchors on the outline	een splitsing heeft twee verschillende ankerpunten op de omtrek nodig
+@msg	amount: a share of the dart, (0, 1]	amount: een deel van de figuurnaad, (0, 1]
+@msg	amount: how far it opens, mm	amount: hoe ver het opengaat, mm
+@msg	anchor: the point's number along the path, from 0	anchor: het nummer van het punt langs het pad, vanaf 0
+@msg	anchor: the seam line's point, from 0	anchor: het punt van de naadlijn, vanaf 0
+@msg	anchors: [a, b] or [a]	anchors: [a, b] of [a]
+@msg	anchors: point numbers along the path	anchors: puntnummers langs het pad
+@msg	apex: the dart's point (or select that one point)	apex: de punt van de figuurnaad (of selecteer dat ene punt)
+@msg	at: 0 (the edge's start) to 1 (its end)	at: 0 (het begin van de rand) tot 1 (het einde)
+@msg	at: [x, y], the document point on the edge	at: [x, y], het documentpunt op de rand
+@msg	base: the size the pattern is drawn in	base: de maat waarin het patroon is getekend
+@msg	block: "bodice", "skirt", "sleeve" or "trousers"	block: "bodice", "skirt", "sleeve" of "trousers"
+@msg	can't make the seam that long by moving its end	de naad kan niet zo lang worden door het uiteinde te verplaatsen
+@msg	curve: mm the wrap edge bows into the piece	curve: mm dat de overslagrand het patroondeel in buigt
+@msg	cut is a whole number, 1 to 999	cut is een geheel getal, 1 tot 999
+@msg	data: the chart's text	data: de tekst van de tabel
+@msg	depth: how deep the pleat folds under, mm	depth: hoe diep de plooi naar onderen vouwt, mm
+@msg	depth: mm (less than 0 bows the legs in)	depth: mm (minder dan 0 buigt de benen naar binnen)
+@msg	diameter: a number of mm, or a length with its unit ("1/8 in")	diameter: een aantal mm, of een lengte met eenheid ("1/8 in")
+@msg	edge: the edge's number, from 0 (or point)	edge: het nummer van de rand, vanaf 0 (of point)
+@msg	edges and corners are numbered from 0	randen en hoeken worden genummerd vanaf 0
+@msg	every: mm, at least 10	every: mm, minstens 10
+@msg	face: only a box pleat has one	face: alleen een stolpplooi heeft er een
+@msg	face: the box pleat's width between its folds, mm	face: de breedte van de stolpplooi tussen de vouwen, mm
+@msg	flapShape: "square", "rounded" or "pointed"	flapShape: "square", "rounded" of "pointed"
+@msg	fold is an edge's number (0..), or null	fold is het nummer van een rand (0..), of null
+@msg	fold: [a, b], the centre front edge's two points	fold: [a, b], de twee punten van de rand midden voor
+@msg	fold: true or false	fold: true of false
+@msg	foldAt: [x, y] in document points	foldAt: [x, y] in documentpunten
+@msg	folded: true or false	folded: true of false
+@msg	from: [x, y] in document points	from: [x, y] in documentpunten
+@msg	from: not a pattern piece	from: geen patroondeel
+@msg	from: the pattern piece whose rules are copied	from: het patroondeel waarvan de regels worden gekopieerd
+@msg	from: the piece has no seam line	from: het patroondeel heeft geen naadlijn
+@msg	frontShape: "square", "rounded" or "winged"	frontShape: "square", "rounded" of "winged"
+@msg	gathering runs between two different points of the outline	rimpelen loopt tussen twee verschillende punten van de omtrek
+@msg	give apex and one of to or toAnchor (or select the two points)	geef apex en een van to of toAnchor op (of selecteer de twee punten)
+@msg	height: mm, 10 to 100 (the tutorial's is at most 30)	height: mm, 10 tot 100 (die van de handleiding is maximaal 30)
+@msg	id: a block part's id	id: de id van een deel van een basispatroon
+@msg	index: the drill hole's place in the list, from 0 (or point)	index: de plaats van het boorgat in de lijst, vanaf 0 (of point)
+@msg	index: the notch's place in the list, from 0	index: de plaats van het inknipje in de lijst, vanaf 0
+@msg	index: the step's place, from 0	index: de plaats van de stap, vanaf 0
+@msg	into: the length it gathers into, mm	into: de lengte waarop wordt ingerimpeld, mm
+@msg	kind: "slit", "double", "v", "t", "castle" or "u"	kind: "slit", "double", "v", "t", "castle" of "u"
+@msg	kind: the notch's new shape	kind: de nieuwe vorm van het inknipje
+@msg	layer: a marker layer's id	layer: de id van een legplanlaag
+@msg	length (mm) or likeId with likeFrom and likeTo: the seam to match	length (mm) of likeId met likeFrom en likeTo: de naad om op af te stemmen
+@msg	length: mm, more than 0	length: mm, meer dan 0
+@msg	line: "cut" or "seam"	line: "cut" of "seam"
+@msg	match: the seam it sews to is shorter than the pocket opening's end	match: de naad waaraan het wordt genaaid is korter dan het einde van de zakopening
+@msg	min is more than max	min is groter dan max
+@msg	mirror is true or false	mirror is true of false
+@msg	mirror: "none", "x", "y" or "xy"	mirror: "none", "x", "y" of "xy"
+@msg	name: the saved set's name	name: de naam van de opgeslagen set maten
+@msg	name: whose measurements they are ("Me")	name: van wie de maten zijn ("Ik")
+@msg	no drill hole near the point	geen boorgat bij het punt
+@msg	no drill hole with that index	geen boorgat met die index
+@msg	no notch with that index	geen inknipje met die index
+@msg	no object with that id	geen object met die id
+@msg	no pattern pieces to grade: make the outlines pattern pieces first (Pattern › Make Pattern Piece)	geen patroondelen om te gradueren: maak eerst patroondelen van de omtrekken (Patroon › Patroondeel maken)
+@msg	no straight centre front edge on the outline's side: name it with fold: [a, b]	geen rechte rand midden voor aan de kant van de omtrek: geef die op met fold: [a, b]
+@msg	not a drafted block part	geen deel van een geconstrueerd basispatroon
+@msg	not a marker's layer (Pattern › Make Marker…)	geen laag van een legplan (Patroon › Legplan maken…)
+@msg	not a pattern piece	geen patroondeel
+@msg	not a stand collar's outline	geen omtrek van een opstaande kraag
+@msg	notches go on pattern pieces: make both seams' paths pieces first (Pattern › Make Pattern Piece)	inknipjes horen op patroondelen: maak eerst patroondelen van de paden van beide naden (Patroon › Patroondeel maken)
+@msg	notches: [mm, …]	notches: [mm, …]
+@msg	notches: distances from the seams' starts, mm	notches: afstanden vanaf het begin van de naden, mm
+@msg	on and at go together: the garment piece and where the opening's top-left corner goes on it	on en at horen bij elkaar: het kledingdeel en waar de linkerbovenhoek van de opening erop komt
+@msg	on and at go together: the garment piece and where the pocket's top-left corner goes on it	on en at horen bij elkaar: het kledingdeel en waar de linkerbovenhoek van de zak erop komt
+@msg	one point splits only where another point is at the same place (two darts' point)	een punt splitst alleen waar een ander punt op dezelfde plaats ligt (de punt van twee figuurnaden)
+@msg	oneWay: true or false	oneWay: true of false
+@msg	openFolds: true or false	openFolds: true of false
+@msg	origin: [x, y] in document points	origin: [x, y] in documentpunten
+@msg	overlap: mm past centre front, more than 0	overlap: mm voorbij midden voor, meer dan 0
+@msg	overlap: the edge misses the outline	overlap: de rand mist de omtrek
+@msg	plaid: the repeat (mm, or [along, across])	plaid: het rapport (mm, of [along, across])
+@msg	plaid: the repeat along and across, 1 to 10 000 mm each	plaid: het rapport in de lengte en in de breedte, elk 1 tot 10 000 mm
+@msg	point: [x, y] in document points	point: [x, y] in documentpunten
+@msg	select a drafted block part (Pattern › Draft … Block)	selecteer een deel van een geconstrueerd basispatroon (Patroon › Basispatroon … construeren)
+@msg	select a path or a pattern piece	selecteer een pad of een patroondeel
+@msg	select a pattern piece (Pattern › Make Pattern Piece makes one)	selecteer een patroondeel (Patroon › Patroondeel maken maakt er een)
+@msg	select a piece on the marker to check	selecteer een patroondeel op het legplan om te controleren
+@msg	select closed paths: each becomes a piece, the path its seam line	selecteer gesloten paden: elk wordt een patroondeel, het pad de naadlijn
+@msg	select one path	selecteer één pad
+@msg	select one pattern piece	selecteer één patroondeel
+@msg	select two points of one path (or one that two darts share)	selecteer twee punten van één pad (of één dat twee figuurnaden delen)
+@msg	select two points of one path: the dart's point and where the dart moves to	selecteer twee punten van één pad: de punt van de figuurnaad en waar de figuurnaad naartoe gaat
+@msg	select two points of one path: the ends of the edge to face	selecteer twee punten van één pad: de uiteinden van de rand die een beleg krijgt
+@msg	select two points of one path: the ends of the edge to gather	selecteer twee punten van één pad: de uiteinden van de rand die wordt gerimpeld
+@msg	share is true or false	share is true of false
+@msg	shorten: mm (less than 0 lengthens)	shorten: mm (minder dan 0 verlengt)
+@msg	shoulder: longer than the outline	shoulder: langer dan de omtrek
+@msg	shoulder: mm, 0 or more	shoulder: mm, 0 of meer
+@msg	size: one of the chart's sizes	size: een van de maten van de tabel
+@msg	size: the name of a size of the size range or chart	size: de naam van een maat uit de maatreeks of de tabel
+@msg	sizes: name one size at least	sizes: noem minstens één maat
+@msg	sizes: the sizes' names	sizes: de namen van de maten
+@msg	sizes: the sizes' names, smallest first (null removes them)	sizes: de namen van de maten, kleinste eerst (null verwijdert ze)
+@msg	split the seam line on its own: release the piece first (Pattern › Release Pattern Piece)	om alleen de naadlijn te splitsen, geeft u eerst het patroondeel vrij (Patroon › Patroondeel vrijgeven)
+@msg	step: [dx, dy] in mm	step: [dx, dy] in mm
+@msg	style: classic, casual or shirt	style: classic, casual of shirt
+@msg	that anchor's neighbours don't make a dart	de buren van dat ankerpunt vormen geen figuurnaad
+@msg	that point is not a dart's point: its legs open a right angle or wider	dat punt is geen punt van een figuurnaad: de benen maken een rechte hoek of groter
+@msg	the amount is a share of the dart, more than 0 and at most 1	de hoeveelheid is een deel van de figuurnaad, meer dan 0 en hoogstens 1
+@msg	the back's outline encloses no area	de omtrek van het achterpand omsluit geen oppervlak
+@msg	the box pleat's face is more than 0 wide	de stolpplooi is tussen de vouwen breder dan 0
+@msg	the chart is larger than 1 MB	de tabel is groter dan 1 MB
+@msg	the curve has no length at the meeting point	de curve heeft geen lengte op het ontmoetingspunt
+@msg	the curves leave the seam the same way	de curven verlaten de naad in dezelfde richting
+@msg	the dart has no length	de figuurnaad heeft geen lengte
+@msg	the dart is not that long	de figuurnaad is niet zo lang
+@msg	the dart point or the new dart's anchor is not on the outline	de punt van de figuurnaad of het ankerpunt van de nieuwe figuurnaad ligt niet op de omtrek
+@msg	the dart's legs must be straight lines	de benen van de figuurnaad moeten rechte lijnen zijn
+@msg	the dart's point is past the outline's end	de punt van de figuurnaad ligt voorbij het einde van de omtrek
+@msg	the depth to curve the legs by is not a number	de diepte waarmee de benen worden gebogen is geen getal
+@msg	the document has no marker (Pattern › Make Marker…)	het document heeft geen legplan (Patroon › Legplan maken…)
+@msg	the document has no measurements to save	het document heeft geen maten om op te slaan
+@msg	the document has no size chart (measure.importChart)	het document heeft geen maattabel (measure.importChart)
+@msg	the drop at the front is less than half the neck edge	de verlaging voor is minder dan de helft van de halsrand
+@msg	the edge has no length	de rand heeft geen lengte
+@msg	the edge's anchor is past the outline's end	het ankerpunt van de rand ligt voorbij het einde van de omtrek
+@msg	the fabric's width must be more than 0	de stofbreedte moet groter dan 0 zijn
+@msg	the flap is deeper than twice its width	de klep is meer dan twee keer zo diep als breed
+@msg	the flap's width and depth are more than 0, its allowance 0 or more	de breedte en diepte van de klep zijn groter dan 0, de toeslag 0 of meer
+@msg	the fold edge has no length	de vouwrand heeft geen lengte
+@msg	the fold edge's anchors are past the outline's end	de ankerpunten van de vouwrand liggen voorbij het einde van de omtrek
+@msg	the fold edge's two anchors must be neighbours on the outline	de twee ankerpunten van de vouwrand moeten op de omtrek naast elkaar liggen
+@msg	the fold must be a straight edge	de vouw moet een rechte rand zijn
+@msg	the front end has no length	het voorste uiteinde heeft geen lengte
+@msg	the gap must be 0 or more	de tussenruimte moet 0 of meer zijn
+@msg	the grainline's ends are the same point	de uiteinden van de draadrichting zijn hetzelfde punt
+@msg	the legs can't curve that far: the dart isn't wide enough	de benen kunnen niet zo ver buigen: de figuurnaad is niet breed genoeg
+@msg	the length to shorten by is not a number	de lengte om in te korten is geen getal
+@msg	the marker has lost its fabric outline	het legplan heeft de stofomtrek verloren
+@msg	the marker has no pieces	het legplan heeft geen patroondelen
+@msg	the marker is too large at this precision: give a coarser one	het legplan is te groot bij deze precisie: geef een grovere op
+@msg	the measurements could not be saved	de maten konden niet worden opgeslagen
+@msg	the meeting point and the seam's other end are points of the outline	het ontmoetingspunt en het andere uiteinde van de naad zijn punten van de omtrek
+@msg	the neckline has no length	de halslijn heeft geen lengte
+@msg	the neckline lengths and the stand's height are more than 0, the rise and extension 0 or more	de lengtes van de halslijn en de hoogte van de kraagband zijn groter dan 0, de stijging en verlenging 0 of meer
+@msg	the new dart is on the old dart	de nieuwe figuurnaad ligt op de oude
+@msg	the opening is longer than twice its height	de opening is meer dan twee keer zo lang als hoog
+@msg	the opening, depth and width are more than 0, the width more than the allowance	de opening, diepte en breedte zijn groter dan 0, de breedte groter dan de toeslag
+@msg	the opening, the welt and the depth are more than 0, the allowances 0 or more	de opening, de paspel en de diepte zijn groter dan 0, de toeslagen 0 of meer
+@msg	the outline encloses no area	de omtrek omsluit geen oppervlak
+@msg	the outline has no side seam	de omtrek heeft geen zijnaad
+@msg	the path has no outline	het pad heeft geen omtrek
+@msg	the path must be one closed outline	het pad moet één gesloten omtrek zijn
+@msg	the piece has no grade rules to copy	het patroondeel heeft geen gradeerregels om te kopiëren
+@msg	the piece has no straight edge to cut on the fold	het patroondeel heeft geen rechte rand om op de vouw te knippen
+@msg	the pieces have no cutting lines to lay	de patroondelen hebben geen kniplijnen om te leggen
+@msg	the plaid's repeat must be more than 0 along and across	het rapport van de ruit moet in de lengte en in de breedte groter dan 0 zijn
+@msg	the pocket (its opening and the allowance past both ends) fits on the seam	de zak (de opening en de toeslag voorbij beide uiteinden) past op de naad
+@msg	the point is not inside the piece	het punt ligt niet binnen het patroondeel
+@msg	the point is not on the seam line or in its allowance	het punt ligt niet op de naadlijn of in de toeslag
+@msg	the precision must be more than 0	de precisie moet groter dan 0 zijn
+@msg	the rise at centre front is less than the front neckline is long	de stijging op midden voor is minder dan de lengte van de voorste halslijn
+@msg	the seam has no length there	de naad heeft daar geen lengte
+@msg	the seam runs between two different points of the outline	de naad loopt tussen twee verschillende punten van de omtrek
+@msg	the seam's other end is a neighbour of the meeting point	het andere uiteinde van de naad ligt naast het ontmoetingspunt
+@msg	the top edge has no length	de bovenrand heeft geen lengte
+@msg	the wing is more than 0 long	de vleugel is langer dan 0
+@msg	there is no folder to keep measurement sets in here (the desktop app keeps them next to its preferences)	er is hier geen map om sets maten in te bewaren (de desktop-app bewaart ze naast de voorkeuren)
+@msg	there is no point of the seam line there	daar is geen punt van de naadlijn
+@msg	to or toAnchor: where the dart moves to	to of toAnchor: waar de figuurnaad naartoe gaat
+@msg	to: [x, y] in document points	to: [x, y] in documentpunten
+@msg	to: the pieces to copy the rules to (select them, or name them)	to: de patroondelen waarnaar de regels worden gekopieerd (selecteer ze of noem ze)
+@msg	too many objects at once	te veel objecten tegelijk
+@msg	too many pieces at once	te veel patroondelen tegelijk
+@msg	too many pieces to lay at once	te veel patroondelen om tegelijk te leggen
+@msg	too many sizes at once	te veel maten tegelijk
+@msg	unit: "mm", "cm" or "in"	unit: "mm", "cm" of "in"
+@msg	width: mm, more than 0	width: mm, meer dan 0

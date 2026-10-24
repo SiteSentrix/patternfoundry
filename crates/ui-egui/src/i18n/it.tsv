@@ -5133,3 +5133,190 @@ file-filter	PDF for projector	PDF per proiettore
 	{piece} is off the fabric	{piece} è fuori dal tessuto
 	No pieces overlap, and all are on the fabric.	Nessun pezzo si sovrappone e tutti sono sul tessuto.
 	Plaid	Quadri
+menu	Pattern	Cartamodello
+@msg	a and b are two pieces (or paths) that sew together	a e b sono due pezzi (o tracciati) che si cuciono insieme
+@msg	a corner is "mitre" or "square"	un angolo è "mitre" o "square"
+@msg	a facing runs along part of the outline	una paramontura segue una parte del contorno
+@msg	a facing runs between two different points of the outline	una paramontura va tra due punti diversi del contorno
+@msg	a name takes at most 200 characters	un nome ha al massimo 200 caratteri
+@msg	a neckline runs between two different points of its outline, and the shoulder point is one of them	uno scollo va tra due punti diversi del suo contorno, e il punto spalla è uno dei due
+@msg	a seam allowance is a number of mm, or a length with its unit ("5/8 in")	un margine di cucitura è un numero di mm, o una lunghezza con la sua unità ("5/8 in")
+@msg	a seam has no length	una cucitura non ha lunghezza
+@msg	a shoulder point is on its neck point	un punto spalla coincide con il suo punto collo
+@msg	a slash runs between two points of the outline that aren't neighbours	un taglio va tra due punti del contorno che non sono adiacenti
+@msg	a split leaves a piece with fewer than three anchors	una divisione lascia un pezzo con meno di tre punti di ancoraggio
+@msg	a split made two panels: delete the panel you don't want instead	una divisione ha creato due teli: elimina invece il telo che non ti serve
+@msg	a split needs two different anchors on the outline	una divisione richiede due punti di ancoraggio diversi sul contorno
+@msg	amount: a share of the dart, (0, 1]	amount: una parte della pince, (0, 1]
+@msg	amount: how far it opens, mm	amount: quanto si apre, mm
+@msg	anchor: the point's number along the path, from 0	anchor: il numero del punto lungo il tracciato, da 0
+@msg	anchor: the seam line's point, from 0	anchor: il punto della linea di cucitura, da 0
+@msg	anchors: [a, b] or [a]	anchors: [a, b] o [a]
+@msg	anchors: point numbers along the path	anchors: numeri dei punti lungo il tracciato
+@msg	apex: the dart's point (or select that one point)	apex: la punta della pince (o seleziona quel solo punto)
+@msg	at: 0 (the edge's start) to 1 (its end)	at: da 0 (l'inizio del bordo) a 1 (la sua fine)
+@msg	at: [x, y], the document point on the edge	at: [x, y], il punto del documento sul bordo
+@msg	base: the size the pattern is drawn in	base: la taglia in cui è disegnato il cartamodello
+@msg	block: "bodice", "skirt", "sleeve" or "trousers"	block: "bodice", "skirt", "sleeve" o "trousers"
+@msg	can't make the seam that long by moving its end	non è possibile allungare così tanto la cucitura spostandone l'estremità
+@msg	curve: mm the wrap edge bows into the piece	curve: mm di cui il bordo a portafoglio si incurva verso l'interno del pezzo
+@msg	cut is a whole number, 1 to 999	cut è un numero intero, da 1 a 999
+@msg	data: the chart's text	data: il testo della tabella
+@msg	depth: how deep the pleat folds under, mm	depth: quanto la piega rientra sotto, mm
+@msg	depth: mm (less than 0 bows the legs in)	depth: mm (meno di 0 incurva i lati verso l'interno)
+@msg	diameter: a number of mm, or a length with its unit ("1/8 in")	diameter: un numero di mm, o una lunghezza con la sua unità ("1/8 in")
+@msg	edge: the edge's number, from 0 (or point)	edge: il numero del bordo, da 0 (o point)
+@msg	edges and corners are numbered from 0	bordi e angoli sono numerati da 0
+@msg	every: mm, at least 10	every: mm, almeno 10
+@msg	face: only a box pleat has one	face: ce l'ha solo una piega a cannolo
+@msg	face: the box pleat's width between its folds, mm	face: la larghezza della piega a cannolo tra le sue pieghe, mm
+@msg	flapShape: "square", "rounded" or "pointed"	flapShape: "square", "rounded" o "pointed"
+@msg	fold is an edge's number (0..), or null	fold è il numero di un bordo (0..), o null
+@msg	fold: [a, b], the centre front edge's two points	fold: [a, b], i due punti del bordo al centro davanti
+@msg	fold: true or false	fold: true o false
+@msg	foldAt: [x, y] in document points	foldAt: [x, y] in punti del documento
+@msg	folded: true or false	folded: true o false
+@msg	from: [x, y] in document points	from: [x, y] in punti del documento
+@msg	from: not a pattern piece	from: non è un pezzo del cartamodello
+@msg	from: the pattern piece whose rules are copied	from: il pezzo del cartamodello di cui si copiano le regole
+@msg	from: the piece has no seam line	from: il pezzo non ha una linea di cucitura
+@msg	frontShape: "square", "rounded" or "winged"	frontShape: "square", "rounded" o "winged"
+@msg	gathering runs between two different points of the outline	l'arricciatura va tra due punti diversi del contorno
+@msg	give apex and one of to or toAnchor (or select the two points)	specifica apex e uno tra to e toAnchor (o seleziona i due punti)
+@msg	height: mm, 10 to 100 (the tutorial's is at most 30)	height: mm, da 10 a 100 (quella del tutorial è al massimo 30)
+@msg	id: a block part's id	id: l'id di una parte del cartamodello base
+@msg	index: the drill hole's place in the list, from 0 (or point)	index: la posizione del foro nell'elenco, da 0 (o point)
+@msg	index: the notch's place in the list, from 0	index: la posizione della tacca nell'elenco, da 0
+@msg	index: the step's place, from 0	index: la posizione del passo, da 0
+@msg	into: the length it gathers into, mm	into: la lunghezza a cui si arriccia, mm
+@msg	kind: "slit", "double", "v", "t", "castle" or "u"	kind: "slit", "double", "v", "t", "castle" o "u"
+@msg	kind: the notch's new shape	kind: la nuova forma della tacca
+@msg	layer: a marker layer's id	layer: l'id di un livello di piazzamento
+@msg	length (mm) or likeId with likeFrom and likeTo: the seam to match	length (mm) o likeId con likeFrom e likeTo: la cucitura da pareggiare
+@msg	length: mm, more than 0	length: mm, più di 0
+@msg	line: "cut" or "seam"	line: "cut" o "seam"
+@msg	match: the seam it sews to is shorter than the pocket opening's end	match: la cucitura a cui va cucita è più corta della fine dell'apertura della tasca
+@msg	min is more than max	min è maggiore di max
+@msg	mirror is true or false	mirror è true o false
+@msg	mirror: "none", "x", "y" or "xy"	mirror: "none", "x", "y" o "xy"
+@msg	name: the saved set's name	name: il nome del set di misure salvato
+@msg	name: whose measurements they are ("Me")	name: di chi sono le misure ("Io")
+@msg	no drill hole near the point	nessun foro vicino al punto
+@msg	no drill hole with that index	nessun foro con quell'indice
+@msg	no notch with that index	nessuna tacca con quell'indice
+@msg	no object with that id	nessun oggetto con quell'id
+@msg	no pattern pieces to grade: make the outlines pattern pieces first (Pattern › Make Pattern Piece)	nessun pezzo del cartamodello da sviluppare: trasforma prima i contorni in pezzi del cartamodello (Cartamodello › Crea pezzo del cartamodello)
+@msg	no straight centre front edge on the outline's side: name it with fold: [a, b]	nessun bordo dritto al centro davanti sul lato del contorno: indicalo con fold: [a, b]
+@msg	not a drafted block part	non è una parte di un cartamodello base tracciato
+@msg	not a marker's layer (Pattern › Make Marker…)	non è il livello di un piazzamento (Cartamodello › Crea piazzamento…)
+@msg	not a pattern piece	non è un pezzo del cartamodello
+@msg	not a stand collar's outline	non è il contorno di un collo alla coreana
+@msg	notches go on pattern pieces: make both seams' paths pieces first (Pattern › Make Pattern Piece)	le tacche vanno sui pezzi del cartamodello: trasforma prima in pezzi i tracciati di entrambe le cuciture (Cartamodello › Crea pezzo del cartamodello)
+@msg	notches: [mm, …]	notches: [mm, …]
+@msg	notches: distances from the seams' starts, mm	notches: distanze dall'inizio delle cuciture, mm
+@msg	on and at go together: the garment piece and where the opening's top-left corner goes on it	on e at vanno insieme: il pezzo del capo e il punto in cui va l'angolo superiore sinistro dell'apertura
+@msg	on and at go together: the garment piece and where the pocket's top-left corner goes on it	on e at vanno insieme: il pezzo del capo e il punto in cui va l'angolo superiore sinistro della tasca
+@msg	one point splits only where another point is at the same place (two darts' point)	un punto si divide solo dove un altro punto si trova nella stessa posizione (la punta di due pince)
+@msg	oneWay: true or false	oneWay: true o false
+@msg	openFolds: true or false	openFolds: true o false
+@msg	origin: [x, y] in document points	origin: [x, y] in punti del documento
+@msg	overlap: mm past centre front, more than 0	overlap: mm oltre il centro davanti, più di 0
+@msg	overlap: the edge misses the outline	overlap: il bordo non incontra il contorno
+@msg	plaid: the repeat (mm, or [along, across])	plaid: il rapporto (mm, o [along, across])
+@msg	plaid: the repeat along and across, 1 to 10 000 mm each	plaid: il rapporto in lunghezza e in larghezza, da 1 a 10 000 mm ciascuno
+@msg	point: [x, y] in document points	point: [x, y] in punti del documento
+@msg	select a drafted block part (Pattern › Draft … Block)	seleziona una parte di un cartamodello base tracciato (Cartamodello › Traccia il modello base …)
+@msg	select a path or a pattern piece	seleziona un tracciato o un pezzo del cartamodello
+@msg	select a pattern piece (Pattern › Make Pattern Piece makes one)	seleziona un pezzo del cartamodello (Cartamodello › Crea pezzo del cartamodello ne crea uno)
+@msg	select a piece on the marker to check	seleziona un pezzo del piazzamento da controllare
+@msg	select closed paths: each becomes a piece, the path its seam line	seleziona tracciati chiusi: ognuno diventa un pezzo, il tracciato la sua linea di cucitura
+@msg	select one path	seleziona un tracciato
+@msg	select one pattern piece	seleziona un pezzo del cartamodello
+@msg	select two points of one path (or one that two darts share)	seleziona due punti di un tracciato (o uno condiviso da due pince)
+@msg	select two points of one path: the dart's point and where the dart moves to	seleziona due punti di un tracciato: la punta della pince e il punto in cui spostarla
+@msg	select two points of one path: the ends of the edge to face	seleziona due punti di un tracciato: le estremità del bordo da rifinire con paramontura
+@msg	select two points of one path: the ends of the edge to gather	seleziona due punti di un tracciato: le estremità del bordo da arricciare
+@msg	share is true or false	share è true o false
+@msg	shorten: mm (less than 0 lengthens)	shorten: mm (meno di 0 allunga)
+@msg	shoulder: longer than the outline	shoulder: più lunga del contorno
+@msg	shoulder: mm, 0 or more	shoulder: mm, 0 o più
+@msg	size: one of the chart's sizes	size: una delle taglie della tabella
+@msg	size: the name of a size of the size range or chart	size: il nome di una taglia della gamma taglie o della tabella
+@msg	sizes: name one size at least	sizes: indica almeno una taglia
+@msg	sizes: the sizes' names	sizes: i nomi delle taglie
+@msg	sizes: the sizes' names, smallest first (null removes them)	sizes: i nomi delle taglie, dalla più piccola alla più grande (null le rimuove)
+@msg	split the seam line on its own: release the piece first (Pattern › Release Pattern Piece)	per dividere solo la linea di cucitura, rilascia prima il pezzo (Cartamodello › Rilascia pezzo del cartamodello)
+@msg	step: [dx, dy] in mm	step: [dx, dy] in mm
+@msg	style: classic, casual or shirt	style: classic, casual o shirt
+@msg	that anchor's neighbours don't make a dart	i punti adiacenti a quel punto di ancoraggio non formano una pince
+@msg	that point is not a dart's point: its legs open a right angle or wider	quel punto non è la punta di una pince: i suoi lati formano un angolo retto o più ampio
+@msg	the amount is a share of the dart, more than 0 and at most 1	la quantità è una parte della pince, maggiore di 0 e al massimo 1
+@msg	the back's outline encloses no area	il contorno del dietro non racchiude alcuna area
+@msg	the box pleat's face is more than 0 wide	il fondo della piega a cannolo è largo più di 0
+@msg	the chart is larger than 1 MB	la tabella supera 1 MB
+@msg	the curve has no length at the meeting point	la curva non ha lunghezza nel punto d'incontro
+@msg	the curves leave the seam the same way	le curve lasciano la cucitura nella stessa direzione
+@msg	the dart has no length	la pince non ha lunghezza
+@msg	the dart is not that long	la pince non è così lunga
+@msg	the dart point or the new dart's anchor is not on the outline	la punta della pince o il punto di ancoraggio della nuova pince non è sul contorno
+@msg	the dart's legs must be straight lines	i lati della pince devono essere linee dritte
+@msg	the dart's point is past the outline's end	la punta della pince è oltre la fine del contorno
+@msg	the depth to curve the legs by is not a number	la profondità con cui incurvare i lati non è un numero
+@msg	the document has no marker (Pattern › Make Marker…)	il documento non ha un piazzamento (Cartamodello › Crea piazzamento…)
+@msg	the document has no measurements to save	il documento non ha misure da salvare
+@msg	the document has no size chart (measure.importChart)	il documento non ha una tabella taglie (measure.importChart)
+@msg	the drop at the front is less than half the neck edge	l'abbassamento sul davanti è minore di metà del bordo del collo
+@msg	the edge has no length	il bordo non ha lunghezza
+@msg	the edge's anchor is past the outline's end	il punto di ancoraggio del bordo è oltre la fine del contorno
+@msg	the fabric's width must be more than 0	la larghezza del tessuto deve essere maggiore di 0
+@msg	the flap is deeper than twice its width	la pattina è profonda più del doppio della sua larghezza
+@msg	the flap's width and depth are more than 0, its allowance 0 or more	larghezza e profondità della pattina sono maggiori di 0, il suo margine 0 o più
+@msg	the fold edge has no length	il bordo in piega non ha lunghezza
+@msg	the fold edge's anchors are past the outline's end	i punti di ancoraggio del bordo in piega sono oltre la fine del contorno
+@msg	the fold edge's two anchors must be neighbours on the outline	i due punti di ancoraggio del bordo in piega devono essere adiacenti sul contorno
+@msg	the fold must be a straight edge	la piega del tessuto deve essere un bordo dritto
+@msg	the front end has no length	l'estremità davanti non ha lunghezza
+@msg	the gap must be 0 or more	la distanza deve essere 0 o più
+@msg	the grainline's ends are the same point	le estremità del drittofilo sono lo stesso punto
+@msg	the legs can't curve that far: the dart isn't wide enough	i lati non possono incurvarsi così tanto: la pince non è abbastanza larga
+@msg	the length to shorten by is not a number	la lunghezza di cui accorciare non è un numero
+@msg	the marker has lost its fabric outline	il piazzamento ha perso il contorno del tessuto
+@msg	the marker has no pieces	il piazzamento non ha pezzi
+@msg	the marker is too large at this precision: give a coarser one	il piazzamento è troppo grande con questa precisione: indicane una meno fine
+@msg	the measurements could not be saved	non è stato possibile salvare le misure
+@msg	the meeting point and the seam's other end are points of the outline	il punto d'incontro e l'altra estremità della cucitura sono punti del contorno
+@msg	the neckline has no length	lo scollo non ha lunghezza
+@msg	the neckline lengths and the stand's height are more than 0, the rise and extension 0 or more	le lunghezze dello scollo e l'altezza del listino sono maggiori di 0, la salita e il prolungamento 0 o più
+@msg	the new dart is on the old dart	la nuova pince è sopra la vecchia
+@msg	the opening is longer than twice its height	l'apertura è lunga più del doppio della sua altezza
+@msg	the opening, depth and width are more than 0, the width more than the allowance	apertura, profondità e larghezza sono maggiori di 0, la larghezza maggiore del margine
+@msg	the opening, the welt and the depth are more than 0, the allowances 0 or more	apertura, filetto e profondità sono maggiori di 0, i margini 0 o più
+@msg	the outline encloses no area	il contorno non racchiude alcuna area
+@msg	the outline has no side seam	il contorno non ha una cucitura laterale
+@msg	the path has no outline	il tracciato non ha un contorno
+@msg	the path must be one closed outline	il tracciato deve essere un unico contorno chiuso
+@msg	the piece has no grade rules to copy	il pezzo non ha regole di sviluppo da copiare
+@msg	the piece has no straight edge to cut on the fold	il pezzo non ha un bordo dritto da tagliare in piega
+@msg	the pieces have no cutting lines to lay	i pezzi non hanno linee di taglio da piazzare
+@msg	the plaid's repeat must be more than 0 along and across	il rapporto dei quadri deve essere maggiore di 0 in lunghezza e in larghezza
+@msg	the pocket (its opening and the allowance past both ends) fits on the seam	la tasca (la sua apertura e il margine oltre entrambe le estremità) sta sulla cucitura
+@msg	the point is not inside the piece	il punto non è all'interno del pezzo
+@msg	the point is not on the seam line or in its allowance	il punto non è sulla linea di cucitura né nel suo margine
+@msg	the precision must be more than 0	la precisione deve essere maggiore di 0
+@msg	the rise at centre front is less than the front neckline is long	la salita al centro davanti è minore della lunghezza dello scollo davanti
+@msg	the seam has no length there	la cucitura non ha lunghezza in quel punto
+@msg	the seam runs between two different points of the outline	la cucitura va tra due punti diversi del contorno
+@msg	the seam's other end is a neighbour of the meeting point	l'altra estremità della cucitura è adiacente al punto d'incontro
+@msg	the top edge has no length	il bordo superiore non ha lunghezza
+@msg	the wing is more than 0 long	l'aletta è lunga più di 0
+@msg	there is no folder to keep measurement sets in here (the desktop app keeps them next to its preferences)	qui non c'è una cartella in cui tenere i set di misure (l'app desktop li tiene accanto alle sue preferenze)
+@msg	there is no point of the seam line there	lì non c'è alcun punto della linea di cucitura
+@msg	to or toAnchor: where the dart moves to	to o toAnchor: il punto in cui spostare la pince
+@msg	to: [x, y] in document points	to: [x, y] in punti del documento
+@msg	to: the pieces to copy the rules to (select them, or name them)	to: i pezzi su cui copiare le regole (selezionali o indicali per nome)
+@msg	too many objects at once	troppi oggetti alla volta
+@msg	too many pieces at once	troppi pezzi alla volta
+@msg	too many pieces to lay at once	troppi pezzi da piazzare alla volta
+@msg	too many sizes at once	troppe taglie alla volta
+@msg	unit: "mm", "cm" or "in"	unit: "mm", "cm" o "in"
+@msg	width: mm, more than 0	width: mm, più di 0

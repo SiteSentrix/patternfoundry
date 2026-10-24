@@ -5415,7 +5415,7 @@ file-filter	PDF for projector	PDF projektorhoz
 	Projector View	Projektornézet
 	Measure the square on the cutting mat: it should be 10 cm each way. The arrows make it bigger or smaller (with Shift, faster); Enter keeps it; Escape leaves. Scale: {scale} points per mm.	Mérje meg a négyzetet a vágóalátéten: mindkét irányban 10 cm-nek kell lennie. A nyilak nagyítják vagy kicsinyítik (Shifttel gyorsabban); az Enter megtartja; az Escape kilép. Méretarány: {scale} pont mm-enként.
 	Arrows move the pattern 1 cm (Shift: 1 mm) · M mirrors it · C calibrates · Escape leaves	A nyilak 1 cm-rel mozgatják a mintát (Shift: 1 mm) · M tükrözi · C kalibrál · Escape kilép
-@msg	no pattern pieces to project: make the outlines pattern pieces first (Pattern › Make Pattern Piece)	nincs kivetíthető szabásminta-darab: előbb alakítsa a körvonalakat szabásminta-darabokká (Minta › Szabásminta-darab készítése)
+@msg	no pattern pieces to project: make the outlines pattern pieces first (Pattern › Make Pattern Piece)	nincs kivetíthető szabásminta-darab: előbb alakítsa a körvonalakat szabásminta-darabokká (Szabásminta › Szabásminta-darab készítése)
 @msg	scale: screen points per mm, more than 0	méretarány: képernyőpont mm-enként, 0-nál több
 	Delete Saved Measurements	Mentett méretek törlése
 	Load Measurements	Méretek betöltése
@@ -5504,3 +5504,190 @@ file-filter	PDF for projector	PDF projektorhoz
 	{piece} is off the fabric	{piece} kilóg az anyagról
 	No pieces overlap, and all are on the fabric.	Egyik darab sem fedi át a másikat, és mind az anyagon van.
 	Plaid	Kockás
+menu	Pattern	Szabásminta
+@msg	a and b are two pieces (or paths) that sew together	a és b két összevarrandó darab (vagy útvonal)
+@msg	a corner is "mitre" or "square"	a sarok "mitre" vagy "square"
+@msg	a facing runs along part of the outline	a tisztázó a körvonal egy része mentén fut
+@msg	a facing runs between two different points of the outline	a tisztázó a körvonal két különböző pontja között fut
+@msg	a name takes at most 200 characters	a név legfeljebb 200 karakter lehet
+@msg	a neckline runs between two different points of its outline, and the shoulder point is one of them	a nyakkivágás a körvonala két különböző pontja között fut, és a vállpont az egyik közülük
+@msg	a seam allowance is a number of mm, or a length with its unit ("5/8 in")	a varrásráhagyás mm-ben megadott szám vagy mértékegységgel megadott hossz ("5/8 in")
+@msg	a seam has no length	a varratnak nincs hossza
+@msg	a shoulder point is on its neck point	a vállpont a nyakponton van
+@msg	a slash runs between two points of the outline that aren't neighbours	a szétnyitási vonal a körvonal két nem szomszédos pontja között fut
+@msg	a split leaves a piece with fewer than three anchors	a felosztás után háromnál kevesebb horgonypont maradna egy darabon
+@msg	a split made two panels: delete the panel you don't want instead	a felosztás két darabot hozott létre: inkább a nem kívánt darabot törölje
+@msg	a split needs two different anchors on the outline	a felosztáshoz két különböző horgonypont kell a körvonalon
+@msg	amount: a share of the dart, (0, 1]	amount: a varrás egy hányada, (0, 1]
+@msg	amount: how far it opens, mm	amount: mennyire nyílik szét, mm
+@msg	anchor: the point's number along the path, from 0	anchor: a pont sorszáma az útvonal mentén, 0-tól
+@msg	anchor: the seam line's point, from 0	anchor: a varrásvonal pontja, 0-tól
+@msg	anchors: [a, b] or [a]	anchors: [a, b] vagy [a]
+@msg	anchors: point numbers along the path	anchors: pontsorszámok az útvonal mentén
+@msg	apex: the dart's point (or select that one point)	apex: a varrás csúcsa (vagy jelölje ki csak azt az egy pontot)
+@msg	at: 0 (the edge's start) to 1 (its end)	at: 0 (az él eleje) és 1 (a vége) között
+@msg	at: [x, y], the document point on the edge	at: [x, y], a dokumentum pontja az élen
+@msg	base: the size the pattern is drawn in	base: a méret, amelyben a szabásminta készült
+@msg	block: "bodice", "skirt", "sleeve" or "trousers"	block: "bodice", "skirt", "sleeve" vagy "trousers"
+@msg	can't make the seam that long by moving its end	a varrat a vége áthelyezésével nem tehető ilyen hosszúra
+@msg	curve: mm the wrap edge bows into the piece	curve: mm, amennyivel az átlapolás éle a darabba ível
+@msg	cut is a whole number, 1 to 999	cut 1 és 999 közötti egész szám
+@msg	data: the chart's text	data: a táblázat szövege
+@msg	depth: how deep the pleat folds under, mm	depth: milyen mélyen hajlik be a berakás, mm
+@msg	depth: mm (less than 0 bows the legs in)	depth: mm (0 alatt befelé íveli a szárakat)
+@msg	diameter: a number of mm, or a length with its unit ("1/8 in")	diameter: mm-ben megadott szám vagy mértékegységgel megadott hossz ("1/8 in")
+@msg	edge: the edge's number, from 0 (or point)	edge: az él sorszáma, 0-tól (vagy point)
+@msg	edges and corners are numbered from 0	az élek és sarkok számozása 0-tól indul
+@msg	every: mm, at least 10	every: mm, legalább 10
+@msg	face: only a box pleat has one	face: csak dobozberakásnak van ilyen
+@msg	face: the box pleat's width between its folds, mm	face: a dobozberakás szélessége a hajtásai között, mm
+@msg	flapShape: "square", "rounded" or "pointed"	flapShape: "square", "rounded" vagy "pointed"
+@msg	fold is an edge's number (0..), or null	fold egy él sorszáma (0..) vagy null
+@msg	fold: [a, b], the centre front edge's two points	fold: [a, b], az eleje középvonalán lévő él két pontja
+@msg	fold: true or false	fold: true vagy false
+@msg	foldAt: [x, y] in document points	foldAt: [x, y] dokumentumpontban
+@msg	folded: true or false	folded: true vagy false
+@msg	from: [x, y] in document points	from: [x, y] dokumentumpontban
+@msg	from: not a pattern piece	from: nem szabásmintadarab
+@msg	from: the pattern piece whose rules are copied	from: a szabásmintadarab, amelynek szabályait másolja
+@msg	from: the piece has no seam line	from: a darabnak nincs varrásvonala
+@msg	frontShape: "square", "rounded" or "winged"	frontShape: "square", "rounded" vagy "winged"
+@msg	gathering runs between two different points of the outline	a ráncolás a körvonal két különböző pontja között fut
+@msg	give apex and one of to or toAnchor (or select the two points)	adja meg az apex értéket és a to vagy a toAnchor egyikét (vagy jelölje ki a két pontot)
+@msg	height: mm, 10 to 100 (the tutorial's is at most 30)	height: mm, 10 és 100 között (az útmutatóban legfeljebb 30)
+@msg	id: a block part's id	id: egy alapszabásminta-rész azonosítója
+@msg	index: the drill hole's place in the list, from 0 (or point)	index: a fúrt lyuk helye a listában, 0-tól (vagy point)
+@msg	index: the notch's place in the list, from 0	index: a bevágás helye a listában, 0-tól
+@msg	index: the step's place, from 0	index: a lépés helye, 0-tól
+@msg	into: the length it gathers into, mm	into: a hossz, amelyre összeráncolja, mm
+@msg	kind: "slit", "double", "v", "t", "castle" or "u"	kind: "slit", "double", "v", "t", "castle" vagy "u"
+@msg	kind: the notch's new shape	kind: a bevágás új alakja
+@msg	layer: a marker layer's id	layer: egy szabástervréteg azonosítója
+@msg	length (mm) or likeId with likeFrom and likeTo: the seam to match	length (mm) vagy likeId a likeFrom és likeTo értékkel: az egyeztetendő varrat
+@msg	length: mm, more than 0	length: mm, 0-nál több
+@msg	line: "cut" or "seam"	line: "cut" vagy "seam"
+@msg	match: the seam it sews to is shorter than the pocket opening's end	match: a varrat, amelyhez varrják, rövidebb, mint ameddig a zsebnyílás vége ér
+@msg	min is more than max	min nagyobb, mint max
+@msg	mirror is true or false	mirror true vagy false
+@msg	mirror: "none", "x", "y" or "xy"	mirror: "none", "x", "y" vagy "xy"
+@msg	name: the saved set's name	name: a mentett készlet neve
+@msg	name: whose measurements they are ("Me")	name: kinek a méretei ("Me")
+@msg	no drill hole near the point	nincs fúrt lyuk a pont közelében
+@msg	no drill hole with that index	nincs ilyen indexű fúrt lyuk
+@msg	no notch with that index	nincs ilyen indexű bevágás
+@msg	no object with that id	nincs ilyen azonosítójú objektum
+@msg	no pattern pieces to grade: make the outlines pattern pieces first (Pattern › Make Pattern Piece)	nincs fokozható szabásmintadarab: előbb alakítsa a körvonalakat szabásmintadarabbá (Szabásminta › Szabásmintadarab létrehozása)
+@msg	no straight centre front edge on the outline's side: name it with fold: [a, b]	a körvonal azon oldalán nincs egyenes eleje középvonali él: adja meg a fold: [a, b] értékkel
+@msg	not a drafted block part	nem szerkesztett alapszabásminta része
+@msg	not a marker's layer (Pattern › Make Marker…)	nem szabástervréteg (Szabásminta › Szabásterv készítése…)
+@msg	not a pattern piece	nem szabásmintadarab
+@msg	not a stand collar's outline	nem állógallér körvonala
+@msg	notches go on pattern pieces: make both seams' paths pieces first (Pattern › Make Pattern Piece)	a bevágások szabásmintadarabokra kerülnek: előbb alakítsa mindkét varrat útvonalát darabbá (Szabásminta › Szabásmintadarab létrehozása)
+@msg	notches: [mm, …]	notches: [mm, …]
+@msg	notches: distances from the seams' starts, mm	notches: távolságok a varratok elejétől, mm
+@msg	on and at go together: the garment piece and where the opening's top-left corner goes on it	on és at együtt adandó meg: a ruhadarab, és hogy hová kerüljön rajta a nyílás bal felső sarka
+@msg	on and at go together: the garment piece and where the pocket's top-left corner goes on it	on és at együtt adandó meg: a ruhadarab, és hogy hová kerüljön rajta a zseb bal felső sarka
+@msg	one point splits only where another point is at the same place (two darts' point)	egyetlen pont csak ott oszt fel, ahol egy másik pont is ugyanazon a helyen van (két varrás csúcsa)
+@msg	oneWay: true or false	oneWay: true vagy false
+@msg	openFolds: true or false	openFolds: true vagy false
+@msg	origin: [x, y] in document points	origin: [x, y] dokumentumpontban
+@msg	overlap: mm past centre front, more than 0	overlap: mm az eleje középvonalán túl, 0-nál több
+@msg	overlap: the edge misses the outline	overlap: az él nem éri el a körvonalat
+@msg	plaid: the repeat (mm, or [along, across])	plaid: a mintaismétlődés (mm vagy [along, across])
+@msg	plaid: the repeat along and across, 1 to 10 000 mm each	plaid: a mintaismétlődés hosszában és keresztben, egyenként 1 és 10 000 mm között
+@msg	point: [x, y] in document points	point: [x, y] dokumentumpontban
+@msg	select a drafted block part (Pattern › Draft … Block)	jelöljön ki egy szerkesztett alapszabásminta-részt (Szabásminta › Alapszabásminta szerkesztése (…))
+@msg	select a path or a pattern piece	jelöljön ki egy útvonalat vagy egy szabásmintadarabot
+@msg	select a pattern piece (Pattern › Make Pattern Piece makes one)	jelöljön ki egy szabásmintadarabot (a Szabásminta › Szabásmintadarab létrehozása készít egyet)
+@msg	select a piece on the marker to check	jelölje ki az ellenőrizendő darabot a szabásterven
+@msg	select closed paths: each becomes a piece, the path its seam line	jelöljön ki zárt útvonalakat: mindegyikből darab lesz, az útvonal pedig a varrásvonala
+@msg	select one path	jelöljön ki egy útvonalat
+@msg	select one pattern piece	jelöljön ki egy szabásmintadarabot
+@msg	select two points of one path (or one that two darts share)	jelölje ki egy útvonal két pontját (vagy egyet, amelyen két varrás osztozik)
+@msg	select two points of one path: the dart's point and where the dart moves to	jelölje ki egy útvonal két pontját: a varrás csúcsát és azt a helyet, ahová a varrás kerül
+@msg	select two points of one path: the ends of the edge to face	jelölje ki egy útvonal két pontját: a tisztázandó él végeit
+@msg	select two points of one path: the ends of the edge to gather	jelölje ki egy útvonal két pontját: a ráncolandó él végeit
+@msg	share is true or false	share true vagy false
+@msg	shorten: mm (less than 0 lengthens)	shorten: mm (0 alatt meghosszabbít)
+@msg	shoulder: longer than the outline	shoulder: hosszabb a körvonalnál
+@msg	shoulder: mm, 0 or more	shoulder: mm, 0 vagy több
+@msg	size: one of the chart's sizes	size: a táblázat egyik mérete
+@msg	size: the name of a size of the size range or chart	size: a mérettartomány vagy a táblázat egyik méretének neve
+@msg	sizes: name one size at least	sizes: legalább egy méretet adjon meg
+@msg	sizes: the sizes' names	sizes: a méretek nevei
+@msg	sizes: the sizes' names, smallest first (null removes them)	sizes: a méretek nevei, a legkisebbtől kezdve (a null eltávolítja őket)
+@msg	split the seam line on its own: release the piece first (Pattern › Release Pattern Piece)	a varrásvonal önálló felosztásához előbb bontsa fel a darabot (Szabásminta › Szabásmintadarab felbontása)
+@msg	step: [dx, dy] in mm	step: [dx, dy] mm-ben
+@msg	style: classic, casual or shirt	style: classic, casual vagy shirt
+@msg	that anchor's neighbours don't make a dart	ennek a horgonypontnak a szomszédai nem alkotnak varrást
+@msg	that point is not a dart's point: its legs open a right angle or wider	ez a pont nem varráscsúcs: a szárai derékszögben vagy annál tágabban nyílnak
+@msg	the amount is a share of the dart, more than 0 and at most 1	a mennyiség a varrás egy hányada, 0-nál több és legfeljebb 1
+@msg	the back's outline encloses no area	a hátrész körvonala nem zár közre területet
+@msg	the box pleat's face is more than 0 wide	a dobozberakás színoldala 0-nál szélesebb
+@msg	the chart is larger than 1 MB	a táblázat nagyobb 1 MB-nál
+@msg	the curve has no length at the meeting point	a görbének nincs hossza a találkozási pontban
+@msg	the curves leave the seam the same way	a görbék ugyanabba az irányba hagyják el a varratot
+@msg	the dart has no length	a varrásnak nincs hossza
+@msg	the dart is not that long	a varrás nem ilyen hosszú
+@msg	the dart point or the new dart's anchor is not on the outline	a varrás csúcsa vagy az új varrás horgonypontja nincs a körvonalon
+@msg	the dart's legs must be straight lines	a varrás szárainak egyenes vonalaknak kell lenniük
+@msg	the dart's point is past the outline's end	a varrás csúcsa a körvonal végén túl van
+@msg	the depth to curve the legs by is not a number	a szárak ívelésének mélysége nem szám
+@msg	the document has no marker (Pattern › Make Marker…)	a dokumentumban nincs szabásterv (Szabásminta › Szabásterv készítése…)
+@msg	the document has no measurements to save	a dokumentumban nincsenek menthető méretek
+@msg	the document has no size chart (measure.importChart)	a dokumentumban nincs mérettáblázat (measure.importChart)
+@msg	the drop at the front is less than half the neck edge	az elöl mélyítés kisebb a nyakél felénél
+@msg	the edge has no length	az élnek nincs hossza
+@msg	the edge's anchor is past the outline's end	az él horgonypontja a körvonal végén túl van
+@msg	the fabric's width must be more than 0	az anyag szélességének 0-nál többnek kell lennie
+@msg	the flap is deeper than twice its width	a fedőlap mélyebb a szélessége kétszeresénél
+@msg	the flap's width and depth are more than 0, its allowance 0 or more	a fedőlap szélessége és mélysége 0-nál több, a ráhagyása 0 vagy több
+@msg	the fold edge has no length	a hajtásélnek nincs hossza
+@msg	the fold edge's anchors are past the outline's end	a hajtásél horgonypontjai a körvonal végén túl vannak
+@msg	the fold edge's two anchors must be neighbours on the outline	a hajtásél két horgonypontjának szomszédosnak kell lennie a körvonalon
+@msg	the fold must be a straight edge	a hajtásnak egyenes élnek kell lennie
+@msg	the front end has no length	az elülső végnek nincs hossza
+@msg	the gap must be 0 or more	a térköznek 0-nak vagy többnek kell lennie
+@msg	the grainline's ends are the same point	a szálirány két vége ugyanaz a pont
+@msg	the legs can't curve that far: the dart isn't wide enough	a szárak nem ívelhetők ennyire: a varrás nem elég széles
+@msg	the length to shorten by is not a number	a rövidítés hossza nem szám
+@msg	the marker has lost its fabric outline	a szabásterv elvesztette az anyag körvonalát
+@msg	the marker has no pieces	a szabásterven nincsenek darabok
+@msg	the marker is too large at this precision: give a coarser one	a szabásterv túl nagy ennél a pontosságnál: adjon meg durvábbat
+@msg	the measurements could not be saved	a méreteket nem sikerült menteni
+@msg	the meeting point and the seam's other end are points of the outline	a találkozási pont és a varrat másik vége a körvonal pontjai
+@msg	the neckline has no length	a nyakkivágásnak nincs hossza
+@msg	the neckline lengths and the stand's height are more than 0, the rise and extension 0 or more	a nyakkivágás hosszai és a talp magassága 0-nál több, az emelés és a toldás 0 vagy több
+@msg	the new dart is on the old dart	az új varrás a régin van
+@msg	the opening is longer than twice its height	a nyílás hosszabb a magassága kétszeresénél
+@msg	the opening, depth and width are more than 0, the width more than the allowance	a nyílás, a mélység és a szélesség 0-nál több, a szélesség nagyobb a ráhagyásnál
+@msg	the opening, the welt and the depth are more than 0, the allowances 0 or more	a nyílás, a paszpól és a mélység 0-nál több, a ráhagyások 0 vagy több
+@msg	the outline encloses no area	a körvonal nem zár közre területet
+@msg	the outline has no side seam	a körvonalnak nincs oldalvarrata
+@msg	the path has no outline	az útvonalnak nincs körvonala
+@msg	the path must be one closed outline	az útvonalnak egyetlen zárt körvonalnak kell lennie
+@msg	the piece has no grade rules to copy	a darabnak nincsenek másolható fokozási szabályai
+@msg	the piece has no straight edge to cut on the fold	a darabnak nincs hajtásra szabható egyenes éle
+@msg	the pieces have no cutting lines to lay	a daraboknak nincsenek elhelyezhető vágóvonalai
+@msg	the plaid's repeat must be more than 0 along and across	a kockás minta ismétlődésének hosszában és keresztben is 0-nál többnek kell lennie
+@msg	the pocket (its opening and the allowance past both ends) fits on the seam	a zseb (a nyílása és a két végén túli ráhagyás) elfér a varraton
+@msg	the point is not inside the piece	a pont nincs a darabon belül
+@msg	the point is not on the seam line or in its allowance	a pont nincs a varrásvonalon és a ráhagyásában sem
+@msg	the precision must be more than 0	a pontosságnak 0-nál többnek kell lennie
+@msg	the rise at centre front is less than the front neckline is long	az eleje középvonalán az emelés kisebb az elülső nyakkivágás hosszánál
+@msg	the seam has no length there	a varratnak ott nincs hossza
+@msg	the seam runs between two different points of the outline	a varrat a körvonal két különböző pontja között fut
+@msg	the seam's other end is a neighbour of the meeting point	a varrat másik vége a találkozási pont szomszédja
+@msg	the top edge has no length	a felső élnek nincs hossza
+@msg	the wing is more than 0 long	a szárny 0-nál hosszabb
+@msg	there is no folder to keep measurement sets in here (the desktop app keeps them next to its preferences)	itt nincs mappa a méretkészletek tárolására (az asztali alkalmazás a beállításai mellett tárolja őket)
+@msg	there is no point of the seam line there	ott nincs a varrásvonalnak pontja
+@msg	to or toAnchor: where the dart moves to	to vagy toAnchor: ahová a varrás kerül
+@msg	to: [x, y] in document points	to: [x, y] dokumentumpontban
+@msg	to: the pieces to copy the rules to (select them, or name them)	to: a darabok, amelyekre a szabályokat másolja (jelölje ki vagy nevezze meg őket)
+@msg	too many objects at once	túl sok objektum egyszerre
+@msg	too many pieces at once	túl sok darab egyszerre
+@msg	too many pieces to lay at once	túl sok elhelyezendő darab egyszerre
+@msg	too many sizes at once	túl sok méret egyszerre
+@msg	unit: "mm", "cm" or "in"	unit: "mm", "cm" vagy "in"
+@msg	width: mm, more than 0	width: mm, 0-nál több

@@ -614,6 +614,21 @@ is built on, plus a pattern mode, the way StitchFoundry adds embroidery:
   `tests_design.rs` (the bodice block's shoulder bust dart ended 25 mm short of the bust point,
   the waist dart's point at the same bust point kept, one undo step). Not yet: curved dart legs, the
   new point dragged on the canvas.
+- 2026-10-24, **PF-1.5**: the pattern commands' messages translated, and the Pattern menu's
+  name. The 186 messages the pattern commands (blocks, design tools, pieces, markers, grading,
+  measurements) and their drafting give when they can't do what was asked ("select a drafted
+  block part (Pattern › Draft … Block)", "the dart is not that long", …) have `@msg` rows in all
+  23 languages, in each catalog's sewing terms, the menu paths in them as the menus read; the
+  values the user types (parameter names, "square", "5/8 in", `measure.importChart`) stay as they
+  are. The top-level Pattern menu was translated with the same row as Object › Pattern (the fill
+  pattern: German "Muster", French "Motif"); menu titles now look for a `menu` row first
+  (`i18n::t_menu`, the in-window and the macOS menu bars), and each language has one for Pattern
+  (Schnitt, Patron, Patrón, Cartamodello, Molde, Выкройка, 型紙, 纸样…), so the menu reads as the
+  sewing pattern. Terms the catalogs didn't have yet (grainline, box pleat, a collar's rise and
+  extension, a wing tip) were chosen by the translators and are flagged for the native-speaker
+  check. Test: 1 in `i18n/tests.rs` (a German message with its menu path; the menu row against
+  the fill pattern's; every language has both). Not yet: messages built with values
+  (`format!`), which need templates.
 - 2026-10-23, **PF-1.4**: a piece's edge data follows its seam line. Notches, per-edge
   allowances, corner styles and the fold are kept by edge number, so when the seam line gained or
   lost an anchor (an anchor added with the pen, or a design tool such as a pleat or a spread on a

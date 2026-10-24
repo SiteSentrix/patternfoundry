@@ -5474,3 +5474,190 @@ file-filter	PDF for projector	PDF för projektor
 	{piece} is off the fabric	{piece} ligger utanför tyget
 	No pieces overlap, and all are on the fabric.	Inga delar överlappar, och alla ligger på tyget.
 	Plaid	Rutigt
+menu	Pattern	Mönster
+@msg	a and b are two pieces (or paths) that sew together	a och b är två mönsterdelar (eller banor) som sys ihop
+@msg	a corner is "mitre" or "square"	ett hörn är "mitre" eller "square"
+@msg	a facing runs along part of the outline	ett belägg löper längs en del av konturen
+@msg	a facing runs between two different points of the outline	ett belägg löper mellan två olika punkter på konturen
+@msg	a name takes at most 200 characters	ett namn får vara högst 200 tecken
+@msg	a neckline runs between two different points of its outline, and the shoulder point is one of them	en halsringning löper mellan två olika punkter på sin kontur, och axelpunkten är en av dem
+@msg	a seam allowance is a number of mm, or a length with its unit ("5/8 in")	en sömsmån är ett antal mm, eller en längd med sin enhet ("5/8 in")
+@msg	a seam has no length	en söm saknar längd
+@msg	a shoulder point is on its neck point	en axelpunkt ligger på sin halspunkt
+@msg	a slash runs between two points of the outline that aren't neighbours	ett snitt löper mellan två punkter på konturen som inte är grannar
+@msg	a split leaves a piece with fewer than three anchors	en delning lämnar en del med färre än tre ankarpunkter
+@msg	a split made two panels: delete the panel you don't want instead	en delning gav två delar: ta i stället bort den del du inte vill ha
+@msg	a split needs two different anchors on the outline	en delning kräver två olika ankarpunkter på konturen
+@msg	amount: a share of the dart, (0, 1]	amount: en andel av inprovningen, (0, 1]
+@msg	amount: how far it opens, mm	amount: hur mycket den öppnas, mm
+@msg	anchor: the point's number along the path, from 0	anchor: punktens nummer längs banan, från 0
+@msg	anchor: the seam line's point, from 0	anchor: sömlinjens punkt, från 0
+@msg	anchors: [a, b] or [a]	anchors: [a, b] eller [a]
+@msg	anchors: point numbers along the path	anchors: punktnummer längs banan
+@msg	apex: the dart's point (or select that one point)	apex: inprovningens spets (eller markera just den punkten)
+@msg	at: 0 (the edge's start) to 1 (its end)	at: 0 (kantens början) till 1 (dess slut)
+@msg	at: [x, y], the document point on the edge	at: [x, y], dokumentpunkten på kanten
+@msg	base: the size the pattern is drawn in	base: storleken som mönstret är ritat i
+@msg	block: "bodice", "skirt", "sleeve" or "trousers"	block: "bodice", "skirt", "sleeve" eller "trousers"
+@msg	can't make the seam that long by moving its end	sömmen kan inte göras så lång genom att flytta dess ände
+@msg	curve: mm the wrap edge bows into the piece	curve: mm som omlottkanten buktar in i delen
+@msg	cut is a whole number, 1 to 999	cut är ett heltal, 1 till 999
+@msg	data: the chart's text	data: tabellens text
+@msg	depth: how deep the pleat folds under, mm	depth: hur djupt vecket viks in under, mm
+@msg	depth: mm (less than 0 bows the legs in)	depth: mm (under 0 buktar benen inåt)
+@msg	diameter: a number of mm, or a length with its unit ("1/8 in")	diameter: ett antal mm, eller en längd med sin enhet ("1/8 in")
+@msg	edge: the edge's number, from 0 (or point)	edge: kantens nummer, från 0 (eller point)
+@msg	edges and corners are numbered from 0	kanter och hörn numreras från 0
+@msg	every: mm, at least 10	every: mm, minst 10
+@msg	face: only a box pleat has one	face: bara ett lådveck har en
+@msg	face: the box pleat's width between its folds, mm	face: lådveckets bredd mellan dess vikningar, mm
+@msg	flapShape: "square", "rounded" or "pointed"	flapShape: "square", "rounded" eller "pointed"
+@msg	fold is an edge's number (0..), or null	fold är en kants nummer (0..), eller null
+@msg	fold: [a, b], the centre front edge's two points	fold: [a, b], de två punkterna på kanten mitt fram
+@msg	fold: true or false	fold: true eller false
+@msg	foldAt: [x, y] in document points	foldAt: [x, y] i dokumentpunkter
+@msg	folded: true or false	folded: true eller false
+@msg	from: [x, y] in document points	from: [x, y] i dokumentpunkter
+@msg	from: not a pattern piece	from: inte en mönsterdel
+@msg	from: the pattern piece whose rules are copied	from: mönsterdelen vars regler kopieras
+@msg	from: the piece has no seam line	from: delen saknar sömlinje
+@msg	frontShape: "square", "rounded" or "winged"	frontShape: "square", "rounded" eller "winged"
+@msg	gathering runs between two different points of the outline	rynkningen löper mellan två olika punkter på konturen
+@msg	give apex and one of to or toAnchor (or select the two points)	ange apex och antingen to eller toAnchor (eller markera de två punkterna)
+@msg	height: mm, 10 to 100 (the tutorial's is at most 30)	height: mm, 10 till 100 (handledningens är högst 30)
+@msg	id: a block part's id	id: id för en del av ett grundmönster
+@msg	index: the drill hole's place in the list, from 0 (or point)	index: borrhålets plats i listan, från 0 (eller point)
+@msg	index: the notch's place in the list, from 0	index: hackets plats i listan, från 0
+@msg	index: the step's place, from 0	index: stegets plats, från 0
+@msg	into: the length it gathers into, mm	into: längden som det rynkas in till, mm
+@msg	kind: "slit", "double", "v", "t", "castle" or "u"	kind: "slit", "double", "v", "t", "castle" eller "u"
+@msg	kind: the notch's new shape	kind: hackets nya form
+@msg	layer: a marker layer's id	layer: id för ett läggningslager
+@msg	length (mm) or likeId with likeFrom and likeTo: the seam to match	length (mm) eller likeId med likeFrom och likeTo: sömmen som ska matchas
+@msg	length: mm, more than 0	length: mm, mer än 0
+@msg	line: "cut" or "seam"	line: "cut" eller "seam"
+@msg	match: the seam it sews to is shorter than the pocket opening's end	match: sömmen den sys mot är kortare än till fickhalsens ände
+@msg	min is more than max	min är större än max
+@msg	mirror is true or false	mirror är true eller false
+@msg	mirror: "none", "x", "y" or "xy"	mirror: "none", "x", "y" eller "xy"
+@msg	name: the saved set's name	name: den sparade uppsättningens namn
+@msg	name: whose measurements they are ("Me")	name: vems mått det är ("Me")
+@msg	no drill hole near the point	inget borrhål nära punkten
+@msg	no drill hole with that index	inget borrhål med det indexet
+@msg	no notch with that index	inget hack med det indexet
+@msg	no object with that id	inget objekt med det id:t
+@msg	no pattern pieces to grade: make the outlines pattern pieces first (Pattern › Make Pattern Piece)	inga mönsterdelar att gradera: gör först konturerna till mönsterdelar (Mönster › Skapa mönsterdel)
+@msg	no straight centre front edge on the outline's side: name it with fold: [a, b]	ingen rak kant mitt fram på konturens sida: ange den med fold: [a, b]
+@msg	not a drafted block part	inte en del av ett konstruerat grundmönster
+@msg	not a marker's layer (Pattern › Make Marker…)	inte ett läggningslager (Mönster › Skapa läggning…)
+@msg	not a pattern piece	inte en mönsterdel
+@msg	not a stand collar's outline	inte en ståkrages kontur
+@msg	notches go on pattern pieces: make both seams' paths pieces first (Pattern › Make Pattern Piece)	hack placeras på mönsterdelar: gör först båda sömmarnas banor till mönsterdelar (Mönster › Skapa mönsterdel)
+@msg	notches: [mm, …]	notches: [mm, …]
+@msg	notches: distances from the seams' starts, mm	notches: avstånd från sömmarnas början, mm
+@msg	on and at go together: the garment piece and where the opening's top-left corner goes on it	on och at hör ihop: plaggdelen och var öppningens övre vänstra hörn hamnar på den
+@msg	on and at go together: the garment piece and where the pocket's top-left corner goes on it	on och at hör ihop: plaggdelen och var fickans övre vänstra hörn hamnar på den
+@msg	one point splits only where another point is at the same place (two darts' point)	en enda punkt delar bara där en annan punkt ligger på samma ställe (två inprovningars spets)
+@msg	oneWay: true or false	oneWay: true eller false
+@msg	openFolds: true or false	openFolds: true eller false
+@msg	origin: [x, y] in document points	origin: [x, y] i dokumentpunkter
+@msg	overlap: mm past centre front, more than 0	overlap: mm förbi mitt fram, mer än 0
+@msg	overlap: the edge misses the outline	overlap: kanten missar konturen
+@msg	plaid: the repeat (mm, or [along, across])	plaid: rapporten (mm, eller [along, across])
+@msg	plaid: the repeat along and across, 1 to 10 000 mm each	plaid: rapporten på längden och på tvären, 1 till 10 000 mm vardera
+@msg	point: [x, y] in document points	point: [x, y] i dokumentpunkter
+@msg	select a drafted block part (Pattern › Draft … Block)	markera en del av ett konstruerat grundmönster (Mönster › Konstruera grundmönster för …)
+@msg	select a path or a pattern piece	markera en bana eller en mönsterdel
+@msg	select a pattern piece (Pattern › Make Pattern Piece makes one)	markera en mönsterdel (Mönster › Skapa mönsterdel skapar en)
+@msg	select a piece on the marker to check	markera en del i läggningen att kontrollera
+@msg	select closed paths: each becomes a piece, the path its seam line	markera slutna banor: var och en blir en mönsterdel, banan dess sömlinje
+@msg	select one path	markera en bana
+@msg	select one pattern piece	markera en mönsterdel
+@msg	select two points of one path (or one that two darts share)	markera två punkter på en bana (eller en som två inprovningar delar)
+@msg	select two points of one path: the dart's point and where the dart moves to	markera två punkter på en bana: inprovningens spets och dit inprovningen flyttas
+@msg	select two points of one path: the ends of the edge to face	markera två punkter på en bana: ändarna på kanten som ska få belägg
+@msg	select two points of one path: the ends of the edge to gather	markera två punkter på en bana: ändarna på kanten som ska rynkas
+@msg	share is true or false	share är true eller false
+@msg	shorten: mm (less than 0 lengthens)	shorten: mm (under 0 förlänger)
+@msg	shoulder: longer than the outline	shoulder: längre än konturen
+@msg	shoulder: mm, 0 or more	shoulder: mm, 0 eller mer
+@msg	size: one of the chart's sizes	size: en av tabellens storlekar
+@msg	size: the name of a size of the size range or chart	size: namnet på en storlek i storleksserien eller tabellen
+@msg	sizes: name one size at least	sizes: ange minst en storlek
+@msg	sizes: the sizes' names	sizes: storlekarnas namn
+@msg	sizes: the sizes' names, smallest first (null removes them)	sizes: storlekarnas namn, minsta först (null tar bort dem)
+@msg	split the seam line on its own: release the piece first (Pattern › Release Pattern Piece)	dela sömlinjen för sig: frigör först mönsterdelen (Mönster › Frigör mönsterdel)
+@msg	step: [dx, dy] in mm	step: [dx, dy] i mm
+@msg	style: classic, casual or shirt	style: classic, casual eller shirt
+@msg	that anchor's neighbours don't make a dart	den ankarpunktens grannar bildar ingen inprovning
+@msg	that point is not a dart's point: its legs open a right angle or wider	den punkten är ingen inprovningsspets: dess ben öppnar sig i rät vinkel eller mer
+@msg	the amount is a share of the dart, more than 0 and at most 1	mängden är en andel av inprovningen, mer än 0 och högst 1
+@msg	the back's outline encloses no area	bakstyckets kontur omsluter ingen yta
+@msg	the box pleat's face is more than 0 wide	lådveckets framsida är mer än 0 bred
+@msg	the chart is larger than 1 MB	tabellen är större än 1 MB
+@msg	the curve has no length at the meeting point	kurvan saknar längd vid mötespunkten
+@msg	the curves leave the seam the same way	kurvorna lämnar sömmen åt samma håll
+@msg	the dart has no length	inprovningen saknar längd
+@msg	the dart is not that long	inprovningen är inte så lång
+@msg	the dart point or the new dart's anchor is not on the outline	inprovningens spets eller den nya inprovningens ankarpunkt ligger inte på konturen
+@msg	the dart's legs must be straight lines	inprovningens ben måste vara raka linjer
+@msg	the dart's point is past the outline's end	inprovningens spets ligger bortom konturens slut
+@msg	the depth to curve the legs by is not a number	djupet som benen ska böjas med är inget tal
+@msg	the document has no marker (Pattern › Make Marker…)	dokumentet har ingen läggning (Mönster › Skapa läggning…)
+@msg	the document has no measurements to save	dokumentet har inga mått att spara
+@msg	the document has no size chart (measure.importChart)	dokumentet har ingen storlekstabell (measure.importChart)
+@msg	the drop at the front is less than half the neck edge	sänkningen fram är mindre än halva halskanten
+@msg	the edge has no length	kanten saknar längd
+@msg	the edge's anchor is past the outline's end	kantens ankarpunkt ligger bortom konturens slut
+@msg	the fabric's width must be more than 0	tygets bredd måste vara mer än 0
+@msg	the flap is deeper than twice its width	locket är djupare än två gånger sin bredd
+@msg	the flap's width and depth are more than 0, its allowance 0 or more	lockets bredd och djup är mer än 0, dess sömsmån 0 eller mer
+@msg	the fold edge has no length	vikkanten saknar längd
+@msg	the fold edge's anchors are past the outline's end	vikkantens ankarpunkter ligger bortom konturens slut
+@msg	the fold edge's two anchors must be neighbours on the outline	vikkantens två ankarpunkter måste vara grannar på konturen
+@msg	the fold must be a straight edge	vikningen måste vara en rak kant
+@msg	the front end has no length	framänden saknar längd
+@msg	the gap must be 0 or more	avståndet måste vara 0 eller mer
+@msg	the grainline's ends are the same point	trådriktningens ändar är samma punkt
+@msg	the legs can't curve that far: the dart isn't wide enough	benen kan inte böjas så mycket: inprovningen är inte tillräckligt bred
+@msg	the length to shorten by is not a number	längden att korta med är inget tal
+@msg	the marker has lost its fabric outline	läggningen har förlorat sin tygkontur
+@msg	the marker has no pieces	läggningen har inga delar
+@msg	the marker is too large at this precision: give a coarser one	läggningen är för stor med den här precisionen: ange en grövre
+@msg	the measurements could not be saved	måtten kunde inte sparas
+@msg	the meeting point and the seam's other end are points of the outline	mötespunkten och sömmens andra ände är punkter på konturen
+@msg	the neckline has no length	halsringningen saknar längd
+@msg	the neckline lengths and the stand's height are more than 0, the rise and extension 0 or more	halsringningens längder och kragståndarens höjd är mer än 0, lyftet och förlängningen 0 eller mer
+@msg	the new dart is on the old dart	den nya inprovningen ligger på den gamla
+@msg	the opening is longer than twice its height	öppningen är längre än två gånger sin höjd
+@msg	the opening, depth and width are more than 0, the width more than the allowance	öppningen, djupet och bredden är mer än 0, bredden mer än sömsmånen
+@msg	the opening, the welt and the depth are more than 0, the allowances 0 or more	öppningen, paspeln och djupet är mer än 0, sömsmånerna 0 eller mer
+@msg	the outline encloses no area	konturen omsluter ingen yta
+@msg	the outline has no side seam	konturen har ingen sidsöm
+@msg	the path has no outline	banan har ingen kontur
+@msg	the path must be one closed outline	banan måste vara en enda sluten kontur
+@msg	the piece has no grade rules to copy	delen har inga graderingsregler att kopiera
+@msg	the piece has no straight edge to cut on the fold	delen har ingen rak kant att klippa i vikningen
+@msg	the pieces have no cutting lines to lay	delarna har inga skärlinjer att lägga ut
+@msg	the plaid's repeat must be more than 0 along and across	rutornas rapport måste vara mer än 0 på längden och på tvären
+@msg	the pocket (its opening and the allowance past both ends) fits on the seam	fickan (dess öppning och sömsmånen förbi båda ändarna) ska få plats på sömmen
+@msg	the point is not inside the piece	punkten ligger inte inuti delen
+@msg	the point is not on the seam line or in its allowance	punkten ligger inte på sömlinjen eller i dess sömsmån
+@msg	the precision must be more than 0	precisionen måste vara mer än 0
+@msg	the rise at centre front is less than the front neckline is long	lyftet mitt fram är mindre än den främre halsringningens längd
+@msg	the seam has no length there	sömmen saknar längd där
+@msg	the seam runs between two different points of the outline	sömmen löper mellan två olika punkter på konturen
+@msg	the seam's other end is a neighbour of the meeting point	sömmens andra ände är granne med mötespunkten
+@msg	the top edge has no length	överkanten saknar längd
+@msg	the wing is more than 0 long	vingen är längre än 0
+@msg	there is no folder to keep measurement sets in here (the desktop app keeps them next to its preferences)	det finns ingen mapp att spara måttuppsättningar i här (skrivbordsappen sparar dem bredvid sina inställningar)
+@msg	there is no point of the seam line there	det finns ingen punkt på sömlinjen där
+@msg	to or toAnchor: where the dart moves to	to eller toAnchor: dit inprovningen flyttas
+@msg	to: [x, y] in document points	to: [x, y] i dokumentpunkter
+@msg	to: the pieces to copy the rules to (select them, or name them)	to: delarna som reglerna ska kopieras till (markera dem, eller ange dem)
+@msg	too many objects at once	för många objekt på en gång
+@msg	too many pieces at once	för många delar på en gång
+@msg	too many pieces to lay at once	för många delar att lägga ut på en gång
+@msg	too many sizes at once	för många storlekar på en gång
+@msg	unit: "mm", "cm" or "in"	unit: "mm", "cm" eller "in"
+@msg	width: mm, more than 0	width: mm, mer än 0

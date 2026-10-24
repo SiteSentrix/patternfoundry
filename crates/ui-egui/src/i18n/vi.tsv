@@ -5113,3 +5113,190 @@ file-filter	PDF for projector	PDF cho máy chiếu
 	{piece} is off the fabric	{piece} nằm ngoài vải
 	No pieces overlap, and all are on the fabric.	Không có chi tiết nào chồng nhau, tất cả đều nằm trên vải.
 	Plaid	Kẻ ca rô
+menu	Pattern	Rập
+@msg	a and b are two pieces (or paths) that sew together	a và b là hai chi tiết (hoặc đường dẫn) may với nhau
+@msg	a corner is "mitre" or "square"	góc là "mitre" hoặc "square"
+@msg	a facing runs along part of the outline	nẹp chạy dọc theo một phần đường viền
+@msg	a facing runs between two different points of the outline	nẹp chạy giữa hai điểm khác nhau của đường viền
+@msg	a name takes at most 200 characters	tên có tối đa 200 ký tự
+@msg	a neckline runs between two different points of its outline, and the shoulder point is one of them	vòng cổ chạy giữa hai điểm khác nhau của đường viền, và điểm vai là một trong hai điểm đó
+@msg	a seam allowance is a number of mm, or a length with its unit ("5/8 in")	đường may chừa là một số mm, hoặc một độ dài kèm đơn vị ("5/8 in")
+@msg	a seam has no length	một đường may không có chiều dài
+@msg	a shoulder point is on its neck point	một điểm vai trùng với điểm cổ của nó
+@msg	a slash runs between two points of the outline that aren't neighbours	đường cắt xòe phải chạy giữa hai điểm không kề nhau của đường viền
+@msg	a split leaves a piece with fewer than three anchors	phép tách sẽ để lại một chi tiết có ít hơn ba điểm neo
+@msg	a split made two panels: delete the panel you don't want instead	phép tách đã tạo hai mảnh: hãy xóa mảnh bạn không cần
+@msg	a split needs two different anchors on the outline	phép tách cần hai điểm neo khác nhau trên đường viền
+@msg	amount: a share of the dart, (0, 1]	amount: một phần của pen, (0, 1]
+@msg	amount: how far it opens, mm	amount: độ mở, mm
+@msg	anchor: the point's number along the path, from 0	anchor: số thứ tự của điểm dọc theo đường dẫn, từ 0
+@msg	anchor: the seam line's point, from 0	anchor: điểm của đường may, từ 0
+@msg	anchors: [a, b] or [a]	anchors: [a, b] hoặc [a]
+@msg	anchors: point numbers along the path	anchors: số thứ tự các điểm dọc theo đường dẫn
+@msg	apex: the dart's point (or select that one point)	apex: đỉnh pen (hoặc chọn điểm đó)
+@msg	at: 0 (the edge's start) to 1 (its end)	at: 0 (đầu cạnh) đến 1 (cuối cạnh)
+@msg	at: [x, y], the document point on the edge	at: [x, y], điểm trên cạnh theo tọa độ tài liệu
+@msg	base: the size the pattern is drawn in	base: cỡ mà rập được vẽ
+@msg	block: "bodice", "skirt", "sleeve" or "trousers"	block: "bodice", "skirt", "sleeve" hoặc "trousers"
+@msg	can't make the seam that long by moving its end	không thể làm đường may dài đến thế bằng cách dời điểm cuối
+@msg	curve: mm the wrap edge bows into the piece	curve: số mm cạnh vạt chéo cong vào trong chi tiết
+@msg	cut is a whole number, 1 to 999	cut là số nguyên, từ 1 đến 999
+@msg	data: the chart's text	data: nội dung văn bản của bảng cỡ
+@msg	depth: how deep the pleat folds under, mm	depth: độ sâu ly gấp vào trong, mm
+@msg	depth: mm (less than 0 bows the legs in)	depth: mm (nhỏ hơn 0 sẽ uốn cạnh pen vào trong)
+@msg	diameter: a number of mm, or a length with its unit ("1/8 in")	diameter: một số mm, hoặc một độ dài kèm đơn vị ("1/8 in")
+@msg	edge: the edge's number, from 0 (or point)	edge: số thứ tự của cạnh, từ 0 (hoặc point)
+@msg	edges and corners are numbered from 0	cạnh và góc được đánh số từ 0
+@msg	every: mm, at least 10	every: mm, ít nhất 10
+@msg	face: only a box pleat has one	face: chỉ ly hộp mới có
+@msg	face: the box pleat's width between its folds, mm	face: bề rộng ly hộp giữa hai nếp gấp, mm
+@msg	flapShape: "square", "rounded" or "pointed"	flapShape: "square", "rounded" hoặc "pointed"
+@msg	fold is an edge's number (0..), or null	fold là số thứ tự của một cạnh (0..), hoặc null
+@msg	fold: [a, b], the centre front edge's two points	fold: [a, b], hai điểm của cạnh giữa thân trước
+@msg	fold: true or false	fold: true hoặc false
+@msg	foldAt: [x, y] in document points	foldAt: [x, y] theo điểm (pt) của tài liệu
+@msg	folded: true or false	folded: true hoặc false
+@msg	from: [x, y] in document points	from: [x, y] theo điểm (pt) của tài liệu
+@msg	from: not a pattern piece	from: không phải chi tiết rập
+@msg	from: the pattern piece whose rules are copied	from: chi tiết rập có quy tắc được sao chép
+@msg	from: the piece has no seam line	from: chi tiết không có đường may
+@msg	frontShape: "square", "rounded" or "winged"	frontShape: "square", "rounded" hoặc "winged"
+@msg	gathering runs between two different points of the outline	đường nhún phải chạy giữa hai điểm khác nhau của đường viền
+@msg	give apex and one of to or toAnchor (or select the two points)	hãy cho apex và một trong to hoặc toAnchor (hoặc chọn hai điểm)
+@msg	height: mm, 10 to 100 (the tutorial's is at most 30)	height: mm, từ 10 đến 100 (của bài hướng dẫn tối đa là 30)
+@msg	id: a block part's id	id: id của một phần rập cơ bản
+@msg	index: the drill hole's place in the list, from 0 (or point)	index: vị trí của lỗ khoan trong danh sách, từ 0 (hoặc point)
+@msg	index: the notch's place in the list, from 0	index: vị trí của dấu bấm trong danh sách, từ 0
+@msg	index: the step's place, from 0	index: vị trí của bước, từ 0
+@msg	into: the length it gathers into, mm	into: chiều dài sau khi nhún, mm
+@msg	kind: "slit", "double", "v", "t", "castle" or "u"	kind: "slit", "double", "v", "t", "castle" hoặc "u"
+@msg	kind: the notch's new shape	kind: hình dạng mới của dấu bấm
+@msg	layer: a marker layer's id	layer: id của lớp sơ đồ cắt
+@msg	length (mm) or likeId with likeFrom and likeTo: the seam to match	length (mm) hoặc likeId cùng likeFrom và likeTo: đường may cần khớp theo
+@msg	length: mm, more than 0	length: mm, lớn hơn 0
+@msg	line: "cut" or "seam"	line: "cut" hoặc "seam"
+@msg	match: the seam it sews to is shorter than the pocket opening's end	match: đường may được may vào ngắn hơn vị trí cuối miệng túi
+@msg	min is more than max	min lớn hơn max
+@msg	mirror is true or false	mirror là true hoặc false
+@msg	mirror: "none", "x", "y" or "xy"	mirror: "none", "x", "y" hoặc "xy"
+@msg	name: the saved set's name	name: tên của bộ số đo đã lưu
+@msg	name: whose measurements they are ("Me")	name: số đo của ai ("Me")
+@msg	no drill hole near the point	không có lỗ khoan nào gần điểm này
+@msg	no drill hole with that index	không có lỗ khoan với chỉ mục đó
+@msg	no notch with that index	không có dấu bấm với chỉ mục đó
+@msg	no object with that id	không có đối tượng với id đó
+@msg	no pattern pieces to grade: make the outlines pattern pieces first (Pattern › Make Pattern Piece)	không có chi tiết rập nào để nhảy cỡ: hãy biến các đường viền thành chi tiết rập trước (Rập › Tạo chi tiết rập)
+@msg	no straight centre front edge on the outline's side: name it with fold: [a, b]	không có cạnh giữa thân trước thẳng ở phía này của đường viền: hãy chỉ định nó bằng fold: [a, b]
+@msg	not a drafted block part	không phải phần rập cơ bản đã dựng
+@msg	not a marker's layer (Pattern › Make Marker…)	không phải lớp của sơ đồ cắt (Rập › Tạo sơ đồ cắt…)
+@msg	not a pattern piece	không phải chi tiết rập
+@msg	not a stand collar's outline	không phải đường viền của cổ đứng
+@msg	notches go on pattern pieces: make both seams' paths pieces first (Pattern › Make Pattern Piece)	dấu bấm đặt trên chi tiết rập: hãy biến đường dẫn của cả hai đường may thành chi tiết trước (Rập › Tạo chi tiết rập)
+@msg	notches: [mm, …]	notches: [mm, …]
+@msg	notches: distances from the seams' starts, mm	notches: khoảng cách từ đầu các đường may, mm
+@msg	on and at go together: the garment piece and where the opening's top-left corner goes on it	on và at đi cùng nhau: chi tiết quần áo và vị trí đặt góc trên bên trái của miệng túi trên đó
+@msg	on and at go together: the garment piece and where the pocket's top-left corner goes on it	on và at đi cùng nhau: chi tiết quần áo và vị trí đặt góc trên bên trái của túi trên đó
+@msg	one point splits only where another point is at the same place (two darts' point)	chỉ tách bằng một điểm được ở nơi có điểm khác cùng vị trí (đỉnh chung của hai pen)
+@msg	oneWay: true or false	oneWay: true hoặc false
+@msg	openFolds: true or false	openFolds: true hoặc false
+@msg	origin: [x, y] in document points	origin: [x, y] theo điểm (pt) của tài liệu
+@msg	overlap: mm past centre front, more than 0	overlap: số mm vượt qua giữa thân trước, lớn hơn 0
+@msg	overlap: the edge misses the outline	overlap: cạnh không chạm tới đường viền
+@msg	plaid: the repeat (mm, or [along, across])	plaid: bước lặp (mm, hoặc [along, across])
+@msg	plaid: the repeat along and across, 1 to 10 000 mm each	plaid: bước lặp theo chiều dọc và chiều ngang, mỗi chiều từ 1 đến 10 000 mm
+@msg	point: [x, y] in document points	point: [x, y] theo điểm (pt) của tài liệu
+@msg	select a drafted block part (Pattern › Draft … Block)	hãy chọn một phần rập cơ bản đã dựng (Rập › Dựng rập cơ bản …)
+@msg	select a path or a pattern piece	hãy chọn một đường dẫn hoặc một chi tiết rập
+@msg	select a pattern piece (Pattern › Make Pattern Piece makes one)	hãy chọn một chi tiết rập (Rập › Tạo chi tiết rập sẽ tạo một chi tiết)
+@msg	select a piece on the marker to check	hãy chọn một chi tiết trên sơ đồ cắt để kiểm tra
+@msg	select closed paths: each becomes a piece, the path its seam line	hãy chọn các đường dẫn khép kín: mỗi đường dẫn trở thành một chi tiết, đường dẫn là đường may của nó
+@msg	select one path	hãy chọn một đường dẫn
+@msg	select one pattern piece	hãy chọn một chi tiết rập
+@msg	select two points of one path (or one that two darts share)	hãy chọn hai điểm của một đường dẫn (hoặc một điểm mà hai pen dùng chung)
+@msg	select two points of one path: the dart's point and where the dart moves to	hãy chọn hai điểm của một đường dẫn: đỉnh pen và nơi pen được chuyển tới
+@msg	select two points of one path: the ends of the edge to face	hãy chọn hai điểm của một đường dẫn: hai đầu của cạnh cần làm nẹp
+@msg	select two points of one path: the ends of the edge to gather	hãy chọn hai điểm của một đường dẫn: hai đầu của cạnh cần nhún
+@msg	share is true or false	share là true hoặc false
+@msg	shorten: mm (less than 0 lengthens)	shorten: mm (nhỏ hơn 0 sẽ làm dài ra)
+@msg	shoulder: longer than the outline	shoulder: dài hơn đường viền
+@msg	shoulder: mm, 0 or more	shoulder: mm, từ 0 trở lên
+@msg	size: one of the chart's sizes	size: một trong các cỡ của bảng cỡ
+@msg	size: the name of a size of the size range or chart	size: tên một cỡ trong dải cỡ hoặc bảng cỡ
+@msg	sizes: name one size at least	sizes: hãy đặt tên ít nhất một cỡ
+@msg	sizes: the sizes' names	sizes: tên các cỡ
+@msg	sizes: the sizes' names, smallest first (null removes them)	sizes: tên các cỡ, cỡ nhỏ nhất trước (null để xóa)
+@msg	split the seam line on its own: release the piece first (Pattern › Release Pattern Piece)	để tách riêng đường may: hãy giải phóng chi tiết trước (Rập › Giải phóng chi tiết rập)
+@msg	step: [dx, dy] in mm	step: [dx, dy] tính bằng mm
+@msg	style: classic, casual or shirt	style: classic, casual hoặc shirt
+@msg	that anchor's neighbours don't make a dart	các điểm kề của điểm neo đó không tạo thành pen
+@msg	that point is not a dart's point: its legs open a right angle or wider	điểm đó không phải đỉnh pen: hai cạnh pen mở thành góc vuông hoặc rộng hơn
+@msg	the amount is a share of the dart, more than 0 and at most 1	lượng là một phần của pen, lớn hơn 0 và tối đa là 1
+@msg	the back's outline encloses no area	đường viền thân sau không bao quanh diện tích nào
+@msg	the box pleat's face is more than 0 wide	mặt ly hộp phải rộng hơn 0
+@msg	the chart is larger than 1 MB	bảng cỡ lớn hơn 1 MB
+@msg	the curve has no length at the meeting point	đường cong không có chiều dài tại điểm gặp nhau
+@msg	the curves leave the seam the same way	các đường cong rời đường may theo cùng một hướng
+@msg	the dart has no length	pen không có chiều dài
+@msg	the dart is not that long	pen không dài đến thế
+@msg	the dart point or the new dart's anchor is not on the outline	đỉnh pen hoặc điểm neo của pen mới không nằm trên đường viền
+@msg	the dart's legs must be straight lines	các cạnh pen phải là đường thẳng
+@msg	the dart's point is past the outline's end	đỉnh pen nằm quá điểm cuối của đường viền
+@msg	the depth to curve the legs by is not a number	độ sâu để uốn cong cạnh pen không phải là số
+@msg	the document has no marker (Pattern › Make Marker…)	tài liệu không có sơ đồ cắt (Rập › Tạo sơ đồ cắt…)
+@msg	the document has no measurements to save	tài liệu không có số đo nào để lưu
+@msg	the document has no size chart (measure.importChart)	tài liệu không có bảng cỡ (measure.importChart)
+@msg	the drop at the front is less than half the neck edge	độ hạ ở phía trước phải nhỏ hơn một nửa cạnh cổ
+@msg	the edge has no length	cạnh không có chiều dài
+@msg	the edge's anchor is past the outline's end	điểm neo của cạnh nằm quá điểm cuối của đường viền
+@msg	the fabric's width must be more than 0	khổ vải phải lớn hơn 0
+@msg	the flap is deeper than twice its width	nắp túi sâu hơn hai lần bề rộng của nó
+@msg	the flap's width and depth are more than 0, its allowance 0 or more	bề rộng và độ sâu của nắp túi phải lớn hơn 0, đường may chừa từ 0 trở lên
+@msg	the fold edge has no length	cạnh nếp gấp không có chiều dài
+@msg	the fold edge's anchors are past the outline's end	các điểm neo của cạnh nếp gấp nằm quá điểm cuối của đường viền
+@msg	the fold edge's two anchors must be neighbours on the outline	hai điểm neo của cạnh nếp gấp phải kề nhau trên đường viền
+@msg	the fold must be a straight edge	nếp gấp phải là một cạnh thẳng
+@msg	the front end has no length	đầu phía trước không có chiều dài
+@msg	the gap must be 0 or more	khoảng cách phải từ 0 trở lên
+@msg	the grainline's ends are the same point	hai đầu đường canh sợi là cùng một điểm
+@msg	the legs can't curve that far: the dart isn't wide enough	các cạnh pen không thể cong đến thế: pen không đủ rộng
+@msg	the length to shorten by is not a number	độ dài cần rút ngắn không phải là số
+@msg	the marker has lost its fabric outline	sơ đồ cắt đã mất đường viền vải
+@msg	the marker has no pieces	sơ đồ cắt không có chi tiết nào
+@msg	the marker is too large at this precision: give a coarser one	sơ đồ cắt quá lớn ở độ chính xác này: hãy dùng độ chính xác thô hơn
+@msg	the measurements could not be saved	không thể lưu số đo
+@msg	the meeting point and the seam's other end are points of the outline	điểm gặp nhau và đầu còn lại của đường may phải là các điểm của đường viền
+@msg	the neckline has no length	vòng cổ không có chiều dài
+@msg	the neckline lengths and the stand's height are more than 0, the rise and extension 0 or more	chiều dài vòng cổ và chiều cao chân cổ phải lớn hơn 0, độ nâng và phần nối dài từ 0 trở lên
+@msg	the new dart is on the old dart	pen mới nằm trên pen cũ
+@msg	the opening is longer than twice its height	miệng túi dài hơn hai lần chiều cao của nó
+@msg	the opening, depth and width are more than 0, the width more than the allowance	miệng túi, độ sâu và bề rộng phải lớn hơn 0, bề rộng phải lớn hơn đường may chừa
+@msg	the opening, the welt and the depth are more than 0, the allowances 0 or more	miệng túi, viền túi và độ sâu phải lớn hơn 0, các đường may chừa từ 0 trở lên
+@msg	the outline encloses no area	đường viền không bao quanh diện tích nào
+@msg	the outline has no side seam	đường viền không có đường may sườn
+@msg	the path has no outline	đường dẫn không có đường viền
+@msg	the path must be one closed outline	đường dẫn phải là một đường viền khép kín
+@msg	the piece has no grade rules to copy	chi tiết không có quy tắc nhảy cỡ nào để sao chép
+@msg	the piece has no straight edge to cut on the fold	chi tiết không có cạnh thẳng để cắt ở nếp gấp
+@msg	the pieces have no cutting lines to lay	các chi tiết không có đường cắt để xếp
+@msg	the plaid's repeat must be more than 0 along and across	bước lặp kẻ ca rô phải lớn hơn 0 theo cả chiều dọc và chiều ngang
+@msg	the pocket (its opening and the allowance past both ends) fits on the seam	túi (miệng túi và đường may chừa vượt qua hai đầu) phải nằm vừa trên đường may
+@msg	the point is not inside the piece	điểm không nằm trong chi tiết
+@msg	the point is not on the seam line or in its allowance	điểm không nằm trên đường may hoặc trong đường may chừa
+@msg	the precision must be more than 0	độ chính xác phải lớn hơn 0
+@msg	the rise at centre front is less than the front neckline is long	độ nâng ở giữa thân trước phải nhỏ hơn chiều dài vòng cổ trước
+@msg	the seam has no length there	đường may không có chiều dài ở đó
+@msg	the seam runs between two different points of the outline	đường may phải chạy giữa hai điểm khác nhau của đường viền
+@msg	the seam's other end is a neighbour of the meeting point	đầu còn lại của đường may kề với điểm gặp nhau
+@msg	the top edge has no length	cạnh trên không có chiều dài
+@msg	the wing is more than 0 long	cánh cổ phải dài hơn 0
+@msg	there is no folder to keep measurement sets in here (the desktop app keeps them next to its preferences)	ở đây không có thư mục để lưu các bộ số đo (ứng dụng máy tính lưu chúng cạnh tệp tùy chọn)
+@msg	there is no point of the seam line there	không có điểm nào của đường may ở đó
+@msg	to or toAnchor: where the dart moves to	to hoặc toAnchor: nơi pen được chuyển tới
+@msg	to: [x, y] in document points	to: [x, y] theo điểm (pt) của tài liệu
+@msg	to: the pieces to copy the rules to (select them, or name them)	to: các chi tiết cần sao chép quy tắc sang (chọn chúng, hoặc chỉ định tên)
+@msg	too many objects at once	quá nhiều đối tượng cùng lúc
+@msg	too many pieces at once	quá nhiều chi tiết cùng lúc
+@msg	too many pieces to lay at once	quá nhiều chi tiết để xếp cùng lúc
+@msg	too many sizes at once	quá nhiều cỡ cùng lúc
+@msg	unit: "mm", "cm" or "in"	unit: "mm", "cm" hoặc "in"
+@msg	width: mm, more than 0	width: mm, lớn hơn 0

@@ -5482,3 +5482,190 @@ file-filter	PDF for projector	PDF projektorille
 	{piece} is off the fabric	{piece} on kankaan ulkopuolella
 	No pieces overlap, and all are on the fabric.	Mitkään kappaleet eivät ole päällekkäin, ja kaikki ovat kankaalla.
 	Plaid	Ruudullinen
+menu	Pattern	Kaava
+@msg	a and b are two pieces (or paths) that sew together	a ja b ovat kaksi kaavan osaa (tai polkua), jotka ommellaan yhteen
+@msg	a corner is "mitre" or "square"	kulma on "mitre" tai "square"
+@msg	a facing runs along part of the outline	huolittelukaitale kulkee osalla ääriviivaa
+@msg	a facing runs between two different points of the outline	huolittelukaitale kulkee ääriviivan kahden eri pisteen välillä
+@msg	a name takes at most 200 characters	nimessä voi olla enintään 200 merkkiä
+@msg	a neckline runs between two different points of its outline, and the shoulder point is one of them	pääntie kulkee ääriviivansa kahden eri pisteen välillä, ja olkapiste on toinen niistä
+@msg	a seam allowance is a number of mm, or a length with its unit ("5/8 in")	saumanvara on millimäärä tai pituus yksikköineen ("5/8 in")
+@msg	a seam has no length	saumalla ei ole pituutta
+@msg	a shoulder point is on its neck point	olkapiste on kaulapisteen kohdalla
+@msg	a slash runs between two points of the outline that aren't neighbours	leikkaus kulkee kahden sellaisen ääriviivan pisteen välillä, jotka eivät ole vierekkäisiä
+@msg	a split leaves a piece with fewer than three anchors	jako jättää osaan alle kolme ankkuripistettä
+@msg	a split made two panels: delete the panel you don't want instead	jako teki kaksi osaa: poista sen sijaan osa, jota et halua
+@msg	a split needs two different anchors on the outline	jako tarvitsee kaksi eri ankkuripistettä ääriviivalta
+@msg	amount: a share of the dart, (0, 1]	amount: osuus muotolaskoksesta, (0, 1]
+@msg	amount: how far it opens, mm	amount: kuinka paljon se avautuu, mm
+@msg	anchor: the point's number along the path, from 0	anchor: pisteen numero polulla, 0:sta alkaen
+@msg	anchor: the seam line's point, from 0	anchor: saumaviivan piste, 0:sta alkaen
+@msg	anchors: [a, b] or [a]	anchors: [a, b] tai [a]
+@msg	anchors: point numbers along the path	anchors: pisteiden numerot polulla
+@msg	apex: the dart's point (or select that one point)	apex: muotolaskoksen kärki (tai valitse juuri se piste)
+@msg	at: 0 (the edge's start) to 1 (its end)	at: 0 (reunan alku) – 1 (sen loppu)
+@msg	at: [x, y], the document point on the edge	at: [x, y], reunalla oleva dokumentin piste
+@msg	base: the size the pattern is drawn in	base: koko, jossa kaava on piirretty
+@msg	block: "bodice", "skirt", "sleeve" or "trousers"	block: "bodice", "skirt", "sleeve" tai "trousers"
+@msg	can't make the seam that long by moving its end	saumaa ei saa noin pitkäksi siirtämällä sen päätä
+@msg	curve: mm the wrap edge bows into the piece	curve: mm, jonka verran kietaisureuna kaartuu kappaleen sisään
+@msg	cut is a whole number, 1 to 999	cut on kokonaisluku 1–999
+@msg	data: the chart's text	data: taulukon teksti
+@msg	depth: how deep the pleat folds under, mm	depth: kuinka syvälle laskos taittuu alle, mm
+@msg	depth: mm (less than 0 bows the legs in)	depth: mm (alle 0 kaartaa sivut sisäänpäin)
+@msg	diameter: a number of mm, or a length with its unit ("1/8 in")	diameter: millimäärä tai pituus yksikköineen ("1/8 in")
+@msg	edge: the edge's number, from 0 (or point)	edge: reunan numero, 0:sta alkaen (tai point)
+@msg	edges and corners are numbered from 0	reunat ja kulmat numeroidaan 0:sta alkaen
+@msg	every: mm, at least 10	every: mm, vähintään 10
+@msg	face: only a box pleat has one	face: vain laatikkolaskoksella on sellainen
+@msg	face: the box pleat's width between its folds, mm	face: laatikkolaskoksen leveys taitteiden välillä, mm
+@msg	flapShape: "square", "rounded" or "pointed"	flapShape: "square", "rounded" tai "pointed"
+@msg	fold is an edge's number (0..), or null	fold on reunan numero (0..) tai null
+@msg	fold: [a, b], the centre front edge's two points	fold: [a, b], etukeskiviivan reunan kaksi pistettä
+@msg	fold: true or false	fold: true tai false
+@msg	foldAt: [x, y] in document points	foldAt: [x, y] dokumentin pisteinä
+@msg	folded: true or false	folded: true tai false
+@msg	from: [x, y] in document points	from: [x, y] dokumentin pisteinä
+@msg	from: not a pattern piece	from: ei ole kaavan osa
+@msg	from: the pattern piece whose rules are copied	from: kaavan osa, jonka säännöt kopioidaan
+@msg	from: the piece has no seam line	from: kappaleella ei ole saumaviivaa
+@msg	frontShape: "square", "rounded" or "winged"	frontShape: "square", "rounded" tai "winged"
+@msg	gathering runs between two different points of the outline	rypytys kulkee ääriviivan kahden eri pisteen välillä
+@msg	give apex and one of to or toAnchor (or select the two points)	anna apex ja joko to tai toAnchor (tai valitse kaksi pistettä)
+@msg	height: mm, 10 to 100 (the tutorial's is at most 30)	height: mm, 10–100 (ohjeen mallissa enintään 30)
+@msg	id: a block part's id	id: peruskaavan osan id
+@msg	index: the drill hole's place in the list, from 0 (or point)	index: porareiän paikka luettelossa, 0:sta alkaen (tai point)
+@msg	index: the notch's place in the list, from 0	index: merkkilovin paikka luettelossa, 0:sta alkaen
+@msg	index: the step's place, from 0	index: vaiheen paikka, 0:sta alkaen
+@msg	into: the length it gathers into, mm	into: pituus, johon rypytetään, mm
+@msg	kind: "slit", "double", "v", "t", "castle" or "u"	kind: "slit", "double", "v", "t", "castle" tai "u"
+@msg	kind: the notch's new shape	kind: merkkilovin uusi muoto
+@msg	layer: a marker layer's id	layer: leikkuukuvatason id
+@msg	length (mm) or likeId with likeFrom and likeTo: the seam to match	length (mm) tai likeId sekä likeFrom ja likeTo: sauma, johon sovitetaan
+@msg	length: mm, more than 0	length: mm, yli 0
+@msg	line: "cut" or "seam"	line: "cut" tai "seam"
+@msg	match: the seam it sews to is shorter than the pocket opening's end	match: sauma, johon se ommellaan, on lyhyempi kuin taskun aukon pää edellyttää
+@msg	min is more than max	min on suurempi kuin max
+@msg	mirror is true or false	mirror on true tai false
+@msg	mirror: "none", "x", "y" or "xy"	mirror: "none", "x", "y" tai "xy"
+@msg	name: the saved set's name	name: tallennetun sarjan nimi
+@msg	name: whose measurements they are ("Me")	name: kenen mitat ne ovat ("Me")
+@msg	no drill hole near the point	pisteen lähellä ei ole porareikää
+@msg	no drill hole with that index	tällä indeksillä ei ole porareikää
+@msg	no notch with that index	tällä indeksillä ei ole merkkiloveä
+@msg	no object with that id	tällä id:llä ei ole objektia
+@msg	no pattern pieces to grade: make the outlines pattern pieces first (Pattern › Make Pattern Piece)	ei porrastettavia kaavan osia: tee ääriviivoista ensin kaavan osia (Kaava › Luo kaavan osa)
+@msg	no straight centre front edge on the outline's side: name it with fold: [a, b]	ääriviivan sillä puolella ei ole suoraa etukeskiviivan reunaa: nimeä se arvolla fold: [a, b]
+@msg	not a drafted block part	ei ole piirretyn peruskaavan osa
+@msg	not a marker's layer (Pattern › Make Marker…)	ei ole leikkuukuvan taso (Kaava › Tee leikkuukuva…)
+@msg	not a pattern piece	ei ole kaavan osa
+@msg	not a stand collar's outline	ei ole pystykauluksen ääriviiva
+@msg	notches go on pattern pieces: make both seams' paths pieces first (Pattern › Make Pattern Piece)	merkkilovet tulevat kaavan osiin: tee ensin molempien saumojen poluista kaavan osia (Kaava › Luo kaavan osa)
+@msg	notches: [mm, …]	notches: [mm, …]
+@msg	notches: distances from the seams' starts, mm	notches: etäisyydet saumojen alusta, mm
+@msg	on and at go together: the garment piece and where the opening's top-left corner goes on it	on ja at annetaan yhdessä: vaatekappale ja kohta, johon aukon vasen yläkulma sijoitetaan
+@msg	on and at go together: the garment piece and where the pocket's top-left corner goes on it	on ja at annetaan yhdessä: vaatekappale ja kohta, johon taskun vasen yläkulma sijoitetaan
+@msg	one point splits only where another point is at the same place (two darts' point)	yksittäinen piste jakaa vain, jos toinen piste on samassa kohdassa (kahden muotolaskoksen kärki)
+@msg	oneWay: true or false	oneWay: true tai false
+@msg	openFolds: true or false	openFolds: true tai false
+@msg	origin: [x, y] in document points	origin: [x, y] dokumentin pisteinä
+@msg	overlap: mm past centre front, more than 0	overlap: mm etukeskiviivan yli, yli 0
+@msg	overlap: the edge misses the outline	overlap: reuna ei osu ääriviivaan
+@msg	plaid: the repeat (mm, or [along, across])	plaid: raportti (mm tai [along, across])
+@msg	plaid: the repeat along and across, 1 to 10 000 mm each	plaid: raportti pituus- ja poikkisuunnassa, kumpikin 1–10 000 mm
+@msg	point: [x, y] in document points	point: [x, y] dokumentin pisteinä
+@msg	select a drafted block part (Pattern › Draft … Block)	valitse piirretyn peruskaavan osa (Kaava › Piirrä … peruskaava)
+@msg	select a path or a pattern piece	valitse polku tai kaavan osa
+@msg	select a pattern piece (Pattern › Make Pattern Piece makes one)	valitse kaavan osa (Kaava › Luo kaavan osa luo sellaisen)
+@msg	select a piece on the marker to check	valitse tarkistettava kappale leikkuukuvasta
+@msg	select closed paths: each becomes a piece, the path its seam line	valitse suljettuja polkuja: kustakin tulee kaavan osa ja polusta sen saumaviiva
+@msg	select one path	valitse yksi polku
+@msg	select one pattern piece	valitse yksi kaavan osa
+@msg	select two points of one path (or one that two darts share)	valitse saman polun kaksi pistettä (tai yksi, joka on kahden muotolaskoksen yhteinen)
+@msg	select two points of one path: the dart's point and where the dart moves to	valitse saman polun kaksi pistettä: muotolaskoksen kärki ja kohta, johon muotolaskos siirretään
+@msg	select two points of one path: the ends of the edge to face	valitse saman polun kaksi pistettä: huoliteltavan reunan päät
+@msg	select two points of one path: the ends of the edge to gather	valitse saman polun kaksi pistettä: rypytettävän reunan päät
+@msg	share is true or false	share on true tai false
+@msg	shorten: mm (less than 0 lengthens)	shorten: mm (alle 0 pidentää)
+@msg	shoulder: longer than the outline	shoulder: pidempi kuin ääriviiva
+@msg	shoulder: mm, 0 or more	shoulder: mm, 0 tai enemmän
+@msg	size: one of the chart's sizes	size: yksi taulukon koista
+@msg	size: the name of a size of the size range or chart	size: kokosarjan tai taulukon koon nimi
+@msg	sizes: name one size at least	sizes: nimeä vähintään yksi koko
+@msg	sizes: the sizes' names	sizes: kokojen nimet
+@msg	sizes: the sizes' names, smallest first (null removes them)	sizes: kokojen nimet pienimmästä alkaen (null poistaa ne)
+@msg	split the seam line on its own: release the piece first (Pattern › Release Pattern Piece)	jaa saumaviiva erikseen: pura ensin kaavan osa (Kaava › Pura kaavan osa)
+@msg	step: [dx, dy] in mm	step: [dx, dy] millimetreinä
+@msg	style: classic, casual or shirt	style: classic, casual tai shirt
+@msg	that anchor's neighbours don't make a dart	tämän ankkuripisteen naapurit eivät muodosta muotolaskosta
+@msg	that point is not a dart's point: its legs open a right angle or wider	piste ei ole muotolaskoksen kärki: sen sivut avautuvat suoraan kulmaan tai laajemmin
+@msg	the amount is a share of the dart, more than 0 and at most 1	määrä on osuus muotolaskoksesta, yli 0 ja enintään 1
+@msg	the back's outline encloses no area	takakappaleen ääriviiva ei rajaa pinta-alaa
+@msg	the box pleat's face is more than 0 wide	laatikkolaskoksen etupuolen leveys on yli 0
+@msg	the chart is larger than 1 MB	taulukko on suurempi kuin 1 Mt
+@msg	the curve has no length at the meeting point	kaarella ei ole pituutta kohtauspisteessä
+@msg	the curves leave the seam the same way	kaaret lähtevät saumasta samaan suuntaan
+@msg	the dart has no length	muotolaskoksella ei ole pituutta
+@msg	the dart is not that long	muotolaskos ei ole niin pitkä
+@msg	the dart point or the new dart's anchor is not on the outline	muotolaskoksen kärki tai uuden muotolaskoksen ankkuripiste ei ole ääriviivalla
+@msg	the dart's legs must be straight lines	muotolaskoksen sivujen on oltava suoria viivoja
+@msg	the dart's point is past the outline's end	muotolaskoksen kärki on ääriviivan lopun jälkeen
+@msg	the depth to curve the legs by is not a number	sivujen kaarron syvyys ei ole luku
+@msg	the document has no marker (Pattern › Make Marker…)	dokumentissa ei ole leikkuukuvaa (Kaava › Tee leikkuukuva…)
+@msg	the document has no measurements to save	dokumentissa ei ole tallennettavia mittoja
+@msg	the document has no size chart (measure.importChart)	dokumentissa ei ole kokotaulukkoa (measure.importChart)
+@msg	the drop at the front is less than half the neck edge	edun syvennys on alle puolet pääntien reunasta
+@msg	the edge has no length	reunalla ei ole pituutta
+@msg	the edge's anchor is past the outline's end	reunan ankkuripiste on ääriviivan lopun jälkeen
+@msg	the fabric's width must be more than 0	kankaan leveyden on oltava yli 0
+@msg	the flap is deeper than twice its width	läppä on syvempi kuin kaksi kertaa leveytensä
+@msg	the flap's width and depth are more than 0, its allowance 0 or more	läpän leveys ja syvyys ovat yli 0, sen saumanvara 0 tai enemmän
+@msg	the fold edge has no length	taitereunalla ei ole pituutta
+@msg	the fold edge's anchors are past the outline's end	taitereunan ankkuripisteet ovat ääriviivan lopun jälkeen
+@msg	the fold edge's two anchors must be neighbours on the outline	taitereunan kahden ankkuripisteen on oltava ääriviivalla vierekkäin
+@msg	the fold must be a straight edge	taitteen on oltava suora reuna
+@msg	the front end has no length	etupäällä ei ole pituutta
+@msg	the gap must be 0 or more	välin on oltava 0 tai enemmän
+@msg	the grainline's ends are the same point	langansuunnan päät ovat sama piste
+@msg	the legs can't curve that far: the dart isn't wide enough	sivuja ei voi kaartaa niin paljon: muotolaskos ei ole tarpeeksi leveä
+@msg	the length to shorten by is not a number	lyhennyksen pituus ei ole luku
+@msg	the marker has lost its fabric outline	leikkuukuvasta on kadonnut kankaan ääriviiva
+@msg	the marker has no pieces	leikkuukuvassa ei ole kappaleita
+@msg	the marker is too large at this precision: give a coarser one	leikkuukuva on liian suuri tällä tarkkuudella: anna karkeampi
+@msg	the measurements could not be saved	mittoja ei voitu tallentaa
+@msg	the meeting point and the seam's other end are points of the outline	kohtauspiste ja sauman toinen pää ovat ääriviivan pisteitä
+@msg	the neckline has no length	pääntiellä ei ole pituutta
+@msg	the neckline lengths and the stand's height are more than 0, the rise and extension 0 or more	pääntien pituudet ja jalan korkeus ovat yli 0, nousu ja jatke 0 tai enemmän
+@msg	the new dart is on the old dart	uusi muotolaskos on vanhan päällä
+@msg	the opening is longer than twice its height	aukko on pidempi kuin kaksi kertaa korkeutensa
+@msg	the opening, depth and width are more than 0, the width more than the allowance	aukko, syvyys ja leveys ovat yli 0, leveys suurempi kuin saumanvara
+@msg	the opening, the welt and the depth are more than 0, the allowances 0 or more	aukko, paspeli ja syvyys ovat yli 0, saumanvarat 0 tai enemmän
+@msg	the outline encloses no area	ääriviiva ei rajaa pinta-alaa
+@msg	the outline has no side seam	ääriviivalla ei ole sivusaumaa
+@msg	the path has no outline	polulla ei ole ääriviivaa
+@msg	the path must be one closed outline	polun on oltava yksi suljettu ääriviiva
+@msg	the piece has no grade rules to copy	kappaleella ei ole kopioitavia porrastussääntöjä
+@msg	the piece has no straight edge to cut on the fold	kappaleella ei ole suoraa reunaa taitteelta leikattavaksi
+@msg	the pieces have no cutting lines to lay	kappaleilla ei ole asetettavia leikkuuviivoja
+@msg	the plaid's repeat must be more than 0 along and across	ruudutuksen raportin on oltava yli 0 pituus- ja poikkisuunnassa
+@msg	the pocket (its opening and the allowance past both ends) fits on the seam	taskun (sen aukon ja molempien päiden yli menevän saumanvaran) on mahduttava saumalle
+@msg	the point is not inside the piece	piste ei ole kappaleen sisällä
+@msg	the point is not on the seam line or in its allowance	piste ei ole saumaviivalla eikä sen saumanvarassa
+@msg	the precision must be more than 0	tarkkuuden on oltava yli 0
+@msg	the rise at centre front is less than the front neckline is long	nousu etukeskiviivalla on pienempi kuin etupääntien pituus
+@msg	the seam has no length there	saumalla ei ole siinä kohdassa pituutta
+@msg	the seam runs between two different points of the outline	sauma kulkee ääriviivan kahden eri pisteen välillä
+@msg	the seam's other end is a neighbour of the meeting point	sauman toinen pää on kohtauspisteen naapuri
+@msg	the top edge has no length	yläreunalla ei ole pituutta
+@msg	the wing is more than 0 long	siiven pituus on yli 0
+@msg	there is no folder to keep measurement sets in here (the desktop app keeps them next to its preferences)	täällä ei ole kansiota mittasarjojen säilyttämiseen (työpöytäsovellus säilyttää ne asetustensa vieressä)
+@msg	there is no point of the seam line there	siinä kohdassa ei ole saumaviivan pistettä
+@msg	to or toAnchor: where the dart moves to	to tai toAnchor: kohta, johon muotolaskos siirretään
+@msg	to: [x, y] in document points	to: [x, y] dokumentin pisteinä
+@msg	to: the pieces to copy the rules to (select them, or name them)	to: kappaleet, joihin säännöt kopioidaan (valitse tai nimeä ne)
+@msg	too many objects at once	liian monta objektia kerralla
+@msg	too many pieces at once	liian monta kappaletta kerralla
+@msg	too many pieces to lay at once	liian monta asetettavaa kappaletta kerralla
+@msg	too many sizes at once	liian monta kokoa kerralla
+@msg	unit: "mm", "cm" or "in"	unit: "mm", "cm" tai "in"
+@msg	width: mm, more than 0	width: mm, yli 0

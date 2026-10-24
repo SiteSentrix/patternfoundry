@@ -5501,3 +5501,190 @@ file-filter	PDF for projector	PDF til projektor
 	{piece} is off the fabric	{piece} ligger uden for stoffet
 	No pieces overlap, and all are on the fabric.	Ingen dele overlapper, og alle ligger på stoffet.
 	Plaid	Ternet
+menu	Pattern	Mønster
+@msg	a and b are two pieces (or paths) that sew together	a og b er to mønsterdele (eller stier), der sys sammen
+@msg	a corner is "mitre" or "square"	et hjørne er "mitre" eller "square"
+@msg	a facing runs along part of the outline	en belægning løber langs en del af omridset
+@msg	a facing runs between two different points of the outline	en belægning løber mellem to forskellige punkter på omridset
+@msg	a name takes at most 200 characters	et navn må højst have 200 tegn
+@msg	a neckline runs between two different points of its outline, and the shoulder point is one of them	en halsudskæring løber mellem to forskellige punkter på sit omrids, og skulderpunktet er det ene af dem
+@msg	a seam allowance is a number of mm, or a length with its unit ("5/8 in")	et sømrum er et antal mm eller en længde med enhed ("5/8 in")
+@msg	a seam has no length	en søm har ingen længde
+@msg	a shoulder point is on its neck point	et skulderpunkt ligger på sit halspunkt
+@msg	a slash runs between two points of the outline that aren't neighbours	et snit løber mellem to punkter på omridset, der ikke er naboer
+@msg	a split leaves a piece with fewer than three anchors	en opdeling efterlader en del med færre end tre ankerpunkter
+@msg	a split made two panels: delete the panel you don't want instead	en opdeling har lavet to dele: slet i stedet den del, du ikke vil have
+@msg	a split needs two different anchors on the outline	en opdeling kræver to forskellige ankerpunkter på omridset
+@msg	amount: a share of the dart, (0, 1]	amount: en andel af indsnittet, (0, 1]
+@msg	amount: how far it opens, mm	amount: hvor meget det åbnes, mm
+@msg	anchor: the point's number along the path, from 0	anchor: punktets nummer langs stien, fra 0
+@msg	anchor: the seam line's point, from 0	anchor: sømlinjens punkt, fra 0
+@msg	anchors: [a, b] or [a]	anchors: [a, b] eller [a]
+@msg	anchors: point numbers along the path	anchors: punktnumre langs stien
+@msg	apex: the dart's point (or select that one point)	apex: indsnittets spids (eller markér netop det punkt)
+@msg	at: 0 (the edge's start) to 1 (its end)	at: 0 (kantens start) til 1 (dens slutning)
+@msg	at: [x, y], the document point on the edge	at: [x, y], dokumentpunktet på kanten
+@msg	base: the size the pattern is drawn in	base: den størrelse, mønsteret er tegnet i
+@msg	block: "bodice", "skirt", "sleeve" or "trousers"	block: "bodice", "skirt", "sleeve" eller "trousers"
+@msg	can't make the seam that long by moving its end	sømmen kan ikke gøres så lang ved at flytte dens ende
+@msg	curve: mm the wrap edge bows into the piece	curve: mm, som slå-om-kanten buer ind i delen
+@msg	cut is a whole number, 1 to 999	cut er et heltal, 1 til 999
+@msg	data: the chart's text	data: tabellens tekst
+@msg	depth: how deep the pleat folds under, mm	depth: hvor dybt læget foldes ind under, mm
+@msg	depth: mm (less than 0 bows the legs in)	depth: mm (under 0 buer benene indad)
+@msg	diameter: a number of mm, or a length with its unit ("1/8 in")	diameter: et antal mm eller en længde med enhed ("1/8 in")
+@msg	edge: the edge's number, from 0 (or point)	edge: kantens nummer, fra 0 (eller point)
+@msg	edges and corners are numbered from 0	kanter og hjørner nummereres fra 0
+@msg	every: mm, at least 10	every: mm, mindst 10
+@msg	face: only a box pleat has one	face: kun en boksfold har en
+@msg	face: the box pleat's width between its folds, mm	face: boksfoldens bredde mellem dens folder, mm
+@msg	flapShape: "square", "rounded" or "pointed"	flapShape: "square", "rounded" eller "pointed"
+@msg	fold is an edge's number (0..), or null	fold er en kants nummer (0..) eller null
+@msg	fold: [a, b], the centre front edge's two points	fold: [a, b], de to punkter på kanten midt for
+@msg	fold: true or false	fold: true eller false
+@msg	foldAt: [x, y] in document points	foldAt: [x, y] i dokumentpunkter
+@msg	folded: true or false	folded: true eller false
+@msg	from: [x, y] in document points	from: [x, y] i dokumentpunkter
+@msg	from: not a pattern piece	from: ikke en mønsterdel
+@msg	from: the pattern piece whose rules are copied	from: mønsterdelen, hvis regler kopieres
+@msg	from: the piece has no seam line	from: delen har ingen sømlinje
+@msg	frontShape: "square", "rounded" or "winged"	frontShape: "square", "rounded" eller "winged"
+@msg	gathering runs between two different points of the outline	rynkning løber mellem to forskellige punkter på omridset
+@msg	give apex and one of to or toAnchor (or select the two points)	angiv apex og enten to eller toAnchor (eller markér de to punkter)
+@msg	height: mm, 10 to 100 (the tutorial's is at most 30)	height: mm, 10 til 100 (vejledningens er højst 30)
+@msg	id: a block part's id	id: id for en del af et grundmønster
+@msg	index: the drill hole's place in the list, from 0 (or point)	index: borehullets plads på listen, fra 0 (eller point)
+@msg	index: the notch's place in the list, from 0	index: hakkets plads på listen, fra 0
+@msg	index: the step's place, from 0	index: trinnets plads, fra 0
+@msg	into: the length it gathers into, mm	into: længden, der rynkes ind til, mm
+@msg	kind: "slit", "double", "v", "t", "castle" or "u"	kind: "slit", "double", "v", "t", "castle" eller "u"
+@msg	kind: the notch's new shape	kind: hakkets nye form
+@msg	layer: a marker layer's id	layer: id for et udlægningslag
+@msg	length (mm) or likeId with likeFrom and likeTo: the seam to match	length (mm) eller likeId med likeFrom og likeTo: sømmen, der skal matches
+@msg	length: mm, more than 0	length: mm, over 0
+@msg	line: "cut" or "seam"	line: "cut" eller "seam"
+@msg	match: the seam it sews to is shorter than the pocket opening's end	match: sømmen, den sys til, er kortere end til lommeåbningens ende
+@msg	min is more than max	min er større end max
+@msg	mirror is true or false	mirror er true eller false
+@msg	mirror: "none", "x", "y" or "xy"	mirror: "none", "x", "y" eller "xy"
+@msg	name: the saved set's name	name: navnet på det gemte sæt
+@msg	name: whose measurements they are ("Me")	name: hvis mål det er ("Me")
+@msg	no drill hole near the point	intet borehul nær punktet
+@msg	no drill hole with that index	intet borehul med det indeks
+@msg	no notch with that index	intet hak med det indeks
+@msg	no object with that id	intet objekt med det id
+@msg	no pattern pieces to grade: make the outlines pattern pieces first (Pattern › Make Pattern Piece)	ingen mønsterdele at gradere: gør først omridsene til mønsterdele (Mønster › Opret mønsterdel)
+@msg	no straight centre front edge on the outline's side: name it with fold: [a, b]	ingen lige kant midt for på omridsets side: angiv den med fold: [a, b]
+@msg	not a drafted block part	ikke en del af et konstrueret grundmønster
+@msg	not a marker's layer (Pattern › Make Marker…)	ikke et udlægningslag (Mønster › Lav udlægning…)
+@msg	not a pattern piece	ikke en mønsterdel
+@msg	not a stand collar's outline	ikke en standkraves omrids
+@msg	notches go on pattern pieces: make both seams' paths pieces first (Pattern › Make Pattern Piece)	hak sættes på mønsterdele: gør først begge sømmes stier til mønsterdele (Mønster › Opret mønsterdel)
+@msg	notches: [mm, …]	notches: [mm, …]
+@msg	notches: distances from the seams' starts, mm	notches: afstande fra sømmenes start, mm
+@msg	on and at go together: the garment piece and where the opening's top-left corner goes on it	on og at hører sammen: beklædningsdelen og hvor åbningens øverste venstre hjørne skal sidde på den
+@msg	on and at go together: the garment piece and where the pocket's top-left corner goes on it	on og at hører sammen: beklædningsdelen og hvor lommens øverste venstre hjørne skal sidde på den
+@msg	one point splits only where another point is at the same place (two darts' point)	et enkelt punkt deler kun, hvor et andet punkt ligger samme sted (to indsnits spids)
+@msg	oneWay: true or false	oneWay: true eller false
+@msg	openFolds: true or false	openFolds: true eller false
+@msg	origin: [x, y] in document points	origin: [x, y] i dokumentpunkter
+@msg	overlap: mm past centre front, more than 0	overlap: mm ud over midt for, over 0
+@msg	overlap: the edge misses the outline	overlap: kanten rammer ikke omridset
+@msg	plaid: the repeat (mm, or [along, across])	plaid: rapporten (mm eller [along, across])
+@msg	plaid: the repeat along and across, 1 to 10 000 mm each	plaid: rapporten på langs og på tværs, 1 til 10 000 mm hver
+@msg	point: [x, y] in document points	point: [x, y] i dokumentpunkter
+@msg	select a drafted block part (Pattern › Draft … Block)	markér en del af et konstrueret grundmønster (Mønster › Konstruér grundmønster til …)
+@msg	select a path or a pattern piece	markér en sti eller en mønsterdel
+@msg	select a pattern piece (Pattern › Make Pattern Piece makes one)	markér en mønsterdel (Mønster › Opret mønsterdel laver en)
+@msg	select a piece on the marker to check	markér en del på udlægningen, der skal kontrolleres
+@msg	select closed paths: each becomes a piece, the path its seam line	markér lukkede stier: hver bliver en mønsterdel, stien dens sømlinje
+@msg	select one path	markér én sti
+@msg	select one pattern piece	markér én mønsterdel
+@msg	select two points of one path (or one that two darts share)	markér to punkter på én sti (eller ét, som to indsnit deler)
+@msg	select two points of one path: the dart's point and where the dart moves to	markér to punkter på én sti: indsnittets spids og stedet, indsnittet flyttes hen
+@msg	select two points of one path: the ends of the edge to face	markér to punkter på én sti: enderne af kanten, der skal have belægning
+@msg	select two points of one path: the ends of the edge to gather	markér to punkter på én sti: enderne af kanten, der skal rynkes
+@msg	share is true or false	share er true eller false
+@msg	shorten: mm (less than 0 lengthens)	shorten: mm (under 0 forlænger)
+@msg	shoulder: longer than the outline	shoulder: længere end omridset
+@msg	shoulder: mm, 0 or more	shoulder: mm, 0 eller mere
+@msg	size: one of the chart's sizes	size: en af tabellens størrelser
+@msg	size: the name of a size of the size range or chart	size: navnet på en størrelse i størrelsesserien eller tabellen
+@msg	sizes: name one size at least	sizes: angiv mindst én størrelse
+@msg	sizes: the sizes' names	sizes: størrelsernes navne
+@msg	sizes: the sizes' names, smallest first (null removes them)	sizes: størrelsernes navne, mindste først (null fjerner dem)
+@msg	split the seam line on its own: release the piece first (Pattern › Release Pattern Piece)	opdel sømlinjen for sig: frigiv først mønsterdelen (Mønster › Frigiv mønsterdel)
+@msg	step: [dx, dy] in mm	step: [dx, dy] i mm
+@msg	style: classic, casual or shirt	style: classic, casual eller shirt
+@msg	that anchor's neighbours don't make a dart	det ankerpunkts naboer danner ikke et indsnit
+@msg	that point is not a dart's point: its legs open a right angle or wider	det punkt er ikke et indsnits spids: dets ben danner en ret vinkel eller mere
+@msg	the amount is a share of the dart, more than 0 and at most 1	mængden er en andel af indsnittet, over 0 og højst 1
+@msg	the back's outline encloses no area	ryggens omrids omslutter intet areal
+@msg	the box pleat's face is more than 0 wide	boksfoldens forside er over 0 bred
+@msg	the chart is larger than 1 MB	tabellen er større end 1 MB
+@msg	the curve has no length at the meeting point	kurven har ingen længde ved mødepunktet
+@msg	the curves leave the seam the same way	kurverne forlader sømmen i samme retning
+@msg	the dart has no length	indsnittet har ingen længde
+@msg	the dart is not that long	indsnittet er ikke så langt
+@msg	the dart point or the new dart's anchor is not on the outline	indsnittets spids eller det nye indsnits ankerpunkt ligger ikke på omridset
+@msg	the dart's legs must be straight lines	indsnittets ben skal være lige linjer
+@msg	the dart's point is past the outline's end	indsnittets spids ligger efter omridsets slutning
+@msg	the depth to curve the legs by is not a number	dybden, benene skal bukkes med, er ikke et tal
+@msg	the document has no marker (Pattern › Make Marker…)	dokumentet har ingen udlægning (Mønster › Lav udlægning…)
+@msg	the document has no measurements to save	dokumentet har ingen mål at gemme
+@msg	the document has no size chart (measure.importChart)	dokumentet har ingen størrelsestabel (measure.importChart)
+@msg	the drop at the front is less than half the neck edge	sænkningen foran er mindre end halvdelen af halskanten
+@msg	the edge has no length	kanten har ingen længde
+@msg	the edge's anchor is past the outline's end	kantens ankerpunkt ligger efter omridsets slutning
+@msg	the fabric's width must be more than 0	stoffets bredde skal være over 0
+@msg	the flap is deeper than twice its width	klappen er dybere end to gange sin bredde
+@msg	the flap's width and depth are more than 0, its allowance 0 or more	klappens bredde og dybde er over 0, dens sømrum 0 eller mere
+@msg	the fold edge has no length	foldekanten har ingen længde
+@msg	the fold edge's anchors are past the outline's end	foldekantens ankerpunkter ligger efter omridsets slutning
+@msg	the fold edge's two anchors must be neighbours on the outline	foldekantens to ankerpunkter skal være naboer på omridset
+@msg	the fold must be a straight edge	folden skal være en lige kant
+@msg	the front end has no length	forenden har ingen længde
+@msg	the gap must be 0 or more	afstanden skal være 0 eller mere
+@msg	the grainline's ends are the same point	trådretningens ender er samme punkt
+@msg	the legs can't curve that far: the dart isn't wide enough	benene kan ikke bukkes så meget: indsnittet er ikke bredt nok
+@msg	the length to shorten by is not a number	længden, der skal afkortes med, er ikke et tal
+@msg	the marker has lost its fabric outline	udlægningen har mistet sit stofomrids
+@msg	the marker has no pieces	udlægningen har ingen dele
+@msg	the marker is too large at this precision: give a coarser one	udlægningen er for stor ved denne præcision: angiv en grovere
+@msg	the measurements could not be saved	målene kunne ikke gemmes
+@msg	the meeting point and the seam's other end are points of the outline	mødepunktet og sømmens anden ende er punkter på omridset
+@msg	the neckline has no length	halsudskæringen har ingen længde
+@msg	the neckline lengths and the stand's height are more than 0, the rise and extension 0 or more	halsudskæringens længder og kravefodens højde er over 0, stigningen og forlængelsen 0 eller mere
+@msg	the new dart is on the old dart	det nye indsnit ligger på det gamle
+@msg	the opening is longer than twice its height	åbningen er længere end to gange sin højde
+@msg	the opening, depth and width are more than 0, the width more than the allowance	åbningen, dybden og bredden er over 0, bredden større end sømrummet
+@msg	the opening, the welt and the depth are more than 0, the allowances 0 or more	åbningen, paspelen og dybden er over 0, sømrummene 0 eller mere
+@msg	the outline encloses no area	omridset omslutter intet areal
+@msg	the outline has no side seam	omridset har ingen sidesøm
+@msg	the path has no outline	stien har intet omrids
+@msg	the path must be one closed outline	stien skal være ét lukket omrids
+@msg	the piece has no grade rules to copy	delen har ingen graderingsregler at kopiere
+@msg	the piece has no straight edge to cut on the fold	delen har ingen lige kant at klippe på fold
+@msg	the pieces have no cutting lines to lay	delene har ingen klippelinjer at lægge ud
+@msg	the plaid's repeat must be more than 0 along and across	ternets rapport skal være over 0 på langs og på tværs
+@msg	the pocket (its opening and the allowance past both ends) fits on the seam	lommen (dens åbning og sømrummet ud over begge ender) skal kunne være på sømmen
+@msg	the point is not inside the piece	punktet ligger ikke inde i delen
+@msg	the point is not on the seam line or in its allowance	punktet ligger ikke på sømlinjen eller i dens sømrum
+@msg	the precision must be more than 0	præcisionen skal være over 0
+@msg	the rise at centre front is less than the front neckline is long	stigningen midt for er mindre end den forreste halsudskærings længde
+@msg	the seam has no length there	sømmen har ingen længde der
+@msg	the seam runs between two different points of the outline	sømmen løber mellem to forskellige punkter på omridset
+@msg	the seam's other end is a neighbour of the meeting point	sømmens anden ende er nabo til mødepunktet
+@msg	the top edge has no length	overkanten har ingen længde
+@msg	the wing is more than 0 long	vingen er længere end 0
+@msg	there is no folder to keep measurement sets in here (the desktop app keeps them next to its preferences)	her er ingen mappe at gemme målsæt i (skrivebordsappen gemmer dem ved siden af sine indstillinger)
+@msg	there is no point of the seam line there	der er intet punkt på sømlinjen der
+@msg	to or toAnchor: where the dart moves to	to eller toAnchor: hvor indsnittet flyttes hen
+@msg	to: [x, y] in document points	to: [x, y] i dokumentpunkter
+@msg	to: the pieces to copy the rules to (select them, or name them)	to: delene, reglerne skal kopieres til (markér dem, eller angiv dem)
+@msg	too many objects at once	for mange objekter på én gang
+@msg	too many pieces at once	for mange dele på én gang
+@msg	too many pieces to lay at once	for mange dele at lægge ud på én gang
+@msg	too many sizes at once	for mange størrelser på én gang
+@msg	unit: "mm", "cm" or "in"	unit: "mm", "cm" eller "in"
+@msg	width: mm, more than 0	width: mm, over 0
