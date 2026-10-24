@@ -5681,3 +5681,7 @@ menu	Pattern	Kaava
 	Drape on Avatar	Laskeuta avatarille
 @msg	the drape view's picture is the wrong size	laskeumanäkymän kuva on väärän kokoinen
 @msg	the drape view: {e}	laskeumanäkymä: {e}
+	Export Avatar as glTF	Vie avatar glTF-muodossa
+	Export Avatar as glTF…	Vie avatar glTF-muodossa…
+	Export Drape as glTF…	Vie laskeuma glTF-muodossa…
+@msg	format: "obj" or "glb"	format: "obj" tai "glb"

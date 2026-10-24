@@ -5669,3 +5669,7 @@ menu	Pattern	Πατρόν
 	Drape on Avatar	Ντραπάρισμα στο άβαταρ
 @msg	the drape view's picture is the wrong size	η εικόνα της προβολής πτώσης έχει λάθος μέγεθος
 @msg	the drape view: {e}	η προβολή πτώσης: {e}
+	Export Avatar as glTF	Εξαγωγή άβαταρ ως glTF
+	Export Avatar as glTF…	Εξαγωγή άβαταρ ως glTF…
+	Export Drape as glTF…	Εξαγωγή πτώσης ως glTF…
+@msg	format: "obj" or "glb"	format: "obj" ή "glb"

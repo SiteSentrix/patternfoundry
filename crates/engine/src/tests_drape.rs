@@ -95,3 +95,34 @@ fn the_drape_is_drawn_front_and_side_at_true_scale() {
     let r = s.execute("drape.make", &json!({"precision": 25, "steps": 5, "draw": false})).unwrap();
     assert!(r.get("layer").is_none() && layers(&s) == 0);
 }
+
+/// glTF export (PF-10.5): the avatar and the draped skirt in one binary glTF file, the cloth in
+/// the drape view's colours, in metres with y up.
+#[test]
+fn the_drape_exports_as_gltf_with_the_avatar() {
+    let mut s = skirt();
+    let dir = std::env::temp_dir().join(format!("pf-drape-glb-{}", std::process::id()));
+    std::fs::create_dir_all(&dir).unwrap();
+    let path = dir.join("skirt.glb");
+    let r = s.execute("drape.make", &json!({"precision": 25, "steps": 30, "draw": false, "path": path.to_str().unwrap()})).unwrap();
+    let bytes = std::fs::read(&path).unwrap();
+    let (gltf, bin) = pf_core::gltf::read_glb(&bytes).unwrap();
+    assert_eq!(gltf["nodes"][0]["name"], "Avatar");
+    assert_eq!(gltf["nodes"][1]["name"], "Drape");
+    let cloth = &gltf["meshes"][1]["primitives"][0]["attributes"];
+    let pos = &gltf["accessors"][cloth["POSITION"].as_u64().unwrap() as usize];
+    assert_eq!(pos["count"].as_u64(), r["particles"].as_u64());
+    assert!(cloth.get("COLOR_0").is_some());
+    // The cloth's height, in metres up y, as drape.make reports it in mm.
+    let top = pos["max"][1].as_f64().unwrap() * 1000.0;
+    assert!((top - r["top"].as_f64().unwrap()).abs() < 0.2, "{top} {r}");
+    assert_eq!(gltf["buffers"][0]["byteLength"].as_u64().unwrap() as usize, bin.len());
+    // Without a path it comes back as data; a format it can't write is refused.
+    let r = s.execute("drape.make", &json!({"precision": 30, "steps": 5, "draw": false, "format": "glb"})).unwrap();
+    let data = vectorcraft_format::base64_decode(r["dataBase64"].as_str().unwrap()).unwrap();
+    assert!(pf_core::gltf::read_glb(&data).is_some());
+    let r = s.execute("drape.make", &json!({"precision": 30, "steps": 5, "draw": false, "format": "OBJ"})).unwrap();
+    assert!(r["data"].as_str().unwrap().contains("\nf "));
+    assert!(s.execute("drape.make", &json!({"precision": 30, "steps": 5, "draw": false, "format": "fbx"})).is_err());
+    std::fs::remove_dir_all(&dir).ok();
+}

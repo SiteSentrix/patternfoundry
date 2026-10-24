@@ -5700,3 +5700,7 @@ menu	Pattern	Pola
 	Drape on Avatar	Drape pada avatar
 @msg	the drape view's picture is the wrong size	gambar tampilan jatuhan kain berukuran salah
 @msg	the drape view: {e}	tampilan jatuhan kain: {e}
+	Export Avatar as glTF	Ekspor Avatar sebagai glTF
+	Export Avatar as glTF…	Ekspor Avatar sebagai glTF…
+	Export Drape as glTF…	Ekspor Jatuhan Kain sebagai glTF…
+@msg	format: "obj" or "glb"	format: "obj" atau "glb"

@@ -5299,3 +5299,7 @@ menu	Pattern	Schnitt
 	Drape on Avatar	Auf Avatar drapieren
 @msg	the drape view's picture is the wrong size	das Bild der Fallansicht hat die falsche Größe
 @msg	the drape view: {e}	die Fallansicht: {e}
+	Export Avatar as glTF	Avatar als glTF exportieren
+	Export Avatar as glTF…	Avatar als glTF exportieren…
+	Export Drape as glTF…	Drapierung als glTF exportieren…
+@msg	format: "obj" or "glb"	format: "obj" oder "glb"

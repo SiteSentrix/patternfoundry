@@ -5716,3 +5716,7 @@ menu	Pattern	Patron
 	Drape on Avatar	Draper sur l'avatar
 @msg	the drape view's picture is the wrong size	l'image de la vue du tombé n'a pas la bonne taille
 @msg	the drape view: {e}	la vue du tombé : {e}
+	Export Avatar as glTF	Exporter l'avatar en glTF
+	Export Avatar as glTF…	Exporter l'avatar en glTF…
+	Export Drape as glTF…	Exporter le tombé en glTF…
+@msg	format: "obj" or "glb"	format : "obj" ou "glb"

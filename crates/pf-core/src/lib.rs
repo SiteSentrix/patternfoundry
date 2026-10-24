@@ -32,6 +32,7 @@ pub mod cloth;
 pub mod design;
 pub mod draft;
 pub mod expr;
+pub mod gltf;
 pub mod grade;
 pub mod marker;
 pub mod marks;

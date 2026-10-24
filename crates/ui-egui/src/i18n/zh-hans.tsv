@@ -5553,3 +5553,7 @@ menu	Pattern	纸样
 	Drape on Avatar	在人台上悬垂
 @msg	the drape view's picture is the wrong size	垂坠视图的图片尺寸不对
 @msg	the drape view: {e}	垂坠视图：{e}
+	Export Avatar as glTF	将虚拟人体导出为 glTF
+	Export Avatar as glTF…	将虚拟人体导出为 glTF…
+	Export Drape as glTF…	将垂坠导出为 glTF…
+@msg	format: "obj" or "glb"	format："obj" 或 "glb"

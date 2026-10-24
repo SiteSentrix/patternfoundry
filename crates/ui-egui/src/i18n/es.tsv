@@ -5660,3 +5660,7 @@ menu	Pattern	Patrón
 	Drape on Avatar	Drapear en el avatar
 @msg	the drape view's picture is the wrong size	la imagen de la vista de caída tiene el tamaño incorrecto
 @msg	the drape view: {e}	la vista de caída: {e}
+	Export Avatar as glTF	Exportar avatar como glTF
+	Export Avatar as glTF…	Exportar avatar como glTF…
+	Export Drape as glTF…	Exportar caída como glTF…
+@msg	format: "obj" or "glb"	format: "obj" o "glb"
