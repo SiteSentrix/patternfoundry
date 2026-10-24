@@ -35,3 +35,20 @@ seam pairing's direction (the probe shows the seams closed).
 (within a step, a quarter step apart): the skirt's widest seam gap went from 12 mm to 2 mm and its
 worst stretch from 41% to 7%. It now hangs 652 mm from its top (the cloth reaches its hem line,
 and lengthens a few per cent under its weight), where it hung about 600 with its edges a step in.
+
+**Follow-up (the drape view's seam strip, PF-10.4).** The first drape view showed a speckled
+strip of red, green and beige along the side seam at precision 15.
+
+| Run | Change / probe | What it showed |
+| --- | --- | --- |
+| 1 | hypothesis: the seams pair particles at different heights; pair the edge particles by their place along the run | worse (stretch 48% to 76%): reverted. |
+| 2 | precision 20 with 240 steps (one change: the precision, not the steps) | seam 2 mm, stretch 7%: the precision, not the time. |
+| 3 | hypothesis: particles moved onto the outline near corners fold triangles; put such moves back | no change (seam 8.8 mm): reverted. Two guesses wrong: follow the data. |
+| 4 | probe: the widest seam pair and the worst link, with their places on the pattern | the worst link was 5 mm long (two edge particles moved close together): 3 mm on it read as 56%; the red speckles were slivers. The 8.8 mm gap was one pair at the hem's corner. |
+| 5 | precision 10 and 25 | 25 holds, **10 slides off** (7000 particles): the iterations a step must grow as the mesh gets finer. |
+| 6 | the beige in the strip | grid cells cut by a slanted side had no triangle: a sawtooth of gaps. Filled with the triangle of their three corners inside: gone. |
+
+Fixed: the stretch and tightness ignore the short links and slivers at the edge, cut cells get
+their triangle, the iterations scale with (20 / precision)², the default precision is 20 mm and
+the finest 15. Left: at 15 mm a seam corner can be off by a step (an 8.8 mm gap at the hem's
+corner).

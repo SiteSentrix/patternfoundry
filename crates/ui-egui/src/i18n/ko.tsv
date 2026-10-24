@@ -5293,3 +5293,5 @@ menu	Pattern	패턴
 	Unsew Seams	솔기 풀기
 	Sewn Seams	봉제한 솔기
 	Drape on Avatar	아바타에 드레이핑
+@msg	the drape view's picture is the wrong size	드레이프 보기 그림의 크기가 잘못되었습니다
+@msg	the drape view: {e}	드레이프 보기: {e}

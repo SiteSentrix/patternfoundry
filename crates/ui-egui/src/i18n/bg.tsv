@@ -5679,3 +5679,5 @@ menu	Pattern	Кройка
 	Unsew Seams	Разпаряне на шевове
 	Sewn Seams	Съшити шевове
 	Drape on Avatar	Драпиране върху аватара
+@msg	the drape view's picture is the wrong size	картината на изгледа на драпирането е с грешен размер
+@msg	the drape view: {e}	изгледът на драпирането: {e}

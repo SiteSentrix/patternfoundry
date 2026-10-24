@@ -5310,3 +5310,5 @@ menu	Pattern	Викрійка
 	Unsew Seams	Розпороти шви
 	Sewn Seams	Зшиті шви
 	Drape on Avatar	Драпірувати на аватарі
+@msg	the drape view's picture is the wrong size	зображення вигляду драпірування неправильного розміру
+@msg	the drape view: {e}	вигляд драпірування: {e}

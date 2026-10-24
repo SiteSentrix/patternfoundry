@@ -5658,3 +5658,5 @@ menu	Pattern	Patrón
 	Unsew Seams	Separar costuras
 	Sewn Seams	Costuras unidas
 	Drape on Avatar	Drapear en el avatar
+@msg	the drape view's picture is the wrong size	la imagen de la vista de caída tiene el tamaño incorrecto
+@msg	the drape view: {e}	la vista de caída: {e}

@@ -5701,3 +5701,5 @@ menu	Pattern	Szabásminta
 	Unsew Seams	Varratok szétbontása
 	Sewn Seams	Összevarrt varratok
 	Drape on Avatar	Drapírozás az avatarra
+@msg	the drape view's picture is the wrong size	az esésnézet képe rossz méretű
+@msg	the drape view: {e}	az esésnézet: {e}

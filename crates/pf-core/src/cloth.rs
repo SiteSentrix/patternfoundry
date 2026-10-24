@@ -144,9 +144,18 @@ pub fn panel(outline: &[Pt], step: f64) -> Result<Panel, ClothError> {
     let mut triangles = Vec::new();
     for r in 0..rows.saturating_sub(1) {
         for c in 0..cols.saturating_sub(1) {
-            if let (Some(a), Some(b), Some(d), Some(e)) = (at(c, r), at(c + 1, r), at(c, r + 1), at(c + 1, r + 1)) {
-                triangles.push([a, b, e]);
-                triangles.push([a, e, d]);
+            match (at(c, r), at(c + 1, r), at(c, r + 1), at(c + 1, r + 1)) {
+                (Some(a), Some(b), Some(d), Some(e)) => {
+                    triangles.push([a, b, e]);
+                    triangles.push([a, e, d]);
+                }
+                // A cell the outline cuts across (along a slanted side): the triangle of the three
+                // corners inside, so the cloth runs on to its edge without a sawtooth of gaps.
+                (Some(a), Some(b), None, Some(e)) => triangles.push([a, b, e]),
+                (Some(a), None, Some(d), Some(e)) => triangles.push([a, e, d]),
+                (Some(a), Some(b), Some(d), None) => triangles.push([a, b, d]),
+                (None, Some(b), Some(d), Some(e)) => triangles.push([b, e, d]),
+                _ => {}
             }
         }
     }
@@ -456,16 +465,79 @@ impl Cloth {
     }
 
     /// How much the most stretched link is longer than it was cut, as a share (0.02: 2%).
+    /// Links shorter than half the typical one (two particles at the edge, moved onto the outline
+    /// close together) are left out: a millimetre on them reads as a large share and says little.
     pub fn worst_stretch(&self) -> f64 {
+        let typical = self.typical_link();
         self.links
             .iter()
-            .filter(|l| l.2 > 0.0)
+            .filter(|l| l.2 >= typical * 0.5)
             .map(|&(a, b, rest, _)| {
                 let (pa, pb) = (self.positions[a as usize], self.positions[b as usize]);
                 let len = ((pb[0] - pa[0]).powi(2) + (pb[1] - pa[1]).powi(2) + (pb[2] - pa[2]).powi(2)).sqrt();
                 (len - rest) / rest
             })
             .fold(0.0, f64::max)
+    }
+
+    /// The middle length of the links (the grid's step, for a panel's stretch links).
+    fn typical_link(&self) -> f64 {
+        let mut r: Vec<f64> = self.links.iter().map(|l| l.2).filter(|r| *r > 0.0).collect();
+        if r.is_empty() {
+            return 0.0;
+        }
+        r.sort_by(f64::total_cmp);
+        r[r.len() / 2]
+    }
+
+    /// How much larger each triangle is than it was cut (its area over its area on the pattern,
+    /// less 1: 0.05 is 5% larger), for the drape view's tightness colours.
+    pub fn tightness(&self) -> Vec<f64> {
+        let area3 = |a: [f64; 3], b: [f64; 3], c: [f64; 3]| {
+            let (u, v) = ([b[0] - a[0], b[1] - a[1], b[2] - a[2]], [c[0] - a[0], c[1] - a[1], c[2] - a[2]]);
+            let n = [u[1] * v[2] - u[2] * v[1], u[2] * v[0] - u[0] * v[2], u[0] * v[1] - u[1] * v[0]];
+            (n[0] * n[0] + n[1] * n[1] + n[2] * n[2]).sqrt() / 2.0
+        };
+        let cut: Vec<f64> = self
+            .triangles
+            .iter()
+            .map(|t| {
+                let [a, b, c] = t.map(|i| self.pattern[i as usize].0);
+                ((b - a).cross(c - a) / 2.0).abs()
+            })
+            .collect();
+        let mut out: Vec<f64> = self
+            .triangles
+            .iter()
+            .zip(&cut)
+            .map(|(t, cut)| {
+                let [p, q, r] = t.map(|i| self.positions[i as usize]);
+                if *cut > 1e-12 { area3(p, q, r) / cut - 1.0 } else { 0.0 }
+            })
+            .collect();
+        // A sliver (a quarter of the middle triangle's size or less, at the edge where particles
+        // were moved onto the outline) takes the mean of the whole triangles round its corners:
+        // its own share swings wildly for a millimetre's movement.
+        let mut sorted = cut.clone();
+        sorted.sort_by(f64::total_cmp);
+        let middle = sorted.get(sorted.len() / 2).copied().unwrap_or(0.0);
+        let sliver: Vec<bool> = cut.iter().map(|c| *c < middle * 0.25).collect();
+        let mut at = vec![(0.0, 0usize); self.positions.len()];
+        for (k, t) in self.triangles.iter().enumerate() {
+            if !sliver[k] {
+                for &i in t {
+                    at[i as usize].0 += out[k];
+                    at[i as usize].1 += 1;
+                }
+            }
+        }
+        for (k, t) in self.triangles.iter().enumerate() {
+            if sliver[k] {
+                let (sum, n) = t.iter().fold((0.0, 0), |(s, n), &i| (s + at[i as usize].0, n + at[i as usize].1));
+                out[k] = if n > 0 { sum / n as f64 } else { 0.0 };
+            }
+        }
+        out
     }
 
     /// The widest gap between particles sewn together, mm.

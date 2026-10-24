@@ -5679,3 +5679,5 @@ menu	Pattern	Kaava
 	Unsew Seams	Pura saumat
 	Sewn Seams	Ommellut saumat
 	Drape on Avatar	Laskeuta avatarille
+@msg	the drape view's picture is the wrong size	laskeumanäkymän kuva on väärän kokoinen
+@msg	the drape view: {e}	laskeumanäkymä: {e}

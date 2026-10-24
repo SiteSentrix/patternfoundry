@@ -5326,3 +5326,5 @@ menu	Pattern	Выкройка
 	Unsew Seams	Распороть швы
 	Sewn Seams	Сшитые швы
 	Drape on Avatar	Драпировать на аватаре
+@msg	the drape view's picture is the wrong size	изображение вида драпировки неправильного размера
+@msg	the drape view: {e}	вид драпировки: {e}

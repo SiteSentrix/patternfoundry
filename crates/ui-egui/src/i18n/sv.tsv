@@ -5671,3 +5671,5 @@ menu	Pattern	Mönster
 	Unsew Seams	Sprätta upp sömmar
 	Sewn Seams	Sydda sömmar
 	Drape on Avatar	Drapera på avatar
+@msg	the drape view's picture is the wrong size	fallvyns bild har fel storlek
+@msg	the drape view: {e}	fallvyn: {e}

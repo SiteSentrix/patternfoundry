@@ -5370,3 +5370,5 @@ menu	Pattern	型紙
 	Unsew Seams	縫い目をほどく
 	Sewn Seams	縫い合わせた縫い目
 	Drape on Avatar	アバターに着せる
+@msg	the drape view's picture is the wrong size	ドレープ表示の画像のサイズが正しくありません
+@msg	the drape view: {e}	ドレープ表示: {e}

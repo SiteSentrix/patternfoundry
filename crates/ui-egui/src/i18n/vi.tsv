@@ -5310,3 +5310,5 @@ menu	Pattern	Rập
 	Unsew Seams	Tháo đường may
 	Sewn Seams	Đường may đã nối
 	Drape on Avatar	Phủ lên hình nhân
+@msg	the drape view's picture is the wrong size	hình của khung xem độ rủ có kích thước sai
+@msg	the drape view: {e}	khung xem độ rủ: {e}

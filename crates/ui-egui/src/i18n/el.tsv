@@ -5667,3 +5667,5 @@ menu	Pattern	Πατρόν
 	Unsew Seams	Ξήλωμα ραφών
 	Sewn Seams	Ραμμένες ραφές
 	Drape on Avatar	Ντραπάρισμα στο άβαταρ
+@msg	the drape view's picture is the wrong size	η εικόνα της προβολής πτώσης έχει λάθος μέγεθος
+@msg	the drape view: {e}	η προβολή πτώσης: {e}
