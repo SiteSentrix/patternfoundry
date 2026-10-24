@@ -24,7 +24,7 @@ pub fn specs() -> Vec<CommandSpec> {
             "Draw Avatar",
             ["Pattern"],
             None,
-            "{origin?: [x, y] (document points: the top of the front view's neck; default right of the art)} draw the body the document's measurements make (bust, waist, hip, nape_to_waist, waist_to_hip; neck, crotch_depth, waist_to_knee and waist_to_ankle where the set has them, otherwise from the ANSUR II survey's proportions), seen from the front and from the side at true scale, on the layer \"Avatar\" (drawn again it replaces it) → {layer, front, side, heightMm (to the base of the neck)}",
+            "{origin?: [x, y] (document points: the top of the front view's neck; default right of the art)} draw the body the document's measurements make (bust, waist, hip, nape_to_waist, waist_to_hip; neck, crotch_depth, waist_to_knee, waist_to_ankle, shoulder, top_arm, sleeve_length and armscye_depth where the set has them, otherwise from the ANSUR II survey's proportions), seen from the front and from the side at true scale, on the layer \"Avatar\" (drawn again it replaces it) → {layer, front, side, heightMm (to the base of the neck)}",
             has_doc,
             draw
         ),
@@ -69,20 +69,26 @@ pub(crate) fn avatar_of(doc: &Document, cmd: &str) -> Result<Avatar> {
         crotch_depth: may("crotch_depth"),
         waist_to_knee: may("waist_to_knee"),
         waist_to_ankle: may("waist_to_ankle"),
+        shoulder: may("shoulder"),
+        top_arm: may("top_arm"),
+        sleeve_length: may("sleeve_length"),
+        armscye_depth: may("armscye_depth"),
     };
     pf_core::avatar::avatar(&body).map_err(|e| bad(cmd, e.to_string()))
 }
 
-/// The outline of the body seen from the front (`side` false: across against height) or from the
-/// side (along the depth), going down one side and up the other, in mm with z up.
-fn silhouette(a: &Avatar, side: bool) -> Vec<(f64, f64)> {
+/// The outlines of the body seen from the front (`side` false: across against height) or from the
+/// side (along the depth), in mm with z up: the torso and legs, going down one side and up the
+/// other, then each arm (seen from the side, one: the other is behind it).
+fn silhouette(a: &Avatar, side: bool) -> Vec<Vec<(f64, f64)>> {
     let half = |r: &Ring| {
         let (ax, by) = r.semi_axes();
         if side { (-by, by) } else { (r.x - ax, r.x + ax) }
     };
     let mut out = Vec::new();
+    let torso = &a.torso[..a.torso.len() - 1];
     // Down the right of the torso to the hips…
-    out.extend(a.torso[..4].iter().map(|r| (half(r).1, r.z)));
+    out.extend(torso.iter().map(|r| (half(r).1, r.z)));
     if side {
         // …a leg seen from the side, down its front and up its back…
         out.extend(a.legs[0].iter().map(|r| (half(r).1, r.z)));
@@ -96,8 +102,14 @@ fn silhouette(a: &Avatar, side: bool) -> Vec<(f64, f64)> {
         out.extend(left.iter().rev().map(|r| (half(r).0, r.z)));
     }
     // …and up the left of the torso.
-    out.extend(a.torso[..4].iter().rev().map(|r| (half(r).0, r.z)));
-    out
+    out.extend(torso.iter().rev().map(|r| (half(r).0, r.z)));
+    let mut all = vec![out];
+    for arm in if side { &a.arms[..1] } else { &a.arms[..] } {
+        let mut o: Vec<(f64, f64)> = arm.iter().map(|r| (half(r).1, r.z)).collect();
+        o.extend(arm.iter().rev().map(|r| (half(r).0, r.z)));
+        all.push(o);
+    }
+    all
 }
 
 fn draw(s: &mut Session, p: &Value) -> Result<Value> {
@@ -105,7 +117,7 @@ fn draw(s: &mut Session, p: &Value) -> Result<Value> {
     let doc = &s.doc()?.doc;
     let a = avatar_of(doc, C)?;
     let top = a.neck_height;
-    let width = |side: bool| silhouette(&a, side).iter().fold((f64::INFINITY, f64::NEG_INFINITY), |(lo, hi), q| (lo.min(q.0), hi.max(q.0)));
+    let width = |side: bool| silhouette(&a, side).iter().flatten().fold((f64::INFINITY, f64::NEG_INFINITY), |(lo, hi), q| (lo.min(q.0), hi.max(q.0)));
     let (fw, sw) = (width(false), width(true));
     let origin = match p.get("origin") {
         None | Some(Value::Null) => {
@@ -121,9 +133,12 @@ fn draw(s: &mut Session, p: &Value) -> Result<Value> {
     // Side by side: the side view 100 mm right of the front view.
     let side_x = mm_to_pt(fw.1 + 100.0 - sw.0);
     let line = |side: bool, dx: f64| -> PathData {
-        let pts: Vec<Point> =
-            silhouette(&a, side).iter().map(|&(u, z)| Point::new(origin.x + dx + mm_to_pt(u), origin.y + mm_to_pt(top - z))).collect();
-        PathData::single(SubPath::polyline(&pts, true))
+        let mut path = PathData::default();
+        for outline in silhouette(&a, side) {
+            let pts: Vec<Point> = outline.iter().map(|&(u, z)| Point::new(origin.x + dx + mm_to_pt(u), origin.y + mm_to_pt(top - z))).collect();
+            path.subpaths.push(SubPath::polyline(&pts, true));
+        }
+        path
     };
     let (front_path, side_path) = (line(false, 0.0), line(true, side_x));
     let ids = s.edit("Draw Avatar", |d, sel| {

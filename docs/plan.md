@@ -704,6 +704,34 @@ is built on, plus a pattern mode, the way StitchFoundry adds embroidery:
   more in `pf-core` (a trapezoid's edge particles on its outline, none outside it, the particle
   nearest a point of the slanted side on it), the skirt's test bounds tightened (seams within
   5 mm, stretch under 15%; it hangs 580 to 680 mm, a few per cent long under its weight).
+- 2026-10-24, **PF-10.6**: bodices and sleeves on the avatar. `drape.make` (Pattern › Drape on
+  Avatar) now puts each piece where it belongs: a bodice (a bodice block's part, or a piece named
+  so) from the waist up over the shoulders, a sleeve (a sleeve block's, or named so) round the arm
+  of the armhole it is sewn into, anything else (a skirt) from the waist down. Pieces are one side
+  of the body, as blocks are drawn: one cut on the fold is opened out whole, one cut as a
+  mirror-image pair (cut 2, mirror) is both sides, every seam sewn on each side where its pieces
+  are; darts (two legs about as long meeting at a sharp point, the mouth open) are found and sewn
+  shut, and seams are sewn with their darts closed (the result counts the darts). Seams are sewn
+  particle to particle along the two runs, in order, each partner once (sewing the particles
+  nearest points along the runs had sewn one to two a step apart, and a bodice's side seams, which
+  slant differently front and back, stayed 15 mm open). The first third of the time the garment is
+  sewn up without gravity, its seams pulling harder and harder, then it falls into place. The
+  avatar has shoulders (the shoulder line as broad as two shoulder lengths and the neck, 60.6 mm
+  below the nape, as deep as ANSUR II's shoulders) and arms (the upper arm as round as top_arm, the
+  elbow and wrist the survey's shares of it, as long as sleeve_length, the armpit at
+  armscye_depth), growing out of the shoulders and hanging out at an A pose of 30°, as fitting
+  avatars stand; its height from the waist to the nape is the nape to waist (measured down the
+  back) × 0.977 (ANSUR II: 415.5 straight up for 425.4 down the back). The proportions are means
+  computed from ANSUR II's public data (the female file, 1,986 women). The investigation is in
+  `docs/debug-logs/2026-10-24-bodice-and-sleeve-drape.md`. Tests: 1 in `pf-core` (`avatar`:
+  shoulders and arms from the measurements, out of the chest at the armpit, clear of the hips at
+  the wrist), 2 in `tests_drape.rs` (the bodice block on the fold hangs from the base of the neck
+  to about the waist, its 8 darts sewn, seams within 12 mm; with its sleeves it stays on the
+  shoulders and the sleeves hang down both arms). Known limits: the avatar has no bust (its chest
+  is an ellipse), so a bodice with its bust darts sewn sits about 15 mm above the waist; with
+  sleeves set in, the armpits and the top of the bodice read too tight (red), the cloth pinched
+  where the avatar's arm and chest meet. Not yet: trousers (they need a leg each), a better
+  avatar at the bust and the armpit.
 - 2026-10-24, **PF-1.6**: opening a file that is already open shows its tab. File › Open, Open
   Recent, a file dropped on the window and `file.open` used to open a second copy of a file
   already open, and the two tabs then each saved over the other's changes (found in the

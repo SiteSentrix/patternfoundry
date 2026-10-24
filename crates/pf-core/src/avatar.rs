@@ -1,8 +1,10 @@
 //! An avatar from body measurements (PF-10.1): the body the 3D fit preview drapes a pattern on.
 //!
 //! The body is lofted through horizontal cross-sections (rings) at the heights of the body's
-//! landmarks: the base of the neck, the bust, the waist, the hips and the crotch on the torso, and
-//! the thigh, knee, calf and ankle on each leg. Each ring is an ellipse as round as the body is
+//! landmarks: the base of the neck, the shoulders, the bust, the waist, the hips and the crotch on
+//! the torso; the thigh, knee, calf and ankle on each leg; and the top of the arm, the upper arm,
+//! the elbow and the wrist on each arm, the arms hanging a little out from the body (an A pose, as
+//! fitting avatars stand, so a sleeve and the side of a bodice can hang between arm and body). Each ring is an ellipse as round as the body is
 //! there (its depth over its breadth) and exactly as long round as the girth measured, so a
 //! garment drafted from the same measurements meets the body where the tape went.
 //!
@@ -13,7 +15,13 @@
 //! hip breadth) 0.658; the heights of the bust (chest height), waist (omphalion), knee and ankle
 //! above the floor, the cervicale's above the waist and the crotch's below the buttocks; the thigh 0.603 of the hips round,
 //! the knee (lower thigh) 0.392, the calf 0.366, the ankle 0.212, the base of the neck 0.394 of the
-//! chest. All lengths are in mm, x across the body (to its left), y to its front, z up from the
+//! chest; the shoulders (acromion) 60.6 mm and the armpit (axilla) 156.7 below the cervicale, the
+//! shoulders 365.3 broad (biacromial breadth), 0.386 of the chest round, and as deep at the shoulders
+//! as their 1028.2 round over the deltoids at 450.3 across makes them (0.476 of their breadth); the
+//! arm 543.6 from the shoulder to the wrist (sleeve outseam), the elbow 311.2 down it
+//! (acromion–radiale); the upper arm (biceps) 0.323 of the chest round, the forearm 0.864 of the
+//! upper arm and the wrist 0.506 (the means of the survey's women, computed from its public data).
+//! All lengths are in mm, x across the body (to its left), y to its front, z up from the
 //! floor.
 
 use std::f64::consts::PI;
@@ -73,6 +81,14 @@ pub struct Body {
     pub crotch_depth: Option<f64>,
     pub waist_to_knee: Option<f64>,
     pub waist_to_ankle: Option<f64>,
+    /// Along the shoulder from the base of the neck to the shoulder point (a bodice's shoulder).
+    pub shoulder: Option<f64>,
+    /// Round the upper arm.
+    pub top_arm: Option<f64>,
+    /// From the shoulder point down the outside of the arm to the wrist.
+    pub sleeve_length: Option<f64>,
+    /// From the nape down to the level of the armpits.
+    pub armscye_depth: Option<f64>,
 }
 
 /// The measurements an avatar needs: (name, what it is).
@@ -113,12 +129,14 @@ pub struct Mesh {
     pub triangles: Vec<[u32; 3]>,
 }
 
-/// An avatar: its rings (the torso's from the neck down, then each leg's from the thigh down) and
-/// the mesh lofted through them.
+/// An avatar: its rings (the torso's from the neck down, each leg's from the thigh down and each
+/// arm's from the shoulder down) and the mesh lofted through them.
 #[derive(Clone, Debug, PartialEq)]
 pub struct Avatar {
     pub torso: Vec<Ring>,
     pub legs: [Vec<Ring>; 2],
+    /// The body's left arm (to +x) and its right.
+    pub arms: [Vec<Ring>; 2],
     pub mesh: Mesh,
     /// Its height to the base of the neck.
     pub neck_height: f64,
@@ -132,6 +150,34 @@ const CROTCH_HEIGHT: f64 = 782.0;
 const BUTTOCK_HEIGHT: f64 = 834.0;
 const KNEE_HEIGHT: f64 = 449.0;
 const ANKLE_HEIGHT: f64 = 63.0;
+const ACROMIAL_HEIGHT: f64 = 1335.1;
+/// The height from the waist to the cervicale over the length down the back between them
+/// (cervicale height less waist height, 415.5, over the waist back length, 425.4).
+pub const BACK_RISE: f64 = 415.5 / 425.4;
+const AXILLA_HEIGHT: f64 = 1239.0;
+const CERVICALE: f64 = 1395.7;
+const SLEEVE_OUTSEAM: f64 = 543.6;
+const SHOULDER_TO_ELBOW: f64 = 311.2;
+/// How far out from straight down the arms hang (an A pose).
+const ARM_ANGLE: f64 = 30.0 * PI / 180.0;
+
+impl Avatar {
+    /// The torso's ring called `name` ("neck", "shoulder", "bust", "waist", "hip", "crotch").
+    pub fn ring(&self, name: &str) -> Option<&Ring> {
+        self.torso.iter().find(|r| r.name == name)
+    }
+
+    /// Each chain of rings the body is lofted through: the torso, the legs, the arms.
+    pub fn chains(&self) -> [&Vec<Ring>; 5] {
+        [&self.torso, &self.legs[0], &self.legs[1], &self.arms[0], &self.arms[1]]
+    }
+}
+
+/// The girth of an ellipse with semi-axes `a` and `b` (Ramanujan's second approximation).
+fn ellipse_girth(a: f64, b: f64) -> f64 {
+    let h = ((a - b) / (a + b)).powi(2);
+    PI * (a + b) * (1.0 + 3.0 * h / (10.0 + (4.0 - 3.0 * h).sqrt()))
+}
 
 /// Make the avatar for `body`.
 pub fn avatar(body: &Body) -> Result<Avatar, AvatarError> {
@@ -148,7 +194,9 @@ pub fn avatar(body: &Body) -> Result<Avatar, AvatarError> {
         }
     }
     // The body's scale along its length: the nape to the waist against the survey's.
-    let s = body.nape_to_waist / (CERVICALE_HEIGHT - WAIST_HEIGHT);
+    // The nape to the waist is measured down the curve of the back: its height is a little less.
+    let rise = body.nape_to_waist * BACK_RISE;
+    let s = rise / (CERVICALE_HEIGHT - WAIST_HEIGHT);
     let waist_z = match body.waist_to_ankle {
         Some(w) => w + ANKLE_HEIGHT * s,
         None => WAIST_HEIGHT * s,
@@ -165,7 +213,7 @@ pub fn avatar(body: &Body) -> Result<Avatar, AvatarError> {
     };
     let ankle_z = ANKLE_HEIGHT * s;
     let hip_z = waist_z - body.waist_to_hip;
-    let neck_z = waist_z + body.nape_to_waist;
+    let neck_z = waist_z + rise;
     let bust_z = waist_z + (CHEST_HEIGHT - WAIST_HEIGHT) * s;
     if hip_z <= crotch_z + 10.0 {
         return Err(AvatarError::Order("the hips are at or below the crotch: waist_to_hip is less than crotch_depth"));
@@ -175,9 +223,24 @@ pub fn avatar(body: &Body) -> Result<Avatar, AvatarError> {
     }
     let ring = |name, z, x, girth, depth_ratio| Ring { name, z, x, girth, depth_ratio };
     let neck = body.neck.unwrap_or(body.bust * 0.394);
+    // The shoulders: as broad as two shoulder lengths and the neck across, else the survey's share
+    // of the chest; as deep as the survey's.
+    let shoulder_z = neck_z - (CERVICALE - ACROMIAL_HEIGHT) * s;
+    // The armpits as deep below the nape as measured (a bodice's underarm is drafted there),
+    // else the survey's.
+    let axilla_z = match body.armscye_depth {
+        Some(d) if d > 0.0 => neck_z - d * BACK_RISE,
+        _ => neck_z - (CERVICALE - AXILLA_HEIGHT) * s,
+    };
+    let breadth = match body.shoulder {
+        Some(l) if l > 0.0 => 2.0 * l + neck / PI,
+        _ => body.bust * 0.386,
+    };
+    let shoulder_ring = ring("shoulder", shoulder_z, 0.0, ellipse_girth(breadth / 2.0, breadth / 2.0 * 0.476), 0.476);
     // The torso: the hips' girth carried on to the crotch, a little in, where the legs part.
     let torso = vec![
         ring("neck", neck_z, 0.0, neck, 1.0),
+        shoulder_ring,
         ring("bust", bust_z, 0.0, body.bust, 0.918),
         ring("waist", waist_z, 0.0, body.waist, 0.709),
         ring("hip", hip_z, 0.0, body.hip, 0.658),
@@ -185,7 +248,7 @@ pub fn avatar(body: &Body) -> Result<Avatar, AvatarError> {
     ];
     // Each leg: its thigh just below the crotch, its outside in line with the side of the hips
     // (the thighs meet at the crotch, as they do on many bodies).
-    let (hip_a, _) = torso[3].semi_axes();
+    let (hip_a, _) = torso[4].semi_axes();
     let thigh = ring("thigh", 0.0, 0.0, body.hip * 0.603, 0.9).semi_axes().0;
     let leg = |side: f64| {
         let x = side * (hip_a - thigh).max(thigh * 0.5);
@@ -198,11 +261,36 @@ pub fn avatar(body: &Body) -> Result<Avatar, AvatarError> {
         ]
     };
     let legs = [leg(1.0), leg(-1.0)];
+    // Each arm: from just under the shoulder point down to the wrist, hanging out at the A pose's
+    // angle.
+    let upper = body.top_arm.filter(|g| *g > 0.0).unwrap_or(body.bust * 0.323);
+    let reach = body.sleeve_length.filter(|l| *l > 0.0).map_or(s, |l| l / SLEEVE_OUTSEAM);
+    let (bust_a, _) = torso[2].semi_axes();
+    let r_upper = upper / (2.0 * PI);
+    // The arm grows out of the shoulder: at the armpit it overlaps the side of the chest by
+    // most of its radius (the armhole goes round the join), hanging clear of the hips below.
+    let axilla_x = bust_a + r_upper * 0.45;
+    let elbow_z = shoulder_z - SHOULDER_TO_ELBOW * reach * ARM_ANGLE.cos();
+    let wrist_z = shoulder_z - SLEEVE_OUTSEAM * reach * ARM_ANGLE.cos();
+    let top_z = shoulder_z - r_upper * 0.8;
+    let arm = |side: f64| {
+        let x = |z: f64| side * (axilla_x + (axilla_z - z) * ARM_ANGLE.tan());
+        vec![
+            ring("armtop", top_z, x(top_z), upper * 1.08, 0.9),
+            ring("upperarm", axilla_z, x(axilla_z), upper, 0.95),
+            ring("elbow", elbow_z, x(elbow_z), upper * 0.864, 0.95),
+            ring("wrist", wrist_z, x(wrist_z), upper * 0.506, 0.75),
+        ]
+    };
+    let arms = [arm(1.0), arm(-1.0)];
+    if !(top_z > axilla_z && axilla_z > elbow_z + 50.0 && elbow_z > wrist_z + 50.0) {
+        return Err(AvatarError::Order("the shoulder, armpit, elbow and wrist don't go down the arm in order"));
+    }
     let mut mesh = Mesh::default();
-    for rings in [&torso, &legs[0], &legs[1]] {
+    for rings in [&torso, &legs[0], &legs[1], &arms[0], &arms[1]] {
         loft(&mut mesh, rings);
     }
-    Ok(Avatar { torso, legs, mesh, neck_height: neck_z })
+    Ok(Avatar { torso, legs, arms, mesh, neck_height: neck_z })
 }
 
 /// A tube through `rings` (top to bottom) added to `mesh`, its ends closed with a fan.
@@ -274,42 +362,74 @@ mod tests {
     #[test]
     fn each_ring_is_as_long_round_as_its_girth_and_as_deep_as_the_body() {
         let a = avatar(&body()).unwrap();
-        for r in a.torso.iter().chain(a.legs.iter().flatten()) {
+        for r in a.torso.iter().chain(a.legs.iter().flatten()).chain(a.arms.iter().flatten()) {
             assert!((round_it(r) - r.girth).abs() / r.girth < 1e-5, "{}: {} against {}", r.name, round_it(r), r.girth);
             let (ax, by) = r.semi_axes();
             assert!((by / ax - r.depth_ratio).abs() < 1e-12);
         }
         let by = |n: &str| a.torso.iter().find(|r| r.name == n).copied().unwrap();
         assert_eq!((by("bust").girth, by("waist").girth, by("hip").girth), (880.0, 680.0, 960.0));
-        // The heights: the nape 410 above the waist, the hips 200 below it, in order down the leg.
-        assert!((by("neck").z - by("waist").z - 410.0).abs() < 1e-9);
+        // The heights: the nape 410 down the back above the waist (a little less straight up), the
+        // hips 200 below it, in order down the leg.
+        assert!((by("neck").z - by("waist").z - 410.0 * BACK_RISE).abs() < 1e-9);
         assert!((by("waist").z - by("hip").z - 200.0).abs() < 1e-9);
         let zs: Vec<f64> = a.torso.iter().chain(&a.legs[0]).map(|r| r.z).collect();
         assert!(zs.windows(2).all(|w| w[0] > w[1]), "{zs:?}");
-        // The survey's woman: a nape to waist of 416 puts her waist at 980.
-        let mean = avatar(&Body { nape_to_waist: 416.0, ..body() }).unwrap();
-        assert!((mean.torso[2].z - 980.0).abs() < 1e-9);
+        // The survey's woman: her cervicale 416 above her waist puts her waist at 980.
+        let mean = avatar(&Body { nape_to_waist: 416.0 / BACK_RISE, ..body() }).unwrap();
+        assert!((mean.ring("waist").unwrap().z - 980.0).abs() < 1e-9);
     }
 
     #[test]
     fn given_lengths_are_used_and_bad_measurements_refused() {
         let a = avatar(&Body { waist_to_ankle: Some(900.0), waist_to_knee: Some(560.0), crotch_depth: Some(260.0), ..body() }).unwrap();
-        let waist = a.torso[2].z;
+        let waist = a.ring("waist").unwrap().z;
         let ankle = a.legs[0][3].z;
         assert!((waist - ankle - 900.0).abs() < 1e-9 && (waist - a.legs[0][1].z - 560.0).abs() < 1e-9);
-        assert!((waist - a.torso[4].z - 260.0).abs() < 1e-9);
+        assert!((waist - a.ring("crotch").unwrap().z - 260.0).abs() < 1e-9);
         // The legs apart, either side of the middle.
         assert!(a.legs[0][0].x > 0.0 && a.legs[1][0].x < 0.0);
         assert_eq!(avatar(&Body { bust: 0.0, ..body() }), Err(AvatarError::Measurement("bust")));
         assert!(matches!(avatar(&Body { crotch_depth: Some(150.0), ..body() }), Err(AvatarError::Order(_))));
     }
 
+    /// The shoulders as broad as two shoulder lengths and the neck, below the base of the neck by
+    /// the survey's 60.6 mm; the arms down to the wrist as long as the sleeve length, hanging out
+    /// clear of the chest and the hips, the upper arm as round as measured.
+    #[test]
+    fn the_shoulders_and_arms_follow_the_measurements() {
+        let b = Body { shoulder: Some(121.0), neck: Some(370.0), top_arm: Some(280.0), sleeve_length: Some(590.0), ..body() };
+        let a = avatar(&b).unwrap();
+        let sh = *a.ring("shoulder").unwrap();
+        assert!((sh.semi_axes().0 * 2.0 - (242.0 + 370.0 / PI)).abs() < 0.01, "{:?}", sh.semi_axes());
+        let s = 410.0 * BACK_RISE / (CERVICALE_HEIGHT - WAIST_HEIGHT);
+        assert!((a.neck_height - sh.z - 60.6 * s).abs() < 1e-9);
+        for (k, side) in [(0, 1.0), (1, -1.0)] {
+            let arm = &a.arms[k];
+            assert_eq!(arm.iter().map(|r| r.name).collect::<Vec<_>>(), ["armtop", "upperarm", "elbow", "wrist"]);
+            assert_eq!(arm[1].girth, 280.0);
+            // Down the outside of the arm, shoulder to wrist: the sleeve length.
+            let along = ((sh.z - arm[3].z).powi(2) + ((arm[3].x - arm[1].x).abs() + 0.0).powi(2)).sqrt();
+            assert!((along - 590.0).abs() < 25.0, "{along}");
+            // Out of the side of the chest at the armpit; at the wrist clear of the hips.
+            let bust = a.ring("bust").unwrap().semi_axes().0;
+            assert!(side * arm[1].x > bust && side * arm[1].x - arm[1].semi_axes().0 < bust);
+            let hip = a.ring("hip").unwrap().semi_axes().0;
+            assert!(side * arm[3].x - arm[3].semi_axes().0 > hip, "{:?}", arm[3]);
+            assert!(arm.windows(2).all(|w| w[0].z > w[1].z) && side * arm[3].x > side * arm[0].x);
+        }
+        // Without them, from the survey's proportions.
+        let plain = avatar(&body()).unwrap();
+        assert!((plain.ring("shoulder").unwrap().semi_axes().0 * 2.0 - 880.0 * 0.386).abs() < 1e-9);
+        assert!((plain.arms[0][1].girth - 880.0 * 0.323).abs() < 1e-9);
+    }
+
     #[test]
     fn the_mesh_is_closed_and_its_triangles_face_out() {
         let a = avatar(&body()).unwrap();
         let m = &a.mesh;
-        // Three tubes, each its rings' points and two end points.
-        assert_eq!(m.vertices.len(), (5 + 4 + 4) * RING_POINTS + 6);
+        // Five tubes, each its rings' points and two end points.
+        assert_eq!(m.vertices.len(), (6 + 4 + 4 + 4 + 4) * RING_POINTS + 10);
         // Closed: every edge is shared by exactly two triangles, once each way.
         let mut edges = std::collections::HashMap::new();
         for t in &m.triangles {

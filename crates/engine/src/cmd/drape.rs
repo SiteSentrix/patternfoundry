@@ -1,7 +1,7 @@
-//! Draping (PF-10.3): the document's pieces sewn together (`piece.sew`) wrapped round the avatar
-//! (`avatar.draw`) at the waist, and let fall onto it as cloth ([`pf_core::cloth`]), for the 3D
-//! fit preview. A skirt first: pieces sewn into a ring round the body, drawn upright (their waist
-//! at the top, as patterns are).
+//! Draping (PF-10.3, PF-10.6): the document's pieces sewn together (`piece.sew`) and placed round
+//! the avatar (`avatar.draw`), skirts from the waist down, bodices from the waist up over the
+//! shoulders, sleeves round the arms, and let fall onto it as cloth ([`pf_core::cloth`]), for the
+//! 3D fit preview.
 
 use super::*;
 use pf_core::cloth::{Cloth, Placed, Stiffness, panel};
@@ -23,7 +23,7 @@ pub fn specs() -> Vec<CommandSpec> {
         "Drape on Avatar",
         [],
         None,
-        "{ids? (the pieces; default every piece sewn to another, piece.sew), precision?: mm (20, the distance between the cloth's particles, 15 to 50), steps? (240: four seconds of falling, 1 to 2000), path? (a file to write the draped cloth to: .glb, a binary glTF 2.0 file of the avatar and the cloth in the drape view's colours, metres, y up, the front toward +z, for 3D software and game engines; else an OBJ file of the cloth), format?: obj|glb (default from path's extension; without a path the file comes back as data (obj) or dataBase64 (glb)), draw?: true (the drape view: the avatar and the draped cloth as pictures seen from the front and the left side, at true scale, the cloth coloured blue where it is loose, green, and red where it is 10% or more larger than cut, on the layer \"Drape\", drawn again it replaces it; false: none), origin?: [x, y] (document points: the front view's top-left; default right of the art)} wrap the sewn pieces round the avatar (see avatar.draw) at the waist, in the order they are sewn, the first at the front, and let them fall onto it as light woven cloth; pieces are taken as drawn upright, their waist at the top → {pieces, particles, top (mm above the floor: the highest the cloth hangs), hem (mm: its lowest), waist (mm: the avatar's), worstStretch (%), widestSeam (mm), path?, data?, dataBase64?, layer?, front?, side?, tightest (%: the most a triangle of cloth is larger than cut)}",
+        "{ids? (the pieces; default every piece sewn to another, piece.sew), precision?: mm (20, the distance between the cloth's particles, 15 to 50), steps? (240: four seconds, 1 to 2000), path? (a file to write the draped cloth to: .glb, a binary glTF 2.0 file of the avatar and the cloth in the drape view's colours, metres, y up, the front toward +z, for 3D software and game engines; else an OBJ file of the cloth), format?: obj|glb (default from path's extension; without a path the file comes back as data (obj) or dataBase64 (glb)), draw?: true (the drape view: the avatar and the draped cloth as pictures seen from the front and the left side, at true scale, the cloth coloured blue where it is loose, green, and red where it is 10% or more larger than cut, on the layer \"Drape\", drawn again it replaces it; false: none), origin?: [x, y] (document points: the front view's top-left; default right of the art)} sew the pieces up round the avatar (see avatar.draw) and let them fall onto it as light woven cloth. Each piece goes where it belongs: a bodice (a bodice block's part, or named so) from the waist up over the shoulders, a sleeve (a sleeve block's, or named so) round the arm of the armhole it is sewn into, anything else (a skirt) from the waist down; the skirt's and the bodice's pieces round the body in the order they are sewn, a front first, in the middle of the front. Pieces are taken as drawn upright, as patterns are, and as one side of the body: one cut on the fold is opened out whole, one cut as a mirror-image pair (cut 2, mirror) is both sides, its seams sewn on each; others are taken as drawn. Darts (two legs about as long meeting at a sharp point, the mouth open) are sewn shut, and seams are sewn with their darts closed. The first third of the time the garment is sewn up without gravity, its seams pulling harder and harder, then it falls into place → {pieces, darts (sewn shut), particles, top (mm above the floor: the highest the cloth hangs), hem (mm: its lowest), waist (mm: the avatar's), worstStretch (%), widestSeam (mm), path?, data?, dataBase64?, layer?, front?, side?, tightest (%: the most a triangle of cloth is larger than cut)}",
         has_doc,
         make
     )]
@@ -38,8 +38,9 @@ fn seam_line(doc: &Document, id: NodeId) -> Option<SubPath> {
     }
 }
 
-/// `n` points evenly along `sp` (by length) from anchor `from` forward to anchor `to`, in mm.
-fn run_points(sp: &SubPath, from: usize, to: usize, n: usize) -> Vec<Pt> {
+/// `n` points evenly along `sp` (by length) from anchor `from` forward to anchor `to`, in mm,
+/// leaving out the edges `skip` (a dart's legs: a seam is sewn with its darts closed).
+fn run_points(sp: &SubPath, from: usize, to: usize, n: usize, skip: &[usize]) -> Vec<Pt> {
     let edges = sp.segment_count();
     if edges == 0 || n < 2 {
         return Vec::new();
@@ -47,11 +48,16 @@ fn run_points(sp: &SubPath, from: usize, to: usize, n: usize) -> Vec<Pt> {
     let mut segs = Vec::new();
     let mut e = from % edges;
     for _ in 0..edges {
-        segs.push((e, sp.segment(e).arclen(1e-6)));
+        if !skip.contains(&e) {
+            segs.push((e, sp.segment(e).arclen(1e-6)));
+        }
         e = (e + 1) % edges;
         if e == to % edges {
             break;
         }
+    }
+    if segs.is_empty() {
+        return Vec::new();
     }
     let total: f64 = segs.iter().map(|s| s.1).sum();
     (0..n)
@@ -88,7 +94,182 @@ fn span(pts: &[Pt], y: f64) -> Option<(f64, f64)> {
     out
 }
 
-fn make(s: &mut Session, p: &Value) -> Result<Value> {
+/// Where a copy's points on the pattern go round the body.
+type Placing = Box<dyn Fn(Pt) -> [f64; 3]>;
+
+/// Where on the body a piece goes.
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+enum Role {
+    /// From the waist down (a skirt): its top at the waist.
+    Lower,
+    /// From the waist up (a bodice): its bottom at the waist, over the shoulders.
+    Upper,
+    /// Round an arm (a sleeve): its top at the shoulder point.
+    Arm,
+}
+
+/// A piece's role: what its block is (a sleeve, a bodice), else what its name says, else a skirt's.
+fn role_of(doc: &Document, id: NodeId, name: &str) -> Role {
+    use pf_core::block::BlockKind;
+    let kind = super::piece::seam_of(doc, id).and_then(|n| n.extras().block.as_ref().map(|b| b.kind));
+    let name = name.to_lowercase();
+    match kind {
+        Some(BlockKind::Sleeve) => Role::Arm,
+        Some(BlockKind::Bodice) => Role::Upper,
+        Some(_) => Role::Lower,
+        None if name.contains("sleeve") => Role::Arm,
+        None if name.contains("bodice") || name.contains("top") || name.contains("yoke") => Role::Upper,
+        None => Role::Lower,
+    }
+}
+
+/// One copy of a piece in the garment: the piece opened out across its fold (whole, both sides of
+/// the body), or one of a mirror-image pair (`mirrored`: the body's other side), or the piece as
+/// drawn.
+struct Copy {
+    piece: usize,
+    mirrored: bool,
+    panel: pf_core::cloth::Panel,
+    outline: Vec<Pt>,
+    /// Its bounds on the pattern: left, right, top, bottom (mm, y down).
+    bounds: (f64, f64, f64, f64),
+}
+
+/// A piece of the garment: its seam line (mm on the pattern) and how it is cut.
+struct Part {
+    id: NodeId,
+    name: String,
+    sp: SubPath,
+    role: Role,
+    /// The fold line, for a piece cut on the fold.
+    fold: Option<(Pt, Pt)>,
+    /// Its middle across (for mirroring a pair).
+    middle: f64,
+    /// Its darts (see [`darts`]) and the edges their legs are.
+    darts: Vec<((usize, usize), (usize, usize))>,
+    legs: Vec<usize>,
+    /// Its copies for the body's two sides (the same copy for both when opened out on the fold).
+    sides: [Option<usize>; 2],
+}
+
+/// `p` reflected across the line through `a` and `b`.
+fn reflect(p: Pt, a: Pt, b: Pt) -> Pt {
+    let Some(d) = (b - a).unit() else { return p };
+    let v = p - a;
+    let along = d * v.dot(d);
+    a + along * 2.0 - v
+}
+
+/// Whether `q` is inside polygon `pts` (even-odd).
+fn inside(pts: &[Pt], q: Pt) -> bool {
+    let mut c = false;
+    let n = pts.len();
+    for i in 0..n {
+        let (a, b) = (pts[i], pts[(i + 1) % n]);
+        if (a.y > q.y) != (b.y > q.y) && q.x < a.x + (q.y - a.y) / (b.y - a.y) * (b.x - a.x) {
+            c = !c;
+        }
+    }
+    c
+}
+
+/// The darts of seam line `sp`: anchors where the line goes in to a point and back out along two
+/// legs about as long, the mouth between them open (outside the piece) → (the leg before, the leg
+/// after: each its anchors, mouth to point).
+fn darts(sp: &SubPath, outline: &[Pt]) -> Vec<((usize, usize), (usize, usize))> {
+    let n = sp.segment_count();
+    if n < 4 {
+        return Vec::new();
+    }
+    let at = |i: usize| {
+        let q = sp.segment(i % n).p0;
+        Pt::new(pt_to_mm(q.x), pt_to_mm(q.y))
+    };
+    let mut out = Vec::new();
+    for k in 0..n {
+        let (a, apex, b) = (at(k + n - 1), at(k), at(k + 1));
+        let (u, v) = (a - apex, b - apex);
+        let (lu, lv) = (u.len(), v.len());
+        if lu < 15.0 || lv < 15.0 || (lu - lv).abs() > 0.2 * lu.max(lv) {
+            continue;
+        }
+        let cos = u.dot(v) / (lu * lv);
+        let mouth = (a + b) * 0.5;
+        // A dart's legs meet at a sharp point; its mouth (between the legs' outer ends) is not
+        // cloth.
+        if cos > 45f64.to_radians().cos() && !inside(outline, mouth) && inside(outline, apex + (mouth - apex) * 0.02) == inside(outline, mouth) {
+            out.push((((k + n - 1) % n, k), ((k + 1) % n, k)));
+        }
+    }
+    out
+}
+
+/// The particles of `panel` along the run `pts` (within a third of a step of it) → (how far along
+/// it, 0 to 1; the particle), in order along it.
+fn along(panel: &pf_core::cloth::Panel, pts: &[Pt], step: f64) -> Vec<(f64, u32)> {
+    let mut cum = vec![0.0];
+    for w in pts.windows(2) {
+        cum.push(cum[cum.len() - 1] + (w[1] - w[0]).len());
+    }
+    let total = cum[cum.len() - 1].max(1e-9);
+    let mut out: Vec<(f64, u32)> = Vec::new();
+    for (i, q) in panel.points.iter().enumerate() {
+        let mut best = (f64::INFINITY, 0.0);
+        for (k, w) in pts.windows(2).enumerate() {
+            let d = w[1] - w[0];
+            let l2 = d.dot(d);
+            let t = if l2 > 1e-12 { ((*q - w[0]).dot(d) / l2).clamp(0.0, 1.0) } else { 0.0 };
+            let dist = (*q - (w[0] + d * t)).len();
+            if dist < best.0 {
+                best = (dist, (cum[k] + t * l2.sqrt()) / total);
+            }
+        }
+        if best.0 < step / 3.0 {
+            out.push((best.1, i as u32));
+        }
+    }
+    out.sort_by(|a, b| a.0.total_cmp(&b.0));
+    out
+}
+
+/// A drape set up and ready to run: the cloth placed round the avatar with its seams and darts
+/// sewn, and how many steps to run it for.
+pub(crate) struct Setup {
+    pub cloth: Cloth,
+    pub avatar: pf_core::avatar::Avatar,
+    pub steps: usize,
+    pub iterations: usize,
+    pub waist: f64,
+    pub pieces: usize,
+    /// The darts sewn shut (each copy's).
+    pub darts: usize,
+}
+
+impl Setup {
+    /// Let the cloth fall for its steps (four substeps a sixtieth of a second each), telling
+    /// `progress` the share done after each; it stops (→ false) when `progress` says to.
+    pub fn run(&mut self, progress: &mut dyn FnMut(f64) -> bool) -> bool {
+        for k in 0..self.steps {
+            // The first third sewing the garment up round the body: no gravity, the seams pulling
+            // harder and harder (a hundredth as hard at first) so the pieces come together without
+            // yanking; then it falls into place and settles.
+            let sewing = (self.steps / 3).max(1);
+            let at = k.min(sewing);
+            self.cloth.gravity = if at < sewing { 0.0 } else { 1.0 };
+            self.cloth.seam_pull = 0.5 * (0.01f64).powf(1.0 - at as f64 / sewing as f64);
+            for _ in 0..4 {
+                self.cloth.step(1.0 / 240.0, self.iterations, &self.avatar);
+            }
+            if !progress((k + 1) as f64 / self.steps as f64) {
+                return false;
+            }
+        }
+        true
+    }
+}
+
+/// Set up the drape of `p` (see `drape.make`).
+pub(crate) fn setup(s: &Session, p: &Value) -> Result<Setup> {
     const C: &str = "drape.make";
     let step = match p.get("precision") {
         None | Some(Value::Null) => STEP_MM,
@@ -103,118 +284,319 @@ fn make(s: &mut Session, p: &Value) -> Result<Value> {
     let runs = super::piece::sewn_runs(doc);
     // The pieces: those named, else every piece with a sewn seam, in the order they are sewn.
     let named: Option<Vec<NodeId>> = if p.get("ids").is_some() { Some(super::piece::target_pieces(s, p, C)?) } else { None };
-    let mut pieces: Vec<NodeId> = Vec::new();
+    let mut ids: Vec<NodeId> = Vec::new();
     for r in &runs {
-        if !pieces.contains(&r.1) && named.as_ref().is_none_or(|ids| ids.contains(&r.1)) {
-            pieces.push(r.1);
+        if !ids.contains(&r.1) && named.as_ref().is_none_or(|n| n.contains(&r.1)) {
+            ids.push(r.1);
         }
     }
-    if pieces.is_empty() {
+    if ids.is_empty() {
         return Err(bad(C, "no pieces are sewn together to drape (piece.sew sews their seams)"));
     }
-    // Round the body in the order they are sewn: from the first, on to the piece its next seam
-    // is sewn to.
-    let mut order = vec![pieces[0]];
-    while order.len() < pieces.len() {
-        let last = order[order.len() - 1];
-        let next = runs
-            .iter()
-            .filter(|r| r.1 == last)
-            .flat_map(|r| runs.iter().filter(move |o| o.0 == r.0 && o.1 != last))
-            .map(|o| o.1)
-            .find(|id| pieces.contains(id) && !order.contains(id))
-            .or_else(|| pieces.iter().copied().find(|id| !order.contains(id)));
-        match next {
-            Some(id) => order.push(id),
-            None => break,
-        }
-    }
-    // Each piece's panel, its seam line, and where it starts on the pattern.
-    let mut made = Vec::new();
-    let mut outlines = Vec::new();
-    for &id in &order {
-        let sp = seam_line(doc, id).ok_or_else(|| bad(C, "a sewn piece has no closed seam line"))?;
-        let (outline, _) = super::piece::outline_of(&vectorcraft_geom::PathData::single(sp.clone()))
-            .ok_or_else(|| bad(C, "a sewn piece has no closed seam line"))?;
+    let no_line = || bad(C, "a sewn piece has no closed seam line");
+    // Each piece and its copies: opened out across its fold, or a mirror-image pair, or as drawn.
+    let mut parts: Vec<Part> = Vec::new();
+    let mut copies: Vec<Copy> = Vec::new();
+    for &id in &ids {
+        let sp = seam_line(doc, id).ok_or_else(no_line)?;
+        let (outline, _) = super::piece::outline_of(&vectorcraft_geom::PathData::single(sp.clone())).ok_or_else(no_line)?;
         let mm: Vec<Pt> = outline.points.iter().map(|q| Pt::new(pt_to_mm(q.x), pt_to_mm(q.y))).collect();
-        let pl = panel(&mm, step).map_err(|e| bad(C, e.to_string()))?;
-        let (x0, x1, y0) = mm.iter().fold((f64::INFINITY, f64::NEG_INFINITY, f64::INFINITY), |(a, b, c), q| (a.min(q.x), b.max(q.x), c.min(q.y)));
-        made.push((id, sp, pl, x0, x1 - x0, y0));
-        outlines.push(mm);
-    }
-    // Each row of the cloth (by its height below its piece's top) wrapped round a circle as long
-    // round as the pieces are wide together at that height, so the sewn sides start together;
-    // their tops at the avatar's waist, the first piece's middle at the front.
-    let waist = avatar.torso.iter().find(|r| r.name == "waist").map_or(1000.0, |r| r.z);
-    let row = |y: f64, y0: f64| ((y - y0) / step).round() as i64;
-    // Each row's span across its piece: where the outline crosses the row's height (not the
-    // particles' staircase, which jumps a step at a time along a slanted side).
-    let extents: Vec<std::collections::BTreeMap<i64, (f64, f64)>> = made
-        .iter()
-        .zip(&outlines)
-        .map(|(m, outline)| {
-            let mut e = std::collections::BTreeMap::new();
-            for q in &m.2.points {
-                e.entry(row(q.y, m.5)).or_insert_with(|| span(outline, q.y).unwrap_or((q.x, q.x)));
+        let piece = doc.node(id).and_then(|n| super::piece::piece_on(n).cloned()).ok_or_else(no_line)?;
+        let anchor = |i: usize| {
+            let q = sp.segment(i % sp.segment_count()).p0;
+            Pt::new(pt_to_mm(q.x), pt_to_mm(q.y))
+        };
+        let fold = piece.fold.map(|e| (anchor(e), anchor(e + 1)));
+        let (x0, x1) = mm.iter().fold((f64::INFINITY, f64::NEG_INFINITY), |(a, b), q| (a.min(q.x), b.max(q.x)));
+        let k = parts.len();
+        let mut add = |outline: Vec<Pt>, mirrored: bool| -> Result<usize> {
+            let panel = panel(&outline, step).map_err(|e| bad(C, e.to_string()))?;
+            let b = outline.iter().fold((f64::INFINITY, f64::NEG_INFINITY, f64::INFINITY, f64::NEG_INFINITY), |(l, r, t, bo), q| {
+                (l.min(q.x), r.max(q.x), t.min(q.y), bo.max(q.y))
+            });
+            copies.push(Copy { piece: k, mirrored, panel, outline, bounds: b });
+            Ok(copies.len() - 1)
+        };
+        let sides = match fold.and_then(|(a, b)| pf_core::marker::opened_out(&mm, a, b)) {
+            Some(whole) => {
+                let c = add(whole, false)?;
+                [Some(c), Some(c)]
             }
-            e
-        })
-        .collect();
-    let (extents, count) = (&extents, made.len());
-    let width = move |k: usize, r: i64| extents[k].get(&r).map_or(0.0, |(a, b)| b - a);
-    let places: Vec<Box<dyn Fn(Pt) -> [f64; 3] + '_>> = (0..count)
-        .map(|k| {
-            let y0 = made[k].5;
-            Box::new(move |q: Pt| {
-                let r = row(q.y, y0);
-                let total: f64 = (0..count).map(|j| width(j, r)).sum::<f64>().max(step);
-                let before: f64 = (0..k).map(|j| width(j, r)).sum::<f64>() - width(0, r) / 2.0;
-                let left = extents[k].get(&r).map_or(q.x, |e| e.0);
-                let t = 2.0 * std::f64::consts::PI * (before + q.x - left) / total;
-                let radius = total / (2.0 * std::f64::consts::PI);
-                [radius * t.sin(), radius * t.cos(), waist - (q.y - y0)]
-            }) as Box<dyn Fn(Pt) -> [f64; 3] + '_>
-        })
-        .collect();
-    let placed: Vec<Placed> = made.iter().zip(&places).map(|(m, f)| (&m.2, f.as_ref())).collect();
-    let mut cloth = Cloth::new(&placed, Stiffness::default());
-    // Each seam: its two runs' points paired, the ends level with each other on the pattern
-    // matched (the pieces are drawn upright).
-    let index = |id: NodeId| order.iter().position(|o| *o == id);
+            None if piece.cut >= 2 && piece.mirror => {
+                let flipped: Vec<Pt> = mm.iter().rev().map(|q| Pt::new(x0 + x1 - q.x, q.y)).collect();
+                [Some(add(mm.clone(), false)?), Some(add(flipped, true)?)]
+            }
+            None => [Some(add(mm.clone(), false)?), None],
+        };
+        let role = role_of(doc, id, &piece.name);
+        let found = darts(&sp, &mm);
+        let legs = found.iter().flat_map(|((f, k), _)| [*f, *k]).collect();
+        parts.push(Part {
+            id,
+            name: piece.name.clone(),
+            sp,
+            role,
+            fold: if sides[0] == sides[1] { fold } else { None },
+            middle: (x0 + x1) / 2.0,
+            darts: found,
+            legs,
+            sides,
+        });
+    }
+    // A run's points on copy `c` of its piece, for the body's side `side` (0 as drawn, 1 the other).
+    let on_copy = |part: &Part, side: usize, pts: &[Pt]| -> Option<(usize, Vec<Pt>)> {
+        let c = part.sides[side]?;
+        let pts = match (side, part.fold, copies[c].mirrored) {
+            (1, Some((a, b)), _) => pts.iter().map(|q| reflect(*q, a, b)).collect(),
+            (_, _, true) => pts.iter().map(|q| Pt::new(2.0 * part.middle - q.x, q.y)).collect(),
+            _ => pts.to_vec(),
+        };
+        Some((c, pts))
+    };
+    // The seams between copies: each sewn seam on both sides of the body where its pieces have
+    // copies there, and each dart sewn shut (its legs from the mouth to the point).
+    struct Seam {
+        a: usize,
+        b: usize,
+        pa: Vec<Pt>,
+        pb: Vec<Pt>,
+        /// Both runs go the same way (a dart's legs, mouth to point); else matched by height.
+        ordered: bool,
+    }
+    let mut seams: Vec<Seam> = Vec::new();
+    let part_of = |id: NodeId| parts.iter().position(|q| q.id == id);
     let labels: std::collections::BTreeSet<&String> = runs.iter().map(|r| &r.0).collect();
     for label in labels {
         let pair: Vec<&(String, NodeId, String, usize, usize)> = runs.iter().filter(|r| &r.0 == label).collect();
-        let [a, b] = pair[..] else { continue };
-        let (Some(ia), Some(ib)) = (index(a.1), index(b.1)) else { continue };
-        let len = |m: &(NodeId, SubPath, pf_core::cloth::Panel, f64, f64, f64), f: usize, t: usize| run_points(&m.1, f, t, 64);
-        let (pa, mut pb) = (len(&made[ia], a.3, a.4), len(&made[ib], b.3, b.4));
-        let n = pa.len().min(pb.len());
-        if n < 2 {
-            continue;
-        }
-        if (pa[0].y - pb[0].y).abs() > (pa[0].y - pb[pb.len() - 1].y).abs() {
-            pb.reverse();
-        }
-        let count = ((pa.iter().zip(pa.iter().skip(1)).map(|(u, v)| (*v - *u).len()).sum::<f64>() / step).ceil() as usize + 1).max(2);
-        for k in 0..count {
-            let pick = |pts: &[Pt]| pts[(k * (pts.len() - 1)) / (count - 1).max(1)];
-            let (qa, qb) = (pick(&pa), pick(&pb));
-            if let (Some(x), Some(y)) = (made[ia].2.nearest(qa), made[ib].2.nearest(qb)) {
-                cloth.sew(x + cloth.starts[ia], y + cloth.starts[ib]);
+        let [ra, rb] = pair[..] else { continue };
+        let (Some(ia), Some(ib)) = (part_of(ra.1), part_of(rb.1)) else { continue };
+        let pa = run_points(&parts[ia].sp, ra.3, ra.4, 64, &parts[ia].legs);
+        let pb = run_points(&parts[ib].sp, rb.3, rb.4, 64, &parts[ib].legs);
+        for side in 0..2 {
+            if let (Some((a, pa)), Some((b, pb))) = (on_copy(&parts[ia], side, &pa), on_copy(&parts[ib], side, &pb)) {
+                // Both sides on one copy opened out: the second is its mirror, a seam of its own.
+                seams.push(Seam { a, b, pa, pb, ordered: false });
             }
         }
     }
-    // Four substeps a sixtieth of a second, forty rounds of corrections each at the default
-    // precision, more the finer it is (the cloth gets softer the more particles there are): fewer
-    // let a ring of cloth stretch round the hips and slide off (at ten, a skirt that fits fell to
-    // the floor).
-    for _ in 0..steps * 4 {
-        cloth.step(1.0 / 240.0, (40.0 * (20.0 / step).powi(2)).round() as usize, &avatar);
+    for part in &parts {
+        for &((f1, t1), (f2, t2)) in &part.darts {
+            let leg1 = run_points(&part.sp, f1, t1, 32, &[]);
+            let mut leg2 = run_points(&part.sp, t2, f2, 32, &[]);
+            leg2.reverse();
+            for side in 0..2 {
+                if let (Some((a, pa)), Some((_, pb))) = (on_copy(part, side, &leg1), on_copy(part, side, &leg2)) {
+                    seams.push(Seam { a, b: a, pa, pb, ordered: true });
+                }
+            }
+        }
     }
+    let waist = avatar.ring("waist").map_or(1000.0, |r| r.z);
+    let shoulder = avatar.ring("shoulder").map_or(waist + 350.0, |r| r.z);
+    // Round the torso: the skirt's copies in one ring and the bodice's in another, each in the
+    // order they are sewn round the body (a front first, in the middle of the front), each copy
+    // turned so its seam to the next is on the far side.
+    let role = |c: usize| parts[copies[c].piece].role;
+    let vertical = |s: &Seam| s.pa.iter().map(|q| q.y).fold(f64::NEG_INFINITY, f64::max) - s.pa.iter().map(|q| q.y).fold(f64::INFINITY, f64::min);
+    let mut place: Vec<Option<Placing>> = (0..copies.len()).map(|_| None).collect();
+    for group in [Role::Lower, Role::Upper] {
+        let members: Vec<usize> = (0..copies.len()).filter(|c| role(*c) == group).collect();
+        if members.is_empty() {
+            continue;
+        }
+        let first = members.iter().copied().find(|c| parts[copies[*c].piece].name.to_lowercase().contains("front")).unwrap_or(members[0]);
+        let mut order = vec![first];
+        while order.len() < members.len() {
+            let last = order[order.len() - 1];
+            let next = seams
+                .iter()
+                .filter(|s| s.a != s.b && (s.a == last || s.b == last))
+                .map(|s| if s.a == last { s.b } else { s.a })
+                .find(|c| members.contains(c) && !order.contains(c))
+                .or_else(|| members.iter().copied().find(|c| !order.contains(c)));
+            match next {
+                Some(c) => order.push(c),
+                None => break,
+            }
+        }
+        // Each copy turned so the seam to the next copy round is on its far side: going round, each
+        // join takes a seam between the two not taken yet (a front and a back are sewn at both
+        // sides: the first join is one side seam, the way back the other).
+        let mut taken: Vec<usize> = Vec::new();
+        let flips: Vec<bool> = (0..order.len())
+            .map(|k| {
+                let (me, next) = (order[k], order[(k + 1) % order.len()]);
+                let joint = seams
+                    .iter()
+                    .enumerate()
+                    .filter(|(i, s)| s.a != s.b && !taken.contains(i) && ((s.a == me && s.b == next) || (s.b == me && s.a == next)))
+                    .max_by(|x, y| vertical(x.1).total_cmp(&vertical(y.1)));
+                match joint {
+                    Some((i, s)) if order.len() > 1 => {
+                        taken.push(i);
+                        let pts = if s.a == me { &s.pa } else { &s.pb };
+                        let mx = pts.iter().map(|q| q.x).sum::<f64>() / pts.len().max(1) as f64;
+                        let (l, r, _, _) = copies[me].bounds;
+                        mx < (l + r) / 2.0
+                    }
+                    _ => false,
+                }
+            })
+            .collect();
+        let upward = group == Role::Upper;
+        // Each row of the cloth (by its height from the waist on its piece) wrapped round a circle
+        // as long round as the copies are wide together at that height, so the sewn sides start
+        // together; the first copy's middle at the front.
+        let row_of = move |c: &Copy, y: f64| if upward { ((c.bounds.3 - y) / step).round() as i64 } else { ((y - c.bounds.2) / step).round() as i64 };
+        let extents: Vec<std::collections::BTreeMap<i64, (f64, f64)>> = order
+            .iter()
+            .map(|&c| {
+                let mut e = std::collections::BTreeMap::new();
+                for q in &copies[c].panel.points {
+                    e.entry(row_of(&copies[c], q.y)).or_insert_with(|| span(&copies[c].outline, q.y).unwrap_or((q.x, q.x)));
+                }
+                e
+            })
+            .collect();
+        let extents = std::sync::Arc::new(extents);
+        for (k, &c) in order.iter().enumerate() {
+            let (extents, flip, bounds) = (extents.clone(), flips[k], copies[c].bounds);
+            let count = order.len();
+            let width = move |e: &[std::collections::BTreeMap<i64, (f64, f64)>], j: usize, r: i64| e[j].get(&r).map_or(0.0, |(a, b)| b - a);
+            place[c] = Some(Box::new(move |q: Pt| {
+                let r = if upward { ((bounds.3 - q.y) / step).round() as i64 } else { ((q.y - bounds.2) / step).round() as i64 };
+                let total: f64 = (0..count).map(|j| width(&extents, j, r)).sum::<f64>().max(step);
+                let before: f64 = (0..k).map(|j| width(&extents, j, r)).sum::<f64>() - width(&extents, 0, r) / 2.0;
+                let (l, rr) = extents[k].get(&r).copied().unwrap_or((q.x, q.x));
+                let u = if flip { rr - q.x } else { q.x - l };
+                let t = 2.0 * std::f64::consts::PI * (before + u) / total;
+                let radius = total / (2.0 * std::f64::consts::PI);
+                let z = if upward { waist + (bounds.3 - q.y) } else { waist - (q.y - bounds.2) };
+                [radius * t.sin(), radius * t.cos(), z]
+            }));
+        }
+    }
+    // The sleeves, each round the arm on the side of the armhole it is sewn into (else the body's
+    // left for the copy as drawn, its right for the other): its top at the shoulder point, the
+    // middle of the crown outside the arm.
+    let sleeves: Vec<usize> = (0..copies.len()).filter(|c| role(*c) == Role::Arm).collect();
+    for (n, &c) in sleeves.iter().enumerate() {
+        // The armhole it is sewn into: where it is round the body (x across, y to the front), and
+        // which half of the sleeve is sewn to it (+1 the half right of the sleeve's middle).
+        let (l, r, top, _) = copies[c].bounds;
+        let partner = seams.iter().filter(|s| s.a != s.b && (s.a == c || s.b == c)).find_map(|s| {
+            let (other, theirs, mine) = if s.a == c { (s.b, &s.pb, &s.pa) } else { (s.a, &s.pa, &s.pb) };
+            let f = place[other].as_ref()?;
+            let n = theirs.len().max(1) as f64;
+            let (x, y) = theirs.iter().map(|q| f(*q)).fold((0.0, 0.0), |(x, y), p| (x + p[0] / n, y + p[1] / n));
+            let half = if mine.iter().map(|q| q.x).sum::<f64>() / mine.len().max(1) as f64 > (l + r) / 2.0 { 1.0 } else { -1.0 };
+            Some((x, y, half))
+        });
+        let partner_x = partner.map(|p| p.0);
+        let arm = match partner_x {
+            Some(x) if x < 0.0 => 1,
+            Some(_) => 0,
+            None => usize::from(copies[c].mirrored || n % 2 == 1),
+        };
+        let rings = avatar.arms[arm].clone();
+        let side = if arm == 0 { 1.0 } else { -1.0 };
+        // The half sewn into the front of the armhole to the front.
+        let toward = partner.map_or(1.0, |(_, y, half)| if y * half < 0.0 { -1.0 } else { 1.0 });
+        // The armpit: the first height down the sleeve where it is (nearly) as wide as it is.
+        let under = {
+            let o = &copies[c].outline;
+            let w = r - l;
+            let mut y = top;
+            while y < copies[c].bounds.3 && span(o, y).is_none_or(|(a, b)| b - a < 0.95 * w) {
+                y += 1.0;
+            }
+            y
+        };
+        place[c] = Some(Box::new(move |q: Pt| {
+            let z = shoulder - (q.y - top);
+            let x_at = rings
+                .windows(2)
+                .find(|w| z <= w[0].z && z >= w[1].z)
+                .map(|w| {
+                    let t = (w[0].z - z) / (w[0].z - w[1].z);
+                    w[0].x + (w[1].x - w[0].x) * t
+                })
+                .unwrap_or_else(|| if z > rings[0].z { rings[0].x } else { rings[rings.len() - 1].x });
+            // Round a tube as wide as the sleeve: the crown (narrower) only part of the way round,
+            // its seam looping from the top of the arm round the front and back to the armpit, as
+            // a set-in sleeve's does.
+            let w = (r - l).max(step);
+            let t = 2.0 * std::f64::consts::PI * (q.x - (l + r) / 2.0) / w;
+            // Above the armpit the crown narrows to a cap over the top of the arm, its top on the
+            // arm's line beside the shoulder point it is sewn to.
+            let cap = if q.y < under { 0.15 + 0.85 * (q.y - top) / (under - top).max(1e-9) } else { 1.0 };
+            let radius = w / (2.0 * std::f64::consts::PI) * cap;
+            [x_at + side * radius * t.cos(), toward * radius * t.sin(), z]
+        }));
+    }
+    let placed: Vec<Placed> = copies
+        .iter()
+        .zip(&place)
+        .map(|(c, f)| -> Result<Placed> {
+            let f = f.as_ref().ok_or_else(|| bad(C, "a piece could not be placed on the body"))?;
+            Ok((&c.panel, f.as_ref()))
+        })
+        .collect::<Result<_>>()?;
+    let mut cloth = Cloth::new(&placed, Stiffness::default());
+    // Each seam: the particles along its two runs paired by how far along the run they are, each
+    // particle of the side with fewer sewn once (pairing the particles nearest points along the
+    // runs sewed one particle to two a step apart where two edges slant differently, and the seam
+    // could not close).
+    for sm in &seams {
+        let (pa, mut pb) = (sm.pa.clone(), sm.pb.clone());
+        if pa.len() < 2 || pb.len() < 2 {
+            continue;
+        }
+        if !sm.ordered && (pa[0].y - pb[0].y).abs() > (pa[0].y - pb[pb.len() - 1].y).abs() {
+            pb.reverse();
+        }
+        let (on_a, on_b) = (along(&copies[sm.a].panel, &pa, step), along(&copies[sm.b].panel, &pb, step));
+        let (few, many, swap) = if on_a.len() <= on_b.len() { (&on_a, &on_b, false) } else { (&on_b, &on_a, true) };
+        // In order along the run, each partner taken once: the next one not taken that is
+        // nearest along it.
+        let mut next = 0;
+        for &(t, i) in few {
+            while next + 1 < many.len() && (many[next + 1].0 - t).abs() <= (many[next].0 - t).abs() {
+                next += 1;
+            }
+            let Some(&(_, j)) = many.get(next) else { break };
+            next += 1;
+            let (x, y) = if swap { (j, i) } else { (i, j) };
+            let (u, v) = (x + cloth.starts[sm.a], y + cloth.starts[sm.b]);
+            // A dart's point is one particle, sewn to nothing.
+            if u != v {
+                cloth.sew(u, v);
+            }
+        }
+    }
+    // Forty rounds of corrections a substep at the default precision, more the finer it is (the
+    // cloth gets softer the more particles there are): fewer let a ring of cloth stretch round
+    // the hips and slide off (at ten, a skirt that fits fell to the floor).
+    let iterations = (40.0 * (20.0 / step).powi(2)).round() as usize;
+    let darts = seams.iter().filter(|s| s.ordered).count();
+    Ok(Setup { cloth, avatar, steps, iterations, waist, pieces: parts.len(), darts })
+}
+
+fn make(s: &mut Session, p: &Value) -> Result<Value> {
+    let mut setup = setup(s, p)?;
+    setup.run(&mut |_| true);
+    finish(s, p, setup)
+}
+
+/// The draped cloth's measures, files and drawing (see `drape.make`).
+pub(crate) fn finish(s: &mut Session, p: &Value, setup: Setup) -> Result<Value> {
+    const C: &str = "drape.make";
+    let Setup { cloth, avatar, waist, pieces, darts, .. } = setup;
     let (top, hem) = cloth.positions.iter().fold((f64::NEG_INFINITY, f64::INFINITY), |(t, h), q| (t.max(q[2]), h.min(q[2])));
     let r1 = |v: f64| (v * 10.0).round() / 10.0;
     let mut out = json!({
-        "pieces": order.len(),
+        "pieces": pieces,
+        "darts": darts,
         "particles": cloth.positions.len(),
         "top": r1(top),
         "hem": r1(hem),

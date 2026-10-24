@@ -30,12 +30,14 @@ fn the_avatar_is_drawn_front_and_side_at_true_scale() {
     assert!(e.contains("bust"), "{e}");
     let mut s = measured();
     let r = s.execute("avatar.draw", &json!({"origin": [0, 0]})).unwrap();
-    // The base of the neck is the waist 410 up, the waist 1040 above the ankle bone, the ankle
-    // bone the survey's 63 (scaled by 410 / 416) above the floor: the drawing runs from the neck
+    // The base of the neck is the waist 410 up the back (a little less straight up), the waist
+    // 1040 above the ankle bone, the ankle bone the survey's 63 (scaled by the body's height from
+    // the waist to the nape over the survey's 416) above the floor: the drawing runs from the neck
     // to the ankle.
     let height = r["heightMm"].as_f64().unwrap();
-    let ankle = 63.0 * 410.0 / 416.0;
-    assert!((height - (1040.0 + ankle + 410.0)).abs() < 0.05, "{r}");
+    let rise = 410.0 * pf_core::avatar::BACK_RISE;
+    let ankle = 63.0 * rise / 416.0;
+    assert!((height - (1040.0 + ankle + rise)).abs() < 0.05, "{r}");
     let doc = &s.doc().unwrap().doc;
     let bounds = |id: &serde_json::Value| match &doc.node(NodeId(id.as_u64().unwrap())).unwrap().kind {
         NodeKind::Path { path, .. } => path.bounds().unwrap(),
@@ -43,13 +45,17 @@ fn the_avatar_is_drawn_front_and_side_at_true_scale() {
     };
     let (front, side) = (bounds(&r["front"]), bounds(&r["side"]));
     for b in [front, side] {
-        assert!((pt_to_mm(b.height()) - (1040.0 + 410.0)).abs() < 1e-6, "{b:?}");
+        assert!((pt_to_mm(b.height()) - (1040.0 + 410.0 * pf_core::avatar::BACK_RISE)).abs() < 1e-6, "{b:?}");
     }
-    // Front, as broad as the hips (an ellipse 960 round, 0.658 as deep as broad); from the side
-    // as deep as the bust or the hips, whichever is deeper.
+    // From the side as deep as the bust or the hips, whichever is deeper.
     let hip = pf_core::avatar::Ring { name: "hip", z: 0.0, x: 0.0, girth: 960.0, depth_ratio: 0.658 }.semi_axes();
     let bust = pf_core::avatar::Ring { name: "bust", z: 0.0, x: 0.0, girth: 880.0, depth_ratio: 0.918 }.semi_axes();
-    assert!((pt_to_mm(front.width()) - 2.0 * hip.0).abs() < 1e-6, "{}", pt_to_mm(front.width()));
+    // Front, out to the arms: the wrists hang furthest out (the A pose).
+    let body = pf_core::avatar::Body { bust: 880.0, waist: 680.0, hip: 960.0, nape_to_waist: 410.0, waist_to_hip: 200.0, ..Default::default() };
+    let a = pf_core::avatar::avatar(&body).unwrap();
+    let reach = a.arms.iter().flatten().map(|r| r.x.abs() + r.semi_axes().0).fold(0.0, f64::max);
+    assert!(reach > hip.0);
+    assert!((pt_to_mm(front.width()) - 2.0 * reach).abs() < 1e-6, "{}", pt_to_mm(front.width()));
     assert!((pt_to_mm(side.width()) - 2.0 * bust.1.max(hip.1)).abs() < 1e-6, "{}", pt_to_mm(side.width()));
     assert!(side.x0 > front.x1, "side by side");
     // Drawn again it replaces the last; undone, it goes.
@@ -70,7 +76,7 @@ fn the_avatar_exports_as_an_obj_mesh() {
     assert_eq!(obj.lines().filter(|l| l.starts_with("f ")).count(), f);
     // In metres, y up: the highest point is the base of the neck, 1.5 m or so up.
     let top = obj.lines().filter_map(|l| l.strip_prefix("v ")).filter_map(|l| l.split(' ').nth(1)?.parse::<f64>().ok()).fold(0.0, f64::max);
-    assert!((top - (1040.0 + 63.0 * 410.0 / 416.0 + 410.0) / 1000.0).abs() < 1e-4, "{top}");
+    assert!((top - (1040.0 + 63.0 * 410.0 * pf_core::avatar::BACK_RISE / 416.0 + 410.0 * pf_core::avatar::BACK_RISE) / 1000.0).abs() < 1e-4, "{top}");
     let dir = std::env::temp_dir().join(format!("pf-avatar-{}", std::process::id()));
     std::fs::create_dir_all(&dir).unwrap();
     let path = dir.join("me.obj");
@@ -92,7 +98,13 @@ fn the_avatar_exports_as_gltf() {
     let pos = acc(&prim["attributes"]["POSITION"]);
     assert_eq!(pos["count"].as_u64(), r["vertices"].as_u64());
     assert_eq!(acc(&prim["indices"])["count"].as_u64().unwrap(), r["triangles"].as_u64().unwrap() * 3);
-    assert!((pos["max"][1].as_f64().unwrap() - (1040.0 + 63.0 * 410.0 / 416.0 + 410.0) / 1000.0).abs() < 1e-4, "{pos}");
+    assert!(
+        (pos["max"][1].as_f64().unwrap()
+            - (1040.0 + 63.0 * 410.0 * pf_core::avatar::BACK_RISE / 416.0 + 410.0 * pf_core::avatar::BACK_RISE) / 1000.0)
+            .abs()
+            < 1e-4,
+        "{pos}"
+    );
     // Counter-clockwise seen from outside: the body encloses a positive volume.
     let view = |a: &serde_json::Value| {
         let v = &gltf["bufferViews"][a["bufferView"].as_u64().unwrap() as usize];
