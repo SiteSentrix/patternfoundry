@@ -657,6 +657,24 @@ is built on, plus a pattern mode, the way StitchFoundry adds embroidery:
   1 in `tests_pieces.rs` (the panel's list and its button). Not yet: picking the two runs on the
   canvas, the labels drawn on the pieces, a block's seams sewn when it is drafted, grade rules
   (which also name anchors) kept on their points when anchors are added.
+- 2026-10-24, **PF-10.3** (first part): the cloth simulation's core, `pf_core::cloth`. A piece's
+  outline becomes a panel: a particle at every grid point `step` apart inside it, linked to its
+  neighbours (stretch), its cells' diagonals (shear) and its neighbours but one (bending), each
+  link as long as on the pattern. Panels are placed in 3D by any function of the pattern's
+  points, sewn particle to particle, and draped by position-based dynamics (Müller, Heidelberger,
+  Hennix and Ratcliff, "Position Based Dynamics", VRIPHYS 2006,
+  https://matthias-research.github.io/pages/publications/posBasedDyn.pdf): each step moves the
+  particles by their velocity (a little damped) and gravity, then corrects them a few times over:
+  the links to their lengths (light woven cloth by default: stretch 1, shear 0.6, bend 0.05),
+  sewn particles together, and every particle out of the body. Held particles keep the others
+  within their distance on the pattern (long-range attachments: Kim, Chentanez and Müller, SCA
+  2012, https://matthias-research.github.io/pages/publications/sca2012cloth.pdf), without which
+  cloth hanging from two corners stretched 76% at ten iterations a step. The avatar is a
+  collider: a point inside the torso or a leg, as the rings are at its height, goes out to the
+  surface 2 mm clear. Tests: 4 in `pf-core` (a square and an L made panels; cloth held at two
+  corners sags 250 mm and stretches under 6%; two panels sewn into a tube hang round a post,
+  outside it, their seams closed to 3 mm; the avatar pushing points out of its waist and a leg).
+  Next: the document's pieces draped on the avatar (a skirt first), then the drape view.
 - 2026-10-24, **PF-1.5**: the pattern commands' messages translated, and the Pattern menu's
   name. The 186 messages the pattern commands (blocks, design tools, pieces, markers, grading,
   measurements) and their drafting give when they can't do what was asked ("select a drafted
