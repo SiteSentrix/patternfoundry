@@ -5722,3 +5722,9 @@ menu	Pattern	Patron
 @msg	format: "obj" or "glb"	format : "obj" ou "glb"
 @msg	a piece could not be placed on the body	une pièce n’a pas pu être placée sur le corps
 @msg	{name} is already open	{name} est déjà ouvert
+@msg	Draping on Avatar	Tombé sur l’avatar
+	Step {n} of {total}	Étape {n} sur {total}
+@msg	The drape was cancelled	Le tombé a été annulé
+@msg	Draped on the avatar	Tombé sur l’avatar terminé
+@msg	the document was closed	le document a été fermé
+@msg	the drape stopped	le tombé s’est arrêté

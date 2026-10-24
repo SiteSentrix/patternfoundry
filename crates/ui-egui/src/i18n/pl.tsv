@@ -5576,3 +5576,9 @@ menu	Pattern	Wykrój
 @msg	format: "obj" or "glb"	format: "obj" lub "glb"
 @msg	a piece could not be placed on the body	nie udało się umieścić części wykroju na ciele
 @msg	{name} is already open	{name} jest już otwarty
+@msg	Draping on Avatar	Układanie na awatarze
+	Step {n} of {total}	Krok {n} z {total}
+@msg	The drape was cancelled	Układanie anulowano
+@msg	Draped on the avatar	Ułożono na awatarze
+@msg	the document was closed	dokument został zamknięty
+@msg	the drape stopped	układanie zostało przerwane

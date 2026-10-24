@@ -5318,3 +5318,9 @@ menu	Pattern	Rập
 @msg	format: "obj" or "glb"	format: "obj" hoặc "glb"
 @msg	a piece could not be placed on the body	không thể đặt một mảnh rập lên cơ thể
 @msg	{name} is already open	{name} đã được mở
+@msg	Draping on Avatar	Đang cho vải rủ lên hình nhân
+	Step {n} of {total}	Bước {n}/{total}
+@msg	The drape was cancelled	Đã hủy cho vải rủ
+@msg	Draped on the avatar	Đã cho vải rủ lên hình nhân
+@msg	the document was closed	tài liệu đã bị đóng
+@msg	the drape stopped	việc cho vải rủ đã dừng

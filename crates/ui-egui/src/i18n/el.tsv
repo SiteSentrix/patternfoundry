@@ -5675,3 +5675,9 @@ menu	Pattern	Πατρόν
 @msg	format: "obj" or "glb"	format: "obj" ή "glb"
 @msg	a piece could not be placed on the body	ένα κομμάτι δεν μπόρεσε να τοποθετηθεί στο σώμα
 @msg	{name} is already open	Το {name} είναι ήδη ανοιχτό
+@msg	Draping on Avatar	Πτώση στο άβαταρ
+	Step {n} of {total}	Βήμα {n} από {total}
+@msg	The drape was cancelled	Η πτώση ακυρώθηκε
+@msg	Draped on the avatar	Η πτώση στο άβαταρ ολοκληρώθηκε
+@msg	the document was closed	το έγγραφο έκλεισε
+@msg	the drape stopped	η πτώση σταμάτησε

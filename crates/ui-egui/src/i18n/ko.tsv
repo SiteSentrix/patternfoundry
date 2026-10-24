@@ -5301,3 +5301,9 @@ menu	Pattern	패턴
 @msg	format: "obj" or "glb"	format: "obj" 또는 "glb"
 @msg	a piece could not be placed on the body	패턴 조각을 몸에 놓을 수 없습니다
 @msg	{name} is already open	{name}이(가) 이미 열려 있습니다
+@msg	Draping on Avatar	아바타에 드레이프하는 중
+	Step {n} of {total}	{total}단계 중 {n}단계
+@msg	The drape was cancelled	드레이프가 취소되었습니다
+@msg	Draped on the avatar	아바타에 드레이프했습니다
+@msg	the document was closed	문서가 닫혔습니다
+@msg	the drape stopped	드레이프가 중단되었습니다

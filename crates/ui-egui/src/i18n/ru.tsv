@@ -5334,3 +5334,9 @@ menu	Pattern	Выкройка
 @msg	format: "obj" or "glb"	format: "obj" или "glb"
 @msg	a piece could not be placed on the body	не удалось разместить деталь на теле
 @msg	{name} is already open	{name} уже открыт
+@msg	Draping on Avatar	Драпировка на аватаре
+	Step {n} of {total}	Шаг {n} из {total}
+@msg	The drape was cancelled	Драпировка отменена
+@msg	Draped on the avatar	Драпировка на аватаре готова
+@msg	the document was closed	документ был закрыт
+@msg	the drape stopped	драпировка остановилась

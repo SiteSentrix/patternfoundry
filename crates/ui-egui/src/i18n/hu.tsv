@@ -5709,3 +5709,9 @@ menu	Pattern	Szabásminta
 @msg	format: "obj" or "glb"	format: "obj" vagy "glb"
 @msg	a piece could not be placed on the body	egy szabásmintadarabot nem sikerült a testre helyezni
 @msg	{name} is already open	{name} már meg van nyitva
+@msg	Draping on Avatar	Esés az avataron
+	Step {n} of {total}	{n}. lépés / {total}
+@msg	The drape was cancelled	Az esés megszakadt
+@msg	Draped on the avatar	Esés az avataron kész
+@msg	the document was closed	a dokumentumot bezárták
+@msg	the drape stopped	az esés leállt

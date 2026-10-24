@@ -5631,3 +5631,9 @@ menu	Pattern	თარგი
 @msg	format: "obj" or "glb"	format: "obj" ან "glb"
 @msg	a piece could not be placed on the body	ნაწილის სხეულზე განთავსება ვერ მოხერხდა
 @msg	{name} is already open	{name} უკვე გახსნილია
+@msg	Draping on Avatar	ავატარზე დრაპირება
+	Step {n} of {total}	ნაბიჯი {n} / {total}
+@msg	The drape was cancelled	დრაპირება გაუქმდა
+@msg	Draped on the avatar	ავატარზე დრაპირება დასრულდა
+@msg	the document was closed	დოკუმენტი დაიხურა
+@msg	the drape stopped	დრაპირება შეწყდა

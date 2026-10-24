@@ -5687,3 +5687,9 @@ menu	Pattern	Кройка
 @msg	format: "obj" or "glb"	format: "obj" или "glb"
 @msg	a piece could not be placed on the body	част от кройката не можа да бъде поставена върху тялото
 @msg	{name} is already open	{name} вече е отворен
+@msg	Draping on Avatar	Драпиране върху аватара
+	Step {n} of {total}	Стъпка {n} от {total}
+@msg	The drape was cancelled	Драпирането беше отменено
+@msg	Draped on the avatar	Драпирано върху аватара
+@msg	the document was closed	документът беше затворен
+@msg	the drape stopped	драпирането спря

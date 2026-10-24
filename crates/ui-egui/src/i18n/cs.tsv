@@ -5723,3 +5723,9 @@ menu	Pattern	Střih
 @msg	format: "obj" or "glb"	format: "obj" nebo "glb"
 @msg	a piece could not be placed on the body	díl se nepodařilo umístit na tělo
 @msg	{name} is already open	{name} je už otevřen
+@msg	Draping on Avatar	Splývání na avatarovi
+	Step {n} of {total}	Krok {n} z {total}
+@msg	The drape was cancelled	Splývání bylo zrušeno
+@msg	Draped on the avatar	Splývání na avatarovi hotovo
+@msg	the document was closed	dokument byl zavřen
+@msg	the drape stopped	splývání se zastavilo

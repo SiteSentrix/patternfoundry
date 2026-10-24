@@ -20,7 +20,7 @@ pub(crate) mod distortcmds;
 mod docinfo;
 mod docmenu;
 pub(crate) mod docsetup;
-mod drape;
+pub mod drape;
 mod draw2;
 mod edit;
 mod effectcmd;
