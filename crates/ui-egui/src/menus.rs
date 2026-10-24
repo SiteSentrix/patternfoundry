@@ -2791,6 +2791,7 @@ pub fn menu_tree_named(english_names: bool) -> Vec<(&'static str, Vec<Item>)> {
                 c("Grade Nest", "grade.nest"),
                 c("Clear Graded Nest", "grade.clear"),
                 c("Projector View", "ui.projector"),
+                c("Draw Avatar", "avatar.draw"),
                 cp(
                     "Make Marker…",
                     "marker.make",

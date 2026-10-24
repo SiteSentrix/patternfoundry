@@ -5287,3 +5287,5 @@ menu	Pattern	Schnitt
 @msg	too many sizes at once	zu viele Größen auf einmal
 @msg	unit: "mm", "cm" or "in"	unit: "mm", "cm" oder "in"
 @msg	width: mm, more than 0	width: mm, mehr als 0
+	Draw Avatar	Avatar zeichnen
+	Export Avatar as OBJ	Avatar als OBJ exportieren

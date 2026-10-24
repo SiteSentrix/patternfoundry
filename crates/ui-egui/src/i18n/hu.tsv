@@ -5691,3 +5691,5 @@ menu	Pattern	Szabásminta
 @msg	too many sizes at once	túl sok méret egyszerre
 @msg	unit: "mm", "cm" or "in"	unit: "mm", "cm" vagy "in"
 @msg	width: mm, more than 0	width: mm, 0-nál több
+	Draw Avatar	Avatar rajzolása
+	Export Avatar as OBJ	Avatar exportálása OBJ-ként

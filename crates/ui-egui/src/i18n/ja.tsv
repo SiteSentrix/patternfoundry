@@ -5360,3 +5360,5 @@ menu	Pattern	型紙
 @msg	too many sizes at once	一度に扱えるサイズの数を超えています
 @msg	unit: "mm", "cm" or "in"	unit: "mm"、"cm"、"in" のいずれか
 @msg	width: mm, more than 0	width: mm、0 より大きい値
+	Draw Avatar	アバターを描画
+	Export Avatar as OBJ	アバターを OBJ で書き出し

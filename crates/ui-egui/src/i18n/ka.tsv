@@ -5613,3 +5613,5 @@ menu	Pattern	თარგი
 @msg	too many sizes at once	ერთდროულად ზედმეტად ბევრი ზომაა
 @msg	unit: "mm", "cm" or "in"	unit: "mm", "cm" ან "in"
 @msg	width: mm, more than 0	width: მმ, 0-ზე მეტი
+	Draw Avatar	ავატარის დახატვა
+	Export Avatar as OBJ	ავატარის ექსპორტი OBJ-ად

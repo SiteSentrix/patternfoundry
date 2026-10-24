@@ -5661,3 +5661,5 @@ menu	Pattern	Mönster
 @msg	too many sizes at once	för många storlekar på en gång
 @msg	unit: "mm", "cm" or "in"	unit: "mm", "cm" eller "in"
 @msg	width: mm, more than 0	width: mm, mer än 0
+	Draw Avatar	Rita avatar
+	Export Avatar as OBJ	Exportera avatar som OBJ

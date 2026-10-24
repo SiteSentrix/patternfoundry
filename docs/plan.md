@@ -614,6 +614,36 @@ is built on, plus a pattern mode, the way StitchFoundry adds embroidery:
   `tests_design.rs` (the bodice block's shoulder bust dart ended 25 mm short of the bust point,
   the waist dart's point at the same bust point kept, one undo step). Not yet: curved dart legs, the
   new point dragged on the canvas.
+- 2026-10-24, **PF-10 plan** (the 3D fit preview, in parts, all in Rust and wasm-safe, from public
+  sources only): **PF-10.1** an avatar from the measurements (this entry); **PF-10.2** sewing
+  lines: which edges of which pieces are sewn together (the walked seams of PF-5's truing, kept
+  on the pieces), shown on the pattern; **PF-10.3** cloth simulation: each piece triangulated at
+  its true size, placed round the avatar, its seams pulled together and draped by gravity
+  (position-based dynamics: stretch and bend constraints, collision with the avatar's rings),
+  a skirt first; **PF-10.4** the drape view: the draped garment drawn beside the 2D pattern with
+  the existing 3D shading (`vectorcraft-three-d`), turned with the mouse, tight places shown in
+  colour; **PF-10.5** glTF export of the avatar and the draped garment for game and 3D artists.
+- 2026-10-24, **PF-10.1**: an avatar from the measurements. **Pattern › Draw Avatar**
+  (`avatar.draw`) draws the body the document's measurements make, front and side at true scale,
+  on the layer "Avatar" below the pattern (drawn again it replaces it); `avatar.exportObj`
+  writes its mesh as a Wavefront OBJ file (metres, y up) for 3D software. The body
+  (`pf_core::avatar`) is lofted through elliptic cross-sections at the neck, bust, waist, hips and
+  crotch and each leg's thigh, knee, calf and ankle, each exactly as long round as its girth
+  (Ramanujan's perimeter) and as deep as the U.S. Army's ANSUR II survey of 1,986 women finds the
+  body there (public data,
+  https://ph.health.mil/topics/workplacehealth/ergo/Pages/Anthropometric-Database.aspx; its
+  means: the chest 0.918 as deep as broad, the waist 0.709, the hips 0.658; the leg's girths as
+  shares of the hips; the heights of the landmarks, scaled by the nape to waist). It needs bust,
+  waist, hip, nape_to_waist and waist_to_hip, and uses neck, crotch_depth, waist_to_knee and
+  waist_to_ankle where the set has them. The survey's waist is at the navel, below a
+  dressmaker's waist, so without a crotch depth the crotch is put the survey's 52 mm below the
+  fullest part of the hips rather than measured from the waist. Measurements stay personal: the
+  avatar is drawn and exported only when asked, and never logged. Tests: 3 in `pf-core` (each
+  ring's girth to a hundred-thousandth and its depth; the heights in order, the survey's woman's
+  waist at 980; given lengths used; a closed mesh facing out; the OBJ), 2 in `tests_avatar.rs`
+  (the drawing's height and breadths at true scale, side by side, replaced, undone; the OBJ as
+  text and as a file). Not yet: arms and a head, the bust's shape (an ellipse is flatter than a
+  bust), a menu item for the OBJ export.
 - 2026-10-24, **PF-1.5**: the pattern commands' messages translated, and the Pattern menu's
   name. The 186 messages the pattern commands (blocks, design tools, pieces, markers, grading,
   measurements) and their drafting give when they can't do what was asked ("select a drafted

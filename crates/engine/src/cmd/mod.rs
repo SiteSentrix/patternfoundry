@@ -3,6 +3,7 @@
 pub(crate) mod appearance;
 mod assets;
 mod attributes;
+mod avatar;
 pub(crate) mod block;
 mod brushsym;
 mod buildcmds;
@@ -221,6 +222,7 @@ pub fn command_specs() -> &'static [CommandSpec] {
         v.extend(block::specs());
         v.extend(design::specs());
         v.extend(grade::specs());
+        v.extend(avatar::specs());
         v.extend(marker::specs());
         v.extend(object::specs());
         v.extend(path::specs());

@@ -5558,3 +5558,5 @@ menu	Pattern	Wykrój
 @msg	too many sizes at once	za dużo rozmiarów naraz
 @msg	unit: "mm", "cm" or "in"	unit: "mm", "cm" lub "in"
 @msg	width: mm, more than 0	width: mm, więcej niż 0
+	Draw Avatar	Narysuj awatara
+	Export Avatar as OBJ	Eksportuj awatara jako OBJ

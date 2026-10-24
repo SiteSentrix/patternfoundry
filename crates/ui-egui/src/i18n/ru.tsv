@@ -5316,3 +5316,5 @@ menu	Pattern	Выкройка
 @msg	too many sizes at once	слишком много размеров за раз
 @msg	unit: "mm", "cm" or "in"	unit: "mm", "cm" или "in"
 @msg	width: mm, more than 0	width: мм, больше 0
+	Draw Avatar	Нарисовать аватар
+	Export Avatar as OBJ	Экспортировать аватар в OBJ

@@ -5320,3 +5320,5 @@ menu	Pattern	Cartamodello
 @msg	too many sizes at once	troppe taglie alla volta
 @msg	unit: "mm", "cm" or "in"	unit: "mm", "cm" o "in"
 @msg	width: mm, more than 0	width: mm, più di 0
+	Draw Avatar	Disegna avatar
+	Export Avatar as OBJ	Esporta avatar come OBJ

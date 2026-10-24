@@ -5688,3 +5688,5 @@ menu	Pattern	Pola
 @msg	too many sizes at once	terlalu banyak ukuran sekaligus
 @msg	unit: "mm", "cm" or "in"	unit: "mm", "cm" atau "in"
 @msg	width: mm, more than 0	width: mm, lebih dari 0
+	Draw Avatar	Gambar avatar
+	Export Avatar as OBJ	Ekspor avatar sebagai OBJ

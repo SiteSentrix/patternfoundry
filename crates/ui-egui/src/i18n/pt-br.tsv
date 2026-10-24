@@ -5623,3 +5623,5 @@ menu	Pattern	Molde
 @msg	too many sizes at once	tamanhos demais de uma vez
 @msg	unit: "mm", "cm" or "in"	unit: "mm", "cm" ou "in"
 @msg	width: mm, more than 0	width: mm, mais de 0
+	Draw Avatar	Desenhar avatar
+	Export Avatar as OBJ	Exportar avatar como OBJ

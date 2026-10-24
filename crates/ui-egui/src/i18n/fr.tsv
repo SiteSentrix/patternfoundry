@@ -5704,3 +5704,5 @@ menu	Pattern	Patron
 @msg	too many sizes at once	trop de tailles à la fois
 @msg	unit: "mm", "cm" or "in"	unit: "mm", "cm" ou "in"
 @msg	width: mm, more than 0	width: mm, plus de 0
+	Draw Avatar	Dessiner l'avatar
+	Export Avatar as OBJ	Exporter l'avatar en OBJ
