@@ -30,3 +30,8 @@ its own). Left: the seams pull particles a grid step inside a slanted side toget
 
 **Ruled out.** The avatar's rings (heights and girths checked in `pf-core`'s avatar tests), the
 seam pairing's direction (the probe shows the seams closed).
+
+**Follow-up (the seam gap).** The particles at the grid's edge are now moved onto the outline
+(within a step, a quarter step apart): the skirt's widest seam gap went from 12 mm to 2 mm and its
+worst stretch from 41% to 7%. It now hangs 652 mm from its top (the cloth reaches its hem line,
+and lengthens a few per cent under its weight), where it hung about 600 with its edges a step in.
