@@ -5297,3 +5297,5 @@ menu	Pattern	Schnitt
 	Unsew Seams	Nähte trennen
 	Sewn Seams	Genähte Nähte
 	Drape on Avatar	Auf Avatar drapieren
+@msg	the drape view's picture is the wrong size	das Bild der Fallansicht hat die falsche Größe
+@msg	the drape view: {e}	die Fallansicht: {e}

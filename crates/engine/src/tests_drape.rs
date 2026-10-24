@@ -60,3 +60,38 @@ fn draping_needs_sewn_pieces_and_the_measurements() {
     let mut s = skirt();
     assert!(s.execute("drape.make", &json!({"precision": 1})).is_err());
 }
+
+/// The drape view (PF-10.4): the avatar and the draped skirt as two pictures at true scale on the
+/// layer "Drape", the front's and the side's, replaced when draped again and gone on undo.
+#[test]
+fn the_drape_is_drawn_front_and_side_at_true_scale() {
+    let mut s = skirt();
+    let r = s.execute("drape.make", &json!({"precision": 25, "steps": 30, "origin": [0, 0]})).unwrap();
+    let doc = &s.doc().unwrap().doc;
+    let image = |id: &serde_json::Value| match &doc.node(NodeId(id.as_u64().unwrap())).unwrap().kind {
+        vectorcraft_doc::NodeKind::Image(im) => (**im).clone(),
+        _ => panic!("an image"),
+    };
+    let (front, side) = (image(&r["front"]), image(&r["side"]));
+    // 2 mm a pixel, at true scale on the page.
+    for im in [&front, &side] {
+        assert!((im.xf.as_coeffs()[0] - mm_to_pt(2.0)).abs() < 1e-9 && (im.xf.as_coeffs()[3] - mm_to_pt(2.0)).abs() < 1e-9);
+        assert!(doc.images.contains_key(&im.key));
+    }
+    // From the front as broad as the skirt's hem or the body, whichever is broader (some
+    // hundreds of mm); from the side as tall: the neck to the ankle.
+    let fw = front.width as f64 * 2.0;
+    assert!((300.0..1200.0).contains(&fw), "{fw}");
+    assert_eq!(front.height, side.height);
+    assert!(side.xf.as_coeffs()[4] > front.xf.as_coeffs()[4] + mm_to_pt(fw), "side by side");
+    assert!(r["tightest"].as_f64().is_some(), "{r}");
+    // Draped again it replaces the last; undone, the earlier one is back; not drawn when asked.
+    s.execute("drape.make", &json!({"precision": 25, "steps": 5})).unwrap();
+    let layers = |s: &Session| s.doc().unwrap().doc.layers.iter().filter(|l| l.name.as_deref() == Some("Drape")).count();
+    assert_eq!(layers(&s), 1);
+    s.execute("edit.undo", &json!({})).unwrap();
+    s.execute("edit.undo", &json!({})).unwrap();
+    assert_eq!(layers(&s), 0);
+    let r = s.execute("drape.make", &json!({"precision": 25, "steps": 5, "draw": false})).unwrap();
+    assert!(r.get("layer").is_none() && layers(&s) == 0);
+}

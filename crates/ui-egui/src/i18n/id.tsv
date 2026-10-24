@@ -5698,3 +5698,5 @@ menu	Pattern	Pola
 	Unsew Seams	Lepas Jahitan
 	Sewn Seams	Jahitan Tersambung
 	Drape on Avatar	Drape pada avatar
+@msg	the drape view's picture is the wrong size	gambar tampilan jatuhan kain berukuran salah
+@msg	the drape view: {e}	tampilan jatuhan kain: {e}

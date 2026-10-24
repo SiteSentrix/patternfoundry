@@ -5740,3 +5740,5 @@ menu	Pattern	Patroon
 	Unsew Seams	Naden lostornen
 	Sewn Seams	Gestikte naden
 	Drape on Avatar	Op avatar draperen
+@msg	the drape view's picture is the wrong size	de afbeelding van de valweergave heeft de verkeerde grootte
+@msg	the drape view: {e}	de valweergave: {e}

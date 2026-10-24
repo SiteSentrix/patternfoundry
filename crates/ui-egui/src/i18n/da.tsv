@@ -5698,3 +5698,5 @@ menu	Pattern	Mønster
 	Unsew Seams	Sprät sømme op
 	Sewn Seams	Syede sømme
 	Drape on Avatar	Drapér på avatar
+@msg	the drape view's picture is the wrong size	draperingsvisningens billede har forkert størrelse
+@msg	the drape view: {e}	draperingsvisningen: {e}

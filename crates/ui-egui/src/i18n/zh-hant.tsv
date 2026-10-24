@@ -5347,3 +5347,5 @@ menu	Pattern	紙型
 	Unsew Seams	拆開縫線
 	Sewn Seams	已縫合的縫線
 	Drape on Avatar	在人台上懸垂
+@msg	the drape view's picture is the wrong size	垂墜檢視的圖片尺寸不對
+@msg	the drape view: {e}	垂墜檢視：{e}

@@ -11,8 +11,9 @@ use vectorcraft_doc::{Document, NodeKind};
 use vectorcraft_geom::kurbo::ParamCurveArclen;
 use vectorcraft_geom::{Point, SubPath};
 
-/// The default distance between particles, mm.
-const STEP_MM: f64 = 15.0;
+/// The default distance between particles, mm: finer needs many more corrections a step to hold
+/// the cloth's length (a skirt at 10 mm and the same 40 slid off), and takes longer.
+const STEP_MM: f64 = 20.0;
 /// The default number of steps, a sixtieth of a second each: four seconds of falling.
 const STEPS: usize = 240;
 
@@ -22,7 +23,7 @@ pub fn specs() -> Vec<CommandSpec> {
         "Drape on Avatar",
         [],
         None,
-        "{ids? (the pieces; default every piece sewn to another, piece.sew), precision?: mm (15, the distance between the cloth's particles, 5 to 50), steps? (240: four seconds of falling, 1 to 2000), path? (an .obj file to write the draped cloth to)} wrap the sewn pieces round the avatar (see avatar.draw) at the waist, in the order they are sewn, the first at the front, and let them fall onto it as light woven cloth; pieces are taken as drawn upright, their waist at the top → {pieces, particles, top (mm above the floor: the highest the cloth hangs), hem (mm: its lowest), waist (mm: the avatar's), worstStretch (%), widestSeam (mm), path?}",
+        "{ids? (the pieces; default every piece sewn to another, piece.sew), precision?: mm (20, the distance between the cloth's particles, 15 to 50), steps? (240: four seconds of falling, 1 to 2000), path? (an .obj file to write the draped cloth to), draw?: true (the drape view: the avatar and the draped cloth as pictures seen from the front and the left side, at true scale, the cloth coloured blue where it is loose, green, and red where it is 10% or more larger than cut, on the layer \"Drape\", drawn again it replaces it; false: none), origin?: [x, y] (document points: the front view's top-left; default right of the art)} wrap the sewn pieces round the avatar (see avatar.draw) at the waist, in the order they are sewn, the first at the front, and let them fall onto it as light woven cloth; pieces are taken as drawn upright, their waist at the top → {pieces, particles, top (mm above the floor: the highest the cloth hangs), hem (mm: its lowest), waist (mm: the avatar's), worstStretch (%), widestSeam (mm), path?, layer?, front?, side?, tightest (%: the most a triangle of cloth is larger than cut)}",
         has_doc,
         make
     )]
@@ -91,7 +92,7 @@ fn make(s: &mut Session, p: &Value) -> Result<Value> {
     const C: &str = "drape.make";
     let step = match p.get("precision") {
         None | Some(Value::Null) => STEP_MM,
-        Some(v) => super::piece::mm_param(v).filter(|m| (5.0..=50.0).contains(m)).ok_or_else(|| bad(C, "precision: 5 to 50 mm"))?,
+        Some(v) => super::piece::mm_param(v).filter(|m| (15.0..=50.0).contains(m)).ok_or_else(|| bad(C, "precision: 15 to 50 mm"))?,
     };
     let steps = match p.get("steps") {
         None | Some(Value::Null) => STEPS,
@@ -203,10 +204,12 @@ fn make(s: &mut Session, p: &Value) -> Result<Value> {
             }
         }
     }
-    // Four substeps a sixtieth of a second, forty rounds of corrections each: fewer let a ring of
-    // cloth stretch round the hips and slide off (at ten, a skirt that fits fell to the floor).
+    // Four substeps a sixtieth of a second, forty rounds of corrections each at the default
+    // precision, more the finer it is (the cloth gets softer the more particles there are): fewer
+    // let a ring of cloth stretch round the hips and slide off (at ten, a skirt that fits fell to
+    // the floor).
     for _ in 0..steps * 4 {
-        cloth.step(1.0 / 240.0, 40, &avatar);
+        cloth.step(1.0 / 240.0, (40.0 * (20.0 / step).powi(2)).round() as usize, &avatar);
     }
     let (top, hem) = cloth.positions.iter().fold((f64::NEG_INFINITY, f64::INFINITY), |(t, h), q| (t.max(q[2]), h.min(q[2])));
     let r1 = |v: f64| (v * 10.0).round() / 10.0;
@@ -224,5 +227,92 @@ fn make(s: &mut Session, p: &Value) -> Result<Value> {
         super::fileio::write_file(path, pf_core::avatar::to_obj(&mesh, "drape").as_bytes())?;
         out["path"] = json!(path);
     }
+    let tight = cloth.tightness();
+    out["tightest"] = json!(r1(tight.iter().copied().fold(0.0, f64::max) * 100.0));
+    if p.get("draw").and_then(Value::as_bool) != Some(false) {
+        let (layer, front, side) = draw_views(s, p, &avatar, &cloth, &tight)?;
+        out["layer"] = json!(layer.0);
+        out["front"] = json!(front.0);
+        out["side"] = json!(side.0);
+    }
     Ok(out)
+}
+
+/// The layer the drape view is drawn on.
+const LAYER: &str = "Drape";
+/// The drape view's pixel, mm: fine enough to see folds at true scale on the page.
+const PIXEL_MM: f64 = 2.0;
+
+/// A picture as PNG.
+fn png(pic: &pf_core::view3d::Picture) -> Result<Vec<u8>> {
+    let img = image::RgbaImage::from_raw(pic.width, pic.height, pic.rgba.clone())
+        .ok_or_else(|| EngineError::Other("the drape view's picture is the wrong size".into()))?;
+    let mut buf = Vec::new();
+    img.write_to(&mut std::io::Cursor::new(&mut buf), image::ImageFormat::Png).map_err(|e| EngineError::Other(format!("the drape view: {e}")))?;
+    Ok(buf)
+}
+
+/// Draw the avatar and the draped cloth seen from the front and the left side, side by side at
+/// true scale, on the layer "Drape" (replacing it): → (layer, front, side).
+fn draw_views(s: &mut Session, p: &Value, avatar: &pf_core::avatar::Avatar, cloth: &Cloth, tight: &[f64]) -> Result<(NodeId, NodeId, NodeId)> {
+    use pf_core::view3d::{Shape, Side, draw, tightness_colour};
+    const C: &str = "drape.make";
+    let skin = vec![[214u8, 192, 170]; avatar.mesh.triangles.len()];
+    let colours: Vec<[u8; 3]> = tight.iter().map(|t| tightness_colour(*t)).collect();
+    let shapes = [
+        Shape { points: &avatar.mesh.vertices, triangles: &avatar.mesh.triangles, colours: &skin },
+        Shape { points: &cloth.positions, triangles: &cloth.triangles, colours: &colours },
+    ];
+    let (front, side) = (draw(&shapes, Side::Front, PIXEL_MM), draw(&shapes, Side::Left, PIXEL_MM));
+    let (Some(front), Some(side)) = (front, side) else { return Err(bad(C, "nothing to draw")) };
+    let doc = &s.doc()?.doc;
+    let origin = match p.get("origin") {
+        None | Some(Value::Null) => {
+            let b = doc.art_bounds();
+            let at = doc.artboards.first().map_or(Point::ZERO, |ab| ab.rect.origin());
+            Point::new(b.map_or(at.x, |b| b.x1) + pf_core::mm_to_pt(100.0), b.map_or(at.y, |b| b.y0))
+        }
+        Some(v) => {
+            let [x, y] = finite_numbers::<2>(v).ok_or_else(|| bad(C, "origin: [x, y] in document points"))?;
+            Point::new(x, y)
+        }
+    };
+    let (fpng, spng) = (png(&front)?, png(&side)?);
+    // The side view 100 mm right of the front view; both from the same height (their tops are
+    // the same point of the body), so they line up across.
+    let side_x = pf_core::mm_to_pt(front.width as f64 * front.mm + 100.0);
+    let dy = pf_core::mm_to_pt(front.top - side.top);
+    s.edit("Drape on Avatar", |d, sel| {
+        d.layers.retain(|l| l.name.as_deref() != Some(LAYER));
+        let image = |d: &mut Document, pic: &pf_core::view3d::Picture, bytes: Vec<u8>, at: Point, name: &str| {
+            let key = super::menucmds::unique_key(d, "drape");
+            d.images.insert(key.clone(), vectorcraft_doc::ImageBlob::new("image/png", bytes));
+            let k = pf_core::mm_to_pt(pic.mm);
+            let xf = vectorcraft_geom::Affine::new([k, 0.0, 0.0, k, at.x, at.y]);
+            let mut n = vectorcraft_doc::Node::new(
+                d.alloc_id(),
+                NodeKind::Image(Box::new(vectorcraft_doc::ImageObject {
+                    key,
+                    width: pic.width,
+                    height: pic.height,
+                    xf,
+                    link: None,
+                    placement: Default::default(),
+                })),
+            );
+            n.name = Some(name.into());
+            n
+        };
+        let f = image(d, &front, fpng.clone(), origin, "Drape front");
+        let sd = image(d, &side, spng.clone(), Point::new(origin.x + side_x, origin.y + dy), "Drape side");
+        let ids = (f.id, sd.id);
+        let mut l = vectorcraft_doc::Node::layer(d.alloc_id(), LAYER, vectorcraft_doc::LayerColor::Preset(4));
+        let id = l.id;
+        if let Some(ch) = l.children_mut() {
+            *ch = vec![std::sync::Arc::new(f), std::sync::Arc::new(sd)];
+        }
+        d.layers.push(std::sync::Arc::new(l));
+        sel.set([ids.0, ids.1]);
+        Ok((id, ids.0, ids.1))
+    })
 }

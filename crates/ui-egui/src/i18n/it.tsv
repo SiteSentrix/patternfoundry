@@ -5330,3 +5330,5 @@ menu	Pattern	Cartamodello
 	Unsew Seams	Separa cuciture
 	Sewn Seams	Cuciture unite
 	Drape on Avatar	Drappeggia sull'avatar
+@msg	the drape view's picture is the wrong size	l'immagine della vista della caduta ha la dimensione sbagliata
+@msg	the drape view: {e}	la vista della caduta: {e}

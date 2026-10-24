@@ -38,6 +38,7 @@ pub mod marks;
 pub mod measure;
 pub mod piece;
 pub mod tiling;
+pub mod view3d;
 
 pub use allowance::{Outline, cutting_line};
 pub use piece::{Corner, Drill, Grainline, Mark, Notch, NotchKind, PatternTag, Piece, Sewn};

@@ -703,6 +703,23 @@ is built on, plus a pattern mode, the way StitchFoundry adds embroidery:
   more in `pf-core` (a trapezoid's edge particles on its outline, none outside it, the particle
   nearest a point of the slanted side on it), the skirt's test bounds tightened (seams within
   5 mm, stretch under 15%; it hangs 580 to 680 mm, a few per cent long under its weight).
+- 2026-10-24, **PF-10.4**: the drape view. **Pattern › Drape on Avatar** (`drape.make`, now
+  `draw: true` by default) drapes the sewn pieces and draws the avatar and the draped cloth as two
+  pictures on the layer "Drape" (draped again it replaces it): seen from the front and from the
+  left side, side by side, at true scale (2 mm a pixel). `pf_core::view3d` draws them: each
+  triangle lit by a light over the viewer's shoulder, the nearer in front (a depth buffer), the
+  cloth coloured by how tight it is (`Cloth::tightness`: a triangle's area over its area on the
+  pattern; blue at its cut size or looser, green half way, red at 10% larger or more, the way fit
+  software shows strain). The result also says the tightest a triangle is (%). Also: the grid
+  cells a slanted side cuts across get the triangle of their three corners inside (the cloth was
+  missing a sawtooth along such sides, the body showing through at the seam), the stretch and
+  tightness leave out the short links and slivers at the edge, the default precision is 20 mm
+  (finer to 15), the corrections a step grow as (20 / precision)². The debugging is at the end of
+  `docs/debug-logs/2026-10-24-skirt-falls-off.md`. Tests: 2 in `pf-core` (`view3d`: a square at
+  its true size, the nearer of two in front; blue, green, red), 1 in `tests_drape.rs` (both views
+  at 2 mm a pixel, side by side, the same height; replaced, undone, not drawn when asked). Not
+  yet: turning the view round with the mouse, the drape running in the background (it holds the
+  app for some seconds), bodices and sleeves.
 - 2026-10-24, **PF-1.5**: the pattern commands' messages translated, and the Pattern menu's
   name. The 186 messages the pattern commands (blocks, design tools, pieces, markers, grading,
   measurements) and their drafting give when they can't do what was asked ("select a drafted

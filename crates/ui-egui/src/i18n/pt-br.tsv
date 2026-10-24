@@ -5633,3 +5633,5 @@ menu	Pattern	Molde
 	Unsew Seams	Separar costuras
 	Sewn Seams	Costuras unidas
 	Drape on Avatar	Drapear no avatar
+@msg	the drape view's picture is the wrong size	a imagem da vista do caimento tem o tamanho errado
+@msg	the drape view: {e}	a vista do caimento: {e}

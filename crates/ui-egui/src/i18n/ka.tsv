@@ -5623,3 +5623,5 @@ menu	Pattern	თარგი
 	Unsew Seams	ნაკერების დაშლა
 	Sewn Seams	შეკერილი ნაკერები
 	Drape on Avatar	ავატარზე დრაპირება
+@msg	the drape view's picture is the wrong size	დრაპირების ხედის სურათს არასწორი ზომა აქვს
+@msg	the drape view: {e}	დრაპირების ხედი: {e}

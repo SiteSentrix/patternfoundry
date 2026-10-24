@@ -5714,3 +5714,5 @@ menu	Pattern	Patron
 	Unsew Seams	Désassembler les coutures
 	Sewn Seams	Coutures assemblées
 	Drape on Avatar	Draper sur l'avatar
+@msg	the drape view's picture is the wrong size	l'image de la vue du tombé n'a pas la bonne taille
+@msg	the drape view: {e}	la vue du tombé : {e}
