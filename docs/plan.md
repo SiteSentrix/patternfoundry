@@ -675,6 +675,25 @@ is built on, plus a pattern mode, the way StitchFoundry adds embroidery:
   corners sags 250 mm and stretches under 6%; two panels sewn into a tube hang round a post,
   outside it, their seams closed to 3 mm; the avatar pushing points out of its waist and a leg).
   Next: the document's pieces draped on the avatar (a skirt first), then the drape view.
+- 2026-10-24, **PF-10.3** (second part): pieces draped on the avatar, a skirt first.
+  `drape.make {ids?, precision?: 15 mm, steps?: 240, path?}` wraps the pieces sewn together
+  (`piece.sew`) round the avatar at the waist, in the order they are sewn and the first at the
+  front, each row of cloth round a circle as long round as the pieces are wide together at that
+  height (the outline's own width there, so the sewn sides start together and nothing starts
+  stretched); pairs each seam's two runs by height on the pattern (pieces drawn upright), and lets
+  the cloth fall four seconds as light woven cloth, four substeps a sixtieth of a second with 40
+  rounds of corrections each. The collider now pushes cloth out along the body's surface normal
+  (it leans up where the body widens downward, and holds a skirt up) and cloth that touches the
+  body keeps a fifth of its sliding (friction). It reports where the cloth hangs (its top and hem
+  against the avatar's waist), the worst stretch and the widest seam gap, and writes the draped
+  cloth as an OBJ file. The debugging is in `docs/debug-logs/2026-10-24-skirt-falls-off.md`.
+  Tests: 2 in `tests_drape.rs` (an A-line skirt 720 round at the waist and 1013 at the hips on a
+  body of 680 and 960 settles within 60 mm below the waist and hangs its 600 mm; the OBJ; no
+  measurements, no sewn pieces and a bad precision refused), the collider's test (onto the surface,
+  pushed up on the slope from the waist to the hips). Not yet: particles on the outline itself
+  (a seam pulls particles a grid step inside a slanted side together: a 12 mm gap, one link 41%
+  stretched there), a drape's speed (about an eighth of a second a step at precision 15 in a test build: half a minute for the default four seconds),
+  bodices and sleeves (placed round the torso and arms), a menu item (with the drape view).
 - 2026-10-24, **PF-1.5**: the pattern commands' messages translated, and the Pattern menu's
   name. The 186 messages the pattern commands (blocks, design tools, pieces, markers, grading,
   measurements) and their drafting give when they can't do what was asked ("select a drafted

@@ -96,7 +96,7 @@ pub fn specs() -> Vec<CommandSpec> {
             "Sew Seams",
             [],
             None,
-            "{a: {id (a piece, or its seam line), from: anchor, to: anchor}, b: {id, from, to} (the two runs of seam line that are sewn together, each from anchor from forward to anchor to along its seam line, from the ends that meet), label? (default the next free letter)} record that the two runs are sewn together (for the 3D fit preview): each piece keeps its run with the label, and it follows the seam line when anchors are added → {label, a (mm), b (mm), difference (mm, a less b)}",
+            "{a: {id (a piece, or its seam line), from: anchor, to: anchor}, b: {id, from, to} (the two runs of seam line that are sewn together, each from anchor from forward to anchor to along its seam line; when draped, their ends are matched by height on the pattern, as the pieces are drawn upright), label? (default the next free letter)} record that the two runs are sewn together (for the 3D fit preview): each piece keeps its run with the label, and it follows the seam line when anchors are added → {label, a (mm), b (mm), difference (mm, a less b)}",
             has_doc,
             sew
         ),
@@ -428,7 +428,7 @@ fn nearest_edge(sp: &SubPath, q: Point) -> Option<(usize, f64, f64)> {
 }
 
 /// The point `at` of the way along edge `e` of `sp` by length.
-fn point_along(sp: &SubPath, e: usize, at: f64) -> Option<Point> {
+pub(crate) fn point_along(sp: &SubPath, e: usize, at: f64) -> Option<Point> {
     use vectorcraft_geom::kurbo::{ParamCurve, ParamCurveArclen};
     if e >= sp.segment_count() {
         return None;
@@ -915,7 +915,7 @@ fn run_mm(doc: &Document, id: NodeId, from: usize, to: usize) -> f64 {
 }
 
 /// Every sewn run in `doc`: (label, piece, its name, from, to).
-fn sewn_runs(doc: &Document) -> Vec<(String, NodeId, String, usize, usize)> {
+pub(crate) fn sewn_runs(doc: &Document) -> Vec<(String, NodeId, String, usize, usize)> {
     let mut out = Vec::new();
     doc.walk(|n| {
         if let Some(pc) = piece_on(n) {
@@ -1066,7 +1066,7 @@ fn inside_cut(s: &Session, id: NodeId, q: Pt) -> bool {
     inside
 }
 
-fn seam_of(doc: &Document, id: NodeId) -> Option<Arc<Node>> {
+pub(crate) fn seam_of(doc: &Document, id: NodeId) -> Option<Arc<Node>> {
     doc.node(id)?.children()?.iter().find(|c| mark_of(c) == Some(Mark::Seam)).cloned()
 }
 

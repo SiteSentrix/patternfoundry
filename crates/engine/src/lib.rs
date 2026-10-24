@@ -2105,6 +2105,8 @@ mod tests_distort;
 #[cfg(test)]
 mod tests_docsetup;
 #[cfg(test)]
+mod tests_drape;
+#[cfg(test)]
 mod tests_draw2;
 #[cfg(test)]
 mod tests_editcolors;

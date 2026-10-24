@@ -208,19 +208,58 @@ fn out_of(p: [f64; 3], x: f64, a: f64, b: f64, margin: f64) -> [f64; 3] {
     [x + dx * s, dy * s, p[2]]
 }
 
+/// How far inside the body made of `rings` (top to bottom) point `p` is: its distance from the
+/// middle as a share of the way out to the surface, less 1 (`< 0` inside; nearly linear across
+/// the surface, so Newton's steps on it don't overshoot), of the rings' shape at its height grown
+/// by `margin`, or None above or below it.
+fn inside_by(rings: &[Ring], p: [f64; 3], margin: f64) -> Option<f64> {
+    rings
+        .windows(2)
+        .find_map(|w| between(&w[0], &w[1], p[2]))
+        .map(|(x, a, b)| (((p[0] - x) / (a + margin)).powi(2) + (p[1] / (b + margin)).powi(2)).sqrt() - 1.0)
+}
+
+/// `p` moved out of the body made of `rings` along the surface's normal (where the body widens
+/// downward, as from the waist to the hips, the normal leans up, and holds cloth up): Newton
+/// steps on the ellipse function, its slope up and down taken across 1 mm.
+fn out_of_body(rings: &[Ring], p: [f64; 3], margin: f64) -> [f64; 3] {
+    let mut q = p;
+    for _ in 0..4 {
+        let Some(f) = inside_by(rings, q, margin).filter(|f| *f < 0.0) else { break };
+        let h = 0.5;
+        let g = |i: usize| {
+            let (mut lo, mut hi) = (q, q);
+            lo[i] -= h;
+            hi[i] += h;
+            match (inside_by(rings, lo, margin), inside_by(rings, hi, margin)) {
+                (Some(a), Some(b)) => (b - a) / (2.0 * h),
+                _ => 0.0,
+            }
+        };
+        let grad = [g(0), g(1), g(2)];
+        let n2 = grad[0] * grad[0] + grad[1] * grad[1] + grad[2] * grad[2];
+        if n2 < 1e-18 {
+            break;
+        }
+        // To the surface and a hair past it.
+        let s = -(f - 1e-9) / n2;
+        q = [q[0] + grad[0] * s, q[1] + grad[1] * s, q[2] + grad[2] * s];
+    }
+    // Still inside (at the very middle, or where the slope can't be taken): out sideways.
+    match inside_by(rings, q, margin) {
+        Some(f) if f < 0.0 => rings.windows(2).find_map(|w| between(&w[0], &w[1], q[2])).map_or(q, |(x, a, b)| out_of(q, x, a, b, margin)),
+        _ => q,
+    }
+}
+
 impl Collider for Avatar {
-    /// Out of the torso and either leg, as the rings between them are at the point's height, 2 mm
-    /// clear (the cloth's thickness and a little air).
+    /// Out of the torso and either leg, along the surface as the rings shape it, 2 mm clear (the
+    /// cloth's thickness and a little air).
     fn push_out(&self, p: [f64; 3]) -> [f64; 3] {
         const MARGIN: f64 = 2.0;
         let mut q = p;
         for rings in [&self.torso, &self.legs[0], &self.legs[1]] {
-            for w in rings.windows(2) {
-                if let Some((x, a, b)) = between(&w[0], &w[1], q[2]) {
-                    q = out_of(q, x, a, b, MARGIN);
-                    break;
-                }
-            }
+            q = out_of_body(rings, q, MARGIN);
         }
         q
     }
@@ -250,7 +289,13 @@ pub struct Cloth {
     /// <https://matthias-research.github.io/pages/publications/sca2012cloth.pdf>), so cloth that
     /// hangs doesn't stretch however few the iterations.
     tethers: Vec<(u32, u32, f64)>,
+    /// Particles the body pushed this step (for friction).
+    touching: Vec<bool>,
 }
+
+/// How much of its sliding a particle touching the body loses each step (cloth on skin, or on
+/// the cloth under it: it grips).
+pub const FRICTION: f64 = 0.8;
 
 impl Cloth {
     /// Cloth of `panels`, each placed in 3D by its function from a point on the pattern to a
@@ -266,6 +311,7 @@ impl Cloth {
             triangles: Vec::new(),
             pattern: Vec::new(),
             tethers: Vec::new(),
+            touching: Vec::new(),
         };
         for (k, (panel, place)) in panels.iter().enumerate() {
             let start = c.positions.len() as u32;
@@ -284,6 +330,7 @@ impl Cloth {
             c.triangles.extend(panel.triangles.iter().map(|t| t.map(|i| i + start)));
         }
         c.previous = c.positions.clone();
+        c.touching = vec![false; c.positions.len()];
         c
     }
 
@@ -342,8 +389,20 @@ impl Cloth {
             }
             for i in 0..self.positions.len() {
                 if self.weight[i] > 0.0 {
-                    self.positions[i] = body.push_out(self.positions[i]);
+                    let q = body.push_out(self.positions[i]);
+                    if q != self.positions[i] {
+                        self.touching[i] = true;
+                    }
+                    self.positions[i] = q;
                 }
+            }
+        }
+        // Friction: cloth that touched the body keeps only a little of how it was sliding (its
+        // previous place moved most of the way to where it is now).
+        for i in 0..self.positions.len() {
+            if std::mem::take(&mut self.touching[i]) {
+                let (p, q) = (self.positions[i], self.previous[i]);
+                self.previous[i] = [q[0] + (p[0] - q[0]) * FRICTION, q[1] + (p[1] - q[1]) * FRICTION, q[2] + (p[2] - q[2]) * FRICTION];
             }
         }
     }
@@ -504,16 +563,24 @@ mod tests {
         .unwrap();
         let waist = a.torso[2];
         let (wa, _) = waist.semi_axes();
-        // A point at the waist's middle comes out to the front, 2 mm clear; one beside the waist
-        // out to the side; one well clear stays.
-        let q = a.push_out([0.0, 0.0, waist.z]);
-        assert!(q[1] > 0.0 && q[0].abs() < 1e-9);
-        let side = a.push_out([wa * 0.5, 0.0, waist.z]);
-        assert!((side[0] - (wa + 2.0)).abs() < 1e-9, "{side:?}");
+        // Points inside the waist and a knee come out onto the surface, 2 mm clear, further from
+        // the middle than they were; one well clear stays.
+        // Out, and within about a millimetre of the surface (a Newton step may go a hair past).
+        let on = |rings: &[Ring], q: [f64; 3]| inside_by(rings, q, 2.0).is_some_and(|f| (-1e-9..0.02).contains(&f));
+        for p in [[0.0, 0.0, waist.z], [wa * 0.5, 0.0, waist.z], [0.0, -30.0, waist.z - 50.0]] {
+            let q = a.push_out(p);
+            assert!(on(&a.torso, q), "{p:?} {q:?}");
+            assert!(q[0].hypot(q[1]) > p[0].hypot(p[1]));
+        }
         assert_eq!(a.push_out([wa + 50.0, 0.0, waist.z]), [wa + 50.0, 0.0, waist.z]);
-        // Below the crotch, inside a leg: out of the leg.
         let knee = a.legs[0][1];
         let k = a.push_out([knee.x, 0.0, knee.z]);
-        assert!((k[1] - (knee.semi_axes().1 + 2.0)).abs() < 1e-9, "{k:?}");
+        assert!(on(&a.legs[0], k), "{k:?}");
+        // Where the body widens downward (the waist to the hips), cloth is pushed up as well as
+        // out: the surface holds it.
+        let hip = a.torso[3];
+        let mid = (waist.z + hip.z) / 2.0;
+        let q = a.push_out([0.0, 50.0, mid]);
+        assert!(q[2] > mid, "{q:?}");
     }
 }
