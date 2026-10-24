@@ -41,7 +41,7 @@ pub fn specs() -> Vec<CommandSpec> {
 }
 
 /// The avatar of `doc`'s measurements.
-fn avatar_of(doc: &Document, cmd: &str) -> Result<Avatar> {
+pub(crate) fn avatar_of(doc: &Document, cmd: &str) -> Result<Avatar> {
     let mut env = doc.measurements.as_deref().map(pf_core::measure::Measurements::env).unwrap_or_default();
     let mut need = |name: &'static str| -> Result<f64> {
         env.value(name).ok().filter(|v| *v > 0.0).ok_or_else(|| bad(cmd, pf_core::avatar::AvatarError::Measurement(name).to_string()))

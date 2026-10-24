@@ -20,6 +20,7 @@ pub(crate) mod distortcmds;
 mod docinfo;
 mod docmenu;
 pub(crate) mod docsetup;
+mod drape;
 mod draw2;
 mod edit;
 mod effectcmd;
@@ -223,6 +224,7 @@ pub fn command_specs() -> &'static [CommandSpec] {
         v.extend(design::specs());
         v.extend(grade::specs());
         v.extend(avatar::specs());
+        v.extend(drape::specs());
         v.extend(marker::specs());
         v.extend(object::specs());
         v.extend(path::specs());
