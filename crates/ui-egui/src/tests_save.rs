@@ -158,7 +158,7 @@ fn a_document_reopens_at_its_saved_view() {
     // Moving around afterwards isn't an edit.
     app.view_mut().unwrap().zoom = 0.5;
     assert!(!app.session.active().unwrap().is_dirty());
-    io::open_path(&mut app, &path).unwrap();
+    io::reopen(&mut app, &path).unwrap();
     let v = *app.view().unwrap();
     assert_eq!((v.zoom, v.center, v.rotation, v.fitted), (3.0, Point::new(70.0, 40.0), 30.0, true));
     // A document without a saved view is fitted on first display.
@@ -228,4 +228,40 @@ fn native_saves_stream_into_the_file() {
     assert!(!app.session.doc().unwrap().is_dirty(), "the file is the document's own");
     assert_eq!(*streamed.lock().unwrap(), [native]);
     let _ = std::fs::remove_dir_all(&d);
+}
+
+/// Opening a file that is already open shows its tab instead of opening a second copy: two tabs
+/// of one file would each save over the other's changes. The same file named another way (with
+/// `..` in its path) is the same file.
+#[test]
+fn opening_an_open_file_shows_its_tab() {
+    let d = dir("open-once");
+    let path = d.join("a.vectorcraft").to_string_lossy().to_string();
+    let mut app = app();
+    app.run("file.new", json!({"width": 100, "height": 100})).unwrap();
+    rect(&mut app);
+    app.run("file.saveAs", json!({"path": path})).unwrap();
+    // Unsaved work in it, and another document in front.
+    rect(&mut app);
+    let work = objects(&app);
+    app.run("file.new", json!({"width": 50, "height": 50})).unwrap();
+    assert_eq!(app.session.documents().len(), 2);
+    let r = io::open_path(&mut app, &path).unwrap();
+    assert_eq!(r["alreadyOpen"], json!(true));
+    assert_eq!(app.session.documents().len(), 2, "no second copy");
+    assert_eq!(app.session.active_index(), Some(0));
+    assert_eq!(objects(&app), work, "the unsaved work is still there");
+    assert_eq!(app.ui.status, "a.vectorcraft is already open");
+    let other = d.join("sub").join("..").join("a.vectorcraft");
+    std::fs::create_dir_all(d.join("sub")).unwrap();
+    app.run("document.activate", json!({"index": 1})).unwrap();
+    app.run("file.open", json!({"path": other.to_string_lossy()})).unwrap();
+    assert_eq!((app.session.documents().len(), app.session.active_index()), (2, Some(0)));
+    // Closed, it opens again.
+    app.session.execute("file.close", &json!({"index": 0})).unwrap();
+    app.sync_views();
+    let before = app.session.documents().len();
+    io::open_path(&mut app, &path).unwrap();
+    assert_eq!(app.session.documents().len(), before + 1);
+    let _ = std::fs::remove_dir_all(d);
 }

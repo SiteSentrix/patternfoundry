@@ -449,7 +449,7 @@ mod tests {
         std::fs::create_dir_all(doc.parent().unwrap()).unwrap();
         app.run("document.save", json!({"path": doc})).unwrap();
         std::fs::remove_dir_all(root.join("orig")).unwrap();
-        crate::io::open_path(app, &doc.to_string_lossy()).unwrap();
+        crate::io::reopen(app, &doc.to_string_lossy()).unwrap();
         files
     }
 
@@ -653,7 +653,7 @@ mod tests {
         std::fs::create_dir_all(doc.parent().unwrap()).unwrap();
         app.run("document.save", json!({"path": doc})).unwrap();
         std::fs::remove_dir_all(root.join("orig")).unwrap();
-        crate::io::open_path(&mut app, &doc.to_string_lossy()).unwrap();
+        crate::io::reopen(&mut app, &doc.to_string_lossy()).unwrap();
         super::super::cancel(&mut app);
         app.run("ui.findLinksInFolder", json!({"folder": root.join("found")})).unwrap();
         searched(&mut app);
