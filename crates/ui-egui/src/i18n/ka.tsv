@@ -5615,3 +5615,10 @@ menu	Pattern	თარგი
 @msg	width: mm, more than 0	width: მმ, 0-ზე მეტი
 	Draw Avatar	ავატარის დახატვა
 	Export Avatar as OBJ	ავატარის ექსპორტი OBJ-ად
+	Sewn seams: {count}	შეკერილი ნაკერები: {count}
+	{label}: sewn to {piece}, {mm} mm longer	{label}: შეკერილია {piece}-თან, {mm} მმ-ით გრძელი
+	{label}: sewn to {piece}, {mm} mm shorter	{label}: შეკერილია {piece}-თან, {mm} მმ-ით მოკლე
+	{label}: sewn to {piece}	{label}: შეკერილია {piece}-თან
+	Sew Seams	ნაკერების შეკერვა
+	Unsew Seams	ნაკერების დაშლა
+	Sewn Seams	შეკერილი ნაკერები

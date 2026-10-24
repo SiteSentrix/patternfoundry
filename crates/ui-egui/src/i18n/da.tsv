@@ -5690,3 +5690,10 @@ menu	Pattern	Mønster
 @msg	width: mm, more than 0	width: mm, over 0
 	Draw Avatar	Tegn avatar
 	Export Avatar as OBJ	Eksportér avatar som OBJ
+	Sewn seams: {count}	Syede sømme: {count}
+	{label}: sewn to {piece}, {mm} mm longer	{label}: syet til {piece}, {mm} mm længere
+	{label}: sewn to {piece}, {mm} mm shorter	{label}: syet til {piece}, {mm} mm kortere
+	{label}: sewn to {piece}	{label}: syet til {piece}
+	Sew Seams	Sy sømme sammen
+	Unsew Seams	Sprät sømme op
+	Sewn Seams	Syede sømme

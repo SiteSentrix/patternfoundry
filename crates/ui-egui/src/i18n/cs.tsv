@@ -5707,3 +5707,10 @@ menu	Pattern	Střih
 @msg	width: mm, more than 0	width: mm, více než 0
 	Draw Avatar	Nakreslit avatara
 	Export Avatar as OBJ	Exportovat avatara jako OBJ
+	Sewn seams: {count}	Sešité švy: {count}
+	{label}: sewn to {piece}, {mm} mm longer	{label}: sešito s {piece}, o {mm} mm delší
+	{label}: sewn to {piece}, {mm} mm shorter	{label}: sešito s {piece}, o {mm} mm kratší
+	{label}: sewn to {piece}	{label}: sešito s {piece}
+	Sew Seams	Sešít švy
+	Unsew Seams	Rozpárat švy
+	Sewn Seams	Sešité švy

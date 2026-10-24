@@ -5732,3 +5732,10 @@ menu	Pattern	Patroon
 @msg	width: mm, more than 0	width: mm, meer dan 0
 	Draw Avatar	Avatar tekenen
 	Export Avatar as OBJ	Avatar exporteren als OBJ
+	Sewn seams: {count}	Gestikte naden: {count}
+	{label}: sewn to {piece}, {mm} mm longer	{label}: aan {piece} gestikt, {mm} mm langer
+	{label}: sewn to {piece}, {mm} mm shorter	{label}: aan {piece} gestikt, {mm} mm korter
+	{label}: sewn to {piece}	{label}: aan {piece} gestikt
+	Sew Seams	Naden aan elkaar stikken
+	Unsew Seams	Naden lostornen
+	Sewn Seams	Gestikte naden

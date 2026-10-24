@@ -5302,3 +5302,10 @@ menu	Pattern	Rập
 @msg	width: mm, more than 0	width: mm, lớn hơn 0
 	Draw Avatar	Vẽ hình nhân
 	Export Avatar as OBJ	Xuất hình nhân dạng OBJ
+	Sewn seams: {count}	Đường may đã nối: {count}
+	{label}: sewn to {piece}, {mm} mm longer	{label}: may với {piece}, dài hơn {mm} mm
+	{label}: sewn to {piece}, {mm} mm shorter	{label}: may với {piece}, ngắn hơn {mm} mm
+	{label}: sewn to {piece}	{label}: may với {piece}
+	Sew Seams	May nối đường may
+	Unsew Seams	Tháo đường may
+	Sewn Seams	Đường may đã nối

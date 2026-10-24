@@ -286,3 +286,38 @@ fn edge_data_follows_the_seam_line_when_it_gains_an_anchor() {
     s.execute("edit.undo", &json!({})).unwrap();
     assert_eq!(s.execute("piece.info", &json!({"id": g.0})).unwrap(), before);
 }
+
+/// Seams sewn together (PF-10.2): each piece keeps its run with the label, the lengths compared,
+/// the runs following an anchor added to the seam line, and forgotten again.
+#[test]
+fn seams_are_sewn_by_label_and_follow_the_seam_line() {
+    let (mut s, rect) = square();
+    let a = make(&mut s, json!({"name": "Front"}));
+    let r = s.execute("shape.rectangle", &json!({"x": cm10() * 2.0, "y": 0, "width": cm10(), "height": cm10() * 1.2})).unwrap();
+    let b = NodeId(s.execute("piece.make", &json!({"ids": [r["id"]], "name": "Back"})).unwrap()["ids"][0].as_u64().unwrap());
+    // The front's top edge (anchors 0 to 1) to the back's right edge (1 to 2): 100 against 120.
+    let r = s.execute("piece.sew", &json!({"a": {"id": a.0, "from": 0, "to": 1}, "b": {"id": b.0, "from": 1, "to": 2}})).unwrap();
+    assert_eq!(
+        (r["label"].clone(), r["a"].clone(), r["b"].clone(), r["difference"].clone()),
+        (json!("A"), json!(100.0), json!(120.0), json!(-20.0)),
+        "{r}"
+    );
+    let r = s.execute("piece.sew", &json!({"a": {"id": a.0, "from": 2, "to": 3}, "b": {"id": b.0, "from": 3, "to": 0}})).unwrap();
+    assert_eq!(r["label"], "B");
+    let seams = s.execute("piece.seams", &json!({})).unwrap();
+    assert_eq!(seams["seams"].as_array().unwrap().len(), 2, "{seams}");
+    assert_eq!(seams["seams"][0]["runs"][1]["name"], "Back");
+    // An anchor in the middle of the front's top: the run runs 0 to 2, as long.
+    s.execute("path.insertAnchor", &json!({"id": rect.0, "segment": 0, "t": 0.5})).unwrap();
+    let info = s.execute("piece.info", &json!({"id": a.0})).unwrap();
+    assert_eq!(info["sewn"][0], json!({"label": "A", "from": 0, "to": 2}), "{info}");
+    assert_eq!(info["sewn"][1], json!({"label": "B", "from": 3, "to": 4}), "{info}");
+    assert_eq!(s.execute("piece.seams", &json!({})).unwrap()["seams"][0]["runs"][0]["mm"], json!(100.0));
+    // Refused: the same run twice, an anchor past the end, a label in use; forgotten by label.
+    assert!(s.execute("piece.sew", &json!({"a": {"id": b.0, "from": 0, "to": 1}, "b": {"id": b.0, "from": 0, "to": 1}})).is_err());
+    assert!(s.execute("piece.sew", &json!({"a": {"id": a.0, "from": 0, "to": 9}, "b": {"id": b.0, "from": 0, "to": 1}})).is_err());
+    assert!(s.execute("piece.sew", &json!({"a": {"id": a.0, "from": 1, "to": 2}, "b": {"id": b.0, "from": 0, "to": 1}, "label": "A"})).is_err());
+    assert_eq!(s.execute("piece.unsew", &json!({"label": "A"})).unwrap()["runs"], json!(2));
+    assert_eq!(s.execute("piece.seams", &json!({})).unwrap()["seams"].as_array().unwrap().len(), 1);
+    assert!(s.execute("piece.unsew", &json!({"label": "A"})).is_err());
+}

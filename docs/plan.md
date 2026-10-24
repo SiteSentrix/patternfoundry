@@ -644,6 +644,19 @@ is built on, plus a pattern mode, the way StitchFoundry adds embroidery:
   (the drawing's height and breadths at true scale, side by side, replaced, undone; the OBJ as
   text and as a file). Not yet: arms and a head, the bust's shape (an ellipse is flatter than a
   bust), a menu item for the OBJ export.
+- 2026-10-24, **PF-10.2**: sewing lines, which seams are sewn together, for the 3D fit preview.
+  `piece.sew {a: {id, from, to}, b: {id, from, to}, label?}` records that two runs of seam line
+  are sewn together (each from one anchor forward to another, from the ends that meet) and gives
+  their lengths and the difference; `piece.seams` lists every pair by label; `piece.unsew {label}`
+  forgets one. Each piece keeps its own runs (`Piece.sewn`: the label and the run's anchors), so a
+  run follows its seam line when anchors are added or removed (PF-1.4), and the two halves of a
+  pair find each other by label (A, B… then A2…). The Pieces panel lists the selected piece's
+  sewn seams ("A: sewn to Back, 20 mm shorter") with a button to unsew. Tests: 1 in
+  `tests_piece.rs` (a 100 mm edge sewn to a 120 mm one: -20 mm; the next label; an anchor added
+  inside a run; the same run twice, an anchor past the end and a label in use refused; unsewn),
+  1 in `tests_pieces.rs` (the panel's list and its button). Not yet: picking the two runs on the
+  canvas, the labels drawn on the pieces, a block's seams sewn when it is drafted, grade rules
+  (which also name anchors) kept on their points when anchors are added.
 - 2026-10-24, **PF-1.5**: the pattern commands' messages translated, and the Pattern menu's
   name. The 186 messages the pattern commands (blocks, design tools, pieces, markers, grading,
   measurements) and their drafting give when they can't do what was asked ("select a drafted

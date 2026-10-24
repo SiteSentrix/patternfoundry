@@ -5318,3 +5318,10 @@ menu	Pattern	Выкройка
 @msg	width: mm, more than 0	width: мм, больше 0
 	Draw Avatar	Нарисовать аватар
 	Export Avatar as OBJ	Экспортировать аватар в OBJ
+	Sewn seams: {count}	Сшитые швы: {count}
+	{label}: sewn to {piece}, {mm} mm longer	{label}: сшит с «{piece}», длиннее на {mm} мм
+	{label}: sewn to {piece}, {mm} mm shorter	{label}: сшит с «{piece}», короче на {mm} мм
+	{label}: sewn to {piece}	{label}: сшит с «{piece}»
+	Sew Seams	Сшить швы
+	Unsew Seams	Распороть швы
+	Sewn Seams	Сшитые швы

@@ -92,6 +92,33 @@ pub fn specs() -> Vec<CommandSpec> {
             add_drill
         ),
         cmd!(
+            "piece.sew",
+            "Sew Seams",
+            [],
+            None,
+            "{a: {id (a piece, or its seam line), from: anchor, to: anchor}, b: {id, from, to} (the two runs of seam line that are sewn together, each from anchor from forward to anchor to along its seam line, from the ends that meet), label? (default the next free letter)} record that the two runs are sewn together (for the 3D fit preview): each piece keeps its run with the label, and it follows the seam line when anchors are added → {label, a (mm), b (mm), difference (mm, a less b)}",
+            has_doc,
+            sew
+        ),
+        cmd!(
+            "piece.unsew",
+            "Unsew Seams",
+            [],
+            None,
+            "{label} forget the seams sewn under that label (piece.seams lists them) → {label, runs (how many were removed)}",
+            has_doc,
+            unsew
+        ),
+        cmd!(
+            query "piece.seams",
+            "Sewn Seams",
+            [],
+            None,
+            "{} every pair of runs sewn together (piece.sew), by label → {seams: [{label, runs: [{piece, name, from, to, mm}], difference (mm, the first less the second)}]}",
+            has_doc,
+            seams
+        ),
+        cmd!(
             "piece.removeDrill",
             "Remove Drill Hole",
             [],
@@ -441,6 +468,10 @@ fn follow_seam(piece: &mut Piece, old: &PathData, new: &PathData) {
             piece.corners.insert(i, style);
         }
     }
+    // A sewn run's ends at the anchors in the same places; a run whose end went is dropped.
+    let at = |a: usize| o.anchors.get(a).and_then(|k| n.anchors.iter().position(|b| (b.p - k.p).hypot() <= near));
+    let sewn = std::mem::take(&mut piece.sewn);
+    piece.sewn = sewn.into_iter().filter_map(|r| Some(pf_core::Sewn { from: at(r.from)?, to: at(r.to)?, label: r.label })).collect();
     piece.fold = piece.fold.and_then(|f| {
         let on: Vec<usize> = (0..n.segment_count()).filter(|&e| mid(n, e).and_then(old_edge_of) == Some(f)).collect();
         match on[..] {
@@ -478,7 +509,7 @@ pub(crate) fn refresh(before: &Document, doc: &mut Document) -> Result<()> {
             let src = before.node(id).and_then(piece_on).cloned().unwrap_or_else(|| was.clone());
             let added: Vec<Notch> = was.notches.iter().filter(|n| !src.notches.contains(n)).copied().collect();
             let mut piece = was.clone();
-            (piece.notches, piece.edges, piece.corners, piece.fold) = (src.notches, src.edges, src.corners, src.fold);
+            (piece.notches, piece.edges, piece.corners, piece.fold, piece.sewn) = (src.notches, src.edges, src.corners, src.fold, src.sewn);
             follow_seam(&mut piece, &old, &new);
             piece.notches.extend(added);
             piece.notches.sort_by(|a, b| a.edge.cmp(&b.edge).then(a.at.total_cmp(&b.at)));
@@ -838,6 +869,151 @@ fn add_drill(s: &mut Session, p: &Value) -> Result<Value> {
         return Err(bad(CMD, "the point is not inside the piece"));
     }
     change(s, id, "Add Drill Hole", CMD, |piece| piece.add_drill(pf_core::Drill { at, diameter }).map_err(|e| err(CMD, e)))
+}
+
+/// A run param `{id, from, to}` of `piece.sew`: the piece and its anchors, checked against its
+/// seam line.
+fn run_param(s: &Session, p: &Value, key: &str, cmd: &str) -> Result<(NodeId, usize, usize)> {
+    let v = p.get(key).filter(|v| v.is_object()).ok_or_else(|| bad(cmd, format!("{key}: {{id, from: anchor, to: anchor}}")))?;
+    let id = one_piece(s, &json!({"id": v.get("id").cloned().unwrap_or(Value::Null)}), cmd)?;
+    let anchor = |k: &str| v.get(k).and_then(Value::as_u64).and_then(|a| usize::try_from(a).ok());
+    let (Some(from), Some(to)) = (anchor("from"), anchor("to")) else {
+        return Err(bad(cmd, format!("{key}: from and to, anchors of the seam line (from 0)")));
+    };
+    let n = seam_of(&s.doc()?.doc, id)
+        .and_then(|seam| match &seam.kind {
+            NodeKind::Path { path, .. } => path.subpaths.iter().find(|sp| sp.closed).map(|sp| sp.anchors.len()),
+            _ => None,
+        })
+        .unwrap_or(0);
+    if from >= n || to >= n || from == to {
+        return Err(bad(cmd, format!("{key}: two different anchors of the seam line, 0 to {}", n.saturating_sub(1))));
+    }
+    Ok((id, from, to))
+}
+
+/// The length along piece `id`'s seam line from anchor `from` forward to anchor `to`, in mm.
+fn run_mm(doc: &Document, id: NodeId, from: usize, to: usize) -> f64 {
+    use vectorcraft_geom::kurbo::ParamCurveArclen;
+    let Some(seam) = seam_of(doc, id) else { return 0.0 };
+    let NodeKind::Path { path, .. } = &seam.kind else { return 0.0 };
+    let Some(sp) = path.subpaths.iter().find(|sp| sp.closed) else { return 0.0 };
+    let n = sp.segment_count();
+    if n == 0 {
+        return 0.0;
+    }
+    let mut e = from % n;
+    let mut total = 0.0;
+    for _ in 0..n {
+        total += sp.segment(e).arclen(1e-6);
+        e = (e + 1) % n;
+        if e == to % n {
+            break;
+        }
+    }
+    pt_to_mm(total)
+}
+
+/// Every sewn run in `doc`: (label, piece, its name, from, to).
+fn sewn_runs(doc: &Document) -> Vec<(String, NodeId, String, usize, usize)> {
+    let mut out = Vec::new();
+    doc.walk(|n| {
+        if let Some(pc) = piece_on(n) {
+            for r in &pc.sewn {
+                out.push((r.label.clone(), n.id, pc.name.clone(), r.from, r.to));
+            }
+        }
+    });
+    out
+}
+
+fn sew(s: &mut Session, p: &Value) -> Result<Value> {
+    const CMD: &str = "piece.sew";
+    let (a, af, at) = run_param(s, p, "a", CMD)?;
+    let (b, bf, bt) = run_param(s, p, "b", CMD)?;
+    if a == b && (af, at) == (bf, bt) {
+        return Err(bad(CMD, "a and b are the same run: a seam is sewn to another"));
+    }
+    let doc = &s.doc()?.doc;
+    let used: std::collections::BTreeSet<String> = sewn_runs(doc).into_iter().map(|r| r.0).collect();
+    let label = match str_param(p, "label").map(str::trim) {
+        Some(l) if !l.is_empty() => {
+            if used.contains(l) {
+                return Err(bad(CMD, "label: already used by other seams (piece.unsew it first)"));
+            }
+            if l.chars().count() > 20 {
+                return Err(bad(CMD, "label: at most 20 characters"));
+            }
+            l.to_string()
+        }
+        _ => {
+            // A, B… Z, then A2, B2…
+            let letter = |i: usize| {
+                let c = char::from(b'A' + (i % 26) as u8);
+                if i < 26 { c.to_string() } else { format!("{c}{}", i / 26 + 1) }
+            };
+            (0..).map(letter).find(|l| !used.contains(l)).unwrap_or_default()
+        }
+    };
+    let (am, bm) = (run_mm(doc, a, af, at), run_mm(doc, b, bf, bt));
+    let runs = [(a, af, at), (b, bf, bt)];
+    s.edit("Sew Seams", |d, _| {
+        for (id, from, to) in runs {
+            let Some(mut piece) = d.node(id).and_then(piece_on).cloned() else { continue };
+            piece.sewn.push(pf_core::Sewn { label: label.clone(), from, to });
+            if let Some(n) = d.node_mut(id) {
+                n.extras_mut().pattern = Some(Box::new(PatternTag::Piece(Box::new(piece))));
+            }
+        }
+        Ok(())
+    })?;
+    let r2 = |v: f64| (v * 100.0).round() / 100.0;
+    Ok(json!({"label": label, "a": r2(am), "b": r2(bm), "difference": r2(am - bm)}))
+}
+
+fn unsew(s: &mut Session, p: &Value) -> Result<Value> {
+    const CMD: &str = "piece.unsew";
+    let label =
+        str_param(p, "label").map(str::trim).filter(|l| !l.is_empty()).ok_or_else(|| bad(CMD, "label: the seams' label (piece.seams)"))?.to_string();
+    let ids: Vec<NodeId> = sewn_runs(&s.doc()?.doc).into_iter().filter(|r| r.0 == label).map(|r| r.1).collect();
+    if ids.is_empty() {
+        return Err(bad(CMD, "no seams are sewn under that label"));
+    }
+    let count = s.edit("Unsew Seams", |d, _| {
+        let mut count = 0;
+        for id in &ids {
+            let Some(mut piece) = d.node(*id).and_then(piece_on).cloned() else { continue };
+            let before = piece.sewn.len();
+            piece.sewn.retain(|r| r.label != label);
+            count += before - piece.sewn.len();
+            if let Some(n) = d.node_mut(*id) {
+                n.extras_mut().pattern = Some(Box::new(PatternTag::Piece(Box::new(piece))));
+            }
+        }
+        Ok(count)
+    })?;
+    Ok(json!({"label": label, "runs": count}))
+}
+
+fn seams(s: &mut Session, _: &Value) -> Result<Value> {
+    let doc = &s.doc()?.doc;
+    let mut by: std::collections::BTreeMap<String, Vec<Value>> = std::collections::BTreeMap::new();
+    for (label, id, name, from, to) in sewn_runs(doc) {
+        let mm = (run_mm(doc, id, from, to) * 100.0).round() / 100.0;
+        by.entry(label).or_default().push(json!({"piece": id.0, "name": name, "from": from, "to": to, "mm": mm}));
+    }
+    let list: Vec<Value> = by
+        .into_iter()
+        .map(|(label, runs)| {
+            let mm = |i: usize| runs.get(i).and_then(|r| r["mm"].as_f64());
+            let difference = match (mm(0), mm(1)) {
+                (Some(a), Some(b)) => json!(((a - b) * 100.0).round() / 100.0),
+                _ => Value::Null,
+            };
+            json!({"label": label, "runs": runs, "difference": difference})
+        })
+        .collect();
+    Ok(json!({"seams": list}))
 }
 
 fn remove_drill(s: &mut Session, p: &Value) -> Result<Value> {

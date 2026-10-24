@@ -5706,3 +5706,10 @@ menu	Pattern	Patron
 @msg	width: mm, more than 0	width: mm, plus de 0
 	Draw Avatar	Dessiner l'avatar
 	Export Avatar as OBJ	Exporter l'avatar en OBJ
+	Sewn seams: {count}	Coutures assemblées : {count}
+	{label}: sewn to {piece}, {mm} mm longer	{label} : assemblé à {piece}, {mm} mm plus long
+	{label}: sewn to {piece}, {mm} mm shorter	{label} : assemblé à {piece}, {mm} mm plus court
+	{label}: sewn to {piece}	{label} : assemblé à {piece}
+	Sew Seams	Assembler les coutures
+	Unsew Seams	Désassembler les coutures
+	Sewn Seams	Coutures assemblées

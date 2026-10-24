@@ -130,6 +130,19 @@ pub struct Piece {
     /// Drill holes (PF-7.6), in the order they were added.
     #[serde(default, skip_serializing_if = "Vec::is_empty")]
     pub drills: Vec<Drill>,
+    /// Runs of the seam line sewn to another piece (PF-10.2), each with the label the run it is
+    /// sewn to has on that piece.
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub sewn: Vec<Sewn>,
+}
+
+/// A run of a piece's seam line sewn to a run of another (or the same) piece's: from anchor
+/// `from` forward to anchor `to`, sewn to the run with the same `label` ("A", "B"…).
+#[derive(Clone, Debug, PartialEq, Eq, Serialize, Deserialize)]
+pub struct Sewn {
+    pub label: String,
+    pub from: usize,
+    pub to: usize,
 }
 
 fn one() -> u32 {
@@ -155,6 +168,7 @@ impl Default for Piece {
             grade: Vec::new(),
             fold: None,
             drills: Vec::new(),
+            sewn: Vec::new(),
         }
     }
 }
@@ -264,6 +278,7 @@ impl Piece {
         self.corners.retain(|c, _| *c < edges);
         self.notches.retain(|n| n.edge < edges);
         self.fold = self.fold.filter(|f| *f < edges);
+        self.sewn.retain(|r| r.from < edges && r.to < edges);
     }
 
     /// The label text: the name, then how to cut it.

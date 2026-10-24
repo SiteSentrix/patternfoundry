@@ -5663,3 +5663,10 @@ menu	Pattern	Mönster
 @msg	width: mm, more than 0	width: mm, mer än 0
 	Draw Avatar	Rita avatar
 	Export Avatar as OBJ	Exportera avatar som OBJ
+	Sewn seams: {count}	Sydda sömmar: {count}
+	{label}: sewn to {piece}, {mm} mm longer	{label}: sydd till {piece}, {mm} mm längre
+	{label}: sewn to {piece}, {mm} mm shorter	{label}: sydd till {piece}, {mm} mm kortare
+	{label}: sewn to {piece}	{label}: sydd till {piece}
+	Sew Seams	Sy ihop sömmar
+	Unsew Seams	Sprätta upp sömmar
+	Sewn Seams	Sydda sömmar
