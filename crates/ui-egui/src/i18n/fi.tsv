@@ -5669,3 +5669,5 @@ menu	Pattern	Kaava
 @msg	too many sizes at once	liian monta kokoa kerralla
 @msg	unit: "mm", "cm" or "in"	unit: "mm", "cm" tai "in"
 @msg	width: mm, more than 0	width: mm, yli 0
+	Draw Avatar	Piirrä avatar
+	Export Avatar as OBJ	Vie avatar OBJ-muodossa

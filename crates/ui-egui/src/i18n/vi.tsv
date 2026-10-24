@@ -5300,3 +5300,5 @@ menu	Pattern	Rập
 @msg	too many sizes at once	quá nhiều cỡ cùng lúc
 @msg	unit: "mm", "cm" or "in"	unit: "mm", "cm" hoặc "in"
 @msg	width: mm, more than 0	width: mm, lớn hơn 0
+	Draw Avatar	Vẽ hình nhân
+	Export Avatar as OBJ	Xuất hình nhân dạng OBJ

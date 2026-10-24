@@ -5337,3 +5337,5 @@ menu	Pattern	紙型
 @msg	too many sizes at once	一次處理的尺碼過多
 @msg	unit: "mm", "cm" or "in"	unit: "mm"、"cm" 或 "in"
 @msg	width: mm, more than 0	width: mm，大於 0
+	Draw Avatar	繪製人台
+	Export Avatar as OBJ	將人台匯出為 OBJ

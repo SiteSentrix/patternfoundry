@@ -5669,3 +5669,5 @@ menu	Pattern	Кройка
 @msg	too many sizes at once	твърде много размери наведнъж
 @msg	unit: "mm", "cm" or "in"	unit: "mm", "cm" или "in"
 @msg	width: mm, more than 0	width: мм, повече от 0
+	Draw Avatar	Изчертаване на аватар
+	Export Avatar as OBJ	Експортиране на аватара като OBJ

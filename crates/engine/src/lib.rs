@@ -2051,6 +2051,8 @@ mod tests_assets;
 #[cfg(test)]
 mod tests_attributes;
 #[cfg(test)]
+mod tests_avatar;
+#[cfg(test)]
 mod tests_bboxrotate;
 #[cfg(test)]
 mod tests_blendfidelity;

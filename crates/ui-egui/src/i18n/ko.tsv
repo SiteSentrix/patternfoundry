@@ -5283,3 +5283,5 @@ menu	Pattern	패턴
 @msg	too many sizes at once	한 번에 처리할 사이즈가 너무 많습니다
 @msg	unit: "mm", "cm" or "in"	unit: "mm", "cm" 또는 "in"
 @msg	width: mm, more than 0	width: mm, 0보다 큼
+	Draw Avatar	아바타 그리기
+	Export Avatar as OBJ	아바타를 OBJ로 내보내기

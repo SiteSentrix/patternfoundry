@@ -5300,3 +5300,5 @@ menu	Pattern	Викрійка
 @msg	too many sizes at once	забагато розмірів за раз
 @msg	unit: "mm", "cm" or "in"	unit: "mm", "cm" або "in"
 @msg	width: mm, more than 0	width: мм, більше 0
+	Draw Avatar	Намалювати аватар
+	Export Avatar as OBJ	Експортувати аватар в OBJ

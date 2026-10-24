@@ -5657,3 +5657,5 @@ menu	Pattern	Πατρόν
 @msg	too many sizes at once	πάρα πολλά μεγέθη ταυτόχρονα
 @msg	unit: "mm", "cm" or "in"	unit: "mm", "cm" ή "in"
 @msg	width: mm, more than 0	width: mm, περισσότερο από 0
+	Draw Avatar	Σχεδίαση άβαταρ
+	Export Avatar as OBJ	Εξαγωγή άβαταρ ως OBJ

@@ -5705,3 +5705,5 @@ menu	Pattern	Střih
 @msg	too many sizes at once	příliš mnoho velikostí najednou
 @msg	unit: "mm", "cm" or "in"	unit: "mm", "cm" nebo "in"
 @msg	width: mm, more than 0	width: mm, více než 0
+	Draw Avatar	Nakreslit avatara
+	Export Avatar as OBJ	Exportovat avatara jako OBJ

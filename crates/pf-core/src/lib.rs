@@ -26,6 +26,7 @@
 //! geometry functions take every length in the outline's own unit; the host converts.
 
 pub mod allowance;
+pub mod avatar;
 pub mod block;
 pub mod design;
 pub mod draft;

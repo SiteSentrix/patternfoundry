@@ -5688,3 +5688,5 @@ menu	Pattern	Mønster
 @msg	too many sizes at once	for mange størrelser på én gang
 @msg	unit: "mm", "cm" or "in"	unit: "mm", "cm" eller "in"
 @msg	width: mm, more than 0	width: mm, over 0
+	Draw Avatar	Tegn avatar
+	Export Avatar as OBJ	Eksportér avatar som OBJ
