@@ -5328,3 +5328,7 @@ menu	Pattern	Выкройка
 	Drape on Avatar	Драпировать на аватаре
 @msg	the drape view's picture is the wrong size	изображение вида драпировки неправильного размера
 @msg	the drape view: {e}	вид драпировки: {e}
+	Export Avatar as glTF	Экспортировать аватар в glTF
+	Export Avatar as glTF…	Экспортировать аватар в glTF…
+	Export Drape as glTF…	Экспортировать драпировку в glTF…
+@msg	format: "obj" or "glb"	format: "obj" или "glb"

@@ -5717,3 +5717,7 @@ menu	Pattern	Střih
 	Drape on Avatar	Drapovat na avatara
 @msg	the drape view's picture is the wrong size	obrázek pohledu na splývání má špatnou velikost
 @msg	the drape view: {e}	pohled na splývání: {e}
+	Export Avatar as glTF	Exportovat avatara jako glTF
+	Export Avatar as glTF…	Exportovat avatara jako glTF…
+	Export Drape as glTF…	Exportovat splývání jako glTF…
+@msg	format: "obj" or "glb"	format: "obj" nebo "glb"

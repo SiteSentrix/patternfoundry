@@ -5312,3 +5312,7 @@ menu	Pattern	Rập
 	Drape on Avatar	Phủ lên hình nhân
 @msg	the drape view's picture is the wrong size	hình của khung xem độ rủ có kích thước sai
 @msg	the drape view: {e}	khung xem độ rủ: {e}
+	Export Avatar as glTF	Xuất hình nhân dạng glTF
+	Export Avatar as glTF…	Xuất hình nhân dạng glTF…
+	Export Drape as glTF…	Xuất độ rủ dạng glTF…
+@msg	format: "obj" or "glb"	format: "obj" hoặc "glb"

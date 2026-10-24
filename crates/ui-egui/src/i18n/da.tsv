@@ -5700,3 +5700,7 @@ menu	Pattern	Mønster
 	Drape on Avatar	Drapér på avatar
 @msg	the drape view's picture is the wrong size	draperingsvisningens billede har forkert størrelse
 @msg	the drape view: {e}	draperingsvisningen: {e}
+	Export Avatar as glTF	Eksportér avatar som glTF
+	Export Avatar as glTF…	Eksportér avatar som glTF…
+	Export Drape as glTF…	Eksportér drapering som glTF…
+@msg	format: "obj" or "glb"	format: "obj" eller "glb"

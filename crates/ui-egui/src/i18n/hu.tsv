@@ -5703,3 +5703,7 @@ menu	Pattern	Szabásminta
 	Drape on Avatar	Drapírozás az avatarra
 @msg	the drape view's picture is the wrong size	az esésnézet képe rossz méretű
 @msg	the drape view: {e}	az esésnézet: {e}
+	Export Avatar as glTF	Avatar exportálása glTF-ként
+	Export Avatar as glTF…	Avatar exportálása glTF-ként…
+	Export Drape as glTF…	Esés exportálása glTF-ként…
+@msg	format: "obj" or "glb"	format: "obj" vagy "glb"

@@ -37,6 +37,15 @@ pub fn specs() -> Vec<CommandSpec> {
             has_doc,
             export_obj
         ),
+        cmd!(
+            "avatar.exportGlb",
+            "Export Avatar as glTF",
+            [],
+            None,
+            "{path? (where to write the .glb file; without it the file comes back as dataBase64)} the avatar's mesh (see avatar.draw) as a binary glTF 2.0 file, metres, y up, the front toward +z, for 3D software and game engines (drape.make with a .glb path exports the draped garment on it) → {path | dataBase64, vertices, triangles}",
+            has_doc,
+            export_glb
+        ),
     ]
 }
 
@@ -150,5 +159,24 @@ fn export_obj(s: &mut Session, p: &Value) -> Result<Value> {
             Ok(json!({"path": path, "vertices": counts.0, "triangles": counts.1}))
         }
         None => Ok(json!({"obj": obj, "vertices": counts.0, "triangles": counts.1})),
+    }
+}
+
+fn export_glb(s: &mut Session, p: &Value) -> Result<Value> {
+    const C: &str = "avatar.exportGlb";
+    use pf_core::gltf::{Part, linear};
+    let a = avatar_of(&s.doc()?.doc, C)?;
+    // Skin, as the drape view shows it; named only "Avatar" (no one's name in a file meant to be
+    // shared).
+    let base = [linear(214), linear(192), linear(170), 1.0];
+    let part = Part { name: "Avatar", vertices: &a.mesh.vertices, triangles: &a.mesh.triangles, colours: None, base, double_sided: false };
+    let bytes = pf_core::gltf::to_glb(&[part]).map_err(|e| bad(C, e.to_string()))?;
+    let counts = (a.mesh.vertices.len(), a.mesh.triangles.len());
+    match str_param(p, "path") {
+        Some(path) => {
+            super::fileio::write_file(path, &bytes)?;
+            Ok(json!({"path": path, "vertices": counts.0, "triangles": counts.1}))
+        }
+        None => Ok(json!({"dataBase64": vectorcraft_format::base64_encode(&bytes), "vertices": counts.0, "triangles": counts.1})),
     }
 }

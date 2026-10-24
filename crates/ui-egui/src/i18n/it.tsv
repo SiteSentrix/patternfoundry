@@ -5332,3 +5332,7 @@ menu	Pattern	Cartamodello
 	Drape on Avatar	Drappeggia sull'avatar
 @msg	the drape view's picture is the wrong size	l'immagine della vista della caduta ha la dimensione sbagliata
 @msg	the drape view: {e}	la vista della caduta: {e}
+	Export Avatar as glTF	Esporta avatar come glTF
+	Export Avatar as glTF…	Esporta avatar come glTF…
+	Export Drape as glTF…	Esporta caduta come glTF…
+@msg	format: "obj" or "glb"	format: "obj" o "glb"

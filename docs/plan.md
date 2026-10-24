@@ -622,7 +622,8 @@ is built on, plus a pattern mode, the way StitchFoundry adds embroidery:
   (position-based dynamics: stretch and bend constraints, collision with the avatar's rings),
   a skirt first; **PF-10.4** the drape view: the draped garment drawn beside the 2D pattern with
   the existing 3D shading (`vectorcraft-three-d`), turned with the mouse, tight places shown in
-  colour; **PF-10.5** glTF export of the avatar and the draped garment for game and 3D artists.
+  colour; **PF-10.5** glTF export of the avatar and the draped garment for game and 3D artists
+  (done, below).
 - 2026-10-24, **PF-10.1**: an avatar from the measurements. **Pattern › Draw Avatar**
   (`avatar.draw`) draws the body the document's measurements make, front and side at true scale,
   on the layer "Avatar" below the pattern (drawn again it replaces it); `avatar.exportObj`
@@ -703,6 +704,30 @@ is built on, plus a pattern mode, the way StitchFoundry adds embroidery:
   more in `pf-core` (a trapezoid's edge particles on its outline, none outside it, the particle
   nearest a point of the slanted side on it), the skirt's test bounds tightened (seams within
   5 mm, stretch under 15%; it hangs 580 to 680 mm, a few per cent long under its weight).
+- 2026-10-24, **PF-10.5**: glTF export. **Pattern › Export Avatar as glTF…**
+  (`avatar.exportGlb`) and **Pattern › Export Drape as glTF…** (`drape.make` with
+  `format: "glb"`, or a `.glb` path) write a binary glTF 2.0 file for 3D software and game engines
+  (Blender, Unity, Unreal, three.js, Windows 3D Viewer, macOS Quick Look): the avatar in skin
+  colour and, for the drape, the draped cloth coloured as the drape view colours it (each
+  particle the tightness of its triangles, averaged). `pf_core::gltf` writes it from the Khronos
+  Group's published specification (https://registry.khronos.org/glTF/specs/2.0/glTF-2.0.html):
+  the GLB header and its JSON and BIN chunks four-byte aligned; metres, y up, the front toward +z
+  (our mm, z up, become `(x, z, y) / 1000`, a mirror, so each triangle is turned back to stay
+  counter-clockwise from outside); POSITION with its min and max, unit NORMALs (area-weighted),
+  COLOR_0 as normalized bytes four to a vertex, in linear light as glTF's colours are; a material
+  that is not metallic and rough; the cloth seen from both sides. No one's name goes in the file
+  (the nodes are "Avatar" and "Drape"). Without a path the file comes back as `dataBase64`;
+  `format: "obj"` still writes the cloth as OBJ. The save panel asks before the drape runs (it
+  takes some seconds). Checked with the Khronos glTF Validator (open source, 2.0.0-dev.3.10):
+  the drape's and the avatar's files have no errors, warnings or notes, and three.js loads the
+  drape upright, facing front, in its colours. Tests: 2 in `pf-core` (`gltf`: the layout, metres
+  and y up, a solid counter-clockwise from outside with its normals out, the colours' accessor;
+  bad parts refused; sRGB to linear), 1 in `tests_avatar.rs` (its height, its volume positive and
+  some tens of litres, written to a path the same as returned), 1 in `tests_drape.rs` (avatar and
+  drape nodes, the cloth's particles and height in metres, data without a path, OBJ, a format it
+  can't write refused), 1 in `tests_saveext.rs` (both menu items write a picked `.glb`). Not yet:
+  the cloth's seams welded into one mesh (each piece's edge particles are their own), a glTF
+  animation of the fall.
 - 2026-10-24, **PF-10.4**: the drape view. **Pattern › Drape on Avatar** (`drape.make`, now
   `draw: true` by default) drapes the sewn pieces and draws the avatar and the draped cloth as two
   pictures on the layer "Drape" (draped again it replaces it): seen from the front and from the

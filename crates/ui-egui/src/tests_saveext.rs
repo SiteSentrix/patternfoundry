@@ -342,3 +342,46 @@ fn typed_extensions_are_kept() {
     io::export(&mut app, Some("png"), None, &json!({})).unwrap();
     assert_eq!(last(&w), "/tmp/v1.2.png");
 }
+
+/// A file written: its path and its bytes.
+type Saved = (String, Vec<u8>);
+
+/// Pattern › Export Avatar as glTF… and Export Drape as glTF… (PF-10.5) write a .glb file picked
+/// in the save panel, a bare name getting the extension.
+#[test]
+fn the_avatar_and_the_drape_export_to_a_picked_glb_file() {
+    let files: Rc<RefCell<Vec<Saved>>> = Rc::default();
+    let f = files.clone();
+    let services = Services {
+        write: Some(Box::new(move |p: &str, b: &[u8]| {
+            f.borrow_mut().push((p.to_string(), b.to_vec()));
+            Ok(())
+        })),
+        pick_save: Some(Box::new(|_: &FilePick| Some("/tmp/fit".to_string()))),
+        ..Default::default()
+    };
+    let mut app = VectorcraftApp::new(Session::new(), services);
+    app.run("file.new", json!({"width": 2000, "height": 1000})).unwrap();
+    app.run("measure.set", json!({"values": {"bust": 880, "waist": 680, "hip": 960, "nape_to_waist": 410, "waist_to_hip": 200}})).unwrap();
+    app.run("avatar.exportGlb", json!({})).unwrap();
+    {
+        let (path, bytes) = files.borrow().last().cloned().unwrap();
+        assert_eq!(path, "/tmp/fit.glb");
+        assert_eq!(&bytes[..4], b"glTF");
+    }
+    // A skirt of two panels sewn at the sides, draped and exported.
+    let mm = pf_core::mm_to_pt;
+    let mut ids = Vec::new();
+    for x in [0.0, 900.0] {
+        let d = format!("M{} 0 L{} 0 L{} {} L{} {} Z", mm(x + 220.0), mm(x + 580.0), mm(x + 800.0), mm(600.0), mm(x), mm(600.0));
+        let path = app.run("path.create", json!({"d": d})).unwrap()["id"].clone();
+        ids.push(app.run("piece.make", json!({"ids": [path]})).unwrap()["ids"][0].clone());
+    }
+    app.run("piece.sew", json!({"a": {"id": ids[0], "from": 1, "to": 2}, "b": {"id": ids[1], "from": 3, "to": 0}})).unwrap();
+    app.run("piece.sew", json!({"a": {"id": ids[1], "from": 1, "to": 2}, "b": {"id": ids[0], "from": 3, "to": 0}})).unwrap();
+    app.run("drape.make", json!({"format": "glb", "draw": false, "precision": 30, "steps": 5})).unwrap();
+    let (path, bytes) = files.borrow().last().cloned().unwrap();
+    assert_eq!(path, "/tmp/fit.glb");
+    let (gltf, _) = pf_core::gltf::read_glb(&bytes).unwrap();
+    assert_eq!(gltf["nodes"][1]["name"], "Drape");
+}

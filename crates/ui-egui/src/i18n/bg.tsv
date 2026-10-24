@@ -5681,3 +5681,7 @@ menu	Pattern	Кройка
 	Drape on Avatar	Драпиране върху аватара
 @msg	the drape view's picture is the wrong size	картината на изгледа на драпирането е с грешен размер
 @msg	the drape view: {e}	изгледът на драпирането: {e}
+	Export Avatar as glTF	Експортиране на аватара като glTF
+	Export Avatar as glTF…	Експортиране на аватара като glTF…
+	Export Drape as glTF…	Експортиране на драпирането като glTF…
+@msg	format: "obj" or "glb"	format: "obj" или "glb"

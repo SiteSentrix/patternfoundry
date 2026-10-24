@@ -5742,3 +5742,7 @@ menu	Pattern	Patroon
 	Drape on Avatar	Op avatar draperen
 @msg	the drape view's picture is the wrong size	de afbeelding van de valweergave heeft de verkeerde grootte
 @msg	the drape view: {e}	de valweergave: {e}
+	Export Avatar as glTF	Avatar exporteren als glTF
+	Export Avatar as glTF…	Avatar exporteren als glTF…
+	Export Drape as glTF…	Val exporteren als glTF…
+@msg	format: "obj" or "glb"	format: "obj" of "glb"

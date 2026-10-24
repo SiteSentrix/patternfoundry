@@ -5625,3 +5625,7 @@ menu	Pattern	თარგი
 	Drape on Avatar	ავატარზე დრაპირება
 @msg	the drape view's picture is the wrong size	დრაპირების ხედის სურათს არასწორი ზომა აქვს
 @msg	the drape view: {e}	დრაპირების ხედი: {e}
+	Export Avatar as glTF	ავატარის ექსპორტი glTF-ად
+	Export Avatar as glTF…	ავატარის ექსპორტი glTF-ად…
+	Export Drape as glTF…	დრაპირების ექსპორტი glTF-ად…
+@msg	format: "obj" or "glb"	format: "obj" ან "glb"

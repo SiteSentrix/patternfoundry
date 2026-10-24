@@ -5349,3 +5349,7 @@ menu	Pattern	紙型
 	Drape on Avatar	在人台上懸垂
 @msg	the drape view's picture is the wrong size	垂墜檢視的圖片尺寸不對
 @msg	the drape view: {e}	垂墜檢視：{e}
+	Export Avatar as glTF	將虛擬人體匯出為 glTF
+	Export Avatar as glTF…	將虛擬人體匯出為 glTF…
+	Export Drape as glTF…	將垂墜匯出為 glTF…
+@msg	format: "obj" or "glb"	format："obj" 或 "glb"

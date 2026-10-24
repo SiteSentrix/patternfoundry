@@ -363,6 +363,7 @@ const FILE_TYPES: &[(&str, &[&str])] = &[
     ("Print presets", vectorcraft_engine::cmd::printpresets::PRESET_EXTS),
     ("CSS", &["css"]),
     ("PostScript", &["ps"]),
+    ("glTF", &["glb"]),
 ];
 
 /// The file type a save panel shows for a file with extension `ext`: its format's, else its

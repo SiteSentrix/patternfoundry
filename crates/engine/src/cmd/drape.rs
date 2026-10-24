@@ -23,7 +23,7 @@ pub fn specs() -> Vec<CommandSpec> {
         "Drape on Avatar",
         [],
         None,
-        "{ids? (the pieces; default every piece sewn to another, piece.sew), precision?: mm (20, the distance between the cloth's particles, 15 to 50), steps? (240: four seconds of falling, 1 to 2000), path? (an .obj file to write the draped cloth to), draw?: true (the drape view: the avatar and the draped cloth as pictures seen from the front and the left side, at true scale, the cloth coloured blue where it is loose, green, and red where it is 10% or more larger than cut, on the layer \"Drape\", drawn again it replaces it; false: none), origin?: [x, y] (document points: the front view's top-left; default right of the art)} wrap the sewn pieces round the avatar (see avatar.draw) at the waist, in the order they are sewn, the first at the front, and let them fall onto it as light woven cloth; pieces are taken as drawn upright, their waist at the top → {pieces, particles, top (mm above the floor: the highest the cloth hangs), hem (mm: its lowest), waist (mm: the avatar's), worstStretch (%), widestSeam (mm), path?, layer?, front?, side?, tightest (%: the most a triangle of cloth is larger than cut)}",
+        "{ids? (the pieces; default every piece sewn to another, piece.sew), precision?: mm (20, the distance between the cloth's particles, 15 to 50), steps? (240: four seconds of falling, 1 to 2000), path? (a file to write the draped cloth to: .glb, a binary glTF 2.0 file of the avatar and the cloth in the drape view's colours, metres, y up, the front toward +z, for 3D software and game engines; else an OBJ file of the cloth), format?: obj|glb (default from path's extension; without a path the file comes back as data (obj) or dataBase64 (glb)), draw?: true (the drape view: the avatar and the draped cloth as pictures seen from the front and the left side, at true scale, the cloth coloured blue where it is loose, green, and red where it is 10% or more larger than cut, on the layer \"Drape\", drawn again it replaces it; false: none), origin?: [x, y] (document points: the front view's top-left; default right of the art)} wrap the sewn pieces round the avatar (see avatar.draw) at the waist, in the order they are sewn, the first at the front, and let them fall onto it as light woven cloth; pieces are taken as drawn upright, their waist at the top → {pieces, particles, top (mm above the floor: the highest the cloth hangs), hem (mm: its lowest), waist (mm: the avatar's), worstStretch (%), widestSeam (mm), path?, data?, dataBase64?, layer?, front?, side?, tightest (%: the most a triangle of cloth is larger than cut)}",
         has_doc,
         make
     )]
@@ -222,13 +222,34 @@ fn make(s: &mut Session, p: &Value) -> Result<Value> {
         "worstStretch": r1(cloth.worst_stretch() * 100.0),
         "widestSeam": r1(cloth.widest_seam()),
     });
-    if let Some(path) = str_param(p, "path") {
-        let mesh = pf_core::avatar::Mesh { vertices: cloth.positions.clone(), triangles: cloth.triangles.clone() };
-        super::fileio::write_file(path, pf_core::avatar::to_obj(&mesh, "drape").as_bytes())?;
-        out["path"] = json!(path);
-    }
     let tight = cloth.tightness();
     out["tightest"] = json!(r1(tight.iter().copied().fold(0.0, f64::max) * 100.0));
+    // The draped cloth as a file: OBJ (the cloth), or glTF (the avatar and the cloth in its
+    // colours), by `format`, else the path's extension.
+    let path = str_param(p, "path");
+    let format = match (str_param(p, "format"), path) {
+        (Some(f), _) => Some(f.to_ascii_lowercase()),
+        (None, Some(path)) => Some(if super::fileio::extension(path).eq_ignore_ascii_case("glb") { "glb".into() } else { "obj".into() }),
+        (None, None) => None,
+    };
+    if let Some(format) = format {
+        let bytes = match format.as_str() {
+            "obj" => {
+                let mesh = pf_core::avatar::Mesh { vertices: cloth.positions.clone(), triangles: cloth.triangles.clone() };
+                pf_core::avatar::to_obj(&mesh, "drape").into_bytes()
+            }
+            "glb" => glb(&avatar, &cloth, &tight).map_err(|e| bad(C, e.to_string()))?,
+            _ => return Err(bad(C, "format: \"obj\" or \"glb\"")),
+        };
+        match path {
+            Some(path) => {
+                super::fileio::write_file(path, &bytes)?;
+                out["path"] = json!(path);
+            }
+            None if format == "obj" => out["data"] = json!(String::from_utf8_lossy(&bytes)),
+            None => out["dataBase64"] = json!(vectorcraft_format::base64_encode(&bytes)),
+        }
+    }
     if p.get("draw").and_then(Value::as_bool) != Some(false) {
         let (layer, front, side) = draw_views(s, p, &avatar, &cloth, &tight)?;
         out["layer"] = json!(layer.0);
@@ -236,6 +257,35 @@ fn make(s: &mut Session, p: &Value) -> Result<Value> {
         out["side"] = json!(side.0);
     }
     Ok(out)
+}
+
+/// The skin's colour, in the drape view and the glTF file.
+const SKIN: [u8; 3] = [214, 192, 170];
+
+/// Each particle's colour: the tightness of the triangles round it, averaged.
+fn particle_colours(cloth: &Cloth, tight: &[f64]) -> Vec<[u8; 3]> {
+    let mut sum = vec![(0.0, 0usize); cloth.positions.len()];
+    for (t, tri) in tight.iter().zip(&cloth.triangles) {
+        for i in tri {
+            if let Some(s) = sum.get_mut(*i as usize) {
+                s.0 += t;
+                s.1 += 1;
+            }
+        }
+    }
+    sum.iter().map(|(t, n)| pf_core::view3d::tightness_colour(if *n > 0 { t / *n as f64 } else { 0.0 })).collect()
+}
+
+/// The avatar and the draped cloth as a binary glTF file, the cloth coloured by how tight it is
+/// (as the drape view colours it).
+fn glb(avatar: &pf_core::avatar::Avatar, cloth: &Cloth, tight: &[f64]) -> std::result::Result<Vec<u8>, pf_core::gltf::GltfError> {
+    use pf_core::gltf::{Part, linear, linear_rgb, to_glb};
+    let colours: Vec<[u8; 3]> = particle_colours(cloth, tight).into_iter().map(linear_rgb).collect();
+    let skin = [linear(SKIN[0]), linear(SKIN[1]), linear(SKIN[2]), 1.0];
+    to_glb(&[
+        Part { name: "Avatar", vertices: &avatar.mesh.vertices, triangles: &avatar.mesh.triangles, colours: None, base: skin, double_sided: false },
+        Part { name: "Drape", vertices: &cloth.positions, triangles: &cloth.triangles, colours: Some(&colours), base: [1.0; 4], double_sided: true },
+    ])
 }
 
 /// The layer the drape view is drawn on.
@@ -257,7 +307,7 @@ fn png(pic: &pf_core::view3d::Picture) -> Result<Vec<u8>> {
 fn draw_views(s: &mut Session, p: &Value, avatar: &pf_core::avatar::Avatar, cloth: &Cloth, tight: &[f64]) -> Result<(NodeId, NodeId, NodeId)> {
     use pf_core::view3d::{Shape, Side, draw, tightness_colour};
     const C: &str = "drape.make";
-    let skin = vec![[214u8, 192, 170]; avatar.mesh.triangles.len()];
+    let skin = vec![SKIN; avatar.mesh.triangles.len()];
     let colours: Vec<[u8; 3]> = tight.iter().map(|t| tightness_colour(*t)).collect();
     let shapes = [
         Shape { points: &avatar.mesh.vertices, triangles: &avatar.mesh.triangles, colours: &skin },
