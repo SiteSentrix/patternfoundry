@@ -5305,3 +5305,9 @@ menu	Pattern	Schnitt
 @msg	format: "obj" or "glb"	format: "obj" oder "glb"
 @msg	a piece could not be placed on the body	ein Schnittteil ließ sich nicht am Körper platzieren
 @msg	{name} is already open	{name} ist bereits geöffnet
+@msg	Draping on Avatar	Auf Avatar drapieren
+	Step {n} of {total}	Schritt {n} von {total}
+@msg	The drape was cancelled	Das Drapieren wurde abgebrochen
+@msg	Draped on the avatar	Auf dem Avatar drapiert
+@msg	the document was closed	das Dokument wurde geschlossen
+@msg	the drape stopped	das Drapieren wurde unterbrochen

@@ -5559,3 +5559,9 @@ menu	Pattern	纸样
 @msg	format: "obj" or "glb"	format："obj" 或 "glb"
 @msg	a piece could not be placed on the body	有一个裁片无法放到身体上
 @msg	{name} is already open	{name} 已经打开
+@msg	Draping on Avatar	正在将衣片垂坠到虚拟人体上
+	Step {n} of {total}	第 {n} 步，共 {total} 步
+@msg	The drape was cancelled	已取消垂坠
+@msg	Draped on the avatar	已垂坠到虚拟人体上
+@msg	the document was closed	文档已关闭
+@msg	the drape stopped	垂坠已停止

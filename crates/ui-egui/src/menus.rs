@@ -1687,6 +1687,10 @@ pub fn run_ui_command(app: &mut VectorcraftApp, id: &str, p: &Value) -> Option<R
         // The 3D fit preview's glTF files (PF-10.5) written to a picked file (the web downloads
         // it). The drape asks first: it takes a while, and a dialog answered later runs it again.
         "avatar.exportGlb" if s("path").is_none() => io::save_command_output(app, id, "glb", json!({})).map(|path| json!({ "path": path })),
+        // Drape on Avatar: off the UI thread, its progress shown (PF-10.7).
+        "drape.make" if p.get("background").and_then(Value::as_bool) == Some(true) && s("path").is_none() && s("format").is_none() => {
+            crate::drape_job::start(app, p)
+        }
         "drape.make" if s("path").is_none() && s("format").as_deref() == Some("glb") => io::target_path(app, None, "glb").and_then(|path| {
             let mut params = p.clone();
             params["path"] = json!(path);
@@ -2800,7 +2804,7 @@ pub fn menu_tree_named(english_names: bool) -> Vec<(&'static str, Vec<Item>)> {
                 c("Clear Graded Nest", "grade.clear"),
                 c("Projector View", "ui.projector"),
                 c("Draw Avatar", "avatar.draw"),
-                c("Drape on Avatar", "drape.make"),
+                cp("Drape on Avatar", "drape.make", json!({"background": true})),
                 c("Export Avatar as glTF…", "avatar.exportGlb"),
                 cp("Export Drape as glTF…", "drape.make", json!({"format": "glb", "draw": false})),
                 cp(

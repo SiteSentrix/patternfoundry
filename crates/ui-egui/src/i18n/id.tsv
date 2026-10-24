@@ -5706,3 +5706,9 @@ menu	Pattern	Pola
 @msg	format: "obj" or "glb"	format: "obj" atau "glb"
 @msg	a piece could not be placed on the body	sebuah potongan pola tidak dapat ditempatkan pada tubuh
 @msg	{name} is already open	{name} sudah terbuka
+@msg	Draping on Avatar	Menjatuhkan kain pada avatar
+	Step {n} of {total}	Langkah {n} dari {total}
+@msg	The drape was cancelled	Penjatuhan kain dibatalkan
+@msg	Draped on the avatar	Kain dijatuhkan pada avatar
+@msg	the document was closed	dokumen ditutup
+@msg	the drape stopped	penjatuhan kain berhenti

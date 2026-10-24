@@ -704,6 +704,22 @@ is built on, plus a pattern mode, the way StitchFoundry adds embroidery:
   more in `pf-core` (a trapezoid's edge particles on its outline, none outside it, the particle
   nearest a point of the slanted side on it), the skirt's test bounds tightened (seams within
   5 mm, stretch under 15%; it hangs 580 to 680 mm, a few per cent long under its weight).
+- 2026-10-24, **PF-10.7**: the drape in the background. **Pattern › Drape on Avatar** no longer
+  holds the app while the cloth falls (some seconds; more for a bodice with sleeves): the drape is
+  set up from the document at once, falls on the background worker that Background Save and
+  Export use, and the export progress dialog shows it ("Draping on Avatar…", "Step n of 240", a
+  bar, Cancel and Continue in Background; the status bar says so too); editing goes on meanwhile.
+  When it is done the drape view is drawn in the document it was asked for, brought to the front
+  if another one is (one undo step, as before); cancelled, nothing is drawn and the status bar
+  says the drape was cancelled. `drape.make {background: true}` asks for this (the menu item does);
+  without it (an agent's call, the command line) the drape runs at once and returns its measures,
+  as before; on the web, which has no worker, it runs at once too. The engine's drape is split for
+  it into `drape::setup` (reads the document), `Setup::run` (the fall, reporting each step and
+  stopping when asked) and `drape::finish` (the measures, files and drawing); the progress dialog
+  counts a job's steps in its own words (`background::run_with_steps`). Test: 1 in
+  `tests_background.rs` (the call comes back at once, the job's label, steps and progress; drawn
+  in its own document with another in front; cancelled, nothing drawn; without `background`, at
+  once).
 - 2026-10-24, **PF-10.6**: bodices and sleeves on the avatar. `drape.make` (Pattern › Drape on
   Avatar) now puts each piece where it belongs: a bodice (a bodice block's part, or a piece named
   so) from the waist up over the shoulders, a sleeve (a sleeve block's, or named so) round the arm

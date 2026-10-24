@@ -5378,3 +5378,9 @@ menu	Pattern	型紙
 @msg	format: "obj" or "glb"	format: "obj" または "glb"
 @msg	a piece could not be placed on the body	パーツを体に配置できませんでした
 @msg	{name} is already open	{name} はすでに開いています
+@msg	Draping on Avatar	アバターに着せています
+	Step {n} of {total}	ステップ {n}/{total}
+@msg	The drape was cancelled	着せ付けをキャンセルしました
+@msg	Draped on the avatar	アバターに着せました
+@msg	the document was closed	ドキュメントが閉じられました
+@msg	the drape stopped	着せ付けが止まりました

@@ -5338,3 +5338,9 @@ menu	Pattern	Cartamodello
 @msg	format: "obj" or "glb"	format: "obj" o "glb"
 @msg	a piece could not be placed on the body	non è stato possibile posizionare un pezzo sul corpo
 @msg	{name} is already open	{name} è già aperto
+@msg	Draping on Avatar	Caduta sull’avatar
+	Step {n} of {total}	Passo {n} di {total}
+@msg	The drape was cancelled	La caduta è stata annullata
+@msg	Draped on the avatar	Caduta sull’avatar completata
+@msg	the document was closed	il documento è stato chiuso
+@msg	the drape stopped	la caduta si è interrotta

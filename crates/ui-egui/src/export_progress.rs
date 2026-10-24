@@ -22,8 +22,9 @@ fn seen_id() -> egui::Id {
     egui::Id::new("export-progress-seen")
 }
 
-/// What the dialog shows: (label, steps done, steps in all, share done, exports after this one).
-fn shown(app: &VectorcraftApp, now: f64, ctx: &egui::Context) -> Option<(String, u64, u64, f32, usize)> {
+/// What the dialog shows: (label, steps done, steps in all, share done, exports after this one,
+/// how its steps are counted).
+fn shown(app: &VectorcraftApp, now: f64, ctx: &egui::Context) -> Option<(String, u64, u64, f32, usize, &'static str)> {
     let jobs: Vec<_> = app.background.jobs.iter().filter(|j| !j.hidden && !j.cancelled()).filter(|j| j.progress.is_some()).collect();
     let first = jobs.first()?;
     let since = ctx.data_mut(|m| {
@@ -38,12 +39,12 @@ fn shown(app: &VectorcraftApp, now: f64, ctx: &egui::Context) -> Option<(String,
     }
     let (done, total) = first.progress.as_ref().map(|p| p.counts()).unwrap_or_default();
     let frac = first.progress.as_ref().and_then(|p| p.fraction()).unwrap_or(0.0) as f32;
-    Some((first.label.clone(), done, total, frac, jobs.len() - 1))
+    Some((first.label.clone(), done, total, frac, jobs.len() - 1, first.step))
 }
 
 pub fn show(app: &mut VectorcraftApp, ctx: &egui::Context) {
     let now = ctx.input(|i| i.time);
-    let Some((label, done, total, frac, more)) = shown(app, now, ctx) else { return };
+    let Some((label, done, total, frac, more, counted)) = shown(app, now, ctx) else { return };
     if app.ui.dialog.is_some() {
         return;
     }
@@ -56,7 +57,7 @@ pub fn show(app: &mut VectorcraftApp, ctx: &egui::Context) {
         ui.add_space(12.0);
         // One step says nothing a spinner doesn't: the bar would sit at 0 % until the file is written.
         if total > 1 {
-            let step = crate::i18n::fmt(tl!("Artboard {n} of {total}"), &[("n", &(done + 1).min(total).to_string()), ("total", &total.to_string())]);
+            let step = crate::i18n::fmt(tl!(counted), &[("n", &(done + 1).min(total).to_string()), ("total", &total.to_string())]);
             // The count on its own line: drawn over the bar it would straddle the fill's edge.
             ui.horizontal(|ui| {
                 ui.label(egui::RichText::new(step).color(t.text_dim));

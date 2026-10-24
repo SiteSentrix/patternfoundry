@@ -5679,3 +5679,9 @@ menu	Pattern	Mönster
 @msg	format: "obj" or "glb"	format: "obj" eller "glb"
 @msg	a piece could not be placed on the body	en mönsterdel kunde inte placeras på kroppen
 @msg	{name} is already open	{name} är redan öppen
+@msg	Draping on Avatar	Fall på avatar
+	Step {n} of {total}	Steg {n} av {total}
+@msg	The drape was cancelled	Fallet avbröts
+@msg	Draped on the avatar	Fall på avataren klart
+@msg	the document was closed	dokumentet stängdes
+@msg	the drape stopped	fallet stoppades

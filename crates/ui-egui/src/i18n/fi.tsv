@@ -5687,3 +5687,9 @@ menu	Pattern	Kaava
 @msg	format: "obj" or "glb"	format: "obj" tai "glb"
 @msg	a piece could not be placed on the body	kaavan osaa ei voitu sijoittaa vartalolle
 @msg	{name} is already open	{name} on jo auki
+@msg	Draping on Avatar	Laskeuma avatarille
+	Step {n} of {total}	Vaihe {n}/{total}
+@msg	The drape was cancelled	Laskeuma peruttiin
+@msg	Draped on the avatar	Laskeuma avatarille valmis
+@msg	the document was closed	dokumentti suljettiin
+@msg	the drape stopped	laskeuma pysähtyi

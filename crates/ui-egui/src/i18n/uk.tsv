@@ -5318,3 +5318,9 @@ menu	Pattern	Викрійка
 @msg	format: "obj" or "glb"	format: "obj" або "glb"
 @msg	a piece could not be placed on the body	не вдалося розмістити деталь на тілі
 @msg	{name} is already open	{name} уже відкрито
+@msg	Draping on Avatar	Драпірування на аватарі
+	Step {n} of {total}	Крок {n} з {total}
+@msg	The drape was cancelled	Драпірування скасовано
+@msg	Draped on the avatar	Драпірування на аватарі готове
+@msg	the document was closed	документ закрито
+@msg	the drape stopped	драпірування зупинилося

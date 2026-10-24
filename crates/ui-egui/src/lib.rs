@@ -25,6 +25,7 @@ pub mod credits;
 pub mod cursors;
 pub mod dialogs;
 pub mod dock;
+pub mod drape_job;
 mod edit_toolbar;
 pub mod export_progress;
 pub mod find_font;

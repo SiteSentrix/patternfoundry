@@ -5748,3 +5748,9 @@ menu	Pattern	Patroon
 @msg	format: "obj" or "glb"	format: "obj" of "glb"
 @msg	a piece could not be placed on the body	een patroondeel kon niet op het lichaam worden geplaatst
 @msg	{name} is already open	{name} is al geopend
+@msg	Draping on Avatar	Val op avatar
+	Step {n} of {total}	Stap {n} van {total}
+@msg	The drape was cancelled	De val is geannuleerd
+@msg	Draped on the avatar	Val op avatar klaar
+@msg	the document was closed	het document is gesloten
+@msg	the drape stopped	de val is gestopt
