@@ -310,13 +310,21 @@ fn out_of_body(rings: &[Ring], p: [f64; 3], margin: f64) -> [f64; 3] {
 }
 
 impl Collider for Avatar {
-    /// Out of the torso and either leg, along the surface as the rings shape it, 2 mm clear (the
+    /// Out of the torso, either leg and either arm, along the surface as the rings shape it, 2 mm clear (the
     /// cloth's thickness and a little air).
     fn push_out(&self, p: [f64; 3]) -> [f64; 3] {
         const MARGIN: f64 = 2.0;
+        // Where two parts meet (the arm and the side of the chest at the armpit) pushing out of one
+        // can push into the other: again until out of both (a few times at most).
         let mut q = p;
-        for rings in [&self.torso, &self.legs[0], &self.legs[1]] {
-            q = out_of_body(rings, q, MARGIN);
+        for _ in 0..4 {
+            let before = q;
+            for rings in self.chains() {
+                q = out_of_body(rings, q, MARGIN);
+            }
+            if q == before {
+                break;
+            }
         }
         q
     }
@@ -348,6 +356,15 @@ pub struct Cloth {
     tethers: Vec<(u32, u32, f64)>,
     /// Particles the body pushed this step (for friction).
     touching: Vec<bool>,
+    /// How much of its sliding a particle touching the body loses each step ([`FRICTION`]; 0
+    /// while a garment is being put on, so it slides into place).
+    pub friction: f64,
+    /// How hard the seams pull each round of corrections (0.5: they meet; less while the garment
+    /// is being sewn up, so its pieces come together gently rather than all at once).
+    pub seam_pull: f64,
+    /// How much of gravity pulls (1; 0 while the garment is sewn up round the body, so it isn't
+    /// pulled off before its seams have closed).
+    pub gravity: f64,
 }
 
 /// How much of its sliding a particle touching the body loses each step (cloth on skin, or on
@@ -369,6 +386,9 @@ impl Cloth {
             pattern: Vec::new(),
             tethers: Vec::new(),
             touching: Vec::new(),
+            friction: FRICTION,
+            seam_pull: 0.5,
+            gravity: 1.0,
         };
         for (k, (panel, place)) in panels.iter().enumerate() {
             let start = c.positions.len() as u32;
@@ -419,7 +439,7 @@ impl Cloth {
     pub fn step(&mut self, dt: f64, iterations: usize, body: &dyn Collider) {
         // A little air resistance: the cloth settles rather than swinging for ever.
         const DAMPING: f64 = 0.98;
-        let g = GRAVITY * dt * dt;
+        let g = GRAVITY * self.gravity * dt * dt;
         for i in 0..self.positions.len() {
             if self.weight[i] == 0.0 {
                 continue;
@@ -433,7 +453,7 @@ impl Cloth {
                 pull(&mut self.positions, &self.weight, a, b, rest, k);
             }
             for &(a, b) in &self.seams {
-                pull(&mut self.positions, &self.weight, a, b, 0.0, 0.5);
+                pull(&mut self.positions, &self.weight, a, b, 0.0, self.seam_pull);
             }
             for &(held, j, most) in &self.tethers {
                 let (h, p) = (self.positions[held as usize], self.positions[j as usize]);
@@ -459,7 +479,8 @@ impl Cloth {
         for i in 0..self.positions.len() {
             if std::mem::take(&mut self.touching[i]) {
                 let (p, q) = (self.positions[i], self.previous[i]);
-                self.previous[i] = [q[0] + (p[0] - q[0]) * FRICTION, q[1] + (p[1] - q[1]) * FRICTION, q[2] + (p[2] - q[2]) * FRICTION];
+                let f = self.friction;
+                self.previous[i] = [q[0] + (p[0] - q[0]) * f, q[1] + (p[1] - q[1]) * f, q[2] + (p[2] - q[2]) * f];
             }
         }
     }
@@ -696,7 +717,7 @@ mod tests {
             ..Default::default()
         })
         .unwrap();
-        let waist = a.torso[2];
+        let waist = *a.ring("waist").unwrap();
         let (wa, _) = waist.semi_axes();
         // Points inside the waist and a knee come out onto the surface, 2 mm clear, further from
         // the middle than they were; one well clear stays.
@@ -713,7 +734,7 @@ mod tests {
         assert!(on(&a.legs[0], k), "{k:?}");
         // Where the body widens downward (the waist to the hips), cloth is pushed up as well as
         // out: the surface holds it.
-        let hip = a.torso[3];
+        let hip = *a.ring("hip").unwrap();
         let mid = (waist.z + hip.z) / 2.0;
         let q = a.push_out([0.0, 50.0, mid]);
         assert!(q[2] > mid, "{q:?}");

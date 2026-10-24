@@ -126,3 +126,88 @@ fn the_drape_exports_as_gltf_with_the_avatar() {
     assert!(s.execute("drape.make", &json!({"precision": 30, "steps": 5, "draw": false, "format": "fbx"})).is_err());
     std::fs::remove_dir_all(&dir).ok();
 }
+
+/// The bodice block's back and front, each cut on the fold, sewn at the sides and shoulders, and
+/// the sleeve block cut as a mirror-image pair (the piece ids: back 5, front 9, sleeve 13).
+fn bodice(sleeves: bool) -> Session {
+    let mut s = Session::new();
+    s.execute("file.new", &json!({"width": 3370, "height": 2384})).unwrap();
+    let m = json!({"values": {"bust": 880, "waist": 680, "hip": 940, "nape_to_waist": 410, "back_width": 344, "chest": 324, "shoulder": 121, "neck": 370,
+        "armscye_depth": 210, "waist_to_hip": 206, "top_arm": 280, "sleeve_length": 590}});
+    s.execute("measure.set", &m).unwrap();
+    s.execute("block.bodice", &json!({})).unwrap();
+    s.execute("block.sleeve", &json!({"origin": [1600, 100]})).unwrap();
+    for (id, name) in [(2, "Back Bodice"), (3, "Front Bodice"), (4, "Sleeve")] {
+        s.execute("piece.make", &json!({"ids": [id], "name": name})).unwrap();
+    }
+    s.execute("piece.set", &json!({"id": 5, "fold": 0})).unwrap();
+    s.execute("piece.set", &json!({"id": 9, "fold": 0})).unwrap();
+    s.execute("piece.set", &json!({"id": 13, "cut": 2, "mirror": true})).unwrap();
+    let sew = |s: &mut Session, a: (u64, usize, usize), b: (u64, usize, usize)| {
+        s.execute("piece.sew", &json!({"a": {"id": a.0, "from": a.1, "to": a.2}, "b": {"id": b.0, "from": b.1, "to": b.2}})).unwrap();
+    };
+    // The side seams, the shoulders (their darts between), …
+    sew(&mut s, (5, 9, 10), (9, 5, 6));
+    sew(&mut s, (5, 2, 6), (9, 9, 12));
+    if sleeves {
+        // …the sleeve's underarm seam and its crown into the front and back armholes.
+        sew(&mut s, (13, 4, 5), (13, 9, 10));
+        sew(&mut s, (13, 0, 4), (9, 6, 9));
+        sew(&mut s, (13, 10, 0), (5, 6, 9));
+    }
+    s
+}
+
+/// A bodice (PF-10.6) hangs from the shoulders to about the waist, opened out across its folds,
+/// its four darts (two in each piece) sewn shut and its seams closed.
+#[test]
+fn a_bodice_drapes_from_the_shoulders() {
+    let mut s = bodice(false);
+    let r = s.execute("drape.make", &json!({"precision": 25, "steps": 150, "draw": false})).unwrap();
+    assert_eq!(r["pieces"], json!(2), "{r}");
+    // Each piece opened out: both sides' darts.
+    assert_eq!(r["darts"], json!(8), "{r}");
+    let (top, hem, waist) = (r["top"].as_f64().unwrap(), r["hem"].as_f64().unwrap(), r["waist"].as_f64().unwrap());
+    let a = pf_core::avatar::avatar(&pf_core::avatar::Body {
+        bust: 880.0,
+        waist: 680.0,
+        hip: 940.0,
+        nape_to_waist: 410.0,
+        waist_to_hip: 206.0,
+        neck: Some(370.0),
+        shoulder: Some(121.0),
+        top_arm: Some(280.0),
+        sleeve_length: Some(590.0),
+        armscye_depth: Some(210.0),
+        ..Default::default()
+    })
+    .unwrap();
+    // At the base of the neck at the top, the waist at the bottom (a little above: the avatar has
+    // no bust for the bust dart to shape).
+    assert!((top - a.neck_height).abs() < 30.0, "{r}");
+    assert!(hem > waist - 30.0 && hem < waist + 50.0, "{r}");
+    assert!(r["widestSeam"].as_f64().unwrap() < 12.0, "{r}");
+    assert!(r["worstStretch"].as_f64().unwrap() < 40.0, "{r}");
+}
+
+/// Sleeves (PF-10.6) go round the arms of the armholes they are sewn into and hang down them; the
+/// bodice stays on the shoulders.
+#[test]
+fn sleeves_drape_round_the_arms() {
+    let mut s = bodice(true);
+    let dir = std::env::temp_dir().join(format!("pf-drape-sleeves-{}", std::process::id()));
+    std::fs::create_dir_all(&dir).unwrap();
+    let path = dir.join("top.obj");
+    let r = s.execute("drape.make", &json!({"precision": 25, "steps": 150, "draw": false, "path": path.to_str().unwrap()})).unwrap();
+    assert_eq!(r["pieces"], json!(3), "{r}");
+    let (top, hem, waist) = (r["top"].as_f64().unwrap(), r["hem"].as_f64().unwrap(), r["waist"].as_f64().unwrap());
+    // Still on the shoulders; the sleeves down past the waist.
+    assert!(top > waist + 350.0, "{r}");
+    assert!(hem < waist - 150.0, "{r}");
+    // Cloth out on both arms, as far out as the sleeves hang.
+    let obj = std::fs::read_to_string(&path).unwrap();
+    let xs: Vec<f64> = obj.lines().filter_map(|l| l.strip_prefix("v ")).filter_map(|l| l.split(' ').next()?.parse::<f64>().ok()).collect();
+    let (lo, hi) = xs.iter().fold((f64::INFINITY, f64::NEG_INFINITY), |(a, b), x| (a.min(*x), b.max(*x)));
+    assert!(lo < -0.3 && hi > 0.3, "{lo} {hi}");
+    std::fs::remove_dir_all(&dir).ok();
+}
