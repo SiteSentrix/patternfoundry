@@ -519,6 +519,24 @@ is built on, plus a pattern mode, the way StitchFoundry adds embroidery:
   the fabric; not a marker's layer refused), 1 for the message. Not yet: plaid and stripe
   matching, the check made as pieces are dragged, turning a copy by hand off its grain warned
   about, the marker in DXF-AAMA.
+- 2026-10-23, **PF-9.4**: plaid and check matching. **Make Marker…** takes `plaid` (the repeat, mm
+  or a length with its unit, one value for a square check or `[along, across]`). Each copy is
+  then moved only by whole repeats from where its piece is drawn (after turning its grain along
+  the fabric), so pieces drawn level with each other (the bodice front and back at the same waist
+  and underarm, a skirt's panels side by side) meet the same lines of the plaid on the fabric, the
+  way plaids are matched at the seam lines (Seamwork, "10 tips for matching plaids and stripes",
+  https://seamwork.com/articles/10-tips-for-matching-plaids-and-stripes: "drawing a straight line
+  connecting these points across the front, back and sleeves is a quick way to make sure your
+  plaids meet"; Apparel Resources on markers made "exactly on the repeat",
+  https://apparelresources.com/technology-news/manufacturing-tech/taking-control-plaid-matching-spreading-cutting).
+  No copy is turned on a plaid. A piece cut on the fold keeps against the fold and is matched
+  along the fabric only. The caption names the plaid. `pf_core::marker::lay_matched` (the grid's
+  cells grown by one so a copy off the grid by up to half a cell never overlaps). Tests: 1 in
+  `pf-core` (every offset whole repeats both ways, none turned, none overlapping, on the fabric; a
+  repeat of 0 refused), 1 in `tests_marker.rs` (two pieces drawn 400 mm apart lie whole 40 mm
+  repeats apart; the caption; bad repeats refused). Not yet: match points picked on each piece
+  (a sleeve matched to the bodice at its notches), stripes that run one way only, a mirror-image
+  plaid's phase across a mirrored copy.
 - 2026-10-22, **PF-7.4**: the fold in the exports. **DXF-AAMA** writes a piece cut on the fold as
   the half with its fold as the mirror line, a LINE on layer 6 ("Mirror line", "Symmetry of
   fold" in Patro's layer table,

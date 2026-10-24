@@ -2794,7 +2794,7 @@ pub fn menu_tree_named(english_names: bool) -> Vec<(&'static str, Vec<Item>)> {
                 cp(
                     "Make Marker…",
                     "marker.make",
-                    json!({"width": "150 cm", "fabric": "", "gap": "2 mm", "oneWay": false, "folded": false, "size": "", "precision": "5 mm"}),
+                    json!({"width": "150 cm", "fabric": "", "gap": "2 mm", "oneWay": false, "folded": false, "plaid": "", "size": "", "precision": "5 mm"}),
                 ),
                 c("Check Marker", "ui.checkMarker"),
                 Sep,

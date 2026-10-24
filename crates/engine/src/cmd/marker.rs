@@ -22,7 +22,7 @@
 //! line, grainline and notches with its name, ready to print or export to cut from.
 
 use super::*;
-use pf_core::marker::{Part, area, lay};
+use pf_core::marker::{Part, area, lay_matched};
 use pf_core::{Mark, Pt, mm_to_pt, pt_to_mm};
 use serde_json::{Value, json};
 use std::sync::Arc;
@@ -46,7 +46,7 @@ pub fn specs() -> Vec<CommandSpec> {
             "Make Marker",
             [],
             None,
-            "{width: mm (the fabric's width; or a length with its unit, \"150 cm\", \"60 in\"), fabric? (the fabric whose pieces to lay; default: the first piece's; a piece with none is Main), ids? (these pieces instead), gap?: mm (2, between pieces), oneWay?: bool (a nap or one-way print: every piece the same way up), size? (a size of the size range or chart: that size's pieces), precision?: mm (5; 1 to 20, smaller lays closer but takes longer), folded?: bool (the fabric folded lengthwise, selvedges together: pieces on the fold against the fold, the others laid once a pair; pieces on the fold are opened out otherwise), origin?: [x, y] (document points: the marker's top-left; default below the art)} lays every copy of the pieces (their cut counts, mirror-image pairs flipped) on the fabric with the grainlines along its length, as short as it goes, on the layer \"Marker <fabric>\" (made again it replaces it) → {layer, fabric, widthMm, lengthMm, efficiency (% of the fabric the pieces use), copies, notLaid: [names too wide for the fabric], warnings}",
+            "{width: mm (the fabric's width; or a length with its unit, \"150 cm\", \"60 in\"), fabric? (the fabric whose pieces to lay; default: the first piece's; a piece with none is Main), ids? (these pieces instead), gap?: mm (2, between pieces), oneWay?: bool (a nap or one-way print: every piece the same way up), size? (a size of the size range or chart: that size's pieces), precision?: mm (5; 1 to 20, smaller lays closer but takes longer), folded?: bool (the fabric folded lengthwise, selvedges together: pieces on the fold against the fold, the others laid once a pair; pieces on the fold are opened out otherwise), plaid?: mm | [along, across] (a plaid or check's repeat, mm or lengths with their units: each copy moved only by whole repeats from where its piece is drawn, so pieces drawn level with each other meet the same lines of the plaid, and none turned), origin?: [x, y] (document points: the marker's top-left; default below the art)} lays every copy of the pieces (their cut counts, mirror-image pairs flipped) on the fabric with the grainlines along its length, as short as it goes, on the layer \"Marker <fabric>\" (made again it replaces it) → {layer, fabric, widthMm, lengthMm, efficiency (% of the fabric the pieces use), copies, notLaid: [names too wide for the fabric], warnings}",
             has_doc,
             make
         ),
@@ -124,6 +124,22 @@ fn make(s: &mut Session, p: &Value) -> Result<Value> {
     let folded = match p.get("folded") {
         None | Some(Value::Null) => false,
         Some(v) => v.as_bool().ok_or_else(|| bad(C, "folded: true or false"))?,
+    };
+    // A plaid's repeat along the fabric and across it.
+    let plaid = match p.get("plaid") {
+        None | Some(Value::Null) => None,
+        Some(Value::String(t)) if t.trim().is_empty() => None,
+        Some(Value::Array(a)) if a.len() == 2 => {
+            let mm = |v: &Value| super::piece::mm_param(v).filter(|m| *m >= 1.0 && *m <= 10_000.0);
+            match (mm(&a[0]), mm(&a[1])) {
+                (Some(x), Some(y)) => Some((x, y)),
+                _ => return Err(bad(C, "plaid: the repeat along and across, 1 to 10 000 mm each")),
+            }
+        }
+        Some(v) => match super::piece::mm_param(v).filter(|m| *m >= 1.0 && *m <= 10_000.0) {
+            Some(m) => Some((m, m)),
+            None => return Err(bad(C, "plaid: the repeat (mm, or [along, across])")),
+        },
     };
     // Folded, the marker is half the fabric's width.
     let laid_width = if folded { width / 2.0 } else { width };
@@ -255,8 +271,9 @@ fn make(s: &mut Session, p: &Value) -> Result<Value> {
     if copies.is_empty() {
         return Err(bad(C, "the pieces have no cutting lines to lay"));
     }
-    let parts: Vec<Part> = copies.iter().map(|c| Part { points: c.points.clone(), turn: !one_way, fold: c.on_fold }).collect();
-    let layout = lay(&parts, mm_to_pt(laid_width), mm_to_pt(gap), mm_to_pt(step)).map_err(|e| bad(C, e.to_string()))?;
+    let parts: Vec<Part> = copies.iter().map(|c| Part { points: c.points.clone(), turn: !one_way && plaid.is_none(), fold: c.on_fold }).collect();
+    let repeat = plaid.map(|(x, y)| Pt::new(mm_to_pt(x), mm_to_pt(y)));
+    let layout = lay_matched(&parts, mm_to_pt(laid_width), mm_to_pt(gap), mm_to_pt(step), repeat).map_err(|e| bad(C, e.to_string()))?;
     let used: f64 = parts.iter().zip(&layout.placed).filter(|(_, at)| at.is_some()).map(|(p, _)| area(&p.points)).sum();
     let length = layout.length;
     let efficiency = if length > 0.0 { used / (length * mm_to_pt(laid_width)) * 100.0 } else { 0.0 };
@@ -276,10 +293,11 @@ fn make(s: &mut Session, p: &Value) -> Result<Value> {
     let layer_name = format!("Marker {fabric}");
     let r1 = |v: f64| (v * 10.0).round() / 10.0;
     let caption = format!(
-        "{fabric}{}: {} cm wide{}, {} cm long, {}% used",
+        "{fabric}{}: {} cm wide{}{}, {} cm long, {}% used",
         size.as_deref().map(|s| format!(" (size {s})")).unwrap_or_default(),
         r1(width / 10.0),
         if folded { " folded" } else { "" },
+        plaid.map(|(x, y)| format!(", plaid {} × {} cm", r1(x / 10.0), r1(y / 10.0))).unwrap_or_default(),
         r1(pt_to_mm(length) / 10.0),
         efficiency.round()
     );
@@ -380,6 +398,7 @@ fn make(s: &mut Session, p: &Value) -> Result<Value> {
         "copies": layout.placed.iter().filter(|p| p.is_some()).count(),
         "notLaid": not_laid,
         "folded": folded,
+        "plaid": plaid.map(|(x, y)| json!([r1(x), r1(y)])),
         "warnings": warnings,
     }))
 }

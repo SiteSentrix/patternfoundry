@@ -246,3 +246,36 @@ fn a_marker_checked_after_moving_pieces_by_hand() {
     assert_eq!(c["offFabric"].as_array().unwrap().len(), 1, "{c}");
     assert!(s.execute("marker.check", &json!({"layer": 1})).is_err(), "not a marker's layer");
 }
+
+/// On a plaid (PF-9.4) each copy is moved only by whole repeats from where its piece is drawn:
+/// pieces drawn 400 mm apart (ten 40 mm repeats) lie a whole number of repeats apart both ways.
+#[test]
+fn on_a_plaid_copies_lie_whole_repeats_apart() {
+    let mut s = Session::new();
+    s.execute("file.new", &json!({"width": 2000, "height": 2000})).unwrap();
+    // The same size, so their outlines' corners correspond however they are turned to the grain.
+    rect_piece(&mut s, 0.0, 200.0, 300.0, json!({"name": "Front"}));
+    rect_piece(&mut s, 400.0, 200.0, 300.0, json!({"name": "Back"}));
+    let r = s.execute("marker.make", &json!({"width": "110 cm", "gap": 0, "plaid": "4 cm", "origin": [0, 2000]})).unwrap();
+    assert_eq!(r["plaid"], json!([40.0, 40.0]), "{r}");
+    let l = laid(layer(&s, "Marker Main"));
+    assert_eq!(l.len(), 2);
+    let d = l[0].1.origin() - l[1].1.origin();
+    for v in [d.x, d.y] {
+        let k = pt_to_mm(v) / 40.0;
+        assert!((k - k.round()).abs() < 1e-6, "{d:?} {l:?}");
+    }
+    let caption = layer(&s, "Marker Main")
+        .children()
+        .unwrap()
+        .iter()
+        .find_map(|n| match &n.kind {
+            NodeKind::Text(t) => Some(t.plain_text()),
+            _ => None,
+        })
+        .unwrap();
+    assert!(caption.contains(", plaid 4 × 4 cm, "), "{caption}");
+    for bad in [json!("0 cm"), json!([40, 0]), json!([1, 2, 3])] {
+        assert!(s.execute("marker.make", &json!({"width": "110 cm", "plaid": bad})).is_err(), "{bad}");
+    }
+}
