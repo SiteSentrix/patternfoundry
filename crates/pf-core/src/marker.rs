@@ -75,6 +75,8 @@ pub enum MarkerError {
     TooMany,
     /// The grid would take more than [`MAX_CELLS`] cells.
     TooLarge,
+    /// A plaid's repeat not more than 0 each way, or not a number.
+    Repeat,
 }
 
 impl std::fmt::Display for MarkerError {
@@ -85,6 +87,7 @@ impl std::fmt::Display for MarkerError {
             MarkerError::Step => "the precision must be more than 0",
             MarkerError::TooMany => "too many pieces to lay at once",
             MarkerError::TooLarge => "the marker is too large at this precision: give a coarser one",
+            MarkerError::Repeat => "the plaid's repeat must be more than 0 along and across",
         })
     }
 }
@@ -273,6 +276,18 @@ fn way(points: &[Pt], turned: bool, pad: f64, step: f64) -> Way {
 
 /// Lay `parts` across fabric `width` wide, `gap` apart, testing overlap on a grid of `step`.
 pub fn lay(parts: &[Part], width: f64, gap: f64, step: f64) -> Result<Layout, MarkerError> {
+    lay_matched(parts, width, gap, step, None)
+}
+
+/// [`lay`], on a plaid or check whose design repeats every `repeat.x` along the fabric and
+/// `repeat.y` across it (PF-9.4): each part is moved only by whole repeats from where its points
+/// are, so parts placed in step with each other (pieces drawn level with each other, matching at
+/// their seams) meet the same lines of the plaid on the fabric, as plaids are matched at their
+/// seam lines (Seamwork, "10 tips for matching plaids and stripes",
+/// <https://seamwork.com/articles/10-tips-for-matching-plaids-and-stripes>). Parts are never
+/// turned (the plaid would turn with them). A part on the fold keeps against the fold and is
+/// matched along the fabric only.
+pub fn lay_matched(parts: &[Part], width: f64, gap: f64, step: f64, repeat: Option<Pt>) -> Result<Layout, MarkerError> {
     if !(width.is_finite() && width > 0.0) {
         return Err(MarkerError::Width);
     }
@@ -285,7 +300,12 @@ pub fn lay(parts: &[Part], width: f64, gap: f64, step: f64) -> Result<Layout, Ma
     if parts.len() > MAX_PARTS || parts.iter().any(|p| p.points.len() > MAX_POINTS) {
         return Err(MarkerError::TooMany);
     }
+    if repeat.is_some_and(|r| !(r.is_finite() && r.x > 0.0 && r.y > 0.0)) {
+        return Err(MarkerError::Repeat);
+    }
     let pad = gap / 2.0;
+    // On a plaid a part lies off the grid by up to half a cell: its cells are grown by a whole one.
+    let grow = if repeat.is_some() { step } else { 0.0 };
     // The grid starts half a gap before the fabric's top edge and its start, and ends half a gap
     // past its bottom edge: the gap is kept between parts, not from the edges.
     let fabric_rows = ((width + gap) / step).floor() as usize;
@@ -298,9 +318,9 @@ pub fn lay(parts: &[Part], width: f64, gap: f64, step: f64) -> Result<Layout, Ma
             if !usable(p) {
                 return Vec::new();
             }
-            let mut w = vec![way(&p.points, false, pad, step)];
-            if p.turn && !p.fold {
-                w.push(way(&p.points, true, pad, step));
+            let mut w = vec![way(&p.points, false, pad + grow, step)];
+            if p.turn && !p.fold && repeat.is_none() {
+                w.push(way(&p.points, true, pad + grow, step));
             }
             w
         })
@@ -326,7 +346,25 @@ pub fn lay(parts: &[Part], width: f64, gap: f64, step: f64) -> Result<Layout, Ma
             }
             // A part on the fold lies against the top edge only.
             let rows = if parts[i].fold { 0 } else { fabric_rows - c.rows.len() };
-            let found = (0..=total - c.cols).find_map(|cx| (0..=rows).find(|&cy| grid.fits(c, cx, cy)).map(|cy| (cx, cy)));
+            let found = match repeat {
+                None => (0..=total - c.cols).find_map(|cx| (0..=rows).find(|&cy| grid.fits(c, cx, cy)).map(|cy| (cx, cy))),
+                // Whole repeats from where it is: the cell nearest each such place.
+                Some(r) => {
+                    let cell = |o: f64, shift: f64| ((o - shift + pad) / step).round();
+                    let (k0, k1) =
+                        (((w.shift.x - pad) / r.x).ceil() as i64, ((w.shift.x - pad + (total - c.cols) as f64 * step) / r.x).floor() as i64);
+                    let (j0, j1) = (((w.shift.y - pad) / r.y).ceil() as i64, ((w.shift.y - pad + rows as f64 * step) / r.y).floor() as i64);
+                    (k0..=k1).find_map(|k| {
+                        let cx = cell(k as f64 * r.x, w.shift.x);
+                        let rows_at: Vec<f64> = if parts[i].fold { vec![0.0] } else { (j0..=j1).map(|j| cell(j as f64 * r.y, w.shift.y)).collect() };
+                        rows_at
+                            .into_iter()
+                            .filter(|cy| cx >= 0.0 && *cy >= 0.0 && cx as usize + c.cols <= total && *cy as usize <= rows)
+                            .find(|cy| grid.fits(c, cx as usize, *cy as usize))
+                            .map(|cy| (cx as usize, cy as usize))
+                    })
+                }
+            };
             if let Some((cx, cy)) = found {
                 let key = (cx + c.cols, cy);
                 if best.is_none_or(|(bk, bx, by)| key < (bx + ways[i][bk].cells.cols, by)) {
@@ -337,7 +375,14 @@ pub fn lay(parts: &[Part], width: f64, gap: f64, step: f64) -> Result<Layout, Ma
         let Some((k, cx, cy)) = best else { continue };
         let w = &ways[i][k];
         grid.put(&w.cells, cx, cy);
-        let at = Placed { offset: w.shift + Pt::new(cx as f64 * step - pad, cy as f64 * step - pad), turned: w.turned };
+        let mut at = Placed { offset: w.shift + Pt::new(cx as f64 * step - pad, cy as f64 * step - pad), turned: w.turned };
+        // On a plaid, exactly whole repeats from where it was (the cells were only the nearest).
+        if let Some(r) = repeat {
+            at.offset.x = (at.offset.x / r.x).round() * r.x;
+            if !parts[i].fold {
+                at.offset.y = (at.offset.y / r.y).round() * r.y;
+            }
+        }
         length = parts[i].points.iter().map(|p| at.apply(*p).x).fold(length, f64::max);
         placed[i] = Some(at);
     }
@@ -395,6 +440,36 @@ pub fn opened_out(points: &[Pt], a: Pt, b: Pt) -> Option<Vec<Pt>> {
 
 #[cfg(test)]
 mod tests {
+    #[test]
+    fn on_a_plaid_every_part_moves_whole_repeats_and_none_overlap() {
+        let at = |x: f64, y: f64, w: f64, h: f64| Part {
+            points: vec![Pt::new(x, y), Pt::new(x + w, y), Pt::new(x + w, y + h), Pt::new(x, y + h)],
+            turn: true,
+            fold: false,
+        };
+        let parts = vec![at(7.0, 3.0, 120.0, 80.0), at(150.0, 11.0, 90.0, 60.0), at(-40.0, 200.0, 100.0, 100.0)];
+        let r = Pt::new(30.0, 25.0);
+        let l = lay_matched(&parts, 300.0, 2.0, 5.0, Some(r)).unwrap();
+        let laid: Vec<Vec<Pt>> = parts
+            .iter()
+            .zip(&l.placed)
+            .map(|(p, at)| {
+                let at = at.unwrap();
+                assert!(!at.turned, "a plaid isn't turned");
+                let (kx, ky) = (at.offset.x / r.x, at.offset.y / r.y);
+                assert!((kx - kx.round()).abs() < 1e-9 && (ky - ky.round()).abs() < 1e-9, "{:?}", at.offset);
+                p.points.iter().map(|q| at.apply(*q)).collect()
+            })
+            .collect();
+        for (i, a) in laid.iter().enumerate() {
+            assert!(a.iter().all(|q| q.y >= -1e-9 && q.y <= 300.0 + 1e-9 && q.x >= -1e-9), "on the fabric: {a:?}");
+            for b in &laid[i + 1..] {
+                assert!(!overlaps(a, b), "{a:?} {b:?}");
+            }
+        }
+        assert!(lay_matched(&parts, 300.0, 2.0, 5.0, Some(Pt::new(0.0, 25.0))).is_err());
+    }
+
     #[test]
     fn pieces_laid_by_hand_overlap_when_their_outlines_cross_or_nest() {
         use super::overlaps;
