@@ -5304,3 +5304,4 @@ menu	Pattern	Schnitt
 	Export Drape as glTF…	Drapierung als glTF exportieren…
 @msg	format: "obj" or "glb"	format: "obj" oder "glb"
 @msg	a piece could not be placed on the body	ein Schnittteil ließ sich nicht am Körper platzieren
+@msg	{name} is already open	{name} ist bereits geöffnet

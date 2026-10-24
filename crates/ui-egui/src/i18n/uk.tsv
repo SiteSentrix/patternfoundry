@@ -5317,3 +5317,4 @@ menu	Pattern	Викрійка
 	Export Drape as glTF…	Експортувати драпірування у glTF…
 @msg	format: "obj" or "glb"	format: "obj" або "glb"
 @msg	a piece could not be placed on the body	не вдалося розмістити деталь на тілі
+@msg	{name} is already open	{name} уже відкрито

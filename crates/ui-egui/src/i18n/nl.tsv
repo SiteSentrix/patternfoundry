@@ -5747,3 +5747,4 @@ menu	Pattern	Patroon
 	Export Drape as glTF…	Val exporteren als glTF…
 @msg	format: "obj" or "glb"	format: "obj" of "glb"
 @msg	a piece could not be placed on the body	een patroondeel kon niet op het lichaam worden geplaatst
+@msg	{name} is already open	{name} is al geopend

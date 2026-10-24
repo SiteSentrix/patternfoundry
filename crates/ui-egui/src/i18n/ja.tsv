@@ -5377,3 +5377,4 @@ menu	Pattern	型紙
 	Export Drape as glTF…	ドレープを glTF で書き出し…
 @msg	format: "obj" or "glb"	format: "obj" または "glb"
 @msg	a piece could not be placed on the body	パーツを体に配置できませんでした
+@msg	{name} is already open	{name} はすでに開いています

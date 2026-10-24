@@ -732,6 +732,15 @@ is built on, plus a pattern mode, the way StitchFoundry adds embroidery:
   sleeves set in, the armpits and the top of the bodice read too tight (red), the cloth pinched
   where the avatar's arm and chest meet. Not yet: trousers (they need a leg each), a better
   avatar at the bust and the armpit.
+- 2026-10-24, **PF-1.6**: opening a file that is already open shows its tab. File › Open, Open
+  Recent, a file dropped on the window and `file.open` used to open a second copy of a file
+  already open, and the two tabs then each saved over the other's changes (found in the
+  regression run of 2026-10-24). Now the open document is brought to the front, its unsaved work
+  kept, and the status bar says "<name> is already open" (in all 23 languages); the same file
+  named another way (a link, `..`) counts, and so does a file still being read in the background.
+  The result is `{index, title, alreadyOpen: true}`. Tests: 1 in `tests_save.rs` (no second copy,
+  the unsaved work kept, the other spelling, opens again once closed); the tests that saved a file
+  and opened it again to see how it reopens now close it first.
 - 2026-10-24, **PF-10.5**: glTF export. **Pattern › Export Avatar as glTF…**
   (`avatar.exportGlb`) and **Pattern › Export Drape as glTF…** (`drape.make` with
   `format: "glb"`, or a `.glb` path) write a binary glTF 2.0 file for 3D software and game engines

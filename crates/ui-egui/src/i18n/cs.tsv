@@ -5722,3 +5722,4 @@ menu	Pattern	Střih
 	Export Drape as glTF…	Exportovat splývání jako glTF…
 @msg	format: "obj" or "glb"	format: "obj" nebo "glb"
 @msg	a piece could not be placed on the body	díl se nepodařilo umístit na tělo
+@msg	{name} is already open	{name} je už otevřen

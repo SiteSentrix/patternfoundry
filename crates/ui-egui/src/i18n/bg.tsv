@@ -5686,3 +5686,4 @@ menu	Pattern	Кройка
 	Export Drape as glTF…	Експортиране на драпирането като glTF…
 @msg	format: "obj" or "glb"	format: "obj" или "glb"
 @msg	a piece could not be placed on the body	част от кройката не можа да бъде поставена върху тялото
+@msg	{name} is already open	{name} вече е отворен

@@ -5705,3 +5705,4 @@ menu	Pattern	Pola
 	Export Drape as glTF…	Ekspor Jatuhan Kain sebagai glTF…
 @msg	format: "obj" or "glb"	format: "obj" atau "glb"
 @msg	a piece could not be placed on the body	sebuah potongan pola tidak dapat ditempatkan pada tubuh
+@msg	{name} is already open	{name} sudah terbuka

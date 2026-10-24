@@ -5333,3 +5333,4 @@ menu	Pattern	Выкройка
 	Export Drape as glTF…	Экспортировать драпировку в glTF…
 @msg	format: "obj" or "glb"	format: "obj" или "glb"
 @msg	a piece could not be placed on the body	не удалось разместить деталь на теле
+@msg	{name} is already open	{name} уже открыт

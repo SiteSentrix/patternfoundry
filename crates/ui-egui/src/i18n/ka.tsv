@@ -5630,3 +5630,4 @@ menu	Pattern	თარგი
 	Export Drape as glTF…	დრაპირების ექსპორტი glTF-ად…
 @msg	format: "obj" or "glb"	format: "obj" ან "glb"
 @msg	a piece could not be placed on the body	ნაწილის სხეულზე განთავსება ვერ მოხერხდა
+@msg	{name} is already open	{name} უკვე გახსნილია

@@ -5665,3 +5665,4 @@ menu	Pattern	Patrón
 	Export Drape as glTF…	Exportar caída como glTF…
 @msg	format: "obj" or "glb"	format: "obj" o "glb"
 @msg	a piece could not be placed on the body	no se pudo colocar una pieza sobre el cuerpo
+@msg	{name} is already open	{name} ya está abierto

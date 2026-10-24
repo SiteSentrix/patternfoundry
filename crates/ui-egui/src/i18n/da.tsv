@@ -5705,3 +5705,4 @@ menu	Pattern	Mønster
 	Export Drape as glTF…	Eksportér drapering som glTF…
 @msg	format: "obj" or "glb"	format: "obj" eller "glb"
 @msg	a piece could not be placed on the body	en del kunne ikke placeres på kroppen
+@msg	{name} is already open	{name} er allerede åben

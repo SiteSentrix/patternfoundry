@@ -5640,3 +5640,4 @@ menu	Pattern	Molde
 	Export Drape as glTF…	Exportar caimento como glTF…
 @msg	format: "obj" or "glb"	format: "obj" ou "glb"
 @msg	a piece could not be placed on the body	não foi possível posicionar uma peça no corpo
+@msg	{name} is already open	{name} já está aberto

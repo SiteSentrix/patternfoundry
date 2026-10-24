@@ -5317,3 +5317,4 @@ menu	Pattern	Rập
 	Export Drape as glTF…	Xuất độ rủ dạng glTF…
 @msg	format: "obj" or "glb"	format: "obj" hoặc "glb"
 @msg	a piece could not be placed on the body	không thể đặt một mảnh rập lên cơ thể
+@msg	{name} is already open	{name} đã được mở

@@ -5674,3 +5674,4 @@ menu	Pattern	Πατρόν
 	Export Drape as glTF…	Εξαγωγή πτώσης ως glTF…
 @msg	format: "obj" or "glb"	format: "obj" ή "glb"
 @msg	a piece could not be placed on the body	ένα κομμάτι δεν μπόρεσε να τοποθετηθεί στο σώμα
+@msg	{name} is already open	Το {name} είναι ήδη ανοιχτό
