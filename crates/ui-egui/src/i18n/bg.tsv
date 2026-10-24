@@ -5482,3 +5482,190 @@ file-filter	PDF for projector	PDF за проектор
 	{piece} is off the fabric	{piece} излиза извън плата
 	No pieces overlap, and all are on the fabric.	Няма застъпващи се детайли и всички са върху плата.
 	Plaid	Каре
+menu	Pattern	Кройка
+@msg	a and b are two pieces (or paths) that sew together	a и b са два детайла (или два пътя), които се съшиват помежду си
+@msg	a corner is "mitre" or "square"	ъгълът е "mitre" или "square"
+@msg	a facing runs along part of the outline	обточката минава по част от контура
+@msg	a facing runs between two different points of the outline	обточката минава между две различни точки на контура
+@msg	a name takes at most 200 characters	името може да съдържа най-много 200 знака
+@msg	a neckline runs between two different points of its outline, and the shoulder point is one of them	деколтето минава между две различни точки на своя контур и едната от тях е раменната точка
+@msg	a seam allowance is a number of mm, or a length with its unit ("5/8 in")	добавката за шев е число в мм или дължина с мерна единица ("5/8 in")
+@msg	a seam has no length	шевът има нулева дължина
+@msg	a shoulder point is on its neck point	раменната точка съвпада с точката на врата
+@msg	a slash runs between two points of the outline that aren't neighbours	разрезът минава между две несъседни точки на контура
+@msg	a split leaves a piece with fewer than three anchors	след разделянето детайлът остава с по-малко от три опорни точки
+@msg	a split made two panels: delete the panel you don't want instead	разделянето създаде две части: вместо това изтрийте ненужната част
+@msg	a split needs two different anchors on the outline	за разделяне са нужни две различни опорни точки на контура
+@msg	amount: a share of the dart, (0, 1]	amount: дял от пенса, (0, 1]
+@msg	amount: how far it opens, mm	amount: колко се разтваря, мм
+@msg	anchor: the point's number along the path, from 0	anchor: номер на точката по пътя, от 0
+@msg	anchor: the seam line's point, from 0	anchor: точка от линията на шева, от 0
+@msg	anchors: [a, b] or [a]	anchors: [a, b] или [a]
+@msg	anchors: point numbers along the path	anchors: номера на точките по пътя
+@msg	apex: the dart's point (or select that one point)	apex: върхът на пенса (или изберете тази точка)
+@msg	at: 0 (the edge's start) to 1 (its end)	at: от 0 (началото на ръба) до 1 (краят му)
+@msg	at: [x, y], the document point on the edge	at: [x, y], точка от документа върху ръба
+@msg	base: the size the pattern is drawn in	base: размерът, в който е начертана кройката
+@msg	block: "bodice", "skirt", "sleeve" or "trousers"	block: "bodice", "skirt", "sleeve" или "trousers"
+@msg	can't make the seam that long by moving its end	шевът не може да стане толкова дълъг чрез преместване на края му
+@msg	curve: mm the wrap edge bows into the piece	curve: с колко мм ръбът на прехвърлянето се извива навътре в детайла
+@msg	cut is a whole number, 1 to 999	cut е цяло число от 1 до 999
+@msg	data: the chart's text	data: текстът на таблицата
+@msg	depth: how deep the pleat folds under, mm	depth: колко дълбоко се подгъва плисето, мм
+@msg	depth: mm (less than 0 bows the legs in)	depth: мм (под 0 страните се извиват навътре)
+@msg	diameter: a number of mm, or a length with its unit ("1/8 in")	diameter: число в мм или дължина с мерна единица ("1/8 in")
+@msg	edge: the edge's number, from 0 (or point)	edge: номер на ръба, от 0 (или point)
+@msg	edges and corners are numbered from 0	ръбовете и ъглите се номерират от 0
+@msg	every: mm, at least 10	every: мм, поне 10
+@msg	face: only a box pleat has one	face: има само при бантово плисе
+@msg	face: the box pleat's width between its folds, mm	face: ширината на бантовото плисе между сгъвките, мм
+@msg	flapShape: "square", "rounded" or "pointed"	flapShape: "square", "rounded" или "pointed"
+@msg	fold is an edge's number (0..), or null	fold е номер на ръб (0..) или null
+@msg	fold: [a, b], the centre front edge's two points	fold: [a, b], двете точки на ръба по средата на предницата
+@msg	fold: true or false	fold: true или false
+@msg	foldAt: [x, y] in document points	foldAt: [x, y] в точки на документа
+@msg	folded: true or false	folded: true или false
+@msg	from: [x, y] in document points	from: [x, y] в точки на документа
+@msg	from: not a pattern piece	from: не е детайл от кройка
+@msg	from: the pattern piece whose rules are copied	from: детайлът от кройка, чиито правила се копират
+@msg	from: the piece has no seam line	from: детайлът няма линия на шева
+@msg	frontShape: "square", "rounded" or "winged"	frontShape: "square", "rounded" или "winged"
+@msg	gathering runs between two different points of the outline	набирането минава между две различни точки на контура
+@msg	give apex and one of to or toAnchor (or select the two points)	задайте apex и едно от to или toAnchor (или изберете двете точки)
+@msg	height: mm, 10 to 100 (the tutorial's is at most 30)	height: мм, от 10 до 100 (в методиката е най-много 30)
+@msg	id: a block part's id	id: id на детайл от основна кройка
+@msg	index: the drill hole's place in the list, from 0 (or point)	index: номер на отвора в списъка, от 0 (или point)
+@msg	index: the notch's place in the list, from 0	index: номер на насечката в списъка, от 0
+@msg	index: the step's place, from 0	index: номер на стъпката, от 0
+@msg	into: the length it gathers into, mm	into: дължината след набирането, мм
+@msg	kind: "slit", "double", "v", "t", "castle" or "u"	kind: "slit", "double", "v", "t", "castle" или "u"
+@msg	kind: the notch's new shape	kind: новата форма на насечката
+@msg	layer: a marker layer's id	layer: id на слой от кройна подредба
+@msg	length (mm) or likeId with likeFrom and likeTo: the seam to match	length (мм) или likeId с likeFrom и likeTo: шевът, по чиято дължина да се изравни
+@msg	length: mm, more than 0	length: мм, повече от 0
+@msg	line: "cut" or "seam"	line: "cut" или "seam"
+@msg	match: the seam it sews to is shorter than the pocket opening's end	match: шевът, към който се пришива, свършва преди края на отвора на джоба
+@msg	min is more than max	min е по-голямо от max
+@msg	mirror is true or false	mirror е true или false
+@msg	mirror: "none", "x", "y" or "xy"	mirror: "none", "x", "y" или "xy"
+@msg	name: the saved set's name	name: името на запазения набор
+@msg	name: whose measurements they are ("Me")	name: чии са мерките ("Me")
+@msg	no drill hole near the point	няма отвор близо до точката
+@msg	no drill hole with that index	няма отвор с този индекс
+@msg	no notch with that index	няма насечка с този индекс
+@msg	no object with that id	няма обект с този id
+@msg	no pattern pieces to grade: make the outlines pattern pieces first (Pattern › Make Pattern Piece)	няма детайли от кройка за степенуване: първо направете контурите детайли от кройка (Кройка › Създаване на детайл от кройка)
+@msg	no straight centre front edge on the outline's side: name it with fold: [a, b]	на тази страна на контура няма прав ръб по средата на предницата: посочете го с fold: [a, b]
+@msg	not a drafted block part	не е детайл от конструирана основна кройка
+@msg	not a marker's layer (Pattern › Make Marker…)	не е слой от кройна подредба (Кройка › Създаване на кройна подредба…)
+@msg	not a pattern piece	не е детайл от кройка
+@msg	not a stand collar's outline	не е контур на права яка
+@msg	notches go on pattern pieces: make both seams' paths pieces first (Pattern › Make Pattern Piece)	насечките се поставят върху детайли от кройка: първо направете пътищата на двата шева детайли (Кройка › Създаване на детайл от кройка)
+@msg	notches: [mm, …]	notches: [мм, …]
+@msg	notches: distances from the seams' starts, mm	notches: разстояния от началото на шевовете, мм
+@msg	on and at go together: the garment piece and where the opening's top-left corner goes on it	on и at се задават заедно: детайлът на изделието и мястото върху него за горния ляв ъгъл на отвора
+@msg	on and at go together: the garment piece and where the pocket's top-left corner goes on it	on и at се задават заедно: детайлът на изделието и мястото върху него за горния ляв ъгъл на джоба
+@msg	one point splits only where another point is at the same place (two darts' point)	една точка се разделя само ако на същото място има друга точка (общ връх на два пенса)
+@msg	oneWay: true or false	oneWay: true или false
+@msg	openFolds: true or false	openFolds: true или false
+@msg	origin: [x, y] in document points	origin: [x, y] в точки на документа
+@msg	overlap: mm past centre front, more than 0	overlap: мм отвъд средата на предницата, повече от 0
+@msg	overlap: the edge misses the outline	overlap: ръбът не пресича контура
+@msg	plaid: the repeat (mm, or [along, across])	plaid: рапортът (мм или [along, across])
+@msg	plaid: the repeat along and across, 1 to 10 000 mm each	plaid: рапортът по дължина и по ширина, от 1 до 10 000 мм всеки
+@msg	point: [x, y] in document points	point: [x, y] в точки на документа
+@msg	select a drafted block part (Pattern › Draft … Block)	изберете детайл от конструирана основна кройка (Кройка › Конструиране на основна кройка …)
+@msg	select a path or a pattern piece	изберете път или детайл от кройка
+@msg	select a pattern piece (Pattern › Make Pattern Piece makes one)	изберете детайл от кройка (създава се с Кройка › Създаване на детайл от кройка)
+@msg	select a piece on the marker to check	изберете детайл в кройната подредба за проверка
+@msg	select closed paths: each becomes a piece, the path its seam line	изберете затворени пътища: всеки става детайл, а пътят — неговата линия на шева
+@msg	select one path	изберете един път
+@msg	select one pattern piece	изберете един детайл от кройка
+@msg	select two points of one path (or one that two darts share)	изберете две точки от един път (или една, обща за два пенса)
+@msg	select two points of one path: the dart's point and where the dart moves to	изберете две точки от един път: върха на пенса и мястото, където да се премести
+@msg	select two points of one path: the ends of the edge to face	изберете две точки от един път: краищата на ръба, който да се обработи с обточка
+@msg	select two points of one path: the ends of the edge to gather	изберете две точки от един път: краищата на ръба, който да се набере
+@msg	share is true or false	share е true или false
+@msg	shorten: mm (less than 0 lengthens)	shorten: мм (под 0 удължава)
+@msg	shoulder: longer than the outline	shoulder: по-дълго от контура
+@msg	shoulder: mm, 0 or more	shoulder: мм, 0 или повече
+@msg	size: one of the chart's sizes	size: един от размерите в таблицата
+@msg	size: the name of a size of the size range or chart	size: името на размер от гамата размери или от таблицата
+@msg	sizes: name one size at least	sizes: посочете поне един размер
+@msg	sizes: the sizes' names	sizes: имената на размерите
+@msg	sizes: the sizes' names, smallest first (null removes them)	sizes: имената на размерите, от най-малкия (null ги премахва)
+@msg	split the seam line on its own: release the piece first (Pattern › Release Pattern Piece)	за да разделите само линията на шева, първо освободете детайла (Кройка › Освобождаване на детайла)
+@msg	step: [dx, dy] in mm	step: [dx, dy] в мм
+@msg	style: classic, casual or shirt	style: classic, casual или shirt
+@msg	that anchor's neighbours don't make a dart	съседните точки на тази опорна точка не образуват пенс
+@msg	that point is not a dart's point: its legs open a right angle or wider	тази точка не е връх на пенс: страните ѝ образуват прав или по-широк ъгъл
+@msg	the amount is a share of the dart, more than 0 and at most 1	стойността е дял от пенса, повече от 0 и най-много 1
+@msg	the back's outline encloses no area	контурът на гърба няма площ
+@msg	the box pleat's face is more than 0 wide	ширината на лицевата част на бантовото плисе трябва да е повече от 0
+@msg	the chart is larger than 1 MB	таблицата е по-голяма от 1 MB
+@msg	the curve has no length at the meeting point	кривата има нулева дължина в точката на срещане
+@msg	the curves leave the seam the same way	кривите излизат от шева в една и съща посока
+@msg	the dart has no length	пенсът има нулева дължина
+@msg	the dart is not that long	пенсът е по-къс от зададеното
+@msg	the dart point or the new dart's anchor is not on the outline	върхът на пенса или опорната точка на новия пенс не е върху контура
+@msg	the dart's legs must be straight lines	страните на пенса трябва да са прави линии
+@msg	the dart's point is past the outline's end	върхът на пенса е след края на контура
+@msg	the depth to curve the legs by is not a number	дълбочината на извиване на страните не е число
+@msg	the document has no marker (Pattern › Make Marker…)	документът няма кройна подредба (Кройка › Създаване на кройна подредба…)
+@msg	the document has no measurements to save	документът няма мерки за запазване
+@msg	the document has no size chart (measure.importChart)	документът няма таблица с размери (measure.importChart)
+@msg	the drop at the front is less than half the neck edge	дълбочината на деколтето отпред е по-малка от половината ръб на деколтето
+@msg	the edge has no length	ръбът има нулева дължина
+@msg	the edge's anchor is past the outline's end	опорната точка на ръба е след края на контура
+@msg	the fabric's width must be more than 0	ширината на плата трябва да е повече от 0
+@msg	the flap is deeper than twice its width	капакът е по-дълбок от двойната си ширина
+@msg	the flap's width and depth are more than 0, its allowance 0 or more	ширината и дълбочината на капака трябва да са повече от 0, а добавката — 0 или повече
+@msg	the fold edge has no length	ръбът на сгъвката има нулева дължина
+@msg	the fold edge's anchors are past the outline's end	опорните точки на ръба на сгъвката са след края на контура
+@msg	the fold edge's two anchors must be neighbours on the outline	двете опорни точки на ръба на сгъвката трябва да са съседни на контура
+@msg	the fold must be a straight edge	сгъвката трябва да е прав ръб
+@msg	the front end has no length	предният край има нулева дължина
+@msg	the gap must be 0 or more	разстоянието трябва да е 0 или повече
+@msg	the grainline's ends are the same point	краищата на линията на основата са една и съща точка
+@msg	the legs can't curve that far: the dart isn't wide enough	страните не могат да се извият толкова: пенсът не е достатъчно широк
+@msg	the length to shorten by is not a number	дължината на скъсяване не е число
+@msg	the marker has lost its fabric outline	кройната подредба е загубила контура на плата
+@msg	the marker has no pieces	кройната подредба няма детайли
+@msg	the marker is too large at this precision: give a coarser one	кройната подредба е твърде голяма при тази точност: задайте по-груба
+@msg	the measurements could not be saved	мерките не можаха да бъдат запазени
+@msg	the meeting point and the seam's other end are points of the outline	точката на срещане и другият край на шева трябва да са точки от контура
+@msg	the neckline has no length	деколтето има нулева дължина
+@msg	the neckline lengths and the stand's height are more than 0, the rise and extension 0 or more	дължините на деколтето и височината на стойката трябва да са повече от 0, а издигането и удължението — 0 или повече
+@msg	the new dart is on the old dart	новият пенс съвпада със стария
+@msg	the opening is longer than twice its height	отворът е по-дълъг от двойната си височина
+@msg	the opening, depth and width are more than 0, the width more than the allowance	отворът, дълбочината и ширината трябва да са повече от 0, а ширината — повече от добавката
+@msg	the opening, the welt and the depth are more than 0, the allowances 0 or more	отворът, лайсната и дълбочината трябва да са повече от 0, а добавките — 0 или повече
+@msg	the outline encloses no area	контурът няма площ
+@msg	the outline has no side seam	контурът няма страничен шев
+@msg	the path has no outline	пътят няма контур
+@msg	the path must be one closed outline	пътят трябва да е един затворен контур
+@msg	the piece has no grade rules to copy	детайлът няма правила за степенуване за копиране
+@msg	the piece has no straight edge to cut on the fold	детайлът няма прав ръб за кроене на сгъвка
+@msg	the pieces have no cutting lines to lay	детайлите нямат линии на рязане за подреждане
+@msg	the plaid's repeat must be more than 0 along and across	рапортът на карето трябва да е повече от 0 по дължина и по ширина
+@msg	the pocket (its opening and the allowance past both ends) fits on the seam	джобът (отворът и добавката след двата му края) трябва да се побира върху шева
+@msg	the point is not inside the piece	точката не е вътре в детайла
+@msg	the point is not on the seam line or in its allowance	точката не е върху линията на шева или в добавката ѝ
+@msg	the precision must be more than 0	точността трябва да е повече от 0
+@msg	the rise at centre front is less than the front neckline is long	издигането по средата на предницата е по-малко от дължината на предното деколте
+@msg	the seam has no length there	шевът има нулева дължина на това място
+@msg	the seam runs between two different points of the outline	шевът трябва да минава между две различни точки на контура
+@msg	the seam's other end is a neighbour of the meeting point	другият край на шева е съседен на точката на срещане
+@msg	the top edge has no length	горният ръб има нулева дължина
+@msg	the wing is more than 0 long	крилцето трябва да е по-дълго от 0
+@msg	there is no folder to keep measurement sets in here (the desktop app keeps them next to its preferences)	тук няма папка за наборите от мерки (настолното приложение ги пази до своите настройки)
+@msg	there is no point of the seam line there	тук няма точка от линията на шева
+@msg	to or toAnchor: where the dart moves to	to или toAnchor: накъде се премества пенсът
+@msg	to: [x, y] in document points	to: [x, y] в точки на документа
+@msg	to: the pieces to copy the rules to (select them, or name them)	to: детайлите, към които се копират правилата (изберете ги или ги посочете)
+@msg	too many objects at once	твърде много обекти наведнъж
+@msg	too many pieces at once	твърде много детайли наведнъж
+@msg	too many pieces to lay at once	твърде много детайли за подреждане наведнъж
+@msg	too many sizes at once	твърде много размери наведнъж
+@msg	unit: "mm", "cm" or "in"	unit: "mm", "cm" или "in"
+@msg	width: mm, more than 0	width: мм, повече от 0

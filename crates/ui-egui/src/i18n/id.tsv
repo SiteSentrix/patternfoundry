@@ -5501,3 +5501,190 @@ file-filter	PDF for projector	PDF untuk proyektor
 	{piece} is off the fabric	{piece} keluar dari kain
 	No pieces overlap, and all are on the fabric.	Tidak ada bagian yang bertumpuk, semuanya di atas kain.
 	Plaid	Kotak-kotak
+menu	Pattern	Pola
+@msg	a and b are two pieces (or paths) that sew together	a dan b adalah dua bagian (atau jalur) yang dijahit menjadi satu
+@msg	a corner is "mitre" or "square"	sudut berupa "mitre" atau "square"
+@msg	a facing runs along part of the outline	lapisan tepi mengikuti sebagian garis luar
+@msg	a facing runs between two different points of the outline	lapisan tepi membentang di antara dua titik berbeda pada garis luar
+@msg	a name takes at most 200 characters	nama paling banyak 200 karakter
+@msg	a neckline runs between two different points of its outline, and the shoulder point is one of them	garis leher membentang di antara dua titik berbeda pada garis luarnya, dan salah satunya adalah titik bahu
+@msg	a seam allowance is a number of mm, or a length with its unit ("5/8 in")	kampuh berupa angka dalam mm, atau panjang dengan satuannya ("5/8 in")
+@msg	a seam has no length	jahitan tidak memiliki panjang
+@msg	a shoulder point is on its neck point	titik bahu berada di titik lehernya
+@msg	a slash runs between two points of the outline that aren't neighbours	sayatan membentang di antara dua titik garis luar yang tidak bersebelahan
+@msg	a split leaves a piece with fewer than three anchors	pemisahan menyisakan bagian dengan kurang dari tiga titik jangkar
+@msg	a split made two panels: delete the panel you don't want instead	pemisahan menghasilkan dua panel: hapus saja panel yang tidak Anda inginkan
+@msg	a split needs two different anchors on the outline	pemisahan memerlukan dua titik jangkar berbeda pada garis luar
+@msg	amount: a share of the dart, (0, 1]	amount: porsi kup, (0, 1]
+@msg	amount: how far it opens, mm	amount: seberapa jauh terbuka, mm
+@msg	anchor: the point's number along the path, from 0	anchor: nomor titik di sepanjang jalur, mulai 0
+@msg	anchor: the seam line's point, from 0	anchor: titik garis jahit, mulai 0
+@msg	anchors: [a, b] or [a]	anchors: [a, b] atau [a]
+@msg	anchors: point numbers along the path	anchors: nomor titik di sepanjang jalur
+@msg	apex: the dart's point (or select that one point)	apex: ujung kup (atau pilih satu titik itu)
+@msg	at: 0 (the edge's start) to 1 (its end)	at: 0 (awal tepi) hingga 1 (ujungnya)
+@msg	at: [x, y], the document point on the edge	at: [x, y], titik dokumen pada tepi
+@msg	base: the size the pattern is drawn in	base: ukuran tempat pola digambar
+@msg	block: "bodice", "skirt", "sleeve" or "trousers"	block: "bodice", "skirt", "sleeve" atau "trousers"
+@msg	can't make the seam that long by moving its end	jahitan tidak dapat dibuat sepanjang itu dengan memindahkan ujungnya
+@msg	curve: mm the wrap edge bows into the piece	curve: mm lengkungan tepi tumpang ke dalam bagian
+@msg	cut is a whole number, 1 to 999	cut adalah bilangan bulat, 1 hingga 999
+@msg	data: the chart's text	data: teks tabel
+@msg	depth: how deep the pleat folds under, mm	depth: seberapa dalam lipit terlipat ke bawah, mm
+@msg	depth: mm (less than 0 bows the legs in)	depth: mm (kurang dari 0 melengkungkan kaki ke dalam)
+@msg	diameter: a number of mm, or a length with its unit ("1/8 in")	diameter: angka dalam mm, atau panjang dengan satuannya ("1/8 in")
+@msg	edge: the edge's number, from 0 (or point)	edge: nomor tepi, mulai 0 (atau point)
+@msg	edges and corners are numbered from 0	tepi dan sudut diberi nomor mulai 0
+@msg	every: mm, at least 10	every: mm, minimal 10
+@msg	face: only a box pleat has one	face: hanya lipit kotak yang memilikinya
+@msg	face: the box pleat's width between its folds, mm	face: lebar lipit kotak di antara lipatannya, mm
+@msg	flapShape: "square", "rounded" or "pointed"	flapShape: "square", "rounded" atau "pointed"
+@msg	fold is an edge's number (0..), or null	fold adalah nomor tepi (0..), atau null
+@msg	fold: [a, b], the centre front edge's two points	fold: [a, b], dua titik tepi tengah muka
+@msg	fold: true or false	fold: true atau false
+@msg	foldAt: [x, y] in document points	foldAt: [x, y] dalam poin dokumen
+@msg	folded: true or false	folded: true atau false
+@msg	from: [x, y] in document points	from: [x, y] dalam poin dokumen
+@msg	from: not a pattern piece	from: bukan bagian pola
+@msg	from: the pattern piece whose rules are copied	from: bagian pola yang aturannya disalin
+@msg	from: the piece has no seam line	from: bagian tidak memiliki garis jahit
+@msg	frontShape: "square", "rounded" or "winged"	frontShape: "square", "rounded" atau "winged"
+@msg	gathering runs between two different points of the outline	kerutan membentang di antara dua titik berbeda pada garis luar
+@msg	give apex and one of to or toAnchor (or select the two points)	berikan apex dan salah satu dari to atau toAnchor (atau pilih kedua titik)
+@msg	height: mm, 10 to 100 (the tutorial's is at most 30)	height: mm, 10 hingga 100 (pada tutorial paling tinggi 30)
+@msg	id: a block part's id	id: id bagian pola dasar
+@msg	index: the drill hole's place in the list, from 0 (or point)	index: urutan lubang bor dalam daftar, mulai 0 (atau point)
+@msg	index: the notch's place in the list, from 0	index: urutan takik dalam daftar, mulai 0
+@msg	index: the step's place, from 0	index: urutan langkah, mulai 0
+@msg	into: the length it gathers into, mm	into: panjang setelah dikerut, mm
+@msg	kind: "slit", "double", "v", "t", "castle" or "u"	kind: "slit", "double", "v", "t", "castle" atau "u"
+@msg	kind: the notch's new shape	kind: bentuk baru takik
+@msg	layer: a marker layer's id	layer: id lapisan tata letak potong
+@msg	length (mm) or likeId with likeFrom and likeTo: the seam to match	length (mm) atau likeId dengan likeFrom dan likeTo: jahitan yang panjangnya disamakan
+@msg	length: mm, more than 0	length: mm, lebih dari 0
+@msg	line: "cut" or "seam"	line: "cut" atau "seam"
+@msg	match: the seam it sews to is shorter than the pocket opening's end	match: jahitan pasangannya lebih pendek daripada ujung bukaan saku
+@msg	min is more than max	min lebih besar daripada max
+@msg	mirror is true or false	mirror bernilai true atau false
+@msg	mirror: "none", "x", "y" or "xy"	mirror: "none", "x", "y" atau "xy"
+@msg	name: the saved set's name	name: nama set yang disimpan
+@msg	name: whose measurements they are ("Me")	name: milik siapa ukuran badan ini ("Me")
+@msg	no drill hole near the point	tidak ada lubang bor di dekat titik
+@msg	no drill hole with that index	tidak ada lubang bor dengan indeks itu
+@msg	no notch with that index	tidak ada takik dengan indeks itu
+@msg	no object with that id	tidak ada objek dengan id itu
+@msg	no pattern pieces to grade: make the outlines pattern pieces first (Pattern › Make Pattern Piece)	tidak ada bagian pola untuk di-grading: jadikan garis luar sebagai bagian pola dulu (Pola › Buat bagian pola)
+@msg	no straight centre front edge on the outline's side: name it with fold: [a, b]	tidak ada tepi tengah muka yang lurus di sisi garis luar ini: tentukan dengan fold: [a, b]
+@msg	not a drafted block part	bukan bagian pola dasar yang sudah dibuat
+@msg	not a marker's layer (Pattern › Make Marker…)	bukan lapisan tata letak potong (Pola › Buat tata letak potong…)
+@msg	not a pattern piece	bukan bagian pola
+@msg	not a stand collar's outline	bukan garis luar kerah berdiri
+@msg	notches go on pattern pieces: make both seams' paths pieces first (Pattern › Make Pattern Piece)	takik dipasang pada bagian pola: jadikan jalur kedua jahitan sebagai bagian dulu (Pola › Buat bagian pola)
+@msg	notches: [mm, …]	notches: [mm, …]
+@msg	notches: distances from the seams' starts, mm	notches: jarak dari awal jahitan, mm
+@msg	on and at go together: the garment piece and where the opening's top-left corner goes on it	on dan at diberikan bersama: bagian pakaian dan letak sudut kiri atas bukaan di atasnya
+@msg	on and at go together: the garment piece and where the pocket's top-left corner goes on it	on dan at diberikan bersama: bagian pakaian dan letak sudut kiri atas saku di atasnya
+@msg	one point splits only where another point is at the same place (two darts' point)	satu titik hanya dapat dipisah jika ada titik lain di tempat yang sama (ujung dua kup)
+@msg	oneWay: true or false	oneWay: true atau false
+@msg	openFolds: true or false	openFolds: true atau false
+@msg	origin: [x, y] in document points	origin: [x, y] dalam poin dokumen
+@msg	overlap: mm past centre front, more than 0	overlap: mm melewati tengah muka, lebih dari 0
+@msg	overlap: the edge misses the outline	overlap: tepi tidak mengenai garis luar
+@msg	plaid: the repeat (mm, or [along, across])	plaid: ulangan motif (mm, atau [along, across])
+@msg	plaid: the repeat along and across, 1 to 10 000 mm each	plaid: ulangan memanjang dan melintang, masing-masing 1 hingga 10 000 mm
+@msg	point: [x, y] in document points	point: [x, y] dalam poin dokumen
+@msg	select a drafted block part (Pattern › Draft … Block)	pilih bagian pola dasar yang sudah dibuat (Pola › Buat pola dasar …)
+@msg	select a path or a pattern piece	pilih jalur atau bagian pola
+@msg	select a pattern piece (Pattern › Make Pattern Piece makes one)	pilih bagian pola (Pola › Buat bagian pola akan membuatnya)
+@msg	select a piece on the marker to check	pilih bagian pada tata letak potong untuk diperiksa
+@msg	select closed paths: each becomes a piece, the path its seam line	pilih jalur tertutup: masing-masing menjadi bagian, dengan jalur itu sebagai garis jahitnya
+@msg	select one path	pilih satu jalur
+@msg	select one pattern piece	pilih satu bagian pola
+@msg	select two points of one path (or one that two darts share)	pilih dua titik dari satu jalur (atau satu titik yang dimiliki dua kup)
+@msg	select two points of one path: the dart's point and where the dart moves to	pilih dua titik dari satu jalur: ujung kup dan tempat kup dipindahkan
+@msg	select two points of one path: the ends of the edge to face	pilih dua titik dari satu jalur: ujung-ujung tepi yang diberi lapisan tepi
+@msg	select two points of one path: the ends of the edge to gather	pilih dua titik dari satu jalur: ujung-ujung tepi yang akan dikerut
+@msg	share is true or false	share bernilai true atau false
+@msg	shorten: mm (less than 0 lengthens)	shorten: mm (kurang dari 0 memperpanjang)
+@msg	shoulder: longer than the outline	shoulder: lebih panjang daripada garis luar
+@msg	shoulder: mm, 0 or more	shoulder: mm, 0 atau lebih
+@msg	size: one of the chart's sizes	size: salah satu ukuran dalam tabel
+@msg	size: the name of a size of the size range or chart	size: nama ukuran dari rentang ukuran atau tabel
+@msg	sizes: name one size at least	sizes: sebutkan minimal satu ukuran
+@msg	sizes: the sizes' names	sizes: nama-nama ukuran
+@msg	sizes: the sizes' names, smallest first (null removes them)	sizes: nama-nama ukuran, dari yang terkecil (null menghapusnya)
+@msg	split the seam line on its own: release the piece first (Pattern › Release Pattern Piece)	untuk memisah garis jahit saja, lepaskan bagian dulu (Pola › Lepaskan bagian pola)
+@msg	step: [dx, dy] in mm	step: [dx, dy] dalam mm
+@msg	style: classic, casual or shirt	style: classic, casual atau shirt
+@msg	that anchor's neighbours don't make a dart	titik-titik di sebelah titik jangkar itu tidak membentuk kup
+@msg	that point is not a dart's point: its legs open a right angle or wider	titik itu bukan ujung kup: kakinya membuka sudut siku-siku atau lebih lebar
+@msg	the amount is a share of the dart, more than 0 and at most 1	nilainya adalah porsi kup, lebih dari 0 dan paling banyak 1
+@msg	the back's outline encloses no area	garis luar bagian belakang tidak melingkupi area apa pun
+@msg	the box pleat's face is more than 0 wide	lebar muka lipit kotak harus lebih dari 0
+@msg	the chart is larger than 1 MB	tabel lebih besar dari 1 MB
+@msg	the curve has no length at the meeting point	kurva tidak memiliki panjang di titik pertemuan
+@msg	the curves leave the seam the same way	kedua kurva meninggalkan jahitan ke arah yang sama
+@msg	the dart has no length	kup tidak memiliki panjang
+@msg	the dart is not that long	kup tidak sepanjang itu
+@msg	the dart point or the new dart's anchor is not on the outline	ujung kup atau titik jangkar kup baru tidak berada pada garis luar
+@msg	the dart's legs must be straight lines	kaki kup harus berupa garis lurus
+@msg	the dart's point is past the outline's end	ujung kup melewati akhir garis luar
+@msg	the depth to curve the legs by is not a number	kedalaman lengkung kaki bukan angka
+@msg	the document has no marker (Pattern › Make Marker…)	dokumen tidak memiliki tata letak potong (Pola › Buat tata letak potong…)
+@msg	the document has no measurements to save	dokumen tidak memiliki ukuran badan untuk disimpan
+@msg	the document has no size chart (measure.importChart)	dokumen tidak memiliki tabel ukuran (measure.importChart)
+@msg	the drop at the front is less than half the neck edge	turunan leher depan kurang dari setengah tepi leher
+@msg	the edge has no length	tepi tidak memiliki panjang
+@msg	the edge's anchor is past the outline's end	titik jangkar tepi melewati akhir garis luar
+@msg	the fabric's width must be more than 0	lebar kain harus lebih dari 0
+@msg	the flap is deeper than twice its width	tutup saku lebih dalam daripada dua kali lebarnya
+@msg	the flap's width and depth are more than 0, its allowance 0 or more	lebar dan kedalaman tutup saku lebih dari 0, kampuhnya 0 atau lebih
+@msg	the fold edge has no length	tepi lipatan tidak memiliki panjang
+@msg	the fold edge's anchors are past the outline's end	titik jangkar tepi lipatan melewati akhir garis luar
+@msg	the fold edge's two anchors must be neighbours on the outline	dua titik jangkar tepi lipatan harus bersebelahan pada garis luar
+@msg	the fold must be a straight edge	lipatan harus berupa tepi lurus
+@msg	the front end has no length	ujung depan tidak memiliki panjang
+@msg	the gap must be 0 or more	celah harus 0 atau lebih
+@msg	the grainline's ends are the same point	kedua ujung garis serat adalah titik yang sama
+@msg	the legs can't curve that far: the dart isn't wide enough	kaki tidak dapat melengkung sejauh itu: kup kurang lebar
+@msg	the length to shorten by is not a number	panjang pemendekan bukan angka
+@msg	the marker has lost its fabric outline	tata letak potong kehilangan garis luar kainnya
+@msg	the marker has no pieces	tata letak potong tidak memiliki bagian
+@msg	the marker is too large at this precision: give a coarser one	tata letak potong terlalu besar pada presisi ini: berikan yang lebih kasar
+@msg	the measurements could not be saved	ukuran badan tidak dapat disimpan
+@msg	the meeting point and the seam's other end are points of the outline	titik pertemuan dan ujung lain jahitan harus berupa titik pada garis luar
+@msg	the neckline has no length	garis leher tidak memiliki panjang
+@msg	the neckline lengths and the stand's height are more than 0, the rise and extension 0 or more	panjang garis leher dan tinggi kaki kerah lebih dari 0, kenaikan dan perpanjangan 0 atau lebih
+@msg	the new dart is on the old dart	kup baru berada di atas kup lama
+@msg	the opening is longer than twice its height	bukaan lebih panjang daripada dua kali tingginya
+@msg	the opening, depth and width are more than 0, the width more than the allowance	bukaan, kedalaman, dan lebar lebih dari 0, lebarnya lebih dari kampuh
+@msg	the opening, the welt and the depth are more than 0, the allowances 0 or more	bukaan, lis, dan kedalaman lebih dari 0, kampuhnya 0 atau lebih
+@msg	the outline encloses no area	garis luar tidak melingkupi area apa pun
+@msg	the outline has no side seam	garis luar tidak memiliki jahitan sisi
+@msg	the path has no outline	jalur tidak memiliki garis luar
+@msg	the path must be one closed outline	jalur harus berupa satu garis luar tertutup
+@msg	the piece has no grade rules to copy	bagian tidak memiliki aturan grading untuk disalin
+@msg	the piece has no straight edge to cut on the fold	bagian tidak memiliki tepi lurus untuk dipotong di lipatan
+@msg	the pieces have no cutting lines to lay	bagian-bagian tidak memiliki garis potong untuk ditata
+@msg	the plaid's repeat must be more than 0 along and across	ulangan kotak-kotak harus lebih dari 0 memanjang dan melintang
+@msg	the pocket (its opening and the allowance past both ends) fits on the seam	saku (bukaan dan kampuh di luar kedua ujungnya) harus muat pada jahitan
+@msg	the point is not inside the piece	titik tidak berada di dalam bagian
+@msg	the point is not on the seam line or in its allowance	titik tidak berada pada garis jahit atau di kampuhnya
+@msg	the precision must be more than 0	presisi harus lebih dari 0
+@msg	the rise at centre front is less than the front neckline is long	kenaikan di tengah muka kurang dari panjang garis leher depan
+@msg	the seam has no length there	jahitan tidak memiliki panjang di sana
+@msg	the seam runs between two different points of the outline	jahitan membentang di antara dua titik berbeda pada garis luar
+@msg	the seam's other end is a neighbour of the meeting point	ujung lain jahitan bersebelahan dengan titik pertemuan
+@msg	the top edge has no length	tepi atas tidak memiliki panjang
+@msg	the wing is more than 0 long	panjang sayap lebih dari 0
+@msg	there is no folder to keep measurement sets in here (the desktop app keeps them next to its preferences)	tidak ada folder untuk menyimpan set ukuran badan di sini (aplikasi desktop menyimpannya di samping preferensinya)
+@msg	there is no point of the seam line there	tidak ada titik garis jahit di sana
+@msg	to or toAnchor: where the dart moves to	to atau toAnchor: tempat kup dipindahkan
+@msg	to: [x, y] in document points	to: [x, y] dalam poin dokumen
+@msg	to: the pieces to copy the rules to (select them, or name them)	to: bagian tujuan penyalinan aturan (pilih atau sebutkan namanya)
+@msg	too many objects at once	terlalu banyak objek sekaligus
+@msg	too many pieces at once	terlalu banyak bagian sekaligus
+@msg	too many pieces to lay at once	terlalu banyak bagian untuk ditata sekaligus
+@msg	too many sizes at once	terlalu banyak ukuran sekaligus
+@msg	unit: "mm", "cm" or "in"	unit: "mm", "cm" atau "in"
+@msg	width: mm, more than 0	width: mm, lebih dari 0

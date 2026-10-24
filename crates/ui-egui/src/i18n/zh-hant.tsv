@@ -5150,3 +5150,190 @@ file-filter	PDF for projector	用於投影機的 PDF
 	{piece} is off the fabric	{piece} 超出布料
 	No pieces overlap, and all are on the fabric.	沒有裁片重疊，全部都在布料上。
 	Plaid	格紋
+menu	Pattern	紙型
+@msg	a and b are two pieces (or paths) that sew together	a 和 b 是縫合在一起的兩個裁片（或路徑）
+@msg	a corner is "mitre" or "square"	轉角為 "mitre" 或 "square"
+@msg	a facing runs along part of the outline	貼邊須沿輪廓的一部分
+@msg	a facing runs between two different points of the outline	貼邊須位於輪廓上兩個不同的點之間
+@msg	a name takes at most 200 characters	名稱最多 200 個字元
+@msg	a neckline runs between two different points of its outline, and the shoulder point is one of them	領口線須位於其輪廓上兩個不同的點之間，且其中一個是肩點
+@msg	a seam allowance is a number of mm, or a length with its unit ("5/8 in")	縫份為 mm 數值，或帶單位的長度（"5/8 in"）
+@msg	a seam has no length	有一條縫線長度為零
+@msg	a shoulder point is on its neck point	肩點與其頸側點重合
+@msg	a slash runs between two points of the outline that aren't neighbours	剪開線須位於輪廓上兩個不相鄰的點之間
+@msg	a split leaves a piece with fewer than three anchors	分割後會留下錨點少於三個的裁片
+@msg	a split made two panels: delete the panel you don't want instead	分割已產生兩個裁片：請改為刪除不需要的那個裁片
+@msg	a split needs two different anchors on the outline	分割需要輪廓上兩個不同的錨點
+@msg	amount: a share of the dart, (0, 1]	amount: 褶子量的比例，(0, 1]
+@msg	amount: how far it opens, mm	amount: 展開量，mm
+@msg	anchor: the point's number along the path, from 0	anchor: 該點沿路徑的編號，從 0 開始
+@msg	anchor: the seam line's point, from 0	anchor: 完成線上的點，從 0 開始
+@msg	anchors: [a, b] or [a]	anchors: [a, b] 或 [a]
+@msg	anchors: point numbers along the path	anchors: 沿路徑的點編號
+@msg	apex: the dart's point (or select that one point)	apex: 褶尖（或選取該點）
+@msg	at: 0 (the edge's start) to 1 (its end)	at: 0（邊的起點）到 1（終點）
+@msg	at: [x, y], the document point on the edge	at: [x, y]，邊上的點（文件座標）
+@msg	base: the size the pattern is drawn in	base: 繪製紙型所用的尺碼
+@msg	block: "bodice", "skirt", "sleeve" or "trousers"	block: "bodice"、"skirt"、"sleeve" 或 "trousers"
+@msg	can't make the seam that long by moving its end	移動端點無法使縫線達到該長度
+@msg	curve: mm the wrap edge bows into the piece	curve: 裹身邊向裁片內彎曲的量，mm
+@msg	cut is a whole number, 1 to 999	cut 為 1 到 999 的整數
+@msg	data: the chart's text	data: 尺碼表的文字
+@msg	depth: how deep the pleat folds under, mm	depth: 褶襉向內摺入的深度，mm
+@msg	depth: mm (less than 0 bows the legs in)	depth: mm（小於 0 時褶子邊向內彎）
+@msg	diameter: a number of mm, or a length with its unit ("1/8 in")	diameter: mm 數值，或帶單位的長度（"1/8 in"）
+@msg	edge: the edge's number, from 0 (or point)	edge: 邊的編號，從 0 開始（或使用 point）
+@msg	edges and corners are numbered from 0	邊和轉角從 0 開始編號
+@msg	every: mm, at least 10	every: mm，至少 10
+@msg	face: only a box pleat has one	face: 只有工字褶才有
+@msg	face: the box pleat's width between its folds, mm	face: 工字褶兩條摺邊之間的寬度，mm
+@msg	flapShape: "square", "rounded" or "pointed"	flapShape: "square"、"rounded" 或 "pointed"
+@msg	fold is an edge's number (0..), or null	fold 為邊的編號（0..）或 null
+@msg	fold: [a, b], the centre front edge's two points	fold: [a, b]，前中邊的兩個點
+@msg	fold: true or false	fold: true 或 false
+@msg	foldAt: [x, y] in document points	foldAt: [x, y]，以文件點為單位
+@msg	folded: true or false	folded: true 或 false
+@msg	from: [x, y] in document points	from: [x, y]，以文件點為單位
+@msg	from: not a pattern piece	from: 不是紙樣裁片
+@msg	from: the pattern piece whose rules are copied	from: 要複製其規則的紙樣裁片
+@msg	from: the piece has no seam line	from: 該裁片沒有完成線
+@msg	frontShape: "square", "rounded" or "winged"	frontShape: "square"、"rounded" 或 "winged"
+@msg	gathering runs between two different points of the outline	抽褶須位於輪廓上兩個不同的點之間
+@msg	give apex and one of to or toAnchor (or select the two points)	請提供 apex 以及 to 或 toAnchor 其中之一（或選取這兩個點）
+@msg	height: mm, 10 to 100 (the tutorial's is at most 30)	height: mm，10 到 100（教學中的最多為 30）
+@msg	id: a block part's id	id: 原型部分的 id
+@msg	index: the drill hole's place in the list, from 0 (or point)	index: 鑽孔在清單中的位置，從 0 開始（或使用 point）
+@msg	index: the notch's place in the list, from 0	index: 剪口在清單中的位置，從 0 開始
+@msg	index: the step's place, from 0	index: 步驟的位置，從 0 開始
+@msg	into: the length it gathers into, mm	into: 抽褶後的長度，mm
+@msg	kind: "slit", "double", "v", "t", "castle" or "u"	kind: "slit"、"double"、"v"、"t"、"castle" 或 "u"
+@msg	kind: the notch's new shape	kind: 剪口的新形狀
+@msg	layer: a marker layer's id	layer: 排料圖圖層的 id
+@msg	length (mm) or likeId with likeFrom and likeTo: the seam to match	length（mm）或 likeId 加 likeFrom 和 likeTo：要匹配的縫線
+@msg	length: mm, more than 0	length: mm，大於 0
+@msg	line: "cut" or "seam"	line: "cut" 或 "seam"
+@msg	match: the seam it sews to is shorter than the pocket opening's end	match: 與之縫合的縫線比袋口末端還短
+@msg	min is more than max	min 大於 max
+@msg	mirror is true or false	mirror 為 true 或 false
+@msg	mirror: "none", "x", "y" or "xy"	mirror: "none"、"x"、"y" 或 "xy"
+@msg	name: the saved set's name	name: 已儲存尺寸組的名稱
+@msg	name: whose measurements they are ("Me")	name: 這些尺寸是誰的（"Me"）
+@msg	no drill hole near the point	該點附近沒有鑽孔
+@msg	no drill hole with that index	沒有該索引的鑽孔
+@msg	no notch with that index	沒有該索引的剪口
+@msg	no object with that id	沒有該 id 的物件
+@msg	no pattern pieces to grade: make the outlines pattern pieces first (Pattern › Make Pattern Piece)	沒有可放碼的紙樣裁片：請先把輪廓做成紙樣裁片（紙型 › 建立紙樣裁片）
+@msg	no straight centre front edge on the outline's side: name it with fold: [a, b]	輪廓這一側沒有筆直的前中邊：請用 fold: [a, b] 指定
+@msg	not a drafted block part	不是繪製的原型部分
+@msg	not a marker's layer (Pattern › Make Marker…)	不是排料圖的圖層（紙型 › 製作排料圖…）
+@msg	not a pattern piece	不是紙樣裁片
+@msg	not a stand collar's outline	不是立領的輪廓
+@msg	notches go on pattern pieces: make both seams' paths pieces first (Pattern › Make Pattern Piece)	剪口只能加在紙樣裁片上：請先把兩條縫線的路徑做成裁片（紙型 › 建立紙樣裁片）
+@msg	notches: [mm, …]	notches: [mm, …]
+@msg	notches: distances from the seams' starts, mm	notches: 距縫線起點的距離，mm
+@msg	on and at go together: the garment piece and where the opening's top-left corner goes on it	on 和 at 須同時提供：衣片，以及袋口左上角在衣片上的位置
+@msg	on and at go together: the garment piece and where the pocket's top-left corner goes on it	on 和 at 須同時提供：衣片，以及口袋左上角在衣片上的位置
+@msg	one point splits only where another point is at the same place (two darts' point)	只有在另一個點位於同一位置時（兩個褶子的褶尖），才能用一個點分割
+@msg	oneWay: true or false	oneWay: true 或 false
+@msg	openFolds: true or false	openFolds: true 或 false
+@msg	origin: [x, y] in document points	origin: [x, y]，以文件點為單位
+@msg	overlap: mm past centre front, more than 0	overlap: 越過前中的疊門量，mm，大於 0
+@msg	overlap: the edge misses the outline	overlap: 邊緣與輪廓不相交
+@msg	plaid: the repeat (mm, or [along, across])	plaid: 循環尺寸（mm，或 [along, across]）
+@msg	plaid: the repeat along and across, 1 to 10 000 mm each	plaid: 縱向和橫向的循環尺寸，各為 1 到 10 000 mm
+@msg	point: [x, y] in document points	point: [x, y]，以文件點為單位
+@msg	select a drafted block part (Pattern › Draft … Block)	請選取一個繪製的原型部分（紙型 › 繪製…原型）
+@msg	select a path or a pattern piece	請選取路徑或紙樣裁片
+@msg	select a pattern piece (Pattern › Make Pattern Piece makes one)	請選取紙樣裁片（可用 紙型 › 建立紙樣裁片 建立）
+@msg	select a piece on the marker to check	請選取排料圖上要檢查的裁片
+@msg	select closed paths: each becomes a piece, the path its seam line	請選取封閉路徑：每個路徑都會成為一個裁片，路徑即為其完成線
+@msg	select one path	請選取一個路徑
+@msg	select one pattern piece	請選取一個紙樣裁片
+@msg	select two points of one path (or one that two darts share)	請選取同一路徑上的兩個點（或兩個褶子共用的一個點）
+@msg	select two points of one path: the dart's point and where the dart moves to	請選取同一路徑上的兩個點：褶尖和褶子要轉移到的位置
+@msg	select two points of one path: the ends of the edge to face	請選取同一路徑上的兩個點：要做貼邊的邊的兩端
+@msg	select two points of one path: the ends of the edge to gather	請選取同一路徑上的兩個點：要抽褶的邊的兩端
+@msg	share is true or false	share 為 true 或 false
+@msg	shorten: mm (less than 0 lengthens)	shorten: mm（小於 0 時加長）
+@msg	shoulder: longer than the outline	shoulder: 比輪廓還長
+@msg	shoulder: mm, 0 or more	shoulder: mm，0 或更大
+@msg	size: one of the chart's sizes	size: 尺碼表中的某個尺碼
+@msg	size: the name of a size of the size range or chart	size: 尺碼範圍或尺碼表中某個尺碼的名稱
+@msg	sizes: name one size at least	sizes: 請至少指定一個尺碼
+@msg	sizes: the sizes' names	sizes: 各尺碼的名稱
+@msg	sizes: the sizes' names, smallest first (null removes them)	sizes: 各尺碼的名稱，從小到大（null 表示刪除）
+@msg	split the seam line on its own: release the piece first (Pattern › Release Pattern Piece)	要單獨分割完成線，請先釋放裁片（紙型 › 釋放紙樣裁片）
+@msg	step: [dx, dy] in mm	step: [dx, dy]，以 mm 為單位
+@msg	style: classic, casual or shirt	style: classic、casual 或 shirt
+@msg	that anchor's neighbours don't make a dart	該錨點的相鄰點不能構成褶子
+@msg	that point is not a dart's point: its legs open a right angle or wider	該點不是褶尖：其褶子邊張開成直角或更大
+@msg	the amount is a share of the dart, more than 0 and at most 1	量為褶子量的比例，大於 0 且不超過 1
+@msg	the back's outline encloses no area	後片的輪廓沒有圍成面積
+@msg	the box pleat's face is more than 0 wide	工字褶的面寬須大於 0
+@msg	the chart is larger than 1 MB	尺碼表大於 1 MB
+@msg	the curve has no length at the meeting point	曲線在交會點處長度為零
+@msg	the curves leave the seam the same way	這些曲線從縫線以相同方向離開
+@msg	the dart has no length	褶子長度為零
+@msg	the dart is not that long	褶子沒有那麼長
+@msg	the dart point or the new dart's anchor is not on the outline	褶尖或新褶子的錨點不在輪廓上
+@msg	the dart's legs must be straight lines	褶子邊必須是直線
+@msg	the dart's point is past the outline's end	褶尖超出了輪廓的末端
+@msg	the depth to curve the legs by is not a number	彎曲褶子邊的深度不是數字
+@msg	the document has no marker (Pattern › Make Marker…)	文件中沒有排料圖（紙型 › 製作排料圖…）
+@msg	the document has no measurements to save	文件中沒有可儲存的尺寸
+@msg	the document has no size chart (measure.importChart)	文件中沒有尺碼表（measure.importChart）
+@msg	the drop at the front is less than half the neck edge	前端下落量須小於領口邊的一半
+@msg	the edge has no length	該邊長度為零
+@msg	the edge's anchor is past the outline's end	該邊的錨點超出了輪廓的末端
+@msg	the fabric's width must be more than 0	布料幅寬必須大於 0
+@msg	the flap is deeper than twice its width	袋蓋深度超過其寬度的兩倍
+@msg	the flap's width and depth are more than 0, its allowance 0 or more	袋蓋的寬度和深度須大於 0，縫份須為 0 或更大
+@msg	the fold edge has no length	對摺邊長度為零
+@msg	the fold edge's anchors are past the outline's end	對摺邊的錨點超出了輪廓的末端
+@msg	the fold edge's two anchors must be neighbours on the outline	對摺邊的兩個錨點必須在輪廓上相鄰
+@msg	the fold must be a straight edge	對摺線必須是直邊
+@msg	the front end has no length	前端長度為零
+@msg	the gap must be 0 or more	間距必須為 0 或更大
+@msg	the grainline's ends are the same point	布紋線的兩端是同一個點
+@msg	the legs can't curve that far: the dart isn't wide enough	褶子邊無法彎曲到這種程度：褶子不夠寬
+@msg	the length to shorten by is not a number	要縮短的長度不是數字
+@msg	the marker has lost its fabric outline	排料圖的布料輪廓已遺失
+@msg	the marker has no pieces	排料圖中沒有裁片
+@msg	the marker is too large at this precision: give a coarser one	在此精度下排料圖過大：請使用較粗的精度
+@msg	the measurements could not be saved	無法儲存尺寸
+@msg	the meeting point and the seam's other end are points of the outline	交會點和縫線的另一端須為輪廓上的點
+@msg	the neckline has no length	領口線長度為零
+@msg	the neckline lengths and the stand's height are more than 0, the rise and extension 0 or more	領口線長度和領座高度須大於 0，起翹和搭門量須為 0 或更大
+@msg	the new dart is on the old dart	新褶子與原褶子重合
+@msg	the opening is longer than twice its height	袋口長度超過其高度的兩倍
+@msg	the opening, depth and width are more than 0, the width more than the allowance	袋口、深度和寬度須大於 0，且寬度須大於縫份
+@msg	the opening, the welt and the depth are more than 0, the allowances 0 or more	袋口、嵌線和深度須大於 0，縫份須為 0 或更大
+@msg	the outline encloses no area	輪廓沒有圍成面積
+@msg	the outline has no side seam	輪廓沒有側縫
+@msg	the path has no outline	路徑沒有輪廓
+@msg	the path must be one closed outline	路徑必須是一個封閉輪廓
+@msg	the piece has no grade rules to copy	該裁片沒有可複製的放碼規則
+@msg	the piece has no straight edge to cut on the fold	該裁片沒有可對摺裁剪的直邊
+@msg	the pieces have no cutting lines to lay	裁片沒有可排放的裁剪線
+@msg	the plaid's repeat must be more than 0 along and across	格紋的循環尺寸在縱向和橫向上都必須大於 0
+@msg	the pocket (its opening and the allowance past both ends) fits on the seam	口袋（袋口及兩端以外的縫份）須能放在縫線上
+@msg	the point is not inside the piece	該點不在裁片內
+@msg	the point is not on the seam line or in its allowance	該點不在完成線上，也不在縫份內
+@msg	the precision must be more than 0	精度必須大於 0
+@msg	the rise at centre front is less than the front neckline is long	前中起翹量須小於前領口線的長度
+@msg	the seam has no length there	縫線在該處長度為零
+@msg	the seam runs between two different points of the outline	縫線須位於輪廓上兩個不同的點之間
+@msg	the seam's other end is a neighbour of the meeting point	縫線的另一端與交會點相鄰
+@msg	the top edge has no length	上邊長度為零
+@msg	the wing is more than 0 long	翼的長度須大於 0
+@msg	there is no folder to keep measurement sets in here (the desktop app keeps them next to its preferences)	此處沒有用於儲存尺寸組的資料夾（桌面應用程式會將其儲存在偏好設定旁邊）
+@msg	there is no point of the seam line there	該處沒有完成線上的點
+@msg	to or toAnchor: where the dart moves to	to 或 toAnchor: 褶子要轉移到的位置
+@msg	to: [x, y] in document points	to: [x, y]，以文件點為單位
+@msg	to: the pieces to copy the rules to (select them, or name them)	to: 要將規則複製到的裁片（選取它們，或指定名稱）
+@msg	too many objects at once	一次處理的物件過多
+@msg	too many pieces at once	一次處理的裁片過多
+@msg	too many pieces to lay at once	一次要排放的裁片過多
+@msg	too many sizes at once	一次處理的尺碼過多
+@msg	unit: "mm", "cm" or "in"	unit: "mm"、"cm" 或 "in"
+@msg	width: mm, more than 0	width: mm，大於 0

@@ -5113,3 +5113,190 @@ file-filter	PDF for projector	PDF для проєктора
 	{piece} is off the fabric	{piece} виходить за тканину
 	No pieces overlap, and all are on the fabric.	Деталі не перекриваються, усі лежать на тканині.
 	Plaid	Клітинка
+menu	Pattern	Викрійка
+@msg	a and b are two pieces (or paths) that sew together	a і b — дві деталі (або два контури), які зшиваються між собою
+@msg	a corner is "mitre" or "square"	кут: "mitre" або "square"
+@msg	a facing runs along part of the outline	обшивка проходить уздовж частини контуру
+@msg	a facing runs between two different points of the outline	обшивка проходить між двома різними точками контуру
+@msg	a name takes at most 200 characters	ім’я може містити не більше 200 символів
+@msg	a neckline runs between two different points of its outline, and the shoulder point is one of them	горловина проходить між двома різними точками свого контуру, і одна з них — плечова точка
+@msg	a seam allowance is a number of mm, or a length with its unit ("5/8 in")	припуск на шов — число в мм або довжина з одиницею виміру ("5/8 in")
+@msg	a seam has no length	шов має нульову довжину
+@msg	a shoulder point is on its neck point	плечова точка збігається з точкою основи шиї
+@msg	a slash runs between two points of the outline that aren't neighbours	розріз проходить між двома несусідніми точками контуру
+@msg	a split leaves a piece with fewer than three anchors	після розділення в деталі лишається менше трьох опорних точок
+@msg	a split made two panels: delete the panel you don't want instead	розділення дало дві частини: натомість видаліть непотрібну частину
+@msg	a split needs two different anchors on the outline	для розділення потрібні дві різні опорні точки на контурі
+@msg	amount: a share of the dart, (0, 1]	amount: частка виточки, (0, 1]
+@msg	amount: how far it opens, mm	amount: наскільки розкривається, мм
+@msg	anchor: the point's number along the path, from 0	anchor: номер точки вздовж контуру, від 0
+@msg	anchor: the seam line's point, from 0	anchor: точка лінії шва, від 0
+@msg	anchors: [a, b] or [a]	anchors: [a, b] або [a]
+@msg	anchors: point numbers along the path	anchors: номери точок уздовж контуру
+@msg	apex: the dart's point (or select that one point)	apex: вершина виточки (або виберіть цю точку)
+@msg	at: 0 (the edge's start) to 1 (its end)	at: від 0 (початок краю) до 1 (його кінець)
+@msg	at: [x, y], the document point on the edge	at: [x, y], точка документа на краю
+@msg	base: the size the pattern is drawn in	base: розмір, у якому побудовано викрійку
+@msg	block: "bodice", "skirt", "sleeve" or "trousers"	block: "bodice", "skirt", "sleeve" або "trousers"
+@msg	can't make the seam that long by moving its end	неможливо зробити шов такої довжини, зсунувши його кінець
+@msg	curve: mm the wrap edge bows into the piece	curve: на скільки мм край запаху прогинається всередину деталі
+@msg	cut is a whole number, 1 to 999	cut — ціле число від 1 до 999
+@msg	data: the chart's text	data: текст таблиці
+@msg	depth: how deep the pleat folds under, mm	depth: глибина закладання складки, мм
+@msg	depth: mm (less than 0 bows the legs in)	depth: мм (менше 0 — сторони прогинаються всередину)
+@msg	diameter: a number of mm, or a length with its unit ("1/8 in")	diameter: число в мм або довжина з одиницею виміру ("1/8 in")
+@msg	edge: the edge's number, from 0 (or point)	edge: номер краю, від 0 (або point)
+@msg	edges and corners are numbered from 0	краї та кути нумеруються з 0
+@msg	every: mm, at least 10	every: мм, не менше 10
+@msg	face: only a box pleat has one	face: є лише в бантової складки
+@msg	face: the box pleat's width between its folds, mm	face: ширина бантової складки між згинами, мм
+@msg	flapShape: "square", "rounded" or "pointed"	flapShape: "square", "rounded" або "pointed"
+@msg	fold is an edge's number (0..), or null	fold — номер краю (0..) або null
+@msg	fold: [a, b], the centre front edge's two points	fold: [a, b], дві точки краю по середині переду
+@msg	fold: true or false	fold: true або false
+@msg	foldAt: [x, y] in document points	foldAt: [x, y] у пунктах документа
+@msg	folded: true or false	folded: true або false
+@msg	from: [x, y] in document points	from: [x, y] у пунктах документа
+@msg	from: not a pattern piece	from: це не деталь викрійки
+@msg	from: the pattern piece whose rules are copied	from: деталь викрійки, правила якої копіюються
+@msg	from: the piece has no seam line	from: деталь не має лінії шва
+@msg	frontShape: "square", "rounded" or "winged"	frontShape: "square", "rounded" або "winged"
+@msg	gathering runs between two different points of the outline	зборка проходить між двома різними точками контуру
+@msg	give apex and one of to or toAnchor (or select the two points)	вкажіть apex і одне з to або toAnchor (або виберіть дві точки)
+@msg	height: mm, 10 to 100 (the tutorial's is at most 30)	height: мм, від 10 до 100 (у методиці — не більше 30)
+@msg	id: a block part's id	id: id деталі базової викрійки
+@msg	index: the drill hole's place in the list, from 0 (or point)	index: номер отвору в списку, від 0 (або point)
+@msg	index: the notch's place in the list, from 0	index: номер надсічки в списку, від 0
+@msg	index: the step's place, from 0	index: номер кроку, від 0
+@msg	into: the length it gathers into, mm	into: довжина після зборки, мм
+@msg	kind: "slit", "double", "v", "t", "castle" or "u"	kind: "slit", "double", "v", "t", "castle" або "u"
+@msg	kind: the notch's new shape	kind: нова форма надсічки
+@msg	layer: a marker layer's id	layer: id шару розкладки
+@msg	length (mm) or likeId with likeFrom and likeTo: the seam to match	length (мм) або likeId з likeFrom і likeTo: шов, за довжиною якого треба припасувати
+@msg	length: mm, more than 0	length: мм, більше 0
+@msg	line: "cut" or "seam"	line: "cut" або "seam"
+@msg	match: the seam it sews to is shorter than the pocket opening's end	match: шов, до якого він пришивається, закінчується раніше за кінець входу до кишені
+@msg	min is more than max	min більше за max
+@msg	mirror is true or false	mirror — true або false
+@msg	mirror: "none", "x", "y" or "xy"	mirror: "none", "x", "y" або "xy"
+@msg	name: the saved set's name	name: назва збереженого набору
+@msg	name: whose measurements they are ("Me")	name: чиї це мірки ("Me")
+@msg	no drill hole near the point	біля точки немає отвору
+@msg	no drill hole with that index	немає отвору з таким індексом
+@msg	no notch with that index	немає надсічки з таким індексом
+@msg	no object with that id	немає об’єкта з таким id
+@msg	no pattern pieces to grade: make the outlines pattern pieces first (Pattern › Make Pattern Piece)	немає деталей викрійки для градації: спершу зробіть контури деталями викрійки (Викрійка › Створити деталь викрійки)
+@msg	no straight centre front edge on the outline's side: name it with fold: [a, b]	на цьому боці контуру немає прямого краю по середині переду: вкажіть його через fold: [a, b]
+@msg	not a drafted block part	це не деталь побудованої базової викрійки
+@msg	not a marker's layer (Pattern › Make Marker…)	це не шар розкладки (Викрійка › Створити розкладку…)
+@msg	not a pattern piece	це не деталь викрійки
+@msg	not a stand collar's outline	це не контур коміра-стійки
+@msg	notches go on pattern pieces: make both seams' paths pieces first (Pattern › Make Pattern Piece)	надсічки ставлять на деталі викрійки: спершу зробіть контури обох швів деталями (Викрійка › Створити деталь викрійки)
+@msg	notches: [mm, …]	notches: [мм, …]
+@msg	notches: distances from the seams' starts, mm	notches: відстані від початку швів, мм
+@msg	on and at go together: the garment piece and where the opening's top-left corner goes on it	on і at задаються разом: деталь виробу та місце на ній для лівого верхнього кута входу
+@msg	on and at go together: the garment piece and where the pocket's top-left corner goes on it	on і at задаються разом: деталь виробу та місце на ній для лівого верхнього кута кишені
+@msg	one point splits only where another point is at the same place (two darts' point)	одну точку можна розділити, лише якщо в тому самому місці є інша точка (спільна вершина двох виточок)
+@msg	oneWay: true or false	oneWay: true або false
+@msg	openFolds: true or false	openFolds: true або false
+@msg	origin: [x, y] in document points	origin: [x, y] у пунктах документа
+@msg	overlap: mm past centre front, more than 0	overlap: мм за середину переду, більше 0
+@msg	overlap: the edge misses the outline	overlap: край не перетинає контур
+@msg	plaid: the repeat (mm, or [along, across])	plaid: рапорт (мм або [along, across])
+@msg	plaid: the repeat along and across, 1 to 10 000 mm each	plaid: рапорт уздовж і впоперек, від 1 до 10 000 мм кожен
+@msg	point: [x, y] in document points	point: [x, y] у пунктах документа
+@msg	select a drafted block part (Pattern › Draft … Block)	виберіть деталь побудованої базової викрійки (Викрійка › Побудувати базову викрійку …)
+@msg	select a path or a pattern piece	виберіть контур або деталь викрійки
+@msg	select a pattern piece (Pattern › Make Pattern Piece makes one)	виберіть деталь викрійки (її створює команда Викрійка › Створити деталь викрійки)
+@msg	select a piece on the marker to check	виберіть деталь у розкладці, яку треба перевірити
+@msg	select closed paths: each becomes a piece, the path its seam line	виберіть замкнені контури: кожен стане деталлю, а контур — її лінією шва
+@msg	select one path	виберіть один контур
+@msg	select one pattern piece	виберіть одну деталь викрійки
+@msg	select two points of one path (or one that two darts share)	виберіть дві точки одного контуру (або одну, спільну для двох виточок)
+@msg	select two points of one path: the dart's point and where the dart moves to	виберіть дві точки одного контуру: вершину виточки та місце, куди її перевести
+@msg	select two points of one path: the ends of the edge to face	виберіть дві точки одного контуру: кінці краю, який треба обробити обшивкою
+@msg	select two points of one path: the ends of the edge to gather	виберіть дві точки одного контуру: кінці краю, який треба призібрати
+@msg	share is true or false	share — true або false
+@msg	shorten: mm (less than 0 lengthens)	shorten: мм (менше 0 — подовжує)
+@msg	shoulder: longer than the outline	shoulder: довше за контур
+@msg	shoulder: mm, 0 or more	shoulder: мм, 0 або більше
+@msg	size: one of the chart's sizes	size: один із розмірів таблиці
+@msg	size: the name of a size of the size range or chart	size: назва розміру з розмірного ряду або таблиці
+@msg	sizes: name one size at least	sizes: вкажіть принаймні один розмір
+@msg	sizes: the sizes' names	sizes: назви розмірів
+@msg	sizes: the sizes' names, smallest first (null removes them)	sizes: назви розмірів, починаючи з меншого (null видаляє їх)
+@msg	split the seam line on its own: release the piece first (Pattern › Release Pattern Piece)	щоб розділити лише лінію шва, спершу звільніть деталь (Викрійка › Звільнити деталь викрійки)
+@msg	step: [dx, dy] in mm	step: [dx, dy] у мм
+@msg	style: classic, casual or shirt	style: classic, casual або shirt
+@msg	that anchor's neighbours don't make a dart	сусідні точки цієї опорної точки не утворюють виточку
+@msg	that point is not a dart's point: its legs open a right angle or wider	ця точка не вершина виточки: її сторони утворюють прямий або ширший кут
+@msg	the amount is a share of the dart, more than 0 and at most 1	величина — частка виточки, більше 0 і не більше 1
+@msg	the back's outline encloses no area	контур спинки має нульову площу
+@msg	the box pleat's face is more than 0 wide	ширина лицьової частини бантової складки має бути більше 0
+@msg	the chart is larger than 1 MB	таблиця більша за 1 МБ
+@msg	the curve has no length at the meeting point	крива має нульову довжину в точці стику
+@msg	the curves leave the seam the same way	криві відходять від шва в одному напрямку
+@msg	the dart has no length	виточка має нульову довжину
+@msg	the dart is not that long	виточка коротша за вказану довжину
+@msg	the dart point or the new dart's anchor is not on the outline	вершина виточки або опорна точка нової виточки не лежить на контурі
+@msg	the dart's legs must be straight lines	сторони виточки мають бути прямими лініями
+@msg	the dart's point is past the outline's end	вершина виточки розташована за кінцем контуру
+@msg	the depth to curve the legs by is not a number	глибина прогину сторін не є числом
+@msg	the document has no marker (Pattern › Make Marker…)	у документі немає розкладки (Викрійка › Створити розкладку…)
+@msg	the document has no measurements to save	у документі немає мірок для збереження
+@msg	the document has no size chart (measure.importChart)	у документі немає таблиці розмірів (measure.importChart)
+@msg	the drop at the front is less than half the neck edge	глибина горловини переду менша за половину краю горловини
+@msg	the edge has no length	край має нульову довжину
+@msg	the edge's anchor is past the outline's end	опорна точка краю розташована за кінцем контуру
+@msg	the fabric's width must be more than 0	ширина тканини має бути більше 0
+@msg	the flap is deeper than twice its width	глибина клапана більша за подвійну ширину
+@msg	the flap's width and depth are more than 0, its allowance 0 or more	ширина і глибина клапана мають бути більше 0, а припуск — 0 або більше
+@msg	the fold edge has no length	край згину має нульову довжину
+@msg	the fold edge's anchors are past the outline's end	опорні точки краю згину розташовані за кінцем контуру
+@msg	the fold edge's two anchors must be neighbours on the outline	дві опорні точки краю згину мають бути сусідніми на контурі
+@msg	the fold must be a straight edge	згин має проходити по прямому краю
+@msg	the front end has no length	передній кінець має нульову довжину
+@msg	the gap must be 0 or more	зазор має бути 0 або більше
+@msg	the grainline's ends are the same point	кінці лінії пайової нитки збігаються
+@msg	the legs can't curve that far: the dart isn't wide enough	сторони не можна прогнути так сильно: виточка недостатньо широка
+@msg	the length to shorten by is not a number	величина вкорочення не є числом
+@msg	the marker has lost its fabric outline	розкладка втратила контур тканини
+@msg	the marker has no pieces	у розкладці немає деталей
+@msg	the marker is too large at this precision: give a coarser one	розкладка завелика за такої точності: вкажіть грубішу
+@msg	the measurements could not be saved	не вдалося зберегти мірки
+@msg	the meeting point and the seam's other end are points of the outline	точка стику та інший кінець шва мають бути точками контуру
+@msg	the neckline has no length	горловина має нульову довжину
+@msg	the neckline lengths and the stand's height are more than 0, the rise and extension 0 or more	довжини горловини та висота стійки мають бути більше 0, а підйом і виступ — 0 або більше
+@msg	the new dart is on the old dart	нова виточка збігається зі старою
+@msg	the opening is longer than twice its height	довжина входу більша за подвійну висоту
+@msg	the opening, depth and width are more than 0, the width more than the allowance	вхід, глибина та ширина мають бути більше 0, а ширина — більша за припуск
+@msg	the opening, the welt and the depth are more than 0, the allowances 0 or more	вхід, листочка та глибина мають бути більше 0, а припуски — 0 або більше
+@msg	the outline encloses no area	контур має нульову площу
+@msg	the outline has no side seam	контур не має бічного шва
+@msg	the path has no outline	контур не має обрису
+@msg	the path must be one closed outline	контур має бути одним замкненим обрисом
+@msg	the piece has no grade rules to copy	деталь не має правил градації для копіювання
+@msg	the piece has no straight edge to cut on the fold	деталь не має прямого краю для крою на згині
+@msg	the pieces have no cutting lines to lay	деталі не мають ліній крою для розкладки
+@msg	the plaid's repeat must be more than 0 along and across	рапорт клітинки має бути більше 0 уздовж і впоперек
+@msg	the pocket (its opening and the allowance past both ends) fits on the seam	кишеня (вхід і припуск за обома її кінцями) має вміщатися на шві
+@msg	the point is not inside the piece	точка не всередині деталі
+@msg	the point is not on the seam line or in its allowance	точка не на лінії шва і не в припуску
+@msg	the precision must be more than 0	точність має бути більше 0
+@msg	the rise at centre front is less than the front neckline is long	підйом по середині переду менший за довжину горловини переду
+@msg	the seam has no length there	шов має нульову довжину в цьому місці
+@msg	the seam runs between two different points of the outline	шов має проходити між двома різними точками контуру
+@msg	the seam's other end is a neighbour of the meeting point	інший кінець шва — сусідня точка точки стику
+@msg	the top edge has no length	верхній край має нульову довжину
+@msg	the wing is more than 0 long	довжина кутика має бути більше 0
+@msg	there is no folder to keep measurement sets in here (the desktop app keeps them next to its preferences)	тут немає папки для наборів мірок (настільний застосунок зберігає їх поруч зі своїми налаштуваннями)
+@msg	there is no point of the seam line there	тут немає точки лінії шва
+@msg	to or toAnchor: where the dart moves to	to або toAnchor: куди переводиться виточка
+@msg	to: [x, y] in document points	to: [x, y] у пунктах документа
+@msg	to: the pieces to copy the rules to (select them, or name them)	to: деталі, до яких копіюються правила (виберіть їх або перелічіть)
+@msg	too many objects at once	забагато об’єктів за раз
+@msg	too many pieces at once	забагато деталей за раз
+@msg	too many pieces to lay at once	забагато деталей для розкладки за раз
+@msg	too many sizes at once	забагато розмірів за раз
+@msg	unit: "mm", "cm" or "in"	unit: "mm", "cm" або "in"
+@msg	width: mm, more than 0	width: мм, більше 0

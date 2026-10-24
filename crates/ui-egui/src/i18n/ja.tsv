@@ -5084,7 +5084,7 @@ file-filter	PDF for projector	プロジェクター用 PDF
 	Projector View	プロジェクター表示
 	Measure the square on the cutting mat: it should be 10 cm each way. The arrows make it bigger or smaller (with Shift, faster); Enter keeps it; Escape leaves. Scale: {scale} points per mm.	カッティングマット上で正方形を測ってください。縦横とも 10 cm になるはずです。矢印キーで大きく・小さく（Shift で速く）、Enter で決定、Escape で終了。倍率：1 mm あたり {scale} ポイント。
 	Arrows move the pattern 1 cm (Shift: 1 mm) · M mirrors it · C calibrates · Escape leaves	矢印キーで型紙を 1 cm 移動（Shift：1 mm）· M で反転 · C で調整 · Escape で終了
-@msg	no pattern pieces to project: make the outlines pattern pieces first (Pattern › Make Pattern Piece)	投影する型紙パーツがありません：先に輪郭を型紙パーツにしてください（パターン › 型紙パーツを作成）
+@msg	no pattern pieces to project: make the outlines pattern pieces first (Pattern › Make Pattern Piece)	投影する型紙パーツがありません：先に輪郭を型紙パーツにしてください（型紙 › 型紙パーツを作成）
 @msg	scale: screen points per mm, more than 0	倍率：1 mm あたりの画面ポイント、0 より大きく
 	Delete Saved Measurements	保存した寸法を削除
 	Load Measurements	寸法を読み込む
@@ -5173,3 +5173,190 @@ file-filter	PDF for projector	プロジェクター用 PDF
 	{piece} is off the fabric	{piece} が生地からはみ出しています
 	No pieces overlap, and all are on the fabric.	重なっているパーツはなく、すべて生地の上にあります。
 	Plaid	チェック柄
+menu	Pattern	型紙
+@msg	a and b are two pieces (or paths) that sew together	a と b には、縫い合わせる 2 つのパーツ（またはパス）を指定してください
+@msg	a corner is "mitre" or "square"	角は "mitre" または "square" で指定してください
+@msg	a facing runs along part of the outline	見返しは輪郭の一部に沿って作ります
+@msg	a facing runs between two different points of the outline	見返しは輪郭上の異なる 2 点の間に作ります
+@msg	a name takes at most 200 characters	名前は 200 文字以内にしてください
+@msg	a neckline runs between two different points of its outline, and the shoulder point is one of them	衿ぐりは輪郭上の異なる 2 点の間にあり、その一方が肩先である必要があります
+@msg	a seam allowance is a number of mm, or a length with its unit ("5/8 in")	縫い代は mm 単位の数値、または単位付きの長さ（"5/8 in"）で指定してください
+@msg	a seam has no length	縫い目の長さがありません
+@msg	a shoulder point is on its neck point	肩先がサイドネックポイントと重なっています
+@msg	a slash runs between two points of the outline that aren't neighbours	切り開き線は、輪郭上の隣り合わない 2 点の間に引いてください
+@msg	a split leaves a piece with fewer than three anchors	分割すると、アンカーポイントが 3 つ未満のパーツができてしまいます
+@msg	a split made two panels: delete the panel you don't want instead	分割でパネルが 2 つできています：代わりに不要なパネルを削除してください
+@msg	a split needs two different anchors on the outline	分割には輪郭上の異なる 2 つのアンカーポイントが必要です
+@msg	amount: a share of the dart, (0, 1]	amount: ダーツ分量の割合、(0, 1]
+@msg	amount: how far it opens, mm	amount: 開く量、mm
+@msg	anchor: the point's number along the path, from 0	anchor: パス上の点の番号（0 から）
+@msg	anchor: the seam line's point, from 0	anchor: 出来上がり線の点（0 から）
+@msg	anchors: [a, b] or [a]	anchors: [a, b] または [a]
+@msg	anchors: point numbers along the path	anchors: パス上の点の番号
+@msg	apex: the dart's point (or select that one point)	apex: ダーツ先（またはその 1 点を選択）
+@msg	at: 0 (the edge's start) to 1 (its end)	at: 0（辺の始点）～ 1（終点）
+@msg	at: [x, y], the document point on the edge	at: [x, y]、辺上の点（ドキュメント座標）
+@msg	base: the size the pattern is drawn in	base: 型紙を描いたサイズ
+@msg	block: "bodice", "skirt", "sleeve" or "trousers"	block: "bodice"、"skirt"、"sleeve"、"trousers" のいずれか
+@msg	can't make the seam that long by moving its end	端を動かしても、縫い目をその長さにできません
+@msg	curve: mm the wrap edge bows into the piece	curve: 打ち合わせの端がパーツの内側へ弧を描く量、mm
+@msg	cut is a whole number, 1 to 999	cut は 1～999 の整数で指定してください
+@msg	data: the chart's text	data: サイズ表のテキスト
+@msg	depth: how deep the pleat folds under, mm	depth: プリーツを内側に折り込む深さ、mm
+@msg	depth: mm (less than 0 bows the legs in)	depth: mm（0 未満でダーツ線を内側にカーブ）
+@msg	diameter: a number of mm, or a length with its unit ("1/8 in")	diameter: mm 単位の数値、または単位付きの長さ（"1/8 in"）
+@msg	edge: the edge's number, from 0 (or point)	edge: 辺の番号、0 から（または point）
+@msg	edges and corners are numbered from 0	辺と角の番号は 0 から始まります
+@msg	every: mm, at least 10	every: mm、10 以上
+@msg	face: only a box pleat has one	face: ボックスプリーツにのみ指定できます
+@msg	face: the box pleat's width between its folds, mm	face: ボックスプリーツの折り山間の幅、mm
+@msg	flapShape: "square", "rounded" or "pointed"	flapShape: "square"、"rounded"、"pointed" のいずれか
+@msg	fold is an edge's number (0..), or null	fold には辺の番号（0..）または null を指定してください
+@msg	fold: [a, b], the centre front edge's two points	fold: [a, b]、前中心の辺の 2 点
+@msg	fold: true or false	fold: true または false
+@msg	foldAt: [x, y] in document points	foldAt: [x, y]（ドキュメントのポイント単位）
+@msg	folded: true or false	folded: true または false
+@msg	from: [x, y] in document points	from: [x, y]（ドキュメントのポイント単位）
+@msg	from: not a pattern piece	from: 型紙パーツではありません
+@msg	from: the pattern piece whose rules are copied	from: ルールのコピー元の型紙パーツ
+@msg	from: the piece has no seam line	from: パーツに出来上がり線がありません
+@msg	frontShape: "square", "rounded" or "winged"	frontShape: "square"、"rounded"、"winged" のいずれか
+@msg	gathering runs between two different points of the outline	ギャザーは輪郭上の異なる 2 点の間に入れます
+@msg	give apex and one of to or toAnchor (or select the two points)	apex と、to または toAnchor のどちらかを指定してください（または 2 点を選択）
+@msg	height: mm, 10 to 100 (the tutorial's is at most 30)	height: mm、10～100（チュートリアルでは 30 以下）
+@msg	id: a block part's id	id: 原型パーツの id
+@msg	index: the drill hole's place in the list, from 0 (or point)	index: リスト内のドリル穴の位置、0 から（または point）
+@msg	index: the notch's place in the list, from 0	index: リスト内の合印の位置（0 から）
+@msg	index: the step's place, from 0	index: 手順の位置（0 から）
+@msg	into: the length it gathers into, mm	into: ギャザーを寄せた後の長さ、mm
+@msg	kind: "slit", "double", "v", "t", "castle" or "u"	kind: "slit"、"double"、"v"、"t"、"castle"、"u" のいずれか
+@msg	kind: the notch's new shape	kind: 合印の新しい形
+@msg	layer: a marker layer's id	layer: 型入れレイヤーの id
+@msg	length (mm) or likeId with likeFrom and likeTo: the seam to match	length（mm）、または likeId と likeFrom・likeTo：合わせる縫い目
+@msg	length: mm, more than 0	length: mm、0 より大きい値
+@msg	line: "cut" or "seam"	line: "cut" または "seam"
+@msg	match: the seam it sews to is shorter than the pocket opening's end	match: 縫い合わせる縫い目が、ポケット口の終わりまで届きません
+@msg	min is more than max	min が max より大きくなっています
+@msg	mirror is true or false	mirror は true または false で指定してください
+@msg	mirror: "none", "x", "y" or "xy"	mirror: "none"、"x"、"y"、"xy" のいずれか
+@msg	name: the saved set's name	name: 保存した寸法セットの名前
+@msg	name: whose measurements they are ("Me")	name: だれの寸法か（"Me"）
+@msg	no drill hole near the point	その点の近くにドリル穴がありません
+@msg	no drill hole with that index	その index のドリル穴はありません
+@msg	no notch with that index	その index の合印はありません
+@msg	no object with that id	その id のオブジェクトはありません
+@msg	no pattern pieces to grade: make the outlines pattern pieces first (Pattern › Make Pattern Piece)	グレーディングする型紙パーツがありません：先に輪郭を型紙パーツにしてください（型紙 › 型紙パーツを作成）
+@msg	no straight centre front edge on the outline's side: name it with fold: [a, b]	輪郭のこちら側に、まっすぐな前中心の辺がありません：fold: [a, b] で指定してください
+@msg	not a drafted block part	製図した原型パーツではありません
+@msg	not a marker's layer (Pattern › Make Marker…)	型入れのレイヤーではありません（型紙 › 型入れを作成…）
+@msg	not a pattern piece	型紙パーツではありません
+@msg	not a stand collar's outline	スタンドカラーの輪郭ではありません
+@msg	notches go on pattern pieces: make both seams' paths pieces first (Pattern › Make Pattern Piece)	合印は型紙パーツに付けます：先に両方の縫い目のパスをパーツにしてください（型紙 › 型紙パーツを作成）
+@msg	notches: [mm, …]	notches: [mm, …]
+@msg	notches: distances from the seams' starts, mm	notches: 縫い目の始点からの距離、mm
+@msg	on and at go together: the garment piece and where the opening's top-left corner goes on it	on と at は一緒に指定します：衣服のパーツと、その上でポケット口の左上角を置く位置
+@msg	on and at go together: the garment piece and where the pocket's top-left corner goes on it	on と at は一緒に指定します：衣服のパーツと、その上でポケットの左上角を置く位置
+@msg	one point splits only where another point is at the same place (two darts' point)	1 点だけで分割できるのは、同じ位置に別の点があるところ（2 本のダーツの共通の先）だけです
+@msg	oneWay: true or false	oneWay: true または false
+@msg	openFolds: true or false	openFolds: true または false
+@msg	origin: [x, y] in document points	origin: [x, y]（ドキュメントのポイント単位）
+@msg	overlap: mm past centre front, more than 0	overlap: 前中心から先の打ち合わせ分、mm、0 より大きい値
+@msg	overlap: the edge misses the outline	overlap: 端が輪郭と交わりません
+@msg	plaid: the repeat (mm, or [along, across])	plaid: リピート（mm、または [along, across]）
+@msg	plaid: the repeat along and across, 1 to 10 000 mm each	plaid: 縦方向と横方向のリピート、それぞれ 1～10 000 mm
+@msg	point: [x, y] in document points	point: [x, y]（ドキュメントのポイント単位）
+@msg	select a drafted block part (Pattern › Draft … Block)	製図した原型パーツを選択してください（型紙 › …原型を製図）
+@msg	select a path or a pattern piece	パスまたは型紙パーツを選択してください
+@msg	select a pattern piece (Pattern › Make Pattern Piece makes one)	型紙パーツを選択してください（型紙 › 型紙パーツを作成 で作成できます）
+@msg	select a piece on the marker to check	確認する型入れ上のパーツを選択してください
+@msg	select closed paths: each becomes a piece, the path its seam line	閉じたパスを選択してください：それぞれがパーツになり、パスがその出来上がり線になります
+@msg	select one path	パスを 1 つ選択してください
+@msg	select one pattern piece	型紙パーツを 1 つ選択してください
+@msg	select two points of one path (or one that two darts share)	1 つのパス上の 2 点を選択してください（または 2 本のダーツが共有する 1 点）
+@msg	select two points of one path: the dart's point and where the dart moves to	1 つのパス上の 2 点を選択してください：ダーツ先と、ダーツの移動先
+@msg	select two points of one path: the ends of the edge to face	1 つのパス上の 2 点を選択してください：見返しを付ける辺の両端
+@msg	select two points of one path: the ends of the edge to gather	1 つのパス上の 2 点を選択してください：ギャザーを寄せる辺の両端
+@msg	share is true or false	share は true または false で指定してください
+@msg	shorten: mm (less than 0 lengthens)	shorten: mm（0 未満で長くなります）
+@msg	shoulder: longer than the outline	shoulder: 輪郭より長くなっています
+@msg	shoulder: mm, 0 or more	shoulder: mm、0 以上
+@msg	size: one of the chart's sizes	size: サイズ表にあるサイズのいずれか
+@msg	size: the name of a size of the size range or chart	size: サイズ展開またはサイズ表にあるサイズの名前
+@msg	sizes: name one size at least	sizes: サイズを 1 つ以上指定してください
+@msg	sizes: the sizes' names	sizes: サイズの名前
+@msg	sizes: the sizes' names, smallest first (null removes them)	sizes: サイズの名前、小さい順（null で削除）
+@msg	split the seam line on its own: release the piece first (Pattern › Release Pattern Piece)	出来上がり線だけを分割するには、先にパーツを解除してください（型紙 › 型紙パーツを解除）
+@msg	step: [dx, dy] in mm	step: [dx, dy]（mm 単位）
+@msg	style: classic, casual or shirt	style: classic、casual、shirt のいずれか
+@msg	that anchor's neighbours don't make a dart	そのアンカーポイントの隣の点では、ダーツになりません
+@msg	that point is not a dart's point: its legs open a right angle or wider	その点はダーツ先ではありません：ダーツ線の開きが直角以上です
+@msg	the amount is a share of the dart, more than 0 and at most 1	量はダーツ分量の割合で、0 より大きく 1 以下です
+@msg	the back's outline encloses no area	後ろ身頃の輪郭が面積を囲んでいません
+@msg	the box pleat's face is more than 0 wide	ボックスプリーツの表側の幅は 0 より大きくしてください
+@msg	the chart is larger than 1 MB	サイズ表が 1 MB を超えています
+@msg	the curve has no length at the meeting point	合流点で曲線の長さがありません
+@msg	the curves leave the seam the same way	曲線が縫い目から同じ向きに出ています
+@msg	the dart has no length	ダーツの長さがありません
+@msg	the dart is not that long	ダーツはそれほど長くありません
+@msg	the dart point or the new dart's anchor is not on the outline	ダーツ先または新しいダーツのアンカーポイントが輪郭上にありません
+@msg	the dart's legs must be straight lines	ダーツ線は直線にしてください
+@msg	the dart's point is past the outline's end	ダーツ先が輪郭の終わりを越えています
+@msg	the depth to curve the legs by is not a number	ダーツ線をカーブさせる深さが数値ではありません
+@msg	the document has no marker (Pattern › Make Marker…)	ドキュメントに型入れがありません（型紙 › 型入れを作成…）
+@msg	the document has no measurements to save	保存する寸法がドキュメントにありません
+@msg	the document has no size chart (measure.importChart)	ドキュメントにサイズ表がありません（measure.importChart）
+@msg	the drop at the front is less than half the neck edge	前の下がりは衿付け線の半分未満にしてください
+@msg	the edge has no length	辺の長さがありません
+@msg	the edge's anchor is past the outline's end	辺のアンカーポイントが輪郭の終わりを越えています
+@msg	the fabric's width must be more than 0	生地幅は 0 より大きくしてください
+@msg	the flap is deeper than twice its width	フラップの深さが幅の 2 倍を超えています
+@msg	the flap's width and depth are more than 0, its allowance 0 or more	フラップの幅と深さは 0 より大きく、縫い代は 0 以上にしてください
+@msg	the fold edge has no length	わの辺の長さがありません
+@msg	the fold edge's anchors are past the outline's end	わの辺のアンカーポイントが輪郭の終わりを越えています
+@msg	the fold edge's two anchors must be neighbours on the outline	わの辺の 2 つのアンカーポイントは、輪郭上で隣り合っている必要があります
+@msg	the fold must be a straight edge	わは直線の辺にしてください
+@msg	the front end has no length	前端の長さがありません
+@msg	the gap must be 0 or more	間隔は 0 以上にしてください
+@msg	the grainline's ends are the same point	布目線の両端が同じ点です
+@msg	the legs can't curve that far: the dart isn't wide enough	ダーツ線をそこまでカーブさせられません：ダーツの幅が足りません
+@msg	the length to shorten by is not a number	短くする長さが数値ではありません
+@msg	the marker has lost its fabric outline	型入れの生地の輪郭がなくなっています
+@msg	the marker has no pieces	型入れにパーツがありません
+@msg	the marker is too large at this precision: give a coarser one	この精度では型入れが大きすぎます：より粗い精度を指定してください
+@msg	the measurements could not be saved	寸法を保存できませんでした
+@msg	the meeting point and the seam's other end are points of the outline	合流点と縫い目のもう一方の端は、輪郭上の点にしてください
+@msg	the neckline has no length	衿ぐりの長さがありません
+@msg	the neckline lengths and the stand's height are more than 0, the rise and extension 0 or more	衿ぐりの長さとスタンドの高さは 0 より大きく、上がりと持ち出しは 0 以上にしてください
+@msg	the new dart is on the old dart	新しいダーツが元のダーツと重なっています
+@msg	the opening is longer than twice its height	口の長さが高さの 2 倍を超えています
+@msg	the opening, depth and width are more than 0, the width more than the allowance	口の長さ、深さ、幅は 0 より大きく、幅は縫い代より大きくしてください
+@msg	the opening, the welt and the depth are more than 0, the allowances 0 or more	口の長さ、玉縁、深さは 0 より大きく、縫い代は 0 以上にしてください
+@msg	the outline encloses no area	輪郭が面積を囲んでいません
+@msg	the outline has no side seam	輪郭に脇線がありません
+@msg	the path has no outline	パスに輪郭がありません
+@msg	the path must be one closed outline	パスは 1 つの閉じた輪郭にしてください
+@msg	the piece has no grade rules to copy	パーツにコピーするグレーディングルールがありません
+@msg	the piece has no straight edge to cut on the fold	パーツに、わで裁つための直線の辺がありません
+@msg	the pieces have no cutting lines to lay	パーツに配置する裁ち切り線がありません
+@msg	the plaid's repeat must be more than 0 along and across	チェック柄のリピートは縦横とも 0 より大きくしてください
+@msg	the pocket (its opening and the allowance past both ends) fits on the seam	ポケット（ポケット口と両端の先の縫い代）が縫い目に収まるようにしてください
+@msg	the point is not inside the piece	点がパーツの内側にありません
+@msg	the point is not on the seam line or in its allowance	点が出来上がり線上にも縫い代内にもありません
+@msg	the precision must be more than 0	精度は 0 より大きくしてください
+@msg	the rise at centre front is less than the front neckline is long	前中心の上がりは前衿ぐりの長さより小さくしてください
+@msg	the seam has no length there	そこでは縫い目の長さがありません
+@msg	the seam runs between two different points of the outline	縫い目は輪郭上の異なる 2 点の間にしてください
+@msg	the seam's other end is a neighbour of the meeting point	縫い目のもう一方の端が合流点の隣の点です
+@msg	the top edge has no length	上端の辺の長さがありません
+@msg	the wing is more than 0 long	ウィングの長さは 0 より大きくしてください
+@msg	there is no folder to keep measurement sets in here (the desktop app keeps them next to its preferences)	この環境には寸法セットを保存するフォルダーがありません（デスクトップアプリでは環境設定と同じ場所に保存します）
+@msg	there is no point of the seam line there	そこに出来上がり線の点はありません
+@msg	to or toAnchor: where the dart moves to	to または toAnchor: ダーツの移動先
+@msg	to: [x, y] in document points	to: [x, y]（ドキュメントのポイント単位）
+@msg	to: the pieces to copy the rules to (select them, or name them)	to: ルールのコピー先のパーツ（選択するか、名前で指定）
+@msg	too many objects at once	一度に扱えるオブジェクトの数を超えています
+@msg	too many pieces at once	一度に扱えるパーツの数を超えています
+@msg	too many pieces to lay at once	一度に配置できるパーツの数を超えています
+@msg	too many sizes at once	一度に扱えるサイズの数を超えています
+@msg	unit: "mm", "cm" or "in"	unit: "mm"、"cm"、"in" のいずれか
+@msg	width: mm, more than 0	width: mm、0 より大きい値

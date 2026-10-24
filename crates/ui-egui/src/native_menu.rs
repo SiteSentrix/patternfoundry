@@ -193,7 +193,7 @@ pub fn from_tree(app: &VectorcraftApp, tree: &[(&'static str, Vec<menus::Item>)]
                 "Help" => MenuRole::Help,
                 _ => MenuRole::Normal,
             };
-            Menu { title: crate::i18n::t(title).to_string(), role, children: level(app, items) }
+            Menu { title: crate::i18n::t_menu(title).to_string(), role, children: level(app, items) }
         })
         .collect();
     MenuBar { menus }

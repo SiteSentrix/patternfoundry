@@ -3339,7 +3339,7 @@ pub fn menu_bar(app: &mut VectorcraftApp, ui: &mut egui::Ui) -> f32 {
         .ui(ui, |ui| {
             let mut titles = Vec::with_capacity(tree.len());
             for (title, items) in tree.iter() {
-                let text = egui::RichText::new(tl!(title)).size(13.0).color(t.text);
+                let text = egui::RichText::new(crate::i18n::t_menu(title)).size(13.0).color(t.text);
                 titles.push(ui.menu_button(text, |ui| menu_body(app, ui, items, &mut clicked)).response);
             }
             (ui.cursor().min.x, switch_on_hover(ui.ctx(), &titles))

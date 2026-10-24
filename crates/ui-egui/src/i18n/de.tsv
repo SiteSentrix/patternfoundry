@@ -5100,3 +5100,190 @@ file-filter	PDF for projector	PDF für Projektor
 	{piece} is off the fabric	{piece} liegt außerhalb des Stoffs
 	No pieces overlap, and all are on the fabric.	Keine Teile überlappen, alle liegen auf dem Stoff.
 	Plaid	Karomuster
+menu	Pattern	Schnitt
+@msg	a and b are two pieces (or paths) that sew together	a und b sind zwei Teile (oder Pfade), die zusammengenäht werden
+@msg	a corner is "mitre" or "square"	eine Ecke ist "mitre" oder "square"
+@msg	a facing runs along part of the outline	ein Beleg verläuft entlang eines Teils des Umrisses
+@msg	a facing runs between two different points of the outline	ein Beleg verläuft zwischen zwei verschiedenen Punkten des Umrisses
+@msg	a name takes at most 200 characters	ein Name hat höchstens 200 Zeichen
+@msg	a neckline runs between two different points of its outline, and the shoulder point is one of them	ein Halsausschnitt verläuft zwischen zwei verschiedenen Punkten seines Umrisses, und der Schulterpunkt ist einer davon
+@msg	a seam allowance is a number of mm, or a length with its unit ("5/8 in")	eine Nahtzugabe ist eine Anzahl mm oder eine Länge mit ihrer Einheit ("5/8 in")
+@msg	a seam has no length	eine Naht hat keine Länge
+@msg	a shoulder point is on its neck point	ein Schulterpunkt liegt auf seinem Halspunkt
+@msg	a slash runs between two points of the outline that aren't neighbours	ein Einschnitt verläuft zwischen zwei Punkten des Umrisses, die nicht benachbart sind
+@msg	a split leaves a piece with fewer than three anchors	eine Teilung lässt ein Teil mit weniger als drei Ankerpunkten zurück
+@msg	a split made two panels: delete the panel you don't want instead	eine Teilung hat zwei Teile ergeben: Löschen Sie stattdessen das Teil, das Sie nicht möchten
+@msg	a split needs two different anchors on the outline	eine Teilung braucht zwei verschiedene Ankerpunkte auf dem Umriss
+@msg	amount: a share of the dart, (0, 1]	amount: ein Anteil des Abnähers, (0, 1]
+@msg	amount: how far it opens, mm	amount: wie weit geöffnet wird, mm
+@msg	anchor: the point's number along the path, from 0	anchor: die Nummer des Punkts entlang des Pfads, ab 0
+@msg	anchor: the seam line's point, from 0	anchor: der Punkt der Nahtlinie, ab 0
+@msg	anchors: [a, b] or [a]	anchors: [a, b] oder [a]
+@msg	anchors: point numbers along the path	anchors: Punktnummern entlang des Pfads
+@msg	apex: the dart's point (or select that one point)	apex: die Abnäherspitze (oder wählen Sie diesen einen Punkt aus)
+@msg	at: 0 (the edge's start) to 1 (its end)	at: 0 (Anfang der Kante) bis 1 (ihr Ende)
+@msg	at: [x, y], the document point on the edge	at: [x, y], der Dokumentpunkt auf der Kante
+@msg	base: the size the pattern is drawn in	base: die Größe, in der das Schnittmuster gezeichnet ist
+@msg	block: "bodice", "skirt", "sleeve" or "trousers"	block: "bodice", "skirt", "sleeve" oder "trousers"
+@msg	can't make the seam that long by moving its end	die Naht kann durch Verschieben ihres Endes nicht so lang werden
+@msg	curve: mm the wrap edge bows into the piece	curve: mm, um die sich die Wickelkante ins Teil wölbt
+@msg	cut is a whole number, 1 to 999	cut ist eine ganze Zahl von 1 bis 999
+@msg	data: the chart's text	data: der Text der Maßtabelle
+@msg	depth: how deep the pleat folds under, mm	depth: wie tief die Falte untergelegt wird, mm
+@msg	depth: mm (less than 0 bows the legs in)	depth: mm (unter 0 wölbt die Schenkel nach innen)
+@msg	diameter: a number of mm, or a length with its unit ("1/8 in")	diameter: eine Anzahl mm oder eine Länge mit ihrer Einheit ("1/8 in")
+@msg	edge: the edge's number, from 0 (or point)	edge: die Nummer der Kante, ab 0 (oder point)
+@msg	edges and corners are numbered from 0	Kanten und Ecken werden ab 0 nummeriert
+@msg	every: mm, at least 10	every: mm, mindestens 10
+@msg	face: only a box pleat has one	face: nur eine Kellerfalte hat eine
+@msg	face: the box pleat's width between its folds, mm	face: die Breite der Kellerfalte zwischen ihren Bruchkanten, mm
+@msg	flapShape: "square", "rounded" or "pointed"	flapShape: "square", "rounded" oder "pointed"
+@msg	fold is an edge's number (0..), or null	fold ist die Nummer einer Kante (0..) oder null
+@msg	fold: [a, b], the centre front edge's two points	fold: [a, b], die zwei Punkte der vorderen Mittelkante
+@msg	fold: true or false	fold: true oder false
+@msg	foldAt: [x, y] in document points	foldAt: [x, y] in Dokumentpunkten
+@msg	folded: true or false	folded: true oder false
+@msg	from: [x, y] in document points	from: [x, y] in Dokumentpunkten
+@msg	from: not a pattern piece	from: kein Schnittteil
+@msg	from: the pattern piece whose rules are copied	from: das Schnittteil, dessen Regeln kopiert werden
+@msg	from: the piece has no seam line	from: das Teil hat keine Nahtlinie
+@msg	frontShape: "square", "rounded" or "winged"	frontShape: "square", "rounded" oder "winged"
+@msg	gathering runs between two different points of the outline	eine Kräuselung verläuft zwischen zwei verschiedenen Punkten des Umrisses
+@msg	give apex and one of to or toAnchor (or select the two points)	geben Sie apex und entweder to oder toAnchor an (oder wählen Sie die zwei Punkte aus)
+@msg	height: mm, 10 to 100 (the tutorial's is at most 30)	height: mm, 10 bis 100 (in der Anleitung höchstens 30)
+@msg	id: a block part's id	id: die ID eines Grundschnittteils
+@msg	index: the drill hole's place in the list, from 0 (or point)	index: die Stelle des Bohrlochs in der Liste, ab 0 (oder point)
+@msg	index: the notch's place in the list, from 0	index: die Stelle der Knipsmarke in der Liste, ab 0
+@msg	index: the step's place, from 0	index: die Stelle des Schritts, ab 0
+@msg	into: the length it gathers into, mm	into: die Länge, auf die eingekräuselt wird, mm
+@msg	kind: "slit", "double", "v", "t", "castle" or "u"	kind: "slit", "double", "v", "t", "castle" oder "u"
+@msg	kind: the notch's new shape	kind: die neue Form der Knipsmarke
+@msg	layer: a marker layer's id	layer: die ID einer Zuschnittplan-Ebene
+@msg	length (mm) or likeId with likeFrom and likeTo: the seam to match	length (mm) oder likeId mit likeFrom und likeTo: die Naht, an die angeglichen wird
+@msg	length: mm, more than 0	length: mm, mehr als 0
+@msg	line: "cut" or "seam"	line: "cut" oder "seam"
+@msg	match: the seam it sews to is shorter than the pocket opening's end	match: die Naht, an die sie genäht wird, ist kürzer als bis zum Ende der Taschenöffnung
+@msg	min is more than max	min ist größer als max
+@msg	mirror is true or false	mirror ist true oder false
+@msg	mirror: "none", "x", "y" or "xy"	mirror: "none", "x", "y" oder "xy"
+@msg	name: the saved set's name	name: der Name des gespeicherten Maßsatzes
+@msg	name: whose measurements they are ("Me")	name: wessen Maße es sind ("Ich")
+@msg	no drill hole near the point	kein Bohrloch in der Nähe des Punkts
+@msg	no drill hole with that index	kein Bohrloch mit diesem Index
+@msg	no notch with that index	keine Knipsmarke mit diesem Index
+@msg	no object with that id	kein Objekt mit dieser ID
+@msg	no pattern pieces to grade: make the outlines pattern pieces first (Pattern › Make Pattern Piece)	keine Schnittteile zum Gradieren: Machen Sie die Umrisse zuerst zu Schnittteilen (Schnitt › Schnittteil erstellen)
+@msg	no straight centre front edge on the outline's side: name it with fold: [a, b]	keine gerade vordere Mittelkante auf der Seite des Umrisses: Geben Sie sie mit fold: [a, b] an
+@msg	not a drafted block part	kein konstruiertes Grundschnittteil
+@msg	not a marker's layer (Pattern › Make Marker…)	keine Ebene eines Zuschnittplans (Schnitt › Zuschnittplan erstellen…)
+@msg	not a pattern piece	kein Schnittteil
+@msg	not a stand collar's outline	nicht der Umriss eines Stehkragens
+@msg	notches go on pattern pieces: make both seams' paths pieces first (Pattern › Make Pattern Piece)	Knipsmarken gehören auf Schnittteile: Machen Sie zuerst die Pfade beider Nähte zu Teilen (Schnitt › Schnittteil erstellen)
+@msg	notches: [mm, …]	notches: [mm, …]
+@msg	notches: distances from the seams' starts, mm	notches: Abstände vom Anfang der Nähte, mm
+@msg	on and at go together: the garment piece and where the opening's top-left corner goes on it	on und at gehören zusammen: das Kleidungsteil und die Stelle darauf, an die die obere linke Ecke der Öffnung kommt
+@msg	on and at go together: the garment piece and where the pocket's top-left corner goes on it	on und at gehören zusammen: das Kleidungsteil und die Stelle darauf, an die die obere linke Ecke der Tasche kommt
+@msg	one point splits only where another point is at the same place (two darts' point)	ein Punkt wird nur dort geteilt, wo ein anderer Punkt an derselben Stelle liegt (die Spitze zweier Abnäher)
+@msg	oneWay: true or false	oneWay: true oder false
+@msg	openFolds: true or false	openFolds: true oder false
+@msg	origin: [x, y] in document points	origin: [x, y] in Dokumentpunkten
+@msg	overlap: mm past centre front, more than 0	overlap: mm über die vordere Mitte hinaus, mehr als 0
+@msg	overlap: the edge misses the outline	overlap: die Kante verfehlt den Umriss
+@msg	plaid: the repeat (mm, or [along, across])	plaid: der Rapport (mm oder [along, across])
+@msg	plaid: the repeat along and across, 1 to 10 000 mm each	plaid: der Rapport längs und quer, je 1 bis 10 000 mm
+@msg	point: [x, y] in document points	point: [x, y] in Dokumentpunkten
+@msg	select a drafted block part (Pattern › Draft … Block)	wählen Sie ein konstruiertes Grundschnittteil aus (Schnitt › Grundschnitt … konstruieren)
+@msg	select a path or a pattern piece	wählen Sie einen Pfad oder ein Schnittteil aus
+@msg	select a pattern piece (Pattern › Make Pattern Piece makes one)	wählen Sie ein Schnittteil aus (Schnitt › Schnittteil erstellen erstellt eines)
+@msg	select a piece on the marker to check	wählen Sie im Zuschnittplan ein Teil zum Prüfen aus
+@msg	select closed paths: each becomes a piece, the path its seam line	wählen Sie geschlossene Pfade aus: Jeder wird ein Teil, der Pfad seine Nahtlinie
+@msg	select one path	wählen Sie einen Pfad aus
+@msg	select one pattern piece	wählen Sie ein Schnittteil aus
+@msg	select two points of one path (or one that two darts share)	wählen Sie zwei Punkte eines Pfads aus (oder einen, den zwei Abnäher gemeinsam haben)
+@msg	select two points of one path: the dart's point and where the dart moves to	wählen Sie zwei Punkte eines Pfads aus: die Abnäherspitze und die Stelle, an die der Abnäher verlegt wird
+@msg	select two points of one path: the ends of the edge to face	wählen Sie zwei Punkte eines Pfads aus: die Enden der Kante, die einen Beleg erhält
+@msg	select two points of one path: the ends of the edge to gather	wählen Sie zwei Punkte eines Pfads aus: die Enden der zu kräuselnden Kante
+@msg	share is true or false	share ist true oder false
+@msg	shorten: mm (less than 0 lengthens)	shorten: mm (unter 0 verlängert)
+@msg	shoulder: longer than the outline	shoulder: länger als der Umriss
+@msg	shoulder: mm, 0 or more	shoulder: mm, 0 oder mehr
+@msg	size: one of the chart's sizes	size: eine der Größen der Maßtabelle
+@msg	size: the name of a size of the size range or chart	size: der Name einer Größe der Größenreihe oder Maßtabelle
+@msg	sizes: name one size at least	sizes: Nennen Sie mindestens eine Größe
+@msg	sizes: the sizes' names	sizes: die Namen der Größen
+@msg	sizes: the sizes' names, smallest first (null removes them)	sizes: die Namen der Größen, kleinste zuerst (null entfernt sie)
+@msg	split the seam line on its own: release the piece first (Pattern › Release Pattern Piece)	um die Nahtlinie allein zu teilen, wandeln Sie das Teil zuerst zurück (Schnitt › Schnittteil zurückwandeln)
+@msg	step: [dx, dy] in mm	step: [dx, dy] in mm
+@msg	style: classic, casual or shirt	style: classic, casual oder shirt
+@msg	that anchor's neighbours don't make a dart	die Nachbarn dieses Ankerpunkts bilden keinen Abnäher
+@msg	that point is not a dart's point: its legs open a right angle or wider	dieser Punkt ist keine Abnäherspitze: Seine Schenkel öffnen sich im rechten Winkel oder weiter
+@msg	the amount is a share of the dart, more than 0 and at most 1	die Menge ist ein Anteil des Abnähers, mehr als 0 und höchstens 1
+@msg	the back's outline encloses no area	der Umriss des Rückenteils umschließt keine Fläche
+@msg	the box pleat's face is more than 0 wide	die Kellerfalte ist zwischen ihren Bruchkanten breiter als 0
+@msg	the chart is larger than 1 MB	die Maßtabelle ist größer als 1 MB
+@msg	the curve has no length at the meeting point	die Kurve hat am Treffpunkt keine Länge
+@msg	the curves leave the seam the same way	die Kurven verlassen die Naht in derselben Richtung
+@msg	the dart has no length	der Abnäher hat keine Länge
+@msg	the dart is not that long	der Abnäher ist nicht so lang
+@msg	the dart point or the new dart's anchor is not on the outline	die Abnäherspitze oder der Ankerpunkt des neuen Abnähers liegt nicht auf dem Umriss
+@msg	the dart's legs must be straight lines	die Schenkel des Abnähers müssen gerade Linien sein
+@msg	the dart's point is past the outline's end	die Abnäherspitze liegt hinter dem Ende des Umrisses
+@msg	the depth to curve the legs by is not a number	die Tiefe, um die die Schenkel gewölbt werden, ist keine Zahl
+@msg	the document has no marker (Pattern › Make Marker…)	das Dokument hat keinen Zuschnittplan (Schnitt › Zuschnittplan erstellen…)
+@msg	the document has no measurements to save	das Dokument hat keine Maße zum Speichern
+@msg	the document has no size chart (measure.importChart)	das Dokument hat keine Maßtabelle (measure.importChart)
+@msg	the drop at the front is less than half the neck edge	die Absenkung vorne ist kleiner als die halbe Halskante
+@msg	the edge has no length	die Kante hat keine Länge
+@msg	the edge's anchor is past the outline's end	der Ankerpunkt der Kante liegt hinter dem Ende des Umrisses
+@msg	the fabric's width must be more than 0	die Stoffbreite muss größer als 0 sein
+@msg	the flap is deeper than twice its width	die Patte ist mehr als doppelt so tief wie breit
+@msg	the flap's width and depth are more than 0, its allowance 0 or more	Breite und Tiefe der Patte sind größer als 0, ihre Zugabe 0 oder mehr
+@msg	the fold edge has no length	die Bruchkante hat keine Länge
+@msg	the fold edge's anchors are past the outline's end	die Ankerpunkte der Bruchkante liegen hinter dem Ende des Umrisses
+@msg	the fold edge's two anchors must be neighbours on the outline	die zwei Ankerpunkte der Bruchkante müssen auf dem Umriss benachbart sein
+@msg	the fold must be a straight edge	der Stoffbruch muss eine gerade Kante sein
+@msg	the front end has no length	das vordere Ende hat keine Länge
+@msg	the gap must be 0 or more	der Abstand muss 0 oder mehr sein
+@msg	the grainline's ends are the same point	die Enden des Fadenlaufs sind derselbe Punkt
+@msg	the legs can't curve that far: the dart isn't wide enough	die Schenkel lassen sich nicht so weit wölben: Der Abnäher ist nicht breit genug
+@msg	the length to shorten by is not a number	die Länge zum Kürzen ist keine Zahl
+@msg	the marker has lost its fabric outline	der Zuschnittplan hat seinen Stoffumriss verloren
+@msg	the marker has no pieces	der Zuschnittplan hat keine Teile
+@msg	the marker is too large at this precision: give a coarser one	der Zuschnittplan ist bei dieser Genauigkeit zu groß: Geben Sie eine gröbere an
+@msg	the measurements could not be saved	die Maße konnten nicht gespeichert werden
+@msg	the meeting point and the seam's other end are points of the outline	der Treffpunkt und das andere Ende der Naht sind Punkte des Umrisses
+@msg	the neckline has no length	der Halsausschnitt hat keine Länge
+@msg	the neckline lengths and the stand's height are more than 0, the rise and extension 0 or more	die Längen des Halsausschnitts und die Höhe des Stegs sind größer als 0, Anstieg und Verlängerung 0 oder mehr
+@msg	the new dart is on the old dart	der neue Abnäher liegt auf dem alten
+@msg	the opening is longer than twice its height	die Öffnung ist mehr als doppelt so lang wie hoch
+@msg	the opening, depth and width are more than 0, the width more than the allowance	Öffnung, Tiefe und Breite sind größer als 0, die Breite größer als die Zugabe
+@msg	the opening, the welt and the depth are more than 0, the allowances 0 or more	Öffnung, Paspel und Tiefe sind größer als 0, die Zugaben 0 oder mehr
+@msg	the outline encloses no area	der Umriss umschließt keine Fläche
+@msg	the outline has no side seam	der Umriss hat keine Seitennaht
+@msg	the path has no outline	der Pfad hat keinen Umriss
+@msg	the path must be one closed outline	der Pfad muss ein einziger geschlossener Umriss sein
+@msg	the piece has no grade rules to copy	das Teil hat keine Gradierregeln zum Kopieren
+@msg	the piece has no straight edge to cut on the fold	das Teil hat keine gerade Kante zum Zuschneiden im Stoffbruch
+@msg	the pieces have no cutting lines to lay	die Teile haben keine Schnittlinien zum Auflegen
+@msg	the plaid's repeat must be more than 0 along and across	der Rapport des Karomusters muss längs und quer größer als 0 sein
+@msg	the pocket (its opening and the allowance past both ends) fits on the seam	die Tasche (ihre Öffnung und die Zugabe über beide Enden hinaus) passt auf die Naht
+@msg	the point is not inside the piece	der Punkt liegt nicht im Teil
+@msg	the point is not on the seam line or in its allowance	der Punkt liegt nicht auf der Nahtlinie oder in ihrer Zugabe
+@msg	the precision must be more than 0	die Genauigkeit muss größer als 0 sein
+@msg	the rise at centre front is less than the front neckline is long	der Anstieg in der vorderen Mitte ist kleiner als die Länge des vorderen Halsausschnitts
+@msg	the seam has no length there	die Naht hat dort keine Länge
+@msg	the seam runs between two different points of the outline	die Naht verläuft zwischen zwei verschiedenen Punkten des Umrisses
+@msg	the seam's other end is a neighbour of the meeting point	das andere Ende der Naht ist ein Nachbar des Treffpunkts
+@msg	the top edge has no length	die Oberkante hat keine Länge
+@msg	the wing is more than 0 long	das Kläppchen ist länger als 0
+@msg	there is no folder to keep measurement sets in here (the desktop app keeps them next to its preferences)	hier gibt es keinen Ordner für Maßsätze (die Desktop-App legt sie neben ihren Einstellungen ab)
+@msg	there is no point of the seam line there	dort gibt es keinen Punkt der Nahtlinie
+@msg	to or toAnchor: where the dart moves to	to oder toAnchor: die Stelle, an die der Abnäher verlegt wird
+@msg	to: [x, y] in document points	to: [x, y] in Dokumentpunkten
+@msg	to: the pieces to copy the rules to (select them, or name them)	to: die Teile, auf die die Regeln kopiert werden (wählen Sie sie aus oder nennen Sie sie)
+@msg	too many objects at once	zu viele Objekte auf einmal
+@msg	too many pieces at once	zu viele Teile auf einmal
+@msg	too many pieces to lay at once	zu viele Teile zum Auflegen auf einmal
+@msg	too many sizes at once	zu viele Größen auf einmal
+@msg	unit: "mm", "cm" or "in"	unit: "mm", "cm" oder "in"
+@msg	width: mm, more than 0	width: mm, mehr als 0

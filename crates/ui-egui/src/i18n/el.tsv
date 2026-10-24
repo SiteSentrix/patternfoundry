@@ -5470,3 +5470,190 @@ file-filter	PDF for projector	PDF για προβολέα
 	{piece} is off the fabric	Το {piece} βγαίνει έξω από το ύφασμα
 	No pieces overlap, and all are on the fabric.	Κανένα κομμάτι δεν επικαλύπτεται και όλα είναι πάνω στο ύφασμα.
 	Plaid	Καρό
+menu	Pattern	Πατρόν
+@msg	a and b are two pieces (or paths) that sew together	τα a και b είναι δύο κομμάτια (ή διαδρομές) που ράβονται μεταξύ τους
+@msg	a corner is "mitre" or "square"	η γωνία είναι "mitre" ή "square"
+@msg	a facing runs along part of the outline	η φάσα ακολουθεί μέρος του περιγράμματος
+@msg	a facing runs between two different points of the outline	η φάσα εκτείνεται μεταξύ δύο διαφορετικών σημείων του περιγράμματος
+@msg	a name takes at most 200 characters	το όνομα έχει έως 200 χαρακτήρες
+@msg	a neckline runs between two different points of its outline, and the shoulder point is one of them	η λαιμόκοψη εκτείνεται μεταξύ δύο διαφορετικών σημείων του περιγράμματός της, και το ένα είναι το σημείο του ώμου
+@msg	a seam allowance is a number of mm, or a length with its unit ("5/8 in")	το περιθώριο ραφής είναι αριθμός σε mm ή μήκος με τη μονάδα του ("5/8 in")
+@msg	a seam has no length	η ραφή έχει μηδενικό μήκος
+@msg	a shoulder point is on its neck point	το σημείο του ώμου συμπίπτει με το σημείο του λαιμού
+@msg	a slash runs between two points of the outline that aren't neighbours	η τομή εκτείνεται μεταξύ δύο μη γειτονικών σημείων του περιγράμματος
+@msg	a split leaves a piece with fewer than three anchors	ο διαχωρισμός αφήνει κομμάτι με λιγότερα από τρία σημεία αγκύρωσης
+@msg	a split made two panels: delete the panel you don't want instead	ο διαχωρισμός δημιούργησε δύο τμήματα: διαγράψτε αντί γι' αυτό το τμήμα που δεν θέλετε
+@msg	a split needs two different anchors on the outline	ο διαχωρισμός χρειάζεται δύο διαφορετικά σημεία αγκύρωσης στο περίγραμμα
+@msg	amount: a share of the dart, (0, 1]	amount: ποσοστό της πένσας, (0, 1]
+@msg	amount: how far it opens, mm	amount: πόσο ανοίγει, mm
+@msg	anchor: the point's number along the path, from 0	anchor: ο αριθμός του σημείου κατά μήκος της διαδρομής, από 0
+@msg	anchor: the seam line's point, from 0	anchor: το σημείο της γραμμής ραφής, από 0
+@msg	anchors: [a, b] or [a]	anchors: [a, b] ή [a]
+@msg	anchors: point numbers along the path	anchors: αριθμοί σημείων κατά μήκος της διαδρομής
+@msg	apex: the dart's point (or select that one point)	apex: η κορυφή της πένσας (ή επιλέξτε αυτό το σημείο)
+@msg	at: 0 (the edge's start) to 1 (its end)	at: από 0 (η αρχή της ακμής) έως 1 (το τέλος της)
+@msg	at: [x, y], the document point on the edge	at: [x, y], το σημείο του εγγράφου πάνω στην ακμή
+@msg	base: the size the pattern is drawn in	base: το μέγεθος στο οποίο είναι σχεδιασμένο το πατρόν
+@msg	block: "bodice", "skirt", "sleeve" or "trousers"	block: "bodice", "skirt", "sleeve" ή "trousers"
+@msg	can't make the seam that long by moving its end	δεν είναι δυνατό να γίνει η ραφή τόσο μακριά μετακινώντας το άκρο της
+@msg	curve: mm the wrap edge bows into the piece	curve: πόσα mm καμπυλώνει η άκρη του κρουαζέ προς το εσωτερικό του κομματιού
+@msg	cut is a whole number, 1 to 999	το cut είναι ακέραιος αριθμός, από 1 έως 999
+@msg	data: the chart's text	data: το κείμενο του πίνακα
+@msg	depth: how deep the pleat folds under, mm	depth: πόσο βαθιά διπλώνει η πιέτα από κάτω, mm
+@msg	depth: mm (less than 0 bows the legs in)	depth: mm (κάτω από 0 τα σκέλη καμπυλώνουν προς τα μέσα)
+@msg	diameter: a number of mm, or a length with its unit ("1/8 in")	diameter: αριθμός σε mm ή μήκος με τη μονάδα του ("1/8 in")
+@msg	edge: the edge's number, from 0 (or point)	edge: ο αριθμός της ακμής, από 0 (ή point)
+@msg	edges and corners are numbered from 0	οι ακμές και οι γωνίες αριθμούνται από 0
+@msg	every: mm, at least 10	every: mm, τουλάχιστον 10
+@msg	face: only a box pleat has one	face: υπάρχει μόνο σε κουτιαστή πιέτα
+@msg	face: the box pleat's width between its folds, mm	face: το πλάτος της κουτιαστής πιέτας μεταξύ των διπλωμάτων της, mm
+@msg	flapShape: "square", "rounded" or "pointed"	flapShape: "square", "rounded" ή "pointed"
+@msg	fold is an edge's number (0..), or null	το fold είναι αριθμός ακμής (0..) ή null
+@msg	fold: [a, b], the centre front edge's two points	fold: [a, b], τα δύο σημεία της ακμής του μέσου εμπρός
+@msg	fold: true or false	fold: true ή false
+@msg	foldAt: [x, y] in document points	foldAt: [x, y] σε pt του εγγράφου
+@msg	folded: true or false	folded: true ή false
+@msg	from: [x, y] in document points	from: [x, y] σε pt του εγγράφου
+@msg	from: not a pattern piece	from: δεν είναι κομμάτι πατρόν
+@msg	from: the pattern piece whose rules are copied	from: το κομμάτι πατρόν του οποίου οι κανόνες αντιγράφονται
+@msg	from: the piece has no seam line	from: το κομμάτι δεν έχει γραμμή ραφής
+@msg	frontShape: "square", "rounded" or "winged"	frontShape: "square", "rounded" ή "winged"
+@msg	gathering runs between two different points of the outline	η σούρα εκτείνεται μεταξύ δύο διαφορετικών σημείων του περιγράμματος
+@msg	give apex and one of to or toAnchor (or select the two points)	δώστε το apex και ένα από τα to ή toAnchor (ή επιλέξτε τα δύο σημεία)
+@msg	height: mm, 10 to 100 (the tutorial's is at most 30)	height: mm, από 10 έως 100 (στη μέθοδο είναι έως 30)
+@msg	id: a block part's id	id: το id ενός τμήματος βασικού πατρόν
+@msg	index: the drill hole's place in the list, from 0 (or point)	index: η θέση της οπής στη λίστα, από 0 (ή point)
+@msg	index: the notch's place in the list, from 0	index: η θέση της εγκοπής στη λίστα, από 0
+@msg	index: the step's place, from 0	index: η θέση του βήματος, από 0
+@msg	into: the length it gathers into, mm	into: το μήκος στο οποίο μαζεύεται, mm
+@msg	kind: "slit", "double", "v", "t", "castle" or "u"	kind: "slit", "double", "v", "t", "castle" ή "u"
+@msg	kind: the notch's new shape	kind: το νέο σχήμα της εγκοπής
+@msg	layer: a marker layer's id	layer: το id ενός επιπέδου σχεδίου κοπής
+@msg	length (mm) or likeId with likeFrom and likeTo: the seam to match	length (mm) ή likeId με likeFrom και likeTo: η ραφή με την οποία θα ταιριάξει
+@msg	length: mm, more than 0	length: mm, περισσότερο από 0
+@msg	line: "cut" or "seam"	line: "cut" ή "seam"
+@msg	match: the seam it sews to is shorter than the pocket opening's end	match: η ραφή με την οποία ράβεται είναι μικρότερη από το τέλος του ανοίγματος της τσέπης
+@msg	min is more than max	το min είναι μεγαλύτερο από το max
+@msg	mirror is true or false	το mirror είναι true ή false
+@msg	mirror: "none", "x", "y" or "xy"	mirror: "none", "x", "y" ή "xy"
+@msg	name: the saved set's name	name: το όνομα του αποθηκευμένου συνόλου
+@msg	name: whose measurements they are ("Me")	name: σε ποιον ανήκουν τα μέτρα ("Me")
+@msg	no drill hole near the point	δεν υπάρχει οπή κοντά στο σημείο
+@msg	no drill hole with that index	δεν υπάρχει οπή με αυτόν τον δείκτη
+@msg	no notch with that index	δεν υπάρχει εγκοπή με αυτόν τον δείκτη
+@msg	no object with that id	δεν υπάρχει αντικείμενο με αυτό το id
+@msg	no pattern pieces to grade: make the outlines pattern pieces first (Pattern › Make Pattern Piece)	δεν υπάρχουν κομμάτια πατρόν για διαβάθμιση: κάντε πρώτα τα περιγράμματα κομμάτια πατρόν (Πατρόν › Δημιουργία κομματιού πατρόν)
+@msg	no straight centre front edge on the outline's side: name it with fold: [a, b]	δεν υπάρχει ευθεία ακμή μέσου εμπρός σε αυτή την πλευρά του περιγράμματος: ορίστε τη με fold: [a, b]
+@msg	not a drafted block part	δεν είναι τμήμα σχεδιασμένου βασικού πατρόν
+@msg	not a marker's layer (Pattern › Make Marker…)	δεν είναι επίπεδο σχεδίου κοπής (Πατρόν › Δημιουργία σχεδίου κοπής…)
+@msg	not a pattern piece	δεν είναι κομμάτι πατρόν
+@msg	not a stand collar's outline	δεν είναι περίγραμμα όρθιου γιακά
+@msg	notches go on pattern pieces: make both seams' paths pieces first (Pattern › Make Pattern Piece)	οι εγκοπές μπαίνουν σε κομμάτια πατρόν: κάντε πρώτα κομμάτια τις διαδρομές και των δύο ραφών (Πατρόν › Δημιουργία κομματιού πατρόν)
+@msg	notches: [mm, …]	notches: [mm, …]
+@msg	notches: distances from the seams' starts, mm	notches: αποστάσεις από την αρχή των ραφών, mm
+@msg	on and at go together: the garment piece and where the opening's top-left corner goes on it	τα on και at δίνονται μαζί: το κομμάτι του ρούχου και το σημείο του όπου πηγαίνει η πάνω αριστερή γωνία του ανοίγματος
+@msg	on and at go together: the garment piece and where the pocket's top-left corner goes on it	τα on και at δίνονται μαζί: το κομμάτι του ρούχου και το σημείο του όπου πηγαίνει η πάνω αριστερή γωνία της τσέπης
+@msg	one point splits only where another point is at the same place (two darts' point)	ένα σημείο διαχωρίζεται μόνο εκεί όπου υπάρχει άλλο σημείο στην ίδια θέση (κοινή κορυφή δύο πενσών)
+@msg	oneWay: true or false	oneWay: true ή false
+@msg	openFolds: true or false	openFolds: true ή false
+@msg	origin: [x, y] in document points	origin: [x, y] σε pt του εγγράφου
+@msg	overlap: mm past centre front, more than 0	overlap: mm πέρα από το μέσο εμπρός, περισσότερο από 0
+@msg	overlap: the edge misses the outline	overlap: η ακμή δεν συναντά το περίγραμμα
+@msg	plaid: the repeat (mm, or [along, across])	plaid: η επανάληψη (mm ή [along, across])
+@msg	plaid: the repeat along and across, 1 to 10 000 mm each	plaid: η επανάληψη κατά μήκος και κατά πλάτος, από 1 έως 10 000 mm η καθεμία
+@msg	point: [x, y] in document points	point: [x, y] σε pt του εγγράφου
+@msg	select a drafted block part (Pattern › Draft … Block)	επιλέξτε ένα τμήμα σχεδιασμένου βασικού πατρόν (Πατρόν › Σχεδίαση βασικού πατρόν …)
+@msg	select a path or a pattern piece	επιλέξτε μια διαδρομή ή ένα κομμάτι πατρόν
+@msg	select a pattern piece (Pattern › Make Pattern Piece makes one)	επιλέξτε ένα κομμάτι πατρόν (το δημιουργεί η εντολή Πατρόν › Δημιουργία κομματιού πατρόν)
+@msg	select a piece on the marker to check	επιλέξτε ένα κομμάτι στο σχέδιο κοπής για έλεγχο
+@msg	select closed paths: each becomes a piece, the path its seam line	επιλέξτε κλειστές διαδρομές: κάθε μία γίνεται κομμάτι και η διαδρομή η γραμμή ραφής του
+@msg	select one path	επιλέξτε μία διαδρομή
+@msg	select one pattern piece	επιλέξτε ένα κομμάτι πατρόν
+@msg	select two points of one path (or one that two darts share)	επιλέξτε δύο σημεία μίας διαδρομής (ή ένα που μοιράζονται δύο πένσες)
+@msg	select two points of one path: the dart's point and where the dart moves to	επιλέξτε δύο σημεία μίας διαδρομής: την κορυφή της πένσας και το σημείο όπου μετακινείται
+@msg	select two points of one path: the ends of the edge to face	επιλέξτε δύο σημεία μίας διαδρομής: τα άκρα της ακμής που θα πάρει φάσα
+@msg	select two points of one path: the ends of the edge to gather	επιλέξτε δύο σημεία μίας διαδρομής: τα άκρα της ακμής που θα σουρωθεί
+@msg	share is true or false	το share είναι true ή false
+@msg	shorten: mm (less than 0 lengthens)	shorten: mm (κάτω από 0 μακραίνει)
+@msg	shoulder: longer than the outline	shoulder: μακρύτερος από το περίγραμμα
+@msg	shoulder: mm, 0 or more	shoulder: mm, 0 ή περισσότερο
+@msg	size: one of the chart's sizes	size: ένα από τα μεγέθη του πίνακα
+@msg	size: the name of a size of the size range or chart	size: το όνομα ενός μεγέθους της σειράς μεγεθών ή του πίνακα
+@msg	sizes: name one size at least	sizes: ονομάστε τουλάχιστον ένα μέγεθος
+@msg	sizes: the sizes' names	sizes: τα ονόματα των μεγεθών
+@msg	sizes: the sizes' names, smallest first (null removes them)	sizes: τα ονόματα των μεγεθών, από το μικρότερο (το null τα αφαιρεί)
+@msg	split the seam line on its own: release the piece first (Pattern › Release Pattern Piece)	για να διαχωρίσετε μόνο τη γραμμή ραφής, αποδεσμεύστε πρώτα το κομμάτι (Πατρόν › Αποδέσμευση κομματιού πατρόν)
+@msg	step: [dx, dy] in mm	step: [dx, dy] σε mm
+@msg	style: classic, casual or shirt	style: classic, casual ή shirt
+@msg	that anchor's neighbours don't make a dart	τα γειτονικά σημεία αυτού του σημείου αγκύρωσης δεν σχηματίζουν πένσα
+@msg	that point is not a dart's point: its legs open a right angle or wider	αυτό το σημείο δεν είναι κορυφή πένσας: τα σκέλη του ανοίγουν ορθή ή μεγαλύτερη γωνία
+@msg	the amount is a share of the dart, more than 0 and at most 1	η ποσότητα είναι ποσοστό της πένσας, μεγαλύτερο από 0 και έως 1
+@msg	the back's outline encloses no area	το περίγραμμα της πλάτης δεν περικλείει εμβαδόν
+@msg	the box pleat's face is more than 0 wide	το πλάτος της όψης της κουτιαστής πιέτας είναι μεγαλύτερο από 0
+@msg	the chart is larger than 1 MB	ο πίνακας είναι μεγαλύτερος από 1 MB
+@msg	the curve has no length at the meeting point	η καμπύλη έχει μηδενικό μήκος στο σημείο συνάντησης
+@msg	the curves leave the seam the same way	οι καμπύλες φεύγουν από τη ραφή προς την ίδια κατεύθυνση
+@msg	the dart has no length	η πένσα έχει μηδενικό μήκος
+@msg	the dart is not that long	η πένσα δεν είναι τόσο μακριά
+@msg	the dart point or the new dart's anchor is not on the outline	η κορυφή της πένσας ή το σημείο αγκύρωσης της νέας πένσας δεν βρίσκεται στο περίγραμμα
+@msg	the dart's legs must be straight lines	τα σκέλη της πένσας πρέπει να είναι ευθείες γραμμές
+@msg	the dart's point is past the outline's end	η κορυφή της πένσας είναι πέρα από το τέλος του περιγράμματος
+@msg	the depth to curve the legs by is not a number	το βάθος καμπύλωσης των σκελών δεν είναι αριθμός
+@msg	the document has no marker (Pattern › Make Marker…)	το έγγραφο δεν έχει σχέδιο κοπής (Πατρόν › Δημιουργία σχεδίου κοπής…)
+@msg	the document has no measurements to save	το έγγραφο δεν έχει μέτρα για αποθήκευση
+@msg	the document has no size chart (measure.importChart)	το έγγραφο δεν έχει πίνακα μεγεθών (measure.importChart)
+@msg	the drop at the front is less than half the neck edge	το βάθος της λαιμόκοψης μπροστά είναι μικρότερο από το μισό της ακμής του λαιμού
+@msg	the edge has no length	η ακμή έχει μηδενικό μήκος
+@msg	the edge's anchor is past the outline's end	το σημείο αγκύρωσης της ακμής είναι πέρα από το τέλος του περιγράμματος
+@msg	the fabric's width must be more than 0	το πλάτος του υφάσματος πρέπει να είναι μεγαλύτερο από 0
+@msg	the flap is deeper than twice its width	το καπάκι είναι βαθύτερο από το διπλάσιο του πλάτους του
+@msg	the flap's width and depth are more than 0, its allowance 0 or more	το πλάτος και το βάθος του καπακιού είναι μεγαλύτερα από 0, το περιθώριό του 0 ή περισσότερο
+@msg	the fold edge has no length	η ακμή διπλώματος έχει μηδενικό μήκος
+@msg	the fold edge's anchors are past the outline's end	τα σημεία αγκύρωσης της ακμής διπλώματος είναι πέρα από το τέλος του περιγράμματος
+@msg	the fold edge's two anchors must be neighbours on the outline	τα δύο σημεία αγκύρωσης της ακμής διπλώματος πρέπει να είναι γειτονικά στο περίγραμμα
+@msg	the fold must be a straight edge	το δίπλωμα πρέπει να είναι ευθεία ακμή
+@msg	the front end has no length	το μπροστινό άκρο έχει μηδενικό μήκος
+@msg	the gap must be 0 or more	το διάκενο πρέπει να είναι 0 ή περισσότερο
+@msg	the grainline's ends are the same point	τα άκρα της γραμμής νήματος είναι το ίδιο σημείο
+@msg	the legs can't curve that far: the dart isn't wide enough	τα σκέλη δεν μπορούν να καμπυλώσουν τόσο: η πένσα δεν είναι αρκετά φαρδιά
+@msg	the length to shorten by is not a number	το μήκος κονταίματος δεν είναι αριθμός
+@msg	the marker has lost its fabric outline	το σχέδιο κοπής έχασε το περίγραμμα του υφάσματος
+@msg	the marker has no pieces	το σχέδιο κοπής δεν έχει κομμάτια
+@msg	the marker is too large at this precision: give a coarser one	το σχέδιο κοπής είναι πολύ μεγάλο σε αυτή την ακρίβεια: δώστε μια πιο αδρή
+@msg	the measurements could not be saved	δεν ήταν δυνατή η αποθήκευση των μέτρων
+@msg	the meeting point and the seam's other end are points of the outline	το σημείο συνάντησης και το άλλο άκρο της ραφής πρέπει να είναι σημεία του περιγράμματος
+@msg	the neckline has no length	η λαιμόκοψη έχει μηδενικό μήκος
+@msg	the neckline lengths and the stand's height are more than 0, the rise and extension 0 or more	τα μήκη της λαιμόκοψης και το ύψος του ποδιού είναι μεγαλύτερα από 0, η ανύψωση και η προέκταση 0 ή περισσότερο
+@msg	the new dart is on the old dart	η νέα πένσα βρίσκεται πάνω στην παλιά
+@msg	the opening is longer than twice its height	το άνοιγμα είναι μακρύτερο από το διπλάσιο του ύψους του
+@msg	the opening, depth and width are more than 0, the width more than the allowance	το άνοιγμα, το βάθος και το πλάτος είναι μεγαλύτερα από 0, το πλάτος μεγαλύτερο από το περιθώριο
+@msg	the opening, the welt and the depth are more than 0, the allowances 0 or more	το άνοιγμα, το φιλέτο και το βάθος είναι μεγαλύτερα από 0, τα περιθώρια 0 ή περισσότερο
+@msg	the outline encloses no area	το περίγραμμα δεν περικλείει εμβαδόν
+@msg	the outline has no side seam	το περίγραμμα δεν έχει πλαϊνή ραφή
+@msg	the path has no outline	η διαδρομή δεν έχει περίγραμμα
+@msg	the path must be one closed outline	η διαδρομή πρέπει να είναι ένα κλειστό περίγραμμα
+@msg	the piece has no grade rules to copy	το κομμάτι δεν έχει κανόνες διαβάθμισης για αντιγραφή
+@msg	the piece has no straight edge to cut on the fold	το κομμάτι δεν έχει ευθεία ακμή για κοπή στο δίπλωμα
+@msg	the pieces have no cutting lines to lay	τα κομμάτια δεν έχουν γραμμές κοπής για τοποθέτηση
+@msg	the plaid's repeat must be more than 0 along and across	η επανάληψη του καρό πρέπει να είναι μεγαλύτερη από 0 κατά μήκος και κατά πλάτος
+@msg	the pocket (its opening and the allowance past both ends) fits on the seam	η τσέπη (το άνοιγμά της και το περιθώριο πέρα από τα δύο άκρα) πρέπει να χωράει στη ραφή
+@msg	the point is not inside the piece	το σημείο δεν είναι μέσα στο κομμάτι
+@msg	the point is not on the seam line or in its allowance	το σημείο δεν είναι στη γραμμή ραφής ούτε στο περιθώριό της
+@msg	the precision must be more than 0	η ακρίβεια πρέπει να είναι μεγαλύτερη από 0
+@msg	the rise at centre front is less than the front neckline is long	η ανύψωση στο μέσο εμπρός είναι μικρότερη από το μήκος της μπροστινής λαιμόκοψης
+@msg	the seam has no length there	η ραφή έχει μηδενικό μήκος σε εκείνο το σημείο
+@msg	the seam runs between two different points of the outline	η ραφή εκτείνεται μεταξύ δύο διαφορετικών σημείων του περιγράμματος
+@msg	the seam's other end is a neighbour of the meeting point	το άλλο άκρο της ραφής είναι γειτονικό με το σημείο συνάντησης
+@msg	the top edge has no length	η πάνω ακμή έχει μηδενικό μήκος
+@msg	the wing is more than 0 long	το φτερό έχει μήκος μεγαλύτερο από 0
+@msg	there is no folder to keep measurement sets in here (the desktop app keeps them next to its preferences)	δεν υπάρχει εδώ φάκελος για τα σύνολα μέτρων (η εφαρμογή υπολογιστή τα κρατά δίπλα στις προτιμήσεις της)
+@msg	there is no point of the seam line there	δεν υπάρχει εκεί σημείο της γραμμής ραφής
+@msg	to or toAnchor: where the dart moves to	to ή toAnchor: πού μετακινείται η πένσα
+@msg	to: [x, y] in document points	to: [x, y] σε pt του εγγράφου
+@msg	to: the pieces to copy the rules to (select them, or name them)	to: τα κομμάτια στα οποία αντιγράφονται οι κανόνες (επιλέξτε τα ή ονομάστε τα)
+@msg	too many objects at once	πάρα πολλά αντικείμενα ταυτόχρονα
+@msg	too many pieces at once	πάρα πολλά κομμάτια ταυτόχρονα
+@msg	too many pieces to lay at once	πάρα πολλά κομμάτια για τοποθέτηση ταυτόχρονα
+@msg	too many sizes at once	πάρα πολλά μεγέθη ταυτόχρονα
+@msg	unit: "mm", "cm" or "in"	unit: "mm", "cm" ή "in"
+@msg	width: mm, more than 0	width: mm, περισσότερο από 0
