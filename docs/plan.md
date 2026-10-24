@@ -694,6 +694,15 @@ is built on, plus a pattern mode, the way StitchFoundry adds embroidery:
   (a seam pulls particles a grid step inside a slanted side together: a 12 mm gap, one link 41%
   stretched there), a drape's speed (about an eighth of a second a step at precision 15 in a test build: half a minute for the default four seconds),
   bodices and sleeves (placed round the torso and arms), a menu item (with the drape view).
+- 2026-10-24, **PF-10.3** (third part): the cloth reaches its seam lines. A panel's particles at
+  the grid's edge are moved onto the outline (the nearest point of it, where that is within a
+  step, and a quarter step from any other moved there, as at a corner), the links taking their
+  lengths from where the particles are; the particle nearest a point is found by where the
+  particles are. A seam now sews the pieces' edges, not points a step inside them: the A-line
+  skirt's widest seam gap went from 12 mm to 2 mm and its worst stretch from 41% to 7%. Tests: 1
+  more in `pf-core` (a trapezoid's edge particles on its outline, none outside it, the particle
+  nearest a point of the slanted side on it), the skirt's test bounds tightened (seams within
+  5 mm, stretch under 15%; it hangs 580 to 680 mm, a few per cent long under its weight).
 - 2026-10-24, **PF-1.5**: the pattern commands' messages translated, and the Pattern menu's
   name. The 186 messages the pattern commands (blocks, design tools, pieces, markers, grading,
   measurements) and their drafting give when they can't do what was asked ("select a drafted

@@ -64,7 +64,26 @@ fn inside(pts: &[Pt], q: Pt) -> bool {
     c
 }
 
-/// The panel of `outline` (a polygon, mm): a particle at every grid point `step` apart inside it.
+/// The point of polygon `pts`'s outline nearest `q`.
+fn nearest_on(pts: &[Pt], q: Pt) -> Pt {
+    let n = pts.len();
+    let mut best = (f64::INFINITY, q);
+    for i in 0..n {
+        let (a, b) = (pts[i], pts[(i + 1) % n]);
+        let d = b - a;
+        let t = if d.dot(d) > 1e-18 { ((q - a).dot(d) / d.dot(d)).clamp(0.0, 1.0) } else { 0.0 };
+        let p = a + d * t;
+        let l = (p - q).len();
+        if l < best.0 {
+            best = (l, p);
+        }
+    }
+    best.1
+}
+
+/// The panel of `outline` (a polygon, mm): a particle at every grid point `step` apart inside it,
+/// those at the grid's edge moved onto the outline (where it is within a step), so the cloth
+/// reaches its seam lines and a seam sews the pieces' edges, not points a step inside them.
 pub fn panel(outline: &[Pt], step: f64) -> Result<Panel, ClothError> {
     if !(step.is_finite() && step > 0.0) || outline.len() < 3 || !outline.iter().all(|p| p.is_finite()) {
         return Err(ClothError::Outline);
@@ -99,6 +118,29 @@ pub fn panel(outline: &[Pt], step: f64) -> Result<Panel, ClothError> {
         return Err(ClothError::Outline);
     }
     let at = |c: usize, r: usize| grid[r * cols + c];
+    // The grid's edge: particles missing a neighbour across, along or diagonally.
+    let edge = |c: usize, r: usize| {
+        [(-1i64, 0i64), (1, 0), (0, -1), (0, 1), (-1, -1), (1, 1), (-1, 1), (1, -1)].iter().any(|&(dc, dr)| {
+            let (cc, rr) = (c as i64 + dc, r as i64 + dr);
+            cc < 0 || rr < 0 || cc >= cols as i64 || rr >= rows as i64 || grid[rr as usize * cols + cc as usize].is_none()
+        })
+    };
+    let mut moved: Vec<Pt> = Vec::new();
+    for r in 0..rows {
+        for c in 0..cols {
+            let Some(i) = at(c, r) else { continue };
+            if !edge(c, r) {
+                continue;
+            }
+            let q = points[i as usize];
+            let to = nearest_on(outline, q);
+            // Not two particles in one place (as at a corner): keep a quarter step apart.
+            if (to - q).len() <= step && moved.iter().all(|m| (*m - to).len() > step * 0.25) {
+                points[i as usize] = to;
+                moved.push(to);
+            }
+        }
+    }
     let mut triangles = Vec::new();
     for r in 0..rows.saturating_sub(1) {
         for c in 0..cols.saturating_sub(1) {
@@ -112,14 +154,20 @@ pub fn panel(outline: &[Pt], step: f64) -> Result<Panel, ClothError> {
 }
 
 impl Panel {
-    /// The particle nearest `q` on the pattern.
+    /// The particle nearest `q` on the pattern (by where the particles are, the edge's moved onto
+    /// the outline).
     pub fn nearest(&self, q: Pt) -> Option<u32> {
-        let c = ((q.x - self.origin.x) / self.step).round().clamp(0.0, (self.cols - 1) as f64) as usize;
-        let r = ((q.y - self.origin.y) / self.step).round().clamp(0.0, (self.rows - 1) as f64) as usize;
-        if let Some(i) = self.grid[r * self.cols + c] {
-            return Some(i);
+        let c = ((q.x - self.origin.x) / self.step).round().clamp(0.0, (self.cols - 1) as f64) as i64;
+        let r = ((q.y - self.origin.y) / self.step).round().clamp(0.0, (self.rows - 1) as f64) as i64;
+        // The cells round it first; anywhere when none of them has one.
+        let near = (-1..=1)
+            .flat_map(|dr| (-1..=1).map(move |dc| (c + dc, r + dr)))
+            .filter(|&(cc, rr)| cc >= 0 && rr >= 0 && (cc as usize) < self.cols && (rr as usize) < self.rows)
+            .filter_map(|(cc, rr)| self.grid[rr as usize * self.cols + cc as usize])
+            .min_by(|a, b| (self.points[*a as usize] - q).len().total_cmp(&(self.points[*b as usize] - q).len()));
+        if near.is_some() {
+            return near;
         }
-        // Off the grid's inside (past the edge): the nearest particle there is.
         (0..self.points.len() as u32).min_by(|a, b| {
             let d = |i: &u32| (self.points[*i as usize] - q).len();
             d(a).total_cmp(&d(b))
@@ -488,6 +536,21 @@ mod tests {
         assert!(p.points.iter().any(|q| (q.x - 100.0).abs() < 1e-9 && q.y.abs() < 1e-9), "the corner is a particle");
         assert_eq!(p.nearest(Pt::new(99.0, 1.0)).map(|i| p.points[i as usize]), Some(Pt::new(100.0, 0.0)));
         assert!(panel(&l, 0.0).is_err() && panel(&l[..2], 10.0).is_err());
+    }
+
+    #[test]
+    fn the_edge_of_a_panel_is_on_its_outline() {
+        // A trapezoid's slanted sides: every particle at the grid's edge is on the outline (or a
+        // quarter step from another that is), none outside it.
+        let t = vec![Pt::new(100.0, 0.0), Pt::new(300.0, 0.0), Pt::new(400.0, 300.0), Pt::new(0.0, 300.0)];
+        let p = panel(&t, 15.0).unwrap();
+        let on = |q: Pt| (nearest_on(&t, q) - q).len() < 1e-9;
+        let on_count = p.points.iter().filter(|q| on(**q)).count();
+        assert!(on_count >= 2 * (300 / 15) + 2 * (200 / 15), "{on_count}");
+        assert!(p.points.iter().all(|q| on(*q) || inside(&t, *q)));
+        // The particle nearest a point of the slanted side is on it.
+        let side = Pt::new(50.0, 150.0);
+        assert!(on(p.points[p.nearest(side).unwrap() as usize]));
     }
 
     #[test]

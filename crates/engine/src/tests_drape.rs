@@ -34,12 +34,12 @@ fn a_skirt_drapes_on_the_avatar_resting_at_the_waist() {
     assert_eq!(r["pieces"], json!(2), "{r}");
     let (top, hem, waist) = (r["top"].as_f64().unwrap(), r["hem"].as_f64().unwrap(), r["waist"].as_f64().unwrap());
     // 720 round at its waist, it settles a little below the body's 680 waist, where the body is
-    // as big round, and hangs its 600 mm from there (it doesn't slide off); its side seams
-    // closed to within a particle's spacing, pulled together a step inside the slanted sides.
+    // as big round, and hangs its 600 mm from there (it doesn't slide off), a few per cent longer
+    // under its own weight; its side seams closed, its edges on the seam lines.
     assert!(top < waist + 10.0 && top > waist - 60.0, "{r}");
-    assert!((top - hem - 600.0).abs() < 40.0, "{r}");
-    assert!(r["widestSeam"].as_f64().unwrap() < 20.0, "{r}");
-    assert!(r["worstStretch"].as_f64().unwrap() < 60.0, "{r}");
+    assert!((580.0..680.0).contains(&(top - hem)), "{r}");
+    assert!(r["widestSeam"].as_f64().unwrap() < 5.0, "{r}");
+    assert!(r["worstStretch"].as_f64().unwrap() < 15.0, "{r}");
     // The draped cloth as a mesh.
     let dir = std::env::temp_dir().join(format!("pf-drape-{}", std::process::id()));
     std::fs::create_dir_all(&dir).unwrap();
