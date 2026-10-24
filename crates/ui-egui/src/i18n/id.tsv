@@ -5690,3 +5690,10 @@ menu	Pattern	Pola
 @msg	width: mm, more than 0	width: mm, lebih dari 0
 	Draw Avatar	Gambar avatar
 	Export Avatar as OBJ	Ekspor avatar sebagai OBJ
+	Sewn seams: {count}	Jahitan tersambung: {count}
+	{label}: sewn to {piece}, {mm} mm longer	{label}: dijahit ke {piece}, {mm} mm lebih panjang
+	{label}: sewn to {piece}, {mm} mm shorter	{label}: dijahit ke {piece}, {mm} mm lebih pendek
+	{label}: sewn to {piece}	{label}: dijahit ke {piece}
+	Sew Seams	Jahit Kampuh
+	Unsew Seams	Lepas Jahitan
+	Sewn Seams	Jahitan Tersambung

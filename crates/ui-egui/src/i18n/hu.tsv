@@ -5693,3 +5693,10 @@ menu	Pattern	Szabásminta
 @msg	width: mm, more than 0	width: mm, 0-nál több
 	Draw Avatar	Avatar rajzolása
 	Export Avatar as OBJ	Avatar exportálása OBJ-ként
+	Sewn seams: {count}	Összevarrt varratok: {count}
+	{label}: sewn to {piece}, {mm} mm longer	{label}: összevarrva ezzel: {piece}, {mm} mm-rel hosszabb
+	{label}: sewn to {piece}, {mm} mm shorter	{label}: összevarrva ezzel: {piece}, {mm} mm-rel rövidebb
+	{label}: sewn to {piece}	{label}: összevarrva ezzel: {piece}
+	Sew Seams	Varratok összevarrása
+	Unsew Seams	Varratok szétbontása
+	Sewn Seams	Összevarrt varratok

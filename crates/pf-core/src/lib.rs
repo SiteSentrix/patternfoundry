@@ -39,7 +39,7 @@ pub mod piece;
 pub mod tiling;
 
 pub use allowance::{Outline, cutting_line};
-pub use piece::{Corner, Drill, Grainline, Mark, Notch, NotchKind, PatternTag, Piece};
+pub use piece::{Corner, Drill, Grainline, Mark, Notch, NotchKind, PatternTag, Piece, Sewn};
 
 /// Millimetres in one PostScript point (1 pt = 1/72 in, 1 in = 25.4 mm, exactly).
 pub const MM_PER_PT: f64 = 25.4 / 72.0;

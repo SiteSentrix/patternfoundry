@@ -5560,3 +5560,10 @@ menu	Pattern	Wykrój
 @msg	width: mm, more than 0	width: mm, więcej niż 0
 	Draw Avatar	Narysuj awatara
 	Export Avatar as OBJ	Eksportuj awatara jako OBJ
+	Sewn seams: {count}	Zszyte szwy: {count}
+	{label}: sewn to {piece}, {mm} mm longer	{label}: zszyty z {piece}, dłuższy o {mm} mm
+	{label}: sewn to {piece}, {mm} mm shorter	{label}: zszyty z {piece}, krótszy o {mm} mm
+	{label}: sewn to {piece}	{label}: zszyty z {piece}
+	Sew Seams	Zszyj szwy
+	Unsew Seams	Rozpruj szwy
+	Sewn Seams	Zszyte szwy

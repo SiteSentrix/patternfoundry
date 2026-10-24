@@ -5671,3 +5671,10 @@ menu	Pattern	Kaava
 @msg	width: mm, more than 0	width: mm, yli 0
 	Draw Avatar	Piirrä avatar
 	Export Avatar as OBJ	Vie avatar OBJ-muodossa
+	Sewn seams: {count}	Ommellut saumat: {count}
+	{label}: sewn to {piece}, {mm} mm longer	{label}: ommeltu kappaleeseen {piece}, {mm} mm pidempi
+	{label}: sewn to {piece}, {mm} mm shorter	{label}: ommeltu kappaleeseen {piece}, {mm} mm lyhyempi
+	{label}: sewn to {piece}	{label}: ommeltu kappaleeseen {piece}
+	Sew Seams	Ompele saumat yhteen
+	Unsew Seams	Pura saumat
+	Sewn Seams	Ommellut saumat

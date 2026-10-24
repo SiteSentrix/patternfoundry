@@ -5362,3 +5362,10 @@ menu	Pattern	型紙
 @msg	width: mm, more than 0	width: mm、0 より大きい値
 	Draw Avatar	アバターを描画
 	Export Avatar as OBJ	アバターを OBJ で書き出し
+	Sewn seams: {count}	縫い合わせた縫い目: {count}
+	{label}: sewn to {piece}, {mm} mm longer	{label}: {piece} と縫い合わせ、{mm} mm 長い
+	{label}: sewn to {piece}, {mm} mm shorter	{label}: {piece} と縫い合わせ、{mm} mm 短い
+	{label}: sewn to {piece}	{label}: {piece} と縫い合わせ
+	Sew Seams	縫い目を縫い合わせる
+	Unsew Seams	縫い目をほどく
+	Sewn Seams	縫い合わせた縫い目

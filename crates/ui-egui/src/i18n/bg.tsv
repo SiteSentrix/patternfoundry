@@ -5671,3 +5671,10 @@ menu	Pattern	Кройка
 @msg	width: mm, more than 0	width: мм, повече от 0
 	Draw Avatar	Изчертаване на аватар
 	Export Avatar as OBJ	Експортиране на аватара като OBJ
+	Sewn seams: {count}	Съшити шевове: {count}
+	{label}: sewn to {piece}, {mm} mm longer	{label}: съшит с „{piece}“, по-дълъг с {mm} мм
+	{label}: sewn to {piece}, {mm} mm shorter	{label}: съшит с „{piece}“, по-къс с {mm} мм
+	{label}: sewn to {piece}	{label}: съшит с „{piece}“
+	Sew Seams	Съшиване на шевове
+	Unsew Seams	Разпаряне на шевове
+	Sewn Seams	Съшити шевове

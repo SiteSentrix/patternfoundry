@@ -5289,3 +5289,10 @@ menu	Pattern	Schnitt
 @msg	width: mm, more than 0	width: mm, mehr als 0
 	Draw Avatar	Avatar zeichnen
 	Export Avatar as OBJ	Avatar als OBJ exportieren
+	Sewn seams: {count}	Genähte Nähte: {count}
+	{label}: sewn to {piece}, {mm} mm longer	{label}: an {piece} genäht, {mm} mm länger
+	{label}: sewn to {piece}, {mm} mm shorter	{label}: an {piece} genäht, {mm} mm kürzer
+	{label}: sewn to {piece}	{label}: an {piece} genäht
+	Sew Seams	Nähte zusammennähen
+	Unsew Seams	Nähte trennen
+	Sewn Seams	Genähte Nähte

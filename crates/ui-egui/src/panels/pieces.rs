@@ -22,6 +22,8 @@ struct Cache {
     info: Option<Value>,
     /// `block.options` of the selected block part.
     block: Option<Value>,
+    /// `piece.seams`: every pair of runs sewn together.
+    seams: Vec<Value>,
 }
 
 fn fetch(app: &mut VectorcraftApp, ctx: &egui::Context) -> Option<Cache> {
@@ -32,6 +34,7 @@ fn fetch(app: &mut VectorcraftApp, ctx: &egui::Context) -> Option<Cache> {
         c.list = app.session.execute("piece.list", &json!({})).ok().and_then(|v| v["pieces"].as_array().cloned()).unwrap_or_default();
         c.info = app.session.execute("piece.info", &json!({})).ok();
         c.block = app.session.execute("block.options", &json!({})).ok();
+        c.seams = app.session.execute("piece.seams", &json!({})).ok().and_then(|v| v["seams"].as_array().cloned()).unwrap_or_default();
         c.key = key;
         set_pstate(ctx, "pieces-cache", c.clone());
     }
@@ -154,6 +157,40 @@ fn drills_section(app: &mut VectorcraftApp, ui: &mut Ui, info: &Value, id: u64) 
     });
 }
 
+/// The seams the piece `id` is sewn by (PF-10.2): each run's label, the piece it is sewn to and
+/// how much longer or shorter it is, with a button to forget it.
+fn sewn_section(app: &mut VectorcraftApp, ui: &mut Ui, seams: &[Value], id: u64) {
+    let mine: Vec<&Value> =
+        seams.iter().filter(|sm| sm["runs"].as_array().is_some_and(|r| r.iter().any(|r| r["piece"].as_u64() == Some(id)))).collect();
+    if mine.is_empty() {
+        return;
+    }
+    let title = crate::i18n::fmt(tl!("Sewn seams: {count}"), &[("count", &mine.len().to_string())]);
+    egui::CollapsingHeader::new(title).id_salt("pieces-sewn").show(ui, |ui| {
+        for sm in mine {
+            let label = sm["label"].as_str().unwrap_or_default();
+            let runs = sm["runs"].as_array().cloned().unwrap_or_default();
+            let other = runs.iter().find(|r| r["piece"].as_u64() != Some(id)).or(runs.first());
+            let name = other.and_then(|r| r["name"].as_str()).filter(|n| !n.is_empty()).unwrap_or(tl!("Pattern piece"));
+            // This piece's run against the other's.
+            let diff = sm["difference"].as_f64().map(|d| if runs.first().and_then(|r| r["piece"].as_u64()) == Some(id) { d } else { -d });
+            ui.horizontal(|ui| {
+                let text = match diff {
+                    Some(d) if d.abs() >= 0.5 => crate::i18n::fmt(
+                        if d > 0.0 { tl!("{label}: sewn to {piece}, {mm} mm longer") } else { tl!("{label}: sewn to {piece}, {mm} mm shorter") },
+                        &[("label", label), ("piece", name), ("mm", &((d.abs() * 10.0).round() / 10.0).to_string())],
+                    ),
+                    _ => crate::i18n::fmt(tl!("{label}: sewn to {piece}"), &[("label", label), ("piece", name)]),
+                };
+                ui.label(egui::RichText::new(text).size(12.0));
+                if ui.small_button("×").on_hover_text(tl!("Unsew Seams")).clicked() {
+                    run(app, "piece.unsew", json!({ "label": label }));
+                }
+            });
+        }
+    });
+}
+
 /// A design step, as `block.options` lists it, in words.
 fn step_text(step: &Value) -> String {
     let mm = |k: &str| step[k].as_f64().map(|v| ((v * 10.0).round() / 10.0).to_string()).unwrap_or_default();
@@ -240,6 +277,7 @@ pub fn show(app: &mut VectorcraftApp, ui: &mut Ui) {
         });
         edges_section(app, ui, info, id, edges);
         drills_section(app, ui, info, id);
+        sewn_section(app, ui, &c.seams, id);
         if let Some(block) = &c.block {
             steps_section(app, ui, block);
         }

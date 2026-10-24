@@ -5339,3 +5339,10 @@ menu	Pattern	紙型
 @msg	width: mm, more than 0	width: mm，大於 0
 	Draw Avatar	繪製人台
 	Export Avatar as OBJ	將人台匯出為 OBJ
+	Sewn seams: {count}	已縫合的縫線：{count}
+	{label}: sewn to {piece}, {mm} mm longer	{label}：與 {piece} 縫合，長 {mm} mm
+	{label}: sewn to {piece}, {mm} mm shorter	{label}：與 {piece} 縫合，短 {mm} mm
+	{label}: sewn to {piece}	{label}：與 {piece} 縫合
+	Sew Seams	縫合縫線
+	Unsew Seams	拆開縫線
+	Sewn Seams	已縫合的縫線

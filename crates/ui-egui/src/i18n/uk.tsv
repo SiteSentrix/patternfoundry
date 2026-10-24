@@ -5302,3 +5302,10 @@ menu	Pattern	Викрійка
 @msg	width: mm, more than 0	width: мм, більше 0
 	Draw Avatar	Намалювати аватар
 	Export Avatar as OBJ	Експортувати аватар в OBJ
+	Sewn seams: {count}	Зшиті шви: {count}
+	{label}: sewn to {piece}, {mm} mm longer	{label}: зшито з «{piece}», довший на {mm} мм
+	{label}: sewn to {piece}, {mm} mm shorter	{label}: зшито з «{piece}», коротший на {mm} мм
+	{label}: sewn to {piece}	{label}: зшито з «{piece}»
+	Sew Seams	Зшити шви
+	Unsew Seams	Розпороти шви
+	Sewn Seams	Зшиті шви

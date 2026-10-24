@@ -125,3 +125,20 @@ fn a_block_parts_design_steps_are_listed_and_removed() {
     assert!(texts.iter().any(|t| t == "1. Dart moved") && !texts.iter().any(|t| t.contains("Dart shortened")), "{texts:?}");
     assert_eq!(app.run("block.options", json!({"id": id})).unwrap()["steps"].as_array().unwrap().len(), 1);
 }
+
+#[test]
+fn a_pieces_sewn_seams_are_listed_and_unsewn() {
+    let (mut app, a) = square();
+    app.run("piece.set", json!({"id": a, "name": "Front"})).unwrap();
+    let r = app.run("shape.rectangle", json!({"x": 400, "y": 40, "width": 283.465, "height": 340.158})).unwrap();
+    let b = app.run("piece.make", json!({"ids": [r["id"]], "name": "Back"})).unwrap()["ids"][0].as_u64().unwrap();
+    app.run("piece.sew", json!({"a": {"id": a, "from": 0, "to": 1}, "b": {"id": b, "from": 1, "to": 2}})).unwrap();
+    app.run("select.set", json!({"ids": [a]})).unwrap();
+    let mut panel = Panel::new();
+    panel.click(&mut app, "Sewn seams: 1");
+    let texts = panel.texts(&mut app);
+    assert!(texts.iter().any(|t| t == "A: sewn to Back, 20 mm shorter"), "{texts:?}");
+    let x = panel.frame(&mut app, vec![]).into_iter().rfind(|(t, _)| t == "×").unwrap().1;
+    panel.click_at(&mut app, x.center());
+    assert_eq!(app.run("piece.seams", json!({})).unwrap()["seams"], json!([]));
+}

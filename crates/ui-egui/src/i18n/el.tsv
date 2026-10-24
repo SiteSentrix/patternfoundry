@@ -5659,3 +5659,10 @@ menu	Pattern	Πατρόν
 @msg	width: mm, more than 0	width: mm, περισσότερο από 0
 	Draw Avatar	Σχεδίαση άβαταρ
 	Export Avatar as OBJ	Εξαγωγή άβαταρ ως OBJ
+	Sewn seams: {count}	Ραμμένες ραφές: {count}
+	{label}: sewn to {piece}, {mm} mm longer	{label}: ραμμένη με {piece}, {mm} mm μακρύτερη
+	{label}: sewn to {piece}, {mm} mm shorter	{label}: ραμμένη με {piece}, {mm} mm κοντύτερη
+	{label}: sewn to {piece}	{label}: ραμμένη με {piece}
+	Sew Seams	Ράψιμο ραφών
+	Unsew Seams	Ξήλωμα ραφών
+	Sewn Seams	Ραμμένες ραφές

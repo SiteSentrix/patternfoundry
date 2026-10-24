@@ -5650,3 +5650,10 @@ menu	Pattern	Patrón
 @msg	width: mm, more than 0	width: mm, más de 0
 	Draw Avatar	Dibujar avatar
 	Export Avatar as OBJ	Exportar avatar como OBJ
+	Sewn seams: {count}	Costuras unidas: {count}
+	{label}: sewn to {piece}, {mm} mm longer	{label}: unida a {piece}, {mm} mm más larga
+	{label}: sewn to {piece}, {mm} mm shorter	{label}: unida a {piece}, {mm} mm más corta
+	{label}: sewn to {piece}	{label}: unida a {piece}
+	Sew Seams	Unir costuras
+	Unsew Seams	Separar costuras
+	Sewn Seams	Costuras unidas
