@@ -28,6 +28,7 @@
 pub mod allowance;
 pub mod avatar;
 pub mod block;
+pub mod cloth;
 pub mod design;
 pub mod draft;
 pub mod expr;
