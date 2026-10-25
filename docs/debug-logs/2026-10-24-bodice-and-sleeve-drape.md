@@ -48,3 +48,19 @@ stretched triangles and where they are, which arm each sleeve went to.
 ## Ruled out
 Seam pairing direction (checked by hand for each run), the fold opening (both pieces opened,
 all four darts found), which arm each sleeve goes to (by its armhole), the crown's ease.
+
+## 2026-10-25: the avatar's bust and armpit (PF-10.8)
+
+One change at a time, the bodice block alone and with sleeves (worst stretch / tightest):
+
+| change | bodice | with sleeves | sleeves stay on |
+|---|---|---|---|
+| before | 34% / 33% | 208% / 638% | yes |
+| bust forward of a flat back | 23% / 31% | 201% / 557% | yes |
+| creases rounded (30 mm), no bust | 39% / 47% | 141% / 181% | no: top 1247 |
+| bust + 15 mm rounding | 28% / 36% | 121% / 145% | no: top 1262 |
+| bust + 8 mm | 25% / 34% | 206% / 645% | yes |
+| arms at 15° or 20° + rounding | 33–52% | 135–175% | no: the sleeves slide off |
+
+The rounded crease eases the armpit but the armhole, a loop round the angled arm, slides down
+it: the crease was what held it. Kept: the bust. The armpit wants a real body mesh.

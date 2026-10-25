@@ -236,8 +236,9 @@ pub trait Collider {
     fn push_out(&self, p: [f64; 3]) -> [f64; 3];
 }
 
-/// The ellipse of rings `a` and `b` at height `z` between them (by straight lines).
-fn between(a: &Ring, b: &Ring, z: f64) -> Option<(f64, f64, f64)> {
+/// The ellipse of rings `a` and `b` at height `z` between them (by straight lines): its middle
+/// across and toward the front, and its semi-axes.
+fn between(a: &Ring, b: &Ring, z: f64) -> Option<(f64, f64, f64, f64)> {
     let (top, bottom) = if a.z >= b.z { (a, b) } else { (b, a) };
     if z > top.z || z < bottom.z || top.z - bottom.z < 1e-9 {
         return None;
@@ -245,24 +246,24 @@ fn between(a: &Ring, b: &Ring, z: f64) -> Option<(f64, f64, f64)> {
     let t = (top.z - z) / (top.z - bottom.z);
     let (ta, tb) = top.semi_axes();
     let (ba, bb) = bottom.semi_axes();
-    Some((top.x + (bottom.x - top.x) * t, ta + (ba - ta) * t, tb + (bb - tb) * t))
+    Some((top.x + (bottom.x - top.x) * t, top.y + (bottom.y - top.y) * t, ta + (ba - ta) * t, tb + (bb - tb) * t))
 }
 
-/// `p` moved out of the ellipse centred at `x` across with semi-axes `a` and `b` (grown by
+/// `p` moved out of the ellipse centred at (`x`, `y`) with semi-axes `a` and `b` (grown by
 /// `margin`), along the line from its middle.
-fn out_of(p: [f64; 3], x: f64, a: f64, b: f64, margin: f64) -> [f64; 3] {
+fn out_of(p: [f64; 3], (x, y): (f64, f64), a: f64, b: f64, margin: f64) -> [f64; 3] {
     let (a, b) = (a + margin, b + margin);
-    let (dx, dy) = (p[0] - x, p[1]);
+    let (dx, dy) = (p[0] - x, p[1] - y);
     let k = (dx / a).powi(2) + (dy / b).powi(2);
     if k >= 1.0 {
         return p;
     }
     if k < 1e-12 {
         // At the very middle: out to the front.
-        return [x, b, p[2]];
+        return [x, y + b, p[2]];
     }
     let s = 1.0 / k.sqrt();
-    [x + dx * s, dy * s, p[2]]
+    [x + dx * s, y + dy * s, p[2]]
 }
 
 /// How far inside the body made of `rings` (top to bottom) point `p` is: its distance from the
@@ -273,7 +274,7 @@ fn inside_by(rings: &[Ring], p: [f64; 3], margin: f64) -> Option<f64> {
     rings
         .windows(2)
         .find_map(|w| between(&w[0], &w[1], p[2]))
-        .map(|(x, a, b)| (((p[0] - x) / (a + margin)).powi(2) + (p[1] / (b + margin)).powi(2)).sqrt() - 1.0)
+        .map(|(x, y, a, b)| (((p[0] - x) / (a + margin)).powi(2) + ((p[1] - y) / (b + margin)).powi(2)).sqrt() - 1.0)
 }
 
 /// `p` moved out of the body made of `rings` along the surface's normal (where the body widens
@@ -304,14 +305,14 @@ fn out_of_body(rings: &[Ring], p: [f64; 3], margin: f64) -> [f64; 3] {
     }
     // Still inside (at the very middle, or where the slope can't be taken): out sideways.
     match inside_by(rings, q, margin) {
-        Some(f) if f < 0.0 => rings.windows(2).find_map(|w| between(&w[0], &w[1], q[2])).map_or(q, |(x, a, b)| out_of(q, x, a, b, margin)),
+        Some(f) if f < 0.0 => rings.windows(2).find_map(|w| between(&w[0], &w[1], q[2])).map_or(q, |(x, y, a, b)| out_of(q, (x, y), a, b, margin)),
         _ => q,
     }
 }
 
 impl Collider for Avatar {
-    /// Out of the torso, either leg and either arm, along the surface as the rings shape it, 2 mm clear (the
-    /// cloth's thickness and a little air).
+    /// Out of the torso, either leg and either arm, along the surface as the rings shape it, 2 mm
+    /// clear (the cloth's thickness and a little air).
     fn push_out(&self, p: [f64; 3]) -> [f64; 3] {
         const MARGIN: f64 = 2.0;
         // Where two parts meet (the arm and the side of the chest at the armpit) pushing out of one
@@ -614,7 +615,7 @@ mod tests {
     struct Post(f64);
     impl Collider for Post {
         fn push_out(&self, p: [f64; 3]) -> [f64; 3] {
-            out_of(p, 0.0, self.0, self.0, 0.0)
+            out_of(p, (0.0, 0.0), self.0, self.0, 0.0)
         }
     }
 
