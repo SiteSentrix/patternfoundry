@@ -704,6 +704,21 @@ is built on, plus a pattern mode, the way StitchFoundry adds embroidery:
   more in `pf-core` (a trapezoid's edge particles on its outline, none outside it, the particle
   nearest a point of the slanted side on it), the skirt's test bounds tightened (seams within
   5 mm, stretch under 15%; it hangs 580 to 680 mm, a few per cent long under its weight).
+- 2026-10-25, **PF-10.8**: the avatar's bust. Its cross-sections can stand forward of the body's
+  middle, and the bust does: under it a ring as round as the new `underbust` measurement (else a
+  B cup's, the bust 150 mm more round: EN 13402-3 sizes cups by the bust less the underbust, B
+  14 to 16 cm), 75 mm below the bust point (chosen: the survey doesn't measure it), 0.8 as deep as
+  broad (chosen, between the chest's and the waist's); the back flat from there up to the bust,
+  the bust's extra girth to the front. The drape view, glTF and OBJ meshes and the side
+  silhouette show it. A bodice block with its darts sewn now has a bust to shape: its stretch on
+  the test body fell from 34% to 23%, its tightest place from 33% to 31%. Tried and left out: the
+  body's parts joined with rounded creases (a smooth minimum of their depths, Inigo Quilez's
+  polynomial one): it eased the armpit (a sleeve's tightest place 638% → 145%) but let the
+  armhole slide down the angled arm, the bodice off the shoulders; with the arms less angled
+  the sleeves slid off too. Tests: 1 in `pf-core` (`avatar`: the bust's back in line with the
+  ribcage's, its front forward, the underbust measured or a B cup's), the side view's depth in
+  `tests_avatar.rs`. Not yet: the armpit (a body mesh the cloth collides with triangle by
+  triangle rather than lofted tubes).
 - 2026-10-24, **PF-10.7**: the drape in the background. **Pattern › Drape on Avatar** no longer
   holds the app while the cloth falls (some seconds; more for a bodice with sleeves): the drape is
   set up from the document at once, falls on the background worker that Background Save and

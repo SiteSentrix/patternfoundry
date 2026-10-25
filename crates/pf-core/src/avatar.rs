@@ -38,6 +38,8 @@ pub struct Ring {
     pub z: f64,
     /// Its middle across the body (0 on the torso; a leg's to one side).
     pub x: f64,
+    /// Its middle toward the front (0 but at the bust, which stands forward of a flat back).
+    pub y: f64,
     /// Round it.
     pub girth: f64,
     /// Its depth (front to back) over its breadth (side to side).
@@ -62,7 +64,7 @@ impl Ring {
         (0..RING_POINTS)
             .map(|i| {
                 let t = i as f64 / RING_POINTS as f64 * 2.0 * PI;
-                [self.x + a * t.cos(), b * t.sin(), self.z]
+                [self.x + a * t.cos(), self.y + b * t.sin(), self.z]
             })
             .collect()
     }
@@ -89,6 +91,8 @@ pub struct Body {
     pub sleeve_length: Option<f64>,
     /// From the nape down to the level of the armpits.
     pub armscye_depth: Option<f64>,
+    /// Round the ribcage just under the bust (a bra's band).
+    pub underbust: Option<f64>,
 }
 
 /// The measurements an avatar needs: (name, what it is).
@@ -159,6 +163,13 @@ const CERVICALE: f64 = 1395.7;
 const SLEEVE_OUTSEAM: f64 = 543.6;
 const SHOULDER_TO_ELBOW: f64 = 311.2;
 /// How far out from straight down the arms hang (an A pose).
+/// A B cup's bust over underbust (EN 13402-3: 14 to 16 cm), when the set has no underbust.
+const B_CUP: f64 = 150.0;
+/// How far below the bust point the underbust is (a bra's band; chosen: the survey doesn't
+/// measure it), and how deep the ribcage is there over its breadth (chosen, between the chest's and
+/// the waist's).
+const UNDERBUST_DROP: f64 = 75.0;
+const UNDERBUST_DEPTH: f64 = 0.8;
 const ARM_ANGLE: f64 = 30.0 * PI / 180.0;
 
 impl Avatar {
@@ -221,7 +232,7 @@ pub fn avatar(body: &Body) -> Result<Avatar, AvatarError> {
     if crotch_z <= knee_z + 50.0 || knee_z <= ankle_z + 50.0 {
         return Err(AvatarError::Order("the crotch, knee and ankle don't go down the leg in order"));
     }
-    let ring = |name, z, x, girth, depth_ratio| Ring { name, z, x, girth, depth_ratio };
+    let ring = |name, z, x, girth, depth_ratio| Ring { name, z, x, y: 0.0, girth, depth_ratio };
     let neck = body.neck.unwrap_or(body.bust * 0.394);
     // The shoulders: as broad as two shoulder lengths and the neck across, else the survey's share
     // of the chest; as deep as the survey's.
@@ -237,18 +248,26 @@ pub fn avatar(body: &Body) -> Result<Avatar, AvatarError> {
         _ => body.bust * 0.386,
     };
     let shoulder_ring = ring("shoulder", shoulder_z, 0.0, ellipse_girth(breadth / 2.0, breadth / 2.0 * 0.476), 0.476);
+    // The bust: the ribcage under it as round as the underbust (else a B cup's, EN 13402-3: the
+    // bust 14 to 16 cm more round), the back flat from the underbust up to the bust, the bust's
+    // girth more than the ribcage's standing forward.
+    let underbust = body.underbust.filter(|u| *u > 0.0 && *u < body.bust).unwrap_or((body.bust - B_CUP).max(body.bust * 0.75));
+    let under = ring("underbust", bust_z - UNDERBUST_DROP * s, 0.0, underbust, UNDERBUST_DEPTH);
+    let mut bust_ring = ring("bust", bust_z, 0.0, body.bust, 0.918);
+    bust_ring.y = bust_ring.semi_axes().1 - under.semi_axes().1;
     // The torso: the hips' girth carried on to the crotch, a little in, where the legs part.
     let torso = vec![
         ring("neck", neck_z, 0.0, neck, 1.0),
         shoulder_ring,
-        ring("bust", bust_z, 0.0, body.bust, 0.918),
+        bust_ring,
+        under,
         ring("waist", waist_z, 0.0, body.waist, 0.709),
         ring("hip", hip_z, 0.0, body.hip, 0.658),
         ring("crotch", crotch_z, 0.0, body.hip * 0.96, 0.658),
     ];
     // Each leg: its thigh just below the crotch, its outside in line with the side of the hips
     // (the thighs meet at the crotch, as they do on many bodies).
-    let (hip_a, _) = torso[4].semi_axes();
+    let (hip_a, _) = torso[5].semi_axes();
     let thigh = ring("thigh", 0.0, 0.0, body.hip * 0.603, 0.9).semi_axes().0;
     let leg = |side: f64| {
         let x = side * (hip_a - thigh).max(thigh * 0.5);
@@ -424,12 +443,31 @@ mod tests {
         assert!((plain.arms[0][1].girth - 880.0 * 0.323).abs() < 1e-9);
     }
 
+    /// The bust stands forward of a flat back: under it the ribcage as round as the underbust
+    /// (else a B cup's 150 mm less than the bust), the bust's back in line with the ribcage's, its
+    /// extra girth to the front.
+    #[test]
+    fn the_bust_stands_forward_of_a_flat_back() {
+        for (under, expect) in [(None, 880.0 - 150.0), (Some(700.0), 700.0)] {
+            let a = avatar(&Body { underbust: under, ..body() }).unwrap();
+            let (bust, rib) = (*a.ring("bust").unwrap(), *a.ring("underbust").unwrap());
+            assert_eq!(rib.girth, expect);
+            assert!(rib.z < bust.z && rib.z > a.ring("waist").unwrap().z);
+            let back = |r: &Ring| r.y - r.semi_axes().1;
+            let front = |r: &Ring| r.y + r.semi_axes().1;
+            assert!((back(&bust) - back(&rib)).abs() < 1e-9, "the back flat");
+            assert!(front(&bust) > front(&rib) + 20.0, "the bust forward: {} {}", front(&bust), front(&rib));
+            // The mesh's bust ring too.
+            assert!(a.mesh.vertices.iter().any(|v| (v[2] - bust.z).abs() < 1e-9 && (v[1] - front(&bust)).abs() < 1e-6));
+        }
+    }
+
     #[test]
     fn the_mesh_is_closed_and_its_triangles_face_out() {
         let a = avatar(&body()).unwrap();
         let m = &a.mesh;
         // Five tubes, each its rings' points and two end points.
-        assert_eq!(m.vertices.len(), (6 + 4 + 4 + 4 + 4) * RING_POINTS + 10);
+        assert_eq!(m.vertices.len(), (7 + 4 + 4 + 4 + 4) * RING_POINTS + 10);
         // Closed: every edge is shared by exactly two triangles, once each way.
         let mut edges = std::collections::HashMap::new();
         for t in &m.triangles {

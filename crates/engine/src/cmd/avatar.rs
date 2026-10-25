@@ -24,7 +24,7 @@ pub fn specs() -> Vec<CommandSpec> {
             "Draw Avatar",
             ["Pattern"],
             None,
-            "{origin?: [x, y] (document points: the top of the front view's neck; default right of the art)} draw the body the document's measurements make (bust, waist, hip, nape_to_waist, waist_to_hip; neck, crotch_depth, waist_to_knee, waist_to_ankle, shoulder, top_arm, sleeve_length and armscye_depth where the set has them, otherwise from the ANSUR II survey's proportions), seen from the front and from the side at true scale, on the layer \"Avatar\" (drawn again it replaces it) → {layer, front, side, heightMm (to the base of the neck)}",
+            "{origin?: [x, y] (document points: the top of the front view's neck; default right of the art)} draw the body the document's measurements make (bust, waist, hip, nape_to_waist, waist_to_hip; neck, crotch_depth, waist_to_knee, waist_to_ankle, shoulder, top_arm, sleeve_length, armscye_depth and underbust where the set has them, otherwise from the ANSUR II survey's proportions), seen from the front and from the side at true scale, on the layer \"Avatar\" (drawn again it replaces it) → {layer, front, side, heightMm (to the base of the neck)}",
             has_doc,
             draw
         ),
@@ -73,6 +73,7 @@ pub(crate) fn avatar_of(doc: &Document, cmd: &str) -> Result<Avatar> {
         top_arm: may("top_arm"),
         sleeve_length: may("sleeve_length"),
         armscye_depth: may("armscye_depth"),
+        underbust: may("underbust"),
     };
     pf_core::avatar::avatar(&body).map_err(|e| bad(cmd, e.to_string()))
 }
@@ -83,7 +84,7 @@ pub(crate) fn avatar_of(doc: &Document, cmd: &str) -> Result<Avatar> {
 fn silhouette(a: &Avatar, side: bool) -> Vec<Vec<(f64, f64)>> {
     let half = |r: &Ring| {
         let (ax, by) = r.semi_axes();
-        if side { (-by, by) } else { (r.x - ax, r.x + ax) }
+        if side { (r.y - by, r.y + by) } else { (r.x - ax, r.x + ax) }
     };
     let mut out = Vec::new();
     let torso = &a.torso[..a.torso.len() - 1];

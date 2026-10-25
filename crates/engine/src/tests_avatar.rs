@@ -47,16 +47,19 @@ fn the_avatar_is_drawn_front_and_side_at_true_scale() {
     for b in [front, side] {
         assert!((pt_to_mm(b.height()) - (1040.0 + 410.0 * pf_core::avatar::BACK_RISE)).abs() < 1e-6, "{b:?}");
     }
-    // From the side as deep as the bust or the hips, whichever is deeper.
-    let hip = pf_core::avatar::Ring { name: "hip", z: 0.0, x: 0.0, girth: 960.0, depth_ratio: 0.658 }.semi_axes();
-    let bust = pf_core::avatar::Ring { name: "bust", z: 0.0, x: 0.0, girth: 880.0, depth_ratio: 0.918 }.semi_axes();
+    let hip = pf_core::avatar::Ring { name: "hip", z: 0.0, x: 0.0, y: 0.0, girth: 960.0, depth_ratio: 0.658 }.semi_axes();
+    let bust = pf_core::avatar::Ring { name: "bust", z: 0.0, x: 0.0, y: 0.0, girth: 880.0, depth_ratio: 0.918 }.semi_axes();
     // Front, out to the arms: the wrists hang furthest out (the A pose).
     let body = pf_core::avatar::Body { bust: 880.0, waist: 680.0, hip: 960.0, nape_to_waist: 410.0, waist_to_hip: 200.0, ..Default::default() };
     let a = pf_core::avatar::avatar(&body).unwrap();
     let reach = a.arms.iter().flatten().map(|r| r.x.abs() + r.semi_axes().0).fold(0.0, f64::max);
     assert!(reach > hip.0);
     assert!((pt_to_mm(front.width()) - 2.0 * reach).abs() < 1e-6, "{}", pt_to_mm(front.width()));
-    assert!((pt_to_mm(side.width()) - 2.0 * bust.1.max(hip.1)).abs() < 1e-6, "{}", pt_to_mm(side.width()));
+    // From the side, from the front of the bust (it stands forward) to the furthest back.
+    let front_most = a.torso.iter().map(|r| r.y + r.semi_axes().1).fold(f64::NEG_INFINITY, f64::max);
+    let back_most = a.torso.iter().map(|r| r.y - r.semi_axes().1).fold(f64::INFINITY, f64::min);
+    assert!(front_most > bust.1 && (front_most - back_most) > 2.0 * bust.1.max(hip.1));
+    assert!((pt_to_mm(side.width()) - (front_most - back_most)).abs() < 1e-6, "{}", pt_to_mm(side.width()));
     assert!(side.x0 > front.x1, "side by side");
     // Drawn again it replaces the last; undone, it goes.
     s.execute("avatar.draw", &json!({})).unwrap();
