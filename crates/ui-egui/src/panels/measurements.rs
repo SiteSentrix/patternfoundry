@@ -123,11 +123,15 @@ pub fn show(app: &mut VectorcraftApp, ui: &mut Ui) {
     // Whose proportions the avatar fills in the rest from (PF-10.11).
     ui.horizontal(|ui| {
         ui.label(egui::RichText::new(tl!("Figure")).size(12.0).color(t.text_dim))
-            .on_hover_text(tl!("The avatar takes what the measurements don't give from a survey's women's or men's proportions"));
+            .on_hover_text(tl!("The avatar takes what the measurements don't give from a survey's women's, men's or children's proportions"));
         let current = info["figure"].as_str().unwrap_or("female");
-        let label = |f: &str| if f == "male" { tl!("Male") } else { tl!("Female") };
+        let label = |f: &str| match f {
+            "male" => tl!("Male"),
+            "child" => tl!("Child"),
+            _ => tl!("Female"),
+        };
         egui::ComboBox::from_id_salt("measure-figure").selected_text(label(current)).show_ui(ui, |ui| {
-            for f in ["female", "male"] {
+            for f in ["female", "male", "child"] {
                 if ui.selectable_label(current == f, label(f)).clicked() && current != f {
                     run(app, "measure.set", json!({ "figure": f }));
                 }

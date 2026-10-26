@@ -28,7 +28,7 @@ pub fn specs() -> Vec<CommandSpec> {
             "Set Measurements",
             [],
             None,
-            "{name?, values?: {\"<name>\": mm (or a length with its unit, \"35 in\") | null (remove)}, formulas?: {\"<name>\": \"expression over the measurements, in mm\" | null}, share?: bool (let exported files' embedded copies keep the values; default false), figure?: female|male (whose proportions the avatar fills in the rest from, ANSUR II's women's or men's; default female)} change the document's measurement set (names: letters, digits and _, starting with a letter) → measure.info",
+            "{name?, values?: {\"<name>\": mm (or a length with its unit, \"35 in\") | null (remove)}, formulas?: {\"<name>\": \"expression over the measurements, in mm\" | null}, share?: bool (let exported files' embedded copies keep the values; default false), figure?: female|male|child (whose proportions the avatar fills in the rest from: ANSUR II's women's or men's, or the 1977 children's survey's from 2 to 18 by the chest's girth; default female)} change the document's measurement set (names: letters, digits and _, starting with a letter) → measure.info",
             has_doc,
             set
         ),
@@ -37,7 +37,7 @@ pub fn specs() -> Vec<CommandSpec> {
             "Measurements",
             [],
             None,
-            "{} → {name, values: {name: mm}, formulas: {name: text}, computed: {name: mm}, errors: {name: why}, size, share, figure: female|male, chart: {name, columns, sizes} | null}",
+            "{} → {name, values: {name: mm}, formulas: {name: text}, computed: {name: mm}, errors: {name: why}, size, share, figure: female|male|child, chart: {name, columns, sizes} | null}",
             has_doc,
             info
         ),
@@ -221,7 +221,7 @@ fn set(s: &mut Session, p: &Value) -> Result<Value> {
         m.share = v.as_bool().ok_or_else(|| bad(CMD, "share is true or false"))?;
     }
     if let Some(v) = p.get("figure") {
-        m.figure = v.as_str().and_then(pf_core::avatar::Figure::parse).ok_or_else(|| bad(CMD, "figure is \"female\" or \"male\""))?;
+        m.figure = v.as_str().and_then(pf_core::avatar::Figure::parse).ok_or_else(|| bad(CMD, "figure is \"female\", \"male\" or \"child\""))?;
     }
     s.edit("Set Measurements", |d, _| {
         d.measurements = Some(Box::new(m));

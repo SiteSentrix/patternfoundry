@@ -4856,7 +4856,8 @@ lighting	Light	Свет
 	Figure	Фигура
 	Female	Женская
 	Male	Мужская
-	The avatar takes what the measurements don't give from a survey's women's or men's proportions	Аватар берёт то, чего нет в мерках, из пропорций женщин или мужчин в исследовании
+	Child	Ребёнок
+	The avatar takes what the measurements don't give from a survey's women's, men's or children's proportions	Аватар берёт то, чего нет в мерках, из пропорций женщин, мужчин или детей в исследовании
 	Size chart	Таблица размеров
 	Use Size	Использовать размер
 # PatternFoundry: blocks (PF-4).

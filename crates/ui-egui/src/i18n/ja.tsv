@@ -4900,7 +4900,8 @@ lighting	Light	ライト
 	Figure	体型
 	Female	女性
 	Male	男性
-	The avatar takes what the measurements don't give from a survey's women's or men's proportions	採寸にない部分は、調査の女性または男性の比率からアバターが補います
+	Child	子ども
+	The avatar takes what the measurements don't give from a survey's women's, men's or children's proportions	採寸にない部分は、調査の女性・男性・子どもの比率からアバターが補います
 	Size chart	サイズ表
 	Use Size	サイズを使用
 # PatternFoundry: blocks (PF-4).

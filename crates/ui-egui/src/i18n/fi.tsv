@@ -5209,7 +5209,8 @@ mark-style	Japanese	Japanilainen
 	Figure	Vartalo
 	Female	Nainen
 	Male	Mies
-	The avatar takes what the measurements don't give from a survey's women's or men's proportions	Avatar ottaa sen, mitä mitat eivät kerro, tutkimuksen naisten tai miesten mittasuhteista
+	Child	Lapsi
+	The avatar takes what the measurements don't give from a survey's women's, men's or children's proportions	Avatar ottaa sen, mitä mitat eivät kerro, tutkimuksen naisten, miesten tai lasten mittasuhteista
 	Size chart	Kokotaulukko
 	Use Size	Käytä kokoa
 # PatternFoundry: blocks (PF-4).

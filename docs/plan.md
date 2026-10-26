@@ -704,6 +704,22 @@ is built on, plus a pattern mode, the way StitchFoundry adds embroidery:
   more in `pf-core` (a trapezoid's edge particles on its outline, none outside it, the particle
   nearest a point of the slanted side on it), the skirt's test bounds tightened (seams within
   5 mm, stretch under 15%; it hangs 580 to 680 mm, a few per cent long under its weight).
+- 2026-10-26, **PF-10.13**: a child figure. The measurement set's figure can be **Child**
+  (`measure.set {figure: "child"}`, the Measurements panel, in all 23 languages). Its
+  proportions come from the U.S. Consumer Product Safety Commission's survey of 3,900 children
+  from 2 to 18 (Snyder et al., *Anthropometry of Infants, Children, and Youths to Age 18 for
+  Product Safety Design*, University of Michigan, 1977; public domain, its individual records
+  published by NIST at <https://math.nist.gov/~SRessler/anthrokids/>): the means of eight age
+  bands (2–4 … 16–18), computed from the records, the band chosen by the chest's girth (512 mm at
+  2–4 to 879 at 16–18) and between two bands in proportion, so there is no age to enter. What the
+  survey doesn't measure is taken from the landmarks it does by ANSUR II's women's proportions
+  between them (the cervicale from the suprasternale, the chest from the armpit, the shoulder
+  point between the armpit and the cervicale, the ankle bone from the stature); the depths from
+  each girth and its breadth (a child's chest is about as deep as broad, the waist 0.86 at 2 to
+  0.71 at 18). No bust. The blocks are still the women's. Tests: 1 in `pf-core` (each band's own
+  means make an avatar, its landmarks in order; between bands in proportion), the engine's
+  figure test (a six-year-old's measurements make a child under 1.1 m). Not yet: children's
+  blocks, a head.
 - 2026-10-26, **PF-10.12**: the cloth grips the body. Where the body pushes the cloth out, its
   move across the body's surface is undone while it is less than 0.5 times how far it was pushed
   (static friction), and cut by 0.4 times that when it slides (Macklin, Müller, Chentanez and Kim,
