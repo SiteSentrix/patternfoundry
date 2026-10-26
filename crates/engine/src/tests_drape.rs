@@ -204,6 +204,9 @@ fn sleeves_drape_round_the_arms() {
     // Still on the shoulders; the sleeves down past the waist.
     assert!(top > waist + 350.0, "{r}");
     assert!(hem < waist - 150.0, "{r}");
+    // Set in after the bodice is on (PF-10.9), round arms that grow from the shoulder joint: the
+    // armpit no longer pinched 5 to 6 times its size.
+    assert!(r["tightest"].as_f64().unwrap() < 400.0, "{r}");
     // Cloth out on both arms, as far out as the sleeves hang.
     let obj = std::fs::read_to_string(&path).unwrap();
     let xs: Vec<f64> = obj.lines().filter_map(|l| l.strip_prefix("v ")).filter_map(|l| l.split(' ').next()?.parse::<f64>().ok()).collect();

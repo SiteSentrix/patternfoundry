@@ -345,6 +345,8 @@ pub struct Cloth {
     links: Vec<(u32, u32, f64, f64)>,
     /// Pairs of particles sewn together.
     pub seams: Vec<(u32, u32)>,
+    /// Whether each seam pulls (one sewn later is off until then).
+    pub seam_on: Vec<bool>,
     /// Each panel's first particle, and the triangles of all of them (into `positions`).
     pub starts: Vec<u32>,
     pub triangles: Vec<[u32; 3]>,
@@ -382,6 +384,7 @@ impl Cloth {
             weight: Vec::new(),
             links: Vec::new(),
             seams: Vec::new(),
+            seam_on: Vec::new(),
             starts: Vec::new(),
             triangles: Vec::new(),
             pattern: Vec::new(),
@@ -427,11 +430,20 @@ impl Cloth {
         }
     }
 
+    /// Hold particle `i` still (`held`) or let it go, without tethering the rest of its panel to
+    /// it (as [`Cloth::pin`] does): while a garment is put on a piece at a time.
+    pub fn hold(&mut self, i: u32, held: bool) {
+        if let Some(w) = self.weight.get_mut(i as usize) {
+            *w = if held { 0.0 } else { 1.0 };
+        }
+    }
+
     /// Sew particle `a` to particle `b`: they are pulled together until they meet.
     pub fn sew(&mut self, a: u32, b: u32) {
         let n = self.positions.len() as u32;
         if a < n && b < n && a != b {
             self.seams.push((a, b));
+            self.seam_on.push(true);
         }
     }
 
@@ -453,7 +465,7 @@ impl Cloth {
             for &(a, b, rest, k) in &self.links {
                 pull(&mut self.positions, &self.weight, a, b, rest, k);
             }
-            for &(a, b) in &self.seams {
+            for (&(a, b), _) in self.seams.iter().zip(&self.seam_on).filter(|(_, on)| **on) {
                 pull(&mut self.positions, &self.weight, a, b, 0.0, self.seam_pull);
             }
             for &(held, j, most) in &self.tethers {

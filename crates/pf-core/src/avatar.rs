@@ -280,27 +280,43 @@ pub fn avatar(body: &Body) -> Result<Avatar, AvatarError> {
         ]
     };
     let legs = [leg(1.0), leg(-1.0)];
-    // Each arm: from just under the shoulder point down to the wrist, hanging out at the A pose's
-    // angle.
     let upper = body.top_arm.filter(|g| *g > 0.0).unwrap_or(body.bust * 0.323);
     let reach = body.sleeve_length.filter(|l| *l > 0.0).map_or(s, |l| l / SLEEVE_OUTSEAM);
-    let (bust_a, _) = torso[2].semi_axes();
-    let r_upper = upper / (2.0 * PI);
-    // The arm grows out of the shoulder: at the armpit it overlaps the side of the chest by
-    // most of its radius (the armhole goes round the join), hanging clear of the hips below.
-    let axilla_x = bust_a + r_upper * 0.45;
-    let elbow_z = shoulder_z - SHOULDER_TO_ELBOW * reach * ARM_ANGLE.cos();
-    let wrist_z = shoulder_z - SLEEVE_OUTSEAM * reach * ARM_ANGLE.cos();
-    let top_z = shoulder_z - r_upper * 0.8;
+    // Each arm swings out from its shoulder joint (the head of the upper arm, under the shoulder
+    // point), as an arm does: the top of the arm is the deltoid, round over the joint and on out
+    // past the shoulder point (the survey's shoulders are 450.3 across the deltoids for 365.3
+    // across the shoulder points); below it the arm hangs out at the A pose's angle, the armpit
+    // opening under it. Seen across, a tilted arm's level cross-section is longer by 1/cos.
+    let deltoid = upper * 1.12;
+    let r_top = deltoid / (2.0 * PI);
+    let angle = ARM_ANGLE;
+    // The joint sits in from the shoulder point by a fifth of the deltoid's radius (further in,
+    // or the arm at 20°, and the sleeves drag the bodice down the arms: PF-10.9's debug log).
+    let joint = (breadth / 2.0 - r_top * 0.2, shoulder_z - r_top);
+    // A point down the arm's line from the joint, `l` along it.
+    let along = |l: f64| (joint.0 + l * angle.sin(), joint.1 - l * angle.cos());
+    let at_z = |z: f64| joint.0 + (joint.1 - z) * angle.tan();
+    let top_z = shoulder_z - r_top * 0.25;
+    let elbow = along(SHOULDER_TO_ELBOW * reach - r_top);
+    let wrist = along(SLEEVE_OUTSEAM * reach - r_top);
+    let tilted = |name, z: f64, x: f64, girth: f64, depth: f64| {
+        let r = girth / (2.0 * PI);
+        let (a, b) = (r / angle.cos(), r * depth);
+        ring(name, z, x, ellipse_girth(a, b), b / a)
+    };
     let arm = |side: f64| {
-        let x = |z: f64| side * (axilla_x + (axilla_z - z) * ARM_ANGLE.tan());
+        // Over the deltoid a rounded top, so a sleeve's cap rests on it (the body is only where
+        // its rings are: without it the arm's top was open to the cloth, and the cap slid off it).
+        let cap_z = top_z + r_top * 0.55;
         vec![
-            ring("armtop", top_z, x(top_z), upper * 1.08, 0.9),
-            ring("upperarm", axilla_z, x(axilla_z), upper, 0.95),
-            ring("elbow", elbow_z, x(elbow_z), upper * 0.864, 0.95),
-            ring("wrist", wrist_z, x(wrist_z), upper * 0.506, 0.75),
+            ring("armcap", cap_z, side * (joint.0 - (cap_z - joint.1) * angle.tan()), deltoid * 0.55, 0.9),
+            ring("armtop", top_z, side * (joint.0 - (top_z - joint.1) * angle.tan()), deltoid, 0.9),
+            tilted("upperarm", axilla_z, side * at_z(axilla_z), upper, 0.95),
+            tilted("elbow", elbow.1, side * elbow.0, upper * 0.864, 0.95),
+            tilted("wrist", wrist.1, side * wrist.0, upper * 0.506, 0.75),
         ]
     };
+    let (elbow_z, wrist_z) = (elbow.1, wrist.1);
     let arms = [arm(1.0), arm(-1.0)];
     if !(top_z > axilla_z && axilla_z > elbow_z + 50.0 && elbow_z > wrist_z + 50.0) {
         return Err(AvatarError::Order("the shoulder, armpit, elbow and wrist don't go down the arm in order"));
@@ -425,22 +441,31 @@ mod tests {
         assert!((a.neck_height - sh.z - 60.6 * s).abs() < 1e-9);
         for (k, side) in [(0, 1.0), (1, -1.0)] {
             let arm = &a.arms[k];
-            assert_eq!(arm.iter().map(|r| r.name).collect::<Vec<_>>(), ["armtop", "upperarm", "elbow", "wrist"]);
-            assert_eq!(arm[1].girth, 280.0);
+            assert_eq!(arm.iter().map(|r| r.name).collect::<Vec<_>>(), ["armcap", "armtop", "upperarm", "elbow", "wrist"]);
+            // The upper arm round as measured, square to the arm (level across the tilted arm it
+            // is longer by 1/cos).
+            let (u, d) = arm[2].semi_axes();
+            let square = ellipse_girth(u * ARM_ANGLE.cos(), d);
+            assert!((square - 280.0).abs() < 280.0 * 0.03, "{square}");
+            assert!(arm[2].girth > square);
             // Down the outside of the arm, shoulder to wrist: the sleeve length.
-            let along = ((sh.z - arm[3].z).powi(2) + ((arm[3].x - arm[1].x).abs() + 0.0).powi(2)).sqrt();
+            let along = ((sh.z - arm[4].z).powi(2) + (arm[4].x - arm[2].x).powi(2)).sqrt();
             assert!((along - 590.0).abs() < 25.0, "{along}");
-            // Out of the side of the chest at the armpit; at the wrist clear of the hips.
+            // Out of the side of the chest at the armpit, the top of the arm round over the
+            // shoulder point; at the wrist clear of the hips.
             let bust = a.ring("bust").unwrap().semi_axes().0;
-            assert!(side * arm[1].x > bust && side * arm[1].x - arm[1].semi_axes().0 < bust);
+            assert!(side * arm[2].x > bust && side * arm[2].x - u < bust, "{:?} {bust}", arm[2]);
+            assert!(side * arm[1].x + arm[1].semi_axes().0 > sh.semi_axes().0, "{:?}", arm[1]);
+            assert!(arm[0].z > arm[1].z && arm[0].girth < arm[1].girth);
             let hip = a.ring("hip").unwrap().semi_axes().0;
-            assert!(side * arm[3].x - arm[3].semi_axes().0 > hip, "{:?}", arm[3]);
-            assert!(arm.windows(2).all(|w| w[0].z > w[1].z) && side * arm[3].x > side * arm[0].x);
+            assert!(side * arm[4].x - arm[4].semi_axes().0 > hip, "{:?}", arm[4]);
+            assert!(arm.windows(2).all(|w| w[0].z > w[1].z) && side * arm[4].x > side * arm[1].x);
         }
         // Without them, from the survey's proportions.
         let plain = avatar(&body()).unwrap();
         assert!((plain.ring("shoulder").unwrap().semi_axes().0 * 2.0 - 880.0 * 0.386).abs() < 1e-9);
-        assert!((plain.arms[0][1].girth - 880.0 * 0.323).abs() < 1e-9);
+        let (u, d) = plain.arms[0][2].semi_axes();
+        assert!((ellipse_girth(u * ARM_ANGLE.cos(), d) - 880.0 * 0.323).abs() < 880.0 * 0.323 * 0.03);
     }
 
     /// The bust stands forward of a flat back: under it the ribcage as round as the underbust
@@ -467,7 +492,7 @@ mod tests {
         let a = avatar(&body()).unwrap();
         let m = &a.mesh;
         // Five tubes, each its rings' points and two end points.
-        assert_eq!(m.vertices.len(), (7 + 4 + 4 + 4 + 4) * RING_POINTS + 10);
+        assert_eq!(m.vertices.len(), (7 + 4 + 4 + 5 + 5) * RING_POINTS + 10);
         // Closed: every edge is shared by exactly two triangles, once each way.
         let mut edges = std::collections::HashMap::new();
         for t in &m.triangles {
