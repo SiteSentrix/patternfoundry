@@ -49,6 +49,15 @@ pub fn specs() -> Vec<CommandSpec> {
             trousers
         ),
         cmd!(
+            "block.mensTrousers",
+            "Draft Men's Trouser Block",
+            ["Pattern"],
+            None,
+            "{origin?: [x, y] (document points: the block's top-left; default: the block 20 mm inside the first artboard's top-left corner), options?: {name: mm} (its waistband, an easy fit, the back dart, see block.options)} draft the men's trouser block (PF-4.12; front and back, side by side, each one leg with the fork on the left) from the measurements: waist, hip (round the seat), crotch_depth (the body rise), waist_to_ankle, trouser_hem (mm; measure.set). Each part follows the measurements when they change → {ids}",
+            has_doc,
+            mens_trousers
+        ),
+        cmd!(
             query "block.options",
             "Block Options Info",
             [],
@@ -164,6 +173,10 @@ fn trousers(s: &mut Session, p: &Value) -> Result<Value> {
     make(s, p, BlockKind::Trousers, "block.trousers", "Draft Trouser Block")
 }
 
+fn mens_trousers(s: &mut Session, p: &Value) -> Result<Value> {
+    make(s, p, BlockKind::MensTrousers, "block.mensTrousers", "Draft Men's Trouser Block")
+}
+
 fn sleeve(s: &mut Session, p: &Value) -> Result<Value> {
     let mut r = make(s, p, BlockKind::Sleeve, "block.sleeve", "Draft Sleeve Block")?;
     let options = options_param(p, BlockKind::Sleeve, "block.sleeve")?;
@@ -266,6 +279,7 @@ fn kind_name(kind: BlockKind) -> &'static str {
         BlockKind::Skirt => "skirt",
         BlockKind::Sleeve => "sleeve",
         BlockKind::Trousers => "trousers",
+        BlockKind::MensTrousers => "mensTrousers",
     }
 }
 
@@ -347,7 +361,8 @@ fn measurements(s: &mut Session, p: &Value) -> Result<Value> {
         Some("skirt") => BlockKind::Skirt,
         Some("sleeve") => BlockKind::Sleeve,
         Some("trousers") => BlockKind::Trousers,
-        Some(_) => return Err(bad("block.measurements", "block: \"bodice\", \"skirt\", \"sleeve\" or \"trousers\"")),
+        Some("mensTrousers") => BlockKind::MensTrousers,
+        Some(_) => return Err(bad("block.measurements", "block: \"bodice\", \"skirt\", \"sleeve\", \"trousers\" or \"mensTrousers\"")),
     };
     let list = pf_core::block::measurements(kind);
     let mut env = env_of(&s.doc()?.doc);

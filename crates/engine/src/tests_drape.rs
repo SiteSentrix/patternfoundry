@@ -311,3 +311,39 @@ fn trousers_stay_on_a_male_figure() {
     // (Their hems fold over the feet, PF-10.14, where the seams open a little more.)
     assert!(r["widestSeam"].as_f64().unwrap() < 20.0, "{r}");
 }
+
+/// The men's trouser block (PF-4.12) drafts for a man and drapes on the male figure down both
+/// legs, its seams closed, its back darts sewn, its outlines' runs as long as each other's.
+#[test]
+fn the_mens_trouser_block_drapes_on_a_male_figure() {
+    let mut s = Session::new();
+    s.execute("file.new", &json!({"width": 3370, "height": 2384})).unwrap();
+    let m = json!({"figure": "male", "values": {"bust": 1000, "waist": 860, "hip": 1020, "nape_to_waist": 470, "waist_to_hip": 190,
+        "crotch_depth": 280, "waist_to_knee": 620, "waist_to_ankle": 1080, "trouser_hem": 500}});
+    s.execute("measure.set", &m).unwrap();
+    assert_eq!(s.execute("block.measurements", &json!({"block": "mensTrousers"})).unwrap()["missing"], json!([]));
+    let r = s.execute("block.mensTrousers", &json!({})).unwrap();
+    let ids: Vec<u64> = r["ids"].as_array().unwrap().iter().map(|v| v.as_u64().unwrap()).collect();
+    let mut pieces = Vec::new();
+    for (id, name) in [(ids[0], "Front Trousers"), (ids[1], "Back Trousers")] {
+        let piece = s.execute("piece.make", &json!({"ids": [id], "name": name})).unwrap()["ids"][0].as_u64().unwrap();
+        s.execute("piece.set", &json!({"id": piece, "cut": 2, "mirror": true})).unwrap();
+        pieces.push(piece);
+    }
+    let (f, b) = (pieces[0], pieces[1]);
+    // The front: 0 the centre front's top, 2 the fork, 4 and 5 the hem, 8 the side's top. The
+    // back: 0 the centre back's top, 4 the side's top, 7 and 8 the hem, 10 the fork.
+    let mut lengths = Vec::new();
+    for (a, c) in [((f, 5, 8), (b, 4, 7)), ((f, 2, 4), (b, 8, 10)), ((f, 0, 2), (f, 0, 2)), ((b, 10, 0), (b, 10, 0))] {
+        let r = s.execute("piece.sew", &json!({"a": {"id": a.0, "from": a.1, "to": a.2}, "b": {"id": c.0, "from": c.1, "to": c.2}})).unwrap();
+        lengths.push(r["difference"].as_f64().unwrap());
+    }
+    // The side seams and the inside legs as long front and back (within 3 mm).
+    assert!(lengths.iter().all(|d| d.abs() < 3.0), "{lengths:?}");
+    let r = s.execute("drape.make", &json!({"precision": 25, "steps": 150, "draw": false})).unwrap();
+    assert_eq!((r["pieces"].clone(), r["darts"].clone()), (json!(2), json!(2)), "{r}");
+    let (top, waist) = (r["top"].as_f64().unwrap(), r["waist"].as_f64().unwrap());
+    // On the hips (the block's top is 95 cm round for an 86 cm waist, below a 4 cm waistband).
+    assert!(top > waist - 260.0 && top < waist + 30.0, "{r}");
+    assert!(r["widestSeam"].as_f64().unwrap() < 15.0 && r["worstStretch"].as_f64().unwrap() < 40.0, "{r}");
+}
