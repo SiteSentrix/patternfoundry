@@ -24,7 +24,9 @@
 //! A male figure ([`Figure::Male`], PF-10.11) takes the same proportions from the survey's 4,082
 //! men instead (in [`MEN`]: a chest 0.877 as deep as broad, hips 0.711, broader shoulders, longer
 //! arms, all heights taller), and has no bust standing forward: its chest (the `bust`
-//! measurement, taken round the chest) is one elliptic ring.
+//! measurement, taken round the chest) is one elliptic ring. A child ([`Figure::Child`], PF-10.13)
+//! takes them from the U.S. Consumer Product Safety Commission's 1977 survey of 3,900 children from
+//! 2 to 18 (public domain), by age band, the band chosen by the chest's girth ([`CHILD_BANDS`]).
 //! All lengths are in mm, x across the body (to its left), y to its front, z up from the
 //! floor.
 
@@ -160,6 +162,8 @@ pub enum Figure {
     #[default]
     Female,
     Male,
+    /// A child from 2 to 18, the age taken from the chest's girth (PF-10.13).
+    Child,
 }
 
 impl Figure {
@@ -168,6 +172,7 @@ impl Figure {
         match self {
             Figure::Female => "female",
             Figure::Male => "male",
+            Figure::Child => "child",
         }
     }
 
@@ -175,13 +180,16 @@ impl Figure {
         match s {
             "female" => Some(Figure::Female),
             "male" => Some(Figure::Male),
+            "child" => Some(Figure::Child),
             _ => None,
         }
     }
 }
 
 /// A figure's ANSUR II means (mm) and proportions: those in the module docs for the women; the
-/// men's (4,082 of them) computed the same way from the same public data.
+/// men's (4,082 of them) computed the same way from the same public data; a child's from
+/// [`CHILD_BANDS`].
+#[derive(Clone, Copy, Debug, PartialEq)]
 struct Survey {
     waist_height: f64,
     chest_height: f64,
@@ -272,6 +280,316 @@ const MEN: Survey = Survey {
     bust: false,
 };
 
+/// The children's survey: the U.S. Consumer Product Safety Commission's measurements of 3,900
+/// children from 2 to 18 (Snyder et al., "Anthropometry of Infants, Children, and Youths to Age 18
+/// for Product Safety Design", University of Michigan, 1977), public domain, its records at NIST:
+/// <https://math.nist.gov/~SRessler/anthrokids/> (`orig77/individuals.csv`). Each band's means,
+/// computed from the records (a 0 is a measurement not taken, left out); the heights the survey
+/// doesn't have from those it does by ANSUR II's women's proportions between the same landmarks:
+/// the cervicale above the waist 1.189 times the suprasternale's (415.6 over 349.6), the chest
+/// (bust) below the armpit 0.260 of the armpit's height above the waist, the shoulder point above
+/// the armpit 0.613 of the way to the cervicale, the ankle bone 0.0385 of the stature; the crotch
+/// at the gluteal furrow, the knee at the tibiale; the arm's outseam the shoulder to the elbow and
+/// the elbow to the hand less the hand. Depths over breadths from each girth and the breadth
+/// measured with it (an ellipse that long round and that broad): the chest's at the armpit (as
+/// round as a circle at most), the waist's, the hips' from the seated hip breadth. The knee (lower
+/// thigh) 0.650 of the thigh, the shoulders' breadth at the shoulder points 0.811 of the breadth
+/// over the deltoids, and the shoulders' depth: ANSUR II's women's. The bands are chosen by the
+/// chest's girth, between them in proportion (no age to enter); none has a bust.
+/// Each band: its mean chest round and its proportions.
+const CHILD_BANDS: [(f64, Survey); 8] = [
+    // Ages 2 to 4 (330 children).
+    (
+        511.6,
+        Survey {
+            waist_height: 510.9,
+            chest_height: 629.6,
+            cervicale_height: 782.1,
+            crotch_height: 384.6,
+            buttock_height: 420.3,
+            knee_height: 226.2,
+            ankle_height: 36.9,
+            acromial_height: 739.3,
+            axilla_height: 671.4,
+            sleeve_outseam: 332.5,
+            shoulder_to_elbow: 189.7,
+            chest_depth: 1.000,
+            waist_depth: 0.857,
+            hip_depth: 0.704,
+            shoulder_depth: 0.476,
+            thigh: 0.567,
+            knee: 0.368,
+            calf: 0.397,
+            ankle: 0.283,
+            neck: 0.466,
+            shoulders: 0.393,
+            upper_arm: 0.311,
+            forearm: 0.991,
+            wrist: 0.712,
+            bust: false,
+        },
+    ),
+    // Ages 4 to 6 (514 children).
+    (
+        551.1,
+        Survey {
+            waist_height: 607.4,
+            chest_height: 737.9,
+            cervicale_height: 890.2,
+            crotch_height: 462.6,
+            buttock_height: 508.0,
+            knee_height: 265.3,
+            ankle_height: 41.8,
+            acromial_height: 849.1,
+            axilla_height: 783.8,
+            sleeve_outseam: 383.3,
+            shoulder_to_elbow: 218.6,
+            chest_depth: 1.000,
+            waist_depth: 0.827,
+            hip_depth: 0.710,
+            shoulder_depth: 0.476,
+            thigh: 0.581,
+            knee: 0.377,
+            calf: 0.395,
+            ankle: 0.277,
+            neck: 0.455,
+            shoulders: 0.396,
+            upper_arm: 0.304,
+            forearm: 0.991,
+            wrist: 0.709,
+            bust: false,
+        },
+    ),
+    // Ages 6 to 8 (447 children).
+    (
+        597.4,
+        Survey {
+            waist_height: 695.2,
+            chest_height: 839.2,
+            cervicale_height: 1003.7,
+            crotch_height: 541.2,
+            buttock_height: 586.6,
+            knee_height: 306.8,
+            ankle_height: 46.5,
+            acromial_height: 959.7,
+            axilla_height: 889.9,
+            sleeve_outseam: 432.3,
+            shoulder_to_elbow: 246.5,
+            chest_depth: 1.000,
+            waist_depth: 0.799,
+            hip_depth: 0.722,
+            shoulder_depth: 0.476,
+            thigh: 0.587,
+            knee: 0.382,
+            calf: 0.394,
+            ankle: 0.270,
+            neck: 0.438,
+            shoulders: 0.399,
+            upper_arm: 0.300,
+            forearm: 0.984,
+            wrist: 0.694,
+            bust: false,
+        },
+    ),
+    // Ages 8 to 10 (491 children).
+    (
+        656.3,
+        Survey {
+            waist_height: 789.3,
+            chest_height: 945.5,
+            cervicale_height: 1116.5,
+            crotch_height: 615.9,
+            buttock_height: 669.6,
+            knee_height: 347.1,
+            ankle_height: 51.2,
+            acromial_height: 1071.6,
+            axilla_height: 1000.5,
+            sleeve_outseam: 482.5,
+            shoulder_to_elbow: 274.7,
+            chest_depth: 1.000,
+            waist_depth: 0.791,
+            hip_depth: 0.717,
+            shoulder_depth: 0.476,
+            thigh: 0.595,
+            knee: 0.387,
+            calf: 0.392,
+            ankle: 0.264,
+            neck: 0.422,
+            shoulders: 0.397,
+            upper_arm: 0.301,
+            forearm: 0.968,
+            wrist: 0.667,
+            bust: false,
+        },
+    ),
+    // Ages 10 to 12 (541 children).
+    (
+        705.2,
+        Survey {
+            waist_height: 856.8,
+            chest_height: 1021.1,
+            cervicale_height: 1218.7,
+            crotch_height: 677.4,
+            buttock_height: 727.3,
+            knee_height: 381.0,
+            ankle_height: 55.2,
+            acromial_height: 1164.6,
+            axilla_height: 1079.0,
+            sleeve_outseam: 524.8,
+            shoulder_to_elbow: 298.2,
+            chest_depth: 1.000,
+            waist_depth: 0.759,
+            hip_depth: 0.726,
+            shoulder_depth: 0.476,
+            thigh: 0.597,
+            knee: 0.388,
+            calf: 0.389,
+            ankle: 0.253,
+            neck: 0.404,
+            shoulders: 0.396,
+            upper_arm: 0.301,
+            forearm: 0.961,
+            wrist: 0.646,
+            bust: false,
+        },
+    ),
+    // Ages 12 to 14 (599 children).
+    (
+        759.2,
+        Survey {
+            waist_height: 939.0,
+            chest_height: 1118.9,
+            cervicale_height: 1309.0,
+            crotch_height: 732.8,
+            buttock_height: 796.6,
+            knee_height: 410.8,
+            ankle_height: 59.5,
+            acromial_height: 1260.0,
+            axilla_height: 1182.3,
+            sleeve_outseam: 570.6,
+            shoulder_to_elbow: 323.3,
+            chest_depth: 1.000,
+            waist_depth: 0.727,
+            hip_depth: 0.713,
+            shoulder_depth: 0.476,
+            thigh: 0.593,
+            knee: 0.385,
+            calf: 0.387,
+            ankle: 0.254,
+            neck: 0.397,
+            shoulders: 0.394,
+            upper_arm: 0.302,
+            forearm: 0.956,
+            wrist: 0.641,
+            bust: false,
+        },
+    ),
+    // Ages 14 to 16 (490 children).
+    (
+        824.1,
+        Survey {
+            waist_height: 996.0,
+            chest_height: 1183.9,
+            cervicale_height: 1387.5,
+            crotch_height: 767.4,
+            buttock_height: 840.0,
+            knee_height: 428.7,
+            ankle_height: 63.1,
+            acromial_height: 1334.3,
+            axilla_height: 1250.1,
+            sleeve_outseam: 607.6,
+            shoulder_to_elbow: 343.7,
+            chest_depth: 1.000,
+            waist_depth: 0.702,
+            hip_depth: 0.703,
+            shoulder_depth: 0.476,
+            thigh: 0.592,
+            knee: 0.385,
+            calf: 0.382,
+            ankle: 0.243,
+            neck: 0.388,
+            shoulders: 0.393,
+            upper_arm: 0.304,
+            forearm: 0.945,
+            wrist: 0.619,
+            bust: false,
+        },
+    ),
+    // Ages 16 to 19 (483 children).
+    (
+        878.7,
+        Survey {
+            waist_height: 1026.2,
+            chest_height: 1223.2,
+            cervicale_height: 1438.0,
+            crotch_height: 782.7,
+            buttock_height: 861.6,
+            knee_height: 441.7,
+            ankle_height: 65.3,
+            acromial_height: 1381.7,
+            axilla_height: 1292.5,
+            sleeve_outseam: 627.4,
+            shoulder_to_elbow: 354.5,
+            chest_depth: 1.000,
+            waist_depth: 0.712,
+            hip_depth: 0.700,
+            shoulder_depth: 0.476,
+            thigh: 0.593,
+            knee: 0.386,
+            calf: 0.381,
+            ankle: 0.237,
+            neck: 0.384,
+            shoulders: 0.391,
+            upper_arm: 0.306,
+            forearm: 0.935,
+            wrist: 0.597,
+            bust: false,
+        },
+    ),
+];
+
+/// A child's survey for a chest `chest` round: between the two bands it falls between, in
+/// proportion, else the youngest's or the oldest's.
+fn child_survey(chest: f64) -> Survey {
+    let k = CHILD_BANDS.iter().position(|(c, _)| *c > chest).unwrap_or(CHILD_BANDS.len());
+    if k == 0 {
+        return CHILD_BANDS[0].1;
+    }
+    if k == CHILD_BANDS.len() {
+        return CHILD_BANDS[k - 1].1;
+    }
+    let ((c0, a), (c1, b)) = (CHILD_BANDS[k - 1], CHILD_BANDS[k]);
+    let t = (chest - c0) / (c1 - c0);
+    let mix = |x: f64, y: f64| x + (y - x) * t;
+    Survey {
+        waist_height: mix(a.waist_height, b.waist_height),
+        chest_height: mix(a.chest_height, b.chest_height),
+        cervicale_height: mix(a.cervicale_height, b.cervicale_height),
+        crotch_height: mix(a.crotch_height, b.crotch_height),
+        buttock_height: mix(a.buttock_height, b.buttock_height),
+        knee_height: mix(a.knee_height, b.knee_height),
+        ankle_height: mix(a.ankle_height, b.ankle_height),
+        acromial_height: mix(a.acromial_height, b.acromial_height),
+        axilla_height: mix(a.axilla_height, b.axilla_height),
+        sleeve_outseam: mix(a.sleeve_outseam, b.sleeve_outseam),
+        shoulder_to_elbow: mix(a.shoulder_to_elbow, b.shoulder_to_elbow),
+        chest_depth: mix(a.chest_depth, b.chest_depth),
+        waist_depth: mix(a.waist_depth, b.waist_depth),
+        hip_depth: mix(a.hip_depth, b.hip_depth),
+        shoulder_depth: mix(a.shoulder_depth, b.shoulder_depth),
+        thigh: mix(a.thigh, b.thigh),
+        knee: mix(a.knee, b.knee),
+        calf: mix(a.calf, b.calf),
+        ankle: mix(a.ankle, b.ankle),
+        neck: mix(a.neck, b.neck),
+        shoulders: mix(a.shoulders, b.shoulders),
+        upper_arm: mix(a.upper_arm, b.upper_arm),
+        forearm: mix(a.forearm, b.forearm),
+        wrist: mix(a.wrist, b.wrist),
+        bust: false,
+    }
+}
+
 /// The height from the waist to the cervicale over the length down the back between them
 /// (cervicale height less waist height, 415.5, over the waist back length, 425.4; the men's
 /// 460.8 over 477.6, the same to within 0.3%).
@@ -320,9 +638,14 @@ pub fn avatar(body: &Body) -> Result<Avatar, AvatarError> {
     }
     // The body's scale along its length: the nape to the waist against the survey's.
     // The nape to the waist is measured down the curve of the back: its height is a little less.
+    let child;
     let sv = match body.figure {
         Figure::Female => &WOMEN,
         Figure::Male => &MEN,
+        Figure::Child => {
+            child = child_survey(body.bust);
+            &child
+        }
     };
     let rise = body.nape_to_waist * BACK_RISE;
     let s = rise / (sv.cervicale_height - sv.waist_height);
@@ -608,6 +931,37 @@ mod tests {
         assert_eq!(Figure::parse("male"), Some(Figure::Male));
         assert_eq!(Figure::parse(Figure::Female.name()), Some(Figure::Female));
         assert_eq!(Figure::parse("other"), None);
+    }
+
+    /// A child (PF-10.13): every band of the children's survey makes an avatar from its own mean
+    /// measurements, its landmarks in order; between two bands the proportions are between theirs;
+    /// no bust.
+    #[test]
+    fn a_child_figure_takes_the_childrens_proportions() {
+        for (chest, sv) in &CHILD_BANDS {
+            let hip = *chest * 1.04;
+            let b = Body {
+                bust: *chest,
+                waist: *chest * 0.92,
+                hip,
+                nape_to_waist: (sv.cervicale_height - sv.waist_height) / BACK_RISE,
+                waist_to_hip: sv.waist_height - sv.buttock_height,
+                figure: Figure::Child,
+                ..Default::default()
+            };
+            let a = avatar(&b).unwrap_or_else(|e| panic!("{chest}: {e}"));
+            assert!(a.ring("underbust").is_none());
+            assert_eq!(a.ring("bust").unwrap().depth_ratio, sv.chest_depth);
+            // Its waist at the band's height (no waist to ankle given: the survey's).
+            assert!((a.ring("waist").unwrap().z - sv.waist_height).abs() < 1e-6, "{chest}");
+            assert!((a.legs[0][0].girth - hip * sv.thigh).abs() < 1e-9);
+        }
+        let (a, b) = (CHILD_BANDS[2], CHILD_BANDS[3]);
+        let mid = child_survey((a.0 + b.0) / 2.0);
+        assert!((mid.waist_height - (a.1.waist_height + b.1.waist_height) / 2.0).abs() < 1e-9);
+        assert_eq!(child_survey(100.0), CHILD_BANDS[0].1);
+        assert_eq!(child_survey(5000.0), CHILD_BANDS[CHILD_BANDS.len() - 1].1);
+        assert_eq!(Figure::parse("child"), Some(Figure::Child));
     }
 
     /// The bust stands forward of a flat back: under it the ribcage as round as the underbust

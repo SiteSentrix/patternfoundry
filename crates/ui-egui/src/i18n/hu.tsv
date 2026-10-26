@@ -5231,7 +5231,8 @@ imageTrace	Outline	Körvonal
 	Figure	Alkat
 	Female	Női
 	Male	Férfi
-	The avatar takes what the measurements don't give from a survey's women's or men's proportions	Az avatar azt, amit a méretek nem adnak meg, egy felmérés nőinek vagy férfiainak arányaiból veszi
+	Child	Gyermek
+	The avatar takes what the measurements don't give from a survey's women's, men's or children's proportions	Az avatar azt, amit a méretek nem adnak meg, egy felmérés nőinek, férfiainak vagy gyermekeinek arányaiból veszi
 	Size chart	Mérettáblázat
 	Use Size	Méret használata
 # PatternFoundry: blocks (PF-4).

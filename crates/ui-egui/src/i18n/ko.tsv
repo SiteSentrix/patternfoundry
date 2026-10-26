@@ -4823,7 +4823,8 @@ lighting	Light	광원
 	Figure	체형
 	Female	여성
 	Male	남성
-	The avatar takes what the measurements don't give from a survey's women's or men's proportions	치수에 없는 부분은 조사의 여성 또는 남성 비율로 아바타가 채웁니다
+	Child	어린이
+	The avatar takes what the measurements don't give from a survey's women's, men's or children's proportions	치수에 없는 부분은 조사의 여성, 남성 또는 어린이 비율로 아바타가 채웁니다
 	Size chart	사이즈표
 	Use Size	사이즈 사용
 # PatternFoundry: blocks (PF-4).

@@ -161,4 +161,12 @@ fn a_male_figure_is_chosen_on_the_measurements() {
     s.execute("edit.undo", &json!({})).unwrap();
     assert_eq!(s.execute("measure.info", &json!({})).unwrap()["figure"], json!("female"));
     assert!(s.execute("measure.set", &json!({"figure": "tall"})).unwrap_err().to_string().contains("female"));
+    // A child (PF-10.13): a six-year-old's measurements make one.
+    s.execute(
+        "measure.set",
+        &json!({"figure": "child", "values": {"bust": 597, "waist": 544, "hip": 616, "nape_to_waist": 282, "waist_to_hip": 108, "waist_to_ankle": null}}),
+    )
+    .unwrap();
+    let r = s.execute("avatar.draw", &json!({"origin": [0, 0]})).unwrap();
+    assert!(r["heightMm"].as_f64().unwrap() < 1100.0, "{r}");
 }

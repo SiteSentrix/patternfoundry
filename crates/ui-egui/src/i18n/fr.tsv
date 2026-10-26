@@ -5244,7 +5244,8 @@ theme	Appearance	Apparence
 	Figure	Silhouette
 	Female	Féminine
 	Male	Masculine
-	The avatar takes what the measurements don't give from a survey's women's or men's proportions	L'avatar prend ce que les mesures ne donnent pas dans les proportions des femmes ou des hommes d'une enquête
+	Child	Enfant
+	The avatar takes what the measurements don't give from a survey's women's, men's or children's proportions	L'avatar prend ce que les mesures ne donnent pas dans les proportions des femmes, des hommes ou des enfants d'une enquête
 	Size chart	Tableau de tailles
 	Use Size	Utiliser la taille
 # PatternFoundry: blocks (PF-4).

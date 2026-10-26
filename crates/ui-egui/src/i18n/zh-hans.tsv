@@ -5081,7 +5081,8 @@ lighting	Light	光源
 	Figure	体型
 	Female	女性
 	Male	男性
-	The avatar takes what the measurements don't give from a survey's women's or men's proportions	测量值未给出的部分，头像按一项调查中女性或男性的比例补足
+	Child	儿童
+	The avatar takes what the measurements don't give from a survey's women's, men's or children's proportions	测量值未给出的部分，头像按一项调查中女性、男性或儿童的比例补足
 	Size chart	尺码表
 	Use Size	使用尺码
 # PatternFoundry: blocks (PF-4).
