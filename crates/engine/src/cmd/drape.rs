@@ -118,7 +118,7 @@ fn role_of(doc: &Document, id: NodeId, name: &str) -> Role {
     match kind {
         Some(BlockKind::Sleeve) => Role::Arm,
         Some(BlockKind::Bodice) => Role::Upper,
-        Some(BlockKind::Trousers) => Role::Leg,
+        Some(BlockKind::Trousers | BlockKind::MensTrousers) => Role::Leg,
         Some(_) => Role::Lower,
         None if name.contains("sleeve") => Role::Arm,
         None if name.contains("trouser") || name.contains("pant") || name.contains("short") => Role::Leg,

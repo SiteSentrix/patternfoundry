@@ -704,6 +704,30 @@ is built on, plus a pattern mode, the way StitchFoundry adds embroidery:
   more in `pf-core` (a trapezoid's edge particles on its outline, none outside it, the particle
   nearest a point of the slanted side on it), the skirt's test bounds tightened (seams within
   5 mm, stretch under 15%; it hangs 580 to 680 mm, a few per cent long under its weight).
+- 2026-10-26, **PF-4.12**: a men's trouser block. **Pattern › Draft Men's Trouser Block**
+  (`block.mensTrousers`, in all 23 languages) drafts the traditional British men's trouser block
+  from the metric steps published by Textile Blog
+  (<https://www.textileblog.com/mens-pants-pattern-drafting-from-measurement/>; the construction
+  rules implemented, no text or drawing copied): from a crease line, the crotch line the body rise
+  and 1 cm less the waistband down, the seat line a quarter of the rise above it; the front's fork
+  a twelfth of the seat and 1.5 cm and then a sixteenth and 5 mm out, a quarter seat and 2 cm
+  across the seat line, a quarter waist and 2.5 cm at the top; the back on the same lines, a
+  quarter seat and 3 cm and a quarter waist and 4.5 cm with a 2.5 × 12 cm dart, its centre back
+  1 cm up, its fork further out and 5 mm lower, its hem and knee 2 cm wider each side. Measurements:
+  waist, hip (round the seat), crotch_depth (the body rise), waist_to_ankle (the inside leg is it
+  less the crotch depth), trouser_hem (the bottom width half of it). Options: the waistband's depth
+  (4 cm; the block's top is its lower edge), an easy fit along the back crotch (the source's
+  3.5 cm, none by default), the back dart. Chosen where the page is silent: the knee points it
+  names but never places, on its knee line 1 cm wider each side than the hem (a straight leg's
+  "knee and hem nearly equal", Sewing for a Living); the curves. The back is laid out beside the
+  front turned over (its fork on the right), as the women's block's is: drawn on the front's lines
+  its copy as drawn was the other leg's, and the drape sewed one leg's front to the other's back
+  (a seam spiralling round the leg). On the male figure (seat 1020, waist 860) the side seams and
+  inside legs come out as long front and back (within 2.4 mm), and the trousers drape down both
+  legs, seams within 4 mm, stretch 11%, on the hips (their top 95 cm round, made for a separate
+  waistband). Tests: 1 in `pf-core` (the source's example by its numbers; turned over; refusals),
+  1 in `tests_drape.rs` (drafted, sewn, the runs as long, draped on the male figure). Not yet:
+  men's bodice and sleeve blocks, children's blocks.
 - 2026-10-26, **PF-10.14**: feet and a floor. Each of the avatar's legs ends in a foot: under the
   ankle a ring as long as the figure's foot and as broad (ANSUR II: the women's foot 246.3 long
   for an ankle bone 62.7 up, 3.93 times, 0.376 as broad; the men's 3.72; the children's survey's
