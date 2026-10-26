@@ -704,6 +704,24 @@ is built on, plus a pattern mode, the way StitchFoundry adds embroidery:
   more in `pf-core` (a trapezoid's edge particles on its outline, none outside it, the particle
   nearest a point of the slanted side on it), the skirt's test bounds tightened (seams within
   5 mm, stretch under 15%; it hangs 580 to 680 mm, a few per cent long under its weight).
+- 2026-10-26, **PF-10.10**: trousers on the avatar. **Pattern › Drape on Avatar** drapes the
+  trouser block (or pieces named trousers, pants or shorts): a front and a back, each cut as a
+  mirror-image pair, sewn at the side seams and inseams. The centre front and centre back are a
+  piece's run sewn to the same run of its mirror copy: `piece.sew` now takes the same run as `a`
+  and `b` on a piece cut 2 mirrored (a centre seam), and refuses it on any other. Each leg's front
+  and back start round that leg below the crotch (the inseam inside), the four round the hips
+  above, blended from the hip line down to the crotch; all from the hems up, so the back's rise
+  stands above the waist. The cloth now has at least forty rounds of corrections a substep at any
+  precision: at 25 mm it had 26, and the trousers (as heavy as two skirts) slid down the legs.
+  On the test body (hip 960, crotch depth 260) they hang down both legs, seams within 10 mm,
+  stretch 33%, but sit about 85 mm below the waist with the crotch reading tight: the block's
+  crotch seam is 657 mm (front 296, back 361) and the avatar's, waist to waist between the legs,
+  about 755 (ANSUR II's women's mean crotch length from the navel, 621 mm, fits the avatar's).
+  A trouser crotch is cut shorter than the body's as woven cloth gives on the bias there; the
+  simulated cloth doesn't give enough. Tests: 2 in `tests_drape.rs` (the trousers down both legs,
+  their back darts sewn, cloth round each knee and none between; a centre seam refused unless
+  the piece is a mirror-image pair). Not yet: cloth that gives on the bias, the hem resting on a
+  floor or the feet.
 - 2026-10-25, **PF-10.9**: the armpit. The avatar's arms now swing out from a shoulder joint
   (the head of the upper arm, a fifth of the deltoid's radius in from the shoulder point and one
   radius below it), not from the armpit: the top of the arm is the deltoid (1.12 times the upper
