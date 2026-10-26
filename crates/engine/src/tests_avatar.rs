@@ -33,7 +33,7 @@ fn the_avatar_is_drawn_front_and_side_at_true_scale() {
     // The base of the neck is the waist 410 up the back (a little less straight up), the waist
     // 1040 above the ankle bone, the ankle bone the survey's 63 (scaled by the body's height from
     // the waist to the nape over the survey's 416) above the floor: the drawing runs from the neck
-    // to the ankle.
+    // to the feet, at a fifth of the ankle bone's height (PF-10.14).
     let height = r["heightMm"].as_f64().unwrap();
     let rise = 410.0 * pf_core::avatar::BACK_RISE;
     let ankle = 63.0 * rise / 416.0;
@@ -45,7 +45,7 @@ fn the_avatar_is_drawn_front_and_side_at_true_scale() {
     };
     let (front, side) = (bounds(&r["front"]), bounds(&r["side"]));
     for b in [front, side] {
-        assert!((pt_to_mm(b.height()) - (1040.0 + 410.0 * pf_core::avatar::BACK_RISE)).abs() < 1e-6, "{b:?}");
+        assert!((pt_to_mm(b.height()) - (1040.0 + ankle * 0.8 + rise)).abs() < 1e-6, "{b:?}");
     }
     let hip = pf_core::avatar::Ring { name: "hip", z: 0.0, x: 0.0, y: 0.0, girth: 960.0, depth_ratio: 0.658 }.semi_axes();
     let bust = pf_core::avatar::Ring { name: "bust", z: 0.0, x: 0.0, y: 0.0, girth: 880.0, depth_ratio: 0.918 }.semi_axes();
@@ -55,9 +55,11 @@ fn the_avatar_is_drawn_front_and_side_at_true_scale() {
     let reach = a.arms.iter().flatten().map(|r| r.x.abs() + r.semi_axes().0).fold(0.0, f64::max);
     assert!(reach > hip.0);
     assert!((pt_to_mm(front.width()) - 2.0 * reach).abs() < 1e-6, "{}", pt_to_mm(front.width()));
-    // From the side, from the front of the bust (it stands forward) to the furthest back.
-    let front_most = a.torso.iter().map(|r| r.y + r.semi_axes().1).fold(f64::NEG_INFINITY, f64::max);
-    let back_most = a.torso.iter().map(|r| r.y - r.semi_axes().1).fold(f64::INFINITY, f64::min);
+    // From the side, from the toes (the feet reach forward, PF-10.14) or the front of the bust (it
+    // stands forward) to the furthest back.
+    let rings = || a.torso.iter().chain(a.legs.iter().flatten());
+    let front_most = rings().map(|r| r.y + r.semi_axes().1).fold(f64::NEG_INFINITY, f64::max);
+    let back_most = rings().map(|r| r.y - r.semi_axes().1).fold(f64::INFINITY, f64::min);
     assert!(front_most > bust.1 && (front_most - back_most) > 2.0 * bust.1.max(hip.1));
     assert!((pt_to_mm(side.width()) - (front_most - back_most)).abs() < 1e-6, "{}", pt_to_mm(side.width()));
     assert!(side.x0 > front.x1, "side by side");
@@ -136,19 +138,22 @@ fn the_avatar_exports_as_gltf() {
 }
 
 /// The measurement set's figure (PF-10.11) chooses whose proportions the avatar takes: a male
-/// one has no bust standing forward, so seen from the side it is shallower for the same chest;
+/// one has no bust standing forward, so above the waist it is shallower for the same chest;
 /// kept in the document, refused when unknown.
 #[test]
 fn a_male_figure_is_chosen_on_the_measurements() {
     let mut s = measured();
     assert_eq!(s.execute("measure.info", &json!({})).unwrap()["figure"], json!("female"));
+    // How far forward the body comes above the waist (the OBJ mesh: metres, y up, z to the front).
     let width = |s: &mut Session| {
-        let r = s.execute("avatar.draw", &json!({"origin": [0, 0]})).unwrap();
-        let doc = &s.doc().unwrap().doc;
-        match &doc.node(NodeId(r["side"].as_u64().unwrap())).unwrap().kind {
-            NodeKind::Path { path, .. } => pt_to_mm(path.bounds().unwrap().width()),
-            _ => panic!("a path"),
-        }
+        let r = s.execute("avatar.exportObj", &json!({})).unwrap();
+        let obj = r["obj"].as_str().unwrap().to_string();
+        obj.lines()
+            .filter_map(|l| l.strip_prefix("v "))
+            .map(|l| l.split(' ').filter_map(|x| x.parse::<f64>().ok()).collect::<Vec<_>>())
+            .filter(|v| v.len() == 3 && v[1] > 1.2)
+            .map(|v| v[2] * 1000.0)
+            .fold(f64::NEG_INFINITY, f64::max)
     };
     let woman = width(&mut s);
     let r = s.execute("measure.set", &json!({"figure": "male"})).unwrap();

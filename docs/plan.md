@@ -704,6 +704,18 @@ is built on, plus a pattern mode, the way StitchFoundry adds embroidery:
   more in `pf-core` (a trapezoid's edge particles on its outline, none outside it, the particle
   nearest a point of the slanted side on it), the skirt's test bounds tightened (seams within
   5 mm, stretch under 15%; it hangs 580 to 680 mm, a few per cent long under its weight).
+- 2026-10-26, **PF-10.14**: feet and a floor. Each of the avatar's legs ends in a foot: under the
+  ankle a ring as long as the figure's foot and as broad (ANSUR II: the women's foot 246.3 long
+  for an ankle bone 62.7 up, 3.93 times, 0.376 as broad; the men's 3.72; the children's survey's
+  3.87 to 4.11 by age, 0.39 to 0.41 as broad), a quarter of it behind the ankle, at a fifth of the
+  ankle bone's height, the leg's tube closed under it; and the body pushes the cloth up out of the
+  floor. The drape view, the side silhouette and the glTF and OBJ meshes show the feet. A hem long
+  enough rests on the feet and the floor: the man's trousers (PF-10.12's test body) now sit 54 mm
+  higher (147 below the waist), their hems folded over the feet; the women's trouser block, which
+  ends at the ankle bone, hardly moves (1037). Tests: 2 in `pf-core` (each leg's foot as long and
+  broad as the survey's, forward of the ankle; the floor pushes a point up onto it), the avatar's
+  drawn height and side (down to and forward to the feet), the man's trousers' seams within 20 mm
+  (their folds over the feet).
 - 2026-10-26, **PF-10.13**: a child figure. The measurement set's figure can be **Child**
   (`measure.set {figure: "child"}`, the Measurements panel, in all 23 languages). Its
   proportions come from the U.S. Consumer Product Safety Commission's survey of 3,900 children

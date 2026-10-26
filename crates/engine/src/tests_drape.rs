@@ -308,5 +308,6 @@ fn trousers_stay_on_a_male_figure() {
     let r = s.execute("drape.make", &json!({"precision": 25, "steps": 150, "draw": false})).unwrap();
     let (top, waist) = (r["top"].as_f64().unwrap(), r["waist"].as_f64().unwrap());
     assert!(top > waist - 300.0, "{r}");
-    assert!(r["widestSeam"].as_f64().unwrap() < 15.0, "{r}");
+    // (Their hems fold over the feet, PF-10.14, where the seams open a little more.)
+    assert!(r["widestSeam"].as_f64().unwrap() < 20.0, "{r}");
 }
