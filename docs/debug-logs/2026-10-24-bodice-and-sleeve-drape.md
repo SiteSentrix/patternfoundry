@@ -110,3 +110,21 @@ removed).
    262 + 230 + 262 = 755). ANSUR II (women's means): crotch length from the navel 620.8 mm, the
    navel 198 above the crotch: under the body about 225, as deep as the buttocks (232.9), so the
    avatar's flat bottom is not too deep. Left as a known limit: the cloth doesn't give on the bias.
+
+### Why the trousers sit low: leads ruled out (2026-10-26)
+
+Default precision and steps, the test body; the trousers' top at 1011 for a waist at 1101.
+
+| change | top | tightest | stretch |
+|---|---|---|---|
+| none | 1011 | 76% | 25% |
+| bias (shear links) 0.1 a round instead of 0.6 | 992 | 129% | 46% |
+| bias 0.03 or softer | fell off (top below 0) | | |
+| the crotch as deep as the thighs (ANSUR II: the avatar's crotch from the navel 643 mm for the survey's 620.8; as deep as the thighs, about 600) | 1011 | 77% | 25% |
+| 80 rounds of corrections (40 now) | 1025 | 70% | 29% |
+| 160 rounds | 1031 | 68% | 29% |
+
+A softer bias lets the waistband stretch over the hips; the crotch's depth isn't what pulls them
+down; more rounds help a little (the cloth's numerical give under the whole pair's weight) at
+four times the cost. Nothing kept. Still open: what holds trousers up on a body (the legs'
+friction, the hems on the feet) which the avatar, without a floor or feet, doesn't give.
