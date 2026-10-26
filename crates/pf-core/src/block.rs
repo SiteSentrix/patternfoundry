@@ -239,7 +239,7 @@ fn value(o: &Options, name: &str, default: f64) -> f64 {
 pub enum BlockError {
     /// Measurements the set doesn't have (or that don't work out).
     Missing(Vec<String>),
-    /// Measurements that don't make a bodice (a shoulder too short to reach the armhole line…).
+    /// Measurements that don't make the block (a shoulder too short to reach the armhole line…).
     Impossible(&'static str),
     /// An option the block doesn't have, or out of its range.
     Option(String),
@@ -249,7 +249,7 @@ impl std::fmt::Display for BlockError {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         match self {
             BlockError::Missing(m) => write!(f, "the block needs these measurements: {}", m.join(", ")),
-            BlockError::Impossible(why) => write!(f, "these measurements don't make a bodice: {why}"),
+            BlockError::Impossible(why) => write!(f, "these measurements don't make the block: {why}"),
             BlockError::Option(why) => f.write_str(why),
         }
     }
