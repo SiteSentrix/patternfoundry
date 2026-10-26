@@ -38,7 +38,7 @@ pub const RING_POINTS: usize = 32;
 /// One horizontal cross-section of the body: an ellipse at height `z`, centred at `x` across.
 #[derive(Clone, Copy, Debug, PartialEq)]
 pub struct Ring {
-    /// What it is: "neck", "bust", "waist", "hip", "crotch", "thigh", "knee", "calf", "ankle".
+    /// What it is: "neck", "bust", "waist", "hip", "crotch", "thigh", "knee", "calf", "ankle", "foot".
     pub name: &'static str,
     /// Height above the floor.
     pub z: f64,
@@ -220,6 +220,9 @@ struct Survey {
     /// Of the upper arm round: the forearm, the wrist.
     forearm: f64,
     wrist: f64,
+    /// The foot: its length over the ankle bone's height, its breadth over its length.
+    foot: f64,
+    foot_breadth: f64,
     /// The bust stands forward of the ribcage (the women's).
     bust: bool,
 }
@@ -249,6 +252,8 @@ const WOMEN: Survey = Survey {
     upper_arm: 0.323,
     forearm: 0.864,
     wrist: 0.506,
+    foot: 3.928,
+    foot_breadth: 0.376,
     bust: true,
 };
 
@@ -277,6 +282,8 @@ const MEN: Survey = Survey {
     upper_arm: 0.338,
     forearm: 0.866,
     wrist: 0.491,
+    foot: 3.720,
+    foot_breadth: 0.376,
     bust: false,
 };
 
@@ -326,6 +333,8 @@ const CHILD_BANDS: [(f64, Survey); 8] = [
             upper_arm: 0.311,
             forearm: 0.991,
             wrist: 0.712,
+            foot: 4.106,
+            foot_breadth: 0.410,
             bust: false,
         },
     ),
@@ -357,6 +366,8 @@ const CHILD_BANDS: [(f64, Survey); 8] = [
             upper_arm: 0.304,
             forearm: 0.991,
             wrist: 0.709,
+            foot: 4.080,
+            foot_breadth: 0.400,
             bust: false,
         },
     ),
@@ -388,6 +399,8 @@ const CHILD_BANDS: [(f64, Survey); 8] = [
             upper_arm: 0.300,
             forearm: 0.984,
             wrist: 0.694,
+            foot: 4.059,
+            foot_breadth: 0.393,
             bust: false,
         },
     ),
@@ -419,6 +432,8 @@ const CHILD_BANDS: [(f64, Survey); 8] = [
             upper_arm: 0.301,
             forearm: 0.968,
             wrist: 0.667,
+            foot: 4.068,
+            foot_breadth: 0.386,
             bust: false,
         },
     ),
@@ -450,6 +465,8 @@ const CHILD_BANDS: [(f64, Survey); 8] = [
             upper_arm: 0.301,
             forearm: 0.961,
             wrist: 0.646,
+            foot: 4.065,
+            foot_breadth: 0.384,
             bust: false,
         },
     ),
@@ -481,6 +498,8 @@ const CHILD_BANDS: [(f64, Survey); 8] = [
             upper_arm: 0.302,
             forearm: 0.956,
             wrist: 0.641,
+            foot: 4.023,
+            foot_breadth: 0.386,
             bust: false,
         },
     ),
@@ -512,6 +531,8 @@ const CHILD_BANDS: [(f64, Survey); 8] = [
             upper_arm: 0.304,
             forearm: 0.945,
             wrist: 0.619,
+            foot: 3.929,
+            foot_breadth: 0.387,
             bust: false,
         },
     ),
@@ -543,6 +564,8 @@ const CHILD_BANDS: [(f64, Survey); 8] = [
             upper_arm: 0.306,
             forearm: 0.935,
             wrist: 0.597,
+            foot: 3.868,
+            foot_breadth: 0.388,
             bust: false,
         },
     ),
@@ -586,6 +609,8 @@ fn child_survey(chest: f64) -> Survey {
         upper_arm: mix(a.upper_arm, b.upper_arm),
         forearm: mix(a.forearm, b.forearm),
         wrist: mix(a.wrist, b.wrist),
+        foot: mix(a.foot, b.foot),
+        foot_breadth: mix(a.foot_breadth, b.foot_breadth),
         bust: false,
     }
 }
@@ -710,6 +735,16 @@ pub fn avatar(body: &Body) -> Result<Avatar, AvatarError> {
     // (the thighs meet at the crotch, as they do on many bodies).
     let (hip_a, _) = hip_ring.semi_axes();
     let thigh = ring("thigh", 0.0, 0.0, body.hip * sv.thigh, 0.9).semi_axes().0;
+    // Each foot (PF-10.14): under the ankle a ring as long as the survey's foot (front to back) and
+    // as broad, a quarter of it behind the ankle; low, at a fifth of the ankle bone's height, the
+    // leg closed under it. Garments' hems rest on it, and on the floor.
+    let foot = |x: f64| {
+        let length = ankle_z * sv.foot;
+        let (a, b) = (length * sv.foot_breadth / 2.0, length / 2.0);
+        let mut r = ring("foot", ankle_z * 0.2, x, ellipse_girth(a, b), b / a);
+        r.y = length * 0.25;
+        r
+    };
     let leg = |side: f64| {
         let x = side * (hip_a - thigh).max(thigh * 0.5);
         let calf_z = knee_z - (knee_z - ankle_z) * 0.3;
@@ -718,6 +753,7 @@ pub fn avatar(body: &Body) -> Result<Avatar, AvatarError> {
             ring("knee", knee_z, x, body.hip * sv.knee, 0.95),
             ring("calf", calf_z, x, body.hip * sv.calf, 0.95),
             ring("ankle", ankle_z, x, body.hip * sv.ankle, 0.9),
+            foot(x),
         ]
     };
     let legs = [leg(1.0), leg(-1.0)];
@@ -964,6 +1000,21 @@ mod tests {
         assert_eq!(Figure::parse("child"), Some(Figure::Child));
     }
 
+    /// Feet (PF-10.14): each leg ends in a foot as long as the survey's (its length over the ankle
+    /// bone's height) and as broad, reaching forward of the ankle, low by the floor.
+    #[test]
+    fn each_leg_ends_in_a_foot() {
+        let a = avatar(&body()).unwrap();
+        for leg in &a.legs {
+            let (ankle, foot) = (leg[leg.len() - 2], leg[leg.len() - 1]);
+            assert_eq!((ankle.name, foot.name), ("ankle", "foot"));
+            let (half_breadth, half_length) = foot.semi_axes();
+            assert!((2.0 * half_length - ankle.z * WOMEN.foot).abs() < 1e-6);
+            assert!((half_breadth / half_length - WOMEN.foot_breadth).abs() < 1e-9);
+            assert!(foot.z > 0.0 && foot.z < ankle.z && foot.y > 0.0 && foot.x == ankle.x);
+        }
+    }
+
     /// The bust stands forward of a flat back: under it the ribcage as round as the underbust
     /// (else a B cup's 150 mm less than the bust), the bust's back in line with the ribcage's, its
     /// extra girth to the front.
@@ -987,8 +1038,8 @@ mod tests {
     fn the_mesh_is_closed_and_its_triangles_face_out() {
         let a = avatar(&body()).unwrap();
         let m = &a.mesh;
-        // Five tubes, each its rings' points and two end points.
-        assert_eq!(m.vertices.len(), (7 + 4 + 4 + 5 + 5) * RING_POINTS + 10);
+        // Five tubes, each its rings' points and two end points (each leg down to its foot).
+        assert_eq!(m.vertices.len(), (7 + 5 + 5 + 5 + 5) * RING_POINTS + 10);
         // Closed: every edge is shared by exactly two triangles, once each way.
         let mut edges = std::collections::HashMap::new();
         for t in &m.triangles {

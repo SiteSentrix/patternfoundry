@@ -311,18 +311,20 @@ fn out_of_body(rings: &[Ring], p: [f64; 3], margin: f64) -> [f64; 3] {
 }
 
 impl Collider for Avatar {
-    /// Out of the torso, either leg and either arm, along the surface as the rings shape it, 2 mm
-    /// clear (the cloth's thickness and a little air).
+    /// Out of the torso, either leg and either arm, along the surface as the rings shape it, and out
+    /// of the floor, 2 mm clear (the cloth's thickness and a little air).
     fn push_out(&self, p: [f64; 3]) -> [f64; 3] {
         const MARGIN: f64 = 2.0;
         // Where two parts meet (the arm and the side of the chest at the armpit) pushing out of one
         // can push into the other: again until out of both (a few times at most).
-        let mut q = p;
+        // And up out of the floor (PF-10.14): a hem long enough rests on it.
+        let mut q = [p[0], p[1], p[2].max(MARGIN)];
         for _ in 0..4 {
             let before = q;
             for rings in self.chains() {
                 q = out_of_body(rings, q, MARGIN);
             }
+            q[2] = q[2].max(MARGIN);
             if q == before {
                 break;
             }
@@ -678,6 +680,22 @@ mod tests {
         fn push_out(&self, p: [f64; 3]) -> [f64; 3] {
             out_of(p, (0.0, 0.0), self.0, self.0, 0.0)
         }
+    }
+
+    /// The avatar's floor (PF-10.14): a point below it comes up onto it, 2 mm clear.
+    #[test]
+    fn the_floor_holds_the_cloth_up() {
+        let a = crate::avatar::avatar(&crate::avatar::Body {
+            bust: 880.0,
+            waist: 680.0,
+            hip: 960.0,
+            nape_to_waist: 410.0,
+            waist_to_hip: 200.0,
+            ..Default::default()
+        })
+        .unwrap();
+        assert_eq!(a.push_out([500.0, 0.0, -30.0]), [500.0, 0.0, 2.0]);
+        assert_eq!(a.push_out([500.0, 0.0, 30.0]), [500.0, 0.0, 30.0]);
     }
 
     #[test]
