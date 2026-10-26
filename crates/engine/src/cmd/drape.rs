@@ -284,6 +284,9 @@ impl Setup {
             let at = (k - start).min(length);
             self.cloth.gravity = if at < length || (staged && k < body_part + setting && k >= body_part) { 0.0 } else { 1.0 };
             self.cloth.seam_pull = 0.5 * (0.01f64).powf(1.0 - at as f64 / length as f64);
+            // Slippery while it is sewn up, so the pieces slide into place; gripping the body once
+            // it hangs.
+            self.cloth.grip = if self.cloth.gravity == 0.0 { 0.0 } else { pf_core::cloth::GRIP };
             for _ in 0..4 {
                 self.cloth.step(1.0 / 240.0, self.iterations, &self.avatar);
             }
@@ -724,6 +727,14 @@ pub fn setup(s: &Session, p: &Value) -> Result<Setup> {
     // cloth gets softer the more particles there are), never fewer: fewer let a ring of cloth
     // stretch round the hips and slide off (at ten, a skirt that fits fell to the floor; at 26,
     // the 25 mm cloth of a pair of trousers, as heavy as two skirts, slid down the legs).
+    // Skirts and trousers, which hang from the waist, grip the body; a bodice and sleeves hang
+    // from the shoulders, and gripping pinched them in the armpit (the tightest place 261% → 794%).
+    for (c, copy) in copies.iter().enumerate() {
+        if matches!(role(c), Role::Upper | Role::Arm) {
+            let start = cloth.starts[c] as usize;
+            cloth.gripping[start..start + copy.panel.points.len()].fill(false);
+        }
+    }
     let iterations = (40.0 * (20.0 / step).powi(2)).round().max(40.0) as usize;
     let darts = seams.iter().filter(|s| s.ordered).count();
     let sleeves: Vec<u32> = (0..copies.len())

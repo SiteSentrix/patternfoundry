@@ -357,11 +357,20 @@ pub struct Cloth {
     /// <https://matthias-research.github.io/pages/publications/sca2012cloth.pdf>), so cloth that
     /// hangs doesn't stretch however few the iterations.
     tethers: Vec<(u32, u32, f64)>,
-    /// Particles the body pushed this step (for friction).
-    touching: Vec<bool>,
+    /// How far the body has pushed each particle out this step, every round's push together (for
+    /// friction; 0: it hasn't touched).
+    pushed: Vec<f64>,
+    /// Which particles grip the body (all unless the drape says not: a bodice and sleeves, which
+    /// hang from the shoulders, pinch in the armpit if they grip).
+    pub gripping: Vec<bool>,
     /// How much of its sliding a particle touching the body loses each step ([`FRICTION`]; 0
     /// while a garment is being put on, so it slides into place).
     pub friction: f64,
+    /// Cloth on skin's friction coefficient ([`GRIP`]): a particle the body pushes out stays put
+    /// across the body's surface while it would slide less than this times how far it was pushed
+    /// (static friction), and slides less by [`SLIP`] of it when it does (0 while a garment is put
+    /// on, as `friction`).
+    pub grip: f64,
     /// How hard the seams pull each round of corrections (0.5: they meet; less while the garment
     /// is being sewn up, so its pieces come together gently rather than all at once).
     pub seam_pull: f64,
@@ -373,6 +382,16 @@ pub struct Cloth {
 /// How much of its sliding a particle touching the body loses each step (cloth on skin, or on
 /// the cloth under it: it grips).
 pub const FRICTION: f64 = 0.8;
+
+/// Cloth on dry skin's coefficient of friction: "typically around 0.5", never below 0.2 (Derler
+/// and Gerhardt, "Tribology of Skin: Review and Analysis of Experimental Results for the Friction
+/// Coefficient of Human Skin", Tribology Letters 45, 2012,
+/// <https://doc.rero.ch/record/315296/files/11249_2011_Article_9854.pdf>). Without it the cloth
+/// only slid slower where it touched, never stuck: trousers with a waist 18% less than the hips
+/// crept down off them.
+pub const GRIP: f64 = 0.5;
+/// Sliding friction over static (chosen: a little less, as for most materials).
+pub const SLIP: f64 = 0.8;
 
 impl Cloth {
     /// Cloth of `panels`, each placed in 3D by its function from a point on the pattern to a
@@ -389,8 +408,10 @@ impl Cloth {
             triangles: Vec::new(),
             pattern: Vec::new(),
             tethers: Vec::new(),
-            touching: Vec::new(),
+            pushed: Vec::new(),
+            gripping: Vec::new(),
             friction: FRICTION,
+            grip: GRIP,
             seam_pull: 0.5,
             gravity: 1.0,
         };
@@ -411,7 +432,8 @@ impl Cloth {
             c.triangles.extend(panel.triangles.iter().map(|t| t.map(|i| i + start)));
         }
         c.previous = c.positions.clone();
-        c.touching = vec![false; c.positions.len()];
+        c.pushed = vec![0.0; c.positions.len()];
+        c.gripping = vec![true; c.positions.len()];
         c
     }
 
@@ -479,23 +501,50 @@ impl Cloth {
             }
             for i in 0..self.positions.len() {
                 if self.weight[i] > 0.0 {
-                    let q = body.push_out(self.positions[i]);
-                    if q != self.positions[i] {
-                        self.touching[i] = true;
+                    let (p, q) = (self.positions[i], body.push_out(self.positions[i]));
+                    if q != p {
+                        self.positions[i] = self.gripped(i, p, q);
                     }
-                    self.positions[i] = q;
                 }
             }
         }
         // Friction: cloth that touched the body keeps only a little of how it was sliding (its
         // previous place moved most of the way to where it is now).
         for i in 0..self.positions.len() {
-            if std::mem::take(&mut self.touching[i]) {
+            if std::mem::take(&mut self.pushed[i]) > 0.0 {
                 let (p, q) = (self.positions[i], self.previous[i]);
                 let f = self.friction;
                 self.previous[i] = [q[0] + (p[0] - q[0]) * f, q[1] + (p[1] - q[1]) * f, q[2] + (p[2] - q[2]) * f];
             }
         }
+    }
+
+    /// Particle `i` pushed out of the body from `p` to `q`, with static friction (Macklin, Müller,
+    /// Chentanez and Kim, "Unified Particle Physics for Real-Time Applications", SIGGRAPH 2014,
+    /// section 6.1, <https://mmacklin.com/uppfrta_preprint.pdf>): its move this step across the
+    /// body's surface (square to the push) undone while it is less than `grip` times how far it has
+    /// been pushed out this step (it sticks), else cut by [`SLIP`] of that. Within each round of
+    /// corrections, as the paper does (once after them all, it undid the links' corrections and
+    /// tore the cloth where it stuck); against the push of all the rounds so far, not just this
+    /// one's (later rounds push only a little: with 160 rounds instead of 40 the cloth hardly
+    /// gripped, and a pair of trousers slid off).
+    fn gripped(&mut self, i: usize, p: [f64; 3], q: [f64; 3]) -> [f64; 3] {
+        let push = [q[0] - p[0], q[1] - p[1], q[2] - p[2]];
+        let step = (push[0] * push[0] + push[1] * push[1] + push[2] * push[2]).sqrt();
+        self.pushed[i] += step;
+        let depth = self.pushed[i];
+        if self.grip <= 0.0 || step < 1e-12 || !self.gripping[i] {
+            return q;
+        }
+        let n = [push[0] / step, push[1] / step, push[2] / step];
+        let start = self.previous[i];
+        let moved = [q[0] - start[0], q[1] - start[1], q[2] - start[2]];
+        let along = moved[0] * n[0] + moved[1] * n[1] + moved[2] * n[2];
+        let across = [moved[0] - along * n[0], moved[1] - along * n[1], moved[2] - along * n[2]];
+        let slide = (across[0] * across[0] + across[1] * across[1] + across[2] * across[2]).sqrt();
+        let undo = if slide < self.grip * depth { 1.0 } else { (self.grip * SLIP * depth / slide.max(1e-12)).min(1.0) };
+        // (On a curved surface that may leave it a little inside: the next round pushes it out.)
+        [q[0] - across[0] * undo, q[1] - across[1] * undo, q[2] - across[2] * undo]
     }
 
     /// How much the most stretched link is longer than it was cut, as a share (0.02: 2%).

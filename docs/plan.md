@@ -704,6 +704,20 @@ is built on, plus a pattern mode, the way StitchFoundry adds embroidery:
   more in `pf-core` (a trapezoid's edge particles on its outline, none outside it, the particle
   nearest a point of the slanted side on it), the skirt's test bounds tightened (seams within
   5 mm, stretch under 15%; it hangs 580 to 680 mm, a few per cent long under its weight).
+- 2026-10-26, **PF-10.12**: the cloth grips the body. Where the body pushes the cloth out, its
+  move across the body's surface is undone while it is less than 0.5 times how far it was pushed
+  (static friction), and cut by 0.4 times that when it slides (Macklin, Müller, Chentanez and Kim,
+  "Unified Particle Physics for Real-Time Applications", SIGGRAPH 2014, section 6.1; 0.5 is dry
+  skin's "typically around 0.5" in Derler and Gerhardt's review of skin friction, Tribology
+  Letters 45, 2012). Before, the cloth only slid slower where it touched and never stuck: trousers
+  for a man (a waist 790, hips 1000) crept down off his hips to the floor. Only skirts and
+  trousers grip (they hang from the waist); bodices and sleeves hang from the shoulders, and
+  gripping pinched them in the armpit (the tightest place 253% → 794%); nothing grips while a
+  garment is being sewn up round the body, so its pieces slide into place. On the test bodies:
+  the trouser block now sits 66 mm below the waist (was 90); the man's trousers stay on, about
+  200 mm low, on his hips (the waistband 22% stretched); a skirt with 40 mm of ease sits about
+  at the waist, its loose rim up to 11 mm above it. Tests: 1 in `tests_drape.rs` (the man's
+  trousers stay on), the skirt's bound loosened from 10 to 15 mm above the waist.
 - 2026-10-26, **PF-10.11**: a male figure. A measurement set has a figure, female (the default)
   or male (`measure.set {figure}`, **Figure** in the Measurements panel, kept in the document and
   in My Measurements; in all 23 languages). It chooses whose proportions the avatar fills in what

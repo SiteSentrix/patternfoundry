@@ -33,10 +33,11 @@ fn a_skirt_drapes_on_the_avatar_resting_at_the_waist() {
     let r = s.execute("drape.make", &json!({"precision": 20, "steps": 120})).unwrap();
     assert_eq!(r["pieces"], json!(2), "{r}");
     let (top, hem, waist) = (r["top"].as_f64().unwrap(), r["hem"].as_f64().unwrap(), r["waist"].as_f64().unwrap());
-    // 720 round at its waist, it settles a little below the body's 680 waist, where the body is
-    // as big round, and hangs its 600 mm from there (it doesn't slide off), a few per cent longer
-    // under its own weight; its side seams closed, its edges on the seam lines.
-    assert!(top < waist + 10.0 && top > waist - 60.0, "{r}");
+    // 720 round at its waist, it settles about at the body's 680 waist (gripping the hips,
+    // PF-10.11, its loose rim may stand a little above it) and hangs its 600 mm from there (it
+    // doesn't slide off), a few per cent longer under its own weight; its side seams closed, its
+    // edges on the seam lines.
+    assert!(top < waist + 15.0 && top > waist - 60.0, "{r}");
     assert!((580.0..680.0).contains(&(top - hem)), "{r}");
     assert!(r["widestSeam"].as_f64().unwrap() < 5.0, "{r}");
     assert!(r["worstStretch"].as_f64().unwrap() < 15.0, "{r}");
@@ -218,10 +219,14 @@ fn sleeves_drape_round_the_arms() {
 /// The trouser block (front and back, each cut as a mirror-image pair) sewn at the side seams and
 /// inseams, and its centre front and centre back each to its mirror (PF-10.10).
 fn trousers() -> Session {
+    trousers_for(json!({"values": {"bust": 880, "waist": 700, "hip": 960, "nape_to_waist": 410, "waist_to_hip": 200, "crotch_depth": 260,
+        "waist_to_knee": 600, "waist_to_ankle": 1040, "trouser_hem": 460}}))
+}
+
+/// [`trousers`] drafted from measurement set `m` (`measure.set`'s params).
+fn trousers_for(m: serde_json::Value) -> Session {
     let mut s = Session::new();
     s.execute("file.new", &json!({"width": 3370, "height": 2384})).unwrap();
-    let m = json!({"values": {"bust": 880, "waist": 700, "hip": 960, "nape_to_waist": 410, "waist_to_hip": 200, "crotch_depth": 260,
-        "waist_to_knee": 600, "waist_to_ankle": 1040, "trouser_hem": 460}});
     s.execute("measure.set", &m).unwrap();
     s.execute("block.trousers", &json!({})).unwrap();
     let mut ids = Vec::new();
@@ -258,7 +263,7 @@ fn trousers_drape_down_both_legs() {
     assert_eq!(r["darts"], json!(2), "{r}");
     let (top, hem, waist) = (r["top"].as_f64().unwrap(), r["hem"].as_f64().unwrap(), r["waist"].as_f64().unwrap());
     // On the hips, below the waist (their crotch seam, 657 mm, is shorter than the avatar's
-    // crotch, about 755: they sit about 85 mm low), down past the ankles; the seams closed.
+    // crotch, about 755: they sit about 65 mm low), down past the ankles; the seams closed.
     assert!(top > waist - 120.0 && top < waist + 60.0, "{r}");
     assert!(hem < waist - 900.0, "{r}");
     assert!(r["widestSeam"].as_f64().unwrap() < 15.0, "{r}");
@@ -291,4 +296,17 @@ fn a_centre_seam_needs_a_mirror_image_pair() {
     assert!(t.execute("piece.sew", &same).unwrap_err().to_string().contains("same run"));
     t.execute("piece.set", &json!({"id": id, "cut": 2, "mirror": true})).unwrap();
     assert!(t.execute("piece.sew", &same).is_ok());
+}
+
+/// Cloth grips the body (PF-10.11, static friction): trousers for a man, whose waist is only 21%
+/// less round than his hips, stay on him (with the cloth only slowed where it touched, they crept
+/// down off the hips to the floor).
+#[test]
+fn trousers_stay_on_a_male_figure() {
+    let mut s = trousers_for(json!({"figure": "male", "values": {"bust": 1000, "waist": 790, "hip": 1000, "nape_to_waist": 470, "waist_to_hip": 190,
+        "crotch_depth": 270, "waist_to_knee": 620, "waist_to_ankle": 1080, "trouser_hem": 480}}));
+    let r = s.execute("drape.make", &json!({"precision": 25, "steps": 150, "draw": false})).unwrap();
+    let (top, waist) = (r["top"].as_f64().unwrap(), r["waist"].as_f64().unwrap());
+    assert!(top > waist - 300.0, "{r}");
+    assert!(r["widestSeam"].as_f64().unwrap() < 15.0, "{r}");
 }
