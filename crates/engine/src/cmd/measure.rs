@@ -28,7 +28,7 @@ pub fn specs() -> Vec<CommandSpec> {
             "Set Measurements",
             [],
             None,
-            "{name?, values?: {\"<name>\": mm (or a length with its unit, \"35 in\") | null (remove)}, formulas?: {\"<name>\": \"expression over the measurements, in mm\" | null}, share?: bool (let exported files' embedded copies keep the values; default false)} change the document's measurement set (names: letters, digits and _, starting with a letter) → measure.info",
+            "{name?, values?: {\"<name>\": mm (or a length with its unit, \"35 in\") | null (remove)}, formulas?: {\"<name>\": \"expression over the measurements, in mm\" | null}, share?: bool (let exported files' embedded copies keep the values; default false), figure?: female|male (whose proportions the avatar fills in the rest from, ANSUR II's women's or men's; default female)} change the document's measurement set (names: letters, digits and _, starting with a letter) → measure.info",
             has_doc,
             set
         ),
@@ -37,7 +37,7 @@ pub fn specs() -> Vec<CommandSpec> {
             "Measurements",
             [],
             None,
-            "{} → {name, values: {name: mm}, formulas: {name: text}, computed: {name: mm}, errors: {name: why}, size, share, chart: {name, columns, sizes} | null}",
+            "{} → {name, values: {name: mm}, formulas: {name: text}, computed: {name: mm}, errors: {name: why}, size, share, figure: female|male, chart: {name, columns, sizes} | null}",
             has_doc,
             info
         ),
@@ -177,7 +177,7 @@ fn info_of(doc: &Document) -> Value {
     let chart = doc.size_chart.as_deref().map(|c| json!({"name": c.name, "columns": c.columns, "sizes": c.size_names()}));
     json!({
         "name": m.name, "values": m.values, "formulas": m.formulas, "computed": computed, "errors": errors,
-        "size": m.size, "share": m.share, "chart": chart,
+        "size": m.size, "share": m.share, "figure": m.figure.name(), "chart": chart,
     })
 }
 
@@ -219,6 +219,9 @@ fn set(s: &mut Session, p: &Value) -> Result<Value> {
     }
     if let Some(v) = p.get("share") {
         m.share = v.as_bool().ok_or_else(|| bad(CMD, "share is true or false"))?;
+    }
+    if let Some(v) = p.get("figure") {
+        m.figure = v.as_str().and_then(pf_core::avatar::Figure::parse).ok_or_else(|| bad(CMD, "figure is \"female\" or \"male\""))?;
     }
     s.edit("Set Measurements", |d, _| {
         d.measurements = Some(Box::new(m));

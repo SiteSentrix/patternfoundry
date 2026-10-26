@@ -4820,6 +4820,10 @@ lighting	Light	광원
 	Set Measurements	치수 설정
 	Set Point Formula	점 수식 설정
 	Share in exported files	내보낸 파일에서 공유
+	Figure	체형
+	Female	여성
+	Male	남성
+	The avatar takes what the measurements don't give from a survey's women's or men's proportions	치수에 없는 부분은 조사의 여성 또는 남성 비율로 아바타가 채웁니다
 	Size chart	사이즈표
 	Use Size	사이즈 사용
 # PatternFoundry: blocks (PF-4).

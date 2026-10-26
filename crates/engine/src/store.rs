@@ -63,7 +63,12 @@ struct MeasurementsFile {
 /// A set read from a file, made again through the same checks `measure.set` makes: names,
 /// lengths and formulas a set can hold, nothing else; never shared.
 fn rebuilt(raw: pf_core::measure::Measurements) -> Option<pf_core::measure::Measurements> {
-    let mut m = pf_core::measure::Measurements { name: raw.name.trim().chars().take(200).collect(), size: raw.size, ..Default::default() };
+    let mut m = pf_core::measure::Measurements {
+        name: raw.name.trim().chars().take(200).collect(),
+        size: raw.size,
+        figure: raw.figure,
+        ..Default::default()
+    };
     for (k, v) in &raw.values {
         m.set_value(k, Some(*v)).ok()?;
     }

@@ -704,6 +704,23 @@ is built on, plus a pattern mode, the way StitchFoundry adds embroidery:
   more in `pf-core` (a trapezoid's edge particles on its outline, none outside it, the particle
   nearest a point of the slanted side on it), the skirt's test bounds tightened (seams within
   5 mm, stretch under 15%; it hangs 580 to 680 mm, a few per cent long under its weight).
+- 2026-10-26, **PF-10.11**: a male figure. A measurement set has a figure, female (the default)
+  or male (`measure.set {figure}`, **Figure** in the Measurements panel, kept in the document and
+  in My Measurements; in all 23 languages). It chooses whose proportions the avatar fills in what
+  the measurements don't give: ANSUR II's 1,986 women's (as before) or its 4,082 men's, their
+  means computed from the same public data the same way (the women's reproduce the constants
+  already there): the chest 0.877 as deep as broad (women 0.918), the waist 0.728, the hips
+  0.711; the shoulders 0.393 of the chest across and 0.503 as deep; the thigh 0.613 of the hips,
+  the knee 0.401, the calf 0.385, the ankle 0.225; the neck 0.410 of the chest, the upper arm
+  0.338, the forearm 0.866 and the wrist 0.491 of it; all the landmark heights (the waist at the
+  navel 1056.5 above the floor, the cervicale 1517.3, the crotch 845.9…), the arm 593.1 long, the
+  elbow 335.2 down it. A male figure has no bust standing forward and no underbust ring: its
+  chest (the `bust` measurement, taken round the chest) is one elliptic ring. The blocks are
+  still the women's (Aldrich's bodice, a women's trouser block: a man's waist close to his hips is
+  refused by the trouser block's "the waist is wider than the hips with ease"). Tests: 1 in
+  `pf-core` (no underbust, the chest's depth, the shoulders from the men's share, the mesh), 1 in
+  `tests_avatar.rs` (the figure chosen on the measurements makes the side view shallower, kept,
+  undone, a wrong figure refused). Not yet: men's blocks.
 - 2026-10-26, **PF-10.10**: trousers on the avatar. **Pattern › Drape on Avatar** drapes the
   trouser block (or pieces named trousers, pants or shorts): a front and a back, each cut as a
   mirror-image pair, sewn at the side seams and inseams. The centre front and centre back are a

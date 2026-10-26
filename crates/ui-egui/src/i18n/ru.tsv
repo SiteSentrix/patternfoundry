@@ -4853,6 +4853,10 @@ lighting	Light	Свет
 	Set Measurements	Задать мерки
 	Set Point Formula	Задать формулу точки
 	Share in exported files	Делиться в экспортированных файлах
+	Figure	Фигура
+	Female	Женская
+	Male	Мужская
+	The avatar takes what the measurements don't give from a survey's women's or men's proportions	Аватар берёт то, чего нет в мерках, из пропорций женщин или мужчин в исследовании
 	Size chart	Таблица размеров
 	Use Size	Использовать размер
 # PatternFoundry: blocks (PF-4).

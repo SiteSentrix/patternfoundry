@@ -5206,6 +5206,10 @@ mark-style	Japanese	Japanilainen
 	Set Measurements	Aseta mitat
 	Set Point Formula	Aseta pistekaava
 	Share in exported files	Jaa vietyihin tiedostoihin
+	Figure	Vartalo
+	Female	Nainen
+	Male	Mies
+	The avatar takes what the measurements don't give from a survey's women's or men's proportions	Avatar ottaa sen, mitä mitat eivät kerro, tutkimuksen naisten tai miesten mittasuhteista
 	Size chart	Kokotaulukko
 	Use Size	Käytä kokoa
 # PatternFoundry: blocks (PF-4).

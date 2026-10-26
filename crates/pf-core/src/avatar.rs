@@ -21,6 +21,10 @@
 //! arm 543.6 from the shoulder to the wrist (sleeve outseam), the elbow 311.2 down it
 //! (acromion–radiale); the upper arm (biceps) 0.323 of the chest round, the forearm 0.864 of the
 //! upper arm and the wrist 0.506 (the means of the survey's women, computed from its public data).
+//! A male figure ([`Figure::Male`], PF-10.11) takes the same proportions from the survey's 4,082
+//! men instead (in [`MEN`]: a chest 0.877 as deep as broad, hips 0.711, broader shoulders, longer
+//! arms, all heights taller), and has no bust standing forward: its chest (the `bust`
+//! measurement, taken round the chest) is one elliptic ring.
 //! All lengths are in mm, x across the body (to its left), y to its front, z up from the
 //! floor.
 
@@ -93,6 +97,8 @@ pub struct Body {
     pub armscye_depth: Option<f64>,
     /// Round the ribcage just under the bust (a bra's band).
     pub underbust: Option<f64>,
+    /// Whose proportions fill in the rest.
+    pub figure: Figure,
 }
 
 /// The measurements an avatar needs: (name, what it is).
@@ -146,22 +152,130 @@ pub struct Avatar {
     pub neck_height: f64,
 }
 
-// ANSUR II female means (mm), the proportions in the module docs.
-const WAIST_HEIGHT: f64 = 980.0;
-const CHEST_HEIGHT: f64 = 1172.0;
-const CERVICALE_HEIGHT: f64 = 1396.0;
-const CROTCH_HEIGHT: f64 = 782.0;
-const BUTTOCK_HEIGHT: f64 = 834.0;
-const KNEE_HEIGHT: f64 = 449.0;
-const ANKLE_HEIGHT: f64 = 63.0;
-const ACROMIAL_HEIGHT: f64 = 1335.1;
+/// Whose proportions the avatar takes where the measurements don't say: ANSUR II's women's or
+/// men's.
+#[derive(Clone, Copy, Debug, Default, PartialEq, Eq, serde::Serialize, serde::Deserialize)]
+#[serde(rename_all = "lowercase")]
+pub enum Figure {
+    #[default]
+    Female,
+    Male,
+}
+
+impl Figure {
+    /// Its name in `measure.set` ("female", "male").
+    pub fn name(self) -> &'static str {
+        match self {
+            Figure::Female => "female",
+            Figure::Male => "male",
+        }
+    }
+
+    pub fn parse(s: &str) -> Option<Figure> {
+        match s {
+            "female" => Some(Figure::Female),
+            "male" => Some(Figure::Male),
+            _ => None,
+        }
+    }
+}
+
+/// A figure's ANSUR II means (mm) and proportions: those in the module docs for the women; the
+/// men's (4,082 of them) computed the same way from the same public data.
+struct Survey {
+    waist_height: f64,
+    chest_height: f64,
+    cervicale_height: f64,
+    crotch_height: f64,
+    buttock_height: f64,
+    knee_height: f64,
+    ankle_height: f64,
+    acromial_height: f64,
+    axilla_height: f64,
+    sleeve_outseam: f64,
+    shoulder_to_elbow: f64,
+    /// Depth over breadth: the chest, the waist, the hips (buttock depth over hip breadth), the
+    /// shoulders (from their girth over the deltoids, over the half breadth at the shoulder points).
+    chest_depth: f64,
+    waist_depth: f64,
+    hip_depth: f64,
+    shoulder_depth: f64,
+    /// Of the hips round: the thigh, the knee (lower thigh), the calf, the ankle.
+    thigh: f64,
+    knee: f64,
+    calf: f64,
+    ankle: f64,
+    /// Of the chest round: the base of the neck, the shoulders' breadth, the upper arm (biceps).
+    neck: f64,
+    shoulders: f64,
+    upper_arm: f64,
+    /// Of the upper arm round: the forearm, the wrist.
+    forearm: f64,
+    wrist: f64,
+    /// The bust stands forward of the ribcage (the women's).
+    bust: bool,
+}
+
+const WOMEN: Survey = Survey {
+    waist_height: 980.0,
+    chest_height: 1172.0,
+    cervicale_height: 1396.0,
+    crotch_height: 782.0,
+    buttock_height: 834.0,
+    knee_height: 449.0,
+    ankle_height: 63.0,
+    acromial_height: 1335.1,
+    axilla_height: 1239.0,
+    sleeve_outseam: 543.6,
+    shoulder_to_elbow: 311.2,
+    chest_depth: 0.918,
+    waist_depth: 0.709,
+    hip_depth: 0.658,
+    shoulder_depth: 0.476,
+    thigh: 0.603,
+    knee: 0.392,
+    calf: 0.366,
+    ankle: 0.212,
+    neck: 0.394,
+    shoulders: 0.386,
+    upper_arm: 0.323,
+    forearm: 0.864,
+    wrist: 0.506,
+    bust: true,
+};
+
+const MEN: Survey = Survey {
+    waist_height: 1056.5,
+    chest_height: 1291.1,
+    cervicale_height: 1517.3,
+    crotch_height: 845.9,
+    buttock_height: 887.9,
+    knee_height: 488.4,
+    ankle_height: 72.9,
+    acromial_height: 1440.7,
+    axilla_height: 1329.1,
+    sleeve_outseam: 593.1,
+    shoulder_to_elbow: 335.2,
+    chest_depth: 0.877,
+    waist_depth: 0.728,
+    hip_depth: 0.711,
+    shoulder_depth: 0.503,
+    thigh: 0.613,
+    knee: 0.401,
+    calf: 0.385,
+    ankle: 0.225,
+    neck: 0.410,
+    shoulders: 0.393,
+    upper_arm: 0.338,
+    forearm: 0.866,
+    wrist: 0.491,
+    bust: false,
+};
+
 /// The height from the waist to the cervicale over the length down the back between them
-/// (cervicale height less waist height, 415.5, over the waist back length, 425.4).
+/// (cervicale height less waist height, 415.5, over the waist back length, 425.4; the men's
+/// 460.8 over 477.6, the same to within 0.3%).
 pub const BACK_RISE: f64 = 415.5 / 425.4;
-const AXILLA_HEIGHT: f64 = 1239.0;
-const CERVICALE: f64 = 1395.7;
-const SLEEVE_OUTSEAM: f64 = 543.6;
-const SHOULDER_TO_ELBOW: f64 = 311.2;
 /// How far out from straight down the arms hang (an A pose).
 /// A B cup's bust over underbust (EN 13402-3: 14 to 16 cm), when the set has no underbust.
 const B_CUP: f64 = 150.0;
@@ -206,26 +320,30 @@ pub fn avatar(body: &Body) -> Result<Avatar, AvatarError> {
     }
     // The body's scale along its length: the nape to the waist against the survey's.
     // The nape to the waist is measured down the curve of the back: its height is a little less.
+    let sv = match body.figure {
+        Figure::Female => &WOMEN,
+        Figure::Male => &MEN,
+    };
     let rise = body.nape_to_waist * BACK_RISE;
-    let s = rise / (CERVICALE_HEIGHT - WAIST_HEIGHT);
+    let s = rise / (sv.cervicale_height - sv.waist_height);
     let waist_z = match body.waist_to_ankle {
-        Some(w) => w + ANKLE_HEIGHT * s,
-        None => WAIST_HEIGHT * s,
+        Some(w) => w + sv.ankle_height * s,
+        None => sv.waist_height * s,
     };
     // Without a crotch depth, the crotch the survey's way below the fullest part of the hips (its
     // waist is the navel's, lower than a dressmaker's natural waist, so not from the waist).
     let crotch_z = match body.crotch_depth {
         Some(c) => waist_z - c,
-        None => waist_z - body.waist_to_hip - (BUTTOCK_HEIGHT - CROTCH_HEIGHT) * s,
+        None => waist_z - body.waist_to_hip - (sv.buttock_height - sv.crotch_height) * s,
     };
     let knee_z = match body.waist_to_knee {
         Some(k) => waist_z - k,
-        None => KNEE_HEIGHT * (crotch_z / CROTCH_HEIGHT),
+        None => sv.knee_height * (crotch_z / sv.crotch_height),
     };
-    let ankle_z = ANKLE_HEIGHT * s;
+    let ankle_z = sv.ankle_height * s;
     let hip_z = waist_z - body.waist_to_hip;
     let neck_z = waist_z + rise;
-    let bust_z = waist_z + (CHEST_HEIGHT - WAIST_HEIGHT) * s;
+    let bust_z = waist_z + (sv.chest_height - sv.waist_height) * s;
     if hip_z <= crotch_z + 10.0 {
         return Err(AvatarError::Order("the hips are at or below the crotch: waist_to_hip is less than crotch_depth"));
     }
@@ -233,55 +351,55 @@ pub fn avatar(body: &Body) -> Result<Avatar, AvatarError> {
         return Err(AvatarError::Order("the crotch, knee and ankle don't go down the leg in order"));
     }
     let ring = |name, z, x, girth, depth_ratio| Ring { name, z, x, y: 0.0, girth, depth_ratio };
-    let neck = body.neck.unwrap_or(body.bust * 0.394);
+    let neck = body.neck.unwrap_or(body.bust * sv.neck);
     // The shoulders: as broad as two shoulder lengths and the neck across, else the survey's share
     // of the chest; as deep as the survey's.
-    let shoulder_z = neck_z - (CERVICALE - ACROMIAL_HEIGHT) * s;
+    let shoulder_z = neck_z - (sv.cervicale_height - sv.acromial_height) * s;
     // The armpits as deep below the nape as measured (a bodice's underarm is drafted there),
     // else the survey's.
     let axilla_z = match body.armscye_depth {
         Some(d) if d > 0.0 => neck_z - d * BACK_RISE,
-        _ => neck_z - (CERVICALE - AXILLA_HEIGHT) * s,
+        _ => neck_z - (sv.cervicale_height - sv.axilla_height) * s,
     };
     let breadth = match body.shoulder {
         Some(l) if l > 0.0 => 2.0 * l + neck / PI,
-        _ => body.bust * 0.386,
+        _ => body.bust * sv.shoulders,
     };
-    let shoulder_ring = ring("shoulder", shoulder_z, 0.0, ellipse_girth(breadth / 2.0, breadth / 2.0 * 0.476), 0.476);
+    let shoulder_ring = ring("shoulder", shoulder_z, 0.0, ellipse_girth(breadth / 2.0, breadth / 2.0 * sv.shoulder_depth), sv.shoulder_depth);
     // The bust: the ribcage under it as round as the underbust (else a B cup's, EN 13402-3: the
     // bust 14 to 16 cm more round), the back flat from the underbust up to the bust, the bust's
     // girth more than the ribcage's standing forward.
+    // A man's chest (the `bust` measurement, round the chest) has none: one elliptic ring.
     let underbust = body.underbust.filter(|u| *u > 0.0 && *u < body.bust).unwrap_or((body.bust - B_CUP).max(body.bust * 0.75));
     let under = ring("underbust", bust_z - UNDERBUST_DROP * s, 0.0, underbust, UNDERBUST_DEPTH);
-    let mut bust_ring = ring("bust", bust_z, 0.0, body.bust, 0.918);
-    bust_ring.y = bust_ring.semi_axes().1 - under.semi_axes().1;
+    let mut bust_ring = ring("bust", bust_z, 0.0, body.bust, sv.chest_depth);
+    if sv.bust {
+        bust_ring.y = bust_ring.semi_axes().1 - under.semi_axes().1;
+    }
     // The torso: the hips' girth carried on to the crotch, a little in, where the legs part.
-    let torso = vec![
-        ring("neck", neck_z, 0.0, neck, 1.0),
-        shoulder_ring,
-        bust_ring,
-        under,
-        ring("waist", waist_z, 0.0, body.waist, 0.709),
-        ring("hip", hip_z, 0.0, body.hip, 0.658),
-        ring("crotch", crotch_z, 0.0, body.hip * 0.96, 0.658),
-    ];
+    let mut torso = vec![ring("neck", neck_z, 0.0, neck, 1.0), shoulder_ring, bust_ring];
+    if sv.bust {
+        torso.push(under);
+    }
+    let hip_ring = ring("hip", hip_z, 0.0, body.hip, sv.hip_depth);
+    torso.extend([ring("waist", waist_z, 0.0, body.waist, sv.waist_depth), hip_ring, ring("crotch", crotch_z, 0.0, body.hip * 0.96, sv.hip_depth)]);
     // Each leg: its thigh just below the crotch, its outside in line with the side of the hips
     // (the thighs meet at the crotch, as they do on many bodies).
-    let (hip_a, _) = torso[5].semi_axes();
-    let thigh = ring("thigh", 0.0, 0.0, body.hip * 0.603, 0.9).semi_axes().0;
+    let (hip_a, _) = hip_ring.semi_axes();
+    let thigh = ring("thigh", 0.0, 0.0, body.hip * sv.thigh, 0.9).semi_axes().0;
     let leg = |side: f64| {
         let x = side * (hip_a - thigh).max(thigh * 0.5);
         let calf_z = knee_z - (knee_z - ankle_z) * 0.3;
         vec![
-            ring("thigh", crotch_z - 10.0, x, body.hip * 0.603, 0.9),
-            ring("knee", knee_z, x, body.hip * 0.392, 0.95),
-            ring("calf", calf_z, x, body.hip * 0.366, 0.95),
-            ring("ankle", ankle_z, x, body.hip * 0.212, 0.9),
+            ring("thigh", crotch_z - 10.0, x, body.hip * sv.thigh, 0.9),
+            ring("knee", knee_z, x, body.hip * sv.knee, 0.95),
+            ring("calf", calf_z, x, body.hip * sv.calf, 0.95),
+            ring("ankle", ankle_z, x, body.hip * sv.ankle, 0.9),
         ]
     };
     let legs = [leg(1.0), leg(-1.0)];
-    let upper = body.top_arm.filter(|g| *g > 0.0).unwrap_or(body.bust * 0.323);
-    let reach = body.sleeve_length.filter(|l| *l > 0.0).map_or(s, |l| l / SLEEVE_OUTSEAM);
+    let upper = body.top_arm.filter(|g| *g > 0.0).unwrap_or(body.bust * sv.upper_arm);
+    let reach = body.sleeve_length.filter(|l| *l > 0.0).map_or(s, |l| l / sv.sleeve_outseam);
     // Each arm swings out from its shoulder joint (the head of the upper arm, under the shoulder
     // point), as an arm does: the top of the arm is the deltoid, round over the joint and on out
     // past the shoulder point (the survey's shoulders are 450.3 across the deltoids for 365.3
@@ -297,8 +415,8 @@ pub fn avatar(body: &Body) -> Result<Avatar, AvatarError> {
     let along = |l: f64| (joint.0 + l * angle.sin(), joint.1 - l * angle.cos());
     let at_z = |z: f64| joint.0 + (joint.1 - z) * angle.tan();
     let top_z = shoulder_z - r_top * 0.25;
-    let elbow = along(SHOULDER_TO_ELBOW * reach - r_top);
-    let wrist = along(SLEEVE_OUTSEAM * reach - r_top);
+    let elbow = along(sv.shoulder_to_elbow * reach - r_top);
+    let wrist = along(sv.sleeve_outseam * reach - r_top);
     let tilted = |name, z: f64, x: f64, girth: f64, depth: f64| {
         let r = girth / (2.0 * PI);
         let (a, b) = (r / angle.cos(), r * depth);
@@ -312,8 +430,8 @@ pub fn avatar(body: &Body) -> Result<Avatar, AvatarError> {
             ring("armcap", cap_z, side * (joint.0 - (cap_z - joint.1) * angle.tan()), deltoid * 0.55, 0.9),
             ring("armtop", top_z, side * (joint.0 - (top_z - joint.1) * angle.tan()), deltoid, 0.9),
             tilted("upperarm", axilla_z, side * at_z(axilla_z), upper, 0.95),
-            tilted("elbow", elbow.1, side * elbow.0, upper * 0.864, 0.95),
-            tilted("wrist", wrist.1, side * wrist.0, upper * 0.506, 0.75),
+            tilted("elbow", elbow.1, side * elbow.0, upper * sv.forearm, 0.95),
+            tilted("wrist", wrist.1, side * wrist.0, upper * sv.wrist, 0.75),
         ]
     };
     let (elbow_z, wrist_z) = (elbow.1, wrist.1);
@@ -437,8 +555,8 @@ mod tests {
         let a = avatar(&b).unwrap();
         let sh = *a.ring("shoulder").unwrap();
         assert!((sh.semi_axes().0 * 2.0 - (242.0 + 370.0 / PI)).abs() < 0.01, "{:?}", sh.semi_axes());
-        let s = 410.0 * BACK_RISE / (CERVICALE_HEIGHT - WAIST_HEIGHT);
-        assert!((a.neck_height - sh.z - 60.6 * s).abs() < 1e-9);
+        let s = 410.0 * BACK_RISE / (WOMEN.cervicale_height - WOMEN.waist_height);
+        assert!((a.neck_height - sh.z - (WOMEN.cervicale_height - WOMEN.acromial_height) * s).abs() < 1e-9);
         for (k, side) in [(0, 1.0), (1, -1.0)] {
             let arm = &a.arms[k];
             assert_eq!(arm.iter().map(|r| r.name).collect::<Vec<_>>(), ["armcap", "armtop", "upperarm", "elbow", "wrist"]);
@@ -466,6 +584,30 @@ mod tests {
         assert!((plain.ring("shoulder").unwrap().semi_axes().0 * 2.0 - 880.0 * 0.386).abs() < 1e-9);
         let (u, d) = plain.arms[0][2].semi_axes();
         assert!((ellipse_girth(u * ARM_ANGLE.cos(), d) - 880.0 * 0.323).abs() < 880.0 * 0.323 * 0.03);
+    }
+
+    /// A male figure (PF-10.11) takes the survey's men's proportions: no underbust and no bust
+    /// standing forward, the chest as deep as the men's, the shoulders and arms from theirs.
+    #[test]
+    fn a_male_figure_takes_the_mens_proportions() {
+        let b = Body { bust: 1000.0, waist: 860.0, hip: 980.0, nape_to_waist: 460.0, waist_to_hip: 200.0, ..body() };
+        let man = avatar(&Body { figure: Figure::Male, ..b }).unwrap();
+        let woman = avatar(&b).unwrap();
+        assert!(man.ring("underbust").is_none() && woman.ring("underbust").is_some());
+        let chest = *man.ring("bust").unwrap();
+        assert_eq!((chest.y, chest.girth, chest.depth_ratio), (0.0, 1000.0, MEN.chest_depth));
+        // Every ring still as round as measured.
+        assert_eq!(man.ring("waist").unwrap().girth, 860.0);
+        assert_eq!(man.ring("hip").unwrap().depth_ratio, MEN.hip_depth);
+        // Broader shoulders and a thicker upper arm for the same chest, from the men's shares.
+        let breadth = |a: &Avatar| a.ring("shoulder").unwrap().semi_axes().0;
+        assert!((breadth(&man) * 2.0 - 1000.0 * MEN.shoulders).abs() < 1e-9);
+        assert!(breadth(&man) > breadth(&woman));
+        // The same mesh, less the underbust's ring.
+        assert_eq!(man.mesh.vertices.len(), woman.mesh.vertices.len() - RING_POINTS);
+        assert_eq!(Figure::parse("male"), Some(Figure::Male));
+        assert_eq!(Figure::parse(Figure::Female.name()), Some(Figure::Female));
+        assert_eq!(Figure::parse("other"), None);
     }
 
     /// The bust stands forward of a flat back: under it the ribcage as round as the underbust

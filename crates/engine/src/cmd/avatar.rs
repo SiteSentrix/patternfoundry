@@ -74,6 +74,7 @@ pub(crate) fn avatar_of(doc: &Document, cmd: &str) -> Result<Avatar> {
         sleeve_length: may("sleeve_length"),
         armscye_depth: may("armscye_depth"),
         underbust: may("underbust"),
+        figure: doc.measurements.as_deref().map(|m| m.figure).unwrap_or_default(),
     };
     pf_core::avatar::avatar(&body).map_err(|e| bad(cmd, e.to_string()))
 }
