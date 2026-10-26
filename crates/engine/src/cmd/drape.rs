@@ -23,7 +23,7 @@ pub fn specs() -> Vec<CommandSpec> {
         "Drape on Avatar",
         [],
         None,
-        "{ids? (the pieces; default every piece sewn to another, piece.sew), precision?: mm (20, the distance between the cloth's particles, 15 to 50), steps? (240: four seconds, 1 to 2000), path? (a file to write the draped cloth to: .glb, a binary glTF 2.0 file of the avatar and the cloth in the drape view's colours, metres, y up, the front toward +z, for 3D software and game engines; else an OBJ file of the cloth), format?: obj|glb (default from path's extension; without a path the file comes back as data (obj) or dataBase64 (glb)), draw?: true (the drape view: the avatar and the draped cloth as pictures seen from the front and the left side, at true scale, the cloth coloured blue where it is loose, green, and red where it is 10% or more larger than cut, on the layer \"Drape\", drawn again it replaces it; false: none), origin?: [x, y] (document points: the front view's top-left; default right of the art), background?: false (in the app: the drape runs off the UI thread, its progress shown with Cancel, and is drawn when it is done; Pattern › Drape on Avatar does this)} sew the pieces up round the avatar (see avatar.draw) and let them fall onto it as light woven cloth. Each piece goes where it belongs: a bodice (a bodice block's part, or named so) from the waist up over the shoulders, a sleeve (a sleeve block's, or named so) round the arm of the armhole it is sewn into, anything else (a skirt) from the waist down; the skirt's and the bodice's pieces round the body in the order they are sewn, a front first, in the middle of the front. Pieces are taken as drawn upright, as patterns are, and as one side of the body: one cut on the fold is opened out whole, one cut as a mirror-image pair (cut 2, mirror) is both sides, its seams sewn on each; others are taken as drawn. Darts (two legs about as long meeting at a sharp point, the mouth open) are sewn shut, and seams are sewn with their darts closed. The first third of the time the garment is sewn up without gravity, its seams pulling harder and harder, then it falls into place → {pieces, darts (sewn shut), particles, top (mm above the floor: the highest the cloth hangs), hem (mm: its lowest), waist (mm: the avatar's), worstStretch (%), widestSeam (mm), path?, data?, dataBase64?, layer?, front?, side?, tightest (%: the most a triangle of cloth is larger than cut)}",
+        "{ids? (the pieces; default every piece sewn to another, piece.sew), precision?: mm (20, the distance between the cloth's particles, 15 to 50), steps? (240: four seconds, 1 to 2000), path? (a file to write the draped cloth to: .glb, a binary glTF 2.0 file of the avatar and the cloth in the drape view's colours, metres, y up, the front toward +z, for 3D software and game engines; else an OBJ file of the cloth), format?: obj|glb (default from path's extension; without a path the file comes back as data (obj) or dataBase64 (glb)), draw?: true (the drape view: the avatar and the draped cloth as pictures seen from the front and the left side, at true scale, the cloth coloured blue where it is loose, green, and red where it is 10% or more larger than cut, on the layer \"Drape\", drawn again it replaces it; false: none), origin?: [x, y] (document points: the front view's top-left; default right of the art), background?: false (in the app: the drape runs off the UI thread, its progress shown with Cancel, and is drawn when it is done; Pattern › Drape on Avatar does this)} sew the pieces up round the avatar (see avatar.draw) and let them fall onto it as light woven cloth. Each piece goes where it belongs: a bodice (a bodice block's part, or named so) from the waist up over the shoulders, a sleeve (a sleeve block's, or named so) round the arm of the armhole it is sewn into, anything else (a skirt) from the waist down; the skirt's and the bodice's pieces round the body in the order they are sewn, a front first, in the middle of the front. Pieces are taken as drawn upright, as patterns are, and as one side of the body: one cut on the fold is opened out whole, one cut as a mirror-image pair (cut 2, mirror) is both sides, its seams sewn on each; others are taken as drawn. Darts (two legs about as long meeting at a sharp point, the mouth open) are sewn shut, and seams are sewn with their darts closed. The first third of the time the garment is sewn up without gravity, its seams pulling harder and harder, then it falls into place; with sleeves the rest goes on first (half the time), then the sleeves are sewn in with the rest held (a sixth, without gravity), then everything settles → {pieces, darts (sewn shut), particles, top (mm above the floor: the highest the cloth hangs), hem (mm: its lowest), waist (mm: the avatar's), worstStretch (%), widestSeam (mm), path?, data?, dataBase64?, layer?, front?, side?, tightest (%: the most a triangle of cloth is larger than cut)}",
         has_doc,
         make
     )]
@@ -243,20 +243,43 @@ pub struct Setup {
     pub pieces: usize,
     /// The darts sewn shut (each copy's).
     pub darts: usize,
+    /// The sleeves' particles, set in after the rest is on ([`Setup::run`]).
+    pub sleeves: Vec<u32>,
+    /// The stitches setting the sleeves in (sleeve to armhole), by their index in `cloth.seams`.
+    pub set_in: Vec<usize>,
 }
 
 impl Setup {
     /// Let the cloth fall for its steps (four substeps a sixtieth of a second each), telling
     /// `progress` the share done after each; it stops (→ false) when `progress` says to.
     pub fn run(&mut self, progress: &mut dyn FnMut(f64) -> bool) -> bool {
+        // Put on as a dresser would: with sleeves, the rest first (the sleeves held still, not yet
+        // set in), then the sleeves sewn in with the rest held; then everything let go.
+        let staged = !self.sleeves.is_empty() && !self.set_in.is_empty();
+        let body_part = if staged { self.steps / 2 } else { self.steps };
+        let setting = if staged { self.steps / 6 } else { 0 };
+        if staged {
+            for &i in &self.sleeves {
+                self.cloth.hold(i, true);
+            }
+            for &k in &self.set_in {
+                self.cloth.seam_on[k] = false;
+            }
+        }
         for k in 0..self.steps {
-            // The first third sewing the garment up round the body: no gravity, the seams pulling
-            // harder and harder (a hundredth as hard at first) so the pieces come together without
-            // yanking; then it falls into place and settles.
-            let sewing = (self.steps / 3).max(1);
-            let at = k.min(sewing);
-            self.cloth.gravity = if at < sewing { 0.0 } else { 1.0 };
-            self.cloth.seam_pull = 0.5 * (0.01f64).powf(1.0 - at as f64 / sewing as f64);
+            if staged && k == body_part {
+                self.set_sleeves_in();
+            }
+            if staged && k == body_part + setting {
+                self.let_go();
+            }
+            // Each part sewn up round the body first: no gravity, the seams pulling harder and
+            // harder (a hundredth as hard at first) so the pieces come together without yanking;
+            // then it falls into place and settles.
+            let (start, length) = if staged && k >= body_part { (body_part, setting.max(1)) } else { (0, (body_part / 3).max(1)) };
+            let at = (k - start).min(length);
+            self.cloth.gravity = if at < length || (staged && k < body_part + setting && k >= body_part) { 0.0 } else { 1.0 };
+            self.cloth.seam_pull = 0.5 * (0.01f64).powf(1.0 - at as f64 / length as f64);
             for _ in 0..4 {
                 self.cloth.step(1.0 / 240.0, self.iterations, &self.avatar);
             }
@@ -265,6 +288,34 @@ impl Setup {
             }
         }
         true
+    }
+
+    /// The sleeves set in: the rest held where it lies, the sleeves let go and sewn to it.
+    fn set_sleeves_in(&mut self) {
+        let n = self.cloth.positions.len() as u32;
+        let sleeve: std::collections::HashSet<u32> = self.sleeves.iter().copied().collect();
+        for i in (0..n).filter(|i| !sleeve.contains(i)) {
+            self.cloth.hold(i, true);
+        }
+        for &i in &self.sleeves {
+            self.cloth.hold(i, false);
+        }
+        // The set-in seams pull from the start of this stage, ramped up from a hundredth as hard
+        // (moving each crown stitch straight onto its armhole stitch instead pulled one sleeve
+        // through its arm).
+        for &k in &self.set_in {
+            self.cloth.seam_on[k] = true;
+        }
+    }
+
+    /// Everything let go and every seam pulling.
+    fn let_go(&mut self) {
+        for i in 0..self.cloth.positions.len() as u32 {
+            self.cloth.hold(i, false);
+        }
+        for on in &mut self.cloth.seam_on {
+            *on = true;
+        }
     }
 }
 
@@ -547,6 +598,7 @@ pub fn setup(s: &Session, p: &Value) -> Result<Setup> {
     // particle of the side with fewer sewn once (pairing the particles nearest points along the
     // runs sewed one particle to two a step apart where two edges slant differently, and the seam
     // could not close).
+    let mut set_in = Vec::new();
     for sm in &seams {
         let (pa, mut pb) = (sm.pa.clone(), sm.pb.clone());
         if pa.len() < 2 || pb.len() < 2 {
@@ -570,6 +622,9 @@ pub fn setup(s: &Session, p: &Value) -> Result<Setup> {
             let (u, v) = (x + cloth.starts[sm.a], y + cloth.starts[sm.b]);
             // A dart's point is one particle, sewn to nothing.
             if u != v {
+                if (role(sm.a) == Role::Arm) != (role(sm.b) == Role::Arm) {
+                    set_in.push(cloth.seams.len());
+                }
                 cloth.sew(u, v);
             }
         }
@@ -579,7 +634,14 @@ pub fn setup(s: &Session, p: &Value) -> Result<Setup> {
     // the hips and slide off (at ten, a skirt that fits fell to the floor).
     let iterations = (40.0 * (20.0 / step).powi(2)).round() as usize;
     let darts = seams.iter().filter(|s| s.ordered).count();
-    Ok(Setup { cloth, avatar, steps, iterations, waist, pieces: parts.len(), darts })
+    let sleeves: Vec<u32> = (0..copies.len())
+        .filter(|c| role(*c) == Role::Arm)
+        .flat_map(|c| {
+            let start = cloth.starts[c];
+            (0..copies[c].panel.points.len() as u32).map(move |i| start + i)
+        })
+        .collect();
+    Ok(Setup { cloth, avatar, steps, iterations, waist, pieces: parts.len(), darts, sleeves, set_in })
 }
 
 fn make(s: &mut Session, p: &Value) -> Result<Value> {

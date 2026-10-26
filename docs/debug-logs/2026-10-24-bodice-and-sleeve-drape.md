@@ -64,3 +64,32 @@ One change at a time, the bodice block alone and with sleeves (worst stretch / t
 
 The rounded crease eases the armpit but the armhole, a loop round the angled arm, slides down
 it: the crease was what held it. Kept: the bust. The armpit wants a real body mesh.
+
+## 2026-10-25: the armpit (PF-10.9)
+
+Repro as above; probes (since removed): the six widest seam gaps and the fifteen tightest
+triangles, each with its place on the pattern and on the body; the arm's angle and joint from
+environment variables.
+
+1. **Where is the tightest cloth?** At the armpit and over the top of the arm. The arms pivoted
+   at the armpit, so their tops were inside the chest (at x ≈ 87 mm for a chest 160 mm across
+   half), and the arm had no top ring: a sleeve's crown had nothing to rest on. Fix: the arm from
+   a shoulder joint, the deltoid on top, a cap ring over it. Alone: no better (596% / 234%), the
+   seams yanked shut from far apart.
+2. **Putting it on in stages.** The bodice first with the sleeves held, then the sleeves sewn in
+   with the bodice held, then all let go: 251% / 147%. But moving each crown stitch onto its
+   armhole stitch at the start of the second stage pulled one sleeve through its arm (it hung
+   between arm and body; the sleeve test's "cloth out on both arms" caught it). Sewing them in
+   with the seams ramped up instead: both on, 261% / 139%.
+3. **The joint and angle** (bodice alone / with sleeves, worst stretch, tightest, widest seam;
+   measured with step 2's first try, the crown stitches moved; kept as sewn in: 139% / 261% /
+   48 mm, its top at 1344):
+
+| joint in from the shoulder point, angle | bodice | with sleeves | bodice top |
+|---|---|---|---|
+| 0.2 r, 30° (kept) | 14% / 16% | 147% / 251% / 45 mm | 1344 |
+| 0.6 r, 30° | 14% / 18% | 172% / 257% / 41 mm | 1326 |
+| 0.6 r, 20° | 17% / 26% | 178% / 277% / 34 mm | 1311 |
+
+The sleeves pull the bodice down the arm the further in or the more upright the arm is.
+Still open: the crown's seam gaps over the deltoid; a body mesh with real shoulders would help.

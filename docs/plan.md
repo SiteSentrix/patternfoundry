@@ -704,6 +704,24 @@ is built on, plus a pattern mode, the way StitchFoundry adds embroidery:
   more in `pf-core` (a trapezoid's edge particles on its outline, none outside it, the particle
   nearest a point of the slanted side on it), the skirt's test bounds tightened (seams within
   5 mm, stretch under 15%; it hangs 580 to 680 mm, a few per cent long under its weight).
+- 2026-10-25, **PF-10.9**: the armpit. The avatar's arms now swing out from a shoulder joint
+  (the head of the upper arm, a fifth of the deltoid's radius in from the shoulder point and one
+  radius below it), not from the armpit: the top of the arm is the deltoid (1.12 times the upper
+  arm's girth, chosen), rounded over with a cap ring, so the sleeve's crown rests on it; before,
+  the arm's top was buried in the chest and the arm had no top for the cloth to rest on. A
+  tilted arm's level cross-sections are longer by 1/cos of its angle, so the upper arm is round
+  as measured square to the arm. And a bodice with sleeves is put on as a dresser would: the
+  bodice first (half the time, the sleeves held and not yet sewn in), then the sleeves sewn in
+  with the rest held (a sixth of the time, without gravity, the seams pulling harder and harder),
+  then everything let go. On the test body a bodice with sleeves went from 201% worst stretch and
+  557% at its tightest (the armpit) to 139% and 261%; the bodice alone from 23% / 31% to 14% /
+  16%. Limits: the crown's seam still opens up to about 45 mm over the deltoid, and the bodice
+  hangs about 20 mm higher than before (the deltoid holds it up). Tried and left out: the joint
+  further in or the arm at 20° (the sleeves dragged the bodice down the arms), sewing the
+  sleeves in all at once with the new arms (596% at the armpit), moving each crown stitch
+  straight onto its armhole before sewing (one sleeve was pulled through its arm). Tests: the
+  avatar's arm test (the cap and deltoid rings, the upper arm round as measured square to the
+  arm), the sleeve drape's tightest place under 400% (338% at the test's coarser cloth).
 - 2026-10-25, **PF-10.8**: the avatar's bust. Its cross-sections can stand forward of the body's
   middle, and the bust does: under it a ring as round as the new `underbust` measurement (else a
   B cup's, the bust 150 mm more round: EN 13402-3 sizes cups by the bust less the underbust, B
@@ -717,8 +735,7 @@ is built on, plus a pattern mode, the way StitchFoundry adds embroidery:
   armhole slide down the angled arm, the bodice off the shoulders; with the arms less angled
   the sleeves slid off too. Tests: 1 in `pf-core` (`avatar`: the bust's back in line with the
   ribcage's, its front forward, the underbust measured or a B cup's), the side view's depth in
-  `tests_avatar.rs`. Not yet: the armpit (a body mesh the cloth collides with triangle by
-  triangle rather than lofted tubes).
+  `tests_avatar.rs`. The armpit: PF-10.9.
 - 2026-10-24, **PF-10.7**: the drape in the background. **Pattern › Drape on Avatar** no longer
   holds the app while the cloth falls (some seconds; more for a bodice with sleeves): the drape is
   set up from the document at once, falls on the background worker that Background Save and
