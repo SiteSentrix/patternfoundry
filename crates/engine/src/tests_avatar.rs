@@ -134,3 +134,31 @@ fn the_avatar_exports_as_gltf() {
     assert_eq!(std::fs::read(&path).unwrap(), bytes);
     std::fs::remove_dir_all(&dir).ok();
 }
+
+/// The measurement set's figure (PF-10.11) chooses whose proportions the avatar takes: a male
+/// one has no bust standing forward, so seen from the side it is shallower for the same chest;
+/// kept in the document, refused when unknown.
+#[test]
+fn a_male_figure_is_chosen_on_the_measurements() {
+    let mut s = measured();
+    assert_eq!(s.execute("measure.info", &json!({})).unwrap()["figure"], json!("female"));
+    let width = |s: &mut Session| {
+        let r = s.execute("avatar.draw", &json!({"origin": [0, 0]})).unwrap();
+        let doc = &s.doc().unwrap().doc;
+        match &doc.node(NodeId(r["side"].as_u64().unwrap())).unwrap().kind {
+            NodeKind::Path { path, .. } => pt_to_mm(path.bounds().unwrap().width()),
+            _ => panic!("a path"),
+        }
+    };
+    let woman = width(&mut s);
+    let r = s.execute("measure.set", &json!({"figure": "male"})).unwrap();
+    assert_eq!(r["figure"], json!("male"));
+    assert!(width(&mut s) < woman - 5.0);
+    // Saved with the document; undone with the edit.
+    let saved = serde_json::to_string(s.doc().unwrap().doc.measurements.as_deref().unwrap()).unwrap();
+    assert!(saved.contains("\"figure\":\"male\""), "{saved}");
+    s.execute("edit.undo", &json!({})).unwrap();
+    s.execute("edit.undo", &json!({})).unwrap();
+    assert_eq!(s.execute("measure.info", &json!({})).unwrap()["figure"], json!("female"));
+    assert!(s.execute("measure.set", &json!({"figure": "tall"})).unwrap_err().to_string().contains("female"));
+}

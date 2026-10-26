@@ -4874,6 +4874,10 @@ lighting	Light	光源
 	Set Measurements	設定尺寸
 	Set Point Formula	設定點公式
 	Share in exported files	在轉存的檔案中分享
+	Figure	體型
+	Female	女性
+	Male	男性
+	The avatar takes what the measurements don't give from a survey's women's or men's proportions	量身未給出的部分，頭像按一項調查中女性或男性的比例補足
 	Size chart	尺碼表
 	Use Size	使用尺碼
 # PatternFoundry: blocks (PF-4).

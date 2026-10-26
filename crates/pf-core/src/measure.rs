@@ -78,6 +78,13 @@ pub struct Measurements {
     /// user's computer unless they choose to share them.
     #[serde(default, skip_serializing_if = "std::ops::Not::not")]
     pub share: bool,
+    /// Whose proportions the avatar fills in the rest from (PF-10.11).
+    #[serde(default, skip_serializing_if = "is_female")]
+    pub figure: crate::avatar::Figure,
+}
+
+fn is_female(f: &crate::avatar::Figure) -> bool {
+    *f == crate::avatar::Figure::Female
 }
 
 impl Measurements {

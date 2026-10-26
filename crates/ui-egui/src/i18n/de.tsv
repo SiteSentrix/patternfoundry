@@ -4823,6 +4823,10 @@ effect	Soft	Weich
 	Set Measurements	Maße festlegen
 	Set Point Formula	Punktformel festlegen
 	Share in exported files	In exportierten Dateien teilen
+	Figure	Figur
+	Female	Weiblich
+	Male	Männlich
+	The avatar takes what the measurements don't give from a survey's women's or men's proportions	Der Avatar übernimmt, was die Maße nicht angeben, aus den Proportionen der Frauen oder Männer einer Erhebung
 	Size chart	Maßtabelle
 	Use Size	Größe verwenden
 # PatternFoundry: blocks (PF-4).

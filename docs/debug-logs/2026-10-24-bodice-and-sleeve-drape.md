@@ -128,3 +128,21 @@ A softer bias lets the waistband stretch over the hips; the crotch's depth isn't
 down; more rounds help a little (the cloth's numerical give under the whole pair's weight) at
 four times the cost. Nothing kept. Still open: what holds trousers up on a body (the legs'
 friction, the hems on the feet) which the avatar, without a floor or feet, doesn't give.
+
+## 2026-10-26: the cloth grips (PF-10.12)
+
+A man's trousers (figure male, waist 790, hips 1000) fell to the floor; with the same
+measurements on the female figure too, so not the figure. One change at a time from the trouser
+block that stays on (waist 700, hips 960): the waist alone to 790 → off. More rounds of
+corrections (80, 160) → still off: not the cloth stretching. The friction was viscous only (a
+touching particle kept a fifth of its velocity): under a steady pull on a slope it always creeps.
+
+| try | women's trousers top | man's top | note |
+|---|---|---|---|
+| viscous only (before) | 1011 | off | |
+| static friction after all the rounds | 1052 | 1071 | seams 96 mm open: it held the pieces while they were sewn |
+| … off while sewing up | 1034 | 942 | torn where it stuck (stretch 70%): it undid the links' corrections |
+| in each round (as the paper) | 1035 | 947 (22%) | 160 rounds: off again, later rounds push too little |
+| against the step's push so far | 1035 | 952; 817 at 160 rounds | kept |
+| … bodice with sleeves | | | 794% at the armpit (was 253%) |
+| … not on bodices and sleeves | | | 253%: kept |

@@ -5242,6 +5242,10 @@ mark-style	Japanese	Japonské
 	Set Measurements	Nastavit míry
 	Set Point Formula	Nastavit vzorec bodu
 	Share in exported files	Sdílet v exportovaných souborech
+	Figure	Postava
+	Female	Ženská
+	Male	Mužská
+	The avatar takes what the measurements don't give from a survey's women's or men's proportions	Avatar doplní, co míry neudávají, z proporcí žen nebo mužů z průzkumu
 	Size chart	Tabulka velikostí
 	Use Size	Použít velikost
 # PatternFoundry: blocks (PF-4).
