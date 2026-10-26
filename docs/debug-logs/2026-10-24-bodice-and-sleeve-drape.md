@@ -93,3 +93,20 @@ environment variables.
 
 The sleeves pull the bodice down the arm the further in or the more upright the arm is.
 Still open: the crown's seam gaps over the deltoid; a body mesh with real shoulders would help.
+
+## 2026-10-26: trousers (PF-10.10)
+
+Repro: `trouser_probe.py` in the session scratchpad (the trouser block cut 2 mirrored, all four
+seams, `drape.make`, the view exported); a switchable probe for the rounds of corrections (since
+removed).
+
+1. **At 25 mm the trousers fell off the body (top 556 mm for a waist at 1101), at 20 mm they
+   stayed on.** Stretch at the end only 11%: not torn. Stepping through (10, 30 … 120 steps) the
+   waistband crept down, then slid over the hips, torn open there, and recovered below. The
+   rounds of corrections fall with the square of the precision (26 at 25 mm); at 40 or 60 rounds
+   the 25 mm trousers stayed up (top 1017). Fix: never fewer than 40.
+2. **They sit about 85 mm low, the crotch red.** The crotch seam (from `piece.sew`'s lengths:
+   296 + 361 = 657 mm) against the avatar's crotch (waist to waist under the body, from its rings:
+   262 + 230 + 262 = 755). ANSUR II (women's means): crotch length from the navel 620.8 mm, the
+   navel 198 above the crotch: under the body about 225, as deep as the buttocks (232.9), so the
+   avatar's flat bottom is not too deep. Left as a known limit: the cloth doesn't give on the bias.

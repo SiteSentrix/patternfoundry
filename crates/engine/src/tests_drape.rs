@@ -214,3 +214,81 @@ fn sleeves_drape_round_the_arms() {
     assert!(lo < -0.3 && hi > 0.3, "{lo} {hi}");
     std::fs::remove_dir_all(&dir).ok();
 }
+
+/// The trouser block (front and back, each cut as a mirror-image pair) sewn at the side seams and
+/// inseams, and its centre front and centre back each to its mirror (PF-10.10).
+fn trousers() -> Session {
+    let mut s = Session::new();
+    s.execute("file.new", &json!({"width": 3370, "height": 2384})).unwrap();
+    let m = json!({"values": {"bust": 880, "waist": 700, "hip": 960, "nape_to_waist": 410, "waist_to_hip": 200, "crotch_depth": 260,
+        "waist_to_knee": 600, "waist_to_ankle": 1040, "trouser_hem": 460}});
+    s.execute("measure.set", &m).unwrap();
+    s.execute("block.trousers", &json!({})).unwrap();
+    let mut ids = Vec::new();
+    for (id, name) in [(2, "Front Trousers"), (3, "Back Trousers")] {
+        let r = s.execute("piece.make", &json!({"ids": [id], "name": name})).unwrap();
+        let piece = r["ids"][0].as_u64().unwrap();
+        s.execute("piece.set", &json!({"id": piece, "cut": 2, "mirror": true})).unwrap();
+        ids.push(piece);
+    }
+    let (f, b) = (ids[0], ids[1]);
+    let sew = |s: &mut Session, a: (u64, usize, usize), b: (u64, usize, usize)| {
+        s.execute("piece.sew", &json!({"a": {"id": a.0, "from": a.1, "to": a.2}, "b": {"id": b.0, "from": b.1, "to": b.2}})).unwrap();
+    };
+    // The front: 0 the centre front at the waist, 2 the fork, 4 and 5 the hem, 9 the side at the
+    // waist. The back: 0 the centre back at the waist, 4 the side at the waist, 8 and 9 the hem,
+    // 11 the fork.
+    sew(&mut s, (f, 5, 9), (b, 4, 8));
+    sew(&mut s, (f, 2, 4), (b, 9, 11));
+    sew(&mut s, (f, 0, 2), (f, 0, 2));
+    sew(&mut s, (b, 11, 0), (b, 11, 0));
+    s
+}
+
+/// Trousers (PF-10.10) hang from the waist down both legs, their back darts sewn, the seams
+/// closed: a tube round each leg, the crotch between.
+#[test]
+fn trousers_drape_down_both_legs() {
+    let mut s = trousers();
+    let dir = std::env::temp_dir().join(format!("pf-drape-trousers-{}", std::process::id()));
+    std::fs::create_dir_all(&dir).unwrap();
+    let path = dir.join("trousers.obj");
+    let r = s.execute("drape.make", &json!({"precision": 25, "steps": 150, "draw": false, "path": path.to_str().unwrap()})).unwrap();
+    assert_eq!(r["pieces"], json!(2), "{r}");
+    assert_eq!(r["darts"], json!(2), "{r}");
+    let (top, hem, waist) = (r["top"].as_f64().unwrap(), r["hem"].as_f64().unwrap(), r["waist"].as_f64().unwrap());
+    // On the hips, below the waist (their crotch seam, 657 mm, is shorter than the avatar's
+    // crotch, about 755: they sit about 85 mm low), down past the ankles; the seams closed.
+    assert!(top > waist - 120.0 && top < waist + 60.0, "{r}");
+    assert!(hem < waist - 900.0, "{r}");
+    assert!(r["widestSeam"].as_f64().unwrap() < 15.0, "{r}");
+    assert!(r["worstStretch"].as_f64().unwrap() < 40.0, "{r}");
+    // Two legs: at the knee, cloth on both sides and none between them.
+    let obj = std::fs::read_to_string(&path).unwrap();
+    let knee_z = (waist - 600.0) / 1000.0;
+    let near_knee: Vec<f64> = obj
+        .lines()
+        .filter_map(|l| l.strip_prefix("v "))
+        .filter_map(|l| {
+            let v: Vec<f64> = l.split(' ').filter_map(|x| x.parse().ok()).collect();
+            (v.len() == 3 && (v[1] - knee_z).abs() < 0.03).then_some(v[0])
+        })
+        .collect();
+    assert!(near_knee.iter().any(|x| *x > 0.05) && near_knee.iter().any(|x| *x < -0.05), "{near_knee:?}");
+    // (Loose round the knee, which is 23 mm from the middle: within a few mm of it, no more.)
+    assert!(near_knee.iter().all(|x| x.abs() > 0.003), "{near_knee:?}");
+    std::fs::remove_dir_all(&dir).ok();
+}
+
+/// A run sewn to itself is refused unless its piece is cut as a mirror-image pair.
+#[test]
+fn a_centre_seam_needs_a_mirror_image_pair() {
+    let mut t = Session::new();
+    t.execute("file.new", &json!({"width": 800, "height": 800})).unwrap();
+    let path = t.execute("path.create", &json!({"d": "M0 0 L100 0 L100 100 L0 100 Z"})).unwrap()["id"].clone();
+    let id = t.execute("piece.make", &json!({"ids": [path]})).unwrap()["ids"][0].clone();
+    let same = json!({"a": {"id": id, "from": 0, "to": 1}, "b": {"id": id, "from": 0, "to": 1}});
+    assert!(t.execute("piece.sew", &same).unwrap_err().to_string().contains("same run"));
+    t.execute("piece.set", &json!({"id": id, "cut": 2, "mirror": true})).unwrap();
+    assert!(t.execute("piece.sew", &same).is_ok());
+}

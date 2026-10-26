@@ -96,7 +96,7 @@ pub fn specs() -> Vec<CommandSpec> {
             "Sew Seams",
             [],
             None,
-            "{a: {id (a piece, or its seam line), from: anchor, to: anchor}, b: {id, from, to} (the two runs of seam line that are sewn together, each from anchor from forward to anchor to along its seam line; when draped, their ends are matched by height on the pattern, as the pieces are drawn upright), label? (default the next free letter)} record that the two runs are sewn together (for the 3D fit preview): each piece keeps its run with the label, and it follows the seam line when anchors are added → {label, a (mm), b (mm), difference (mm, a less b)}",
+            "{a: {id (a piece, or its seam line), from: anchor, to: anchor}, b: {id, from, to} (the two runs of seam line that are sewn together, each from anchor from forward to anchor to along its seam line; a and b the same run on a piece cut as a mirror-image pair (cut 2, mirror): a centre seam, that run of one copy sewn to the other's, as trousers' centre front and back are; when draped, their ends are matched by height on the pattern, as the pieces are drawn upright), label? (default the next free letter)} record that the two runs are sewn together (for the 3D fit preview): each piece keeps its run with the label, and it follows the seam line when anchors are added → {label, a (mm), b (mm), difference (mm, a less b)}",
             has_doc,
             sew
         ),
@@ -931,10 +931,15 @@ fn sew(s: &mut Session, p: &Value) -> Result<Value> {
     const CMD: &str = "piece.sew";
     let (a, af, at) = run_param(s, p, "a", CMD)?;
     let (b, bf, bt) = run_param(s, p, "b", CMD)?;
-    if a == b && (af, at) == (bf, bt) {
-        return Err(bad(CMD, "a and b are the same run: a seam is sewn to another"));
-    }
     let doc = &s.doc()?.doc;
+    // A run sewn to itself is a centre seam: the same edge of a mirror-image pair's two copies
+    // (trousers' centre front and back).
+    if a == b && (af, at) == (bf, bt) && !doc.node(a).and_then(piece_on).is_some_and(|pc| pc.cut >= 2 && pc.mirror) {
+        return Err(bad(
+            CMD,
+            "a and b are the same run: a seam is sewn to another, or to the same run of a piece cut as a mirror-image pair (a centre seam)",
+        ));
+    }
     let used: std::collections::BTreeSet<String> = sewn_runs(doc).into_iter().map(|r| r.0).collect();
     let label = match str_param(p, "label").map(str::trim) {
         Some(l) if !l.is_empty() => {

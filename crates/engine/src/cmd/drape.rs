@@ -1,7 +1,7 @@
-//! Draping (PF-10.3, PF-10.6): the document's pieces sewn together (`piece.sew`) and placed round
-//! the avatar (`avatar.draw`), skirts from the waist down, bodices from the waist up over the
-//! shoulders, sleeves round the arms, and let fall onto it as cloth ([`pf_core::cloth`]), for the
-//! 3D fit preview.
+//! Draping (PF-10.3, PF-10.6, PF-10.10): the document's pieces sewn together (`piece.sew`) and
+//! placed round the avatar (`avatar.draw`), skirts from the waist down, bodices from the waist up
+//! over the shoulders, sleeves round the arms, trousers down the legs, and let fall onto it as
+//! cloth ([`pf_core::cloth`]), for the 3D fit preview.
 
 use super::*;
 use pf_core::cloth::{Cloth, Placed, Stiffness, panel};
@@ -23,7 +23,7 @@ pub fn specs() -> Vec<CommandSpec> {
         "Drape on Avatar",
         [],
         None,
-        "{ids? (the pieces; default every piece sewn to another, piece.sew), precision?: mm (20, the distance between the cloth's particles, 15 to 50), steps? (240: four seconds, 1 to 2000), path? (a file to write the draped cloth to: .glb, a binary glTF 2.0 file of the avatar and the cloth in the drape view's colours, metres, y up, the front toward +z, for 3D software and game engines; else an OBJ file of the cloth), format?: obj|glb (default from path's extension; without a path the file comes back as data (obj) or dataBase64 (glb)), draw?: true (the drape view: the avatar and the draped cloth as pictures seen from the front and the left side, at true scale, the cloth coloured blue where it is loose, green, and red where it is 10% or more larger than cut, on the layer \"Drape\", drawn again it replaces it; false: none), origin?: [x, y] (document points: the front view's top-left; default right of the art), background?: false (in the app: the drape runs off the UI thread, its progress shown with Cancel, and is drawn when it is done; Pattern › Drape on Avatar does this)} sew the pieces up round the avatar (see avatar.draw) and let them fall onto it as light woven cloth. Each piece goes where it belongs: a bodice (a bodice block's part, or named so) from the waist up over the shoulders, a sleeve (a sleeve block's, or named so) round the arm of the armhole it is sewn into, anything else (a skirt) from the waist down; the skirt's and the bodice's pieces round the body in the order they are sewn, a front first, in the middle of the front. Pieces are taken as drawn upright, as patterns are, and as one side of the body: one cut on the fold is opened out whole, one cut as a mirror-image pair (cut 2, mirror) is both sides, its seams sewn on each; others are taken as drawn. Darts (two legs about as long meeting at a sharp point, the mouth open) are sewn shut, and seams are sewn with their darts closed. The first third of the time the garment is sewn up without gravity, its seams pulling harder and harder, then it falls into place; with sleeves the rest goes on first (half the time), then the sleeves are sewn in with the rest held (a sixth, without gravity), then everything settles → {pieces, darts (sewn shut), particles, top (mm above the floor: the highest the cloth hangs), hem (mm: its lowest), waist (mm: the avatar's), worstStretch (%), widestSeam (mm), path?, data?, dataBase64?, layer?, front?, side?, tightest (%: the most a triangle of cloth is larger than cut)}",
+        "{ids? (the pieces; default every piece sewn to another, piece.sew), precision?: mm (20, the distance between the cloth's particles, 15 to 50), steps? (240: four seconds, 1 to 2000), path? (a file to write the draped cloth to: .glb, a binary glTF 2.0 file of the avatar and the cloth in the drape view's colours, metres, y up, the front toward +z, for 3D software and game engines; else an OBJ file of the cloth), format?: obj|glb (default from path's extension; without a path the file comes back as data (obj) or dataBase64 (glb)), draw?: true (the drape view: the avatar and the draped cloth as pictures seen from the front and the left side, at true scale, the cloth coloured blue where it is loose, green, and red where it is 10% or more larger than cut, on the layer \"Drape\", drawn again it replaces it; false: none), origin?: [x, y] (document points: the front view's top-left; default right of the art), background?: false (in the app: the drape runs off the UI thread, its progress shown with Cancel, and is drawn when it is done; Pattern › Drape on Avatar does this)} sew the pieces up round the avatar (see avatar.draw) and let them fall onto it as light woven cloth. Each piece goes where it belongs: a bodice (a bodice block's part, or named so) from the waist up over the shoulders, a sleeve (a sleeve block's, or named so) round the arm of the armhole it is sewn into, trousers (a trouser block's, or named trousers, pants or shorts; a front and a back, each a mirror-image pair, the back named so) down the legs, each leg's front and back round it below the crotch and the four round the hips above, their centre seams (each sewn to its mirror, piece.sew) at the middle of the front and back, anything else (a skirt) from the waist down; the skirt's and the bodice's pieces round the body in the order they are sewn, a front first, in the middle of the front. Pieces are taken as drawn upright, as patterns are, and as one side of the body: one cut on the fold is opened out whole, one cut as a mirror-image pair (cut 2, mirror) is both sides, its seams sewn on each; others are taken as drawn. Darts (two legs about as long meeting at a sharp point, the mouth open) are sewn shut, and seams are sewn with their darts closed. The first third of the time the garment is sewn up without gravity, its seams pulling harder and harder, then it falls into place; with sleeves the rest goes on first (half the time), then the sleeves are sewn in with the rest held (a sixth, without gravity), then everything settles → {pieces, darts (sewn shut), particles, top (mm above the floor: the highest the cloth hangs), hem (mm: its lowest), waist (mm: the avatar's), worstStretch (%), widestSeam (mm), path?, data?, dataBase64?, layer?, front?, side?, tightest (%: the most a triangle of cloth is larger than cut)}",
         has_doc,
         make
     )]
@@ -106,6 +106,8 @@ enum Role {
     Upper,
     /// Round an arm (a sleeve): its top at the shoulder point.
     Arm,
+    /// Round a leg (trousers): its top at the waist, round the hips above the crotch.
+    Leg,
 }
 
 /// A piece's role: what its block is (a sleeve, a bodice), else what its name says, else a skirt's.
@@ -116,8 +118,10 @@ fn role_of(doc: &Document, id: NodeId, name: &str) -> Role {
     match kind {
         Some(BlockKind::Sleeve) => Role::Arm,
         Some(BlockKind::Bodice) => Role::Upper,
+        Some(BlockKind::Trousers) => Role::Leg,
         Some(_) => Role::Lower,
         None if name.contains("sleeve") => Role::Arm,
+        None if name.contains("trouser") || name.contains("pant") || name.contains("short") => Role::Leg,
         None if name.contains("bodice") || name.contains("top") || name.contains("yoke") => Role::Upper,
         None => Role::Lower,
     }
@@ -319,6 +323,73 @@ impl Setup {
     }
 }
 
+/// Trouser pieces (role [`Role::Leg`]) placed: each leg's front and back round its leg below the
+/// crotch, the four together round the hips above, blended between the hip and the crotch; each
+/// piece's top at the waist (the back's rise above it), its centre seam (`centre`: each copy's,
+/// its mean across on the pattern) at the middle of the front or back, the inseam inside the leg.
+/// A leg needs a front and a back (by name: "back", else a front); left unplaced otherwise.
+fn legs(place: &mut [Option<Placing>], copies: &[Copy], parts: &[Part], centre: &[(usize, f64)], avatar: &pf_core::avatar::Avatar, waist: f64) {
+    use std::f64::consts::PI;
+    let back = |c: usize| parts[copies[c].piece].name.to_lowercase().contains("back");
+    let leg_copies: Vec<usize> = (0..copies.len()).filter(|c| parts[copies[*c].piece].role == Role::Leg).collect();
+    // The centre seam's side of each copy: from its seam, else as the trouser block draws them
+    // (the front's centre on its left, the back's on its right; mirrored, the other way).
+    let centre_left = |c: usize| {
+        let (l, r, _, _) = copies[c].bounds;
+        centre.iter().find(|(k, _)| *k == c).map_or(back(c) == copies[c].mirrored, |(_, x)| *x < (l + r) / 2.0)
+    };
+    // Which leg (+1 the body's +x side): seen from the front a front's centre is toward -x, seen
+    // from behind a back's toward the viewer's right, -x too.
+    let side = |c: usize| if centre_left(c) != back(c) { 1.0 } else { -1.0 };
+    let find = |sd: f64, b: bool| leg_copies.iter().copied().find(|c| side(*c) == sd && back(*c) == b);
+    let (Some(f0), Some(b0), Some(f1), Some(b1)) = (find(1.0, false), find(1.0, true), find(-1.0, false), find(-1.0, true)) else {
+        return;
+    };
+    // Heights from the hems, all at the ankle line together: the front's top at the waist.
+    let length = copies[f0].bounds.3 - copies[f0].bounds.2;
+    let foot = waist - length;
+    let crotch = avatar.ring("crotch").map_or(waist - 250.0, |r| r.z);
+    let hip = avatar.ring("hip").map_or(waist - 200.0, |r| r.z).max(crotch + 1.0);
+    let widths: std::sync::Arc<Vec<(Vec<Pt>, f64)>> = std::sync::Arc::new(copies.iter().map(|c| (c.outline.clone(), c.bounds.3)).collect());
+    let x_of = |rings: &[pf_core::avatar::Ring], z: f64| {
+        rings
+            .windows(2)
+            .find(|w| z <= w[0].z && z >= w[1].z)
+            .map(|w| w[0].x + (w[1].x - w[0].x) * (w[0].z - z) / (w[0].z - w[1].z))
+            .unwrap_or_else(|| if z > rings[0].z { rings[0].x } else { rings[rings.len() - 1].x })
+    };
+    let legs_x: [Vec<pf_core::avatar::Ring>; 2] = [avatar.legs[0].clone(), avatar.legs[1].clone()];
+    for &(c, sd, b) in &[(f0, 1.0, false), (b0, 1.0, true), (f1, -1.0, false), (b1, -1.0, true)] {
+        let (mine, other) = if sd > 0.0 { ((f0, b0), (f1, b1)) } else { ((f1, b1), (f0, b0)) };
+        let widths = widths.clone();
+        let left = centre_left(c);
+        let bottom = copies[c].bounds.3;
+        let rings = if sd > 0.0 { legs_x[0].clone() } else { legs_x[1].clone() };
+        let cx = move |z: f64| x_of(&rings, z).abs();
+        place[c] = Some(Box::new(move |q: Pt| {
+            let h = bottom - q.y;
+            let z = foot + h;
+            let w = |k: usize| span(&widths[k].0, widths[k].1 - h).map_or(0.0, |(a, b)| b - a);
+            let (wf, wb) = (w(mine.0), w(mine.1));
+            let (l, r) = span(&widths[c].0, q.y).unwrap_or((q.x, q.x + 1.0));
+            // How far from the centre seam across the piece, 0 to 1 (at the side seam).
+            let s = (if left { q.x - l } else { r - q.x } / (r - l).max(1e-9)).clamp(0.0, 1.0);
+            // Round the hips: the front from the middle of the front, the back on to the middle
+            // of the back.
+            let all = (wf + wb + w(other.0) + w(other.1)).max(1.0);
+            let t = if b { 2.0 * PI * (wf + (1.0 - s) * wb) / all } else { 2.0 * PI * s * wf / all };
+            let ring = [sd * all / (2.0 * PI) * t.sin(), all / (2.0 * PI) * t.cos()];
+            // Round the leg: the front across the front, the inseam inside.
+            let both = (wf + wb).max(1.0);
+            let phi = if b { PI * wf / both + (1.0 - s) * 2.0 * PI * wb / both } else { -PI * wf / both + s * 2.0 * PI * wf / both };
+            let rl = both / (2.0 * PI);
+            let tube = [sd * (cx(z) + rl * phi.sin()), rl * phi.cos()];
+            let a = ((z - crotch) / (hip - crotch)).clamp(0.0, 1.0);
+            [tube[0] + (ring[0] - tube[0]) * a, tube[1] + (ring[1] - tube[1]) * a, z]
+        }));
+    }
+}
+
 /// Set up the drape of `p` (see `drape.make`).
 pub fn setup(s: &Session, p: &Value) -> Result<Setup> {
     const C: &str = "drape.make";
@@ -423,6 +494,16 @@ pub fn setup(s: &Session, p: &Value) -> Result<Setup> {
         let (Some(ia), Some(ib)) = (part_of(ra.1), part_of(rb.1)) else { continue };
         let pa = run_points(&parts[ia].sp, ra.3, ra.4, 64, &parts[ia].legs);
         let pb = run_points(&parts[ib].sp, rb.3, rb.4, 64, &parts[ib].legs);
+        // A centre seam: a run sewn to itself, on a mirror-image pair: the copy as drawn sewn to
+        // its mirror.
+        if ia == ib && (ra.3, ra.4) == (rb.3, rb.4) {
+            if let (Some((a, pa)), Some((b, pb))) = (on_copy(&parts[ia], 0, &pa), on_copy(&parts[ia], 1, &pb))
+                && a != b
+            {
+                seams.push(Seam { a, b, pa, pb, ordered: false });
+            }
+            continue;
+        }
         for side in 0..2 {
             if let (Some((a, pa)), Some((b, pb))) = (on_copy(&parts[ia], side, &pa), on_copy(&parts[ib], side, &pb)) {
                 // Both sides on one copy opened out: the second is its mirror, a seam of its own.
@@ -527,6 +608,16 @@ pub fn setup(s: &Session, p: &Value) -> Result<Setup> {
             }));
         }
     }
+    // Trousers: where each leg copy's centre seam is (its mean across, on the pattern).
+    let centre: Vec<(usize, f64)> = seams
+        .iter()
+        .filter(|s| s.a != s.b && copies[s.a].piece == copies[s.b].piece && role(s.a) == Role::Leg)
+        .flat_map(|s| {
+            let mean = |pts: &[Pt]| pts.iter().map(|q| q.x).sum::<f64>() / pts.len().max(1) as f64;
+            [(s.a, mean(&s.pa)), (s.b, mean(&s.pb))]
+        })
+        .collect();
+    legs(&mut place, &copies, &parts, &centre, &avatar, waist);
     // The sleeves, each round the arm on the side of the armhole it is sewn into (else the body's
     // left for the copy as drawn, its right for the other): its top at the shoulder point, the
     // middle of the crown outside the arm.
@@ -630,9 +721,10 @@ pub fn setup(s: &Session, p: &Value) -> Result<Setup> {
         }
     }
     // Forty rounds of corrections a substep at the default precision, more the finer it is (the
-    // cloth gets softer the more particles there are): fewer let a ring of cloth stretch round
-    // the hips and slide off (at ten, a skirt that fits fell to the floor).
-    let iterations = (40.0 * (20.0 / step).powi(2)).round() as usize;
+    // cloth gets softer the more particles there are), never fewer: fewer let a ring of cloth
+    // stretch round the hips and slide off (at ten, a skirt that fits fell to the floor; at 26,
+    // the 25 mm cloth of a pair of trousers, as heavy as two skirts, slid down the legs).
+    let iterations = (40.0 * (20.0 / step).powi(2)).round().max(40.0) as usize;
     let darts = seams.iter().filter(|s| s.ordered).count();
     let sleeves: Vec<u32> = (0..copies.len())
         .filter(|c| role(*c) == Role::Arm)
