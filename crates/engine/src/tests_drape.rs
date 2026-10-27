@@ -381,3 +381,51 @@ fn the_mens_shirt_block_hangs_from_the_shoulders() {
     assert!(hem < waist - 250.0 && hem > waist - 400.0, "{r}");
     assert!(r["widestSeam"].as_f64().unwrap() < 10.0 && r["worstStretch"].as_f64().unwrap() < 25.0, "{r}");
 }
+
+/// The men's shirt sleeve (PF-4.14), drafted on the shirt block's armhole and set into it: a
+/// shirt with sleeves on the male figure, the sleeves down both arms, the armpit not pinched.
+#[test]
+fn a_mens_shirt_with_sleeves_drapes_on_a_male_figure() {
+    let mut s = Session::new();
+    s.execute("file.new", &json!({"width": 3370, "height": 2384})).unwrap();
+    let m = json!({"figure": "male", "values": {"bust": 1000, "waist": 860, "hip": 1020, "nape_to_waist": 450, "waist_to_hip": 190, "neck": 400,
+        "back_width": 400, "armscye_depth": 240, "shoulder": 150, "sleeve_length": 640, "top_arm": 320}});
+    s.execute("measure.set", &m).unwrap();
+    s.execute("block.mensShirt", &json!({})).unwrap();
+    s.execute("block.mensShirtSleeve", &json!({"origin": [1700, 100]})).unwrap();
+    let mut pieces = Vec::new();
+    for (id, name) in [(2, "Back Shirt"), (3, "Front Shirt"), (4, "Sleeve")] {
+        pieces.push(s.execute("piece.make", &json!({"ids": [id], "name": name})).unwrap()["ids"][0].as_u64().unwrap());
+    }
+    let (b, f, sl) = (pieces[0], pieces[1], pieces[2]);
+    s.execute("piece.set", &json!({"id": b, "fold": 6})).unwrap();
+    s.execute("piece.set", &json!({"id": f, "fold": 1})).unwrap();
+    s.execute("piece.set", &json!({"id": sl, "cut": 2, "mirror": true})).unwrap();
+    // The side seams and shoulders; the sleeve's underarm (2–3 to 6–7), its crown's front half
+    // (0–2) into the front armhole (4–6) and its back half (7–0) into the back's (2–4).
+    let mut ease = Vec::new();
+    for (a, c) in [((b, 4, 5), (f, 3, 4)), ((b, 1, 2), (f, 6, 0)), ((sl, 2, 3), (sl, 6, 7)), ((sl, 0, 2), (f, 4, 6)), ((sl, 7, 0), (b, 2, 4))] {
+        let r = s.execute("piece.sew", &json!({"a": {"id": a.0, "from": a.1, "to": a.2}, "b": {"id": c.0, "from": c.1, "to": c.2}})).unwrap();
+        ease.push(r["difference"].as_f64().unwrap());
+    }
+    // Each crown half a little longer than its armhole (the ease to set it in).
+    assert!(ease[3] > 5.0 && ease[3] < 40.0 && ease[4] > 5.0 && ease[4] < 40.0, "{ease:?}");
+    let dir = std::env::temp_dir().join(format!("pf-drape-shirt-{}", std::process::id()));
+    std::fs::create_dir_all(&dir).unwrap();
+    let path = dir.join("shirt.obj");
+    // At the app's own precision and length (at 25 mm and 150 steps the coarser cloth can't follow
+    // the armpit's curve: it reads 372% there, the women's sleeve 338%).
+    let r = s.execute("drape.make", &json!({"draw": false, "path": path.to_str().unwrap()})).unwrap();
+    assert_eq!(r["pieces"], json!(3), "{r}");
+    let (top, waist) = (r["top"].as_f64().unwrap(), r["waist"].as_f64().unwrap());
+    assert!(top > waist + 400.0, "{r}");
+    assert!(r["widestSeam"].as_f64().unwrap() < 15.0, "{r}");
+    // The armpit not pinched as a sleeve set into the women's bodice is (a crown fitted to its
+    // armhole).
+    assert!(r["tightest"].as_f64().unwrap() < 150.0, "{r}");
+    let obj = std::fs::read_to_string(&path).unwrap();
+    let xs: Vec<f64> = obj.lines().filter_map(|l| l.strip_prefix("v ")).filter_map(|l| l.split(' ').next()?.parse::<f64>().ok()).collect();
+    let (lo, hi) = xs.iter().fold((f64::INFINITY, f64::NEG_INFINITY), |(a, b), x| (a.min(*x), b.max(*x)));
+    assert!(lo < -0.3 && hi > 0.3, "{lo} {hi}");
+    std::fs::remove_dir_all(&dir).ok();
+}

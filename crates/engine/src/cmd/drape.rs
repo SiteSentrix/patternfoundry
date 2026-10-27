@@ -116,7 +116,7 @@ fn role_of(doc: &Document, id: NodeId, name: &str) -> Role {
     let kind = super::piece::seam_of(doc, id).and_then(|n| n.extras().block.as_ref().map(|b| b.kind));
     let name = name.to_lowercase();
     match kind {
-        Some(BlockKind::Sleeve) => Role::Arm,
+        Some(BlockKind::Sleeve | BlockKind::MensShirtSleeve) => Role::Arm,
         Some(BlockKind::Bodice | BlockKind::MensShirt) => Role::Upper,
         Some(BlockKind::Trousers | BlockKind::MensTrousers) => Role::Leg,
         Some(_) => Role::Lower,

@@ -704,6 +704,24 @@ is built on, plus a pattern mode, the way StitchFoundry adds embroidery:
   more in `pf-core` (a trapezoid's edge particles on its outline, none outside it, the particle
   nearest a point of the slanted side on it), the skirt's test bounds tightened (seams within
   5 mm, stretch under 15%; it hangs 580 to 680 mm, a few per cent long under its weight).
+- 2026-10-27, **PF-4.14**: a men's shirt sleeve. **Pattern › Draft Men's Shirt Sleeve Block**
+  (`block.mensShirtSleeve`, in all 23 languages) drafts the sleeve on the men's shirt block's
+  armhole, as the same author publishes it
+  (<https://opensourcestitches.wordpress.com/2011/02/18/pattern-drafting-101-the-mens-shirt-sleeve-block/>):
+  the crown a third of the armhole high above the armhole line; its top, middle and underarm points
+  each pivoted from the last by the armhole's own lengths (the straight shoulder-to-armhole
+  distances and the curves' lengths) and 7.5 mm to 1.5 cm more; the sleeve straight down from the
+  crown's top, 5 cm in each side at the hem, the hem dipping 1 cm at the back's placket (a 10 cm
+  slit, marked). Measurements: the shirt block's and sleeve_length; option: the cuff's depth (6 cm,
+  chosen: the page gives no length), off the sleeve's length. Chosen where the page is silent: the
+  crown's curves (within its distances of the lines), its "x" (never placed: the crown's front curve
+  taken over to b in one), the length. On the test man (chest 1000, armhole depth 240) the crown
+  is 2.4 cm longer than the front armhole and 2.7 cm than the back's (the source's ease, generous for
+  a shirt); set in, the shirt drapes with a sleeve down each arm, the armpit's tightest place 42%
+  (a women's bodice and sleeve: about 250%), seams within 5 mm. Tests: 1 in `pf-core` (the crown's
+  height and its ease over the armhole, the hem, refusals), 1 in `tests_drape.rs` (the shirt with
+  sleeves on the male figure, at the app's own precision: at 25 mm the coarse cloth can't follow the
+  armpit). Not yet: the collar and cuffs (BurdaStyle's collar post is not public text here).
 - 2026-10-27, **PF-4.13**: a men's shirt block. **Pattern › Draft Men's Shirt Block**
   (`block.mensShirt`, in all 23 languages) drafts the men's shirt block from the metric steps
   published by Open Source Stitches

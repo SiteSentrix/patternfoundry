@@ -80,6 +80,8 @@ pub enum BlockKind {
     MensTrousers,
     /// The men's shirt block (PF-4.13): back and front.
     MensShirt,
+    /// The men's shirt sleeve block (PF-4.14), drafted on the shirt block's armhole.
+    MensShirtSleeve,
 }
 
 /// What a drafted path is: which part of which block, and where the block's origin is in the
@@ -177,6 +179,17 @@ pub const MENS_SHIRT_MEASUREMENTS: &[(&str, &str)] = &[
     ("nape_to_waist", "down the spine from the nape to the waist"),
 ];
 
+/// The measurements the men's shirt sleeve is drafted from: the shirt block's, for its armhole, and
+/// the sleeve's length (all in mm).
+pub const MENS_SHIRT_SLEEVE_MEASUREMENTS: &[(&str, &str)] = &[
+    ("bust", "round the chest, its fullest part (for a man the chest)"),
+    ("neck", "round the base of the neck"),
+    ("back_width", "across the back between the armpits' creases"),
+    ("armscye_depth", "from the nape down to the level of the armpits"),
+    ("nape_to_waist", "down the spine from the nape to the waist"),
+    ("sleeve_length", "from the shoulder point down the outside of the arm to the wrist, the arm a little bent"),
+];
+
 /// The measurements a block is drafted from.
 pub fn measurements(kind: BlockKind) -> &'static [(&'static str, &'static str)] {
     match kind {
@@ -186,6 +199,7 @@ pub fn measurements(kind: BlockKind) -> &'static [(&'static str, &'static str)] 
         BlockKind::Trousers => TROUSER_MEASUREMENTS,
         BlockKind::MensTrousers => MENS_TROUSER_MEASUREMENTS,
         BlockKind::MensShirt => MENS_SHIRT_MEASUREMENTS,
+        BlockKind::MensShirtSleeve => MENS_SHIRT_SLEEVE_MEASUREMENTS,
     }
 }
 
@@ -248,6 +262,9 @@ pub const MENS_SHIRT_OPTIONS: &[BlockOption] = &[opt(
     1300.0,
 )];
 
+pub const MENS_SHIRT_SLEEVE_OPTIONS: &[BlockOption] =
+    &[opt("cuff", "the cuff's depth, taken off the sleeve's length (the source gives none; chosen: 6 cm)", Some(60.0), 0.0, 200.0)];
+
 pub const MENS_TROUSER_OPTIONS: &[BlockOption] = &[
     opt("waistband", "the waistband's depth: the block's top is its lower edge", Some(40.0), 0.0, 100.0),
     opt("easy_fit", "added along the back crotch for an easy fit (the source: 3.5 cm)", Some(0.0), 0.0, 60.0),
@@ -278,6 +295,7 @@ pub fn options(kind: BlockKind) -> &'static [BlockOption] {
         BlockKind::Trousers => TROUSER_OPTIONS,
         BlockKind::MensTrousers => MENS_TROUSER_OPTIONS,
         BlockKind::MensShirt => MENS_SHIRT_OPTIONS,
+        BlockKind::MensShirtSleeve => MENS_SHIRT_SLEEVE_OPTIONS,
     }
 }
 
@@ -960,6 +978,116 @@ pub fn mens_shirt(env: &mut Env, o: &Options) -> Result<Vec<Part>, BlockError> {
     Ok(vec![back, front])
 }
 
+/// The point of cubic `a`–`c1`–`c2`–`b` at `t`.
+fn cubic_at(a: Pt, c1: Pt, c2: Pt, b: Pt, t: f64) -> Pt {
+    let m = 1.0 - t;
+    a * (m * m * m) + c1 * (3.0 * m * m * t) + c2 * (3.0 * m * t * t) + b * (t * t * t)
+}
+
+/// The men's shirt sleeve block (PF-4.14), drafted as the same author publishes it on the shirt
+/// block (<https://opensourcestitches.wordpress.com/2011/02/18/pattern-drafting-101-the-mens-shirt-sleeve-block/>):
+/// the crown a third of the armhole high above the armhole line at the front's corner (a); its top
+/// (i) as far from the front's top armhole point (b) as the front shoulder point is, and 1.5 cm;
+/// down to a middle line (j) as far as the back shoulder point from where the back armhole crosses
+/// that line (e), and 1.25 cm; to the armhole line at the back (k) as far as the back armhole runs
+/// from e to the side seam, and 1.25 cm, and at the front (l) as far as the front armhole runs from
+/// b to it, and 7.5 mm; the sleeve straight down from i to its length, 5 cm in each side at the
+/// hem, the hem curving 1 cm down at the back's slit (its placket, 10 cm, marked in the middle of
+/// the back half). The crown's curves within the page's distances of its lines (chosen; the page's
+/// "x", never placed, taken as the top of the crown's front curve). Its length is the sleeve length
+/// less a cuff's depth (chosen).
+pub fn mens_shirt_sleeve(env: &mut Env, o: &Options) -> Result<Part, BlockError> {
+    let sleeve = need(env, &[("sleeve_length", "")])?[0];
+    let shirt = mens_shirt(env, &Options::new())?;
+    let (back, front) = (&shirt[0], &shirt[1]);
+    let (bc, fc) = (back.corners(), front.corners());
+    let un = |p: Pt| Pt::new(p.x - 60.0, p.y);
+    let (u, m) = (bc[2], bc[4]);
+    let (l_pt, y_pt) = (un(fc[5]), un(fc[6]));
+    let curve = |part: &Part, k: usize, off: Pt| -> (Pt, Pt, Pt, Pt) {
+        let c = part.corners();
+        match part.segs[k] {
+            Seg::Cubic(c1, c2, e) => (c[k] - off, c1 - off, c2 - off, e - off),
+            Seg::Line(e) => (c[k] - off, c[k] - off, e - off, e - off),
+        }
+    };
+    let zero = Pt::new(0.0, 0.0);
+    let (b_uq, b_qm) = (curve(back, 2, zero), curve(back, 3, zero));
+    let (f_ml, f_ly) = (curve(front, 4, Pt::new(60.0, 0.0)), curve(front, 5, Pt::new(60.0, 0.0)));
+    let len = |c: (Pt, Pt, Pt, Pt)| cubic_len(c.0, c.1, c.2, c.3);
+    let armhole = len(b_uq) + len(b_qm) + len(f_ml) + len(f_ly);
+    // The crown: a at the front's corner on the armhole line, b the front's armhole point above it.
+    let a = Pt::new(l_pt.x, m.y);
+    let b = l_pt;
+    let c = Pt::new(a.x, a.y - armhole / 3.0);
+    let d_y = (a.y + c.y) / 2.0;
+    // e: where the middle line crosses the back armhole (from U down to M).
+    let samples: Vec<(Pt, f64)> = {
+        let mut out = Vec::new();
+        let mut run = 0.0;
+        let mut last = u;
+        for seg in [b_uq, b_qm] {
+            for i in 0..=200 {
+                let pt = cubic_at(seg.0, seg.1, seg.2, seg.3, f64::from(i) / 200.0);
+                run += (pt - last).len();
+                last = pt;
+                out.push((pt, run));
+            }
+        }
+        out
+    };
+    let total_back = samples.last().map_or(0.0, |s| s.1);
+    let (e, e_run) = samples
+        .iter()
+        .copied()
+        .min_by(|x, y| (x.0.y - d_y).abs().total_cmp(&(y.0.y - d_y).abs()))
+        .ok_or(BlockError::Impossible("no back armhole"))?;
+    if (e.y - d_y).abs() > 5.0 {
+        return Err(BlockError::Impossible("the crown's middle line misses the back armhole"));
+    }
+    let along = |from: Pt, y: f64, r: f64, left: bool| -> Result<Pt, BlockError> {
+        let dy = y - from.y;
+        let dx2 = r * r - dy * dy;
+        if dx2 <= 0.0 {
+            return Err(BlockError::Impossible("the sleeve's crown can't reach its line: the armhole is too shallow"));
+        }
+        Ok(Pt::new(if left { from.x - dx2.sqrt() } else { from.x + dx2.sqrt() }, y))
+    };
+    let i = along(b, c.y, (y_pt - b).len() + 15.0, true)?;
+    let j = along(i, d_y, (u - e).len() + 12.5, true)?;
+    let k = along(j, a.y, (total_back - e_run) + 12.5, true)?;
+    let l = along(b, a.y, len(f_ml) + 7.5, false)?;
+    let cuff = value(o, "cuff", 60.0);
+    let y_m = i.y + sleeve - cuff;
+    if y_m <= a.y + 100.0 {
+        return Err(BlockError::Impossible("the sleeve is too short for its crown"));
+    }
+    let mm = Pt::new(i.x, y_m);
+    let p = Pt::new(l.x - 50.0, y_m);
+    let qq = Pt::new(k.x + 50.0, y_m);
+    let s_ = Pt::new((mm.x + qq.x) / 2.0, y_m + 10.0);
+    // The crown's curves (chosen within the page's limits): from k up to j (dipping at most 7.5 mm),
+    // j up to i (rising 1.5 cm), i over to b (rising up to 2 cm), b down to l (dipping 7.5 mm).
+    let lift = |a: Pt, b: Pt, by: f64, t: f64| {
+        let d = b - a;
+        let n = Pt::new(d.y, -d.x).unit().unwrap_or(Pt::new(0.0, -1.0));
+        let n = if n.y > 0.0 { n * -1.0 } else { n };
+        a + d * t + n * by
+    };
+    let segs = vec![
+        Seg::Cubic(lift(i, b, 2.0 * 4.0 / 3.0 * 0.75, 0.3), lift(i, b, 2.0 * 4.0 / 3.0 * 0.75, 0.75), b),
+        Seg::Cubic(lift(b, l, -7.5 * 4.0 / 3.0, 0.33), lift(b, l, -7.5 * 4.0 / 3.0, 0.67), l),
+        Seg::Line(p),
+        Seg::Line(mm),
+        Seg::Cubic(Pt::new(mm.x - (mm.x - s_.x) * 0.5, y_m + 2.0), Pt::new(s_.x + 15.0, s_.y), s_),
+        Seg::Cubic(Pt::new(s_.x - 15.0, s_.y), Pt::new(qq.x + (s_.x - qq.x) * 0.5, y_m + 2.0), qq),
+        Seg::Line(k),
+        Seg::Cubic(lift(k, j, -7.5 * 4.0 / 3.0, 0.33), lift(k, j, -7.5 * 4.0 / 3.0, 0.67), j),
+        Seg::Cubic(lift(j, i, 15.0 * 4.0 / 3.0, 0.33), lift(j, i, 15.0 * 4.0 / 3.0, 0.67), i),
+    ];
+    Ok(Part { name: "Men's Shirt Sleeve Block", start: i, segs })
+}
+
 /// The men's trouser block (PF-4.12, see the module docs): front then back, each a half pair (one
 /// leg), both with the fork on the left and the side seam on the right (the back drawn over the
 /// front's lines as tailors draw it, then set beside it; cut as a mirror-image pair each, so the
@@ -1133,6 +1261,7 @@ pub fn draft(kind: BlockKind, env: &mut Env, o: &Options) -> Result<Vec<Part>, B
         BlockKind::Trousers => trousers(env, o),
         BlockKind::MensTrousers => mens_trousers(env, o),
         BlockKind::MensShirt => mens_shirt(env, o),
+        BlockKind::MensShirtSleeve => mens_shirt_sleeve(env, o).map(|p| vec![p]),
     }
 }
 
@@ -1424,6 +1553,48 @@ mod tests {
         let mut o = Options::new();
         o.insert("length".into(), 400.0);
         assert!(matches!(mens_shirt(&mut m.env(), &o), Err(BlockError::Impossible(_))));
+    }
+
+    /// The men's shirt sleeve (PF-4.14), drafted on the shirt block: its crown a third of the
+    /// armhole high, a few centimetres longer than the armhole (the page's additions at each pivot,
+    /// the ease to set it in), its top straight above the hem's middle, 5 cm in each side at the hem.
+    #[test]
+    fn the_mens_shirt_sleeve_fits_the_shirts_armhole() {
+        let mut m = Measurements::default();
+        for (k, v) in
+            [("bust", 1000.0), ("neck", 400.0), ("back_width", 400.0), ("armscye_depth", 240.0), ("nape_to_waist", 450.0), ("sleeve_length", 640.0)]
+        {
+            m.set_value(k, Some(v)).unwrap();
+        }
+        let sleeve = mens_shirt_sleeve(&mut m.env(), &Options::new()).unwrap();
+        let parts = draft(BlockKind::MensShirtSleeve, &mut m.env(), &Options::new()).unwrap();
+        assert_eq!(parts, vec![sleeve.clone()]);
+        let shirt = mens_shirt(&mut m.env(), &Options::new()).unwrap();
+        let armhole: f64 = [(&shirt[0], 2), (&shirt[0], 3), (&shirt[1], 4), (&shirt[1], 5)].iter().map(|(p, k)| seg_len(p, *k)).sum();
+        // The crown: i to b and on to l, and from k up through j to i.
+        let crown: f64 = [0, 1, 7, 8].iter().map(|k| seg_len(&sleeve, *k)).sum();
+        assert!(crown - armhole > 10.0 && crown - armhole < 60.0, "{crown} {armhole}");
+        let c = sleeve.corners();
+        let (i, l, p, mm, k, q) = (c[0], c[2], c[3], c[4], c[7], c[6]);
+        // As high as a third of the armhole above the armhole line (k and l on it).
+        assert!((k.y - i.y - armhole / 3.0).abs() < 1e-6 && (l.y - k.y).abs() < 1e-9);
+        // Down from the crown's top to the hem, the sleeve's length less the 6 cm cuff.
+        assert!((mm.x - i.x).abs() < 1e-9 && (mm.y - i.y - 580.0).abs() < 1e-9);
+        assert!((l.x - p.x - 50.0).abs() < 1e-9 && (q.x - k.x - 50.0).abs() < 1e-9);
+        // A short sleeve can't hold its crown; a missing length is named.
+        m.set_value("sleeve_length", Some(150.0)).unwrap();
+        assert!(matches!(mens_shirt_sleeve(&mut m.env(), &Options::new()), Err(BlockError::Impossible(_))));
+        m.set_value("sleeve_length", None).unwrap();
+        assert_eq!(mens_shirt_sleeve(&mut m.env(), &Options::new()), Err(BlockError::Missing(vec!["sleeve_length".into()])));
+    }
+
+    /// The length of segment `k` of `part`.
+    fn seg_len(part: &Part, k: usize) -> f64 {
+        let a = part.corners()[k];
+        match part.segs[k] {
+            Seg::Line(e) => (e - a).len(),
+            Seg::Cubic(c1, c2, e) => cubic_len(a, c1, c2, e),
+        }
     }
 
     /// The men's trouser block (PF-4.12) by the source's numbers, its example measurements (seat

@@ -67,6 +67,15 @@ pub fn specs() -> Vec<CommandSpec> {
             mens_shirt
         ),
         cmd!(
+            "block.mensShirtSleeve",
+            "Draft Men's Shirt Sleeve Block",
+            ["Pattern"],
+            None,
+            "{origin?: [x, y] (document points; default: the block 20 mm inside the first artboard's top-left corner), options?: {cuff: mm (the cuff's depth, off the sleeve's length; 60)}} draft the men's shirt sleeve block (PF-4.14) on the men's shirt block's armhole, its crown a third of the armhole high and fitted to it, from the measurements: the shirt block's (bust, neck, back_width, armscye_depth, nape_to_waist) and sleeve_length (mm; measure.set). It follows the measurements when they change → {ids}",
+            has_doc,
+            mens_shirt_sleeve
+        ),
+        cmd!(
             query "block.options",
             "Block Options Info",
             [],
@@ -190,6 +199,10 @@ fn mens_shirt(s: &mut Session, p: &Value) -> Result<Value> {
     make(s, p, BlockKind::MensShirt, "block.mensShirt", "Draft Men's Shirt Block")
 }
 
+fn mens_shirt_sleeve(s: &mut Session, p: &Value) -> Result<Value> {
+    make(s, p, BlockKind::MensShirtSleeve, "block.mensShirtSleeve", "Draft Men's Shirt Sleeve Block")
+}
+
 fn sleeve(s: &mut Session, p: &Value) -> Result<Value> {
     let mut r = make(s, p, BlockKind::Sleeve, "block.sleeve", "Draft Sleeve Block")?;
     let options = options_param(p, BlockKind::Sleeve, "block.sleeve")?;
@@ -294,6 +307,7 @@ fn kind_name(kind: BlockKind) -> &'static str {
         BlockKind::Trousers => "trousers",
         BlockKind::MensTrousers => "mensTrousers",
         BlockKind::MensShirt => "mensShirt",
+        BlockKind::MensShirtSleeve => "mensShirtSleeve",
     }
 }
 
@@ -377,8 +391,12 @@ fn measurements(s: &mut Session, p: &Value) -> Result<Value> {
         Some("trousers") => BlockKind::Trousers,
         Some("mensTrousers") => BlockKind::MensTrousers,
         Some("mensShirt") => BlockKind::MensShirt,
+        Some("mensShirtSleeve") => BlockKind::MensShirtSleeve,
         Some(_) => {
-            return Err(bad("block.measurements", "block: \"bodice\", \"skirt\", \"sleeve\", \"trousers\", \"mensTrousers\" or \"mensShirt\""));
+            return Err(bad(
+                "block.measurements",
+                "block: \"bodice\", \"skirt\", \"sleeve\", \"trousers\", \"mensTrousers\", \"mensShirt\" or \"mensShirtSleeve\"",
+            ));
         }
     };
     let list = pf_core::block::measurements(kind);
