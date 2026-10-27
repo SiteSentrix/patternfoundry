@@ -656,6 +656,27 @@ fn a_shirt_collar_for_the_bodice_block() {
     assert!(s.execute("design.shirtCollar", &json!({"fall": 0})).is_err());
 }
 
+/// The collar tools know the men's shirt block's necklines (PF-4.15): a shirt collar drafted from
+/// it selected, its neck edge as long as the shirt's neckline.
+#[test]
+fn a_shirt_collar_for_the_mens_shirt_block() {
+    let mut s = Session::new();
+    s.execute("file.new", &json!({"width": 1400, "height": 1000})).unwrap();
+    s.execute("measure.set", &json!({"values": {"bust": 1000, "neck": 400, "back_width": 400, "armscye_depth": 240, "nape_to_waist": 450}})).unwrap();
+    let r = s.execute("block.mensShirt", &json!({"origin": [0, 0]})).unwrap();
+    let (back, front) = (NodeId(r["ids"][0].as_u64().unwrap()), NodeId(r["ids"][1].as_u64().unwrap()));
+    s.execute("select.set", &json!({"ids": [r["ids"][0], r["ids"][1]]})).unwrap();
+    let c = s.execute("design.shirtCollar", &json!({})).unwrap();
+    // The neckline: the back's from the centre back to the neck point (0–1), the front's from the
+    // neck point to the centre front (0–1), twice over.
+    let neck = 2.0 * (length(&mut s, back, 0, 1) + length(&mut s, front, 0, 1));
+    // The collar's `neck` is half of it (one side's), and the shirt's neckline as long round as the
+    // neck measured (within 1 cm).
+    assert!((c["neck"].as_f64().unwrap() * 2.0 - neck).abs() < 0.5, "{c} {neck}");
+    assert!((neck - 400.0).abs() < 10.0, "{neck}");
+    assert!(c.get("stand").is_some() && c.get("fall").is_some(), "{c}");
+}
+
 /// A wrap front (`design.wrapFront`), as Ploen Patterns drafts a wrap blouse
 /// (<https://ploenpatterns.com/blogs/news/how-to-draft-a-wrap-blouse-step-by-step-pattern-making-tutorial>):
 /// the bust dart moved to the armhole first, the half opened out across centre front, the wrap

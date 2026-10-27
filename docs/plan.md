@@ -704,6 +704,16 @@ is built on, plus a pattern mode, the way StitchFoundry adds embroidery:
   more in `pf-core` (a trapezoid's edge particles on its outline, none outside it, the particle
   nearest a point of the slanted side on it), the skirt's test bounds tightened (seams within
   5 mm, stretch under 15%; it hangs 580 to 680 mm, a few per cent long under its weight).
+- 2026-10-27, **PF-4.15**: collars for the men's shirt. Draft Collar, Draft Stand Collar and Draft
+  Shirt Collar (`design.collar`, `design.standCollar`, `design.shirtCollar`) know the men's shirt
+  block's necklines and shoulder points, as they know the bodice block's: select its back and front
+  and draft. On the test man (neck 400) the shirt's neckline is 396 mm round, the collar's neck
+  edge as long. Children's blocks are not drafted yet: the public children's drafts found (a
+  self-drafted "easy" block in inches with a fixed 3-inch front neck, a sheet missing its armhole's
+  points, an "arc"-measurement draft needing nine measurements PatternFoundry doesn't take and
+  leaving its dart's point to its drawing) are not good enough to fit; a child figure drapes the
+  women's and men's blocks drafted from its measurements meanwhile. Tests: 1 in `tests_design.rs`
+  (a shirt collar from the men's shirt block selected).
 - 2026-10-27, **PF-4.14**: a men's shirt sleeve. **Pattern › Draft Men's Shirt Sleeve Block**
   (`block.mensShirtSleeve`, in all 23 languages) drafts the sleeve on the men's shirt block's
   armhole, as the same author publishes it
