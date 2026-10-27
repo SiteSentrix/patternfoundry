@@ -42,6 +42,18 @@
 //! Its inside leg is the waist to ankle less the crotch depth; its bottom width half the
 //! trouser hem round. The curves it leaves to its drawings are chosen here and marked.
 //!
+//! The men's shirt block (PF-4.13) follows the metric steps published by Open Source Stitches
+//! (<https://opensourcestitches.wordpress.com/2011/02/17/pattern-drafting-101-the-mens-shirt-block/>,
+//! after Gedwood's BurdaStyle tutorial, itself "partly based on" Winifred Aldrich's *Metric Pattern
+//! Cutting for Menswear*): a rectangle half the chest and 8 cm wide, the armhole line the armhole
+//! depth and 2.5 cm down; the back's width half the half back and 2.5 cm, the side seam half way
+//! between it and a third of the chest and 1.5 cm, less 5 mm; the back neck a fifth of the neck less
+//! 5 mm across and 2 cm up, the front neck a fifth deep and a fifth less 1 cm across; the back
+//! shoulder to a point a quarter of the armhole depth and 4 cm above half the armhole depth and
+//! 3.5 cm out, the front shoulder 5 mm longer, 2 cm lower. Straight sides, no darts. The curves it
+//! leaves to its drawings are chosen here (the armhole within the page's distances of its
+//! corners) and marked.
+//!
 //! Every length is in mm, y down, from the draft's origin `O` (the back neck's top-left
 //! construction corner). The back is drawn on the left (centre back at x = 0), the front on the
 //! right (centre front at the right edge), both half-bodies. The sleeve's origin is its shoulder
@@ -66,6 +78,8 @@ pub enum BlockKind {
     Trousers,
     /// The men's trouser block (PF-4.12): front and back.
     MensTrousers,
+    /// The men's shirt block (PF-4.13): back and front.
+    MensShirt,
 }
 
 /// What a drafted path is: which part of which block, and where the block's origin is in the
@@ -154,6 +168,15 @@ pub const MENS_TROUSER_MEASUREMENTS: &[(&str, &str)] = &[
     ("trouser_hem", "round the trouser leg at the hem (a choice, not a body measurement: 50 cm in the source's example)"),
 ];
 
+/// The measurements the men's shirt block is drafted from (all in mm).
+pub const MENS_SHIRT_MEASUREMENTS: &[(&str, &str)] = &[
+    ("bust", "round the chest, its fullest part (for a man the chest)"),
+    ("neck", "round the base of the neck"),
+    ("back_width", "across the back between the armpits' creases"),
+    ("armscye_depth", "from the nape down to the level of the armpits"),
+    ("nape_to_waist", "down the spine from the nape to the waist"),
+];
+
 /// The measurements a block is drafted from.
 pub fn measurements(kind: BlockKind) -> &'static [(&'static str, &'static str)] {
     match kind {
@@ -162,6 +185,7 @@ pub fn measurements(kind: BlockKind) -> &'static [(&'static str, &'static str)] 
         BlockKind::Sleeve => SLEEVE_MEASUREMENTS,
         BlockKind::Trousers => TROUSER_MEASUREMENTS,
         BlockKind::MensTrousers => MENS_TROUSER_MEASUREMENTS,
+        BlockKind::MensShirt => MENS_SHIRT_MEASUREMENTS,
     }
 }
 
@@ -216,6 +240,14 @@ pub const SLEEVE_OPTIONS: &[BlockOption] = &[
 pub const CLASSIC_CROWN_EASE: f64 = 44.45;
 
 /// The trouser block's options.
+pub const MENS_SHIRT_OPTIONS: &[BlockOption] = &[opt(
+    "length",
+    "the shirt's length down the centre back from the nape (the source leaves it to the maker; chosen: 78 cm)",
+    Some(780.0),
+    300.0,
+    1300.0,
+)];
+
 pub const MENS_TROUSER_OPTIONS: &[BlockOption] = &[
     opt("waistband", "the waistband's depth: the block's top is its lower edge", Some(40.0), 0.0, 100.0),
     opt("easy_fit", "added along the back crotch for an easy fit (the source: 3.5 cm)", Some(0.0), 0.0, 60.0),
@@ -245,6 +277,7 @@ pub fn options(kind: BlockKind) -> &'static [BlockOption] {
         BlockKind::Sleeve => SLEEVE_OPTIONS,
         BlockKind::Trousers => TROUSER_OPTIONS,
         BlockKind::MensTrousers => MENS_TROUSER_OPTIONS,
+        BlockKind::MensShirt => MENS_SHIRT_OPTIONS,
     }
 }
 
@@ -846,6 +879,87 @@ pub fn trousers(env: &mut Env, o: &Options) -> Result<Vec<Part>, BlockError> {
     Ok(vec![front, back])
 }
 
+/// The men's shirt block (PF-4.13, see the module docs): the back (centre back on the left) and
+/// the front (centre front on the right), half bodies, set apart. The points are the source's,
+/// lettered as it letters them, from A at the centre back's neck; y down.
+pub fn mens_shirt(env: &mut Env, o: &Options) -> Result<Vec<Part>, BlockError> {
+    let v = need(env, MENS_SHIRT_MEASUREMENTS)?;
+    let &[chest, neck, back_width, scye, nape_to_waist] = v.as_slice() else {
+        return Err(BlockError::Missing(vec![]));
+    };
+    let length = value(o, "length", 780.0);
+    if length <= nape_to_waist + 20.0 || scye + 25.0 >= nape_to_waist {
+        return Err(BlockError::Impossible("the shirt must reach below the waist, the waist below the armholes"));
+    }
+    let half_back = back_width / 2.0;
+    // The rectangle: the armhole line (B–C) the armhole depth and 2.5 cm down, half the chest and
+    // 8 cm wide; the hem (G–H) the length and 1 cm down.
+    let y_b = scye + 25.0;
+    let x_c = chest / 2.0 + 80.0;
+    let y_g = length + 10.0;
+    // I the back's width on the armhole line, K a third of the chest and 1.5 cm, L 3.5 cm above K;
+    // the side seam (M) half way between I and K less 5 mm; P half the armhole depth and 1 cm down,
+    // Q level with it above I.
+    let x_i = half_back + 25.0;
+    let x_k = chest / 3.0 + 15.0;
+    if x_k <= x_i || x_k >= x_c {
+        return Err(BlockError::Impossible("the half back is too wide for the chest"));
+    }
+    let x_m = x_k - ((x_k - x_i) / 2.0 - 5.0);
+    let l = Pt::new(x_k, y_b - 35.0);
+    let q = Pt::new(x_i, scye / 2.0 + 10.0);
+    // The back neck: R a fifth of the neck less 5 mm along the top, S 2 cm above it; the back
+    // shoulder to U, 3.5 cm out from T, a quarter of the armhole depth and 4 cm above Q.
+    let s = Pt::new(neck / 5.0 - 5.0, -20.0);
+    let u = Pt::new(x_i + 35.0, q.y - (scye / 4.0 + 40.0));
+    // The front neck: V a fifth of the neck down the centre front, W a fifth less 1 cm in along the
+    // top; the shoulder from W to Y, 5 mm longer than the back's, level with X 2 cm below U.
+    let v_ = Pt::new(x_c, neck / 5.0);
+    let w = Pt::new(x_c - (neck / 5.0 - 10.0), 0.0);
+    let y_x = u.y + 20.0;
+    let shoulder = (u - s).len() + 5.0;
+    let run = shoulder * shoulder - y_x * y_x;
+    if run <= 0.0 {
+        return Err(BlockError::Impossible("the front shoulder can't reach the shoulder line"));
+    }
+    let y = Pt::new(w.x - run.sqrt(), y_x);
+    let (m, o_) = (Pt::new(x_m, y_b), Pt::new(x_m, y_g));
+    // Curves the page leaves to its drawings, chosen: the necks square to the centre lines; the
+    // back armhole from U down to Q, then round the corner at I (within 3 cm of it, as the page
+    // asks) to M on the armhole line; the front's from M round the corner at K (within 1.75 cm) up
+    // through L, then (within 1.25 cm of the line L–Y) to Y.
+    let back = Part {
+        name: "Back Men's Shirt Block",
+        start: Pt::new(0.0, 0.0),
+        segs: vec![
+            Seg::Cubic(Pt::new(s.x * 0.55, 0.0), Pt::new(s.x * 0.92, s.y * 0.4), s),
+            Seg::Line(u),
+            Seg::Cubic(Pt::new(u.x - 6.0, u.y + (q.y - u.y) * 0.45), Pt::new(x_i, q.y - (q.y - u.y) * 0.3), q),
+            Seg::Cubic(Pt::new(x_i, q.y + (y_b - q.y) * 0.8), Pt::new(x_i + (x_m - x_i) * 0.1, y_b), m),
+            Seg::Line(o_),
+            Seg::Line(Pt::new(0.0, y_g)),
+            Seg::Line(Pt::new(0.0, 0.0)),
+        ],
+    };
+    let front = Part {
+        name: "Front Men's Shirt Block",
+        start: w,
+        segs: vec![
+            Seg::Cubic(Pt::new(w.x, v_.y * 0.55), Pt::new(x_c - (x_c - w.x) * 0.55, v_.y), v_),
+            Seg::Line(Pt::new(x_c, y_g)),
+            Seg::Line(o_),
+            Seg::Line(m),
+            Seg::Cubic(Pt::new(m.x + (x_k - m.x) * 0.6, y_b), Pt::new(x_k, y_b - 12.0), l),
+            Seg::Cubic(Pt::new(l.x, l.y - (l.y - y.y) * 0.35), y + (l - y) * 0.3 + Pt::new(4.0, 0.0), y),
+            Seg::Line(w),
+        ],
+    };
+    // Side by side: the front moved 6 cm right of the back.
+    let shift = |p: Pt| Pt::new(p.x + 60.0, p.y);
+    let front = moved(&front, shift);
+    Ok(vec![back, front])
+}
+
 /// The men's trouser block (PF-4.12, see the module docs): front then back, each a half pair (one
 /// leg), both with the fork on the left and the side seam on the right (the back drawn over the
 /// front's lines as tailors draw it, then set beside it; cut as a mirror-image pair each, so the
@@ -957,12 +1071,14 @@ pub fn mens_trousers(env: &mut Env, o: &Options) -> Result<Vec<Part>, BlockError
     let right = p8.x.max(p14.x);
     let gap = right + 60.0 + (p26.x.max(p29.x) - p23.x.min(p28.x).min(x9));
     let flip = |p: Pt| Pt::new(gap - (p.x - p23.x.min(p28.x).min(x9)), p.y);
-    Ok(vec![front, turned_over(&back, flip)])
+    Ok(vec![front, moved(&back, flip)])
 }
 
-/// `part` mirrored by `flip` (a mirror image runs the other way round on the page, as a block's
-/// back and front do: the women's trouser block's both run the same way, its back drawn so).
-fn turned_over(part: &Part, flip: impl Fn(Pt) -> Pt) -> Part {
+/// `part` with every point moved by `f` (to set a part beside another, or turn it over: a mirror
+/// image runs the other way round on the page, as a block's back and front do; the women's trouser
+/// block's both run the same way, its back drawn so).
+fn moved(part: &Part, f: impl Fn(Pt) -> Pt) -> Part {
+    let flip = f;
     let segs = part
         .segs
         .iter()
@@ -1016,6 +1132,7 @@ pub fn draft(kind: BlockKind, env: &mut Env, o: &Options) -> Result<Vec<Part>, B
         BlockKind::Sleeve => sleeve(env, o),
         BlockKind::Trousers => trousers(env, o),
         BlockKind::MensTrousers => mens_trousers(env, o),
+        BlockKind::MensShirt => mens_shirt(env, o),
     }
 }
 
@@ -1258,6 +1375,55 @@ mod tests {
         assert!(matches!(sleeve(&mut m.env(), &Options::new()), Err(BlockError::Impossible(_))));
         m.set_value("top_arm", None).unwrap();
         assert!(matches!(sleeve(&mut m.env(), &Options::new()), Err(BlockError::Missing(_))));
+    }
+
+    /// The men's shirt block (PF-4.13) by the source's steps: a shirt's ease, the necks, the
+    /// shoulders, the armhole near its corners, straight sides.
+    #[test]
+    fn the_mens_shirt_block_follows_the_sources_steps() {
+        let mut m = Measurements::default();
+        for (k, v) in [("bust", 1000.0), ("neck", 400.0), ("back_width", 400.0), ("armscye_depth", 240.0), ("nape_to_waist", 450.0)] {
+            m.set_value(k, Some(v)).unwrap();
+        }
+        let p = mens_shirt(&mut m.env(), &Options::new()).unwrap();
+        assert_eq!((p[0].name, p[1].name), ("Back Men's Shirt Block", "Front Men's Shirt Block"));
+        let (b, f) = (p[0].corners(), p[1].corners());
+        let near = |a: f64, b: f64| (a - b).abs() < 1e-9;
+        // The back: its neck 7.5 cm across and 2 cm up, the shoulder point 3.5 cm out from the back's
+        // width (half the half back and 2.5 cm: 22.5 cm), the side seam half way to a third of the
+        // chest and 1.5 cm less 5 mm, the hem 79 cm down.
+        assert!(near(b[1].x, 75.0) && near(b[1].y, -20.0));
+        assert!(near(b[2].x, 260.0) && near(b[3].x, 225.0) && near(b[3].y, 130.0));
+        let side = 1000.0 / 3.0 + 15.0 - ((1000.0 / 3.0 + 15.0 - 225.0) / 2.0 - 5.0);
+        assert!(near(b[4].x, side) && near(b[4].y, 265.0) && near(b[5].x, side) && near(b[5].y, 790.0));
+        // Twice the back and front across the armhole line: the chest and 16 cm.
+        let front_width = (f[1].x - 60.0) - side;
+        assert!(near(2.0 * (side + front_width), 1160.0));
+        // The front neck a fifth of the neck deep and a fifth less 1 cm across; its shoulder 5 mm
+        // longer than the back's, 2 cm lower.
+        assert!(near(f[1].y, 80.0) && near(f[1].x - f[0].x, 70.0) && near(f[0].y, 0.0));
+        let (back_sh, front_sh) = ((b[2] - b[1]).len(), (f[6] - f[0]).len());
+        assert!(near(front_sh - back_sh, 5.0) && near(f[6].y, b[2].y + 20.0));
+        // The armhole: the back's within 3 cm of its corner I, the front's within 1.75 cm of K.
+        let dist = |part: &Part, k: usize, q: Pt| {
+            let c = part.corners();
+            let Seg::Cubic(c1, c2, e) = part.segs[k] else { panic!("a curve") };
+            let a = c[k];
+            (0..=100)
+                .map(|i| {
+                    let t = i as f64 / 100.0;
+                    let u = 1.0 - t;
+                    let pt = a * (u * u * u) + c1 * (3.0 * u * u * t) + c2 * (3.0 * u * t * t) + e * (t * t * t);
+                    (pt - q).len()
+                })
+                .fold(f64::INFINITY, f64::min)
+        };
+        assert!(dist(&p[0], 3, Pt::new(225.0, 265.0)) < 30.0);
+        assert!(dist(&p[1], 4, Pt::new(1000.0 / 3.0 + 15.0 + 60.0, 265.0)) < 17.5);
+        // A shirt no longer than the nape to waist is refused.
+        let mut o = Options::new();
+        o.insert("length".into(), 400.0);
+        assert!(matches!(mens_shirt(&mut m.env(), &o), Err(BlockError::Impossible(_))));
     }
 
     /// The men's trouser block (PF-4.12) by the source's numbers, its example measurements (seat

@@ -347,3 +347,37 @@ fn the_mens_trouser_block_drapes_on_a_male_figure() {
     assert!(top > waist - 260.0 && top < waist + 30.0, "{r}");
     assert!(r["widestSeam"].as_f64().unwrap() < 15.0 && r["worstStretch"].as_f64().unwrap() < 40.0, "{r}");
 }
+
+/// The men's shirt block (PF-4.13) drafts for a man and hangs from his shoulders on the male
+/// figure, longer than the waist (a top longer than the neck to the waist hangs from the neck).
+#[test]
+fn the_mens_shirt_block_hangs_from_the_shoulders() {
+    let mut s = Session::new();
+    s.execute("file.new", &json!({"width": 3370, "height": 2384})).unwrap();
+    let m = json!({"figure": "male", "values": {"bust": 1000, "waist": 860, "hip": 1020, "nape_to_waist": 450, "waist_to_hip": 190, "neck": 400,
+        "back_width": 400, "armscye_depth": 240, "shoulder": 150}});
+    s.execute("measure.set", &m).unwrap();
+    assert_eq!(s.execute("block.measurements", &json!({"block": "mensShirt"})).unwrap()["missing"], json!([]));
+    let r = s.execute("block.mensShirt", &json!({})).unwrap();
+    let ids: Vec<u64> = r["ids"].as_array().unwrap().iter().map(|v| v.as_u64().unwrap()).collect();
+    let mut pieces = Vec::new();
+    // The back on the fold of its centre back (edge 6, the hem's corner to the neck), the front of
+    // its centre front (edge 1, the neck to the hem).
+    for (id, name, fold) in [(ids[0], "Back Shirt", 6), (ids[1], "Front Shirt", 1)] {
+        let piece = s.execute("piece.make", &json!({"ids": [id], "name": name})).unwrap()["ids"][0].as_u64().unwrap();
+        s.execute("piece.set", &json!({"id": piece, "fold": fold})).unwrap();
+        pieces.push(piece);
+    }
+    let (b, f) = (pieces[0], pieces[1]);
+    // The side seams (back 4–5, front 3–4) and the shoulders (back 1–2, front 6–0).
+    for (a, c) in [((b, 4, 5), (f, 3, 4)), ((b, 1, 2), (f, 6, 0))] {
+        s.execute("piece.sew", &json!({"a": {"id": a.0, "from": a.1, "to": a.2}, "b": {"id": c.0, "from": c.1, "to": c.2}})).unwrap();
+    }
+    let r = s.execute("drape.make", &json!({"precision": 25, "steps": 150, "draw": false})).unwrap();
+    assert_eq!(r["pieces"], json!(2), "{r}");
+    let (top, hem, waist) = (r["top"].as_f64().unwrap(), r["hem"].as_f64().unwrap(), r["waist"].as_f64().unwrap());
+    // Up at the base of the neck, the hem about 33 cm below the waist (78 cm long from the nape).
+    assert!(top > waist + 400.0, "{r}");
+    assert!(hem < waist - 250.0 && hem > waist - 400.0, "{r}");
+    assert!(r["widestSeam"].as_f64().unwrap() < 10.0 && r["worstStretch"].as_f64().unwrap() < 25.0, "{r}");
+}
