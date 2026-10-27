@@ -704,6 +704,26 @@ is built on, plus a pattern mode, the way StitchFoundry adds embroidery:
   more in `pf-core` (a trapezoid's edge particles on its outline, none outside it, the particle
   nearest a point of the slanted side on it), the skirt's test bounds tightened (seams within
   5 mm, stretch under 15%; it hangs 580 to 680 mm, a few per cent long under its weight).
+- 2026-10-27, **PF-4.13**: a men's shirt block. **Pattern › Draft Men's Shirt Block**
+  (`block.mensShirt`, in all 23 languages) drafts the men's shirt block from the metric steps
+  published by Open Source Stitches
+  (<https://opensourcestitches.wordpress.com/2011/02/17/pattern-drafting-101-the-mens-shirt-block/>,
+  after Gedwood's BurdaStyle tutorial, "partly based on" Aldrich's *Metric Pattern Cutting for
+  Menswear*; the construction rules implemented, no text or drawing copied): a rectangle half the
+  chest and 8 cm wide (16 cm of ease round the chest), the armhole line the armhole depth and
+  2.5 cm down, the back's width half the half back and 2.5 cm, the side seam between it and a
+  third of the chest and 1.5 cm; the back neck a fifth of the neck less 5 mm across and 2 cm up,
+  the front neck a fifth deep; the shoulders from the page's points, the front's 5 mm longer;
+  straight sides, no darts. Measurements: bust (round the chest), neck, back_width (the half back
+  half of it), armscye_depth, nape_to_waist; option: its length down the centre back (78 cm,
+  chosen: the page leaves it to the maker). Chosen where the page is silent: the curves (the
+  armhole within the page's 3 cm of the back's corner and 1.75 cm of the front's). The drape now
+  hangs a top longer than the body is from the neck to the waist from the base of the neck (it
+  put every top's hem at the waist): on the male figure the shirt hangs from the shoulders to
+  about 32 cm below the waist, seams within 4 mm, stretch 7%; the women's bodice is placed as
+  before. Tests: 1 in `pf-core` (by the page's numbers, the armhole near its corners, a shirt too
+  short refused), 1 in `tests_drape.rs` (drafted, cut on the folds, sewn and draped). Not yet: the
+  men's shirt sleeve (the page's next post), a collar and cuffs.
 - 2026-10-26, **PF-4.12**: a men's trouser block. **Pattern › Draft Men's Trouser Block**
   (`block.mensTrousers`, in all 23 languages) drafts the traditional British men's trouser block
   from the metric steps published by Textile Blog

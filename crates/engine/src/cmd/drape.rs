@@ -117,7 +117,7 @@ fn role_of(doc: &Document, id: NodeId, name: &str) -> Role {
     let name = name.to_lowercase();
     match kind {
         Some(BlockKind::Sleeve) => Role::Arm,
-        Some(BlockKind::Bodice) => Role::Upper,
+        Some(BlockKind::Bodice | BlockKind::MensShirt) => Role::Upper,
         Some(BlockKind::Trousers | BlockKind::MensTrousers) => Role::Leg,
         Some(_) => Role::Lower,
         None if name.contains("sleeve") => Role::Arm,
@@ -528,6 +528,7 @@ pub fn setup(s: &Session, p: &Value) -> Result<Setup> {
     }
     let waist = avatar.ring("waist").map_or(1000.0, |r| r.z);
     let shoulder = avatar.ring("shoulder").map_or(waist + 350.0, |r| r.z);
+    let neck = avatar.neck_height;
     // Round the torso: the skirt's copies in one ring and the bodice's in another, each in the
     // order they are sewn round the body (a front first, in the middle of the front), each copy
     // turned so its seam to the next is on the far side.
@@ -606,7 +607,9 @@ pub fn setup(s: &Session, p: &Value) -> Result<Setup> {
                 let u = if flip { rr - q.x } else { q.x - l };
                 let t = 2.0 * std::f64::consts::PI * (before + u) / total;
                 let radius = total / (2.0 * std::f64::consts::PI);
-                let z = if upward { waist + (bounds.3 - q.y) } else { waist - (q.y - bounds.2) };
+                // A top from the waist up, or (one longer than the body is from the neck to the
+                // waist, a shirt) from the base of the neck down, whichever is lower.
+                let z = if upward { (waist + (bounds.3 - q.y)).min(neck - (q.y - bounds.2)) } else { waist - (q.y - bounds.2) };
                 [radius * t.sin(), radius * t.cos(), z]
             }));
         }
