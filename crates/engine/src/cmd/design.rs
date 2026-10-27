@@ -65,7 +65,7 @@ pub fn specs() -> Vec<CommandSpec> {
             "Draft Collar",
             ["Pattern"],
             None,
-            "{back: {id (a path or a piece), from?: anchor (centre back at the neck), to?: anchor (the neck point), shoulder?: anchor (the shoulder point)}, front: {id, from?: anchor (the neck point), to?: anchor (centre front at the neck), shoulder?: anchor}, overlap?: mm (30: how far the shoulder points overlap), width?: mm (60), lower?: mm (0; 10 lowers a block's neckline for ease)} a flat (Peter Pan) collar: the front neckline laid against the back's at the neck point, the shoulders overlapping, the collar drawn the width out from the joined neckline with its front rounded to centre front; a bodice block part knows its own points (without back and front: the bodice block's back and front among the selection). The new path goes above the back → {id, neck (mm: the neck edge's length)}",
+            "{back: {id (a path or a piece), from?: anchor (centre back at the neck), to?: anchor (the neck point), shoulder?: anchor (the shoulder point)}, front: {id, from?: anchor (the neck point), to?: anchor (centre front at the neck), shoulder?: anchor}, overlap?: mm (30: how far the shoulder points overlap), width?: mm (60), lower?: mm (0; 10 lowers a block's neckline for ease)} a flat (Peter Pan) collar: the front neckline laid against the back's at the neck point, the shoulders overlapping, the collar drawn the width out from the joined neckline with its front rounded to centre front; a bodice block part knows its own points (without back and front: the bodice or men's shirt block's back and front among the selection). The new path goes above the back → {id, neck (mm: the neck edge's length)}",
             has_doc,
             collar
         ),
@@ -101,7 +101,7 @@ pub fn specs() -> Vec<CommandSpec> {
             "Draft Stand Collar",
             ["Pattern"],
             None,
-            "{back: {id, from?, to?, shoulder?}, front: {id, from?, to?, shoulder?} (the necklines, as for design.collar; without them the bodice block's back and front among the selection), height?: mm (35: the stand's height), rise?: mm (15: how far the neck edge curves up at centre front), extension?: mm (0: past centre front; half the button stand where the fronts meet, all of it where they overlap), frontShape?: \"square\" (default) | \"rounded\" (the top corner rounded, half the height round) | \"winged\" (the top edge run on to a wing tip that turns down, the front end curving in to it), wing?: mm (35: how far past the front end a wing tip reaches), origin?: [x, y] (document points: centre back at the neck edge; default above the back)} a stand (mandarin) collar, half of it (centre back on the fold): as long as the neckline, the neck edge curving up toward centre front, the top edge parallel, with its centre front line (dashed) → {id, centreFront, neck (mm), shoulder (mm from centre back)}",
+            "{back: {id, from?, to?, shoulder?}, front: {id, from?, to?, shoulder?} (the necklines, as for design.collar; without them the bodice or men's shirt block's back and front among the selection), height?: mm (35: the stand's height), rise?: mm (15: how far the neck edge curves up at centre front), extension?: mm (0: past centre front; half the button stand where the fronts meet, all of it where they overlap), frontShape?: \"square\" (default) | \"rounded\" (the top corner rounded, half the height round) | \"winged\" (the top edge run on to a wing tip that turns down, the front end curving in to it), wing?: mm (35: how far past the front end a wing tip reaches), origin?: [x, y] (document points: centre back at the neck edge; default above the back)} a stand (mandarin) collar, half of it (centre back on the fold): as long as the neckline, the neck edge curving up toward centre front, the top edge parallel, with its centre front line (dashed) → {id, centreFront, neck (mm), shoulder (mm from centre back)}",
             has_doc,
             stand_collar
         ),
@@ -128,7 +128,7 @@ pub fn specs() -> Vec<CommandSpec> {
             "Draft Shirt Collar",
             ["Pattern"],
             None,
-            "{back, front (the necklines, as for design.collar; default: the bodice block's among the selection), stand?: mm (30: the stand's height), rise?: mm (10), extension?: mm (15: past centre front, half a 30 mm button stand), fall?: mm (40: the collar's height at centre back, more than the stand's so it covers the seam), drop?: mm (13: how far the collar's neck edge curves down at the front), out?: mm (19: how far its point reaches past centre front), point?: mm (51: the point's length), origin?: [x, y] (document points: the stand's centre back at the neck edge; default above the back)} a shirt collar: its stand (a stand collar, half of it, centre back on the fold) and the collar that turns down over it, drafted above the stand with a neck edge as long as the stand's top edge to centre front → {stand, centreFront, fall, neck (mm)}",
+            "{back, front (the necklines, as for design.collar; default: the bodice or men's shirt block's among the selection), stand?: mm (30: the stand's height), rise?: mm (10), extension?: mm (15: past centre front, half a 30 mm button stand), fall?: mm (40: the collar's height at centre back, more than the stand's so it covers the seam), drop?: mm (13: how far the collar's neck edge curves down at the front), out?: mm (19: how far its point reaches past centre front), point?: mm (51: the point's length), origin?: [x, y] (document points: the stand's centre back at the neck edge; default above the back)} a shirt collar: its stand (a stand collar, half of it, centre back on the fold) and the collar that turns down over it, drafted above the stand with a neck edge as long as the stand's top edge to centre front → {stand, centreFront, fall, neck (mm)}",
             has_doc,
             shirt_collar
         ),
@@ -1330,9 +1330,15 @@ fn neckline_param(s: &Session, p: &Value, key: &str, fallback: Option<NodeId>, c
     let doc = &s.doc()?.doc;
     let ring = ring_of(doc, id, cmd)?;
     let block = doc.node(id).and_then(|n| n.extras().block.as_deref().cloned());
-    let known = match block {
-        Some(b) if b.kind == pf_core::block::BlockKind::Bodice && b.part == 0 => Some((1, 2, 6)),
-        Some(b) if b.kind == pf_core::block::BlockKind::Bodice && b.part == 1 => Some((12, 0, 9)),
+    use pf_core::block::BlockKind::{Bodice, MensShirt};
+    let known = match block.map(|b| (b.kind, b.part)) {
+        Some((Bodice, 0)) => Some((1, 2, 6)),
+        Some((Bodice, 1)) => Some((12, 0, 9)),
+        // The men's shirt block (PF-4.15): the back from the centre back's neck (0) to the neck point
+        // (1), its shoulder point 2; the front from the neck point (0) to the centre front's (1), its
+        // shoulder point 6.
+        Some((MensShirt, 0)) => Some((0, 1, 2)),
+        Some((MensShirt, 1)) => Some((0, 1, 6)),
         _ => None,
     };
     let get = |k: &str, d: Option<usize>| -> Result<usize> {
@@ -1354,9 +1360,10 @@ fn necklines(s: &Session, p: &Value, cmd: &str) -> Result<(NecklineParam, Neckli
         let st = s.doc()?;
         for id in st.selection.in_paint_order(&st.doc) {
             let Ok(path) = super::measure::target_path(s, &json!({"id": id.0}), cmd) else { continue };
+            let top = |k| matches!(k, pf_core::block::BlockKind::Bodice | pf_core::block::BlockKind::MensShirt);
             match st.doc.node(path).and_then(|n| n.extras().block.as_deref().cloned()) {
-                Some(b) if b.kind == pf_core::block::BlockKind::Bodice && b.part == 0 => sel_back = Some(path),
-                Some(b) if b.kind == pf_core::block::BlockKind::Bodice && b.part == 1 => sel_front = Some(path),
+                Some(b) if top(b.kind) && b.part == 0 => sel_back = Some(path),
+                Some(b) if top(b.kind) && b.part == 1 => sel_front = Some(path),
                 _ => {}
             }
         }
@@ -1426,7 +1433,7 @@ fn collar(s: &mut Session, p: &Value) -> Result<Value> {
         }
     };
     let (overlap, width, lower) = (mm("overlap", 30.0, true)?, mm("width", 60.0, false)?, mm("lower", 0.0, true)?);
-    // Without back and front: the bodice block's back and front among the selection.
+    // Without back and front: the bodice or men's shirt block's back and front among the selection.
     let ((back_id, back, bf, bt, bs), (_, front, ff, ft, fs)) = necklines(s, p, CMD)?;
     let c = pf_core::design::flat_collar(
         pf_core::design::Neckline { ring: &back, from: bf, to: bt, shoulder: bs },
