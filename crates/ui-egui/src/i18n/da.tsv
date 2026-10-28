@@ -5727,3 +5727,5 @@ menu	Pattern	Mønster
 @msg	width: the photo's width on the fabric, 10 to 5000 mm	width: billedets bredde på stoffet, 10 til 5000 mm
 @msg	turns: 0, 1, 2 or 3	turns: 0, 1, 2 eller 3
 @msg	the image is not a fabric photo (Pattern › Use as Fabric…)	billedet er ikke et foto af stof (Mønster › Brug som stof…)
+@msg	even: true or false	even: true eller false
+@msg	seamless: true or false	seamless: true eller false

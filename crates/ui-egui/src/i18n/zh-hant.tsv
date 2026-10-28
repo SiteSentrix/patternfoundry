@@ -5376,3 +5376,5 @@ menu	Pattern	紙型
 @msg	width: the photo's width on the fabric, 10 to 5000 mm	width：照片在布料上的寬度，10 至 5000 mm
 @msg	turns: 0, 1, 2 or 3	turns：0、1、2 或 3
 @msg	the image is not a fabric photo (Pattern › Use as Fabric…)	該影像不是布料照片（紙型 › 用作布料…）
+@msg	even: true or false	even: true 或 false
+@msg	seamless: true or false	seamless: true 或 false

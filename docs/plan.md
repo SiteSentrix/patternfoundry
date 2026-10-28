@@ -704,6 +704,21 @@ is built on, plus a pattern mode, the way StitchFoundry adds embroidery:
   more in `pf-core` (a trapezoid's edge particles on its outline, none outside it, the particle
   nearest a point of the slanted side on it), the skirt's test bounds tightened (seams within
   5 mm, stretch under 15%; it hangs 580 to 680 mm, a few per cent long under its weight).
+- 2026-10-28, **PF-10.17**: a fabric photo taken at home can be evened out and made to repeat.
+  Use as Fabric… now offers *even* (even out the light: each pixel's brightness divided by the
+  photo's brightness averaged over a quarter of the photo round it, times the photo's mean, at
+  most 4× either way, so a window's slow fall-off across the photo goes and the print stays:
+  flat-field correction, <https://en.wikipedia.org/wiki/Flat-field_correction>) and *seamless*
+  (cross-fade the photo into itself moved half its width and height, fully the moved one at the
+  edges, so each edge meets the next copy through the photo's own middle: the offset-and-blend
+  repeat; <https://en.wikipedia.org/wiki/Texture_synthesis> describes the tiling it is for), both
+  on in the menu's dialog and off by default for the command (`fabric.set even?, seamless?`),
+  kept when not given again, saved with the photo. Applied to the drape view's swatch (after it
+  is averaged down), never to the placed image itself. Tests: 3 in `pf-core` (a check print lit
+  twice as bright on one side evened to under a third of the change, its squares still showing;
+  a black-to-white ramp's edge jump of over 200 brought to no more than a step inside it, across
+  and down; a broken swatch left alone), 1 in the engine (the options off, set, kept, refused when
+  not true or false, saved, and the drape drawn in the photo).
 - 2026-10-28, **PF-10.16**: see the draped garment in your own fabric. Photograph the fabric
   flat, the selvedge (the lengthwise grain) upright, and place the photo; select it and choose
   Pattern › Use as Fabric… (`fabric.set`) with how wide the photo is on the fabric (by default as

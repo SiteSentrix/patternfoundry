@@ -5769,3 +5769,5 @@ menu	Pattern	Patroon
 @msg	width: the photo's width on the fabric, 10 to 5000 mm	width: de breedte van de foto op de stof, 10 tot 5000 mm
 @msg	turns: 0, 1, 2 or 3	turns: 0, 1, 2 of 3
 @msg	the image is not a fabric photo (Pattern › Use as Fabric…)	de afbeelding is geen stoffoto (Patroon › Als stof gebruiken…)
+@msg	even: true or false	even: true of false
+@msg	seamless: true or false	seamless: true of false

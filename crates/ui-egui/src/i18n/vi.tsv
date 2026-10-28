@@ -5339,3 +5339,5 @@ menu	Pattern	Rập
 @msg	width: the photo's width on the fabric, 10 to 5000 mm	width: chiều rộng của ảnh trên vải, từ 10 đến 5000 mm
 @msg	turns: 0, 1, 2 or 3	turns: 0, 1, 2 hoặc 3
 @msg	the image is not a fabric photo (Pattern › Use as Fabric…)	hình ảnh không phải là ảnh vải (Rập › Dùng làm vải…)
+@msg	even: true or false	even: true hoặc false
+@msg	seamless: true or false	seamless: true hoặc false

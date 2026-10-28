@@ -5597,3 +5597,5 @@ menu	Pattern	Wykrój
 @msg	width: the photo's width on the fabric, 10 to 5000 mm	width: szerokość zdjęcia na tkaninie, od 10 do 5000 mm
 @msg	turns: 0, 1, 2 or 3	turns: 0, 1, 2 lub 3
 @msg	the image is not a fabric photo (Pattern › Use as Fabric…)	obraz nie jest zdjęciem tkaniny (Wykrój › Użyj jako tkaniny…)
+@msg	even: true or false	even: true lub false
+@msg	seamless: true or false	seamless: true lub false

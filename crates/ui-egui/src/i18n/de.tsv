@@ -5326,3 +5326,5 @@ menu	Pattern	Schnitt
 @msg	width: the photo's width on the fabric, 10 to 5000 mm	width: die Breite des Fotos auf dem Stoff, 10 bis 5000 mm
 @msg	turns: 0, 1, 2 or 3	turns: 0, 1, 2 oder 3
 @msg	the image is not a fabric photo (Pattern › Use as Fabric…)	das Bild ist kein Stofffoto (Schnitt › Als Stoff verwenden…)
+@msg	even: true or false	even: true oder false
+@msg	seamless: true or false	seamless: true oder false

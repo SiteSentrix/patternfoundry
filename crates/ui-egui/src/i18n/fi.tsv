@@ -5708,3 +5708,5 @@ menu	Pattern	Kaava
 @msg	width: the photo's width on the fabric, 10 to 5000 mm	width: kuvan leveys kankaalla, 10–5000 mm
 @msg	turns: 0, 1, 2 or 3	turns: 0, 1, 2 tai 3
 @msg	the image is not a fabric photo (Pattern › Use as Fabric…)	kuva ei ole kangaskuva (Kaava › Käytä kankaana…)
+@msg	even: true or false	even: true tai false
+@msg	seamless: true or false	seamless: true tai false

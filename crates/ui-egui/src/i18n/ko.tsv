@@ -5322,3 +5322,5 @@ menu	Pattern	패턴
 @msg	width: the photo's width on the fabric, 10 to 5000 mm	width: 원단 위 사진의 너비, 10~5000 mm
 @msg	turns: 0, 1, 2 or 3	turns: 0, 1, 2 또는 3
 @msg	the image is not a fabric photo (Pattern › Use as Fabric…)	이미지가 원단 사진이 아닙니다 (패턴 › 원단으로 사용…)
+@msg	even: true or false	even: true 또는 false
+@msg	seamless: true or false	seamless: true 또는 false

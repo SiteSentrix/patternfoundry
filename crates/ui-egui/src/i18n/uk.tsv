@@ -5339,3 +5339,5 @@ menu	Pattern	Викрійка
 @msg	width: the photo's width on the fabric, 10 to 5000 mm	width: ширина фотографії на тканині, від 10 до 5000 мм
 @msg	turns: 0, 1, 2 or 3	turns: 0, 1, 2 або 3
 @msg	the image is not a fabric photo (Pattern › Use as Fabric…)	зображення не є фотографією тканини (Викрійка › Використати як тканину…)
+@msg	even: true or false	even: true або false
+@msg	seamless: true or false	seamless: true або false

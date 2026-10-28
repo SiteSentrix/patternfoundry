@@ -5355,3 +5355,5 @@ menu	Pattern	Выкройка
 @msg	width: the photo's width on the fabric, 10 to 5000 mm	width: ширина фотографии на ткани, от 10 до 5000 мм
 @msg	turns: 0, 1, 2 or 3	turns: 0, 1, 2 или 3
 @msg	the image is not a fabric photo (Pattern › Use as Fabric…)	изображение не является фотографией ткани (Выкройка › Использовать как ткань…)
+@msg	even: true or false	even: true или false
+@msg	seamless: true or false	seamless: true или false
