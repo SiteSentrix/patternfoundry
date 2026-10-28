@@ -311,8 +311,9 @@ fn out_of_body(rings: &[Ring], p: [f64; 3], margin: f64) -> [f64; 3] {
 }
 
 impl Collider for Avatar {
-    /// Out of the torso, either leg and either arm, along the surface as the rings shape it, and out
-    /// of the floor, 2 mm clear (the cloth's thickness and a little air).
+    /// Out of the torso (from the base of the neck down), either leg and either arm, along the surface
+    /// as the rings shape it, and out of the floor, 2 mm clear (the cloth's thickness and a little
+    /// air).
     fn push_out(&self, p: [f64; 3]) -> [f64; 3] {
         const MARGIN: f64 = 2.0;
         // Where two parts meet (the arm and the side of the chest at the armpit) pushing out of one
@@ -322,7 +323,12 @@ impl Collider for Avatar {
         for _ in 0..4 {
             let before = q;
             for rings in self.chains() {
-                q = out_of_body(rings, q, MARGIN);
+                // The torso from the base of the neck down: the head (PF-10.15) is drawn and
+                // exported but not in the way of the cloth. A garment starts round the body as if on
+                // already, its neckline at the neck's base; pushed out of the head and neck above it,
+                // a bodice's neckline was torn (its stretch 15% → 136%).
+                let from = rings.iter().position(|r| r.name == "neck").unwrap_or(0);
+                q = out_of_body(&rings[from..], q, MARGIN);
             }
             q[2] = q[2].max(MARGIN);
             if q == before {

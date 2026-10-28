@@ -1,6 +1,9 @@
 //! The drape view (PF-10.4): draped cloth and the avatar drawn as a picture, seen from the front
 //! or the side at a true scale, each triangle lit by a light over the viewer's shoulder and the
-//! nearer triangle in front (a depth buffer), the cloth coloured by how tight it is.
+//! nearer triangle in front (a depth buffer), the cloth coloured by how tight it is. A smooth
+//! shape (PF-10.15) is lit as a curved surface: each point's normal the average of its triangles',
+//! blended across each triangle (Gouraud's shading, the light worked out at every pixel from the
+//! blended normal), so a body of rings reads as round, not faceted.
 //!
 //! Tight is how much a triangle of cloth is larger than it was cut (its area over its area on
 //! the pattern): at or under its cut size it is blue, half again of [`TIGHT`] green, and
@@ -21,11 +24,29 @@ pub enum Side {
     Left,
 }
 
-/// One thing to draw: its points (mm), its triangles and each triangle's colour (RGB).
+/// One thing to draw: its points (mm), its triangles and each triangle's colour (RGB); `smooth`
+/// lights it as a curved surface rather than flat triangles.
 pub struct Shape<'a> {
     pub points: &'a [[f64; 3]],
     pub triangles: &'a [[u32; 3]],
     pub colours: &'a [[u8; 3]],
+    pub smooth: bool,
+}
+
+/// Each point's normal in the view (across, up, toward the viewer): the sum of its triangles'
+/// normals, each as long as its triangle is large (so the larger count for more).
+fn normals(points: &[(f64, f64, f64)], triangles: &[[u32; 3]]) -> Vec<(f64, f64, f64)> {
+    let mut out = vec![(0.0, 0.0, 0.0); points.len()];
+    for tri in triangles {
+        let [a, b, c] = tri.map(|i| i as usize);
+        let (Some(pa), Some(pb), Some(pc)) = (points.get(a), points.get(b), points.get(c)) else { continue };
+        let (e1, e2) = ((pb.0 - pa.0, pb.1 - pa.1, pb.2 - pa.2), (pc.0 - pa.0, pc.1 - pa.1, pc.2 - pa.2));
+        let n = (e1.1 * e2.2 - e1.2 * e2.1, e1.2 * e2.0 - e1.0 * e2.2, e1.0 * e2.1 - e1.1 * e2.0);
+        for k in [a, b, c] {
+            out[k] = (out[k].0 + n.0, out[k].1 + n.1, out[k].2 + n.2);
+        }
+    }
+    out
 }
 
 /// A picture: `width` × `height` pixels of RGBA (straight alpha, transparent where nothing is),
@@ -88,7 +109,12 @@ pub fn draw(shapes: &[Shape], side: Side, mm: f64) -> Option<Picture> {
         let n = v[0] * v[0] + v[1] * v[1] + v[2] * v[2];
         [v[0] / n.sqrt(), v[1] / n.sqrt(), v[2] / n.sqrt()]
     };
+    let lit_by = |n: (f64, f64, f64)| {
+        let len = (n.0 * n.0 + n.1 * n.1 + n.2 * n.2).sqrt();
+        if len < 1e-12 { 1.0 } else { 0.35 + 0.65 * ((n.0 * light[0] + n.1 * light[1] + n.2 * light[2]) / len).abs() }
+    };
     for s in shapes {
+        let vertex_normals = s.smooth.then(|| normals(&s.points.iter().map(|p| seen(*p, side)).collect::<Vec<_>>(), s.triangles));
         for (k, tri) in s.triangles.iter().enumerate() {
             let Some(c) = s.colours.get(k) else { continue };
             let v: Vec<(f64, f64, f64)> = tri.iter().filter_map(|i| s.points.get(*i as usize)).map(|p| seen(*p, side)).collect();
@@ -101,8 +127,12 @@ pub fn draw(shapes: &[Shape], side: Side, mm: f64) -> Option<Picture> {
             if len < 1e-12 {
                 continue;
             }
-            let lit = ((n.0 * light[0] + n.1 * light[1] + n.2 * light[2]) / len).abs();
-            let shade = 0.35 + 0.65 * lit;
+            let flat = lit_by(n);
+            let corner = |i: u32| vertex_normals.as_ref().and_then(|v| v.get(i as usize).copied());
+            let smooth = match (corner(tri[0]), corner(tri[1]), corner(tri[2])) {
+                (Some(n0), Some(n1), Some(n2)) => Some((n0, n1, n2)),
+                _ => None,
+            };
             let px = |q: (f64, f64, f64)| ((q.0 - l) / mm, (t - q.1) / mm, q.2);
             let (p0, p1, p2) = (px(a), px(bb), px(cc));
             let area = (p1.0 - p0.0) * (p2.1 - p0.1) - (p2.0 - p0.0) * (p1.1 - p0.1);
@@ -126,6 +156,12 @@ pub fn draw(shapes: &[Shape], side: Side, mm: f64) -> Option<Picture> {
                         continue;
                     }
                     depth[at] = z;
+                    let shade = match smooth {
+                        Some((n0, n1, n2)) => {
+                            lit_by((w0 * n0.0 + w1 * n1.0 + w2 * n2.0, w0 * n0.1 + w1 * n1.1 + w2 * n2.1, w0 * n0.2 + w1 * n1.2 + w2 * n2.2))
+                        }
+                        None => flat,
+                    };
                     for (j, ch) in c.iter().enumerate() {
                         rgba[at * 4 + j] = (*ch as f64 * shade).round().clamp(0.0, 255.0) as u8;
                     }
@@ -152,8 +188,12 @@ mod tests {
         let (q, u) = square(100.0, 10.0);
         let red = [[200, 0, 0]; 2];
         let blue = [[0, 0, 200]; 2];
-        let pic = draw(&[Shape { points: &p, triangles: &t, colours: &red }, Shape { points: &q, triangles: &u, colours: &blue }], Side::Front, 1.0)
-            .unwrap();
+        let pic = draw(
+            &[Shape { points: &p, triangles: &t, colours: &red, smooth: false }, Shape { points: &q, triangles: &u, colours: &blue, smooth: false }],
+            Side::Front,
+            1.0,
+        )
+        .unwrap();
         // 100 mm at 1 mm a pixel: 101 pixels across and up.
         assert_eq!((pic.width, pic.height), (101, 101));
         // The middle pixel is the nearer square's (blue, at depth 10 toward the viewer), lit.
@@ -161,9 +201,29 @@ mod tests {
         let px = &pic.rgba[mid..mid + 4];
         assert!(px[2] > 60 && px[0] == 0 && px[3] == 255, "{px:?}");
         // Seen from the side, a square in the x-z plane is a line: nothing much drawn.
-        let side = draw(&[Shape { points: &p, triangles: &t, colours: &red }], Side::Left, 1.0);
+        let side = draw(&[Shape { points: &p, triangles: &t, colours: &red, smooth: false }], Side::Left, 1.0);
         assert!(side.is_none_or(|s| s.rgba.chunks(4).filter(|c| c[3] == 255).count() < 200));
-        assert!(draw(&[Shape { points: &p, triangles: &t, colours: &red }], Side::Front, 0.0).is_none());
+        assert!(draw(&[Shape { points: &p, triangles: &t, colours: &red, smooth: false }], Side::Front, 0.0).is_none());
+    }
+
+    /// Smooth (PF-10.15): a bent strip of two faces, each flat, shades evenly across where they meet
+    /// when smooth (the shade changing gradually), in a step when not.
+    #[test]
+    fn a_smooth_shape_shades_gradually_across_its_edges() {
+        // Two squares meeting at x = 50 at an angle (a ridge toward the viewer).
+        let p = vec![[0.0, 0.0, 0.0], [50.0, 30.0, 0.0], [100.0, 0.0, 0.0], [0.0, 0.0, 100.0], [50.0, 30.0, 100.0], [100.0, 0.0, 100.0]];
+        let t = vec![[0, 1, 4], [0, 4, 3], [1, 2, 5], [1, 5, 4]];
+        let grey = [[200, 200, 200]; 4];
+        let row = |smooth| {
+            let pic = draw(&[Shape { points: &p, triangles: &t, colours: &grey, smooth }], Side::Front, 1.0).unwrap();
+            // The drawn pixels only (the background is 0).
+            (0..pic.width).map(|x| pic.rgba[((50 * pic.width + x) * 4) as usize] as i32).filter(|v| *v > 0).collect::<Vec<_>>()
+        };
+        let (flat, round) = (row(false), row(true));
+        // Flat: one shade each side of the ridge, a step at it. Smooth: no step that large.
+        let step = |r: &[i32]| r.windows(2).map(|w| (w[1] - w[0]).abs()).max().unwrap_or(0);
+        assert!(step(&flat) > 10, "{flat:?}");
+        assert!(step(&round) < step(&flat) / 2, "{round:?}");
     }
 
     #[test]

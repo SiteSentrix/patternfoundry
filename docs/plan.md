@@ -704,6 +704,22 @@ is built on, plus a pattern mode, the way StitchFoundry adds embroidery:
   more in `pf-core` (a trapezoid's edge particles on its outline, none outside it, the particle
   nearest a point of the slanted side on it), the skirt's test bounds tightened (seams within
   5 mm, stretch under 15%; it hangs 580 to 680 mm, a few per cent long under its weight).
+- 2026-10-28, **PF-10.15**: the avatar has a head and hands, and looks round. The head stands above
+  the base of the neck as high as the figure's survey's head stands above its cervicale for the
+  body's rise (ANSUR II: the women's 0.560 of the cervicale's height above the waist, the men's
+  0.518; the children's survey 0.60 to 0.69 by age), as round as its share of the chest (0.593,
+  0.543; a child's 0.97 at 2–4 down to 0.63 at 16–18), 1.28 to 1.31 times as long front to back as
+  broad; lofted through the throat, the jaw, the temples, its roundest and the crown, a little
+  forward of the neck (where those rings sit and how round each is: chosen). Each hand goes on
+  along the arm's line from the wrist, as long as its share of the arm (0.333, 0.326, a child's
+  0.29 to 0.32), flat, through the palm, the fingers and their tips. The drape view lights the
+  avatar and the cloth as curved surfaces (each point's normal the average of its triangles',
+  blended across each triangle) instead of flat facets. The cloth collides with the body from the
+  base of the neck down: the head and the neck above its base are drawn and exported (glTF, OBJ)
+  but not in the cloth's way (a garment starts round the body as if on already; pushed out of the
+  head a bodice's neckline tore, stretch 15% → 136%). Tests: 2 in `pf-core` (the head and hands by
+  the survey, a child's head the larger share; smooth shading without a step at an edge), the
+  avatar's drawn and exported heights to the top of the head.
 - 2026-10-27, **PF-4.15**: collars for the men's shirt. Draft Collar, Draft Stand Collar and Draft
   Shirt Collar (`design.collar`, `design.standCollar`, `design.shirtCollar`) know the men's shirt
   block's necklines and shoulder points, as they know the bodice block's: select its back and front
