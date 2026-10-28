@@ -5662,3 +5662,5 @@ menu	Pattern	Molde
 @msg	width: the photo's width on the fabric, 10 to 5000 mm	width: a largura da foto no tecido, de 10 a 5000 mm
 @msg	turns: 0, 1, 2 or 3	turns: 0, 1, 2 ou 3
 @msg	the image is not a fabric photo (Pattern › Use as Fabric…)	a imagem não é uma foto de tecido (Molde › Usar como tecido…)
+@msg	even: true or false	even: true ou false
+@msg	seamless: true or false	seamless: true ou false

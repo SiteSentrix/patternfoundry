@@ -5399,3 +5399,5 @@ menu	Pattern	型紙
 @msg	width: the photo's width on the fabric, 10 to 5000 mm	width: 生地上での写真の幅（10～5000 mm）
 @msg	turns: 0, 1, 2 or 3	turns: 0、1、2、3 のいずれか
 @msg	the image is not a fabric photo (Pattern › Use as Fabric…)	この画像は生地の写真ではありません（型紙 › 生地として使用…）
+@msg	even: true or false	even: true または false
+@msg	seamless: true or false	seamless: true または false

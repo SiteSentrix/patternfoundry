@@ -5708,3 +5708,5 @@ menu	Pattern	Кройка
 @msg	width: the photo's width on the fabric, 10 to 5000 mm	width: ширината на снимката върху плата, от 10 до 5000 mm
 @msg	turns: 0, 1, 2 or 3	turns: 0, 1, 2 или 3
 @msg	the image is not a fabric photo (Pattern › Use as Fabric…)	изображението не е снимка на плат (Кройка › Използвай като плат…)
+@msg	even: true or false	even: true или false
+@msg	seamless: true or false	seamless: true или false

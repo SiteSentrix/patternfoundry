@@ -5727,3 +5727,5 @@ menu	Pattern	Pola
 @msg	width: the photo's width on the fabric, 10 to 5000 mm	width: lebar foto pada kain, 10 sampai 5000 mm
 @msg	turns: 0, 1, 2 or 3	turns: 0, 1, 2, atau 3
 @msg	the image is not a fabric photo (Pattern › Use as Fabric…)	gambar ini bukan foto kain (Pola › Gunakan sebagai Kain…)
+@msg	even: true or false	even: true atau false
+@msg	seamless: true or false	seamless: true atau false

@@ -13,7 +13,7 @@ pub fn specs() -> Vec<CommandSpec> {
             "Use as Fabric",
             [],
             None,
-            "{id? (default: the selected image), name? (the fabric, as pieces name it, piece.set fabric; default: none, the main fabric), width?: mm (how wide the photo is on the fabric, 10 to 5000; default: as wide as the image is placed), turns?: 0..3 (quarter turns clockwise that bring the fabric's lengthwise grain, its selvedge's direction, upright in the photo)} mark an image as a photo of a fabric: drape.make draws the draped garment in it too, at true size, each piece in the photo of its fabric (else the first photo), the photo repeating across the piece along its grainline → {id, name, width, turns}",
+            "{id? (default: the selected image), name? (the fabric, as pieces name it, piece.set fabric; default: none, the main fabric), width?: mm (how wide the photo is on the fabric, 10 to 5000; default: as wide as the image is placed), turns?: 0..3 (quarter turns clockwise that bring the fabric's lengthwise grain, its selvedge's direction, upright in the photo), even?: bool (even out the light across the photo, brighter near a window; default false), seamless?: bool (make the photo repeat without a seam, cross-fading its edges; default false); each left out keeps what the photo had} mark an image as a photo of a fabric: drape.make draws the draped garment in it too, at true size, each piece in the photo of its fabric (else the first photo), the photo repeating across the piece along its grainline → {id, name, width, turns, even, seamless}",
             has_selection,
             set
         ),
@@ -26,12 +26,12 @@ pub fn specs() -> Vec<CommandSpec> {
             has_selection,
             clear
         ),
-        cmd!(query "fabric.list", "Fabric Photos", [], None, "{} the document's fabric photos, in paint order → {fabrics: [{id, name, width, turns}]}", has_doc, list),
+        cmd!(query "fabric.list", "Fabric Photos", [], None, "{} the document's fabric photos, in paint order → {fabrics: [{id, name, width, turns, even, seamless}]}", has_doc, list),
     ]
 }
 
 fn info(id: NodeId, f: &FabricPhoto) -> Value {
-    json!({"id": id.0, "name": f.name, "width": f.width, "turns": f.turns})
+    json!({"id": id.0, "name": f.name, "width": f.width, "turns": f.turns, "even": f.even, "seamless": f.seamless})
 }
 
 fn set(s: &mut Session, p: &Value) -> Result<Value> {
@@ -57,11 +57,17 @@ fn set(s: &mut Session, p: &Value) -> Result<Value> {
         None | Some(Value::Null) => old.as_ref().map_or(0, |f| f.turns),
         Some(v) => v.as_u64().filter(|t| *t <= 3).ok_or_else(|| bad(C, "turns: 0, 1, 2 or 3"))? as u8,
     };
+    let flag = |key: &str, was: bool, wrong: &'static str| match p.get(key) {
+        None | Some(Value::Null) => Ok(was),
+        Some(v) => v.as_bool().ok_or_else(|| bad(C, wrong)),
+    };
+    let even = flag("even", old.as_ref().is_some_and(|f| f.even), "even: true or false")?;
+    let seamless = flag("seamless", old.as_ref().is_some_and(|f| f.seamless), "seamless: true or false")?;
     let name = match str_param(p, "name") {
         Some(n) => n.trim().chars().take(pf_core::piece::MAX_NAME).collect(),
         None => old.map(|f| f.name).unwrap_or_default(),
     };
-    let fabric = FabricPhoto { name, width, turns };
+    let fabric = FabricPhoto { name, width, turns, even, seamless };
     let out = info(id, &fabric);
     s.edit("Use as Fabric", |d, _| {
         if let Some(n) = d.node_mut(id) {
@@ -133,5 +139,12 @@ pub(crate) fn swatch(doc: &Document, f: &FabricPhoto, key: &str, mm: f64) -> Opt
     let k = (photo_mm / mm).min(1.0).max(1.0 / MAX_SIDE as f64);
     let (w, h) = (((img.width() as f64 * k).round() as u32).clamp(1, MAX_SIDE), ((img.height() as f64 * k).round() as u32).clamp(1, MAX_SIDE));
     let img = if (w, h) == img.dimensions() { img } else { image::imageops::resize(&img, w, h, image::imageops::FilterType::Triangle) };
-    Some(pf_core::view3d::Swatch { width: w, height: h, rgb: img.into_raw(), mm: f.width / w as f64 })
+    let mut out = pf_core::view3d::Swatch { width: w, height: h, rgb: img.into_raw(), mm: f.width / w as f64 };
+    if f.even {
+        out.even_lighting();
+    }
+    if f.seamless {
+        out.make_seamless();
+    }
+    Some(out)
 }

@@ -5687,3 +5687,5 @@ menu	Pattern	Patrón
 @msg	width: the photo's width on the fabric, 10 to 5000 mm	width: el ancho de la foto sobre la tela, de 10 a 5000 mm
 @msg	turns: 0, 1, 2 or 3	turns: 0, 1, 2 o 3
 @msg	the image is not a fabric photo (Pattern › Use as Fabric…)	la imagen no es una foto de tela (Patrón › Usar como tela…)
+@msg	even: true or false	even: true o false
+@msg	seamless: true or false	seamless: true o false

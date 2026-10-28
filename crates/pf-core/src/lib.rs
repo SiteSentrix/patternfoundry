@@ -38,6 +38,7 @@ pub mod marker;
 pub mod marks;
 pub mod measure;
 pub mod piece;
+pub mod swatch;
 pub mod tiling;
 pub mod view3d;
 

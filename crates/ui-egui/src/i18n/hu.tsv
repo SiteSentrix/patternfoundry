@@ -5730,3 +5730,5 @@ menu	Pattern	Szabásminta
 @msg	width: the photo's width on the fabric, 10 to 5000 mm	width: a fénykép szélessége az anyagon, 10–5000 mm
 @msg	turns: 0, 1, 2 or 3	turns: 0, 1, 2 vagy 3
 @msg	the image is not a fabric photo (Pattern › Use as Fabric…)	a kép nem anyagfotó (Szabásminta › Használat anyagként…)
+@msg	even: true or false	even: true vagy false
+@msg	seamless: true or false	seamless: true vagy false

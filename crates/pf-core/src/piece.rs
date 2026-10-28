@@ -342,7 +342,9 @@ pub enum PatternTag {
 
 /// A photo of a fabric (PF-10.16), for seeing the draped garment in it: the fabric pieces name
 /// (`Piece::fabric`), how wide the photo is on the fabric (mm), and how many quarter turns
-/// clockwise bring the fabric's lengthwise grain (the selvedge's direction) upright in it.
+/// clockwise bring the fabric's lengthwise grain (the selvedge's direction) upright in it; and
+/// whether its light is evened out and it is made to repeat without a seam (PF-10.17,
+/// [`crate::swatch`]).
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub struct FabricPhoto {
     #[serde(default)]
@@ -350,6 +352,10 @@ pub struct FabricPhoto {
     pub width: f64,
     #[serde(default)]
     pub turns: u8,
+    #[serde(default, skip_serializing_if = "std::ops::Not::not")]
+    pub even: bool,
+    #[serde(default, skip_serializing_if = "std::ops::Not::not")]
+    pub seamless: bool,
 }
 
 /// The narrowest and widest a fabric photo can be, mm.

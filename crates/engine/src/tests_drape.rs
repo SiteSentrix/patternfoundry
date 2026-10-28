@@ -519,3 +519,29 @@ fn the_drape_is_drawn_in_a_fabric_photo() {
     s.execute("edit.undo", &json!({})).unwrap();
     assert_eq!(s.execute("fabric.list", &json!({})).unwrap()["fabrics"].as_array().unwrap().len(), 1);
 }
+
+/// A fabric photo's light evened and its repeat made seamless (PF-10.17): off unless asked, kept
+/// when not given again, saved with the document, and the drape still drawn in it.
+#[test]
+fn a_fabric_photo_can_be_evened_and_made_seamless() {
+    let mut s = skirt();
+    let dir = std::env::temp_dir().join(format!("pf-fabric-even-{}", std::process::id()));
+    std::fs::create_dir_all(&dir).unwrap();
+    let path = dir.join("stripes.png");
+    std::fs::write(&path, stripes_png(4, 10)).unwrap();
+    let photo = s.execute("file.place", &json!({"path": path, "link": false, "at": [0, 2000]})).unwrap()["ids"][0].clone();
+    std::fs::remove_dir_all(&dir).ok();
+    let f = s.execute("fabric.set", &json!({"id": photo, "width": 200})).unwrap();
+    assert_eq!((f["even"].as_bool(), f["seamless"].as_bool()), (Some(false), Some(false)), "{f}");
+    let f = s.execute("fabric.set", &json!({"id": photo, "even": true, "seamless": true})).unwrap();
+    assert_eq!((f["even"].as_bool(), f["seamless"].as_bool()), (Some(true), Some(true)), "{f}");
+    let f = s.execute("fabric.set", &json!({"id": photo, "turns": 0})).unwrap();
+    assert_eq!((f["even"].as_bool(), f["seamless"].as_bool(), f["width"].as_f64()), (Some(true), Some(true), Some(200.0)), "{f}");
+    let e = s.execute("fabric.set", &json!({"id": photo, "even": "yes"})).unwrap_err().to_string();
+    assert!(e.contains("even: true or false"), "{e}");
+    let tag =
+        serde_json::to_string(s.doc().unwrap().doc.node(NodeId(photo.as_u64().unwrap())).unwrap().extras().pattern.as_deref().unwrap()).unwrap();
+    assert!(tag.contains("\"even\":true") && tag.contains("\"seamless\":true"), "{tag}");
+    let r = s.execute("drape.make", &json!({"precision": 25, "steps": 5, "origin": [0, 0]})).unwrap();
+    assert!(r["fabric"].as_u64().is_some(), "{r}");
+}

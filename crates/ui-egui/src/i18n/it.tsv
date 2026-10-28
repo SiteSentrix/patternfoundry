@@ -5359,3 +5359,5 @@ menu	Pattern	Cartamodello
 @msg	width: the photo's width on the fabric, 10 to 5000 mm	width: la larghezza della foto sul tessuto, da 10 a 5000 mm
 @msg	turns: 0, 1, 2 or 3	turns: 0, 1, 2 o 3
 @msg	the image is not a fabric photo (Pattern › Use as Fabric…)	l'immagine non è una foto di tessuto (Cartamodello › Usa come tessuto…)
+@msg	even: true or false	even: true o false
+@msg	seamless: true or false	seamless: true o false

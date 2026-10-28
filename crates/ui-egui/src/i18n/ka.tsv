@@ -5652,3 +5652,5 @@ menu	Pattern	თარგი
 @msg	width: the photo's width on the fabric, 10 to 5000 mm	width: ფოტოს სიგანე ქსოვილზე, 10-დან 5000 mm-მდე
 @msg	turns: 0, 1, 2 or 3	turns: 0, 1, 2 ან 3
 @msg	the image is not a fabric photo (Pattern › Use as Fabric…)	გამოსახულება ქსოვილის ფოტო არ არის (თარგი › ქსოვილად გამოყენება…)
+@msg	even: true or false	even: true ან false
+@msg	seamless: true or false	seamless: true ან false

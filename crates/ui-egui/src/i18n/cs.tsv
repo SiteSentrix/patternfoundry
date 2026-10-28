@@ -5744,3 +5744,5 @@ menu	Pattern	Střih
 @msg	width: the photo's width on the fabric, 10 to 5000 mm	width: šířka fotografie na látce, 10 až 5000 mm
 @msg	turns: 0, 1, 2 or 3	turns: 0, 1, 2 nebo 3
 @msg	the image is not a fabric photo (Pattern › Use as Fabric…)	obrázek není fotografie látky (Střih › Použít jako látku…)
+@msg	even: true or false	even: true nebo false
+@msg	seamless: true or false	seamless: true nebo false
