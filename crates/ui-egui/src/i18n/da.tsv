@@ -5706,6 +5706,10 @@ menu	Pattern	Mønster
 	Unsew Seams	Sprät sømme op
 	Sewn Seams	Syede sømme
 	Drape on Avatar	Drapér på avatar
+	Use as Fabric…	Brug som stof…
+	Use as Fabric	Brug som stof
+	Stop Using as Fabric	Brug ikke længere som stof
+	Fabric Photos	Stoffotos
 @msg	the drape view's picture is the wrong size	draperingsvisningens billede har forkert størrelse
 @msg	the drape view: {e}	draperingsvisningen: {e}
 	Export Avatar as glTF	Eksportér avatar som glTF
@@ -5720,3 +5724,6 @@ menu	Pattern	Mønster
 @msg	Draped on the avatar	Draperet på avataren
 @msg	the document was closed	dokumentet blev lukket
 @msg	the drape stopped	draperingen stoppede
+@msg	width: the photo's width on the fabric, 10 to 5000 mm	width: billedets bredde på stoffet, 10 til 5000 mm
+@msg	turns: 0, 1, 2 or 3	turns: 0, 1, 2 eller 3
+@msg	the image is not a fabric photo (Pattern › Use as Fabric…)	billedet er ikke et foto af stof (Mønster › Brug som stof…)

@@ -23,7 +23,7 @@ pub fn specs() -> Vec<CommandSpec> {
         "Drape on Avatar",
         [],
         None,
-        "{ids? (the pieces; default every piece sewn to another, piece.sew), precision?: mm (20, the distance between the cloth's particles, 15 to 50), steps? (240: four seconds, 1 to 2000), path? (a file to write the draped cloth to: .glb, a binary glTF 2.0 file of the avatar and the cloth in the drape view's colours, metres, y up, the front toward +z, for 3D software and game engines; else an OBJ file of the cloth), format?: obj|glb (default from path's extension; without a path the file comes back as data (obj) or dataBase64 (glb)), draw?: true (the drape view: the avatar and the draped cloth as pictures seen from the front and the left side, at true scale, the cloth coloured blue where it is loose, green, and red where it is 10% or more larger than cut, on the layer \"Drape\", drawn again it replaces it; false: none), origin?: [x, y] (document points: the front view's top-left; default right of the art), background?: false (in the app: the drape runs off the UI thread, its progress shown with Cancel, and is drawn when it is done; Pattern › Drape on Avatar does this)} sew the pieces up round the avatar (see avatar.draw) and let them fall onto it as light woven cloth. Each piece goes where it belongs: a bodice (a bodice block's part, or named so) from the waist up over the shoulders, a sleeve (a sleeve block's, or named so) round the arm of the armhole it is sewn into, trousers (a trouser block's, or named trousers, pants or shorts; a front and a back, each a mirror-image pair, the back named so) down the legs, each leg's front and back round it below the crotch and the four round the hips above, their centre seams (each sewn to its mirror, piece.sew) at the middle of the front and back, anything else (a skirt) from the waist down; the skirt's and the bodice's pieces round the body in the order they are sewn, a front first, in the middle of the front. Pieces are taken as drawn upright, as patterns are, and as one side of the body: one cut on the fold is opened out whole, one cut as a mirror-image pair (cut 2, mirror) is both sides, its seams sewn on each; others are taken as drawn. Darts (two legs about as long meeting at a sharp point, the mouth open) are sewn shut, and seams are sewn with their darts closed. The first third of the time the garment is sewn up without gravity, its seams pulling harder and harder, then it falls into place; with sleeves the rest goes on first (half the time), then the sleeves are sewn in with the rest held (a sixth, without gravity), then everything settles → {pieces, darts (sewn shut), particles, top (mm above the floor: the highest the cloth hangs), hem (mm: its lowest), waist (mm: the avatar's), worstStretch (%), widestSeam (mm), path?, data?, dataBase64?, layer?, front?, side?, tightest (%: the most a triangle of cloth is larger than cut)}",
+        "{ids? (the pieces; default every piece sewn to another, piece.sew), precision?: mm (20, the distance between the cloth's particles, 15 to 50), steps? (240: four seconds, 1 to 2000), path? (a file to write the draped cloth to: .glb, a binary glTF 2.0 file of the avatar and the cloth in the drape view's colours, metres, y up, the front toward +z, for 3D software and game engines; else an OBJ file of the cloth), format?: obj|glb (default from path's extension; without a path the file comes back as data (obj) or dataBase64 (glb)), draw?: true (the drape view: the avatar and the draped cloth as pictures seen from the front and the left side, at true scale, the cloth coloured blue where it is loose, green, and red where it is 10% or more larger than cut, on the layer \"Drape\", drawn again it replaces it; false: none), origin?: [x, y] (document points: the front view's top-left; default right of the art), background?: false (in the app: the drape runs off the UI thread, its progress shown with Cancel, and is drawn when it is done; Pattern › Drape on Avatar does this)} sew the pieces up round the avatar (see avatar.draw) and let them fall onto it as light woven cloth. Each piece goes where it belongs: a bodice (a bodice block's part, or named so) from the waist up over the shoulders, a sleeve (a sleeve block's, or named so) round the arm of the armhole it is sewn into, trousers (a trouser block's, or named trousers, pants or shorts; a front and a back, each a mirror-image pair, the back named so) down the legs, each leg's front and back round it below the crotch and the four round the hips above, their centre seams (each sewn to its mirror, piece.sew) at the middle of the front and back, anything else (a skirt) from the waist down; the skirt's and the bodice's pieces round the body in the order they are sewn, a front first, in the middle of the front. Pieces are taken as drawn upright, as patterns are, and as one side of the body: one cut on the fold is opened out whole, one cut as a mirror-image pair (cut 2, mirror) is both sides, its seams sewn on each; others are taken as drawn. Darts (two legs about as long meeting at a sharp point, the mouth open) are sewn shut, and seams are sewn with their darts closed. The first third of the time the garment is sewn up without gravity, its seams pulling harder and harder, then it falls into place; with sleeves the rest goes on first (half the time), then the sleeves are sewn in with the rest held (a sixth, without gravity), then everything settles → {pieces, darts (sewn shut), particles, top (mm above the floor: the highest the cloth hangs), hem (mm: its lowest), waist (mm: the avatar's), worstStretch (%), widestSeam (mm), path?, data?, dataBase64?, layer?, front?, side?, fabric? (with fabric photos, fabric.set: the front view again in them, 1 mm a pixel, right of the side view), tightest (%: the most a triangle of cloth is larger than cut)}",
         has_doc,
         make
     )]
@@ -137,6 +137,8 @@ struct Copy {
     outline: Vec<Pt>,
     /// Its bounds on the pattern: left, right, top, bottom (mm, y down).
     bounds: (f64, f64, f64, f64),
+    /// Its grainline's direction on the pattern (a unit vector, down the piece).
+    grain: Pt,
 }
 
 /// A piece of the garment: its seam line (mm on the pattern) and how it is cut.
@@ -154,6 +156,8 @@ struct Part {
     legs: Vec<usize>,
     /// Its copies for the body's two sides (the same copy for both when opened out on the fold).
     sides: [Option<usize>; 2],
+    /// The fabric it is cut from (`Piece::fabric`).
+    fabric: String,
 }
 
 /// `p` reflected across the line through `a` and `b`.
@@ -251,6 +255,9 @@ pub struct Setup {
     pub sleeves: Vec<u32>,
     /// The stitches setting the sleeves in (sleeve to armhole), by their index in `cloth.seams`.
     pub set_in: Vec<usize>,
+    /// Each panel's (copy's) fabric and grainline (its direction on the pattern, down the piece),
+    /// for the view in the fabric's photo (PF-10.16).
+    pub grains: Vec<(String, Pt)>,
 }
 
 impl Setup {
@@ -434,12 +441,21 @@ pub fn setup(s: &Session, p: &Value) -> Result<Setup> {
         let fold = piece.fold.map(|e| (anchor(e), anchor(e + 1)));
         let (x0, x1) = mm.iter().fold((f64::INFINITY, f64::NEG_INFINITY), |(a, b), q| (a.min(q.x), b.max(q.x)));
         let k = parts.len();
+        // Down the grainline (vertical without one); a mirrored copy's the other way across.
+        let grain = piece
+            .grainline
+            .map(|g| Pt::new(g.to.x - g.from.x, g.to.y - g.from.y))
+            .and_then(|d| {
+                let len = d.x.hypot(d.y);
+                (len > 1e-9).then(|| if d.y < 0.0 { Pt::new(-d.x / len, -d.y / len) } else { Pt::new(d.x / len, d.y / len) })
+            })
+            .unwrap_or(Pt::new(0.0, 1.0));
         let mut add = |outline: Vec<Pt>, mirrored: bool| -> Result<usize> {
             let panel = panel(&outline, step).map_err(|e| bad(C, e.to_string()))?;
             let b = outline.iter().fold((f64::INFINITY, f64::NEG_INFINITY, f64::INFINITY, f64::NEG_INFINITY), |(l, r, t, bo), q| {
                 (l.min(q.x), r.max(q.x), t.min(q.y), bo.max(q.y))
             });
-            copies.push(Copy { piece: k, mirrored, panel, outline, bounds: b });
+            copies.push(Copy { piece: k, mirrored, panel, outline, bounds: b, grain: if mirrored { Pt::new(-grain.x, grain.y) } else { grain } });
             Ok(copies.len() - 1)
         };
         let sides = match fold.and_then(|(a, b)| pf_core::marker::opened_out(&mm, a, b)) {
@@ -466,6 +482,7 @@ pub fn setup(s: &Session, p: &Value) -> Result<Setup> {
             darts: found,
             legs,
             sides,
+            fabric: piece.fabric.clone(),
         });
     }
     // A run's points on copy `c` of its piece, for the body's side `side` (0 as drawn, 1 the other).
@@ -747,7 +764,8 @@ pub fn setup(s: &Session, p: &Value) -> Result<Setup> {
             (0..copies[c].panel.points.len() as u32).map(move |i| start + i)
         })
         .collect();
-    Ok(Setup { cloth, avatar, steps, iterations, waist, pieces: parts.len(), darts, sleeves, set_in })
+    let grains = copies.iter().map(|c| (parts[c.piece].fabric.clone(), c.grain)).collect();
+    Ok(Setup { cloth, avatar, steps, iterations, waist, pieces: parts.len(), darts, sleeves, set_in, grains })
 }
 
 fn make(s: &mut Session, p: &Value) -> Result<Value> {
@@ -759,7 +777,7 @@ fn make(s: &mut Session, p: &Value) -> Result<Value> {
 /// The draped cloth's measures, files and drawing (see `drape.make`).
 pub fn finish(s: &mut Session, p: &Value, setup: Setup) -> Result<Value> {
     const C: &str = "drape.make";
-    let Setup { cloth, avatar, waist, pieces, darts, .. } = setup;
+    let Setup { cloth, avatar, waist, pieces, darts, grains, .. } = setup;
     let (top, hem) = cloth.positions.iter().fold((f64::NEG_INFINITY, f64::INFINITY), |(t, h), q| (t.max(q[2]), h.min(q[2])));
     let r1 = |v: f64| (v * 10.0).round() / 10.0;
     let mut out = json!({
@@ -801,10 +819,13 @@ pub fn finish(s: &mut Session, p: &Value, setup: Setup) -> Result<Value> {
         }
     }
     if p.get("draw").and_then(Value::as_bool) != Some(false) {
-        let (layer, front, side) = draw_views(s, p, &avatar, &cloth, &tight)?;
+        let (layer, front, side, fabric) = draw_views(s, p, &avatar, &cloth, &tight, &grains)?;
         out["layer"] = json!(layer.0);
         out["front"] = json!(front.0);
         out["side"] = json!(side.0);
+        if let Some(fabric) = fabric {
+            out["fabric"] = json!(fabric.0);
+        }
     }
     Ok(out)
 }
@@ -842,6 +863,8 @@ fn glb(avatar: &pf_core::avatar::Avatar, cloth: &Cloth, tight: &[f64]) -> std::r
 const LAYER: &str = "Drape";
 /// The drape view's pixel, mm: fine enough to see folds at true scale on the page.
 const PIXEL_MM: f64 = 2.0;
+/// The view in the fabric's pixel, mm: fine enough to see a print.
+const FABRIC_PIXEL_MM: f64 = 1.0;
 
 /// A picture as PNG.
 fn png(pic: &pf_core::view3d::Picture) -> Result<Vec<u8>> {
@@ -852,20 +875,83 @@ fn png(pic: &pf_core::view3d::Picture) -> Result<Vec<u8>> {
     Ok(buf)
 }
 
+/// The cloth in the fabric view where a piece has no photo to be seen in.
+const UNPRINTED: [u8; 3] = [200, 200, 205];
+
+/// The draped cloth seen from the front in the document's fabric photos (PF-10.16), at
+/// [`FABRIC_PIXEL_MM`]: each panel in the photo named for its piece's fabric (else the first),
+/// repeating along its grainline; `None` without photos.
+fn fabric_view(doc: &Document, avatar: &pf_core::avatar::Avatar, cloth: &Cloth, grains: &[(String, Pt)]) -> Option<pf_core::view3d::Picture> {
+    use pf_core::view3d::{Print, Shape, Side, draw};
+    let photos = super::fabric::photos(doc);
+    if photos.is_empty() {
+        return None;
+    }
+    let swatches: Vec<Option<pf_core::view3d::Swatch>> =
+        photos.iter().map(|(_, f, key)| super::fabric::swatch(doc, f, key, FABRIC_PIXEL_MM)).collect();
+    // Each panel's swatch, in a list of those that could be read.
+    let readable: Vec<usize> = (0..swatches.len()).filter(|i| swatches[*i].is_some()).collect();
+    let list: Vec<pf_core::view3d::Swatch> = readable.iter().filter_map(|i| swatches[*i].clone()).collect();
+    let first = readable.first().map(|_| 0u32);
+    let of_panel: Vec<Option<u32>> = grains
+        .iter()
+        .map(|(name, _)| {
+            let named = photos.iter().position(|(_, f, _)| f.name.trim().eq_ignore_ascii_case(name.trim()));
+            named.and_then(|i| readable.iter().position(|r| *r == i)).map(|i| i as u32).or(first)
+        })
+        .collect();
+    // Each particle's place on its fabric: across and down the grain from the pattern's origin.
+    let at: Vec<[f64; 2]> = cloth
+        .on_pattern()
+        .iter()
+        .map(|(q, panel)| {
+            let g = grains.get(*panel as usize).map_or(Pt::new(0.0, 1.0), |g| g.1);
+            [q.x * g.y - q.y * g.x, q.x * g.x + q.y * g.y]
+        })
+        .collect();
+    let fabric: Vec<Option<u32>> = cloth
+        .triangles
+        .iter()
+        .map(|t| cloth.on_pattern().get(t[0] as usize).and_then(|(_, panel)| of_panel.get(*panel as usize).copied().flatten()))
+        .collect();
+    let skin = vec![SKIN; avatar.mesh.triangles.len()];
+    let plain = vec![UNPRINTED; cloth.triangles.len()];
+    let shapes = [
+        Shape { points: &avatar.mesh.vertices, triangles: &avatar.mesh.triangles, colours: &skin, smooth: true, print: None },
+        Shape {
+            points: &cloth.positions,
+            triangles: &cloth.triangles,
+            colours: &plain,
+            smooth: true,
+            print: Some(Print { at: &at, fabric: &fabric, swatches: &list }),
+        },
+    ];
+    draw(&shapes, Side::Front, FABRIC_PIXEL_MM)
+}
+
 /// Draw the avatar and the draped cloth seen from the front and the left side, side by side at
-/// true scale, on the layer "Drape" (replacing it): → (layer, front, side).
-fn draw_views(s: &mut Session, p: &Value, avatar: &pf_core::avatar::Avatar, cloth: &Cloth, tight: &[f64]) -> Result<(NodeId, NodeId, NodeId)> {
+/// true scale, on the layer "Drape" (replacing it), and with fabric photos the front again in
+/// them: → (layer, front, side, in the fabric).
+fn draw_views(
+    s: &mut Session,
+    p: &Value,
+    avatar: &pf_core::avatar::Avatar,
+    cloth: &Cloth,
+    tight: &[f64],
+    grains: &[(String, Pt)],
+) -> Result<(NodeId, NodeId, NodeId, Option<NodeId>)> {
     use pf_core::view3d::{Shape, Side, draw, tightness_colour};
     const C: &str = "drape.make";
     let skin = vec![SKIN; avatar.mesh.triangles.len()];
     let colours: Vec<[u8; 3]> = tight.iter().map(|t| tightness_colour(*t)).collect();
     let shapes = [
-        Shape { points: &avatar.mesh.vertices, triangles: &avatar.mesh.triangles, colours: &skin, smooth: true },
-        Shape { points: &cloth.positions, triangles: &cloth.triangles, colours: &colours, smooth: true },
+        Shape { points: &avatar.mesh.vertices, triangles: &avatar.mesh.triangles, colours: &skin, smooth: true, print: None },
+        Shape { points: &cloth.positions, triangles: &cloth.triangles, colours: &colours, smooth: true, print: None },
     ];
     let (front, side) = (draw(&shapes, Side::Front, PIXEL_MM), draw(&shapes, Side::Left, PIXEL_MM));
     let (Some(front), Some(side)) = (front, side) else { return Err(bad(C, "nothing to draw")) };
     let doc = &s.doc()?.doc;
+    let printed = fabric_view(doc, avatar, cloth, grains);
     let origin = match p.get("origin") {
         None | Some(Value::Null) => {
             let b = doc.art_bounds();
@@ -878,10 +964,16 @@ fn draw_views(s: &mut Session, p: &Value, avatar: &pf_core::avatar::Avatar, clot
         }
     };
     let (fpng, spng) = (png(&front)?, png(&side)?);
+    let printed = match printed {
+        Some(pic) => Some((png(&pic)?, pic)),
+        None => None,
+    };
     // The side view 100 mm right of the front view; both from the same height (their tops are
     // the same point of the body), so they line up across.
     let side_x = pf_core::mm_to_pt(front.width as f64 * front.mm + 100.0);
     let dy = pf_core::mm_to_pt(front.top - side.top);
+    // In the fabric: 100 mm right of the side view, from the same height.
+    let fabric_x = side_x + pf_core::mm_to_pt(side.width as f64 * side.mm + 100.0);
     s.edit("Drape on Avatar", |d, sel| {
         d.layers.retain(|l| l.name.as_deref() != Some(LAYER));
         let image = |d: &mut Document, pic: &pf_core::view3d::Picture, bytes: Vec<u8>, at: Point, name: &str| {
@@ -905,14 +997,17 @@ fn draw_views(s: &mut Session, p: &Value, avatar: &pf_core::avatar::Avatar, clot
         };
         let f = image(d, &front, fpng.clone(), origin, "Drape front");
         let sd = image(d, &side, spng.clone(), Point::new(origin.x + side_x, origin.y + dy), "Drape side");
-        let ids = (f.id, sd.id);
+        let fb = printed.as_ref().map(|(bytes, pic)| {
+            image(d, pic, bytes.clone(), Point::new(origin.x + fabric_x, origin.y + pf_core::mm_to_pt(front.top - pic.top)), "Drape in fabric")
+        });
+        let ids = (f.id, sd.id, fb.as_ref().map(|n| n.id));
         let mut l = vectorcraft_doc::Node::layer(d.alloc_id(), LAYER, vectorcraft_doc::LayerColor::Preset(4));
         let id = l.id;
         if let Some(ch) = l.children_mut() {
-            *ch = vec![std::sync::Arc::new(f), std::sync::Arc::new(sd)];
+            *ch = [Some(f), Some(sd), fb].into_iter().flatten().map(std::sync::Arc::new).collect();
         }
         d.layers.push(std::sync::Arc::new(l));
-        sel.set([ids.0, ids.1]);
-        Ok((id, ids.0, ids.1))
+        sel.set([ids.0, ids.1].into_iter().chain(ids.2));
+        Ok((id, ids.0, ids.1, ids.2))
     })
 }

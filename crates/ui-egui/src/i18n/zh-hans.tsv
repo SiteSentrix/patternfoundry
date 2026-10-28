@@ -5559,6 +5559,10 @@ menu	Pattern	纸样
 	Unsew Seams	拆开缝线
 	Sewn Seams	已缝合的缝线
 	Drape on Avatar	在人台上悬垂
+	Use as Fabric…	用作面料…
+	Use as Fabric	用作面料
+	Stop Using as Fabric	停止用作面料
+	Fabric Photos	面料照片
 @msg	the drape view's picture is the wrong size	垂坠视图的图片尺寸不对
 @msg	the drape view: {e}	垂坠视图：{e}
 	Export Avatar as glTF	将虚拟人体导出为 glTF
@@ -5573,3 +5577,6 @@ menu	Pattern	纸样
 @msg	Draped on the avatar	已垂坠到虚拟人体上
 @msg	the document was closed	文档已关闭
 @msg	the drape stopped	垂坠已停止
+@msg	width: the photo's width on the fabric, 10 to 5000 mm	width：照片在面料上的宽度，10 至 5000 mm
+@msg	turns: 0, 1, 2 or 3	turns：0、1、2 或 3
+@msg	the image is not a fabric photo (Pattern › Use as Fabric…)	该图像不是面料照片（纸样 › 用作面料…）

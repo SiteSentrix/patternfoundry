@@ -429,3 +429,93 @@ fn a_mens_shirt_with_sleeves_drapes_on_a_male_figure() {
     assert!(lo < -0.3 && hi > 0.3, "{lo} {hi}");
     std::fs::remove_dir_all(&dir).ok();
 }
+
+/// A PNG of upright stripes, red then blue, each `stripe` pixels wide, `n` of each, 30 high.
+fn stripes_png(stripe: u32, n: u32) -> Vec<u8> {
+    let img = image::RgbImage::from_fn(stripe * 2 * n, 30, |x, _| {
+        if (x / stripe).is_multiple_of(2) { image::Rgb([220, 20, 20]) } else { image::Rgb([20, 20, 220]) }
+    });
+    let mut buf = Vec::new();
+    img.write_to(&mut std::io::Cursor::new(&mut buf), image::ImageFormat::Png).unwrap();
+    buf
+}
+
+/// Fabric from a photo (PF-10.16): an image marked as a fabric photo, its width on the fabric
+/// given (else as placed), and the draped skirt drawn again in it at true size: a photo of 10 mm
+/// stripes shows 10 mm stripes down the middle of the skirt's front.
+#[test]
+fn the_drape_is_drawn_in_a_fabric_photo() {
+    let mut s = skirt();
+    let dir = std::env::temp_dir().join(format!("pf-fabric-{}", std::process::id()));
+    std::fs::create_dir_all(&dir).unwrap();
+    let path = dir.join("stripes.png");
+    // 4 pixels a stripe, so 10 mm when the photo's 80 pixels are 200 mm of the fabric.
+    std::fs::write(&path, stripes_png(4, 10)).unwrap();
+    let photo = s.execute("file.place", &json!({"path": path, "link": false, "at": [0, 2000]})).unwrap()["ids"][0].clone();
+    std::fs::remove_dir_all(&dir).ok();
+    // Not a fabric photo yet: no view in it.
+    let r = s.execute("drape.make", &json!({"precision": 25, "steps": 5, "origin": [0, 0]})).unwrap();
+    assert!(r.get("fabric").is_none(), "{r}");
+    // Its width as placed by default; then as given.
+    let placed = pf_core::pt_to_mm(s.doc().unwrap().doc.bounds_of(&[NodeId(photo.as_u64().unwrap())], false).unwrap().width());
+    let f = s.execute("fabric.set", &json!({"id": photo})).unwrap();
+    assert!((f["width"].as_f64().unwrap() - placed).abs() < 1e-6, "{f}");
+    let f = s.execute("fabric.set", &json!({"id": photo, "width": "20 cm"})).unwrap();
+    assert_eq!((f["width"].as_f64().unwrap().round(), f["name"].as_str(), f["turns"].as_u64()), (200.0, Some(""), Some(0)));
+    assert_eq!(s.execute("fabric.list", &json!({})).unwrap()["fabrics"].as_array().unwrap().len(), 1);
+    for bad in [json!({"id": photo, "width": 5}), json!({"id": photo, "turns": 4})] {
+        assert!(s.execute("fabric.set", &bad).is_err(), "{bad}");
+    }
+    let piece = s.execute("piece.list", &json!({})).unwrap()["pieces"][0]["id"].clone();
+    assert!(s.execute("fabric.set", &json!({"id": piece, "width": 200})).unwrap_err().to_string().contains("not an image"));
+    // Draped, the front again in the fabric, 1 mm a pixel, right of the side view.
+    let r = s.execute("drape.make", &json!({"precision": 20, "steps": 60, "origin": [0, 0]})).unwrap();
+    let doc = &s.doc().unwrap().doc;
+    let image = |id: &serde_json::Value| match &doc.node(NodeId(id.as_u64().unwrap())).unwrap().kind {
+        vectorcraft_doc::NodeKind::Image(im) => (**im).clone(),
+        _ => panic!("an image"),
+    };
+    let (side, fabric) = (image(&r["side"]), image(&r["fabric"]));
+    assert!((fabric.xf.as_coeffs()[0] - mm_to_pt(1.0)).abs() < 1e-9);
+    assert!(fabric.xf.as_coeffs()[4] > side.xf.as_coeffs()[4] + mm_to_pt(side.width as f64 * 2.0), "beside the side view");
+    let pic = image::load_from_memory(&doc.images[&fabric.key].bytes).unwrap().to_rgba8();
+    // Across the middle of the skirt's front, 150 mm below its top: red and blue stripes, the
+    // middle ones (facing the viewer, not foreshortened) 10 mm wide.
+    if let Ok(out) = std::env::var("PF_FABRIC_VIEW") {
+        pic.save(out).unwrap();
+    }
+    // Red 1, blue -1, else 0.
+    let stripe = |x: u32, y: u32| {
+        let p = pic.get_pixel(x, y).0.map(u32::from);
+        if p[3] == 0 {
+            0
+        } else if p[0] > 2 * p[2] + 20 {
+            1
+        } else if p[2] > 2 * p[0] + 20 {
+            -1
+        } else {
+            0
+        }
+    };
+    let top = (0..pic.height()).find(|y| (0..pic.width()).any(|x| stripe(x, *y) != 0)).unwrap();
+    let row: Vec<i8> = (0..pic.width()).map(|x| stripe(x, top + 150)).collect();
+    let mut runs: Vec<(u32, i8, u32)> = Vec::new();
+    for (x, c) in row.iter().enumerate() {
+        match runs.last_mut() {
+            Some(r) if r.1 == *c => r.2 += 1,
+            _ => runs.push((x as u32, *c, 1)),
+        }
+    }
+    let stripes: Vec<&(u32, i8, u32)> = runs.iter().filter(|r| r.1 != 0).collect();
+    assert!(stripes.len() >= 10, "{runs:?}");
+    let mid = pic.width() / 2;
+    let middle: Vec<u32> = stripes.iter().filter(|r| r.0.abs_diff(mid) < 60).map(|r| r.2).collect();
+    assert!(middle.len() >= 4 && middle.iter().all(|w| (8..=12).contains(w)), "{middle:?} of {runs:?}");
+    // Cleared, there is no view in it; undone, it is a fabric photo again.
+    s.execute("fabric.clear", &json!({"id": photo})).unwrap();
+    assert!(s.execute("fabric.clear", &json!({"id": photo})).is_err());
+    assert!(s.execute("drape.make", &json!({"precision": 25, "steps": 5})).unwrap().get("fabric").is_none());
+    s.execute("edit.undo", &json!({})).unwrap();
+    s.execute("edit.undo", &json!({})).unwrap();
+    assert_eq!(s.execute("fabric.list", &json!({})).unwrap()["fabrics"].as_array().unwrap().len(), 1);
+}

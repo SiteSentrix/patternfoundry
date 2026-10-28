@@ -5305,6 +5305,10 @@ menu	Pattern	Schnitt
 	Unsew Seams	Nähte trennen
 	Sewn Seams	Genähte Nähte
 	Drape on Avatar	Auf Avatar drapieren
+	Use as Fabric…	Als Stoff verwenden…
+	Use as Fabric	Als Stoff verwenden
+	Stop Using as Fabric	Nicht mehr als Stoff verwenden
+	Fabric Photos	Stofffotos
 @msg	the drape view's picture is the wrong size	das Bild der Fallansicht hat die falsche Größe
 @msg	the drape view: {e}	die Fallansicht: {e}
 	Export Avatar as glTF	Avatar als glTF exportieren
@@ -5319,3 +5323,6 @@ menu	Pattern	Schnitt
 @msg	Draped on the avatar	Auf dem Avatar drapiert
 @msg	the document was closed	das Dokument wurde geschlossen
 @msg	the drape stopped	das Drapieren wurde unterbrochen
+@msg	width: the photo's width on the fabric, 10 to 5000 mm	width: die Breite des Fotos auf dem Stoff, 10 bis 5000 mm
+@msg	turns: 0, 1, 2 or 3	turns: 0, 1, 2 oder 3
+@msg	the image is not a fabric photo (Pattern › Use as Fabric…)	das Bild ist kein Stofffoto (Schnitt › Als Stoff verwenden…)

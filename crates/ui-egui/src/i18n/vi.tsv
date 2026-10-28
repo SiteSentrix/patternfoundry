@@ -5318,6 +5318,10 @@ menu	Pattern	Rập
 	Unsew Seams	Tháo đường may
 	Sewn Seams	Đường may đã nối
 	Drape on Avatar	Phủ lên hình nhân
+	Use as Fabric…	Dùng làm vải…
+	Use as Fabric	Dùng làm vải
+	Stop Using as Fabric	Ngừng dùng làm vải
+	Fabric Photos	Ảnh vải
 @msg	the drape view's picture is the wrong size	hình của khung xem độ rủ có kích thước sai
 @msg	the drape view: {e}	khung xem độ rủ: {e}
 	Export Avatar as glTF	Xuất hình nhân dạng glTF
@@ -5332,3 +5336,6 @@ menu	Pattern	Rập
 @msg	Draped on the avatar	Đã cho vải rủ lên hình nhân
 @msg	the document was closed	tài liệu đã bị đóng
 @msg	the drape stopped	việc cho vải rủ đã dừng
+@msg	width: the photo's width on the fabric, 10 to 5000 mm	width: chiều rộng của ảnh trên vải, từ 10 đến 5000 mm
+@msg	turns: 0, 1, 2 or 3	turns: 0, 1, 2 hoặc 3
+@msg	the image is not a fabric photo (Pattern › Use as Fabric…)	hình ảnh không phải là ảnh vải (Rập › Dùng làm vải…)

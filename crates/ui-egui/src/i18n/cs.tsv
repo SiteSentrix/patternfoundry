@@ -5723,6 +5723,10 @@ menu	Pattern	Střih
 	Unsew Seams	Rozpárat švy
 	Sewn Seams	Sešité švy
 	Drape on Avatar	Drapovat na avatara
+	Use as Fabric…	Použít jako látku…
+	Use as Fabric	Použít jako látku
+	Stop Using as Fabric	Přestat používat jako látku
+	Fabric Photos	Fotografie látek
 @msg	the drape view's picture is the wrong size	obrázek pohledu na splývání má špatnou velikost
 @msg	the drape view: {e}	pohled na splývání: {e}
 	Export Avatar as glTF	Exportovat avatara jako glTF
@@ -5737,3 +5741,6 @@ menu	Pattern	Střih
 @msg	Draped on the avatar	Splývání na avatarovi hotovo
 @msg	the document was closed	dokument byl zavřen
 @msg	the drape stopped	splývání se zastavilo
+@msg	width: the photo's width on the fabric, 10 to 5000 mm	width: šířka fotografie na látce, 10 až 5000 mm
+@msg	turns: 0, 1, 2 or 3	turns: 0, 1, 2 nebo 3
+@msg	the image is not a fabric photo (Pattern › Use as Fabric…)	obrázek není fotografie látky (Střih › Použít jako látku…)

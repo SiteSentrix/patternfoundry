@@ -5706,6 +5706,10 @@ menu	Pattern	Pola
 	Unsew Seams	Lepas Jahitan
 	Sewn Seams	Jahitan Tersambung
 	Drape on Avatar	Drape pada avatar
+	Use as Fabric…	Gunakan sebagai Kain…
+	Use as Fabric	Gunakan sebagai Kain
+	Stop Using as Fabric	Berhenti Menggunakan sebagai Kain
+	Fabric Photos	Foto Kain
 @msg	the drape view's picture is the wrong size	gambar tampilan jatuhan kain berukuran salah
 @msg	the drape view: {e}	tampilan jatuhan kain: {e}
 	Export Avatar as glTF	Ekspor Avatar sebagai glTF
@@ -5720,3 +5724,6 @@ menu	Pattern	Pola
 @msg	Draped on the avatar	Kain dijatuhkan pada avatar
 @msg	the document was closed	dokumen ditutup
 @msg	the drape stopped	penjatuhan kain berhenti
+@msg	width: the photo's width on the fabric, 10 to 5000 mm	width: lebar foto pada kain, 10 sampai 5000 mm
+@msg	turns: 0, 1, 2 or 3	turns: 0, 1, 2, atau 3
+@msg	the image is not a fabric photo (Pattern › Use as Fabric…)	gambar ini bukan foto kain (Pola › Gunakan sebagai Kain…)

@@ -5687,6 +5687,10 @@ menu	Pattern	Кройка
 	Unsew Seams	Разпаряне на шевове
 	Sewn Seams	Съшити шевове
 	Drape on Avatar	Драпиране върху аватара
+	Use as Fabric…	Използвай като плат…
+	Use as Fabric	Използвай като плат
+	Stop Using as Fabric	Спри да използваш като плат
+	Fabric Photos	Снимки на платове
 @msg	the drape view's picture is the wrong size	картината на изгледа на драпирането е с грешен размер
 @msg	the drape view: {e}	изгледът на драпирането: {e}
 	Export Avatar as glTF	Експортиране на аватара като glTF
@@ -5701,3 +5705,6 @@ menu	Pattern	Кройка
 @msg	Draped on the avatar	Драпирано върху аватара
 @msg	the document was closed	документът беше затворен
 @msg	the drape stopped	драпирането спря
+@msg	width: the photo's width on the fabric, 10 to 5000 mm	width: ширината на снимката върху плата, от 10 до 5000 mm
+@msg	turns: 0, 1, 2 or 3	turns: 0, 1, 2 или 3
+@msg	the image is not a fabric photo (Pattern › Use as Fabric…)	изображението не е снимка на плат (Кройка › Използвай като плат…)

@@ -336,19 +336,42 @@ pub enum Mark {
 pub enum PatternTag {
     Piece(Box<Piece>),
     Mark(Mark),
+    /// On an image: a photo of a fabric (PF-10.16).
+    Fabric(FabricPhoto),
 }
+
+/// A photo of a fabric (PF-10.16), for seeing the draped garment in it: the fabric pieces name
+/// (`Piece::fabric`), how wide the photo is on the fabric (mm), and how many quarter turns
+/// clockwise bring the fabric's lengthwise grain (the selvedge's direction) upright in it.
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+pub struct FabricPhoto {
+    #[serde(default)]
+    pub name: String,
+    pub width: f64,
+    #[serde(default)]
+    pub turns: u8,
+}
+
+/// The narrowest and widest a fabric photo can be, mm.
+pub const FABRIC_PHOTO_WIDTH: std::ops::RangeInclusive<f64> = 10.0..=5000.0;
 
 impl PatternTag {
     pub fn piece(&self) -> Option<&Piece> {
         match self {
             PatternTag::Piece(p) => Some(p),
-            PatternTag::Mark(_) => None,
+            _ => None,
         }
     }
     pub fn mark(&self) -> Option<Mark> {
         match self {
             PatternTag::Mark(m) => Some(*m),
-            PatternTag::Piece(_) => None,
+            _ => None,
+        }
+    }
+    pub fn fabric(&self) -> Option<&FabricPhoto> {
+        match self {
+            PatternTag::Fabric(f) => Some(f),
+            _ => None,
         }
     }
 }

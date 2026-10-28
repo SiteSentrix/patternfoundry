@@ -5675,6 +5675,10 @@ menu	Pattern	Πατρόν
 	Unsew Seams	Ξήλωμα ραφών
 	Sewn Seams	Ραμμένες ραφές
 	Drape on Avatar	Ντραπάρισμα στο άβαταρ
+	Use as Fabric…	Χρήση ως ύφασμα…
+	Use as Fabric	Χρήση ως ύφασμα
+	Stop Using as Fabric	Διακοπή χρήσης ως ύφασμα
+	Fabric Photos	Φωτογραφίες υφασμάτων
 @msg	the drape view's picture is the wrong size	η εικόνα της προβολής πτώσης έχει λάθος μέγεθος
 @msg	the drape view: {e}	η προβολή πτώσης: {e}
 	Export Avatar as glTF	Εξαγωγή άβαταρ ως glTF
@@ -5689,3 +5693,6 @@ menu	Pattern	Πατρόν
 @msg	Draped on the avatar	Η πτώση στο άβαταρ ολοκληρώθηκε
 @msg	the document was closed	το έγγραφο έκλεισε
 @msg	the drape stopped	η πτώση σταμάτησε
+@msg	width: the photo's width on the fabric, 10 to 5000 mm	width: το πλάτος της φωτογραφίας πάνω στο ύφασμα, 10 έως 5000 mm
+@msg	turns: 0, 1, 2 or 3	turns: 0, 1, 2 ή 3
+@msg	the image is not a fabric photo (Pattern › Use as Fabric…)	η εικόνα δεν είναι φωτογραφία υφάσματος (Πατρόν › Χρήση ως ύφασμα…)

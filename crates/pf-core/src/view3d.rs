@@ -31,6 +31,40 @@ pub struct Shape<'a> {
     pub triangles: &'a [[u32; 3]],
     pub colours: &'a [[u8; 3]],
     pub smooth: bool,
+    /// Where it is printed with a fabric (PF-10.16); else in its colours.
+    pub print: Option<Print<'a>>,
+}
+
+/// A fabric's picture (PF-10.16): `width` × `height` pixels of RGB, each `mm` across, repeating
+/// both ways as the fabric does.
+#[derive(Clone, Debug, PartialEq)]
+pub struct Swatch {
+    pub width: u32,
+    pub height: u32,
+    pub rgb: Vec<u8>,
+    pub mm: f64,
+}
+
+impl Swatch {
+    /// Its colour at `u` across and `v` down the fabric (mm).
+    fn at(&self, u: f64, v: f64) -> Option<[u8; 3]> {
+        if self.width == 0 || self.height == 0 || self.mm.is_nan() || self.mm <= 0.0 {
+            return None;
+        }
+        let x = (u / self.mm).floor().rem_euclid(self.width as f64) as usize;
+        let y = (v / self.mm).floor().rem_euclid(self.height as f64) as usize;
+        let i = (y.min(self.height as usize - 1) * self.width as usize + x.min(self.width as usize - 1)) * 3;
+        Some([*self.rgb.get(i)?, *self.rgb.get(i + 1)?, *self.rgb.get(i + 2)?])
+    }
+}
+
+/// A shape printed with fabrics: each point's place on its fabric (mm across and down, the
+/// lengthwise grain down), and each triangle's fabric (into `swatches`; none: its own colour).
+#[derive(Clone, Copy, Debug)]
+pub struct Print<'a> {
+    pub at: &'a [[f64; 2]],
+    pub fabric: &'a [Option<u32>],
+    pub swatches: &'a [Swatch],
 }
 
 /// Each point's normal in the view (across, up, toward the viewer): the sum of its triangles'
@@ -128,6 +162,12 @@ pub fn draw(shapes: &[Shape], side: Side, mm: f64) -> Option<Picture> {
                 continue;
             }
             let flat = lit_by(n);
+            // Its fabric, and its corners' places on it.
+            let printed = s.print.and_then(|pr| {
+                let sw = pr.swatches.get(pr.fabric.get(k).copied().flatten()? as usize)?;
+                let [u0, u1, u2] = tri.map(|i| pr.at.get(i as usize).copied());
+                Some((sw, u0?, u1?, u2?))
+            });
             let corner = |i: u32| vertex_normals.as_ref().and_then(|v| v.get(i as usize).copied());
             let smooth = match (corner(tri[0]), corner(tri[1]), corner(tri[2])) {
                 (Some(n0), Some(n1), Some(n2)) => Some((n0, n1, n2)),
@@ -162,7 +202,10 @@ pub fn draw(shapes: &[Shape], side: Side, mm: f64) -> Option<Picture> {
                         }
                         None => flat,
                     };
-                    for (j, ch) in c.iter().enumerate() {
+                    let colour = printed
+                        .and_then(|(sw, u0, u1, u2)| sw.at(w0 * u0[0] + w1 * u1[0] + w2 * u2[0], w0 * u0[1] + w1 * u1[1] + w2 * u2[1]))
+                        .unwrap_or(*c);
+                    for (j, ch) in colour.iter().enumerate() {
                         rgba[at * 4 + j] = (*ch as f64 * shade).round().clamp(0.0, 255.0) as u8;
                     }
                     rgba[at * 4 + 3] = 255;
@@ -189,7 +232,10 @@ mod tests {
         let red = [[200, 0, 0]; 2];
         let blue = [[0, 0, 200]; 2];
         let pic = draw(
-            &[Shape { points: &p, triangles: &t, colours: &red, smooth: false }, Shape { points: &q, triangles: &u, colours: &blue, smooth: false }],
+            &[
+                Shape { points: &p, triangles: &t, colours: &red, smooth: false, print: None },
+                Shape { points: &q, triangles: &u, colours: &blue, smooth: false, print: None },
+            ],
             Side::Front,
             1.0,
         )
@@ -201,9 +247,9 @@ mod tests {
         let px = &pic.rgba[mid..mid + 4];
         assert!(px[2] > 60 && px[0] == 0 && px[3] == 255, "{px:?}");
         // Seen from the side, a square in the x-z plane is a line: nothing much drawn.
-        let side = draw(&[Shape { points: &p, triangles: &t, colours: &red, smooth: false }], Side::Left, 1.0);
+        let side = draw(&[Shape { points: &p, triangles: &t, colours: &red, smooth: false, print: None }], Side::Left, 1.0);
         assert!(side.is_none_or(|s| s.rgba.chunks(4).filter(|c| c[3] == 255).count() < 200));
-        assert!(draw(&[Shape { points: &p, triangles: &t, colours: &red, smooth: false }], Side::Front, 0.0).is_none());
+        assert!(draw(&[Shape { points: &p, triangles: &t, colours: &red, smooth: false, print: None }], Side::Front, 0.0).is_none());
     }
 
     /// Smooth (PF-10.15): a bent strip of two faces, each flat, shades evenly across where they meet
@@ -215,7 +261,7 @@ mod tests {
         let t = vec![[0, 1, 4], [0, 4, 3], [1, 2, 5], [1, 5, 4]];
         let grey = [[200, 200, 200]; 4];
         let row = |smooth| {
-            let pic = draw(&[Shape { points: &p, triangles: &t, colours: &grey, smooth }], Side::Front, 1.0).unwrap();
+            let pic = draw(&[Shape { points: &p, triangles: &t, colours: &grey, smooth, print: None }], Side::Front, 1.0).unwrap();
             // The drawn pixels only (the background is 0).
             (0..pic.width).map(|x| pic.rgba[((50 * pic.width + x) * 4) as usize] as i32).filter(|v| *v > 0).collect::<Vec<_>>()
         };
@@ -232,5 +278,34 @@ mod tests {
         assert!(loose[2] > loose[0] && loose[2] > loose[1]);
         assert!(mid[1] > mid[0] && mid[1] > mid[2]);
         assert!(tight[0] > tight[1] && tight[0] > tight[2]);
+    }
+
+    /// A printed shape (PF-10.16) shows its fabric at true size, repeating: a swatch of two 10 mm
+    /// stripes (red, then white) across a 100 mm square shows five of each, each 10 mm wide.
+    #[test]
+    fn a_printed_shape_shows_its_fabric_at_true_size() {
+        let (p, t) = square(100.0, 0.0);
+        let grey = [[128, 128, 128]; 2];
+        // Its places on the fabric: across as the square, down from its top.
+        let at: Vec<[f64; 2]> = p.iter().map(|q| [q[0], 100.0 - q[2]]).collect();
+        let swatch = Swatch { width: 2, height: 1, rgb: vec![200, 0, 0, 255, 255, 255], mm: 10.0 };
+        let fabric = [Some(0), Some(0)];
+        let print = Print { at: &at, fabric: &fabric, swatches: std::slice::from_ref(&swatch) };
+        let pic = draw(&[Shape { points: &p, triangles: &t, colours: &grey, smooth: false, print: Some(print) }], Side::Front, 1.0).unwrap();
+        let red = |x: u32| {
+            let i = ((50 * pic.width + x) * 4) as usize;
+            pic.rgba[i] > 100 && pic.rgba[i + 1] < 50
+        };
+        let stripes: Vec<bool> = (0..100).map(red).collect();
+        // Lit, but a red pixel is red and a white one isn't; ten stripes, changing every 10 mm.
+        let changes: Vec<usize> = (1..100).filter(|x| stripes[*x] != stripes[x - 1]).collect();
+        assert_eq!(changes, vec![10, 20, 30, 40, 50, 60, 70, 80, 90], "{stripes:?}");
+        assert!(stripes[5] && !stripes[15]);
+        // Unprinted triangles keep their colours.
+        let fabric = [None, None];
+        let print = Print { at: &at, fabric: &fabric, swatches: std::slice::from_ref(&swatch) };
+        let plain = draw(&[Shape { points: &p, triangles: &t, colours: &grey, smooth: false, print: Some(print) }], Side::Front, 1.0).unwrap();
+        let i = ((50 * plain.width + 5) * 4) as usize;
+        assert_eq!(plain.rgba[i], plain.rgba[i + 1]);
     }
 }

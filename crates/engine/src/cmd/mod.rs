@@ -25,6 +25,7 @@ mod draw2;
 mod edit;
 mod effectcmd;
 pub mod expand;
+mod fabric;
 pub(crate) mod fileinfo;
 pub mod fileio;
 pub mod findfiles;
@@ -225,6 +226,7 @@ pub fn command_specs() -> &'static [CommandSpec] {
         v.extend(grade::specs());
         v.extend(avatar::specs());
         v.extend(drape::specs());
+        v.extend(fabric::specs());
         v.extend(marker::specs());
         v.extend(object::specs());
         v.extend(path::specs());

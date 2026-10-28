@@ -5631,6 +5631,10 @@ menu	Pattern	თარგი
 	Unsew Seams	ნაკერების დაშლა
 	Sewn Seams	შეკერილი ნაკერები
 	Drape on Avatar	ავატარზე დრაპირება
+	Use as Fabric…	ქსოვილად გამოყენება…
+	Use as Fabric	ქსოვილად გამოყენება
+	Stop Using as Fabric	ქსოვილად გამოყენების შეწყვეტა
+	Fabric Photos	ქსოვილის ფოტოები
 @msg	the drape view's picture is the wrong size	დრაპირების ხედის სურათს არასწორი ზომა აქვს
 @msg	the drape view: {e}	დრაპირების ხედი: {e}
 	Export Avatar as glTF	ავატარის ექსპორტი glTF-ად
@@ -5645,3 +5649,6 @@ menu	Pattern	თარგი
 @msg	Draped on the avatar	ავატარზე დრაპირება დასრულდა
 @msg	the document was closed	დოკუმენტი დაიხურა
 @msg	the drape stopped	დრაპირება შეწყდა
+@msg	width: the photo's width on the fabric, 10 to 5000 mm	width: ფოტოს სიგანე ქსოვილზე, 10-დან 5000 mm-მდე
+@msg	turns: 0, 1, 2 or 3	turns: 0, 1, 2 ან 3
+@msg	the image is not a fabric photo (Pattern › Use as Fabric…)	გამოსახულება ქსოვილის ფოტო არ არის (თარგი › ქსოვილად გამოყენება…)

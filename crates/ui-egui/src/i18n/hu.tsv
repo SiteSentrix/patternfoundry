@@ -5709,6 +5709,10 @@ menu	Pattern	Szabásminta
 	Unsew Seams	Varratok szétbontása
 	Sewn Seams	Összevarrt varratok
 	Drape on Avatar	Drapírozás az avatarra
+	Use as Fabric…	Használat anyagként…
+	Use as Fabric	Használat anyagként
+	Stop Using as Fabric	Ne legyen anyag
+	Fabric Photos	Anyagfotók
 @msg	the drape view's picture is the wrong size	az esésnézet képe rossz méretű
 @msg	the drape view: {e}	az esésnézet: {e}
 	Export Avatar as glTF	Avatar exportálása glTF-ként
@@ -5723,3 +5727,6 @@ menu	Pattern	Szabásminta
 @msg	Draped on the avatar	Esés az avataron kész
 @msg	the document was closed	a dokumentumot bezárták
 @msg	the drape stopped	az esés leállt
+@msg	width: the photo's width on the fabric, 10 to 5000 mm	width: a fénykép szélessége az anyagon, 10–5000 mm
+@msg	turns: 0, 1, 2 or 3	turns: 0, 1, 2 vagy 3
+@msg	the image is not a fabric photo (Pattern › Use as Fabric…)	a kép nem anyagfotó (Szabásminta › Használat anyagként…)

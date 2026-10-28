@@ -5576,6 +5576,10 @@ menu	Pattern	Wykrój
 	Unsew Seams	Rozpruj szwy
 	Sewn Seams	Zszyte szwy
 	Drape on Avatar	Drapuj na awatarze
+	Use as Fabric…	Użyj jako tkaniny…
+	Use as Fabric	Użyj jako tkaniny
+	Stop Using as Fabric	Przestań używać jako tkaniny
+	Fabric Photos	Zdjęcia tkanin
 @msg	the drape view's picture is the wrong size	obraz widoku układania się ma złe wymiary
 @msg	the drape view: {e}	widok układania się: {e}
 	Export Avatar as glTF	Eksportuj awatara jako glTF
@@ -5590,3 +5594,6 @@ menu	Pattern	Wykrój
 @msg	Draped on the avatar	Ułożono na awatarze
 @msg	the document was closed	dokument został zamknięty
 @msg	the drape stopped	układanie zostało przerwane
+@msg	width: the photo's width on the fabric, 10 to 5000 mm	width: szerokość zdjęcia na tkaninie, od 10 do 5000 mm
+@msg	turns: 0, 1, 2 or 3	turns: 0, 1, 2 lub 3
+@msg	the image is not a fabric photo (Pattern › Use as Fabric…)	obraz nie jest zdjęciem tkaniny (Wykrój › Użyj jako tkaniny…)

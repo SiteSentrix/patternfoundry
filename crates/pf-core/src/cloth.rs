@@ -581,6 +581,11 @@ impl Cloth {
         r[r.len() / 2]
     }
 
+    /// Each particle's place on its pattern piece (mm, y down), and which panel it is of.
+    pub fn on_pattern(&self) -> &[(Pt, u32)] {
+        &self.pattern
+    }
+
     /// How much larger each triangle is than it was cut (its area over its area on the pattern,
     /// less 1: 0.05 is 5% larger), for the drape view's tightness colours.
     pub fn tightness(&self) -> Vec<f64> {

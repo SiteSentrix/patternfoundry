@@ -704,6 +704,26 @@ is built on, plus a pattern mode, the way StitchFoundry adds embroidery:
   more in `pf-core` (a trapezoid's edge particles on its outline, none outside it, the particle
   nearest a point of the slanted side on it), the skirt's test bounds tightened (seams within
   5 mm, stretch under 15%; it hangs 580 to 680 mm, a few per cent long under its weight).
+- 2026-10-28, **PF-10.16**: see the draped garment in your own fabric. Photograph the fabric
+  flat, the selvedge (the lengthwise grain) upright, and place the photo; select it and choose
+  Pattern › Use as Fabric… (`fabric.set`) with how wide the photo is on the fabric (by default as
+  wide as the photo is placed, so a photo scaled to a ruler in it needs nothing typed), the
+  fabric's name if pieces name theirs (Piece Options' fabric: Main, Lining, Contrast…), and the
+  quarter turns that bring the selvedge upright if the photo was taken sideways. Drape on Avatar then
+  draws a third view, the front again with each piece in the photo of its fabric (else the first
+  photo), the photo repeating across the piece along its grainline, at true size (1 mm a pixel),
+  the photo averaged down to that so a fine weave doesn't sparkle; a mirror-image pair shows the
+  print the right way round on both sides. Stop Using as Fabric (`fabric.clear`) unmarks it;
+  `fabric.list` lists them. The workflow follows the public descriptions of fabric textures in 3D
+  garment software: a texture entered at its real size
+  (<https://support.clo3d.com/hc/en-us/articles/115013661707-Can-I-enter-the-texture-in-real-size>)
+  from a photo or scan of the fabric laid flat, its grain aligned with the photo
+  (<https://support.clo3d.com/hc/en-us/articles/115012228067>); making the photo repeat
+  seamlessly and evening its lighting are left to a photo editor for now. Tests: 1 in `pf-core`
+  (a striped swatch shows 10 mm stripes at true size, unprinted triangles keep their colours), 1 in
+  the engine (the photo's width as placed and as given, bad widths and turns refused, a
+  non-image refused, the draped skirt's front in 10 mm stripes 8–12 px wide down its middle,
+  cleared and undone).
 - 2026-10-28, **PF-10.15**: the avatar has a head and hands, and looks round. The head stands above
   the base of the neck as high as the figure's survey's head stands above its cervicale for the
   body's rise (ANSUR II: the women's 0.560 of the cervicale's height above the waist, the men's

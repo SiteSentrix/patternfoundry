@@ -5722,6 +5722,10 @@ menu	Pattern	Patron
 	Unsew Seams	Désassembler les coutures
 	Sewn Seams	Coutures assemblées
 	Drape on Avatar	Draper sur l'avatar
+	Use as Fabric…	Utiliser comme tissu…
+	Use as Fabric	Utiliser comme tissu
+	Stop Using as Fabric	Ne plus utiliser comme tissu
+	Fabric Photos	Photos de tissus
 @msg	the drape view's picture is the wrong size	l'image de la vue du tombé n'a pas la bonne taille
 @msg	the drape view: {e}	la vue du tombé : {e}
 	Export Avatar as glTF	Exporter l'avatar en glTF
@@ -5736,3 +5740,6 @@ menu	Pattern	Patron
 @msg	Draped on the avatar	Tombé sur l’avatar terminé
 @msg	the document was closed	le document a été fermé
 @msg	the drape stopped	le tombé s’est arrêté
+@msg	width: the photo's width on the fabric, 10 to 5000 mm	width : la largeur de la photo sur le tissu, de 10 à 5000 mm
+@msg	turns: 0, 1, 2 or 3	turns : 0, 1, 2 ou 3
+@msg	the image is not a fabric photo (Pattern › Use as Fabric…)	l'image n'est pas une photo de tissu (Patron › Utiliser comme tissu…)
