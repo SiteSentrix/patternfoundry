@@ -860,8 +860,8 @@ fn draw_views(s: &mut Session, p: &Value, avatar: &pf_core::avatar::Avatar, clot
     let skin = vec![SKIN; avatar.mesh.triangles.len()];
     let colours: Vec<[u8; 3]> = tight.iter().map(|t| tightness_colour(*t)).collect();
     let shapes = [
-        Shape { points: &avatar.mesh.vertices, triangles: &avatar.mesh.triangles, colours: &skin },
-        Shape { points: &cloth.positions, triangles: &cloth.triangles, colours: &colours },
+        Shape { points: &avatar.mesh.vertices, triangles: &avatar.mesh.triangles, colours: &skin, smooth: true },
+        Shape { points: &cloth.positions, triangles: &cloth.triangles, colours: &colours, smooth: true },
     ];
     let (front, side) = (draw(&shapes, Side::Front, PIXEL_MM), draw(&shapes, Side::Left, PIXEL_MM));
     let (Some(front), Some(side)) = (front, side) else { return Err(bad(C, "nothing to draw")) };

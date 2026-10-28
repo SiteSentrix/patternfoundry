@@ -223,6 +223,14 @@ struct Survey {
     /// The foot: its length over the ankle bone's height, its breadth over its length.
     foot: f64,
     foot_breadth: f64,
+    /// The head (PF-10.15): round over the chest round, long (front to back) over broad, and its top
+    /// above the cervicale over the cervicale's height above the waist.
+    head: f64,
+    head_shape: f64,
+    head_height: f64,
+    /// The hand: long over the arm (the sleeve outseam), broad over long.
+    hand: f64,
+    hand_breadth: f64,
     /// The bust stands forward of the ribcage (the women's).
     bust: bool,
 }
@@ -254,6 +262,11 @@ const WOMEN: Survey = Survey {
     wrist: 0.506,
     foot: 3.928,
     foot_breadth: 0.376,
+    head: 0.593,
+    head_shape: 1.285,
+    head_height: 0.560,
+    hand: 0.333,
+    hand_breadth: 0.432,
     bust: true,
 };
 
@@ -284,6 +297,11 @@ const MEN: Survey = Survey {
     wrist: 0.491,
     foot: 3.720,
     foot_breadth: 0.376,
+    head: 0.543,
+    head_shape: 1.293,
+    head_height: 0.518,
+    hand: 0.326,
+    hand_breadth: 0.457,
     bust: false,
 };
 
@@ -335,6 +353,11 @@ const CHILD_BANDS: [(f64, Survey); 8] = [
             wrist: 0.712,
             foot: 4.106,
             foot_breadth: 0.410,
+            head: 0.971,
+            head_shape: 1.308,
+            head_height: 0.646,
+            hand: 0.324,
+            hand_breadth: 0.481,
             bust: false,
         },
     ),
@@ -368,6 +391,11 @@ const CHILD_BANDS: [(f64, Survey); 8] = [
             wrist: 0.709,
             foot: 4.080,
             foot_breadth: 0.400,
+            head: 0.921,
+            head_shape: 1.304,
+            head_height: 0.688,
+            hand: 0.315,
+            hand_breadth: 0.468,
             bust: false,
         },
     ),
@@ -401,6 +429,11 @@ const CHILD_BANDS: [(f64, Survey); 8] = [
             wrist: 0.694,
             foot: 4.059,
             foot_breadth: 0.393,
+            head: 0.862,
+            head_shape: 1.300,
+            head_height: 0.665,
+            hand: 0.306,
+            hand_breadth: 0.464,
             bust: false,
         },
     ),
@@ -434,6 +467,11 @@ const CHILD_BANDS: [(f64, Survey); 8] = [
             wrist: 0.667,
             foot: 4.068,
             foot_breadth: 0.386,
+            head: 0.798,
+            head_shape: 1.304,
+            head_height: 0.654,
+            hand: 0.300,
+            hand_breadth: 0.458,
             bust: false,
         },
     ),
@@ -467,6 +505,11 @@ const CHILD_BANDS: [(f64, Survey); 8] = [
             wrist: 0.646,
             foot: 4.065,
             foot_breadth: 0.384,
+            head: 0.754,
+            head_shape: 1.288,
+            head_height: 0.597,
+            hand: 0.298,
+            hand_breadth: 0.454,
             bust: false,
         },
     ),
@@ -500,6 +543,11 @@ const CHILD_BANDS: [(f64, Survey); 8] = [
             wrist: 0.641,
             foot: 4.023,
             foot_breadth: 0.386,
+            head: 0.711,
+            head_shape: 1.284,
+            head_height: 0.638,
+            hand: 0.296,
+            hand_breadth: 0.451,
             bust: false,
         },
     ),
@@ -533,6 +581,11 @@ const CHILD_BANDS: [(f64, Survey); 8] = [
             wrist: 0.619,
             foot: 3.929,
             foot_breadth: 0.387,
+            head: 0.666,
+            head_shape: 1.287,
+            head_height: 0.645,
+            hand: 0.292,
+            hand_breadth: 0.452,
             bust: false,
         },
     ),
@@ -566,6 +619,11 @@ const CHILD_BANDS: [(f64, Survey); 8] = [
             wrist: 0.597,
             foot: 3.868,
             foot_breadth: 0.388,
+            head: 0.634,
+            head_shape: 1.277,
+            head_height: 0.626,
+            hand: 0.289,
+            hand_breadth: 0.455,
             bust: false,
         },
     ),
@@ -611,6 +669,11 @@ fn child_survey(chest: f64) -> Survey {
         wrist: mix(a.wrist, b.wrist),
         foot: mix(a.foot, b.foot),
         foot_breadth: mix(a.foot_breadth, b.foot_breadth),
+        head: mix(a.head, b.head),
+        head_shape: mix(a.head_shape, b.head_shape),
+        head_height: mix(a.head_height, b.head_height),
+        hand: mix(a.hand, b.hand),
+        hand_breadth: mix(a.hand_breadth, b.hand_breadth),
         bust: false,
     }
 }
@@ -725,7 +788,30 @@ pub fn avatar(body: &Body) -> Result<Avatar, AvatarError> {
         bust_ring.y = bust_ring.semi_axes().1 - under.semi_axes().1;
     }
     // The torso: the hips' girth carried on to the crotch, a little in, where the legs part.
-    let mut torso = vec![ring("neck", neck_z, 0.0, neck, 1.0), shoulder_ring, bust_ring];
+    // The head (PF-10.15): above the base of the neck as high as the survey's head is above its
+    // cervicale for the body's rise, as round as its share of the chest, as long front to back over
+    // broad; lofted through the throat, the jaw, the head at its roundest and the crown, a little
+    // forward of the neck. (Chosen: where the rings sit up the head, how round each is.) Drawn and
+    // exported; the cloth collides with the body from the base of the neck down.
+    let head_round = sv.head * body.bust;
+    let head_h = sv.head_height * rise;
+    let length = ring("head", 0.0, 0.0, head_round, sv.head_shape).semi_axes().1 * 2.0;
+    let head_ring = |name, at: f64, girth: f64, shape: f64, forward: f64| {
+        let mut r = ring(name, neck_z + head_h * at, 0.0, girth, shape);
+        r.y = length * forward;
+        r
+    };
+    let mut torso = vec![
+        head_ring("crown_top", 0.99, head_round * 0.3, sv.head_shape, 0.02),
+        head_ring("crown", 0.94, head_round * 0.66, sv.head_shape, 0.03),
+        head_ring("temple", 0.82, head_round * 0.93, sv.head_shape, 0.04),
+        head_ring("head", 0.64, head_round, sv.head_shape, 0.05),
+        head_ring("jaw", 0.38, head_round * 0.86, 1.2, 0.08),
+        head_ring("throat", 0.15, neck, 1.0, 0.03),
+        ring("neck", neck_z, 0.0, neck, 1.0),
+        shoulder_ring,
+        bust_ring,
+    ];
     if sv.bust {
         torso.push(under);
     }
@@ -776,6 +862,12 @@ pub fn avatar(body: &Body) -> Result<Avatar, AvatarError> {
     let top_z = shoulder_z - r_top * 0.25;
     let elbow = along(sv.shoulder_to_elbow * reach - r_top);
     let wrist = along(sv.sleeve_outseam * reach - r_top);
+    let hand_len = sv.hand * sv.sleeve_outseam * reach;
+    let palm = along(sv.sleeve_outseam * reach - r_top + hand_len * 0.45);
+    let fingers = along(sv.sleeve_outseam * reach - r_top + hand_len * 0.8);
+    let tips = along(sv.sleeve_outseam * reach - r_top + hand_len * 0.97);
+    // How thick the hand is over how broad (chosen: a flat hand).
+    let hand_flat = 0.45 * (0.45 / sv.hand_breadth);
     let tilted = |name, z: f64, x: f64, girth: f64, depth: f64| {
         let r = girth / (2.0 * PI);
         let (a, b) = (r / angle.cos(), r * depth);
@@ -791,6 +883,11 @@ pub fn avatar(body: &Body) -> Result<Avatar, AvatarError> {
             tilted("upperarm", axilla_z, side * at_z(axilla_z), upper, 0.95),
             tilted("elbow", elbow.1, side * elbow.0, upper * sv.forearm, 0.95),
             tilted("wrist", wrist.1, side * wrist.0, upper * sv.wrist, 0.75),
+            // The hand (PF-10.15) on along the arm's line: its palm as round as the wrist and a
+            // half, flat; the fingers; their tips.
+            tilted("palm", palm.1, side * palm.0, upper * sv.wrist * 1.45, hand_flat),
+            tilted("fingers", fingers.1, side * fingers.0, upper * sv.wrist * 1.05, hand_flat),
+            tilted("fingertips", tips.1, side * tips.0, upper * sv.wrist * 0.45, hand_flat),
         ]
     };
     let (elbow_z, wrist_z) = (elbow.1, wrist.1);
@@ -918,7 +1015,10 @@ mod tests {
         assert!((a.neck_height - sh.z - (WOMEN.cervicale_height - WOMEN.acromial_height) * s).abs() < 1e-9);
         for (k, side) in [(0, 1.0), (1, -1.0)] {
             let arm = &a.arms[k];
-            assert_eq!(arm.iter().map(|r| r.name).collect::<Vec<_>>(), ["armcap", "armtop", "upperarm", "elbow", "wrist"]);
+            assert_eq!(
+                arm.iter().map(|r| r.name).collect::<Vec<_>>(),
+                ["armcap", "armtop", "upperarm", "elbow", "wrist", "palm", "fingers", "fingertips"]
+            );
             // The upper arm round as measured, square to the arm (level across the tilted arm it
             // is longer by 1/cos).
             let (u, d) = arm[2].semi_axes();
@@ -1000,6 +1100,35 @@ mod tests {
         assert_eq!(Figure::parse("child"), Some(Figure::Child));
     }
 
+    /// A head and hands (PF-10.15): the head above the base of the neck as high as the survey's for
+    /// the body's rise, as round as its share of the chest, longer front to back than broad; each
+    /// hand on along the arm from the wrist, as long as the survey's share of the arm.
+    #[test]
+    fn the_avatar_has_a_head_and_hands() {
+        let a = avatar(&body()).unwrap();
+        let head = *a.ring("head").unwrap();
+        let rise = 410.0 * BACK_RISE;
+        assert!((head.girth - 880.0 * WOMEN.head).abs() < 1e-9 && head.depth_ratio == WOMEN.head_shape);
+        let top = a.torso[0];
+        assert!((top.z - (a.neck_height + WOMEN.head_height * rise * 0.99)).abs() < 1e-9 && top.z > head.z && head.z > a.neck_height);
+        let (b, l) = head.semi_axes();
+        assert!(l > b, "longer than broad");
+        // Still the neck's own height for the garments (the base of the neck).
+        assert_eq!(a.ring("neck").unwrap().z, a.neck_height);
+        for arm in &a.arms {
+            let (wrist, tips) = (arm[4], arm[7]);
+            let reach = ((tips.x - wrist.x).powi(2) + (tips.z - wrist.z).powi(2)).sqrt();
+            let outseam = WOMEN.sleeve_outseam * rise / (WOMEN.cervicale_height - WOMEN.waist_height);
+            assert!((reach - WOMEN.hand * outseam * 0.97).abs() < 1e-6, "{reach}");
+            assert!(tips.z < wrist.z && tips.x.abs() > wrist.x.abs());
+        }
+        // A child's head is a bigger share of its chest than a woman's.
+        let child =
+            avatar(&Body { figure: Figure::Child, bust: 600.0, waist: 540.0, hip: 620.0, nape_to_waist: 280.0, waist_to_hip: 110.0, ..body() })
+                .unwrap();
+        assert!(child.ring("head").unwrap().girth / 600.0 > head.girth / 880.0);
+    }
+
     /// Feet (PF-10.14): each leg ends in a foot as long as the survey's (its length over the ankle
     /// bone's height) and as broad, reaching forward of the ankle, low by the floor.
     #[test]
@@ -1038,8 +1167,9 @@ mod tests {
     fn the_mesh_is_closed_and_its_triangles_face_out() {
         let a = avatar(&body()).unwrap();
         let m = &a.mesh;
-        // Five tubes, each its rings' points and two end points (each leg down to its foot).
-        assert_eq!(m.vertices.len(), (7 + 5 + 5 + 5 + 5) * RING_POINTS + 10);
+        // Five tubes, each its rings' points and two end points (the torso up through the head,
+        // each leg down to its foot, each arm out to its fingertips).
+        assert_eq!(m.vertices.len(), (6 + 7 + 5 + 5 + 8 + 8) * RING_POINTS + 10);
         // Closed: every edge is shared by exactly two triangles, once each way.
         let mut edges = std::collections::HashMap::new();
         for t in &m.triangles {
