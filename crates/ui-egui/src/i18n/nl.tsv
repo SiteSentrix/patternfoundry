@@ -5748,6 +5748,10 @@ menu	Pattern	Patroon
 	Unsew Seams	Naden lostornen
 	Sewn Seams	Gestikte naden
 	Drape on Avatar	Op avatar draperen
+	Use as Fabric…	Als stof gebruiken…
+	Use as Fabric	Als stof gebruiken
+	Stop Using as Fabric	Niet meer als stof gebruiken
+	Fabric Photos	Stoffoto's
 @msg	the drape view's picture is the wrong size	de afbeelding van de valweergave heeft de verkeerde grootte
 @msg	the drape view: {e}	de valweergave: {e}
 	Export Avatar as glTF	Avatar exporteren als glTF
@@ -5762,3 +5766,6 @@ menu	Pattern	Patroon
 @msg	Draped on the avatar	Val op avatar klaar
 @msg	the document was closed	het document is gesloten
 @msg	the drape stopped	de val is gestopt
+@msg	width: the photo's width on the fabric, 10 to 5000 mm	width: de breedte van de foto op de stof, 10 tot 5000 mm
+@msg	turns: 0, 1, 2 or 3	turns: 0, 1, 2 of 3
+@msg	the image is not a fabric photo (Pattern › Use as Fabric…)	de afbeelding is geen stoffoto (Patroon › Als stof gebruiken…)

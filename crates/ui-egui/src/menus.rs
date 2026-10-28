@@ -2808,6 +2808,8 @@ pub fn menu_tree_named(english_names: bool) -> Vec<(&'static str, Vec<Item>)> {
                 c("Projector View", "ui.projector"),
                 c("Draw Avatar", "avatar.draw"),
                 cp("Drape on Avatar", "drape.make", json!({"background": true})),
+                cp("Use as Fabric…", "fabric.set", json!({"width": "", "name": "", "turns": 0})),
+                c("Stop Using as Fabric", "fabric.clear"),
                 c("Export Avatar as glTF…", "avatar.exportGlb"),
                 cp("Export Drape as glTF…", "drape.make", json!({"format": "glb", "draw": false})),
                 cp(

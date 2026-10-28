@@ -5378,6 +5378,10 @@ menu	Pattern	型紙
 	Unsew Seams	縫い目をほどく
 	Sewn Seams	縫い合わせた縫い目
 	Drape on Avatar	アバターに着せる
+	Use as Fabric…	生地として使用…
+	Use as Fabric	生地として使用
+	Stop Using as Fabric	生地としての使用を解除
+	Fabric Photos	生地の写真
 @msg	the drape view's picture is the wrong size	ドレープ表示の画像のサイズが正しくありません
 @msg	the drape view: {e}	ドレープ表示: {e}
 	Export Avatar as glTF	アバターを glTF で書き出し
@@ -5392,3 +5396,6 @@ menu	Pattern	型紙
 @msg	Draped on the avatar	アバターに着せました
 @msg	the document was closed	ドキュメントが閉じられました
 @msg	the drape stopped	着せ付けが止まりました
+@msg	width: the photo's width on the fabric, 10 to 5000 mm	width: 生地上での写真の幅（10～5000 mm）
+@msg	turns: 0, 1, 2 or 3	turns: 0、1、2、3 のいずれか
+@msg	the image is not a fabric photo (Pattern › Use as Fabric…)	この画像は生地の写真ではありません（型紙 › 生地として使用…）

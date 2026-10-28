@@ -5334,6 +5334,10 @@ menu	Pattern	Выкройка
 	Unsew Seams	Распороть швы
 	Sewn Seams	Сшитые швы
 	Drape on Avatar	Драпировать на аватаре
+	Use as Fabric…	Использовать как ткань…
+	Use as Fabric	Использовать как ткань
+	Stop Using as Fabric	Не использовать как ткань
+	Fabric Photos	Фотографии тканей
 @msg	the drape view's picture is the wrong size	изображение вида драпировки неправильного размера
 @msg	the drape view: {e}	вид драпировки: {e}
 	Export Avatar as glTF	Экспортировать аватар в glTF
@@ -5348,3 +5352,6 @@ menu	Pattern	Выкройка
 @msg	Draped on the avatar	Драпировка на аватаре готова
 @msg	the document was closed	документ был закрыт
 @msg	the drape stopped	драпировка остановилась
+@msg	width: the photo's width on the fabric, 10 to 5000 mm	width: ширина фотографии на ткани, от 10 до 5000 мм
+@msg	turns: 0, 1, 2 or 3	turns: 0, 1, 2 или 3
+@msg	the image is not a fabric photo (Pattern › Use as Fabric…)	изображение не является фотографией ткани (Выкройка › Использовать как ткань…)

@@ -5318,6 +5318,10 @@ menu	Pattern	Викрійка
 	Unsew Seams	Розпороти шви
 	Sewn Seams	Зшиті шви
 	Drape on Avatar	Драпірувати на аватарі
+	Use as Fabric…	Використати як тканину…
+	Use as Fabric	Використати як тканину
+	Stop Using as Fabric	Не використовувати як тканину
+	Fabric Photos	Фотографії тканин
 @msg	the drape view's picture is the wrong size	зображення вигляду драпірування неправильного розміру
 @msg	the drape view: {e}	вигляд драпірування: {e}
 	Export Avatar as glTF	Експортувати аватар у glTF
@@ -5332,3 +5336,6 @@ menu	Pattern	Викрійка
 @msg	Draped on the avatar	Драпірування на аватарі готове
 @msg	the document was closed	документ закрито
 @msg	the drape stopped	драпірування зупинилося
+@msg	width: the photo's width on the fabric, 10 to 5000 mm	width: ширина фотографії на тканині, від 10 до 5000 мм
+@msg	turns: 0, 1, 2 or 3	turns: 0, 1, 2 або 3
+@msg	the image is not a fabric photo (Pattern › Use as Fabric…)	зображення не є фотографією тканини (Викрійка › Використати як тканину…)

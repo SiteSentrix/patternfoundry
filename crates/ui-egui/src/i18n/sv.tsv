@@ -5679,6 +5679,10 @@ menu	Pattern	Mönster
 	Unsew Seams	Sprätta upp sömmar
 	Sewn Seams	Sydda sömmar
 	Drape on Avatar	Drapera på avatar
+	Use as Fabric…	Använd som tyg…
+	Use as Fabric	Använd som tyg
+	Stop Using as Fabric	Sluta använda som tyg
+	Fabric Photos	Tygfoton
 @msg	the drape view's picture is the wrong size	fallvyns bild har fel storlek
 @msg	the drape view: {e}	fallvyn: {e}
 	Export Avatar as glTF	Exportera avatar som glTF
@@ -5693,3 +5697,6 @@ menu	Pattern	Mönster
 @msg	Draped on the avatar	Fall på avataren klart
 @msg	the document was closed	dokumentet stängdes
 @msg	the drape stopped	fallet stoppades
+@msg	width: the photo's width on the fabric, 10 to 5000 mm	width: fotots bredd på tyget, 10 till 5000 mm
+@msg	turns: 0, 1, 2 or 3	turns: 0, 1, 2 eller 3
+@msg	the image is not a fabric photo (Pattern › Use as Fabric…)	bilden är inget tygfoto (Mönster › Använd som tyg…)

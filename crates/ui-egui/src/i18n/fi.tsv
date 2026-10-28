@@ -5687,6 +5687,10 @@ menu	Pattern	Kaava
 	Unsew Seams	Pura saumat
 	Sewn Seams	Ommellut saumat
 	Drape on Avatar	Laskeuta avatarille
+	Use as Fabric…	Käytä kankaana…
+	Use as Fabric	Käytä kankaana
+	Stop Using as Fabric	Lopeta käyttö kankaana
+	Fabric Photos	Kangaskuvat
 @msg	the drape view's picture is the wrong size	laskeumanäkymän kuva on väärän kokoinen
 @msg	the drape view: {e}	laskeumanäkymä: {e}
 	Export Avatar as glTF	Vie avatar glTF-muodossa
@@ -5701,3 +5705,6 @@ menu	Pattern	Kaava
 @msg	Draped on the avatar	Laskeuma avatarille valmis
 @msg	the document was closed	dokumentti suljettiin
 @msg	the drape stopped	laskeuma pysähtyi
+@msg	width: the photo's width on the fabric, 10 to 5000 mm	width: kuvan leveys kankaalla, 10–5000 mm
+@msg	turns: 0, 1, 2 or 3	turns: 0, 1, 2 tai 3
+@msg	the image is not a fabric photo (Pattern › Use as Fabric…)	kuva ei ole kangaskuva (Kaava › Käytä kankaana…)

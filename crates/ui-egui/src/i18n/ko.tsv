@@ -5301,6 +5301,10 @@ menu	Pattern	패턴
 	Unsew Seams	솔기 풀기
 	Sewn Seams	봉제한 솔기
 	Drape on Avatar	아바타에 드레이핑
+	Use as Fabric…	원단으로 사용…
+	Use as Fabric	원단으로 사용
+	Stop Using as Fabric	원단으로 사용 중지
+	Fabric Photos	원단 사진
 @msg	the drape view's picture is the wrong size	드레이프 보기 그림의 크기가 잘못되었습니다
 @msg	the drape view: {e}	드레이프 보기: {e}
 	Export Avatar as glTF	아바타를 glTF로 내보내기
@@ -5315,3 +5319,6 @@ menu	Pattern	패턴
 @msg	Draped on the avatar	아바타에 드레이프했습니다
 @msg	the document was closed	문서가 닫혔습니다
 @msg	the drape stopped	드레이프가 중단되었습니다
+@msg	width: the photo's width on the fabric, 10 to 5000 mm	width: 원단 위 사진의 너비, 10~5000 mm
+@msg	turns: 0, 1, 2 or 3	turns: 0, 1, 2 또는 3
+@msg	the image is not a fabric photo (Pattern › Use as Fabric…)	이미지가 원단 사진이 아닙니다 (패턴 › 원단으로 사용…)

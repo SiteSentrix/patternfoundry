@@ -5338,6 +5338,10 @@ menu	Pattern	Cartamodello
 	Unsew Seams	Separa cuciture
 	Sewn Seams	Cuciture unite
 	Drape on Avatar	Drappeggia sull'avatar
+	Use as Fabric…	Usa come tessuto…
+	Use as Fabric	Usa come tessuto
+	Stop Using as Fabric	Non usare più come tessuto
+	Fabric Photos	Foto dei tessuti
 @msg	the drape view's picture is the wrong size	l'immagine della vista della caduta ha la dimensione sbagliata
 @msg	the drape view: {e}	la vista della caduta: {e}
 	Export Avatar as glTF	Esporta avatar come glTF
@@ -5352,3 +5356,6 @@ menu	Pattern	Cartamodello
 @msg	Draped on the avatar	Caduta sull’avatar completata
 @msg	the document was closed	il documento è stato chiuso
 @msg	the drape stopped	la caduta si è interrotta
+@msg	width: the photo's width on the fabric, 10 to 5000 mm	width: la larghezza della foto sul tessuto, da 10 a 5000 mm
+@msg	turns: 0, 1, 2 or 3	turns: 0, 1, 2 o 3
+@msg	the image is not a fabric photo (Pattern › Use as Fabric…)	l'immagine non è una foto di tessuto (Cartamodello › Usa come tessuto…)
