@@ -5324,10 +5324,13 @@ menu	Pattern	Викрійка
 	Fabric Photos	Фотографії тканин
 @msg	the drape view's picture is the wrong size	зображення вигляду драпірування неправильного розміру
 @msg	the drape view: {e}	вигляд драпірування: {e}
+@msg	a fabric photo is the wrong size	фотографія тканини неправильного розміру
+@msg	a fabric photo: {e}	фотографія тканини: {e}
 	Export Avatar as glTF	Експортувати аватар у glTF
 	Export Avatar as glTF…	Експортувати аватар у glTF…
 	Export Drape as glTF…	Експортувати драпірування у glTF…
 @msg	format: "obj" or "glb"	format: "obj" або "glb"
+@msg	colour: "fabric" or "fit"	colour: "fabric" або "fit"
 @msg	a piece could not be placed on the body	не вдалося розмістити деталь на тілі
 @msg	{name} is already open	{name} уже відкрито
 @msg	Draping on Avatar	Драпірування на аватарі

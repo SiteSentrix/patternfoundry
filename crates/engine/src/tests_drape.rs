@@ -545,3 +545,51 @@ fn a_fabric_photo_can_be_evened_and_made_seamless() {
     let r = s.execute("drape.make", &json!({"precision": 25, "steps": 5, "origin": [0, 0]})).unwrap();
     assert!(r["fabric"].as_u64().is_some(), "{r}");
 }
+
+/// The drape as glTF in its fabric photo (PF-10.18): the cloth a part "Drape: Main" with the photo
+/// as its texture (the swatch the drape view uses: the photo's own 80 × 30 pixels, coarser than
+/// 1 mm a pixel, so not enlarged, then each side the nearest power of two, 64 × 32), its places on it in photos across (the two panels' 1700 mm on
+/// the pattern 8.5 photos of 200 mm); `colour: "fit"` keeps the fit colours; another colour is
+/// refused.
+#[test]
+fn the_drape_exports_as_gltf_in_its_fabric_photo() {
+    let mut s = skirt();
+    let dir = std::env::temp_dir().join(format!("pf-fabric-glb-{}", std::process::id()));
+    std::fs::create_dir_all(&dir).unwrap();
+    let path = dir.join("stripes.png");
+    std::fs::write(&path, stripes_png(4, 10)).unwrap();
+    let photo = s.execute("file.place", &json!({"path": path, "link": false, "at": [0, 2000]})).unwrap()["ids"][0].clone();
+    std::fs::remove_dir_all(&dir).ok();
+    s.execute("fabric.set", &json!({"id": photo, "width": 200})).unwrap();
+    let r = s.execute("drape.make", &json!({"precision": 25, "steps": 5, "format": "glb", "draw": false})).unwrap();
+    let bytes = vectorcraft_format::base64_decode(r["dataBase64"].as_str().unwrap()).unwrap();
+    if let Ok(out) = std::env::var("PF_FABRIC_GLB") {
+        std::fs::write(out, &bytes).unwrap();
+    }
+    let (gltf, bin) = pf_core::gltf::read_glb(&bytes).unwrap();
+    let names: Vec<&str> = gltf["meshes"].as_array().unwrap().iter().map(|m| m["name"].as_str().unwrap()).collect();
+    assert_eq!(names, vec!["Avatar", "Drape: Main"]);
+    let prim = &gltf["meshes"][1]["primitives"][0];
+    assert!(prim["attributes"].get("COLOR_0").is_none());
+    let tex = gltf["materials"][prim["material"].as_u64().unwrap() as usize]["pbrMetallicRoughness"]["baseColorTexture"]["index"].as_u64().unwrap();
+    let image = &gltf["images"][gltf["textures"][tex as usize]["source"].as_u64().unwrap() as usize];
+    let view = &gltf["bufferViews"][image["bufferView"].as_u64().unwrap() as usize];
+    let (o, l) = (view["byteOffset"].as_u64().unwrap() as usize, view["byteLength"].as_u64().unwrap() as usize);
+    let png = image::load_from_memory(&bin[o..o + l]).unwrap();
+    assert_eq!((png.width(), png.height()), (64, 32));
+    // Places on the photo: as many photos across as the pattern is wide over 200 mm.
+    let acc = &gltf["accessors"][prim["attributes"]["TEXCOORD_0"].as_u64().unwrap() as usize];
+    let v = &gltf["bufferViews"][acc["bufferView"].as_u64().unwrap() as usize];
+    let (o, l) = (v["byteOffset"].as_u64().unwrap() as usize, v["byteLength"].as_u64().unwrap() as usize);
+    let uv: Vec<f32> = bin[o..o + l].chunks(4).map(|b| f32::from_le_bytes([b[0], b[1], b[2], b[3]])).collect();
+    let us: Vec<f32> = uv.iter().step_by(2).copied().collect();
+    let span = us.iter().copied().fold(f32::NEG_INFINITY, f32::max) - us.iter().copied().fold(f32::INFINITY, f32::min);
+    // The front panel spans 0 to 800 mm across, the back 900 to 1700: 1700 mm, 8.5 photos.
+    assert!((span - 8.5).abs() < 0.3, "{span}");
+    // The fit colours on asking.
+    let r = s.execute("drape.make", &json!({"precision": 25, "steps": 5, "format": "glb", "draw": false, "colour": "fit"})).unwrap();
+    let (gltf, _) = pf_core::gltf::read_glb(&vectorcraft_format::base64_decode(r["dataBase64"].as_str().unwrap()).unwrap()).unwrap();
+    assert_eq!(gltf["meshes"][1]["name"], "Drape");
+    assert!(gltf["meshes"][1]["primitives"][0]["attributes"].get("COLOR_0").is_some() && gltf.get("images").is_none());
+    assert!(s.execute("drape.make", &json!({"steps": 5, "format": "glb", "draw": false, "colour": "red"})).is_err());
+}

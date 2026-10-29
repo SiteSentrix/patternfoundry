@@ -5681,10 +5681,13 @@ menu	Pattern	Πατρόν
 	Fabric Photos	Φωτογραφίες υφασμάτων
 @msg	the drape view's picture is the wrong size	η εικόνα της προβολής πτώσης έχει λάθος μέγεθος
 @msg	the drape view: {e}	η προβολή πτώσης: {e}
+@msg	a fabric photo is the wrong size	η φωτογραφία υφάσματος έχει λάθος μέγεθος
+@msg	a fabric photo: {e}	η φωτογραφία υφάσματος: {e}
 	Export Avatar as glTF	Εξαγωγή άβαταρ ως glTF
 	Export Avatar as glTF…	Εξαγωγή άβαταρ ως glTF…
 	Export Drape as glTF…	Εξαγωγή πτώσης ως glTF…
 @msg	format: "obj" or "glb"	format: "obj" ή "glb"
+@msg	colour: "fabric" or "fit"	colour: "fabric" ή "fit"
 @msg	a piece could not be placed on the body	ένα κομμάτι δεν μπόρεσε να τοποθετηθεί στο σώμα
 @msg	{name} is already open	Το {name} είναι ήδη ανοιχτό
 @msg	Draping on Avatar	Πτώση στο άβαταρ

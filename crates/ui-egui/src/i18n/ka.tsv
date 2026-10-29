@@ -5637,10 +5637,13 @@ menu	Pattern	თარგი
 	Fabric Photos	ქსოვილის ფოტოები
 @msg	the drape view's picture is the wrong size	დრაპირების ხედის სურათს არასწორი ზომა აქვს
 @msg	the drape view: {e}	დრაპირების ხედი: {e}
+@msg	a fabric photo is the wrong size	ქსოვილის ფოტოს არასწორი ზომა აქვს
+@msg	a fabric photo: {e}	ქსოვილის ფოტო: {e}
 	Export Avatar as glTF	ავატარის ექსპორტი glTF-ად
 	Export Avatar as glTF…	ავატარის ექსპორტი glTF-ად…
 	Export Drape as glTF…	დრაპირების ექსპორტი glTF-ად…
 @msg	format: "obj" or "glb"	format: "obj" ან "glb"
+@msg	colour: "fabric" or "fit"	colour: "fabric" ან "fit"
 @msg	a piece could not be placed on the body	ნაწილის სხეულზე განთავსება ვერ მოხერხდა
 @msg	{name} is already open	{name} უკვე გახსნილია
 @msg	Draping on Avatar	ავატარზე დრაპირება

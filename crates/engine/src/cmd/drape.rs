@@ -23,7 +23,7 @@ pub fn specs() -> Vec<CommandSpec> {
         "Drape on Avatar",
         [],
         None,
-        "{ids? (the pieces; default every piece sewn to another, piece.sew), precision?: mm (20, the distance between the cloth's particles, 15 to 50), steps? (240: four seconds, 1 to 2000), path? (a file to write the draped cloth to: .glb, a binary glTF 2.0 file of the avatar and the cloth in the drape view's colours, metres, y up, the front toward +z, for 3D software and game engines; else an OBJ file of the cloth), format?: obj|glb (default from path's extension; without a path the file comes back as data (obj) or dataBase64 (glb)), draw?: true (the drape view: the avatar and the draped cloth as pictures seen from the front and the left side, at true scale, the cloth coloured blue where it is loose, green, and red where it is 10% or more larger than cut, on the layer \"Drape\", drawn again it replaces it; false: none), origin?: [x, y] (document points: the front view's top-left; default right of the art), background?: false (in the app: the drape runs off the UI thread, its progress shown with Cancel, and is drawn when it is done; Pattern › Drape on Avatar does this)} sew the pieces up round the avatar (see avatar.draw) and let them fall onto it as light woven cloth. Each piece goes where it belongs: a bodice (a bodice block's part, or named so) from the waist up over the shoulders, a sleeve (a sleeve block's, or named so) round the arm of the armhole it is sewn into, trousers (a trouser block's, or named trousers, pants or shorts; a front and a back, each a mirror-image pair, the back named so) down the legs, each leg's front and back round it below the crotch and the four round the hips above, their centre seams (each sewn to its mirror, piece.sew) at the middle of the front and back, anything else (a skirt) from the waist down; the skirt's and the bodice's pieces round the body in the order they are sewn, a front first, in the middle of the front. Pieces are taken as drawn upright, as patterns are, and as one side of the body: one cut on the fold is opened out whole, one cut as a mirror-image pair (cut 2, mirror) is both sides, its seams sewn on each; others are taken as drawn. Darts (two legs about as long meeting at a sharp point, the mouth open) are sewn shut, and seams are sewn with their darts closed. The first third of the time the garment is sewn up without gravity, its seams pulling harder and harder, then it falls into place; with sleeves the rest goes on first (half the time), then the sleeves are sewn in with the rest held (a sixth, without gravity), then everything settles → {pieces, darts (sewn shut), particles, top (mm above the floor: the highest the cloth hangs), hem (mm: its lowest), waist (mm: the avatar's), worstStretch (%), widestSeam (mm), path?, data?, dataBase64?, layer?, front?, side?, fabric? (with fabric photos, fabric.set: the front view again in them, 1 mm a pixel, right of the side view), tightest (%: the most a triangle of cloth is larger than cut)}",
+        "{ids? (the pieces; default every piece sewn to another, piece.sew), precision?: mm (20, the distance between the cloth's particles, 15 to 50), steps? (240: four seconds, 1 to 2000), path? (a file to write the draped cloth to: .glb, a binary glTF 2.0 file of the avatar and the cloth in the drape view's colours, metres, y up, the front toward +z, for 3D software and game engines; else an OBJ file of the cloth), colour?: fabric|fit (glb: the cloth in the document's fabric photos, fabric.set, a textured part for each, the photo repeating, the default where there are any; fit: in the drape view's colours), format?: obj|glb (default from path's extension; without a path the file comes back as data (obj) or dataBase64 (glb)), draw?: true (the drape view: the avatar and the draped cloth as pictures seen from the front and the left side, at true scale, the cloth coloured blue where it is loose, green, and red where it is 10% or more larger than cut, on the layer \"Drape\", drawn again it replaces it; false: none), origin?: [x, y] (document points: the front view's top-left; default right of the art), background?: false (in the app: the drape runs off the UI thread, its progress shown with Cancel, and is drawn when it is done; Pattern › Drape on Avatar does this)} sew the pieces up round the avatar (see avatar.draw) and let them fall onto it as light woven cloth. Each piece goes where it belongs: a bodice (a bodice block's part, or named so) from the waist up over the shoulders, a sleeve (a sleeve block's, or named so) round the arm of the armhole it is sewn into, trousers (a trouser block's, or named trousers, pants or shorts; a front and a back, each a mirror-image pair, the back named so) down the legs, each leg's front and back round it below the crotch and the four round the hips above, their centre seams (each sewn to its mirror, piece.sew) at the middle of the front and back, anything else (a skirt) from the waist down; the skirt's and the bodice's pieces round the body in the order they are sewn, a front first, in the middle of the front. Pieces are taken as drawn upright, as patterns are, and as one side of the body: one cut on the fold is opened out whole, one cut as a mirror-image pair (cut 2, mirror) is both sides, its seams sewn on each; others are taken as drawn. Darts (two legs about as long meeting at a sharp point, the mouth open) are sewn shut, and seams are sewn with their darts closed. The first third of the time the garment is sewn up without gravity, its seams pulling harder and harder, then it falls into place; with sleeves the rest goes on first (half the time), then the sleeves are sewn in with the rest held (a sixth, without gravity), then everything settles → {pieces, darts (sewn shut), particles, top (mm above the floor: the highest the cloth hangs), hem (mm: its lowest), waist (mm: the avatar's), worstStretch (%), widestSeam (mm), path?, data?, dataBase64?, layer?, front?, side?, fabric? (with fabric photos, fabric.set: the front view again in them, 1 mm a pixel, right of the side view), tightest (%: the most a triangle of cloth is larger than cut)}",
         has_doc,
         make
     )]
@@ -806,7 +806,14 @@ pub fn finish(s: &mut Session, p: &Value, setup: Setup) -> Result<Value> {
                 let mesh = pf_core::avatar::Mesh { vertices: cloth.positions.clone(), triangles: cloth.triangles.clone() };
                 pf_core::avatar::to_obj(&mesh, "drape").into_bytes()
             }
-            "glb" => glb(&avatar, &cloth, &tight).map_err(|e| bad(C, e.to_string()))?,
+            "glb" => {
+                let printed = match str_param(p, "colour") {
+                    None | Some("fabric") => prints(&s.doc()?.doc, &cloth, &grains, FABRIC_PIXEL_MM),
+                    Some("fit") => None,
+                    Some(_) => return Err(bad(C, "colour: \"fabric\" or \"fit\"")),
+                };
+                glb(&avatar, &cloth, &tight, printed.as_ref())?
+            }
             _ => return Err(bad(C, "format: \"obj\" or \"glb\"")),
         };
         match path {
@@ -848,15 +855,89 @@ fn particle_colours(cloth: &Cloth, tight: &[f64]) -> Vec<[u8; 3]> {
 }
 
 /// The avatar and the draped cloth as a binary glTF file, the cloth coloured by how tight it is
-/// (as the drape view colours it).
-fn glb(avatar: &pf_core::avatar::Avatar, cloth: &Cloth, tight: &[f64]) -> std::result::Result<Vec<u8>, pf_core::gltf::GltfError> {
-    use pf_core::gltf::{Part, linear, linear_rgb, to_glb};
-    let colours: Vec<[u8; 3]> = particle_colours(cloth, tight).into_iter().map(linear_rgb).collect();
+/// (as the drape view colours it), or with `prints` in its fabric photos (PF-10.18): a part for
+/// each photo ("Drape: <fabric>"), its places on the photo in photos across and down (repeating),
+/// and one for the rest in the fabric view's grey.
+fn glb(avatar: &pf_core::avatar::Avatar, cloth: &Cloth, tight: &[f64], prints: Option<&Prints>) -> Result<Vec<u8>> {
+    use pf_core::gltf::{Part, Texture, linear, linear_rgb, to_glb};
+    let gltf = |e: pf_core::gltf::GltfError| bad("drape.make", e.to_string());
     let skin = [linear(SKIN[0]), linear(SKIN[1]), linear(SKIN[2]), 1.0];
-    to_glb(&[
-        Part { name: "Avatar", vertices: &avatar.mesh.vertices, triangles: &avatar.mesh.triangles, colours: None, base: skin, double_sided: false },
-        Part { name: "Drape", vertices: &cloth.positions, triangles: &cloth.triangles, colours: Some(&colours), base: [1.0; 4], double_sided: true },
-    ])
+    let avatar_part = Part {
+        name: "Avatar",
+        vertices: &avatar.mesh.vertices,
+        triangles: &avatar.mesh.triangles,
+        colours: None,
+        base: skin,
+        double_sided: false,
+        texture: None,
+    };
+    let Some(pr) = prints else {
+        let colours: Vec<[u8; 3]> = particle_colours(cloth, tight).into_iter().map(linear_rgb).collect();
+        let drape = Part {
+            name: "Drape",
+            vertices: &cloth.positions,
+            triangles: &cloth.triangles,
+            colours: Some(&colours),
+            base: [1.0; 4],
+            double_sided: true,
+            texture: None,
+        };
+        return to_glb(&[avatar_part, drape]).map_err(gltf);
+    };
+    let of = |want: Option<u32>| -> Vec<[u32; 3]> { cloth.triangles.iter().zip(&pr.fabric).filter(|(_, f)| **f == want).map(|(t, _)| *t).collect() };
+    let mut pngs = Vec::new();
+    let mut uvs = Vec::new();
+    let mut tris = Vec::new();
+    let mut names = Vec::new();
+    for (i, sw) in pr.swatches.iter().enumerate() {
+        let t = of(Some(i as u32));
+        if t.is_empty() {
+            continue;
+        }
+        let img = image::RgbImage::from_raw(sw.width, sw.height, sw.rgb.clone())
+            .ok_or_else(|| EngineError::Other("a fabric photo is the wrong size".into()))?;
+        // Each side the nearest power of two (up to 2048): a repeating texture of any other size
+        // can't repeat in WebGL 1 viewers (its places are in photos, so they stay as they are).
+        let pow2 = |n: u32| {
+            let up = n.next_power_of_two();
+            (if up - n > n - up / 2 && up > 1 { up / 2 } else { up }).clamp(1, 2048)
+        };
+        let img = image::imageops::resize(&img, pow2(sw.width), pow2(sw.height), image::imageops::FilterType::Triangle);
+        let mut png = Vec::new();
+        img.write_to(&mut std::io::Cursor::new(&mut png), image::ImageFormat::Png).map_err(|e| EngineError::Other(format!("a fabric photo: {e}")))?;
+        let (pw, ph) = (sw.width as f64 * sw.mm, sw.height as f64 * sw.mm);
+        uvs.push(pr.at.iter().map(|a| [a[0] / pw, a[1] / ph]).collect::<Vec<_>>());
+        pngs.push(png);
+        tris.push(t);
+        let name = pr.names.get(i).map(|n| n.trim()).filter(|n| !n.is_empty()).unwrap_or("Main");
+        names.push(format!("Drape: {name}"));
+    }
+    let rest = of(None);
+    let grey = [linear(UNPRINTED[0]), linear(UNPRINTED[1]), linear(UNPRINTED[2]), 1.0];
+    let mut parts = vec![avatar_part];
+    for k in 0..tris.len() {
+        parts.push(Part {
+            name: &names[k],
+            vertices: &cloth.positions,
+            triangles: &tris[k],
+            colours: None,
+            base: [1.0; 4],
+            double_sided: true,
+            texture: Some(Texture { uv: &uvs[k], png: &pngs[k] }),
+        });
+    }
+    if !rest.is_empty() {
+        parts.push(Part {
+            name: "Drape",
+            vertices: &cloth.positions,
+            triangles: &rest,
+            colours: None,
+            base: grey,
+            double_sided: true,
+            texture: None,
+        });
+    }
+    to_glb(&parts).map_err(gltf)
 }
 
 /// The layer the drape view is drawn on.
@@ -878,20 +959,27 @@ fn png(pic: &pf_core::view3d::Picture) -> Result<Vec<u8>> {
 /// The cloth in the fabric view where a piece has no photo to be seen in.
 const UNPRINTED: [u8; 3] = [200, 200, 205];
 
-/// The draped cloth seen from the front in the document's fabric photos (PF-10.16), at
-/// [`FABRIC_PIXEL_MM`]: each panel in the photo named for its piece's fabric (else the first),
-/// repeating along its grainline; `None` without photos.
-fn fabric_view(doc: &Document, avatar: &pf_core::avatar::Avatar, cloth: &Cloth, grains: &[(String, Pt)]) -> Option<pf_core::view3d::Picture> {
-    use pf_core::view3d::{Print, Shape, Side, draw};
+/// The draped cloth printed with the document's fabric photos (PF-10.16): each particle's place on
+/// its fabric (mm across and down the grain from the pattern's origin), each triangle's photo
+/// (into `swatches`: the photo named for its piece's fabric, else the first), and the photos that
+/// could be read, about `mm` a pixel, with their fabrics' names.
+struct Prints {
+    at: Vec<[f64; 2]>,
+    fabric: Vec<Option<u32>>,
+    swatches: Vec<pf_core::view3d::Swatch>,
+    names: Vec<String>,
+}
+
+/// The cloth's [`Prints`]; `None` without fabric photos.
+fn prints(doc: &Document, cloth: &Cloth, grains: &[(String, Pt)], mm: f64) -> Option<Prints> {
     let photos = super::fabric::photos(doc);
     if photos.is_empty() {
         return None;
     }
-    let swatches: Vec<Option<pf_core::view3d::Swatch>> =
-        photos.iter().map(|(_, f, key)| super::fabric::swatch(doc, f, key, FABRIC_PIXEL_MM)).collect();
-    // Each panel's swatch, in a list of those that could be read.
-    let readable: Vec<usize> = (0..swatches.len()).filter(|i| swatches[*i].is_some()).collect();
-    let list: Vec<pf_core::view3d::Swatch> = readable.iter().filter_map(|i| swatches[*i].clone()).collect();
+    let read: Vec<Option<pf_core::view3d::Swatch>> = photos.iter().map(|(_, f, key)| super::fabric::swatch(doc, f, key, mm)).collect();
+    let readable: Vec<usize> = (0..read.len()).filter(|i| read[*i].is_some()).collect();
+    let swatches: Vec<pf_core::view3d::Swatch> = readable.iter().filter_map(|i| read[*i].clone()).collect();
+    let names = readable.iter().map(|i| photos[*i].1.name.clone()).collect();
     let first = readable.first().map(|_| 0u32);
     let of_panel: Vec<Option<u32>> = grains
         .iter()
@@ -900,8 +988,7 @@ fn fabric_view(doc: &Document, avatar: &pf_core::avatar::Avatar, cloth: &Cloth, 
             named.and_then(|i| readable.iter().position(|r| *r == i)).map(|i| i as u32).or(first)
         })
         .collect();
-    // Each particle's place on its fabric: across and down the grain from the pattern's origin.
-    let at: Vec<[f64; 2]> = cloth
+    let at = cloth
         .on_pattern()
         .iter()
         .map(|(q, panel)| {
@@ -909,11 +996,19 @@ fn fabric_view(doc: &Document, avatar: &pf_core::avatar::Avatar, cloth: &Cloth, 
             [q.x * g.y - q.y * g.x, q.x * g.x + q.y * g.y]
         })
         .collect();
-    let fabric: Vec<Option<u32>> = cloth
+    let fabric = cloth
         .triangles
         .iter()
         .map(|t| cloth.on_pattern().get(t[0] as usize).and_then(|(_, panel)| of_panel.get(*panel as usize).copied().flatten()))
         .collect();
+    Some(Prints { at, fabric, swatches, names })
+}
+
+/// The draped cloth seen from the front in the document's fabric photos (PF-10.16), at
+/// [`FABRIC_PIXEL_MM`] (see [`Prints`]); `None` without photos.
+fn fabric_view(doc: &Document, avatar: &pf_core::avatar::Avatar, cloth: &Cloth, grains: &[(String, Pt)]) -> Option<pf_core::view3d::Picture> {
+    use pf_core::view3d::{Print, Shape, Side, draw};
+    let Prints { at, fabric, swatches: list, .. } = prints(doc, cloth, grains, FABRIC_PIXEL_MM)?;
     let skin = vec![SKIN; avatar.mesh.triangles.len()];
     let plain = vec![UNPRINTED; cloth.triangles.len()];
     let shapes = [

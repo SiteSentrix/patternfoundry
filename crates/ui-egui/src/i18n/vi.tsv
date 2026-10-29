@@ -5324,10 +5324,13 @@ menu	Pattern	Rập
 	Fabric Photos	Ảnh vải
 @msg	the drape view's picture is the wrong size	hình của khung xem độ rủ có kích thước sai
 @msg	the drape view: {e}	khung xem độ rủ: {e}
+@msg	a fabric photo is the wrong size	ảnh vải có kích thước sai
+@msg	a fabric photo: {e}	ảnh vải: {e}
 	Export Avatar as glTF	Xuất hình nhân dạng glTF
 	Export Avatar as glTF…	Xuất hình nhân dạng glTF…
 	Export Drape as glTF…	Xuất độ rủ dạng glTF…
 @msg	format: "obj" or "glb"	format: "obj" hoặc "glb"
+@msg	colour: "fabric" or "fit"	colour: "fabric" hoặc "fit"
 @msg	a piece could not be placed on the body	không thể đặt một mảnh rập lên cơ thể
 @msg	{name} is already open	{name} đã được mở
 @msg	Draping on Avatar	Đang cho vải rủ lên hình nhân

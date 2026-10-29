@@ -5311,10 +5311,13 @@ menu	Pattern	Schnitt
 	Fabric Photos	Stofffotos
 @msg	the drape view's picture is the wrong size	das Bild der Fallansicht hat die falsche Größe
 @msg	the drape view: {e}	die Fallansicht: {e}
+@msg	a fabric photo is the wrong size	das Stofffoto hat die falsche Größe
+@msg	a fabric photo: {e}	das Stofffoto: {e}
 	Export Avatar as glTF	Avatar als glTF exportieren
 	Export Avatar as glTF…	Avatar als glTF exportieren…
 	Export Drape as glTF…	Drapierung als glTF exportieren…
 @msg	format: "obj" or "glb"	format: "obj" oder "glb"
+@msg	colour: "fabric" or "fit"	colour: "fabric" oder "fit"
 @msg	a piece could not be placed on the body	ein Schnittteil ließ sich nicht am Körper platzieren
 @msg	{name} is already open	{name} ist bereits geöffnet
 @msg	Draping on Avatar	Auf Avatar drapieren

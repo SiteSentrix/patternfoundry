@@ -5582,10 +5582,13 @@ menu	Pattern	Wykrój
 	Fabric Photos	Zdjęcia tkanin
 @msg	the drape view's picture is the wrong size	obraz widoku układania się ma złe wymiary
 @msg	the drape view: {e}	widok układania się: {e}
+@msg	a fabric photo is the wrong size	zdjęcie tkaniny ma złe wymiary
+@msg	a fabric photo: {e}	zdjęcie tkaniny: {e}
 	Export Avatar as glTF	Eksportuj awatara jako glTF
 	Export Avatar as glTF…	Eksportuj awatara jako glTF…
 	Export Drape as glTF…	Eksportuj układanie się jako glTF…
 @msg	format: "obj" or "glb"	format: "obj" lub "glb"
+@msg	colour: "fabric" or "fit"	colour: "fabric" lub "fit"
 @msg	a piece could not be placed on the body	nie udało się umieścić części wykroju na ciele
 @msg	{name} is already open	{name} jest już otwarty
 @msg	Draping on Avatar	Układanie na awatarze

@@ -5340,10 +5340,13 @@ menu	Pattern	Выкройка
 	Fabric Photos	Фотографии тканей
 @msg	the drape view's picture is the wrong size	изображение вида драпировки неправильного размера
 @msg	the drape view: {e}	вид драпировки: {e}
+@msg	a fabric photo is the wrong size	фотография ткани неправильного размера
+@msg	a fabric photo: {e}	фотография ткани: {e}
 	Export Avatar as glTF	Экспортировать аватар в glTF
 	Export Avatar as glTF…	Экспортировать аватар в glTF…
 	Export Drape as glTF…	Экспортировать драпировку в glTF…
 @msg	format: "obj" or "glb"	format: "obj" или "glb"
+@msg	colour: "fabric" or "fit"	colour: "fabric" или "fit"
 @msg	a piece could not be placed on the body	не удалось разместить деталь на теле
 @msg	{name} is already open	{name} уже открыт
 @msg	Draping on Avatar	Драпировка на аватаре

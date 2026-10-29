@@ -5693,10 +5693,13 @@ menu	Pattern	Kaava
 	Fabric Photos	Kangaskuvat
 @msg	the drape view's picture is the wrong size	laskeumanäkymän kuva on väärän kokoinen
 @msg	the drape view: {e}	laskeumanäkymä: {e}
+@msg	a fabric photo is the wrong size	kangaskuva on väärän kokoinen
+@msg	a fabric photo: {e}	kangaskuva: {e}
 	Export Avatar as glTF	Vie avatar glTF-muodossa
 	Export Avatar as glTF…	Vie avatar glTF-muodossa…
 	Export Drape as glTF…	Vie laskeuma glTF-muodossa…
 @msg	format: "obj" or "glb"	format: "obj" tai "glb"
+@msg	colour: "fabric" or "fit"	colour: "fabric" tai "fit"
 @msg	a piece could not be placed on the body	kaavan osaa ei voitu sijoittaa vartalolle
 @msg	{name} is already open	{name} on jo auki
 @msg	Draping on Avatar	Laskeuma avatarille

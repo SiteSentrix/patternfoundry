@@ -5728,10 +5728,13 @@ menu	Pattern	Patron
 	Fabric Photos	Photos de tissus
 @msg	the drape view's picture is the wrong size	l'image de la vue du tombé n'a pas la bonne taille
 @msg	the drape view: {e}	la vue du tombé : {e}
+@msg	a fabric photo is the wrong size	la photo de tissu n'a pas la bonne taille
+@msg	a fabric photo: {e}	la photo de tissu : {e}
 	Export Avatar as glTF	Exporter l'avatar en glTF
 	Export Avatar as glTF…	Exporter l'avatar en glTF…
 	Export Drape as glTF…	Exporter le tombé en glTF…
 @msg	format: "obj" or "glb"	format : "obj" ou "glb"
+@msg	colour: "fabric" or "fit"	format : "fabric" ou "fit"
 @msg	a piece could not be placed on the body	une pièce n’a pas pu être placée sur le corps
 @msg	{name} is already open	{name} est déjà ouvert
 @msg	Draping on Avatar	Tombé sur l’avatar

@@ -5715,10 +5715,13 @@ menu	Pattern	Szabásminta
 	Fabric Photos	Anyagfotók
 @msg	the drape view's picture is the wrong size	az esésnézet képe rossz méretű
 @msg	the drape view: {e}	az esésnézet: {e}
+@msg	a fabric photo is the wrong size	az anyagfotó rossz méretű
+@msg	a fabric photo: {e}	az anyagfotó: {e}
 	Export Avatar as glTF	Avatar exportálása glTF-ként
 	Export Avatar as glTF…	Avatar exportálása glTF-ként…
 	Export Drape as glTF…	Esés exportálása glTF-ként…
 @msg	format: "obj" or "glb"	format: "obj" vagy "glb"
+@msg	colour: "fabric" or "fit"	colour: "fabric" vagy "fit"
 @msg	a piece could not be placed on the body	egy szabásmintadarabot nem sikerült a testre helyezni
 @msg	{name} is already open	{name} már meg van nyitva
 @msg	Draping on Avatar	Esés az avataron

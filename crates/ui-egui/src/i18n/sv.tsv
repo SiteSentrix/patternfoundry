@@ -5685,10 +5685,13 @@ menu	Pattern	Mönster
 	Fabric Photos	Tygfoton
 @msg	the drape view's picture is the wrong size	fallvyns bild har fel storlek
 @msg	the drape view: {e}	fallvyn: {e}
+@msg	a fabric photo is the wrong size	tygfotot har fel storlek
+@msg	a fabric photo: {e}	tygfotot: {e}
 	Export Avatar as glTF	Exportera avatar som glTF
 	Export Avatar as glTF…	Exportera avatar som glTF…
 	Export Drape as glTF…	Exportera fall som glTF…
 @msg	format: "obj" or "glb"	format: "obj" eller "glb"
+@msg	colour: "fabric" or "fit"	colour: "fabric" eller "fit"
 @msg	a piece could not be placed on the body	en mönsterdel kunde inte placeras på kroppen
 @msg	{name} is already open	{name} är redan öppen
 @msg	Draping on Avatar	Fall på avatar

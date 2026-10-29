@@ -186,7 +186,8 @@ fn export_glb(s: &mut Session, p: &Value) -> Result<Value> {
     // Skin, as the drape view shows it; named only "Avatar" (no one's name in a file meant to be
     // shared).
     let base = [linear(214), linear(192), linear(170), 1.0];
-    let part = Part { name: "Avatar", vertices: &a.mesh.vertices, triangles: &a.mesh.triangles, colours: None, base, double_sided: false };
+    let part =
+        Part { name: "Avatar", vertices: &a.mesh.vertices, triangles: &a.mesh.triangles, colours: None, base, double_sided: false, texture: None };
     let bytes = pf_core::gltf::to_glb(&[part]).map_err(|e| bad(C, e.to_string()))?;
     let counts = (a.mesh.vertices.len(), a.mesh.triangles.len());
     match str_param(p, "path") {
