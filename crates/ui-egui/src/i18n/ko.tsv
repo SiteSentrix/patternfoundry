@@ -5307,10 +5307,13 @@ menu	Pattern	패턴
 	Fabric Photos	원단 사진
 @msg	the drape view's picture is the wrong size	드레이프 보기 그림의 크기가 잘못되었습니다
 @msg	the drape view: {e}	드레이프 보기: {e}
+@msg	a fabric photo is the wrong size	원단 사진의 크기가 잘못되었습니다
+@msg	a fabric photo: {e}	원단 사진: {e}
 	Export Avatar as glTF	아바타를 glTF로 내보내기
 	Export Avatar as glTF…	아바타를 glTF로 내보내기…
 	Export Drape as glTF…	드레이프를 glTF로 내보내기…
 @msg	format: "obj" or "glb"	format: "obj" 또는 "glb"
+@msg	colour: "fabric" or "fit"	colour: "fabric" 또는 "fit"
 @msg	a piece could not be placed on the body	패턴 조각을 몸에 놓을 수 없습니다
 @msg	{name} is already open	{name}이(가) 이미 열려 있습니다
 @msg	Draping on Avatar	아바타에 드레이프하는 중

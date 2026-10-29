@@ -5693,10 +5693,13 @@ menu	Pattern	Кройка
 	Fabric Photos	Снимки на платове
 @msg	the drape view's picture is the wrong size	картината на изгледа на драпирането е с грешен размер
 @msg	the drape view: {e}	изгледът на драпирането: {e}
+@msg	a fabric photo is the wrong size	снимката на плата е с грешен размер
+@msg	a fabric photo: {e}	снимката на плата: {e}
 	Export Avatar as glTF	Експортиране на аватара като glTF
 	Export Avatar as glTF…	Експортиране на аватара като glTF…
 	Export Drape as glTF…	Експортиране на драпирането като glTF…
 @msg	format: "obj" or "glb"	format: "obj" или "glb"
+@msg	colour: "fabric" or "fit"	colour: "fabric" или "fit"
 @msg	a piece could not be placed on the body	част от кройката не можа да бъде поставена върху тялото
 @msg	{name} is already open	{name} вече е отворен
 @msg	Draping on Avatar	Драпиране върху аватара

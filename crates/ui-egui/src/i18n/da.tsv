@@ -5712,10 +5712,13 @@ menu	Pattern	Mønster
 	Fabric Photos	Stoffotos
 @msg	the drape view's picture is the wrong size	draperingsvisningens billede har forkert størrelse
 @msg	the drape view: {e}	draperingsvisningen: {e}
+@msg	a fabric photo is the wrong size	stoffotoet har forkert størrelse
+@msg	a fabric photo: {e}	stoffotoet: {e}
 	Export Avatar as glTF	Eksportér avatar som glTF
 	Export Avatar as glTF…	Eksportér avatar som glTF…
 	Export Drape as glTF…	Eksportér drapering som glTF…
 @msg	format: "obj" or "glb"	format: "obj" eller "glb"
+@msg	colour: "fabric" or "fit"	colour: "fabric" eller "fit"
 @msg	a piece could not be placed on the body	en del kunne ikke placeres på kroppen
 @msg	{name} is already open	{name} er allerede åben
 @msg	Draping on Avatar	Draperer på avatar

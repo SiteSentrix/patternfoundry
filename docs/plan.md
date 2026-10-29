@@ -704,6 +704,22 @@ is built on, plus a pattern mode, the way StitchFoundry adds embroidery:
   more in `pf-core` (a trapezoid's edge particles on its outline, none outside it, the particle
   nearest a point of the slanted side on it), the skirt's test bounds tightened (seams within
   5 mm, stretch under 15%; it hangs 580 to 680 mm, a few per cent long under its weight).
+- 2026-10-29, **PF-10.18**: the draped garment goes to 3D software in its fabric. Export Drape
+  as glTF… (`drape.make format: "glb"`) writes the cloth in the document's fabric photos where
+  there are any (`colour: "fit"` keeps the fit colours): a part for each photo ("Drape: Main"),
+  its picture the drape view's swatch (evened and made seamless if the photo is) as a PNG inside the
+  file, each side scaled to the nearest power of two (up to 2048) so viewers on WebGL 1 can repeat
+  it, and each point's place on it (TEXCOORD_0) its place on the fabric along the grain over the
+  photo's size, so the photo repeats at true size through a repeating sampler; pieces whose photo
+  can't be read in a grey part of their own. Written from the glTF 2.0 specification
+  (<https://registry.khronos.org/glTF/specs/2.0/glTF-2.0.html>: §3.7.2.1 TEXCOORD_0, §3.8
+  textures, images and samplers, §3.9.2 the base colour texture), the file checked with the
+  Khronos glTF Validator (0 errors, 0 warnings) and seen in three.js. Tests: 1 in `pf-core` (a
+  printed part's TEXCOORD_0, its PNG in a buffer view without a target, a repeating sampler, the
+  base colour texture; none on a plain part; a texture whose places aren't one to a point
+  refused), 1 in the engine (the striped skirt's file: the part "Drape: Main", its 80 × 30 photo
+  as a 64 × 32 PNG, its places 8.5 photos across the two 1700 mm of pattern; `colour: "fit"`;
+  another colour refused).
 - 2026-10-28, **PF-10.17**: a fabric photo taken at home can be evened out and made to repeat.
   Use as Fabric… now offers *even* (even out the light: each pixel's brightness divided by the
   photo's brightness averaged over a quarter of the photo round it, times the photo's mean, at

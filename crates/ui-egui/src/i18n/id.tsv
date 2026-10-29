@@ -5712,10 +5712,13 @@ menu	Pattern	Pola
 	Fabric Photos	Foto Kain
 @msg	the drape view's picture is the wrong size	gambar tampilan jatuhan kain berukuran salah
 @msg	the drape view: {e}	tampilan jatuhan kain: {e}
+@msg	a fabric photo is the wrong size	foto kain berukuran salah
+@msg	a fabric photo: {e}	foto kain: {e}
 	Export Avatar as glTF	Ekspor Avatar sebagai glTF
 	Export Avatar as glTF…	Ekspor Avatar sebagai glTF…
 	Export Drape as glTF…	Ekspor Jatuhan Kain sebagai glTF…
 @msg	format: "obj" or "glb"	format: "obj" atau "glb"
+@msg	colour: "fabric" or "fit"	colour: "fabric" atau "fit"
 @msg	a piece could not be placed on the body	sebuah potongan pola tidak dapat ditempatkan pada tubuh
 @msg	{name} is already open	{name} sudah terbuka
 @msg	Draping on Avatar	Menjatuhkan kain pada avatar

@@ -5754,10 +5754,13 @@ menu	Pattern	Patroon
 	Fabric Photos	Stoffoto's
 @msg	the drape view's picture is the wrong size	de afbeelding van de valweergave heeft de verkeerde grootte
 @msg	the drape view: {e}	de valweergave: {e}
+@msg	a fabric photo is the wrong size	de stoffoto heeft de verkeerde grootte
+@msg	a fabric photo: {e}	de stoffoto: {e}
 	Export Avatar as glTF	Avatar exporteren als glTF
 	Export Avatar as glTF…	Avatar exporteren als glTF…
 	Export Drape as glTF…	Val exporteren als glTF…
 @msg	format: "obj" or "glb"	format: "obj" of "glb"
+@msg	colour: "fabric" or "fit"	colour: "fabric" of "fit"
 @msg	a piece could not be placed on the body	een patroondeel kon niet op het lichaam worden geplaatst
 @msg	{name} is already open	{name} is al geopend
 @msg	Draping on Avatar	Val op avatar

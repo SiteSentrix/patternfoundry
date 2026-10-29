@@ -5565,10 +5565,13 @@ menu	Pattern	纸样
 	Fabric Photos	面料照片
 @msg	the drape view's picture is the wrong size	垂坠视图的图片尺寸不对
 @msg	the drape view: {e}	垂坠视图：{e}
+@msg	a fabric photo is the wrong size	面料照片的尺寸不对
+@msg	a fabric photo: {e}	面料照片：{e}
 	Export Avatar as glTF	将虚拟人体导出为 glTF
 	Export Avatar as glTF…	将虚拟人体导出为 glTF…
 	Export Drape as glTF…	将垂坠导出为 glTF…
 @msg	format: "obj" or "glb"	format："obj" 或 "glb"
+@msg	colour: "fabric" or "fit"	format："fabric" 或 "fit"
 @msg	a piece could not be placed on the body	有一个裁片无法放到身体上
 @msg	{name} is already open	{name} 已经打开
 @msg	Draping on Avatar	正在将衣片垂坠到虚拟人体上

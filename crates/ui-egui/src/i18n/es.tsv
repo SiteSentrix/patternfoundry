@@ -5672,10 +5672,13 @@ menu	Pattern	Patrón
 	Fabric Photos	Fotos de telas
 @msg	the drape view's picture is the wrong size	la imagen de la vista de caída tiene el tamaño incorrecto
 @msg	the drape view: {e}	la vista de caída: {e}
+@msg	a fabric photo is the wrong size	la foto de tela tiene el tamaño incorrecto
+@msg	a fabric photo: {e}	la foto de tela: {e}
 	Export Avatar as glTF	Exportar avatar como glTF
 	Export Avatar as glTF…	Exportar avatar como glTF…
 	Export Drape as glTF…	Exportar caída como glTF…
 @msg	format: "obj" or "glb"	format: "obj" o "glb"
+@msg	colour: "fabric" or "fit"	colour: "fabric" o "fit"
 @msg	a piece could not be placed on the body	no se pudo colocar una pieza sobre el cuerpo
 @msg	{name} is already open	{name} ya está abierto
 @msg	Draping on Avatar	Aplicando la caída sobre el avatar

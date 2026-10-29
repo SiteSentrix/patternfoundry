@@ -5384,10 +5384,13 @@ menu	Pattern	型紙
 	Fabric Photos	生地の写真
 @msg	the drape view's picture is the wrong size	ドレープ表示の画像のサイズが正しくありません
 @msg	the drape view: {e}	ドレープ表示: {e}
+@msg	a fabric photo is the wrong size	生地の写真のサイズが正しくありません
+@msg	a fabric photo: {e}	生地の写真: {e}
 	Export Avatar as glTF	アバターを glTF で書き出し
 	Export Avatar as glTF…	アバターを glTF で書き出し…
 	Export Drape as glTF…	ドレープを glTF で書き出し…
 @msg	format: "obj" or "glb"	format: "obj" または "glb"
+@msg	colour: "fabric" or "fit"	colour: "fabric" または "fit"
 @msg	a piece could not be placed on the body	パーツを体に配置できませんでした
 @msg	{name} is already open	{name} はすでに開いています
 @msg	Draping on Avatar	アバターに着せています
