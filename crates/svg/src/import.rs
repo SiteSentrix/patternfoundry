@@ -832,6 +832,9 @@ fn blend(b: usvg::BlendMode) -> BlendMode {
         B::Saturation => BlendMode::Saturation,
         B::Color => BlendMode::Color,
         B::Luminosity => BlendMode::Luminosity,
+        // `plus-lighter` (Compositing Level 2: the sum, capped) has no mode of its own here;
+        // Lighten is the nearest (the lighter of the two, where plus-lighter adds them).
+        B::PlusLighter => BlendMode::Lighten,
     }
 }
 

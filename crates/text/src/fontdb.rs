@@ -120,14 +120,13 @@ pub struct FontFace {
     /// font units (the `post` and OS/2 tables', else a common placement).
     pub(crate) underline: (f64, f64),
     pub(crate) strikeout: (f64, f64),
-    pub(crate) shaper: harfrust::ShaperData,
+    /// The face for the shaper, at [`Self::variations`] (advances, kerning, feature variations).
+    pub(crate) shaper: harfrust::Font,
     /// The axis settings of the variable font's named instance this face is (user units: `wght`
     /// 700); empty for a static face or a variable font's default instance.
     variations: Vec<Variation>,
     /// [`Self::variations`] in the font's normalized design space (outlines and metrics).
     location: Location,
-    /// [`Self::variations`] for the shaper (advances, kerning, feature variations).
-    pub(crate) instance: Option<harfrust::ShaperInstance>,
     /// [`Self::ideographic_centre`], read once: layout asks for it per glyph.
     ideographic_centre: std::sync::OnceLock<f64>,
     /// [`Self::icf_margins`], read once.
@@ -160,9 +159,6 @@ impl FontFace {
     }
     pub(crate) fn skrifa(&self) -> Option<skrifa::FontRef<'_>> {
         skrifa::FontRef::from_index(self.data(), self.index).ok()
-    }
-    pub(crate) fn hb(&self) -> Option<harfrust::FontRef<'_>> {
-        harfrust::FontRef::from_index(self.data(), self.index).ok()
     }
     /// The face's index in its font file (collections hold several).
     pub(crate) fn index(&self) -> u32 {
@@ -1501,10 +1497,16 @@ fn make_face(bytes: FontBytes, index: u32, spec: FaceStyle, path: Option<std::pa
     let location = if variations.is_empty() { Location::default() } else { f.axes().location(variations.iter().map(|(t, v)| (Tag::new(t), *v))) };
     let m = f.metrics(Size::unscaled(), &location);
     let a = f.attributes();
-    let hb = harfrust::FontRef::from_index(data, index).ok()?;
-    let shaper = harfrust::ShaperData::new(&hb);
-    let instance =
-        (!variations.is_empty()).then(|| harfrust::ShaperInstance::from_variations(&hb, variations.iter().map(|(t, v)| (harfrust::Tag::new(t), *v))));
+    let source: harfrust::font::Source = match &bytes {
+        FontBytes::Static(b) => (*b).into(),
+        FontBytes::Owned(v) => (Arc::clone(v) as Arc<dyn AsRef<[u8]> + Send + Sync>).into(),
+    };
+    let shaper = harfrust::Font::new(source, index)?;
+    let shaper = if variations.is_empty() {
+        shaper
+    } else {
+        shaper.instance_builder().variations(variations.iter().map(|(t, v)| (harfrust::Tag::new(t), *v))).build()
+    };
     let upem = m.units_per_em.max(1) as f64;
     let x_height = m.x_height.map(|v| v as f64).filter(|v| *v > 0.0).unwrap_or(m.ascent as f64 * 0.5);
     let decoration = |d: Option<skrifa::metrics::Decoration>, fallback: (f64, f64)| {
@@ -1524,7 +1526,6 @@ fn make_face(bytes: FontBytes, index: u32, spec: FaceStyle, path: Option<std::pa
         italic: italic || !matches!(a.style, skrifa::attribute::Style::Normal),
         variations,
         location,
-        instance,
         upem,
         ascent: m.ascent as f64,
         descent: -(m.descent as f64),
