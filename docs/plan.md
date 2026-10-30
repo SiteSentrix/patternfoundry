@@ -64,16 +64,15 @@ is built on, plus a pattern mode, the way StitchFoundry adds embroidery:
   `crates/pf-core/src/block.rs`. Fashion Capital's was the other candidate (more detailed curves,
   but a step cut off in its text).
 
-- App or mode (2026-10-23): PatternFoundry is **not its own app**; it becomes a **mode inside
-  StitchFoundry** (both are VectorCraft and a mode of their own). Until the move is planned (PF-11:
-  how the pattern crates, commands, panels and documents go into github.com/Stitchwright/StitchFoundry)
-  the work goes on here.
+- App or mode (2026-10-30, replacing the decision of 2026-10-23 that it become a mode inside
+  StitchFoundry): PatternFoundry is **its own app** and stays in this repository; it is **not
+  combined into StitchFoundry**. PF-11 (the move) is dropped.
 - Sleeve ease (2026-10-23): the sleeve block drafted where there is a bodice block is set into its
   armhole with the middle of a classic sleeve's ease (PF-4.9), not drafted from the top arm table
   alone.
 
 ## Open decisions (the owner's)
-- How and when PatternFoundry moves into StitchFoundry (PF-11).
+- None at present.
 
 ## Progress log
 - 2026-10-19, **PF-0**: VectorCraft 0.13.1 (upstream `a466625c`) merged with its history
