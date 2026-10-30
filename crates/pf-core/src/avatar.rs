@@ -231,6 +231,10 @@ struct Survey {
     /// The hand: long over the arm (the sleeve outseam), broad over long.
     hand: f64,
     hand_breadth: f64,
+    /// The crotch length (from the waist at the navel in front, down between the legs and up to
+    /// it behind) over the hips round, and the share of it behind the crotch (PF-10.19).
+    crotch_length: f64,
+    crotch_back: f64,
     /// The bust stands forward of the ribcage (the women's).
     bust: bool,
 }
@@ -267,6 +271,8 @@ const WOMEN: Survey = Survey {
     head_height: 0.560,
     hand: 0.333,
     hand_breadth: 0.432,
+    crotch_length: 0.6093,
+    crotch_back: 0.5509,
     bust: true,
 };
 
@@ -302,6 +308,8 @@ const MEN: Survey = Survey {
     head_height: 0.518,
     hand: 0.326,
     hand_breadth: 0.457,
+    crotch_length: 0.6114,
+    crotch_back: 0.5728,
     bust: false,
 };
 
@@ -358,6 +366,8 @@ const CHILD_BANDS: [(f64, Survey); 8] = [
             head_height: 0.646,
             hand: 0.324,
             hand_breadth: 0.481,
+            crotch_length: WOMEN.crotch_length,
+            crotch_back: WOMEN.crotch_back,
             bust: false,
         },
     ),
@@ -396,6 +406,8 @@ const CHILD_BANDS: [(f64, Survey); 8] = [
             head_height: 0.688,
             hand: 0.315,
             hand_breadth: 0.468,
+            crotch_length: WOMEN.crotch_length,
+            crotch_back: WOMEN.crotch_back,
             bust: false,
         },
     ),
@@ -434,6 +446,8 @@ const CHILD_BANDS: [(f64, Survey); 8] = [
             head_height: 0.665,
             hand: 0.306,
             hand_breadth: 0.464,
+            crotch_length: WOMEN.crotch_length,
+            crotch_back: WOMEN.crotch_back,
             bust: false,
         },
     ),
@@ -472,6 +486,8 @@ const CHILD_BANDS: [(f64, Survey); 8] = [
             head_height: 0.654,
             hand: 0.300,
             hand_breadth: 0.458,
+            crotch_length: WOMEN.crotch_length,
+            crotch_back: WOMEN.crotch_back,
             bust: false,
         },
     ),
@@ -510,6 +526,8 @@ const CHILD_BANDS: [(f64, Survey); 8] = [
             head_height: 0.597,
             hand: 0.298,
             hand_breadth: 0.454,
+            crotch_length: WOMEN.crotch_length,
+            crotch_back: WOMEN.crotch_back,
             bust: false,
         },
     ),
@@ -548,6 +566,8 @@ const CHILD_BANDS: [(f64, Survey); 8] = [
             head_height: 0.638,
             hand: 0.296,
             hand_breadth: 0.451,
+            crotch_length: WOMEN.crotch_length,
+            crotch_back: WOMEN.crotch_back,
             bust: false,
         },
     ),
@@ -586,6 +606,8 @@ const CHILD_BANDS: [(f64, Survey); 8] = [
             head_height: 0.645,
             hand: 0.292,
             hand_breadth: 0.452,
+            crotch_length: WOMEN.crotch_length,
+            crotch_back: WOMEN.crotch_back,
             bust: false,
         },
     ),
@@ -624,6 +646,8 @@ const CHILD_BANDS: [(f64, Survey); 8] = [
             head_height: 0.626,
             hand: 0.289,
             hand_breadth: 0.455,
+            crotch_length: WOMEN.crotch_length,
+            crotch_back: WOMEN.crotch_back,
             bust: false,
         },
     ),
@@ -674,6 +698,8 @@ fn child_survey(chest: f64) -> Survey {
         head_height: mix(a.head_height, b.head_height),
         hand: mix(a.hand, b.hand),
         hand_breadth: mix(a.hand_breadth, b.hand_breadth),
+        crotch_length: mix(a.crotch_length, b.crotch_length),
+        crotch_back: mix(a.crotch_back, b.crotch_back),
         bust: false,
     }
 }
@@ -705,6 +731,90 @@ impl Avatar {
 }
 
 /// The girth of an ellipse with semi-axes `a` and `b` (Ramanujan's second approximation).
+/// The body's crotch length in front and behind (PF-10.19): the survey's share of the hips round
+/// (ANSUR II: the crotch length from the navel, 620.8 mm for the women's mean buttock girth of
+/// 1021.2, 0.609; the men's 0.611), longer on each side by how much further the body's waist is
+/// above its crotch (`rise`) than the survey's navel above its crotch, for the body's size (a
+/// dressmaker's waist is above the navel), split in the survey's share behind (0.551, 0.573).
+fn crotch_lengths(hip: f64, rise: f64, sv: &Survey, s: f64) -> (f64, f64) {
+    let above = (rise - (sv.waist_height - sv.crotch_height) * s).max(0.0);
+    let length = sv.crotch_length * hip;
+    (length * (1.0 - sv.crotch_back) + above, length * sv.crotch_back + above)
+}
+
+/// How far it is down the middle of the front (`side` 1) or back (-1) from the waist, over the
+/// hips, to the crotch ring's front or back and on under it to the crotch point between them: the
+/// rings lofted straight, as the body is (see [`centre_lengths`]).
+fn down_the_middle(rings: &[Ring], side: f64) -> f64 {
+    let edge = |r: &Ring| (r.y + side * r.semi_axes().1, r.z);
+    let mut length = 0.0;
+    for w in rings.windows(2) {
+        let ((y0, z0), (y1, z1)) = (edge(&w[0]), edge(&w[1]));
+        length += (y1 - y0).hypot(z1 - z0);
+    }
+    length + rings.last().map_or(0.0, |r| r.semi_axes().1)
+}
+
+/// The avatar's crotch length in front and behind, down the middle from the waist through the
+/// crotch (PF-10.19): its torso's rings from the waist down.
+pub fn centre_lengths(a: &Avatar) -> Option<(f64, f64)> {
+    let from = a.torso.iter().position(|r| r.name == "waist")?;
+    let rings = &a.torso[from..];
+    (rings.last()?.name == "crotch").then(|| (down_the_middle(rings, 1.0), down_the_middle(rings, -1.0)))
+}
+
+/// The crotch ring (PF-10.19): below the hips the body curves in under the belly in front and
+/// under the buttocks behind to the crotch between the legs; its front and back drawn in from the
+/// hips' (as broad across as `full`, the hips carried on down) until the way down the middle from
+/// the waist through the crotch is `front + back` long, shared as near `(front, back)` as the
+/// shape allows. Never deeper than `full`; no shallower than 40 mm (a body's thighs meet below
+/// it).
+fn crotch(waist: &Ring, hip: &Ring, full: Ring, (front, back): (f64, f64)) -> Ring {
+    const SHALLOWEST: f64 = 40.0;
+    let (a, b0) = full.semi_axes();
+    let shaped = |f: f64, bk: f64| {
+        let b = ((f - bk) / 2.0).max(1.0);
+        Ring { y: (f + bk) / 2.0, girth: ellipse_girth(a, b), depth_ratio: b / a, ..full }
+    };
+    // The whole length first, then how it is shared (the shape can't always give both: a deep
+    // crotch drawn in far enough in front leaves the back short).
+    let miss = |f: f64, bk: f64| {
+        let rings = [*waist, *hip, shaped(f, bk)];
+        let (df, db) = (down_the_middle(&rings, 1.0) - front, down_the_middle(&rings, -1.0) - back);
+        100.0 * (df + db).powi(2) + (df - db).powi(2)
+    };
+    // The front from the hips' front back, the back from the hips' back forward: the pair that
+    // misses least, coarse then fine.
+    let (mut f, mut bk) = (b0, -b0);
+    let mut step = b0 / 20.0;
+    for _ in 0..6 {
+        let (cf, cb) = (f, bk);
+        for i in -20..=20 {
+            for j in -20..=20 {
+                let (tf, tb) = ((cf + i as f64 * step).min(b0), (cb + j as f64 * step).max(-b0));
+                if tf - tb >= SHALLOWEST && miss(tf, tb) < miss(f, bk) {
+                    (f, bk) = (tf, tb);
+                }
+            }
+        }
+        step /= 10.0;
+    }
+    shaped(f, bk)
+}
+
+/// The gap between the thighs at their tops, mm: two layers of cloth's margins and a little.
+const THIGH_GAP: f64 = 5.0;
+
+/// The half-depth of the ellipse `a` across (half) that is `girth` round (at least a tenth of `a`).
+fn depth_for(a: f64, girth: f64) -> f64 {
+    let (mut lo, mut hi) = (a * 0.1, a * 10.0);
+    for _ in 0..60 {
+        let mid = (lo + hi) / 2.0;
+        if ellipse_girth(a, mid) < girth { lo = mid } else { hi = mid }
+    }
+    (lo + hi) / 2.0
+}
+
 fn ellipse_girth(a: f64, b: f64) -> f64 {
     let h = ((a - b) / (a + b)).powi(2);
     PI * (a + b) * (1.0 + 3.0 * h / (10.0 + (4.0 - 3.0 * h).sqrt()))
@@ -816,11 +926,22 @@ pub fn avatar(body: &Body) -> Result<Avatar, AvatarError> {
         torso.push(under);
     }
     let hip_ring = ring("hip", hip_z, 0.0, body.hip, sv.hip_depth);
-    torso.extend([ring("waist", waist_z, 0.0, body.waist, sv.waist_depth), hip_ring, ring("crotch", crotch_z, 0.0, body.hip * 0.96, sv.hip_depth)]);
-    // Each leg: its thigh just below the crotch, its outside in line with the side of the hips
-    // (the thighs meet at the crotch, as they do on many bodies).
+    let waist_ring = ring("waist", waist_z, 0.0, body.waist, sv.waist_depth);
+    let crotch_ring = crotch(
+        &waist_ring,
+        &hip_ring,
+        ring("crotch", crotch_z, 0.0, body.hip * 0.96, sv.hip_depth),
+        crotch_lengths(body.hip, waist_z - crotch_z, sv, s),
+    );
+    torso.extend([waist_ring, hip_ring, crotch_ring]);
+    // Each leg: its thigh just below the crotch, side by side across the hips, its outside in line
+    // with the side of the hips and its inside just clear of the other's (PF-10.19: the thighs
+    // touch at the top, as they do on many bodies; overlapping across the middle they filled the
+    // crotch, and a trouser's crotch seam, pushed down out of them, hung 65 mm below the body's
+    // crotch and the trousers with it), as round as the survey's thigh, so deeper than broad.
     let (hip_a, _) = hip_ring.semi_axes();
-    let thigh = ring("thigh", 0.0, 0.0, body.hip * sv.thigh, 0.9).semi_axes().0;
+    let thigh_a = (hip_a - THIGH_GAP) / 2.0;
+    let thigh_b = depth_for(thigh_a, body.hip * sv.thigh);
     // Each foot (PF-10.14): under the ankle a ring as long as the survey's foot (front to back) and
     // as broad, a quarter of it behind the ankle; low, at a fifth of the ankle bone's height, the
     // leg closed under it. Garments' hems rest on it, and on the floor.
@@ -832,10 +953,10 @@ pub fn avatar(body: &Body) -> Result<Avatar, AvatarError> {
         r
     };
     let leg = |side: f64| {
-        let x = side * (hip_a - thigh).max(thigh * 0.5);
+        let x = side * hip_a / 2.0;
         let calf_z = knee_z - (knee_z - ankle_z) * 0.3;
         vec![
-            ring("thigh", crotch_z - 10.0, x, body.hip * sv.thigh, 0.9),
+            ring("thigh", crotch_z - 10.0, x, ellipse_girth(thigh_a, thigh_b), thigh_b / thigh_a),
             ring("knee", knee_z, x, body.hip * sv.knee, 0.95),
             ring("calf", calf_z, x, body.hip * sv.calf, 0.95),
             ring("ankle", ankle_z, x, body.hip * sv.ankle, 0.9),
@@ -1103,6 +1224,36 @@ mod tests {
     /// A head and hands (PF-10.15): the head above the base of the neck as high as the survey's for
     /// the body's rise, as round as its share of the chest, longer front to back than broad; each
     /// hand on along the arm from the wrist, as long as the survey's share of the arm.
+    #[test]
+    fn the_crotch_is_as_long_as_the_surveys_share_of_the_hips() {
+        // The test body: hips 960, the waist 200 above them; a man's too, and one with a crotch
+        // depth given (its crotch lower, so drawn in more).
+        let man = Body { figure: Figure::Male, ..body() };
+        let deep = Body { crotch_depth: Some(280.0), ..body() };
+        for (b, sv) in [(body(), WOMEN), (man, MEN), (deep, WOMEN)] {
+            let a = avatar(&b).unwrap();
+            let s = b.nape_to_waist * BACK_RISE / (sv.cervicale_height - sv.waist_height);
+            let (waist, crotch) = (a.ring("waist").unwrap().z, a.ring("crotch").unwrap().z);
+            let (front, back) = crotch_lengths(b.hip, waist - crotch, &sv, s);
+            let (f, bk) = centre_lengths(&a).unwrap();
+            assert!((f + bk - front - back).abs() < 1.0 && (f - front).abs() < 25.0, "{f} {bk} for {front} {back}");
+            // 0.61 of the hips and a little more for the waist above the navel and for a deep
+            // crotch: 600 to 780 here, where the hips carried straight down made it 755 to 795.
+            assert!((600.0..780.0).contains(&(f + bk)), "{}", f + bk);
+            // Drawn in from the hips' depth, front and back, the back the longer way.
+            let (hip, crotch) = (a.ring("hip").unwrap(), a.ring("crotch").unwrap());
+            assert!(crotch.semi_axes().1 < hip.semi_axes().1 * 0.8, "{:?} {:?}", crotch.semi_axes(), hip.semi_axes());
+            assert!(bk > f);
+            // The thighs side by side across the hips, just clear of each other, as round as the
+            // survey's thigh.
+            let (t0, t1) = (&a.legs[0][0], &a.legs[1][0]);
+            let gap = (t0.x - t0.semi_axes().0) - (t1.x + t1.semi_axes().0);
+            assert!((gap - THIGH_GAP).abs() < 1e-6, "{gap}");
+            assert!((t0.x + t0.semi_axes().0 - (hip.semi_axes().0 - THIGH_GAP / 2.0)).abs() < 1e-6);
+            assert!((t0.girth - b.hip * sv.thigh).abs() < 0.5, "{} {}", t0.girth, b.hip * sv.thigh);
+        }
+    }
+
     #[test]
     fn the_avatar_has_a_head_and_hands() {
         let a = avatar(&body()).unwrap();

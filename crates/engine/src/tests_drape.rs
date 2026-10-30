@@ -262,9 +262,9 @@ fn trousers_drape_down_both_legs() {
     assert_eq!(r["pieces"], json!(2), "{r}");
     assert_eq!(r["darts"], json!(2), "{r}");
     let (top, hem, waist) = (r["top"].as_f64().unwrap(), r["hem"].as_f64().unwrap(), r["waist"].as_f64().unwrap());
-    // On the hips, below the waist (their crotch seam, 657 mm, is shorter than the avatar's
-    // crotch, about 755: they sit about 65 mm low), down past the ankles; the seams closed.
-    assert!(top > waist - 120.0 && top < waist + 60.0, "{r}");
+    // At the waist (PF-10.19: before, the thighs overlapped across the middle and pushed the
+    // crotch seam, and the trousers with it, 65 mm down).
+    assert!(top > waist - 30.0 && top < waist + 30.0, "{r}");
     assert!(hem < waist - 900.0, "{r}");
     assert!(r["widestSeam"].as_f64().unwrap() < 15.0, "{r}");
     assert!(r["worstStretch"].as_f64().unwrap() < 40.0, "{r}");
@@ -307,7 +307,8 @@ fn trousers_stay_on_a_male_figure() {
         "crotch_depth": 270, "waist_to_knee": 620, "waist_to_ankle": 1080, "trouser_hem": 480}}));
     let r = s.execute("drape.make", &json!({"precision": 25, "steps": 150, "draw": false})).unwrap();
     let (top, waist) = (r["top"].as_f64().unwrap(), r["waist"].as_f64().unwrap());
-    assert!(top > waist - 300.0, "{r}");
+    // At his waist (PF-10.19; before, about 150 mm below it, on his hips).
+    assert!(top > waist - 40.0, "{r}");
     // (Their hems fold over the feet, PF-10.14, where the seams open a little more.)
     assert!(r["widestSeam"].as_f64().unwrap() < 20.0, "{r}");
 }
@@ -343,8 +344,9 @@ fn the_mens_trouser_block_drapes_on_a_male_figure() {
     let r = s.execute("drape.make", &json!({"precision": 25, "steps": 150, "draw": false})).unwrap();
     assert_eq!((r["pieces"].clone(), r["darts"].clone()), (json!(2), json!(2)), "{r}");
     let (top, waist) = (r["top"].as_f64().unwrap(), r["waist"].as_f64().unwrap());
-    // On the hips (the block's top is 95 cm round for an 86 cm waist, below a 4 cm waistband).
-    assert!(top > waist - 260.0 && top < waist + 30.0, "{r}");
+    // A little below the waist (the block's top is 95 cm round for an 86 cm waist, below a 4 cm
+    // waistband): about 40 mm.
+    assert!(top > waist - 80.0 && top < waist + 30.0, "{r}");
     assert!(r["widestSeam"].as_f64().unwrap() < 15.0 && r["worstStretch"].as_f64().unwrap() < 40.0, "{r}");
 }
 

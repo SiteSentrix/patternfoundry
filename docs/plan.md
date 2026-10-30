@@ -704,6 +704,30 @@ is built on, plus a pattern mode, the way StitchFoundry adds embroidery:
   more in `pf-core` (a trapezoid's edge particles on its outline, none outside it, the particle
   nearest a point of the slanted side on it), the skirt's test bounds tightened (seams within
   5 mm, stretch under 15%; it hangs 580 to 680 mm, a few per cent long under its weight).
+- 2026-10-30, **PF-10.19**: trousers sit at the waist. Draped, the trouser block hung 63 mm
+  below the avatar's waist, its hems on the floor (PF-10.10 and PF-10.12 put it down to the
+  crotch seam); the investigation (`docs/debug-logs/2026-10-30-trousers-sit-low.md`) ruled out
+  sliding, soft cloth, the waistband, the floor and gravity (without gravity they sat as low) and
+  found the thighs: each reached 12 mm past the middle, so just below the torso they overlapped,
+  and the crotch seam, sewn shut there, was pushed down out of them to where they part, 65 mm
+  below the body's crotch, taking the trousers with it. Now the thighs sit side by side across the
+  hips, each half the hips' breadth less a 5 mm gap, as round as the survey's thigh (so deeper
+  than broad). And the avatar's crotch has the survey's length: below the hips the front draws in
+  under the belly and the back under the buttocks to the crotch, until the way from the waist in
+  front down through the crotch and up to the waist behind is ANSUR II's share of the hips (the
+  crotch length from the navel over the buttock girth, 0.609 for women, 0.611 for men; children
+  the women's), longer on each side by how much further the body's waist is above its crotch
+  than the survey's navel above its crotch, 55% of it behind (women; men 57%) as near as the shape
+  allows; before, the hips' full depth was carried down to the crotch (755 mm on the test body,
+  the survey's 700). Both are needed: the thighs apart with the old crotch, the trousers reached
+  the waist but strained to 187%, 94% stretch, a seam 44 mm open. On the test bodies the women's
+  trouser block's top is now 1.5 mm above the waist (was 66 below), the women's block on a man at
+  his waist (was about 150 below), the men's block 40 mm below (its waist is 95 cm for an 86 cm
+  waist, under a 4 cm waistband; it was on the hips). Tests: 1 in `pf-core` (the crotch as long as
+  the survey's share for a woman, a man and a deep crotch, drawn in from the hips, the back the
+  longer way; the thighs side by side, 5 mm apart, as round as the survey's), the trouser tests'
+  bounds tightened (the women's within 30 mm of the waist, the man's within 40, the men's block
+  within 80).
 - 2026-10-29, **PF-10.18**: the draped garment goes to 3D software in its fabric. Export Drape
   as glTF… (`drape.make format: "glb"`) writes the cloth in the document's fabric photos where
   there are any (`colour: "fit"` keeps the fit colours): a part for each photo ("Drape: Main"),
