@@ -6,7 +6,7 @@ use std::sync::Arc;
 use unicode_bidi::Level;
 use unicode_script::{Script, UnicodeScript};
 
-use harfrust::{Direction, Feature, ShapeOptions, Tag, UnicodeBuffer};
+use harfrust::{Buffer, Direction, Feature, ShapeOptions, ShaperFont, Tag};
 use skrifa::MetadataProvider;
 use skrifa::instance::Size;
 use vectorcraft_doc::text::INLINE_CHAR;
@@ -636,21 +636,21 @@ fn shape_segment(text: &str, context: &Range<usize>, seg: &Segment, feats: &OtFe
     let shape_in = |st: &CharStyle, more: &[Feature]| {
         let mut shaped = Shaped::default();
         let Shaped { raw, proportional, vpal } = &mut shaped;
-        let hb_shaped = face.hb().map(|hb| {
-            let shaper = face.shaper.shaper(&hb).instance(face.instance.as_ref()).build();
+        let hb_shaped = Some(()).map(|()| {
+            let shaper = ShaperFont::new(&face.shaper);
             // gid, cluster, x and y advance, x and y offset.
             let shape = |feats: &[Feature], direction: Direction| {
                 let feats: Vec<Feature> = feats.iter().chain(more).cloned().collect();
-                let mut buf = UnicodeBuffer::new();
+                let mut buf = Buffer::new();
                 for (i, c) in text_seg.char_indices() {
                     let cl = (range.start + i) as u32;
                     let c = st.digits.map(c);
                     if upper {
                         for u in c.to_uppercase() {
-                            buf.add(u, cl);
+                            buf.push(u32::from(u), cl);
                         }
                     } else {
-                        buf.add(c, cl);
+                        buf.push(u32::from(c), cl);
                     }
                 }
                 buf.set_direction(direction);
@@ -664,10 +664,13 @@ fn shape_segment(text: &str, context: &Range<usize>, seg: &Segment, feats: &OtFe
                 if let Some(post) = text.get(range.end..context.end) {
                     buf.set_post_context(post);
                 }
-                let gb = shaper.shape(buf, ShapeOptions::new().features(&feats));
-                gb.glyph_infos()
+                // A font the shaper can't read shapes nothing (the fallback below sets nominal glyphs).
+                if harfrust::shape(&shaper, &mut buf, ShapeOptions::new().features(&feats)).is_err() {
+                    return Vec::new();
+                }
+                buf.glyph_infos()
                     .iter()
-                    .zip(gb.glyph_positions())
+                    .zip(buf.glyph_positions())
                     .map(|(info, pos)| (info.glyph_id, info.cluster, pos.x_advance, pos.y_advance, pos.x_offset, pos.y_offset))
                     .collect::<Vec<_>>()
             };

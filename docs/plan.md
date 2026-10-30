@@ -75,6 +75,8 @@ is built on, plus a pattern mode, the way StitchFoundry adds embroidery:
 - None at present.
 
 ## Progress log
+- 2026-10-30, **Dependabot #98**: 27 of its 33 bumps taken (moxcms, hayro-ccitt, harfrust, aes, fax, jpeg-encoder, usvg fixed for); egui 0.37 (craft-ui pins 0.36) and vello 0.3 (root blends no longer reach the page) left out and ignored.
+  `.github/dependabot.yml`: weekly on Mondays, at most 5 PRs, minor and patch updates grouped, each major update on its own.
 - 2026-10-19, **PF-0**: VectorCraft 0.13.1 (upstream `a466625c`) merged with its history
   (`upstream` = storytold/vectorcraft). The programs are `patternfoundry` and `patternfoundry-cli`
   (the Cargo packages keep VectorCraft's names, so `cargo run -p vectorcraft` still works), the app
