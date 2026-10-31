@@ -55,6 +55,8 @@ struct Host {
     locks: Option<WebLocks>,
     /// Graphics restarts so far.
     restarts: u32,
+    /// Sentences for the status bar from work done outside a frame (a MakerFoundry link).
+    notes: crate::makerfoundry::Notes,
 }
 
 pub fn start() {
@@ -64,6 +66,8 @@ pub fn start() {
         return;
     };
     detect_language();
+    // Read and taken out of the page address before anything else can see it.
+    let link = crate::makerfoundry::take_link();
     wasm_bindgen_futures::spawn_local(async move {
         // Before the first frame, which looks for copies a crash left behind.
         let locks = WebLocks::start(RECOVERY_PREFIX).await;
@@ -79,8 +83,18 @@ pub fn start() {
             pointers: SharedPointers::default(),
             locks,
             restarts: 0,
+            notes: Rc::default(),
         };
         track_paste(&host.pasted);
+        if let Some(link) = link {
+            let (inbox, notes, pasted) = (host.inbox.clone(), host.notes.clone(), host.pasted.clone());
+            let wake = move || {
+                if let Some(ctx) = &pasted.borrow().ctx {
+                    ctx.request_repaint();
+                }
+            };
+            wasm_bindgen_futures::spawn_local(crate::makerfoundry::open(link, inbox, notes, wake));
+        }
         run(host, canvas, None).await;
     });
 }
@@ -365,6 +379,10 @@ impl eframe::App for WebShell {
             self.restart(&why);
         }
         let Some(app) = &mut self.app else { return };
+        let notes = std::mem::take(&mut *self.host.notes.borrow_mut());
+        for note in notes {
+            app.status(note);
+        }
         let pasted = self.host.pasted.borrow_mut().flavour.take();
         if let Some((f, held)) = pasted {
             app.paste_from_host(ctx, f, held);
@@ -497,6 +515,9 @@ async fn post(request: &vectorcraft_ui_egui::HttpRequest) -> Result<(u16, String
     }
     let init = web_sys::RequestInit::new();
     init.set_method("POST");
+    // The request carries a key or session: no cookies, and no redirect takes it elsewhere.
+    init.set_credentials(web_sys::RequestCredentials::Omit);
+    init.set_redirect(web_sys::RequestRedirect::Error);
     init.set_headers(&headers);
     init.set_body(&wasm_bindgen::JsValue::from_str(&request.body));
     let response: web_sys::Response =

@@ -5624,3 +5624,7 @@ menu	Pattern	Wykrój
 @msg	MakerFoundry couldn't be reached: {0}	Nie można połączyć się z MakerFoundry: {0}
 @msg	Publish to MakerFoundry needs a build that can reach MakerFoundry	Opublikuj w MakerFoundry wymaga wersji, która może połączyć się z MakerFoundry
 @msg	open Publish to MakerFoundry first: it shows what is sent	najpierw otwórz Opublikuj w MakerFoundry: pokazuje, co zostanie wysłane
+@msg	That link isn't a design file on MakerFoundry, so it wasn't opened.	Ten link nie jest plikiem projektu w MakerFoundry, więc nie został otwarty.
+@msg	The design is too large to open: at most 32 MB.	Projekt jest za duży do otwarcia: najwyżej 32 MB.
+@msg	PatternFoundry opens SVG and DXF designs from MakerFoundry; that file is neither.	PatternFoundry otwiera projekty SVG i DXF z MakerFoundry; ten plik nie jest żadnym z nich.
+@msg	The design couldn't be downloaded from MakerFoundry: {0}	Nie udało się pobrać projektu z MakerFoundry: {0}

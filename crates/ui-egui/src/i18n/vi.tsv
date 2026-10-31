@@ -5366,3 +5366,7 @@ menu	Pattern	Rập
 @msg	MakerFoundry couldn't be reached: {0}	Không kết nối được MakerFoundry: {0}
 @msg	Publish to MakerFoundry needs a build that can reach MakerFoundry	Đăng lên MakerFoundry cần một bản dựng có thể kết nối MakerFoundry
 @msg	open Publish to MakerFoundry first: it shows what is sent	hãy mở Đăng lên MakerFoundry trước: cửa sổ cho thấy những gì được gửi
+@msg	That link isn't a design file on MakerFoundry, so it wasn't opened.	Liên kết đó không phải tệp thiết kế trên MakerFoundry nên không được mở.
+@msg	The design is too large to open: at most 32 MB.	Thiết kế quá lớn để mở: tối đa 32 MB.
+@msg	PatternFoundry opens SVG and DXF designs from MakerFoundry; that file is neither.	PatternFoundry mở thiết kế SVG và DXF từ MakerFoundry; tệp đó không phải loại nào trong hai loại này.
+@msg	The design couldn't be downloaded from MakerFoundry: {0}	Không tải được thiết kế từ MakerFoundry: {0}

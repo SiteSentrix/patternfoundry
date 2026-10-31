@@ -5382,3 +5382,7 @@ menu	Pattern	Выкройка
 @msg	MakerFoundry couldn't be reached: {0}	Не удалось связаться с MakerFoundry: {0}
 @msg	Publish to MakerFoundry needs a build that can reach MakerFoundry	Для публикации в MakerFoundry нужна версия, которая может связаться с MakerFoundry
 @msg	open Publish to MakerFoundry first: it shows what is sent	сначала откройте «Опубликовать в MakerFoundry»: там видно, что будет отправлено
+@msg	That link isn't a design file on MakerFoundry, so it wasn't opened.	Эта ссылка не ведёт к файлу дизайна на MakerFoundry, поэтому он не открыт.
+@msg	The design is too large to open: at most 32 MB.	Дизайн слишком велик для открытия: не более 32 МБ.
+@msg	PatternFoundry opens SVG and DXF designs from MakerFoundry; that file is neither.	PatternFoundry открывает с MakerFoundry дизайны SVG и DXF; этот файл не относится ни к одному из них.
+@msg	The design couldn't be downloaded from MakerFoundry: {0}	Не удалось загрузить дизайн с MakerFoundry: {0}

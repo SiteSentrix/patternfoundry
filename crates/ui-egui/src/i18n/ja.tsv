@@ -5426,3 +5426,7 @@ menu	Pattern	型紙
 @msg	MakerFoundry couldn't be reached: {0}	MakerFoundry に接続できません: {0}
 @msg	Publish to MakerFoundry needs a build that can reach MakerFoundry	MakerFoundry に公開するには、MakerFoundry に接続できるビルドが必要です
 @msg	open Publish to MakerFoundry first: it shows what is sent	先に「MakerFoundry に公開」を開いてください。送信内容が表示されます
+@msg	That link isn't a design file on MakerFoundry, so it wasn't opened.	そのリンクは MakerFoundry のデザインファイルではないため、開きませんでした。
+@msg	The design is too large to open: at most 32 MB.	デザインが大きすぎて開けません: 最大 32 MB です。
+@msg	PatternFoundry opens SVG and DXF designs from MakerFoundry; that file is neither.	PatternFoundry は MakerFoundry の SVG と DXF のデザインを開きます。このファイルはどちらでもありません。
+@msg	The design couldn't be downloaded from MakerFoundry: {0}	MakerFoundry からデザインをダウンロードできませんでした: {0}

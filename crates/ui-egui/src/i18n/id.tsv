@@ -5754,3 +5754,7 @@ menu	Pattern	Pola
 @msg	MakerFoundry couldn't be reached: {0}	MakerFoundry tidak dapat dihubungi: {0}
 @msg	Publish to MakerFoundry needs a build that can reach MakerFoundry	Terbitkan ke MakerFoundry memerlukan versi yang dapat menghubungi MakerFoundry
 @msg	open Publish to MakerFoundry first: it shows what is sent	buka Terbitkan ke MakerFoundry dulu: di sana terlihat apa yang dikirim
+@msg	That link isn't a design file on MakerFoundry, so it wasn't opened.	Tautan itu bukan file desain di MakerFoundry, jadi tidak dibuka.
+@msg	The design is too large to open: at most 32 MB.	Desain terlalu besar untuk dibuka: paling banyak 32 MB.
+@msg	PatternFoundry opens SVG and DXF designs from MakerFoundry; that file is neither.	PatternFoundry membuka desain SVG dan DXF dari MakerFoundry; file itu bukan keduanya.
+@msg	The design couldn't be downloaded from MakerFoundry: {0}	Desain tidak dapat diunduh dari MakerFoundry: {0}

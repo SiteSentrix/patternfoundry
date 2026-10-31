@@ -5349,3 +5349,7 @@ menu	Pattern	패턴
 @msg	MakerFoundry couldn't be reached: {0}	MakerFoundry에 연결할 수 없습니다: {0}
 @msg	Publish to MakerFoundry needs a build that can reach MakerFoundry	MakerFoundry에 게시하려면 MakerFoundry에 연결할 수 있는 빌드가 필요합니다
 @msg	open Publish to MakerFoundry first: it shows what is sent	먼저 MakerFoundry에 게시를 여세요. 보내는 내용이 표시됩니다
+@msg	That link isn't a design file on MakerFoundry, so it wasn't opened.	이 링크는 MakerFoundry의 디자인 파일이 아니어서 열지 않았습니다.
+@msg	The design is too large to open: at most 32 MB.	디자인이 너무 커서 열 수 없습니다: 최대 32MB.
+@msg	PatternFoundry opens SVG and DXF designs from MakerFoundry; that file is neither.	PatternFoundry는 MakerFoundry의 SVG 및 DXF 디자인을 엽니다. 이 파일은 둘 다 아닙니다.
+@msg	The design couldn't be downloaded from MakerFoundry: {0}	MakerFoundry에서 디자인을 내려받지 못했습니다: {0}

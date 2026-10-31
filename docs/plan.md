@@ -75,6 +75,18 @@ is built on, plus a pattern mode, the way StitchFoundry adds embroidery:
 - None at present.
 
 ## Progress log
+- 2026-10-31, **PF-12**: the web app opens MakerFoundry links:
+  `https://sitesentrix.github.io/patternfoundry/?open=<URL-encoded design file address>`. The
+  address must be `https://makerfoundry.app/api/v1/…` (or `www.`), a path of `a-z 0-9 - . /`
+  without dot segments, and at most `?t=` with 48 lowercase hex digits; it is rebuilt from the
+  checked parts (`pf-ai::makerfoundry::open_address`) and taken out of the page address once
+  read. The fetch sends no cookies, follows no redirect, stops after 60 s and reads at most 32 MB;
+  the file is named from `Content-Disposition` or the address, must be SVG or DXF, and opens as a
+  dropped file does. Refusals show MakerFoundry's own sentence. The web publish request (PF-11)
+  now also sends no cookies and follows no redirect. Tested in Chromium against a mocked
+  MakerFoundry; `apps/vectorcraft-web/src/csp.rs` checks any future content security policy
+  (both MakerFoundry hosts in `connect-src`, every inline script's SHA-256 in `script-src`).
+  Waiting on MakerFoundry: `https://sitesentrix.github.io` in its `MF_API_ORIGINS`, then the button.
 - 2026-10-31, **PF-11**: File › Publish to MakerFoundry… (`ui.publishToMakerFoundry`). The
   document goes as SVG, named by the person (the draft's title comes from the file name), with
   their Foundry Account session (`Bearer sfs_…`, never another key) to

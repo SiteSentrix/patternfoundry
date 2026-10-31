@@ -5386,3 +5386,7 @@ menu	Pattern	Cartamodello
 @msg	MakerFoundry couldn't be reached: {0}	Impossibile raggiungere MakerFoundry: {0}
 @msg	Publish to MakerFoundry needs a build that can reach MakerFoundry	Pubblica su MakerFoundry richiede una versione che possa raggiungere MakerFoundry
 @msg	open Publish to MakerFoundry first: it shows what is sent	apri prima Pubblica su MakerFoundry: mostra cosa viene inviato
+@msg	That link isn't a design file on MakerFoundry, so it wasn't opened.	Quel link non è un file di design su MakerFoundry, quindi non è stato aperto.
+@msg	The design is too large to open: at most 32 MB.	Il design è troppo grande da aprire: al massimo 32 MB.
+@msg	PatternFoundry opens SVG and DXF designs from MakerFoundry; that file is neither.	PatternFoundry apre design SVG e DXF da MakerFoundry; quel file non è né l'uno né l'altro.
+@msg	The design couldn't be downloaded from MakerFoundry: {0}	Impossibile scaricare il design da MakerFoundry: {0}

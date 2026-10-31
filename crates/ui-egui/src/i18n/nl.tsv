@@ -5796,3 +5796,7 @@ menu	Pattern	Patroon
 @msg	MakerFoundry couldn't be reached: {0}	MakerFoundry is niet bereikbaar: {0}
 @msg	Publish to MakerFoundry needs a build that can reach MakerFoundry	Publiceren op MakerFoundry vraagt een versie die MakerFoundry kan bereiken
 @msg	open Publish to MakerFoundry first: it shows what is sent	open eerst Publiceren op MakerFoundry: daar zie je wat er verzonden wordt
+@msg	That link isn't a design file on MakerFoundry, so it wasn't opened.	Die link is geen ontwerpbestand op MakerFoundry en is daarom niet geopend.
+@msg	The design is too large to open: at most 32 MB.	Het ontwerp is te groot om te openen: hooguit 32 MB.
+@msg	PatternFoundry opens SVG and DXF designs from MakerFoundry; that file is neither.	PatternFoundry opent SVG- en DXF-ontwerpen van MakerFoundry; dat bestand is geen van beide.
+@msg	The design couldn't be downloaded from MakerFoundry: {0}	Het ontwerp kon niet van MakerFoundry worden gedownload: {0}

@@ -5735,3 +5735,7 @@ menu	Pattern	Кройка
 @msg	MakerFoundry couldn't be reached: {0}	Няма връзка с MakerFoundry: {0}
 @msg	Publish to MakerFoundry needs a build that can reach MakerFoundry	Публикуването в MakerFoundry изисква версия, която може да се свърже с MakerFoundry
 @msg	open Publish to MakerFoundry first: it shows what is sent	първо отворете „Публикуване в MakerFoundry“: там се вижда какво се изпраща
+@msg	That link isn't a design file on MakerFoundry, so it wasn't opened.	Тази връзка не е файл с дизайн в MakerFoundry, затова не беше отворена.
+@msg	The design is too large to open: at most 32 MB.	Дизайнът е твърде голям за отваряне: най-много 32 MB.
+@msg	PatternFoundry opens SVG and DXF designs from MakerFoundry; that file is neither.	PatternFoundry отваря дизайни SVG и DXF от MakerFoundry; този файл не е нито едното, нито другото.
+@msg	The design couldn't be downloaded from MakerFoundry: {0}	Дизайнът не можа да бъде изтеглен от MakerFoundry: {0}

@@ -5727,3 +5727,7 @@ menu	Pattern	Mönster
 @msg	MakerFoundry couldn't be reached: {0}	Det gick inte att nå MakerFoundry: {0}
 @msg	Publish to MakerFoundry needs a build that can reach MakerFoundry	Publicera på MakerFoundry kräver en version som kan nå MakerFoundry
 @msg	open Publish to MakerFoundry first: it shows what is sent	öppna Publicera på MakerFoundry först: där syns vad som skickas
+@msg	That link isn't a design file on MakerFoundry, so it wasn't opened.	Länken är ingen designfil på MakerFoundry, så den öppnades inte.
+@msg	The design is too large to open: at most 32 MB.	Designen är för stor att öppna: högst 32 MB.
+@msg	PatternFoundry opens SVG and DXF designs from MakerFoundry; that file is neither.	PatternFoundry öppnar SVG- och DXF-designer från MakerFoundry; filen är ingetdera.
+@msg	The design couldn't be downloaded from MakerFoundry: {0}	Designen kunde inte hämtas från MakerFoundry: {0}

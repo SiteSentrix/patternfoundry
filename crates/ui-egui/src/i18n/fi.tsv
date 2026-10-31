@@ -5735,3 +5735,7 @@ menu	Pattern	Kaava
 @msg	MakerFoundry couldn't be reached: {0}	MakerFoundryyn ei saatu yhteyttä: {0}
 @msg	Publish to MakerFoundry needs a build that can reach MakerFoundry	Julkaise MakerFoundryssa vaatii version, joka saa yhteyden MakerFoundryyn
 @msg	open Publish to MakerFoundry first: it shows what is sent	avaa ensin Julkaise MakerFoundryssa: se näyttää, mitä lähetetään
+@msg	That link isn't a design file on MakerFoundry, so it wasn't opened.	Linkki ei ole MakerFoundryn mallitiedosto, joten sitä ei avattu.
+@msg	The design is too large to open: at most 32 MB.	Malli on liian suuri avattavaksi: enintään 32 Mt.
+@msg	PatternFoundry opens SVG and DXF designs from MakerFoundry; that file is neither.	PatternFoundry avaa MakerFoundrysta SVG- ja DXF-malleja; tiedosto ei ole kumpaakaan.
+@msg	The design couldn't be downloaded from MakerFoundry: {0}	Mallia ei voitu ladata MakerFoundrysta: {0}

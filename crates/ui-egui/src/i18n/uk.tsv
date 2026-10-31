@@ -5366,3 +5366,7 @@ menu	Pattern	Викрійка
 @msg	MakerFoundry couldn't be reached: {0}	Не вдалося зв’язатися з MakerFoundry: {0}
 @msg	Publish to MakerFoundry needs a build that can reach MakerFoundry	Для публікації в MakerFoundry потрібна версія, що може зв’язатися з MakerFoundry
 @msg	open Publish to MakerFoundry first: it shows what is sent	спершу відкрийте «Опублікувати в MakerFoundry»: там видно, що буде надіслано
+@msg	That link isn't a design file on MakerFoundry, so it wasn't opened.	Це посилання не веде до файлу дизайну на MakerFoundry, тож його не відкрито.
+@msg	The design is too large to open: at most 32 MB.	Дизайн завеликий для відкриття: не більше 32 МБ.
+@msg	PatternFoundry opens SVG and DXF designs from MakerFoundry; that file is neither.	PatternFoundry відкриває з MakerFoundry дизайни SVG і DXF; цей файл не є жодним із них.
+@msg	The design couldn't be downloaded from MakerFoundry: {0}	Не вдалося завантажити дизайн з MakerFoundry: {0}
