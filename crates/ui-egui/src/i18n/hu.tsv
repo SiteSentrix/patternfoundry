@@ -5286,6 +5286,19 @@ file-filter	DXF-AAMA (cutting room)	DXF-AAMA (szabászat)
 file-filter	SVG for cutting	SVG vágáshoz
 file-filter	PDF for projector	PDF projektorhoz
 	Foundry Account…	Foundry-fiók…
+	Publish to MakerFoundry…	Közzététel a MakerFoundryn…
+	Publish to MakerFoundry	Közzététel a MakerFoundryn
+	Publish	Közzététel
+	Sign In…	Bejelentkezés…
+	Not signed in	Nincs bejelentkezve
+	Your Foundry Account	Az Ön Foundry-fiókja
+	Sent to	Címzett
+	SVG, a vector design	SVG, vektoros terv
+	What it is, e.g. A-line skirt	Mi ez, pl. A-vonalú szoknya
+	Your design goes to MakerFoundry as a private draft, to finish on its page. Nothing is public until you publish it there.	A terve privát vázlatként kerül a MakerFoundryre, és az oldalán fejezheti be. Semmi sem nyilvános, amíg ott közzé nem teszi.
+	Draft {id} made.	A(z) {id}. vázlat elkészült.
+	Draft {id} made on MakerFoundry: finish it on the page that opened in your browser.	A(z) {id}. vázlat elkészült a MakerFoundryn: fejezze be a böngészőben megnyílt oldalon.
+	Finish it on MakerFoundry's page, which opened in your browser: it stays private until you publish it there.	Fejezze be a MakerFoundry böngészőben megnyílt oldalán: privát marad, amíg ott közzé nem teszi.
 	A password needs at least 8 characters.	A jelszónak legalább 8 karakterből kell állnia.
 	Account	Fiók
 	Allow	Engedélyezés
@@ -5735,3 +5748,12 @@ menu	Pattern	Szabásminta
 @msg	the image is not a fabric photo (Pattern › Use as Fabric…)	a kép nem anyagfotó (Szabásminta › Használat anyagként…)
 @msg	even: true or false	even: true vagy false
 @msg	seamless: true or false	seamless: true vagy false
+@msg	Sign in to your Foundry Account first: Help › Foundry Account…	Előbb jelentkezzen be a Foundry-fiókjába: Súgó › Foundry-fiók…
+@msg	The document is empty: there is nothing to publish.	A dokumentum üres: nincs mit közzétenni.
+@msg	The design is too large for MakerFoundry: at most 8 MB.	A terv túl nagy a MakerFoundry számára: legfeljebb 8 MB.
+@msg	MakerFoundry's answer couldn't be read.	A MakerFoundry válasza nem olvasható.
+@msg	MakerFoundry answered with a page on another site, which wasn't opened.	A MakerFoundry egy másik webhely oldalával válaszolt, amely nem nyílt meg.
+@msg	MakerFoundry: {1}	MakerFoundry: {1}
+@msg	MakerFoundry couldn't be reached: {0}	A MakerFoundry nem érhető el: {0}
+@msg	Publish to MakerFoundry needs a build that can reach MakerFoundry	A Közzététel a MakerFoundryn olyan változatot igényel, amely eléri a MakerFoundryt
+@msg	open Publish to MakerFoundry first: it shows what is sent	előbb nyissa meg a Közzététel a MakerFoundryn ablakot: megmutatja, mi kerül elküldésre

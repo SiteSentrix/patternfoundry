@@ -4955,6 +4955,19 @@ file-filter	DXF-AAMA (cutting room)	DXF-AAMA（裁断室）
 file-filter	SVG for cutting	カット用 SVG
 file-filter	PDF for projector	プロジェクター用 PDF
 	Foundry Account…	Foundry アカウント…
+	Publish to MakerFoundry…	MakerFoundry に公開…
+	Publish to MakerFoundry	MakerFoundry に公開
+	Publish	公開
+	Sign In…	サインイン…
+	Not signed in	サインインしていません
+	Your Foundry Account	Foundry アカウント
+	Sent to	送信先
+	SVG, a vector design	SVG、ベクターデザイン
+	What it is, e.g. A-line skirt	内容、例: A ラインスカート
+	Your design goes to MakerFoundry as a private draft, to finish on its page. Nothing is public until you publish it there.	デザインは非公開の下書きとして MakerFoundry に送られ、そのページで仕上げます。そこで公開するまで、何も公開されません。
+	Draft {id} made.	下書き {id} を作成しました。
+	Draft {id} made on MakerFoundry: finish it on the page that opened in your browser.	MakerFoundry に下書き {id} を作成しました。ブラウザーで開いたページで仕上げてください。
+	Finish it on MakerFoundry's page, which opened in your browser: it stays private until you publish it there.	ブラウザーで開いた MakerFoundry のページで仕上げてください。そこで公開するまで非公開のままです。
 	A password needs at least 8 characters.	パスワードは 8 文字以上必要です。
 	Account	アカウント
 	Allow	許可
@@ -5404,3 +5417,12 @@ menu	Pattern	型紙
 @msg	the image is not a fabric photo (Pattern › Use as Fabric…)	この画像は生地の写真ではありません（型紙 › 生地として使用…）
 @msg	even: true or false	even: true または false
 @msg	seamless: true or false	seamless: true または false
+@msg	Sign in to your Foundry Account first: Help › Foundry Account…	先に Foundry アカウントにサインインしてください: ヘルプ › Foundry アカウント…
+@msg	The document is empty: there is nothing to publish.	ドキュメントが空です。公開するものがありません。
+@msg	The design is too large for MakerFoundry: at most 8 MB.	デザインが MakerFoundry には大きすぎます (最大 8 MB)。
+@msg	MakerFoundry's answer couldn't be read.	MakerFoundry の応答を読み取れませんでした。
+@msg	MakerFoundry answered with a page on another site, which wasn't opened.	MakerFoundry が別のサイトのページで応答したため、開きませんでした。
+@msg	MakerFoundry: {1}	MakerFoundry: {1}
+@msg	MakerFoundry couldn't be reached: {0}	MakerFoundry に接続できません: {0}
+@msg	Publish to MakerFoundry needs a build that can reach MakerFoundry	MakerFoundry に公開するには、MakerFoundry に接続できるビルドが必要です
+@msg	open Publish to MakerFoundry first: it shows what is sent	先に「MakerFoundry に公開」を開いてください。送信内容が表示されます

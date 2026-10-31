@@ -24,6 +24,7 @@ use serde_json::Value;
 
 pub mod ask;
 pub mod cloud;
+pub mod makerfoundry;
 pub mod muslin;
 
 /// The Messages API endpoint.

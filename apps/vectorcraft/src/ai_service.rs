@@ -14,10 +14,13 @@ use vectorcraft_ui_egui::{HttpRequest, SecretStore};
 const TIMEOUT: Duration = Duration::from_secs(300);
 
 /// Send `req` and wait for the answer → (HTTP status, body). Proxies come from `HTTPS_PROXY` and
-/// friends; certificates are checked against the system's trusted ones.
+/// friends; certificates are checked against the system's trusted ones. Redirects aren't
+/// followed: a request carries a key or a Foundry session, which must not go on to another
+/// address (the AI service, the Foundry service and MakerFoundry answer directly).
 pub fn post(req: &HttpRequest) -> Result<(u16, String), String> {
     let tls = ureq::tls::TlsConfig::builder().root_certs(ureq::tls::RootCerts::PlatformVerifier).build();
-    let agent: ureq::Agent = ureq::Agent::config_builder().tls_config(tls).timeout_global(Some(TIMEOUT)).http_status_as_error(false).build().into();
+    let agent: ureq::Agent =
+        ureq::Agent::config_builder().tls_config(tls).timeout_global(Some(TIMEOUT)).http_status_as_error(false).max_redirects(0).build().into();
     let mut call = agent.post(&req.url);
     for (name, value) in &req.headers {
         call = call.header(*name, value.as_str());

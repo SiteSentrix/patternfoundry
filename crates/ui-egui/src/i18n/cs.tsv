@@ -5300,6 +5300,19 @@ file-filter	DXF-AAMA (cutting room)	DXF-AAMA (střihárna)
 file-filter	SVG for cutting	SVG pro řezání
 file-filter	PDF for projector	PDF pro projektor
 	Foundry Account…	Účet Foundry…
+	Publish to MakerFoundry…	Publikovat na MakerFoundry…
+	Publish to MakerFoundry	Publikovat na MakerFoundry
+	Publish	Publikovat
+	Sign In…	Přihlásit se…
+	Not signed in	Nepřihlášeno
+	Your Foundry Account	Váš účet Foundry
+	Sent to	Odesílá se na
+	SVG, a vector design	SVG, vektorový návrh
+	What it is, e.g. A-line skirt	Co to je, např. áčková sukně
+	Your design goes to MakerFoundry as a private draft, to finish on its page. Nothing is public until you publish it there.	Váš návrh jde na MakerFoundry jako soukromý koncept, který dokončíte na jeho stránce. Nic není veřejné, dokud ho tam nezveřejníte.
+	Draft {id} made.	Koncept {id} vytvořen.
+	Draft {id} made on MakerFoundry: finish it on the page that opened in your browser.	Koncept {id} vytvořen na MakerFoundry: dokončete ho na stránce, která se otevřela v prohlížeči.
+	Finish it on MakerFoundry's page, which opened in your browser: it stays private until you publish it there.	Dokončete ho na stránce MakerFoundry, která se otevřela v prohlížeči: zůstane soukromý, dokud ho tam nezveřejníte.
 	A password needs at least 8 characters.	Heslo musí mít alespoň 8 znaků.
 	Account	Účet
 	Allow	Povolit
@@ -5749,3 +5762,12 @@ menu	Pattern	Střih
 @msg	the image is not a fabric photo (Pattern › Use as Fabric…)	obrázek není fotografie látky (Střih › Použít jako látku…)
 @msg	even: true or false	even: true nebo false
 @msg	seamless: true or false	seamless: true nebo false
+@msg	Sign in to your Foundry Account first: Help › Foundry Account…	Nejdřív se přihlaste ke svému účtu Foundry: Nápověda › Účet Foundry…
+@msg	The document is empty: there is nothing to publish.	Dokument je prázdný: není co publikovat.
+@msg	The design is too large for MakerFoundry: at most 8 MB.	Návrh je pro MakerFoundry příliš velký: nejvýš 8 MB.
+@msg	MakerFoundry's answer couldn't be read.	Odpověď MakerFoundry se nepodařilo přečíst.
+@msg	MakerFoundry answered with a page on another site, which wasn't opened.	MakerFoundry odpověděl stránkou na jiném webu, která se neotevřela.
+@msg	MakerFoundry: {1}	MakerFoundry: {1}
+@msg	MakerFoundry couldn't be reached: {0}	MakerFoundry není dostupný: {0}
+@msg	Publish to MakerFoundry needs a build that can reach MakerFoundry	Publikovat na MakerFoundry potřebuje verzi, která se k MakerFoundry dostane
+@msg	open Publish to MakerFoundry first: it shows what is sent	nejdřív otevřete Publikovat na MakerFoundry: ukazuje, co se odešle

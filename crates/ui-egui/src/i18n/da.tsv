@@ -5283,6 +5283,19 @@ file-filter	DXF-AAMA (cutting room)	DXF-AAMA (tilskæring)
 file-filter	SVG for cutting	SVG til skæring
 file-filter	PDF for projector	PDF til projektor
 	Foundry Account…	Foundry-konto…
+	Publish to MakerFoundry…	Udgiv på MakerFoundry…
+	Publish to MakerFoundry	Udgiv på MakerFoundry
+	Publish	Udgiv
+	Sign In…	Log ind…
+	Not signed in	Ikke logget ind
+	Your Foundry Account	Din Foundry-konto
+	Sent to	Sendes til
+	SVG, a vector design	SVG, et vektordesign
+	What it is, e.g. A-line skirt	Hvad det er, fx A-liniet nederdel
+	Your design goes to MakerFoundry as a private draft, to finish on its page. Nothing is public until you publish it there.	Dit design sendes til MakerFoundry som en privat kladde, der gøres færdig på dens side. Intet er offentligt, før du udgiver det der.
+	Draft {id} made.	Kladde {id} oprettet.
+	Draft {id} made on MakerFoundry: finish it on the page that opened in your browser.	Kladde {id} oprettet på MakerFoundry: gør den færdig på siden, der åbnede i din browser.
+	Finish it on MakerFoundry's page, which opened in your browser: it stays private until you publish it there.	Gør den færdig på MakerFoundrys side, der åbnede i din browser: den forbliver privat, til du udgiver den der.
 	A password needs at least 8 characters.	En adgangskode skal have mindst 8 tegn.
 	Account	Konto
 	Allow	Tillad
@@ -5732,3 +5745,12 @@ menu	Pattern	Mønster
 @msg	the image is not a fabric photo (Pattern › Use as Fabric…)	billedet er ikke et foto af stof (Mønster › Brug som stof…)
 @msg	even: true or false	even: true eller false
 @msg	seamless: true or false	seamless: true eller false
+@msg	Sign in to your Foundry Account first: Help › Foundry Account…	Log først ind på din Foundry-konto: Hjælp › Foundry-konto…
+@msg	The document is empty: there is nothing to publish.	Dokumentet er tomt: der er intet at udgive.
+@msg	The design is too large for MakerFoundry: at most 8 MB.	Designet er for stort til MakerFoundry: højst 8 MB.
+@msg	MakerFoundry's answer couldn't be read.	MakerFoundrys svar kunne ikke læses.
+@msg	MakerFoundry answered with a page on another site, which wasn't opened.	MakerFoundry svarede med en side på et andet websted, som ikke blev åbnet.
+@msg	MakerFoundry: {1}	MakerFoundry: {1}
+@msg	MakerFoundry couldn't be reached: {0}	MakerFoundry kunne ikke nås: {0}
+@msg	Publish to MakerFoundry needs a build that can reach MakerFoundry	Udgiv på MakerFoundry kræver en version, der kan nå MakerFoundry
+@msg	open Publish to MakerFoundry first: it shows what is sent	åbn Udgiv på MakerFoundry først: det viser, hvad der sendes

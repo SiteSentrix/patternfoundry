@@ -4895,6 +4895,19 @@ file-filter	DXF-AAMA (cutting room)	DXF-AAMA (розкрійний цех)
 file-filter	SVG for cutting	SVG для розкрою
 file-filter	PDF for projector	PDF для проєктора
 	Foundry Account…	Обліковий запис Foundry…
+	Publish to MakerFoundry…	Опублікувати в MakerFoundry…
+	Publish to MakerFoundry	Опублікувати в MakerFoundry
+	Publish	Опублікувати
+	Sign In…	Увійти…
+	Not signed in	Вхід не виконано
+	Your Foundry Account	Ваш обліковий запис Foundry
+	Sent to	Куди
+	SVG, a vector design	SVG, векторний дизайн
+	What it is, e.g. A-line skirt	Що це, наприклад спідниця-трапеція
+	Your design goes to MakerFoundry as a private draft, to finish on its page. Nothing is public until you publish it there.	Ваш дизайн іде в MakerFoundry як приватна чернетка, яку ви завершите на його сторінці. Нічого не стане публічним, доки ви не опублікуєте це там.
+	Draft {id} made.	Чернетку {id} створено.
+	Draft {id} made on MakerFoundry: finish it on the page that opened in your browser.	Чернетку {id} створено в MakerFoundry: завершіть її на сторінці, що відкрилася в браузері.
+	Finish it on MakerFoundry's page, which opened in your browser: it stays private until you publish it there.	Завершіть її на сторінці MakerFoundry, що відкрилася в браузері: вона лишається приватною, доки ви не опублікуєте її там.
 	A password needs at least 8 characters.	Пароль має містити щонайменше 8 символів.
 	Account	Обліковий запис
 	Allow	Дозволити
@@ -5344,3 +5357,12 @@ menu	Pattern	Викрійка
 @msg	the image is not a fabric photo (Pattern › Use as Fabric…)	зображення не є фотографією тканини (Викрійка › Використати як тканину…)
 @msg	even: true or false	even: true або false
 @msg	seamless: true or false	seamless: true або false
+@msg	Sign in to your Foundry Account first: Help › Foundry Account…	Спершу увійдіть в обліковий запис Foundry: Довідка › Обліковий запис Foundry…
+@msg	The document is empty: there is nothing to publish.	Документ порожній: немає що публікувати.
+@msg	The design is too large for MakerFoundry: at most 8 MB.	Дизайн завеликий для MakerFoundry: щонайбільше 8 МБ.
+@msg	MakerFoundry's answer couldn't be read.	Не вдалося прочитати відповідь MakerFoundry.
+@msg	MakerFoundry answered with a page on another site, which wasn't opened.	MakerFoundry відповів сторінкою іншого сайту; її не відкрито.
+@msg	MakerFoundry: {1}	MakerFoundry: {1}
+@msg	MakerFoundry couldn't be reached: {0}	Не вдалося зв’язатися з MakerFoundry: {0}
+@msg	Publish to MakerFoundry needs a build that can reach MakerFoundry	Для публікації в MakerFoundry потрібна версія, що може зв’язатися з MakerFoundry
+@msg	open Publish to MakerFoundry first: it shows what is sent	спершу відкрийте «Опублікувати в MakerFoundry»: там видно, що буде надіслано
