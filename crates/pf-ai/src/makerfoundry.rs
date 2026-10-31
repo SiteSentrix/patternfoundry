@@ -497,5 +497,10 @@ mod tests {
         }
         assert_eq!(download_refusal(404, "<html>").to_string(), "MakerFoundry: HTTP 404");
         assert_eq!(download_refusal(413, ""), OpenError::TooLarge);
+        // One line, without control characters, at most 300 characters.
+        let messy = serde_json::json!({"error": {"message": format!("Gone.\n\u{1b}[31m{}", "x".repeat(400))}}).to_string();
+        let said = download_refusal(404, &messy).to_string();
+        assert!(said.starts_with("MakerFoundry: Gone. [31mxxx") && !said.chars().any(char::is_control), "{said}");
+        assert_eq!(said.chars().count(), "MakerFoundry: ".len() + 300);
     }
 }
