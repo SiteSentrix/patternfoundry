@@ -254,3 +254,15 @@ fn the_skirt_blocks_curves_come_back_with_one_allowance_each() {
     let (w1, h1) = widths(&export(&mut s, json!({"format": "aama"})));
     assert!((w0 - w1).abs() < 0.02 && (h0 - h1).abs() < 0.02, "{w0}×{h0} then {w1}×{h1}");
 }
+
+#[test]
+fn a_quantity_too_large_to_add_up_opens_as_the_most_a_piece_can_be_cut() {
+    let mut s = square_piece(2, true);
+    let dxf = export(&mut s, json!({"format": "aama"})).replace("\nQuantity: 1,1\n", "\nQuantity: 4294967295,1\n");
+    assert!(dxf.contains("Quantity: 4294967295,1"));
+    let data = vectorcraft_format::base64_encode(dxf.as_bytes());
+    s.execute("document.open", &json!({"name": "huge.dxf", "dataBase64": data})).unwrap();
+    let list = s.execute("piece.list", &json!({})).unwrap();
+    assert_eq!(list["pieces"][0]["cut"], json!(pf_core::piece::MAX_CUT), "{list}");
+    assert_eq!(list["pieces"][0]["mirror"], json!(true), "{list}");
+}
