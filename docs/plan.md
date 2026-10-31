@@ -39,8 +39,8 @@ is built on, plus a pattern mode, the way StitchFoundry adds embroidery:
 | PF-8 | AI help (StitchFoundry's AI layer): draft from a description, fit advice from muslin photos, step-by-step help | "a wrap dress for my measurements" drafts |
 | PF-9 | Marker making / nesting; selling patterns on MakerFoundry | a marker for 2 m of fabric |
 | PF-10 | 3D fit preview (as Marvelous Designer and CLO do, from public docs only): avatar from measurements, sewing lines, cloth simulation, drape view beside the 2D pattern; glTF/OBJ export for game and 3D artists | a skirt drapes on an avatar of the user's size |
-| PF-12 | Publish to MakerFoundry: File › Publish to MakerFoundry… sends the pattern (true-scale PDF, tiled PDF, SVG, DXF-AAMA) with the Foundry Account session as a private draft (MakerFoundry docs/api.md, "How publishing from an app works") | **waiting**: MakerFoundry has no sewing-pattern kind yet |
-| PF-13 | Open from a MakerFoundry link: the web app's `?open=` (MakerFoundry docs/api.md, "Open in …"), checked to https://makerfoundry.app/api/v1/… only | **waiting**: as PF-12 |
+| PF-11 | Publish to MakerFoundry: File › Publish to MakerFoundry… sends the document with the Foundry Account session as a private draft (MakerFoundry docs/api.md, "How publishing from an app works"): SVG now, listed as a vector (laser) design; true-scale and tiled PDF (PF-2), pieces (PF-1) and DXF-AAMA (PF-7) once MakerFoundry has a sewing-pattern kind | the desktop app publishes a draft and opens its page |
+| PF-12 | Open from a MakerFoundry link: the web app's `?open=` (MakerFoundry docs/api.md, the file address), checked to https://makerfoundry.app/api/v1/designs/…/file/… only, fetched without cookies or redirects | the web app opens a design from its MakerFoundry address |
 
 ## Decided
 - Domain: **patternfoundry.app**, bought by the owner (2026-10-19). Installers and the app link to
@@ -73,17 +73,18 @@ is built on, plus a pattern mode, the way StitchFoundry adds embroidery:
   armhole with the middle of a classic sleeve's ease (PF-4.9), not drafted from the top arm table
   alone.
 
-- MakerFoundry (2026-10-31): PatternFoundry publishes to MakerFoundry only once MakerFoundry
-  has a **sewing-pattern kind** (true-scale PDF, tiled PDF, SVG, DXF-AAMA/ASTM D6673, size range,
-  garment type, tile sizes); a pattern is not published as a generic vector (laser) design. Until
-  then PF-12 (publish) and PF-13 (open from a link) wait, and nothing is built. The owner has
-  agreed to a live check when PF-12 is built: a throwaway Foundry account and one tiny test draft.
-  Then: only the `sfs_` session token is ever sent (never an Anthropic key); the draft page opens
-  only if it is on the site the request went to; `?open=` accepts only https makerfoundry.app (or
-  www.) under /api/v1/; the web app's origin (https://sitesentrix.github.io) has to be in
-  MakerFoundry's MF_API_ORIGINS first, and a content security policy, if one is added, names
-  both MakerFoundry hosts in connect-src with a test that inline scripts' hashes are in
-  script-src.
+- MakerFoundry (2026-10-31, the owner's decision): publish the document as **SVG now**
+  (PF-11), listed as a generic vector design of MakerFoundry's laser kind, its title from the
+  file name; written so true-scale and tiled PDF (PF-2), pieces (PF-1) and DXF-AAMA (PF-7) can be
+  sent later. A **sewing-pattern kind** (true-scale PDF, SVG, DXF-AAMA/ASTM D6673, size range,
+  garment type, tile sizes) is queued as MakerFoundry issue #47; the owner decides when.
+  Opening from a link (PF-12) follows MakerFoundry's file address contract. Only the `sfs_`
+  session token is ever sent (never an Anthropic key); the draft page opens only if it is on the
+  site the request went to. The web app's origin (https://sitesentrix.github.io) has to be added
+  to MakerFoundry's MF_API_ORIGINS before the web app can publish or open (the desktop app is
+  unaffected); a content security policy, if one is added, names both MakerFoundry hosts in
+  connect-src, with a test that every inline script's SHA-256 is in script-src. The owner agreed
+  to a live check: a throwaway Foundry account and one tiny test draft.
 
 ## Open decisions (the owner's)
 - None at present.
