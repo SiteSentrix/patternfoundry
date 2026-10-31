@@ -75,6 +75,19 @@ is built on, plus a pattern mode, the way StitchFoundry adds embroidery:
 - None at present.
 
 ## Progress log
+- 2026-10-31, **PF-11**: File › Publish to MakerFoundry… (`ui.publishToMakerFoundry`). The
+  document goes as SVG, named by the person (the draft's title comes from the file name), with
+  their Foundry Account session (`Bearer sfs_…`, never another key) to
+  `https://makerfoundry.app/api/v1/designs`; the window shows the file, its size, the kind, where
+  it goes and the account before anything is sent. The draft page opens only when it is on
+  makerfoundry.app; MakerFoundry's own sentence is shown for a refusal (one line, at most 300
+  characters). The desktop app no longer follows redirects for requests carrying a key or session.
+  Request building and answer reading are in `pf-ai::makerfoundry` (no network code, so the web
+  app shares them); property tests in `crates/pf-ai/tests/makerfoundry_props.rs`; each protection
+  (host, address characters, token prefix and characters, size, draft address, sentence tidying,
+  window open, empty document) was removed in turn and a test failed. Later, through the same
+  request: true-scale and tiled PDF (PF-2), pieces (PF-1), DXF-AAMA (PF-7), once MakerFoundry has a
+  sewing-pattern kind (its issue #47).
 - 2026-10-30, **Dependabot #98**: 27 of its 33 bumps taken (moxcms, hayro-ccitt, harfrust, aes, fax, jpeg-encoder, usvg fixed for); egui 0.37 (craft-ui pins 0.36) and vello 0.3 (root blends no longer reach the page) left out and ignored.
   `.github/dependabot.yml`: weekly on Mondays, at most 5 PRs, minor and patch updates grouped, each major update on its own.
 - 2026-10-19, **PF-0**: VectorCraft 0.13.1 (upstream `a466625c`) merged with its history

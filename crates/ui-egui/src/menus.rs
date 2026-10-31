@@ -610,6 +610,12 @@ pub const UI_COMMANDS: &[(&str, &str, &str, &str)] = &[
         "{photos?: [path] (added), check?: bool (send the check now)} open Check My Muslin: photos of a muslin (a toile) tried on, the pattern open now and a few answers about the fit, looked at by Claude (your own Anthropic API key or Foundry credits), which says what doesn't fit and how to alter the pattern, and offers to make the alterations (in the Ask About Patterns window, each after your Allow); the photos go with the check only and aren't kept → {open, photos, error}",
     ),
     (
+        "ui.publishToMakerFoundry",
+        "Publish to MakerFoundry…",
+        "",
+        "{send?: bool (send what the open window shows)} open Publish to MakerFoundry: the document as SVG, shown with its file name, size and where it goes (https://makerfoundry.app/api/v1/designs), sent when you press Publish (or with send: true) with your Foundry Account session as a private draft of a vector design, whose page opens in the browser for you to finish; nothing is sent before → {open, fileName, bytes, sentTo, signedIn} | {sending}",
+    ),
+    (
         "ui.account",
         "Foundry Account…",
         "",
@@ -1622,6 +1628,7 @@ pub fn run_ui_command(app: &mut VectorcraftApp, id: &str, p: &Value) -> Option<R
             }
         }),
         "ui.account" => crate::ai::account::open(app, p),
+        "ui.publishToMakerFoundry" => crate::ai::publish::command(app, p),
         "ui.layerOptions" => crate::dialogs::layer_options::open(app, p),
         "ui.newLayer" => crate::dialogs::layer_options::open_new(app, p),
         "ui.newArtboard" => crate::dialogs::artboard_options::open_new(app),
@@ -2327,6 +2334,7 @@ pub fn enabled(app: &VectorcraftApp, id: &str) -> bool {
         id if crate::panels::paragraph::ALIGN_COMMANDS.iter().any(|c| c.0 == id) => crate::panels::character::text_style(app).is_some(),
         "file.reveal" => app.services.reveal.is_some() && app.session.active().is_some_and(|d| d.path.is_some()),
         "ui.askAboutPatterns" | "ui.checkMuslin" | "ui.account" => crate::ai::available(app),
+        "ui.publishToMakerFoundry" => crate::ai::available(app) && app.session.active().is_some_and(|st| st.doc.art_bounds().is_some()),
         "ui.checkSleeveEase" | "ui.checkTrouserSeams" | "ui.checkMarker" | "ui.projector" | "ui.blockOptions" => app.session.active().is_some(),
         "file.cancelExport" | "file.exportInBackground" => app.background.jobs.iter().any(|j| j.progress.is_some() && !j.cancelled()),
         "file.place"
@@ -2464,6 +2472,7 @@ pub fn menu_tree_named(english_names: bool) -> Vec<(&'static str, Vec<Item>)> {
                     ],
                 ),
                 c("Export Selection…", "file.exportSelection"),
+                c("Publish to MakerFoundry…", "ui.publishToMakerFoundry"),
                 Sep,
                 c("Package…", "ui.packageDialog"),
                 sub("Scripts", vec![c("Check Script…", "ui.checkScript"), todos("Other Script…", "Cmd+F12")]),

@@ -5252,6 +5252,19 @@ file-filter	DXF-AAMA (cutting room)	DXF-AAMA (κοπτήριο)
 file-filter	SVG for cutting	SVG για κοπή
 file-filter	PDF for projector	PDF για προβολέα
 	Foundry Account…	Λογαριασμός Foundry…
+	Publish to MakerFoundry…	Δημοσίευση στο MakerFoundry…
+	Publish to MakerFoundry	Δημοσίευση στο MakerFoundry
+	Publish	Δημοσίευση
+	Sign In…	Σύνδεση…
+	Not signed in	Δεν έχετε συνδεθεί
+	Your Foundry Account	Ο λογαριασμός σας Foundry
+	Sent to	Αποστολή σε
+	SVG, a vector design	SVG, διανυσματικό σχέδιο
+	What it is, e.g. A-line skirt	Τι είναι, π.χ. φούστα εβαζέ
+	Your design goes to MakerFoundry as a private draft, to finish on its page. Nothing is public until you publish it there.	Το σχέδιό σας πηγαίνει στο MakerFoundry ως ιδιωτικό πρόχειρο, για να το ολοκληρώσετε στη σελίδα του. Τίποτα δεν είναι δημόσιο μέχρι να το δημοσιεύσετε εκεί.
+	Draft {id} made.	Δημιουργήθηκε το πρόχειρο {id}.
+	Draft {id} made on MakerFoundry: finish it on the page that opened in your browser.	Δημιουργήθηκε το πρόχειρο {id} στο MakerFoundry: ολοκληρώστε το στη σελίδα που άνοιξε στο πρόγραμμα περιήγησης.
+	Finish it on MakerFoundry's page, which opened in your browser: it stays private until you publish it there.	Ολοκληρώστε το στη σελίδα του MakerFoundry που άνοιξε στο πρόγραμμα περιήγησης: μένει ιδιωτικό μέχρι να το δημοσιεύσετε εκεί.
 	A password needs at least 8 characters.	Ο κωδικός χρειάζεται τουλάχιστον 8 χαρακτήρες.
 	Account	Λογαριασμός
 	Allow	Να επιτρέπεται
@@ -5701,3 +5714,12 @@ menu	Pattern	Πατρόν
 @msg	the image is not a fabric photo (Pattern › Use as Fabric…)	η εικόνα δεν είναι φωτογραφία υφάσματος (Πατρόν › Χρήση ως ύφασμα…)
 @msg	even: true or false	even: true ή false
 @msg	seamless: true or false	seamless: true ή false
+@msg	Sign in to your Foundry Account first: Help › Foundry Account…	Συνδεθείτε πρώτα στον λογαριασμό σας Foundry: Βοήθεια › Λογαριασμός Foundry…
+@msg	The document is empty: there is nothing to publish.	Το έγγραφο είναι κενό: δεν υπάρχει τίποτα για δημοσίευση.
+@msg	The design is too large for MakerFoundry: at most 8 MB.	Το σχέδιο είναι πολύ μεγάλο για το MakerFoundry: έως 8 MB.
+@msg	MakerFoundry's answer couldn't be read.	Η απάντηση του MakerFoundry δεν μπόρεσε να διαβαστεί.
+@msg	MakerFoundry answered with a page on another site, which wasn't opened.	Το MakerFoundry απάντησε με σελίδα άλλου ιστότοπου, που δεν ανοίχτηκε.
+@msg	MakerFoundry: {1}	MakerFoundry: {1}
+@msg	MakerFoundry couldn't be reached: {0}	Δεν ήταν δυνατή η σύνδεση με το MakerFoundry: {0}
+@msg	Publish to MakerFoundry needs a build that can reach MakerFoundry	Η Δημοσίευση στο MakerFoundry χρειάζεται έκδοση που φτάνει στο MakerFoundry
+@msg	open Publish to MakerFoundry first: it shows what is sent	ανοίξτε πρώτα τη Δημοσίευση στο MakerFoundry: δείχνει τι αποστέλλεται

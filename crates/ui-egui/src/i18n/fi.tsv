@@ -5264,6 +5264,19 @@ file-filter	DXF-AAMA (cutting room)	DXF-AAMA (leikkaamo)
 file-filter	SVG for cutting	SVG leikkaamiseen
 file-filter	PDF for projector	PDF projektorille
 	Foundry Account…	Foundry-tili…
+	Publish to MakerFoundry…	Julkaise MakerFoundryssa…
+	Publish to MakerFoundry	Julkaise MakerFoundryssa
+	Publish	Julkaise
+	Sign In…	Kirjaudu sisään…
+	Not signed in	Ei kirjautunut
+	Your Foundry Account	Foundry-tilisi
+	Sent to	Lähetetään osoitteeseen
+	SVG, a vector design	SVG, vektorimalli
+	What it is, e.g. A-line skirt	Mikä se on, esim. A-linjainen hame
+	Your design goes to MakerFoundry as a private draft, to finish on its page. Nothing is public until you publish it there.	Mallisi menee MakerFoundryyn yksityisenä luonnoksena, joka viimeistellään sen sivulla. Mikään ei ole julkista ennen kuin julkaiset sen siellä.
+	Draft {id} made.	Luonnos {id} tehty.
+	Draft {id} made on MakerFoundry: finish it on the page that opened in your browser.	Luonnos {id} tehty MakerFoundryyn: viimeistele se selaimeen avautuneella sivulla.
+	Finish it on MakerFoundry's page, which opened in your browser: it stays private until you publish it there.	Viimeistele se MakerFoundryn sivulla, joka avautui selaimeen: se pysyy yksityisenä, kunnes julkaiset sen siellä.
 	A password needs at least 8 characters.	Salasanassa on oltava vähintään 8 merkkiä.
 	Account	Tili
 	Allow	Salli
@@ -5713,3 +5726,12 @@ menu	Pattern	Kaava
 @msg	the image is not a fabric photo (Pattern › Use as Fabric…)	kuva ei ole kangaskuva (Kaava › Käytä kankaana…)
 @msg	even: true or false	even: true tai false
 @msg	seamless: true or false	seamless: true tai false
+@msg	Sign in to your Foundry Account first: Help › Foundry Account…	Kirjaudu ensin Foundry-tiliisi: Ohje › Foundry-tili…
+@msg	The document is empty: there is nothing to publish.	Asiakirja on tyhjä: julkaistavaa ei ole.
+@msg	The design is too large for MakerFoundry: at most 8 MB.	Malli on liian suuri MakerFoundrylle: enintään 8 Mt.
+@msg	MakerFoundry's answer couldn't be read.	MakerFoundryn vastausta ei voitu lukea.
+@msg	MakerFoundry answered with a page on another site, which wasn't opened.	MakerFoundry vastasi toisen sivuston sivulla, jota ei avattu.
+@msg	MakerFoundry: {1}	MakerFoundry: {1}
+@msg	MakerFoundry couldn't be reached: {0}	MakerFoundryyn ei saatu yhteyttä: {0}
+@msg	Publish to MakerFoundry needs a build that can reach MakerFoundry	Julkaise MakerFoundryssa vaatii version, joka saa yhteyden MakerFoundryyn
+@msg	open Publish to MakerFoundry first: it shows what is sent	avaa ensin Julkaise MakerFoundryssa: se näyttää, mitä lähetetään

@@ -5208,6 +5208,19 @@ file-filter	DXF-AAMA (cutting room)	DXF-AAMA (საჭრელი საამ
 file-filter	SVG for cutting	SVG ჭრისთვის
 file-filter	PDF for projector	PDF პროექტორისთვის
 	Foundry Account…	Foundry-ის ანგარიში…
+	Publish to MakerFoundry…	MakerFoundry-ზე გამოქვეყნება…
+	Publish to MakerFoundry	MakerFoundry-ზე გამოქვეყნება
+	Publish	გამოქვეყნება
+	Sign In…	შესვლა…
+	Not signed in	არ ხართ შესული
+	Your Foundry Account	თქვენი Foundry-ის ანგარიში
+	Sent to	იგზავნება
+	SVG, a vector design	SVG, ვექტორული დიზაინი
+	What it is, e.g. A-line skirt	რა არის, მაგ. A-სილუეტის ქვედაბოლო
+	Your design goes to MakerFoundry as a private draft, to finish on its page. Nothing is public until you publish it there.	თქვენი დიზაინი MakerFoundry-ზე პირად მონახაზად იგზავნება, რომ მის გვერდზე დაასრულოთ. არაფერია საჯარო, სანამ იქ არ გამოაქვეყნებთ.
+	Draft {id} made.	მონახაზი {id} შეიქმნა.
+	Draft {id} made on MakerFoundry: finish it on the page that opened in your browser.	მონახაზი {id} შეიქმნა MakerFoundry-ზე: დაასრულეთ ბრაუზერში გახსნილ გვერდზე.
+	Finish it on MakerFoundry's page, which opened in your browser: it stays private until you publish it there.	დაასრულეთ MakerFoundry-ის ბრაუზერში გახსნილ გვერდზე: პირადი რჩება, სანამ იქ არ გამოაქვეყნებთ.
 	A password needs at least 8 characters.	პაროლს სჭირდება მინიმუმ 8 სიმბოლო.
 	Account	ანგარიში
 	Allow	ნების დართვა
@@ -5657,3 +5670,12 @@ menu	Pattern	თარგი
 @msg	the image is not a fabric photo (Pattern › Use as Fabric…)	გამოსახულება ქსოვილის ფოტო არ არის (თარგი › ქსოვილად გამოყენება…)
 @msg	even: true or false	even: true ან false
 @msg	seamless: true or false	seamless: true ან false
+@msg	Sign in to your Foundry Account first: Help › Foundry Account…	ჯერ შედით თქვენს Foundry-ის ანგარიშზე: დახმარება › Foundry-ის ანგარიში…
+@msg	The document is empty: there is nothing to publish.	დოკუმენტი ცარიელია: გამოსაქვეყნებელი არაფერია.
+@msg	The design is too large for MakerFoundry: at most 8 MB.	დიზაინი MakerFoundry-სთვის ზედმეტად დიდია: მაქსიმუმ 8 MB.
+@msg	MakerFoundry's answer couldn't be read.	MakerFoundry-ის პასუხი ვერ წაიკითხა.
+@msg	MakerFoundry answered with a page on another site, which wasn't opened.	MakerFoundry-მა სხვა საიტის გვერდით უპასუხა, რომელიც არ გაიხსნა.
+@msg	MakerFoundry: {1}	MakerFoundry: {1}
+@msg	MakerFoundry couldn't be reached: {0}	MakerFoundry-თან კავშირი ვერ მოხერხდა: {0}
+@msg	Publish to MakerFoundry needs a build that can reach MakerFoundry	MakerFoundry-ზე გამოქვეყნებას სჭირდება ვერსია, რომელიც MakerFoundry-ს მიწვდება
+@msg	open Publish to MakerFoundry first: it shows what is sent	ჯერ გახსენით „MakerFoundry-ზე გამოქვეყნება“: იქ ჩანს, რა იგზავნება

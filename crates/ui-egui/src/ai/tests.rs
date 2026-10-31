@@ -401,3 +401,100 @@ fn a_muslin_check_needs_a_photo() {
     let mut bare = VectorcraftApp::new(Session::new(), Services::default());
     assert!(!crate::menus::enabled(&bare, "ui.checkMuslin") && bare.run("ui.checkMuslin", json!({})).is_err());
 }
+
+/// Publish to MakerFoundry (PF-11): poll as frames do until MakerFoundry's answer is in.
+fn wait_published(app: &mut VectorcraftApp) {
+    let ctx = egui::Context::default();
+    for _ in 0..1000 {
+        super::publish::poll(app, &ctx);
+        if app.ai.publish.made.is_some() || app.ai.publish.error.is_some() {
+            return;
+        }
+        std::thread::sleep(Duration::from_millis(5));
+    }
+    panic!("no answer from MakerFoundry");
+}
+
+/// An app with a rectangle drawn, signed in to a Foundry Account, MakerFoundry answering `replies`.
+fn signed_in(replies: Vec<(u16, String)>) -> (VectorcraftApp, Sent) {
+    let (mut app, sent, keys) = app(replies);
+    keys.save(pf_ai::cloud::TOKEN_NAME, Some("sfs_session")).unwrap();
+    app.run("shape.rectangle", json!({"x": 10, "y": 10, "width": 100, "height": 60})).unwrap();
+    (app, sent)
+}
+
+#[test]
+fn a_design_is_shown_before_it_goes_and_sent_as_svg_with_the_session_alone() {
+    let draft = json!({"id": 42, "url": "https://makerfoundry.app/designs/42/edit", "kind": "laser", "format": "svg"});
+    let (mut app, sent) = signed_in(vec![(201, draft.to_string())]);
+    // Opening it shows what goes and where; nothing is sent.
+    let r = app.run("ui.publishToMakerFoundry", json!({})).unwrap();
+    assert_eq!(
+        (r["open"].as_bool(), r["sentTo"].as_str(), r["signedIn"].as_bool()),
+        (Some(true), Some("https://makerfoundry.app/api/v1/designs"), Some(true))
+    );
+    assert_eq!(r["fileName"], "Untitled-1.svg", "{r}");
+    assert!(r["bytes"].as_u64().unwrap() > 0);
+    assert!(sent.lock().unwrap().is_empty(), "nothing goes before Publish");
+    // Named, then sent.
+    app.run("ui.publishToMakerFoundry", json!({"send": true, "name": "A-line skirt (v2)"})).unwrap();
+    wait_published(&mut app);
+    let req = sent.lock().unwrap()[0].clone();
+    assert_eq!(req.url, "https://makerfoundry.app/api/v1/designs");
+    assert!(req.headers.contains(&("authorization", "Bearer sfs_session".to_string())));
+    assert!(req.headers.iter().all(|h| h.0 != "x-api-key" && !h.1.contains("sk-ant")), "the Anthropic key never goes to MakerFoundry");
+    let b = body(&sent, 0);
+    assert_eq!(b["file_name"], "A-line_skirt_v2.svg");
+    assert!(b["app"].as_str().unwrap().starts_with("PatternFoundry "), "{b}");
+    let svg = String::from_utf8(vectorcraft_format::base64_decode(b["file"].as_str().unwrap()).unwrap()).unwrap();
+    assert!(svg.contains("<svg") && svg.contains("<rect") || svg.contains("<path"), "{svg}");
+    assert!(b.get("photos").is_none() && b.as_object().unwrap().len() == 3, "{b}");
+    // The draft's page opens; the window says which draft it is.
+    assert_eq!(app.ai.publish.made, Some(42));
+    assert_eq!(app.pending_url.as_deref(), Some("https://makerfoundry.app/designs/42/edit"));
+    assert!(app.ui.status.contains("42"), "{}", app.ui.status);
+}
+
+#[test]
+fn a_draft_on_another_site_is_not_opened_and_refusals_say_makerfoundrys_sentence() {
+    for url in
+        ["https://makerfoundry.app.evil.com/designs/1", "https://makerfoundry.app@evil.com/x", "https://evil.com/", "http://makerfoundry.app/d/1"]
+    {
+        let (mut app, _) = signed_in(vec![(201, json!({"id": 1, "url": url}).to_string())]);
+        app.run("ui.publishToMakerFoundry", json!({})).unwrap();
+        app.run("ui.publishToMakerFoundry", json!({"send": true})).unwrap();
+        wait_published(&mut app);
+        assert_eq!(app.pending_url, None, "{url} wasn't opened");
+        assert_eq!(app.ai.publish.made, None);
+        assert_eq!(app.ai.publish.error.as_deref(), Some("MakerFoundry answered with a page on another site, which wasn't opened."));
+    }
+    let (mut app, _) = signed_in(vec![(422, json!({"error": {"message": "That isn't a design MakerFoundry can read."}}).to_string())]);
+    app.run("ui.publishToMakerFoundry", json!({})).unwrap();
+    app.run("ui.publishToMakerFoundry", json!({"send": true})).unwrap();
+    wait_published(&mut app);
+    assert_eq!(app.ai.publish.error.as_deref(), Some("MakerFoundry: That isn't a design MakerFoundry can read."));
+    assert_eq!(app.pending_url, None);
+}
+
+#[test]
+fn nothing_is_sent_without_a_session_a_design_or_the_window() {
+    // Signed out (only an Anthropic key kept): refused before anything leaves.
+    let (mut app, sent, _) = app(vec![]);
+    app.run("shape.rectangle", json!({"x": 10, "y": 10, "width": 100, "height": 60})).unwrap();
+    assert!(app.run("ui.publishToMakerFoundry", json!({"send": true})).unwrap_err().contains("open Publish to MakerFoundry first"));
+    let r = app.run("ui.publishToMakerFoundry", json!({})).unwrap();
+    assert_eq!(r["signedIn"].as_bool(), Some(false));
+    let e = app.run("ui.publishToMakerFoundry", json!({"send": true})).unwrap_err();
+    assert!(e.contains("Sign in to your Foundry Account"), "{e}");
+    // Signed in, a design ready, but the window shut: nothing goes unseen.
+    let (mut seen, sent_seen) = signed_in(vec![]);
+    seen.run("ui.publishToMakerFoundry", json!({})).unwrap();
+    seen.ai.publish.open = false;
+    assert!(seen.run("ui.publishToMakerFoundry", json!({"send": true})).unwrap_err().contains("open Publish to MakerFoundry first"));
+    assert!(sent_seen.lock().unwrap().is_empty());
+    assert!(sent.lock().unwrap().is_empty());
+    // An empty document: nothing to publish, and the command is gray.
+    let (mut empty, _, _) = self::app(vec![]);
+    assert!(!crate::menus::enabled(&empty, "ui.publishToMakerFoundry"));
+    assert!(empty.run("ui.publishToMakerFoundry", json!({})).unwrap_err().contains("nothing to publish"));
+}

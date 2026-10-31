@@ -3173,6 +3173,7 @@ dependencies = [
 name = "pf-ai"
 version = "0.13.1"
 dependencies = [
+ "proptest",
  "serde_json",
  "thiserror 2.0.21",
 ]

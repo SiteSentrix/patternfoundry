@@ -4878,6 +4878,19 @@ file-filter	DXF-AAMA (cutting room)	DXF-AAMA (재단실)
 file-filter	SVG for cutting	재단용 SVG
 file-filter	PDF for projector	프로젝터용 PDF
 	Foundry Account…	Foundry 계정…
+	Publish to MakerFoundry…	MakerFoundry에 게시…
+	Publish to MakerFoundry	MakerFoundry에 게시
+	Publish	게시
+	Sign In…	로그인…
+	Not signed in	로그인하지 않음
+	Your Foundry Account	내 Foundry 계정
+	Sent to	보낼 곳
+	SVG, a vector design	SVG, 벡터 디자인
+	What it is, e.g. A-line skirt	무엇인지, 예: A라인 스커트
+	Your design goes to MakerFoundry as a private draft, to finish on its page. Nothing is public until you publish it there.	디자인은 비공개 초안으로 MakerFoundry에 보내져 그 페이지에서 마무리합니다. 그곳에서 게시하기 전에는 아무것도 공개되지 않습니다.
+	Draft {id} made.	초안 {id}을(를) 만들었습니다.
+	Draft {id} made on MakerFoundry: finish it on the page that opened in your browser.	MakerFoundry에 초안 {id}을(를) 만들었습니다. 브라우저에 열린 페이지에서 마무리하세요.
+	Finish it on MakerFoundry's page, which opened in your browser: it stays private until you publish it there.	브라우저에 열린 MakerFoundry 페이지에서 마무리하세요. 그곳에서 게시하기 전까지 비공개로 유지됩니다.
 	A password needs at least 8 characters.	비밀번호는 8자 이상이어야 합니다.
 	Account	계정
 	Allow	허용
@@ -5327,3 +5340,12 @@ menu	Pattern	패턴
 @msg	the image is not a fabric photo (Pattern › Use as Fabric…)	이미지가 원단 사진이 아닙니다 (패턴 › 원단으로 사용…)
 @msg	even: true or false	even: true 또는 false
 @msg	seamless: true or false	seamless: true 또는 false
+@msg	Sign in to your Foundry Account first: Help › Foundry Account…	먼저 Foundry 계정에 로그인하세요: 도움말 › Foundry 계정…
+@msg	The document is empty: there is nothing to publish.	문서가 비어 있습니다. 게시할 것이 없습니다.
+@msg	The design is too large for MakerFoundry: at most 8 MB.	디자인이 MakerFoundry에 너무 큽니다: 최대 8MB.
+@msg	MakerFoundry's answer couldn't be read.	MakerFoundry의 응답을 읽을 수 없습니다.
+@msg	MakerFoundry answered with a page on another site, which wasn't opened.	MakerFoundry가 다른 사이트의 페이지로 응답하여 열지 않았습니다.
+@msg	MakerFoundry: {1}	MakerFoundry: {1}
+@msg	MakerFoundry couldn't be reached: {0}	MakerFoundry에 연결할 수 없습니다: {0}
+@msg	Publish to MakerFoundry needs a build that can reach MakerFoundry	MakerFoundry에 게시하려면 MakerFoundry에 연결할 수 있는 빌드가 필요합니다
+@msg	open Publish to MakerFoundry first: it shows what is sent	먼저 MakerFoundry에 게시를 여세요. 보내는 내용이 표시됩니다

@@ -5136,6 +5136,19 @@ file-filter	DXF-AAMA (cutting room)	DXF-AAMA（裁剪车间）
 file-filter	SVG for cutting	用于裁剪的 SVG
 file-filter	PDF for projector	用于投影仪的 PDF
 	Foundry Account…	Foundry 账户…
+	Publish to MakerFoundry…	发布到 MakerFoundry…
+	Publish to MakerFoundry	发布到 MakerFoundry
+	Publish	发布
+	Sign In…	登录…
+	Not signed in	未登录
+	Your Foundry Account	你的 Foundry 账户
+	Sent to	发送到
+	SVG, a vector design	SVG，矢量设计
+	What it is, e.g. A-line skirt	这是什么，例如 A 字裙
+	Your design goes to MakerFoundry as a private draft, to finish on its page. Nothing is public until you publish it there.	你的设计会作为私人草稿发送到 MakerFoundry，在它的页面上完成。在你在那里发布之前，不会公开任何内容。
+	Draft {id} made.	已创建草稿 {id}。
+	Draft {id} made on MakerFoundry: finish it on the page that opened in your browser.	已在 MakerFoundry 创建草稿 {id}：请在浏览器打开的页面上完成。
+	Finish it on MakerFoundry's page, which opened in your browser: it stays private until you publish it there.	请在浏览器打开的 MakerFoundry 页面上完成：在你在那里发布之前，它保持私密。
 	A password needs at least 8 characters.	密码至少需要 8 个字符。
 	Account	账户
 	Allow	允许
@@ -5585,3 +5598,12 @@ menu	Pattern	纸样
 @msg	the image is not a fabric photo (Pattern › Use as Fabric…)	该图像不是面料照片（纸样 › 用作面料…）
 @msg	even: true or false	even: true 或 false
 @msg	seamless: true or false	seamless: true 或 false
+@msg	Sign in to your Foundry Account first: Help › Foundry Account…	请先登录你的 Foundry 账户：帮助 › Foundry 账户…
+@msg	The document is empty: there is nothing to publish.	文档为空：没有可发布的内容。
+@msg	The design is too large for MakerFoundry: at most 8 MB.	设计对 MakerFoundry 来说太大：最多 8 MB。
+@msg	MakerFoundry's answer couldn't be read.	无法读取 MakerFoundry 的回复。
+@msg	MakerFoundry answered with a page on another site, which wasn't opened.	MakerFoundry 用其他网站的页面回复，该页面未打开。
+@msg	MakerFoundry: {1}	MakerFoundry：{1}
+@msg	MakerFoundry couldn't be reached: {0}	无法连接 MakerFoundry：{0}
+@msg	Publish to MakerFoundry needs a build that can reach MakerFoundry	发布到 MakerFoundry 需要能连接 MakerFoundry 的版本
+@msg	open Publish to MakerFoundry first: it shows what is sent	请先打开“发布到 MakerFoundry”：其中显示要发送的内容
