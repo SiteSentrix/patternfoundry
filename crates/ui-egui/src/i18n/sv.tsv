@@ -5256,6 +5256,19 @@ file-filter	DXF-AAMA (cutting room)	DXF-AAMA (tillskärning)
 file-filter	SVG for cutting	SVG för skärning
 file-filter	PDF for projector	PDF för projektor
 	Foundry Account…	Foundry-konto…
+	Publish to MakerFoundry…	Publicera på MakerFoundry…
+	Publish to MakerFoundry	Publicera på MakerFoundry
+	Publish	Publicera
+	Sign In…	Logga in…
+	Not signed in	Inte inloggad
+	Your Foundry Account	Ditt Foundry-konto
+	Sent to	Skickas till
+	SVG, a vector design	SVG, en vektordesign
+	What it is, e.g. A-line skirt	Vad det är, t.ex. A-linjekjol
+	Your design goes to MakerFoundry as a private draft, to finish on its page. Nothing is public until you publish it there.	Din design skickas till MakerFoundry som ett privat utkast, att göra klart på dess sida. Inget är offentligt förrän du publicerar det där.
+	Draft {id} made.	Utkast {id} skapat.
+	Draft {id} made on MakerFoundry: finish it on the page that opened in your browser.	Utkast {id} skapat på MakerFoundry: gör klart det på sidan som öppnades i webbläsaren.
+	Finish it on MakerFoundry's page, which opened in your browser: it stays private until you publish it there.	Gör klart det på MakerFoundrys sida som öppnades i webbläsaren: det förblir privat tills du publicerar det där.
 	A password needs at least 8 characters.	Ett lösenord behöver minst 8 tecken.
 	Account	Konto
 	Allow	Tillåt
@@ -5705,3 +5718,12 @@ menu	Pattern	Mönster
 @msg	the image is not a fabric photo (Pattern › Use as Fabric…)	bilden är inget tygfoto (Mönster › Använd som tyg…)
 @msg	even: true or false	even: true eller false
 @msg	seamless: true or false	seamless: true eller false
+@msg	Sign in to your Foundry Account first: Help › Foundry Account…	Logga in på ditt Foundry-konto först: Hjälp › Foundry-konto…
+@msg	The document is empty: there is nothing to publish.	Dokumentet är tomt: det finns inget att publicera.
+@msg	The design is too large for MakerFoundry: at most 8 MB.	Designen är för stor för MakerFoundry: högst 8 MB.
+@msg	MakerFoundry's answer couldn't be read.	MakerFoundrys svar gick inte att läsa.
+@msg	MakerFoundry answered with a page on another site, which wasn't opened.	MakerFoundry svarade med en sida på en annan webbplats, som inte öppnades.
+@msg	MakerFoundry: {1}	MakerFoundry: {1}
+@msg	MakerFoundry couldn't be reached: {0}	Det gick inte att nå MakerFoundry: {0}
+@msg	Publish to MakerFoundry needs a build that can reach MakerFoundry	Publicera på MakerFoundry kräver en version som kan nå MakerFoundry
+@msg	open Publish to MakerFoundry first: it shows what is sent	öppna Publicera på MakerFoundry först: där syns vad som skickas

@@ -5325,6 +5325,19 @@ file-filter	DXF-AAMA (cutting room)	DXF-AAMA (snijzaal)
 file-filter	SVG for cutting	SVG om te snijden
 file-filter	PDF for projector	PDF voor projector
 	Foundry Account…	Foundry-account…
+	Publish to MakerFoundry…	Publiceren op MakerFoundry…
+	Publish to MakerFoundry	Publiceren op MakerFoundry
+	Publish	Publiceren
+	Sign In…	Aanmelden…
+	Not signed in	Niet aangemeld
+	Your Foundry Account	Je Foundry-account
+	Sent to	Verzonden naar
+	SVG, a vector design	SVG, een vectorontwerp
+	What it is, e.g. A-line skirt	Wat het is, bijv. A-lijnrok
+	Your design goes to MakerFoundry as a private draft, to finish on its page. Nothing is public until you publish it there.	Je ontwerp gaat als privéconcept naar MakerFoundry, om af te maken op de pagina daar. Niets is openbaar tot je het daar publiceert.
+	Draft {id} made.	Concept {id} gemaakt.
+	Draft {id} made on MakerFoundry: finish it on the page that opened in your browser.	Concept {id} gemaakt op MakerFoundry: maak het af op de pagina die in je browser opende.
+	Finish it on MakerFoundry's page, which opened in your browser: it stays private until you publish it there.	Maak het af op de pagina van MakerFoundry die in je browser opende: het blijft privé tot je het daar publiceert.
 	A password needs at least 8 characters.	Een wachtwoord heeft minstens 8 tekens nodig.
 	Account	Account
 	Allow	Toestaan
@@ -5774,3 +5787,12 @@ menu	Pattern	Patroon
 @msg	the image is not a fabric photo (Pattern › Use as Fabric…)	de afbeelding is geen stoffoto (Patroon › Als stof gebruiken…)
 @msg	even: true or false	even: true of false
 @msg	seamless: true or false	seamless: true of false
+@msg	Sign in to your Foundry Account first: Help › Foundry Account…	Meld je eerst aan bij je Foundry-account: Help › Foundry-account…
+@msg	The document is empty: there is nothing to publish.	Het document is leeg: er is niets te publiceren.
+@msg	The design is too large for MakerFoundry: at most 8 MB.	Het ontwerp is te groot voor MakerFoundry: hoogstens 8 MB.
+@msg	MakerFoundry's answer couldn't be read.	Het antwoord van MakerFoundry was niet te lezen.
+@msg	MakerFoundry answered with a page on another site, which wasn't opened.	MakerFoundry antwoordde met een pagina op een andere site; die is niet geopend.
+@msg	MakerFoundry: {1}	MakerFoundry: {1}
+@msg	MakerFoundry couldn't be reached: {0}	MakerFoundry is niet bereikbaar: {0}
+@msg	Publish to MakerFoundry needs a build that can reach MakerFoundry	Publiceren op MakerFoundry vraagt een versie die MakerFoundry kan bereiken
+@msg	open Publish to MakerFoundry first: it shows what is sent	open eerst Publiceren op MakerFoundry: daar zie je wat er verzonden wordt

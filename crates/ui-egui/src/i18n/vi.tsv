@@ -4895,6 +4895,19 @@ file-filter	DXF-AAMA (cutting room)	DXF-AAMA (xưởng cắt)
 file-filter	SVG for cutting	SVG để cắt
 file-filter	PDF for projector	PDF cho máy chiếu
 	Foundry Account…	Tài khoản Foundry…
+	Publish to MakerFoundry…	Đăng lên MakerFoundry…
+	Publish to MakerFoundry	Đăng lên MakerFoundry
+	Publish	Đăng
+	Sign In…	Đăng nhập…
+	Not signed in	Chưa đăng nhập
+	Your Foundry Account	Tài khoản Foundry của bạn
+	Sent to	Gửi đến
+	SVG, a vector design	SVG, một thiết kế vector
+	What it is, e.g. A-line skirt	Đây là gì, ví dụ chân váy chữ A
+	Your design goes to MakerFoundry as a private draft, to finish on its page. Nothing is public until you publish it there.	Thiết kế của bạn được gửi lên MakerFoundry dưới dạng bản nháp riêng tư để hoàn tất trên trang của nó. Không có gì công khai cho đến khi bạn đăng ở đó.
+	Draft {id} made.	Đã tạo bản nháp {id}.
+	Draft {id} made on MakerFoundry: finish it on the page that opened in your browser.	Đã tạo bản nháp {id} trên MakerFoundry: hãy hoàn tất trên trang vừa mở trong trình duyệt.
+	Finish it on MakerFoundry's page, which opened in your browser: it stays private until you publish it there.	Hãy hoàn tất trên trang MakerFoundry vừa mở trong trình duyệt: bản nháp vẫn riêng tư cho đến khi bạn đăng ở đó.
 	A password needs at least 8 characters.	Mật khẩu cần ít nhất 8 ký tự.
 	Account	Tài khoản
 	Allow	Cho phép
@@ -5344,3 +5357,12 @@ menu	Pattern	Rập
 @msg	the image is not a fabric photo (Pattern › Use as Fabric…)	hình ảnh không phải là ảnh vải (Rập › Dùng làm vải…)
 @msg	even: true or false	even: true hoặc false
 @msg	seamless: true or false	seamless: true hoặc false
+@msg	Sign in to your Foundry Account first: Help › Foundry Account…	Hãy đăng nhập Tài khoản Foundry trước: Trợ giúp › Tài khoản Foundry…
+@msg	The document is empty: there is nothing to publish.	Tài liệu trống: không có gì để đăng.
+@msg	The design is too large for MakerFoundry: at most 8 MB.	Thiết kế quá lớn đối với MakerFoundry: tối đa 8 MB.
+@msg	MakerFoundry's answer couldn't be read.	Không đọc được câu trả lời của MakerFoundry.
+@msg	MakerFoundry answered with a page on another site, which wasn't opened.	MakerFoundry trả lời bằng một trang thuộc trang web khác, trang đó không được mở.
+@msg	MakerFoundry: {1}	MakerFoundry: {1}
+@msg	MakerFoundry couldn't be reached: {0}	Không kết nối được MakerFoundry: {0}
+@msg	Publish to MakerFoundry needs a build that can reach MakerFoundry	Đăng lên MakerFoundry cần một bản dựng có thể kết nối MakerFoundry
+@msg	open Publish to MakerFoundry first: it shows what is sent	hãy mở Đăng lên MakerFoundry trước: cửa sổ cho thấy những gì được gửi

@@ -16,6 +16,7 @@ use crate::VectorcraftApp;
 pub mod account;
 pub mod ask;
 pub mod muslin;
+pub mod publish;
 
 /// The secret the API key is kept as.
 pub const KEY_NAME: &str = "anthropic-api-key";
@@ -36,6 +37,7 @@ pub struct AiState {
     pub ask: ask::AskState,
     pub account: account::AccountState,
     pub muslin: muslin::MuslinState,
+    pub publish: publish::PublishState,
 }
 
 /// Whether this build can send AI requests.
@@ -120,9 +122,11 @@ pub fn frame(app: &mut VectorcraftApp, ctx: &egui::Context) {
     app.ai.now = ctx.input(|i| i.time);
     ask::poll(app, ctx);
     account::poll(app, ctx);
+    publish::poll(app, ctx);
     ask::window(app, ctx);
     account::window(app, ctx);
     muslin::window(app, ctx);
+    publish::window(app, ctx);
 }
 
 #[cfg(test)]

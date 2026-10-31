@@ -5283,6 +5283,19 @@ file-filter	DXF-AAMA (cutting room)	DXF-AAMA (ruang potong)
 file-filter	SVG for cutting	SVG untuk pemotongan
 file-filter	PDF for projector	PDF untuk proyektor
 	Foundry Account…	Akun Foundry…
+	Publish to MakerFoundry…	Terbitkan ke MakerFoundry…
+	Publish to MakerFoundry	Terbitkan ke MakerFoundry
+	Publish	Terbitkan
+	Sign In…	Masuk…
+	Not signed in	Belum masuk
+	Your Foundry Account	Akun Foundry Anda
+	Sent to	Dikirim ke
+	SVG, a vector design	SVG, desain vektor
+	What it is, e.g. A-line skirt	Apa ini, mis. rok A-line
+	Your design goes to MakerFoundry as a private draft, to finish on its page. Nothing is public until you publish it there.	Desain Anda dikirim ke MakerFoundry sebagai draf pribadi, untuk diselesaikan di halamannya. Tidak ada yang publik sampai Anda menerbitkannya di sana.
+	Draft {id} made.	Draf {id} dibuat.
+	Draft {id} made on MakerFoundry: finish it on the page that opened in your browser.	Draf {id} dibuat di MakerFoundry: selesaikan di halaman yang terbuka di browser.
+	Finish it on MakerFoundry's page, which opened in your browser: it stays private until you publish it there.	Selesaikan di halaman MakerFoundry yang terbuka di browser: draf tetap pribadi sampai Anda menerbitkannya di sana.
 	A password needs at least 8 characters.	Kata sandi perlu minimal 8 karakter.
 	Account	Akun
 	Allow	Izinkan
@@ -5732,3 +5745,12 @@ menu	Pattern	Pola
 @msg	the image is not a fabric photo (Pattern › Use as Fabric…)	gambar ini bukan foto kain (Pola › Gunakan sebagai Kain…)
 @msg	even: true or false	even: true atau false
 @msg	seamless: true or false	seamless: true atau false
+@msg	Sign in to your Foundry Account first: Help › Foundry Account…	Masuk dulu ke Akun Foundry Anda: Bantuan › Akun Foundry…
+@msg	The document is empty: there is nothing to publish.	Dokumen kosong: tidak ada yang diterbitkan.
+@msg	The design is too large for MakerFoundry: at most 8 MB.	Desain terlalu besar untuk MakerFoundry: maksimal 8 MB.
+@msg	MakerFoundry's answer couldn't be read.	Jawaban MakerFoundry tidak dapat dibaca.
+@msg	MakerFoundry answered with a page on another site, which wasn't opened.	MakerFoundry menjawab dengan halaman di situs lain, yang tidak dibuka.
+@msg	MakerFoundry: {1}	MakerFoundry: {1}
+@msg	MakerFoundry couldn't be reached: {0}	MakerFoundry tidak dapat dihubungi: {0}
+@msg	Publish to MakerFoundry needs a build that can reach MakerFoundry	Terbitkan ke MakerFoundry memerlukan versi yang dapat menghubungi MakerFoundry
+@msg	open Publish to MakerFoundry first: it shows what is sent	buka Terbitkan ke MakerFoundry dulu: di sana terlihat apa yang dikirim

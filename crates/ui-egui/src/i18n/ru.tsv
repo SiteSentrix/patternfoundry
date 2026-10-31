@@ -4911,6 +4911,19 @@ file-filter	DXF-AAMA (cutting room)	DXF-AAMA (раскройный цех)
 file-filter	SVG for cutting	SVG для раскроя
 file-filter	PDF for projector	PDF для проектора
 	Foundry Account…	Аккаунт Foundry…
+	Publish to MakerFoundry…	Опубликовать в MakerFoundry…
+	Publish to MakerFoundry	Опубликовать в MakerFoundry
+	Publish	Опубликовать
+	Sign In…	Войти…
+	Not signed in	Вход не выполнен
+	Your Foundry Account	Ваш аккаунт Foundry
+	Sent to	Куда
+	SVG, a vector design	SVG, векторный дизайн
+	What it is, e.g. A-line skirt	Что это, например юбка-трапеция
+	Your design goes to MakerFoundry as a private draft, to finish on its page. Nothing is public until you publish it there.	Ваш дизайн уходит в MakerFoundry как личный черновик, который вы завершите на его странице. Ничего не станет публичным, пока вы не опубликуете это там.
+	Draft {id} made.	Черновик {id} создан.
+	Draft {id} made on MakerFoundry: finish it on the page that opened in your browser.	Черновик {id} создан в MakerFoundry: завершите его на странице, открывшейся в браузере.
+	Finish it on MakerFoundry's page, which opened in your browser: it stays private until you publish it there.	Завершите его на странице MakerFoundry, открывшейся в браузере: он останется личным, пока вы не опубликуете его там.
 	A password needs at least 8 characters.	Пароль должен содержать не менее 8 символов.
 	Account	Аккаунт
 	Allow	Разрешить
@@ -5360,3 +5373,12 @@ menu	Pattern	Выкройка
 @msg	the image is not a fabric photo (Pattern › Use as Fabric…)	изображение не является фотографией ткани (Выкройка › Использовать как ткань…)
 @msg	even: true or false	even: true или false
 @msg	seamless: true or false	seamless: true или false
+@msg	Sign in to your Foundry Account first: Help › Foundry Account…	Сначала войдите в аккаунт Foundry: Справка › Аккаунт Foundry…
+@msg	The document is empty: there is nothing to publish.	Документ пуст: публиковать нечего.
+@msg	The design is too large for MakerFoundry: at most 8 MB.	Дизайн слишком велик для MakerFoundry: не больше 8 МБ.
+@msg	MakerFoundry's answer couldn't be read.	Не удалось прочитать ответ MakerFoundry.
+@msg	MakerFoundry answered with a page on another site, which wasn't opened.	MakerFoundry ответил страницей другого сайта; она не открыта.
+@msg	MakerFoundry: {1}	MakerFoundry: {1}
+@msg	MakerFoundry couldn't be reached: {0}	Не удалось связаться с MakerFoundry: {0}
+@msg	Publish to MakerFoundry needs a build that can reach MakerFoundry	Для публикации в MakerFoundry нужна версия, которая может связаться с MakerFoundry
+@msg	open Publish to MakerFoundry first: it shows what is sent	сначала откройте «Опубликовать в MakerFoundry»: там видно, что будет отправлено

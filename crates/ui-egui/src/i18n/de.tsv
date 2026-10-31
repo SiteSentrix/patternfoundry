@@ -4881,6 +4881,19 @@ file-filter	DXF-AAMA (cutting room)	DXF-AAMA (Zuschnitt)
 file-filter	SVG for cutting	SVG zum Schneiden
 file-filter	PDF for projector	PDF für Projektor
 	Foundry Account…	Foundry-Konto…
+	Publish to MakerFoundry…	In MakerFoundry veröffentlichen…
+	Publish to MakerFoundry	In MakerFoundry veröffentlichen
+	Publish	Veröffentlichen
+	Sign In…	Anmelden…
+	Not signed in	Nicht angemeldet
+	Your Foundry Account	Ihr Foundry-Konto
+	Sent to	Gesendet an
+	SVG, a vector design	SVG, ein Vektor-Design
+	What it is, e.g. A-line skirt	Was es ist, z. B. A-Linien-Rock
+	Your design goes to MakerFoundry as a private draft, to finish on its page. Nothing is public until you publish it there.	Ihr Design geht als privater Entwurf an MakerFoundry und wird dort auf seiner Seite fertiggestellt. Öffentlich wird nichts, bevor Sie es dort veröffentlichen.
+	Draft {id} made.	Entwurf {id} erstellt.
+	Draft {id} made on MakerFoundry: finish it on the page that opened in your browser.	Entwurf {id} auf MakerFoundry erstellt: Stellen Sie ihn auf der Seite fertig, die sich im Browser geöffnet hat.
+	Finish it on MakerFoundry's page, which opened in your browser: it stays private until you publish it there.	Stellen Sie ihn auf der Seite von MakerFoundry fertig, die sich im Browser geöffnet hat: Er bleibt privat, bis Sie ihn dort veröffentlichen.
 	A password needs at least 8 characters.	Ein Passwort braucht mindestens 8 Zeichen.
 	Account	Konto
 	Allow	Erlauben
@@ -5331,3 +5344,12 @@ menu	Pattern	Schnitt
 @msg	the image is not a fabric photo (Pattern › Use as Fabric…)	das Bild ist kein Stofffoto (Schnitt › Als Stoff verwenden…)
 @msg	even: true or false	even: true oder false
 @msg	seamless: true or false	seamless: true oder false
+@msg	Sign in to your Foundry Account first: Help › Foundry Account…	Melden Sie sich zuerst bei Ihrem Foundry-Konto an: Hilfe › Foundry-Konto…
+@msg	The document is empty: there is nothing to publish.	Das Dokument ist leer: Es gibt nichts zu veröffentlichen.
+@msg	The design is too large for MakerFoundry: at most 8 MB.	Das Design ist zu groß für MakerFoundry: höchstens 8 MB.
+@msg	MakerFoundry's answer couldn't be read.	Die Antwort von MakerFoundry war nicht lesbar.
+@msg	MakerFoundry answered with a page on another site, which wasn't opened.	MakerFoundry hat mit einer Seite auf einer anderen Website geantwortet; sie wurde nicht geöffnet.
+@msg	MakerFoundry: {1}	MakerFoundry: {1}
+@msg	MakerFoundry couldn't be reached: {0}	MakerFoundry ist nicht erreichbar: {0}
+@msg	Publish to MakerFoundry needs a build that can reach MakerFoundry	In MakerFoundry veröffentlichen braucht eine Version, die MakerFoundry erreichen kann
+@msg	open Publish to MakerFoundry first: it shows what is sent	öffnen Sie zuerst „In MakerFoundry veröffentlichen“: Dort sehen Sie, was gesendet wird

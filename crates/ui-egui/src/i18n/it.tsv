@@ -4915,6 +4915,19 @@ file-filter	DXF-AAMA (cutting room)	DXF-AAMA (sala taglio)
 file-filter	SVG for cutting	SVG per il taglio
 file-filter	PDF for projector	PDF per proiettore
 	Foundry Account…	Account Foundry…
+	Publish to MakerFoundry…	Pubblica su MakerFoundry…
+	Publish to MakerFoundry	Pubblica su MakerFoundry
+	Publish	Pubblica
+	Sign In…	Accedi…
+	Not signed in	Accesso non effettuato
+	Your Foundry Account	Il tuo account Foundry
+	Sent to	Inviato a
+	SVG, a vector design	SVG, un design vettoriale
+	What it is, e.g. A-line skirt	Che cos'è, ad es. gonna svasata
+	Your design goes to MakerFoundry as a private draft, to finish on its page. Nothing is public until you publish it there.	Il tuo design va su MakerFoundry come bozza privata, da completare sulla sua pagina. Nulla è pubblico finché non lo pubblichi lì.
+	Draft {id} made.	Bozza {id} creata.
+	Draft {id} made on MakerFoundry: finish it on the page that opened in your browser.	Bozza {id} creata su MakerFoundry: completala nella pagina aperta nel browser.
+	Finish it on MakerFoundry's page, which opened in your browser: it stays private until you publish it there.	Completala nella pagina di MakerFoundry aperta nel browser: resta privata finché non la pubblichi lì.
 	A password needs at least 8 characters.	La password deve avere almeno 8 caratteri.
 	Account	Account
 	Allow	Consenti
@@ -5364,3 +5377,12 @@ menu	Pattern	Cartamodello
 @msg	the image is not a fabric photo (Pattern › Use as Fabric…)	l'immagine non è una foto di tessuto (Cartamodello › Usa come tessuto…)
 @msg	even: true or false	even: true o false
 @msg	seamless: true or false	seamless: true o false
+@msg	Sign in to your Foundry Account first: Help › Foundry Account…	Accedi prima al tuo account Foundry: Aiuto › Account Foundry…
+@msg	The document is empty: there is nothing to publish.	Il documento è vuoto: non c'è niente da pubblicare.
+@msg	The design is too large for MakerFoundry: at most 8 MB.	Il design è troppo grande per MakerFoundry: al massimo 8 MB.
+@msg	MakerFoundry's answer couldn't be read.	Impossibile leggere la risposta di MakerFoundry.
+@msg	MakerFoundry answered with a page on another site, which wasn't opened.	MakerFoundry ha risposto con una pagina di un altro sito, che non è stata aperta.
+@msg	MakerFoundry: {1}	MakerFoundry: {1}
+@msg	MakerFoundry couldn't be reached: {0}	Impossibile raggiungere MakerFoundry: {0}
+@msg	Publish to MakerFoundry needs a build that can reach MakerFoundry	Pubblica su MakerFoundry richiede una versione che possa raggiungere MakerFoundry
+@msg	open Publish to MakerFoundry first: it shows what is sent	apri prima Pubblica su MakerFoundry: mostra cosa viene inviato
