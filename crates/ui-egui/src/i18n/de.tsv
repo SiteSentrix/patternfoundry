@@ -5353,3 +5353,7 @@ menu	Pattern	Schnitt
 @msg	MakerFoundry couldn't be reached: {0}	MakerFoundry ist nicht erreichbar: {0}
 @msg	Publish to MakerFoundry needs a build that can reach MakerFoundry	In MakerFoundry veröffentlichen braucht eine Version, die MakerFoundry erreichen kann
 @msg	open Publish to MakerFoundry first: it shows what is sent	öffnen Sie zuerst „In MakerFoundry veröffentlichen“: Dort sehen Sie, was gesendet wird
+@msg	That link isn't a design file on MakerFoundry, so it wasn't opened.	Dieser Link ist keine Design-Datei auf MakerFoundry und wurde deshalb nicht geöffnet.
+@msg	The design is too large to open: at most 32 MB.	Das Design ist zu groß zum Öffnen: höchstens 32 MB.
+@msg	PatternFoundry opens SVG and DXF designs from MakerFoundry; that file is neither.	PatternFoundry öffnet SVG- und DXF-Designs von MakerFoundry; diese Datei ist keins von beiden.
+@msg	The design couldn't be downloaded from MakerFoundry: {0}	Das Design konnte nicht von MakerFoundry geladen werden: {0}

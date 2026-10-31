@@ -5679,3 +5679,7 @@ menu	Pattern	თარგი
 @msg	MakerFoundry couldn't be reached: {0}	MakerFoundry-თან კავშირი ვერ მოხერხდა: {0}
 @msg	Publish to MakerFoundry needs a build that can reach MakerFoundry	MakerFoundry-ზე გამოქვეყნებას სჭირდება ვერსია, რომელიც MakerFoundry-ს მიწვდება
 @msg	open Publish to MakerFoundry first: it shows what is sent	ჯერ გახსენით „MakerFoundry-ზე გამოქვეყნება“: იქ ჩანს, რა იგზავნება
+@msg	That link isn't a design file on MakerFoundry, so it wasn't opened.	ეს ბმული MakerFoundry-ის დიზაინის ფაილი არ არის, ამიტომ არ გაიხსნა.
+@msg	The design is too large to open: at most 32 MB.	დიზაინი გასახსნელად ზედმეტად დიდია: მაქსიმუმ 32 MB.
+@msg	PatternFoundry opens SVG and DXF designs from MakerFoundry; that file is neither.	PatternFoundry ხსნის MakerFoundry-ის SVG და DXF დიზაინებს; ეს ფაილი არც ერთია.
+@msg	The design couldn't be downloaded from MakerFoundry: {0}	დიზაინი MakerFoundry-დან ვერ ჩამოიტვირთა: {0}

@@ -5770,3 +5770,7 @@ menu	Pattern	Patron
 @msg	MakerFoundry couldn't be reached: {0}	MakerFoundry est injoignable : {0}
 @msg	Publish to MakerFoundry needs a build that can reach MakerFoundry	Publier sur MakerFoundry demande une version qui peut joindre MakerFoundry
 @msg	open Publish to MakerFoundry first: it shows what is sent	ouvrez d'abord Publier sur MakerFoundry : on y voit ce qui est envoyé
+@msg	That link isn't a design file on MakerFoundry, so it wasn't opened.	Ce lien n'est pas un fichier de motif sur MakerFoundry ; il n'a donc pas été ouvert.
+@msg	The design is too large to open: at most 32 MB.	Le motif est trop lourd pour être ouvert : 32 Mo au plus.
+@msg	PatternFoundry opens SVG and DXF designs from MakerFoundry; that file is neither.	PatternFoundry ouvre les motifs SVG et DXF de MakerFoundry ; ce fichier n'est ni l'un ni l'autre.
+@msg	The design couldn't be downloaded from MakerFoundry: {0}	Le motif n'a pas pu être téléchargé depuis MakerFoundry : {0}

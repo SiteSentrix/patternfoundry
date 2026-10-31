@@ -5723,3 +5723,7 @@ menu	Pattern	Πατρόν
 @msg	MakerFoundry couldn't be reached: {0}	Δεν ήταν δυνατή η σύνδεση με το MakerFoundry: {0}
 @msg	Publish to MakerFoundry needs a build that can reach MakerFoundry	Η Δημοσίευση στο MakerFoundry χρειάζεται έκδοση που φτάνει στο MakerFoundry
 @msg	open Publish to MakerFoundry first: it shows what is sent	ανοίξτε πρώτα τη Δημοσίευση στο MakerFoundry: δείχνει τι αποστέλλεται
+@msg	That link isn't a design file on MakerFoundry, so it wasn't opened.	Αυτός ο σύνδεσμος δεν είναι αρχείο σχεδίου στο MakerFoundry, γι' αυτό δεν άνοιξε.
+@msg	The design is too large to open: at most 32 MB.	Το σχέδιο είναι πολύ μεγάλο για να ανοίξει: έως 32 MB.
+@msg	PatternFoundry opens SVG and DXF designs from MakerFoundry; that file is neither.	Το PatternFoundry ανοίγει σχέδια SVG και DXF από το MakerFoundry· αυτό το αρχείο δεν είναι κανένα από τα δύο.
+@msg	The design couldn't be downloaded from MakerFoundry: {0}	Δεν ήταν δυνατή η λήψη του σχεδίου από το MakerFoundry: {0}

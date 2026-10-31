@@ -11,6 +11,11 @@
 //! the file name); a sewing-pattern kind (true-scale and tiled PDF, DXF-AAMA) is queued on
 //! MakerFoundry's side, and [`publish`] takes any file name and contents so those can follow. As
 //! elsewhere in [`super`], no network code lives here.
+//!
+//! Opening (PF-12): MakerFoundry's "Open in PatternFoundry" button links to the web app with
+//! `?open=<design file address>`; [`open_address`] checks that address and rebuilds it,
+//! [`download_name`] names the file, and [`download_refusal`] reads a refusal. The web app
+//! (`apps/vectorcraft-web/src/makerfoundry.rs`) does the fetching.
 
 use serde_json::{Value, json};
 
@@ -156,6 +161,163 @@ pub fn on_site(url: &str) -> bool {
     &rest[..host_end] == HOST && rest[host_end..].starts_with('/')
 }
 
+// ---- PF-12: opening a design file from a MakerFoundry link ----
+
+/// The hosts a design file is opened from.
+pub const FILE_HOSTS: [&str; 2] = ["makerfoundry.app", "www.makerfoundry.app"];
+/// Where design files live on them.
+pub const FILE_PATHS: &str = "/api/v1/";
+/// The most a downloaded design may weigh.
+pub const MAX_DOWNLOAD: usize = 32 * 1024 * 1024;
+/// The length of a file address's access token (`?t=`, lowercase hex).
+const TOKEN_HEX: usize = 48;
+/// The longest file name taken from a download.
+const MAX_NAME: usize = 120;
+
+/// Why a MakerFoundry link wasn't opened. The messages are for the user; the UI shows them
+/// translated, and MakerFoundry's own sentences as they are.
+#[derive(Clone, Debug, PartialEq, thiserror::Error)]
+pub enum OpenError {
+    #[error("That link isn't a design file on MakerFoundry, so it wasn't opened.")]
+    NotMakerFoundry,
+    #[error("The design is too large to open: at most 32 MB.")]
+    TooLarge,
+    #[error("PatternFoundry opens SVG and DXF designs from MakerFoundry; that file is neither.")]
+    Kind,
+    /// MakerFoundry's own sentence (with the HTTP status it came with).
+    #[error("MakerFoundry: {1}")]
+    Said(u16, String),
+    #[error("The design couldn't be downloaded from MakerFoundry: {0}")]
+    Network(String),
+}
+
+/// The design file address `link` names, rebuilt from its checked parts, or why it isn't one:
+/// `https://`, the host exactly one of [`FILE_HOSTS`] (no user name, no port), a path under
+/// [`FILE_PATHS`] of `a-z 0-9 - . /` only (no empty, `.` or `..` segment), and at most the access
+/// token `?t=` and 48 lowercase hex digits; printable ASCII, at most 2048 characters, no fragment.
+pub fn open_address(link: &str) -> Result<String, OpenError> {
+    let bad = OpenError::NotMakerFoundry;
+    if link.is_empty() || link.len() > MAX_ADDRESS || !link.bytes().all(|b| b.is_ascii_graphic() && b != b'\\') {
+        return Err(bad);
+    }
+    let rest = link.strip_prefix("https://").ok_or(bad.clone())?;
+    let host_end = rest.find('/').ok_or(bad.clone())?;
+    let host = &rest[..host_end];
+    let host = FILE_HOSTS.iter().find(|h| **h == host).ok_or(bad.clone())?;
+    let (path, query) = match rest[host_end..].split_once('?') {
+        Some((p, q)) => (p, Some(q)),
+        None => (&rest[host_end..], None),
+    };
+    let tail = path.strip_prefix(FILE_PATHS).ok_or(bad.clone())?;
+    let path_ok = path.bytes().all(|b| matches!(b, b'a'..=b'z' | b'0'..=b'9' | b'-' | b'.' | b'/'))
+        && !tail.is_empty()
+        && tail.split('/').all(|seg| !seg.is_empty() && seg != "." && seg != "..");
+    if !path_ok {
+        return Err(bad);
+    }
+    let token = match query {
+        None => None,
+        Some(q) => {
+            let t = q.strip_prefix("t=").ok_or(bad.clone())?;
+            if t.len() != TOKEN_HEX || !t.bytes().all(|b| matches!(b, b'0'..=b'9' | b'a'..=b'f')) {
+                return Err(bad);
+            }
+            Some(t)
+        }
+    };
+    Ok(match token {
+        Some(t) => format!("https://{host}{path}?t={t}"),
+        None => format!("https://{host}{path}"),
+    })
+}
+
+/// The value of `open` in the page address's query `search` (`?open=…&lang=de`), percent-decoded;
+/// `None` without one, or when it doesn't decode to text.
+pub fn open_param(search: &str) -> Option<String> {
+    let q = search.strip_prefix('?').unwrap_or(search);
+    let raw = q.split('&').find_map(|kv| kv.strip_prefix("open="))?;
+    percent_decode(raw)
+}
+
+/// The query `search` without its `open` parameter (`""` when nothing else is left), for the page
+/// address once the link has been read.
+pub fn without_open(search: &str) -> String {
+    let q = search.strip_prefix('?').unwrap_or(search);
+    let kept: Vec<&str> = q.split('&').filter(|kv| !kv.is_empty() && *kv != "open" && !kv.starts_with("open=")).collect();
+    if kept.is_empty() { String::new() } else { format!("?{}", kept.join("&")) }
+}
+
+/// `s` with `%XX` escapes (and `+` for a space, as forms write it) decoded; `None` for a broken
+/// escape or bytes that aren't UTF-8.
+fn percent_decode(s: &str) -> Option<String> {
+    let b = s.as_bytes();
+    let mut out = Vec::with_capacity(b.len());
+    let mut i = 0;
+    while i < b.len() {
+        match b[i] {
+            b'%' => {
+                let hex = s.get(i + 1..i + 3)?;
+                out.push(u8::from_str_radix(hex, 16).ok()?);
+                i += 3;
+            }
+            b'+' => {
+                out.push(b' ');
+                i += 1;
+            }
+            c => {
+                out.push(c);
+                i += 1;
+            }
+        }
+    }
+    String::from_utf8(out).ok()
+}
+
+/// The name a downloaded design opens as: the file name its `Content-Disposition` header gives
+/// (`attachment; filename="Tote.svg"`), else the end of its address, without any folder; and only
+/// an SVG or DXF ([`OpenError::Kind`] otherwise).
+pub fn download_name(content_disposition: Option<&str>, address: &str) -> Result<String, OpenError> {
+    let from_header = content_disposition.and_then(disposition_name);
+    let from_address = || {
+        let path = address.split(['?', '#']).next().unwrap_or_default();
+        path.rsplit('/').next().map(str::to_string)
+    };
+    let name = from_header.or_else(from_address).unwrap_or_default();
+    let name = name.rsplit(['/', '\\']).next().unwrap_or_default();
+    let name: String = name.chars().filter(|c| !c.is_control()).take(MAX_NAME).collect();
+    let name = name.trim().trim_start_matches('.').to_string();
+    let ext = name.rsplit_once('.').map(|(_, e)| e.to_ascii_lowercase());
+    match ext.as_deref() {
+        Some("svg" | "dxf") if name.len() > 4 => Ok(name),
+        _ => Err(OpenError::Kind),
+    }
+}
+
+/// The `filename` of a `Content-Disposition` header, quoted or not.
+fn disposition_name(h: &str) -> Option<String> {
+    let at = h.find("filename=")? + "filename=".len();
+    let v = h[at..].trim_start();
+    let name = match v.strip_prefix('"') {
+        Some(q) => q.split('"').next()?,
+        None => v.split(';').next()?.trim(),
+    };
+    (!name.is_empty()).then(|| name.to_string())
+}
+
+/// The error a download refused with HTTP status `status` and body `body` is: MakerFoundry's own
+/// sentence (`{"error": {"message"}}`, tidied), else what its status means.
+pub fn download_refusal(status: u16, body: &str) -> OpenError {
+    let said = serde_json::from_str::<Value>(body)
+        .ok()
+        .and_then(|v| v.pointer("/error/message").and_then(Value::as_str).map(sentence))
+        .filter(|s| !s.is_empty());
+    match said {
+        Some(s) => OpenError::Said(status, s),
+        None if status == 413 => OpenError::TooLarge,
+        None => OpenError::Said(status, format!("HTTP {status}")),
+    }
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -244,5 +406,101 @@ mod tests {
         assert_eq!(published(413, ""), Err(MfError::TooLarge));
         assert_eq!(published(503, "{}"), Err(MfError::Said(503, "HTTP 503".into())));
         assert_eq!(MfError::Said(400, "Bad.".into()).to_string(), "MakerFoundry: Bad.");
+    }
+
+    #[test]
+    fn only_makerfoundry_design_files_open_rebuilt_from_their_parts() {
+        let t = "0123456789abcdef0123456789abcdef0123456789abcdef";
+        for ok in [
+            "https://makerfoundry.app/api/v1/designs/1/file/test.svg".to_string(),
+            "https://www.makerfoundry.app/api/v1/designs/12/file/tote-bag.svg".to_string(),
+            format!("https://makerfoundry.app/api/v1/designs/12/file/a.dxf?t={t}"),
+        ] {
+            assert_eq!(open_address(&ok).as_deref(), Ok(ok.as_str()));
+        }
+        let long = format!("https://makerfoundry.app/api/v1/{}", "a".repeat(2048));
+        for bad in [
+            "",
+            "http://makerfoundry.app/api/v1/designs/1/file/a.svg",
+            "HTTPS://makerfoundry.app/api/v1/designs/1/file/a.svg",
+            "https://MakerFoundry.app/api/v1/designs/1/file/a.svg",
+            "https://makerfoundry.app.evil.com/api/v1/designs/1/file/a.svg",
+            "https://evil.com/api/v1/designs/1/file/a.svg?x=makerfoundry.app",
+            "https://user@makerfoundry.app/api/v1/designs/1/file/a.svg",
+            "https://makerfoundry.app@evil.com/api/v1/designs/1/file/a.svg",
+            "https://makerfoundry.app:443/api/v1/designs/1/file/a.svg",
+            "https://makerfoundry.app./api/v1/designs/1/file/a.svg",
+            "https://makerfoundry\u{430}.app/api/v1/designs/1/file/a.svg",
+            "https://makerfoundry.app",
+            "https://makerfoundry.app/",
+            "https://makerfoundry.app/api/v1/",
+            "https://makerfoundry.app/designs/1",
+            "https://makerfoundry.app/api/v2/designs/1/file/a.svg",
+            "https://makerfoundry.app/api/v1/../../admin",
+            "https://makerfoundry.app/api/v1/./designs",
+            "https://makerfoundry.app/api/v1/designs//1",
+            "https://makerfoundry.app/api/v1/designs/1/file/A.svg",
+            "https://makerfoundry.app/api/v1/designs/1/file/a%2e.svg",
+            "https://makerfoundry.app/api/v1/designs/1/file/a b.svg",
+            "https://makerfoundry.app/api/v1/designs/1/file/a.svg\n",
+            "https://makerfoundry.app/api/v1/designs/1/file/a\\b.svg",
+            "https://makerfoundry.app/api/v1/designs/1/file/a.svg#x",
+            "https://makerfoundry.app/api/v1/designs/1/file/a.svg?t=abc",
+            "https://makerfoundry.app/api/v1/designs/1/file/a.svg?t=0123456789ABCDEF0123456789abcdef0123456789abcdef",
+            "https://makerfoundry.app/api/v1/designs/1/file/a.svg?t=0123456789abcdef0123456789abcdef0123456789abcdef&x=1",
+            "https://makerfoundry.app/api/v1/designs/1/file/a.svg?x=1",
+            "https://makerfoundry.app?/api/v1/designs/1/file/a.svg",
+            "javascript:alert(1)//makerfoundry.app/api/v1/x",
+            "//makerfoundry.app/api/v1/designs/1/file/a.svg",
+            long.as_str(),
+        ] {
+            assert_eq!(open_address(bad), Err(OpenError::NotMakerFoundry), "{bad:?}");
+        }
+    }
+
+    #[test]
+    fn the_link_is_read_from_the_page_address_and_taken_out() {
+        let enc = "?open=https%3A%2F%2Fmakerfoundry.app%2Fapi%2Fv1%2Fdesigns%2F1%2Ffile%2Ftest.svg&lang=de";
+        assert_eq!(open_param(enc).as_deref(), Some("https://makerfoundry.app/api/v1/designs/1/file/test.svg"));
+        assert_eq!(without_open(enc), "?lang=de");
+        assert_eq!(without_open("?open=x"), "");
+        assert_eq!(without_open("?opener=1&open=x"), "?opener=1");
+        assert_eq!(open_param("?lang=de"), None);
+        assert_eq!(open_param("?open=%zz"), None);
+        assert_eq!(open_param("?open=%ff"), None);
+        assert_eq!(open_param("?open=%4"), None);
+        // `+` decodes to a space, which the address check then refuses.
+        assert_eq!(open_param("?open=a+b").as_deref(), Some("a b"));
+    }
+
+    #[test]
+    fn a_download_is_named_from_its_header_or_address_and_must_be_svg_or_dxf() {
+        let a = "https://makerfoundry.app/api/v1/designs/1/file/test.svg?t=00";
+        assert_eq!(download_name(Some("attachment; filename=\"Tote bag.svg\""), a).as_deref(), Ok("Tote bag.svg"));
+        assert_eq!(download_name(Some("attachment; filename=Tote.DXF"), a).as_deref(), Ok("Tote.DXF"));
+        assert_eq!(download_name(None, a).as_deref(), Ok("test.svg"));
+        assert_eq!(download_name(Some("attachment"), a).as_deref(), Ok("test.svg"));
+        assert_eq!(download_name(Some("attachment; filename=\"../../etc/x.svg\""), a).as_deref(), Ok("x.svg"));
+        assert_eq!(download_name(Some("attachment; filename=\"C:\\\\x\\\\y.svg\""), a).as_deref(), Ok("y.svg"));
+        assert_eq!(download_name(Some("attachment; filename=\"a\u{7}b.svg\""), a).as_deref(), Ok("ab.svg"));
+        for bad in ["attachment; filename=\"x.exe\"", "attachment; filename=\".svg\"", "attachment; filename=\"svg\""] {
+            assert_eq!(download_name(Some(bad), a), Err(OpenError::Kind), "{bad}");
+        }
+        assert_eq!(download_name(None, "https://makerfoundry.app/api/v1/designs/1/file/x.pdf"), Err(OpenError::Kind));
+    }
+
+    #[test]
+    fn a_refused_download_says_makerfoundrys_sentence() {
+        let body = r#"{"error":{"message":"That design isn't on MakerFoundry."}}"#;
+        for status in [403, 404, 429, 502, 503] {
+            assert_eq!(download_refusal(status, body).to_string(), "MakerFoundry: That design isn't on MakerFoundry.");
+        }
+        assert_eq!(download_refusal(404, "<html>").to_string(), "MakerFoundry: HTTP 404");
+        assert_eq!(download_refusal(413, ""), OpenError::TooLarge);
+        // One line, without control characters, at most 300 characters.
+        let messy = serde_json::json!({"error": {"message": format!("Gone.\n\u{1b}[31m{}", "x".repeat(400))}}).to_string();
+        let said = download_refusal(404, &messy).to_string();
+        assert!(said.starts_with("MakerFoundry: Gone. [31mxxx") && !said.chars().any(char::is_control), "{said}");
+        assert_eq!(said.chars().count(), "MakerFoundry: ".len() + 300);
     }
 }

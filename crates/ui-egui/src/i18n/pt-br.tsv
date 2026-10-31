@@ -5689,3 +5689,7 @@ menu	Pattern	Molde
 @msg	MakerFoundry couldn't be reached: {0}	Não foi possível contatar o MakerFoundry: {0}
 @msg	Publish to MakerFoundry needs a build that can reach MakerFoundry	Publicar no MakerFoundry precisa de uma versão que consiga contatar o MakerFoundry
 @msg	open Publish to MakerFoundry first: it shows what is sent	abra primeiro Publicar no MakerFoundry: ele mostra o que é enviado
+@msg	That link isn't a design file on MakerFoundry, so it wasn't opened.	Esse link não é um arquivo de design no MakerFoundry, então não foi aberto.
+@msg	The design is too large to open: at most 32 MB.	O design é grande demais para abrir: no máximo 32 MB.
+@msg	PatternFoundry opens SVG and DXF designs from MakerFoundry; that file is neither.	O PatternFoundry abre designs SVG e DXF do MakerFoundry; esse arquivo não é nenhum dos dois.
+@msg	The design couldn't be downloaded from MakerFoundry: {0}	Não foi possível baixar o design do MakerFoundry: {0}

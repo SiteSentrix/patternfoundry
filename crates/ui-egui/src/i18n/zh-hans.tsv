@@ -5607,3 +5607,7 @@ menu	Pattern	纸样
 @msg	MakerFoundry couldn't be reached: {0}	无法连接 MakerFoundry：{0}
 @msg	Publish to MakerFoundry needs a build that can reach MakerFoundry	发布到 MakerFoundry 需要能连接 MakerFoundry 的版本
 @msg	open Publish to MakerFoundry first: it shows what is sent	请先打开“发布到 MakerFoundry”：其中显示要发送的内容
+@msg	That link isn't a design file on MakerFoundry, so it wasn't opened.	该链接不是 MakerFoundry 上的设计文件，因此未打开。
+@msg	The design is too large to open: at most 32 MB.	设计太大，无法打开：最多 32 MB。
+@msg	PatternFoundry opens SVG and DXF designs from MakerFoundry; that file is neither.	PatternFoundry 可打开 MakerFoundry 上的 SVG 和 DXF 设计；该文件两者都不是。
+@msg	The design couldn't be downloaded from MakerFoundry: {0}	无法从 MakerFoundry 下载设计：{0}

@@ -5757,3 +5757,7 @@ menu	Pattern	Szabásminta
 @msg	MakerFoundry couldn't be reached: {0}	A MakerFoundry nem érhető el: {0}
 @msg	Publish to MakerFoundry needs a build that can reach MakerFoundry	A Közzététel a MakerFoundryn olyan változatot igényel, amely eléri a MakerFoundryt
 @msg	open Publish to MakerFoundry first: it shows what is sent	előbb nyissa meg a Közzététel a MakerFoundryn ablakot: megmutatja, mi kerül elküldésre
+@msg	That link isn't a design file on MakerFoundry, so it wasn't opened.	Ez a hivatkozás nem MakerFoundry-tervfájl, ezért nem nyílt meg.
+@msg	The design is too large to open: at most 32 MB.	A terv túl nagy a megnyitáshoz: legfeljebb 32 MB.
+@msg	PatternFoundry opens SVG and DXF designs from MakerFoundry; that file is neither.	A PatternFoundry SVG- és DXF-terveket nyit meg a MakerFoundryról; ez a fájl egyik sem.
+@msg	The design couldn't be downloaded from MakerFoundry: {0}	A tervet nem sikerült letölteni a MakerFoundryról: {0}

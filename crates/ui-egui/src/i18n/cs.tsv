@@ -5771,3 +5771,7 @@ menu	Pattern	Střih
 @msg	MakerFoundry couldn't be reached: {0}	MakerFoundry není dostupný: {0}
 @msg	Publish to MakerFoundry needs a build that can reach MakerFoundry	Publikovat na MakerFoundry potřebuje verzi, která se k MakerFoundry dostane
 @msg	open Publish to MakerFoundry first: it shows what is sent	nejdřív otevřete Publikovat na MakerFoundry: ukazuje, co se odešle
+@msg	That link isn't a design file on MakerFoundry, so it wasn't opened.	Tento odkaz není soubor návrhu na MakerFoundry, a proto nebyl otevřen.
+@msg	The design is too large to open: at most 32 MB.	Návrh je příliš velký na otevření: nejvýše 32 MB.
+@msg	PatternFoundry opens SVG and DXF designs from MakerFoundry; that file is neither.	PatternFoundry otevírá návrhy SVG a DXF z MakerFoundry; tento soubor není ani jedno.
+@msg	The design couldn't be downloaded from MakerFoundry: {0}	Návrh se nepodařilo stáhnout z MakerFoundry: {0}

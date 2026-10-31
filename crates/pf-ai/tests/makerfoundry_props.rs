@@ -4,7 +4,9 @@
 // Integration tests: unwrapping and panicking on failure is fine here, unlike in shipped code (AGENTS.md › Robustness).
 #![allow(clippy::unwrap_used, clippy::expect_used, clippy::panic)]
 
-use pf_ai::makerfoundry::{MfError, file_name, on_site, publish, published, refusal};
+use pf_ai::makerfoundry::{
+    MfError, download_name, download_refusal, file_name, on_site, open_address, open_param, publish, published, refusal, without_open,
+};
 use proptest::prelude::*;
 use serde_json::json;
 
@@ -95,5 +97,72 @@ proptest! {
             prop_assert_eq!(auth.len(), 1);
             prop_assert_eq!(&auth[0].1, &format!("Bearer {t}"));
         }
+    }
+}
+
+/// Links near a MakerFoundry design file address.
+fn near_link() -> impl Strategy<Value = String> {
+    let host = prop_oneof![
+        Just("makerfoundry.app"),
+        Just("www.makerfoundry.app"),
+        Just("makerfoundry.app.evil.com"),
+        Just("evil.com"),
+        Just("makerfoundry.app:8443"),
+        Just("a@makerfoundry.app"),
+    ];
+    let path = prop_oneof![
+        Just("/api/v1/designs/1/file/test.svg".to_string()),
+        "/api/v1/[a-z0-9./-]{0,30}",
+        "/api/v1/[a-zA-Z0-9./%?#&=\\\\ -]{0,30}",
+        ".{0,30}",
+    ];
+    let query = prop_oneof![Just(String::new()), "\\?t=[0-9a-f]{48}", "\\?t=[0-9a-fA-F]{40,50}", "\\?.{0,20}"];
+    (prop_oneof![Just("https://"), Just("http://"), Just("")], host, path, query).prop_map(|(s, h, p, q)| format!("{s}{h}{p}{q}"))
+}
+
+proptest! {
+    #![proptest_config(ProptestConfig { cases: 1024, failure_persistence: None, ..ProptestConfig::default() })]
+
+    /// What is fetched is a MakerFoundry design file address and nothing else: its host, under
+    /// /api/v1/, a path of a-z 0-9 - . / without dot segments, at most the 48-digit token.
+    #[test]
+    fn only_makerfoundry_file_addresses_are_fetched(link in near_link()) {
+        if let Ok(a) = open_address(&link) {
+            prop_assert_eq!(&a, &link, "the address fetched is the one checked");
+            let rest = a.strip_prefix("https://makerfoundry.app/api/v1/").or_else(|| a.strip_prefix("https://www.makerfoundry.app/api/v1/"));
+            let rest = rest.unwrap();
+            let (path, token) = rest.split_once("?t=").map_or((rest, None), |(p, t)| (p, Some(t)));
+            prop_assert!(!path.is_empty() && path.split('/').all(|s| !s.is_empty() && s != "." && s != ".."));
+            prop_assert!(path.bytes().all(|b| matches!(b, b'a'..=b'z' | b'0'..=b'9' | b'-' | b'.' | b'/')));
+            if let Some(t) = token {
+                prop_assert!(t.len() == 48 && t.bytes().all(|b| b.is_ascii_hexdigit() && !b.is_ascii_uppercase()));
+            }
+        }
+    }
+
+    #[test]
+    fn any_page_address_is_read_without_panicking(search in ".{0,80}") {
+        if let Some(link) = open_param(&search) {
+            let _ = open_address(&link);
+        }
+        let rest = without_open(&search);
+        prop_assert!(open_param(&rest).is_none());
+    }
+
+    #[test]
+    fn any_download_is_named_safely(header in proptest::option::of(".{0,80}"), tail in ".{0,30}") {
+        let address = format!("https://makerfoundry.app/api/v1/designs/1/file/{tail}");
+        if let Ok(name) = download_name(header.as_deref(), &address) {
+            prop_assert!(!name.contains(['/', '\\']) && !name.chars().any(char::is_control) && !name.starts_with('.'), "{:?}", name);
+            let ext = name.rsplit_once('.').map(|(_, e)| e.to_ascii_lowercase());
+            prop_assert!(matches!(ext.as_deref(), Some("svg" | "dxf")));
+        }
+    }
+
+    #[test]
+    fn a_refused_download_is_one_short_line(status in 400u16..600, body in "(.|\n|\r){0,400}") {
+        let text = download_refusal(status, &body).to_string();
+        prop_assert!(!text.chars().any(char::is_control));
+        prop_assert!(text.chars().count() <= 300 + "MakerFoundry: ".len());
     }
 }

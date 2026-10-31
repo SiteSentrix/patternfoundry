@@ -14,14 +14,19 @@
 //!   hover, palm rejection, fingers navigate once a pen has been seen).
 //!
 //! URL query flags: `?webgl` forces the WebGL2 backend instead of WebGPU; `?lang=es` (any
-//! language code) stands in for the browser's languages when the interface language is Automatic.
+//! language code) stands in for the browser's languages when the interface language is Automatic;
+//! `?open=<URL-encoded MakerFoundry design file address>` opens that design (`makerfoundry`).
 
 #[cfg(target_arch = "wasm32")]
 mod api;
+#[cfg(test)]
+mod csp;
 #[cfg(target_arch = "wasm32")]
 mod fonts;
 #[cfg(target_arch = "wasm32")]
 mod locks;
+#[cfg(target_arch = "wasm32")]
+mod makerfoundry;
 #[cfg(any(target_arch = "wasm32", test))]
 mod pencil;
 #[cfg(any(target_arch = "wasm32", test))]
