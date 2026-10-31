@@ -66,9 +66,14 @@ fn rules(root: &Path) -> Rules {
     Rules { home: Some(root.join("Users/me")), user_content: vec![root.to_path_buf()], refused: vec![root.join("refused")] }
 }
 
-/// The search's progress once it ended (or after 10 seconds).
+/// How long a test waits for a search to reach what it expects before giving up (it returns as
+/// soon as it does, in milliseconds). Long: on a loaded machine a walker that trips a test's
+/// deliberate panic spends a while printing its backtrace (10 seconds once wasn't enough).
+const PATIENCE: Duration = Duration::from_secs(60);
+
+/// The search's progress once it ended (or after [`PATIENCE`]).
 fn wait(s: &Search) -> Progress {
-    let until = Instant::now() + Duration::from_secs(10);
+    let until = Instant::now() + PATIENCE;
     loop {
         let p = s.progress();
         if p.end.is_some() || Instant::now() > until {
@@ -212,7 +217,7 @@ fn the_search_answers_at_its_deadline_while_a_walker_is_blocked() {
     assert!(p.seconds >= 0.2 && p.seconds < 5.0, "{p:?}");
     let (tx2, rx2) = mpsc::channel();
     let s2 = begin(root.clone(), rules(&root), Limits::default(), 1, 1, Arc::new(Blocked(Mutex::new(rx2))));
-    let until = Instant::now() + Duration::from_secs(10);
+    let until = Instant::now() + PATIENCE;
     while s2.progress().read == 0 && Instant::now() < until {
         std::thread::sleep(Duration::from_millis(2));
     }
@@ -246,7 +251,7 @@ fn files_found_are_kept_as_they_are_read() {
     let root = tree("kept", &["a.ttf", "b.ttf", "c.ttf"]);
     let (tx, rx) = mpsc::channel();
     let s = begin(root.clone(), rules(&root), Limits::default(), 1, 2, Arc::new(SecondBlocks(Mutex::new((0, rx)))));
-    let until = Instant::now() + Duration::from_secs(10);
+    let until = Instant::now() + PATIENCE;
     while s.progress().read < 2 && Instant::now() < until {
         std::thread::sleep(Duration::from_millis(2));
     }
@@ -426,7 +431,7 @@ fn a_search_starts_with_the_threads_left_and_fails_when_none_is() {
     assert_eq!(c.err().as_deref(), Some("the search couldn't start: try again in a moment"));
     drop((tx_a, tx_b));
     assert_eq!((wait(&a).end, wait(&b).end), (Some(End::Done), Some(End::Done)));
-    let until = Instant::now() + Duration::from_secs(10);
+    let until = Instant::now() + PATIENCE;
     while POOL.live() > 0 && Instant::now() < until {
         std::thread::sleep(Duration::from_millis(2));
     }
