@@ -90,6 +90,12 @@ is built on, plus a pattern mode, the way StitchFoundry adds embroidery:
 - None at present.
 
 ## Progress log
+- 2026-11-01, **PF-13**: links to the MakerFoundry YouTube channel and the Buy Me a Coffee page.
+  Help › MakerFoundry on YouTube (`help.youtube`) and Help › Support PatternFoundry (Buy Me a
+  Coffee) (`help.donate`) return their URL as `help.github` does and open it from the menu; the
+  About and Home links row shows both. The Windows installer's last page, the macOS DMG window and
+  the Linux AppStream data (a donation URL) name them, and the README has a "Videos and support"
+  section.
 - 2026-10-31, **PF-12**: the web app opens MakerFoundry links:
   `https://sitesentrix.github.io/patternfoundry/?open=<URL-encoded design file address>`. The
   address must be `https://makerfoundry.app/api/v1/…` (or `www.`), a path of `a-z 0-9 - . /`
