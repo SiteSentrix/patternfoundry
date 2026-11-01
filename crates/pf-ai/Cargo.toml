@@ -1,0 +1,19 @@
+[package]
+name = "pf-ai"
+description = "PatternFoundry's AI requests: Ask About Patterns through the Messages API or the Foundry cloud service, built and read without network code"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+rust-version.workspace = true
+repository.workspace = true
+publish = false
+
+[dependencies]
+serde_json = { workspace = true }
+thiserror = { workspace = true }
+
+[lints]
+workspace = true
+
+[dev-dependencies]
+proptest = { workspace = true }

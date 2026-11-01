@@ -261,7 +261,19 @@ impl RootUnits {
         use svgtypes::LengthUnit as U;
         let physical = |u: Option<U>| matches!(u, Some(U::In | U::Cm | U::Mm | U::Pt | U::Pc));
         let (w, h) = (unit("width"), unit("height"));
-        let (dpi, k) = if physical(w) || physical(h) { (CSS_PX_PER_IN, PT_PER_IN / CSS_PX_PER_IN) } else { (PT_PER_IN, 1.0) };
+        // A size in points that matches a `0 0 w h` viewBox is our own export's (one user unit a
+        // point): read as a unitless size was, so nothing goes through pixels and back.
+        let own = || {
+            let pts = |name: &str| {
+                root.attribute(name).and_then(|v| svgtypes::Length::from_str(v.trim()).ok()).filter(|l| l.unit == U::Pt).map(|l| l.number)
+            };
+            let view: Vec<f64> = root
+                .attribute("viewBox")
+                .map(|v| v.split(|c: char| c == ',' || c.is_whitespace()).filter_map(|t| t.parse().ok()).collect())
+                .unwrap_or_default();
+            matches!((pts("width"), pts("height"), view.as_slice()), (Some(w), Some(h), [x, y, vw, vh]) if *x == 0.0 && *y == 0.0 && w == *vw && h == *vh)
+        };
+        let (dpi, k) = if (physical(w) || physical(h)) && !own() { (CSS_PX_PER_IN, PT_PER_IN / CSS_PX_PER_IN) } else { (PT_PER_IN, 1.0) };
         let unit = match w {
             Some(U::Mm) => Unit::Millimeters,
             Some(U::Cm) => Unit::Centimeters,
@@ -820,6 +832,9 @@ fn blend(b: usvg::BlendMode) -> BlendMode {
         B::Saturation => BlendMode::Saturation,
         B::Color => BlendMode::Color,
         B::Luminosity => BlendMode::Luminosity,
+        // `plus-lighter` (Compositing Level 2: the sum, capped) has no mode of its own here;
+        // Lighten is the nearest (the lighter of the two, where plus-lighter adds them).
+        B::PlusLighter => BlendMode::Lighten,
     }
 }
 

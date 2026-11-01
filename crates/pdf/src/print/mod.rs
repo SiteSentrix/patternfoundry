@@ -353,7 +353,13 @@ pub struct PrintPlan<'a> {
 /// Lay out printing `doc` as `opts` say, for a writer to draw.
 pub fn plan<'a>(doc: &'a Document, opts: &PrintOptions) -> Result<PrintPlan<'a>, PdfError> {
     let set = &opts.settings;
-    let job = Job::new(doc, set, opts.postscript)?;
+    let mut job = Job::new(doc, set, opts.postscript)?;
+    if set.pattern_marks && set.scaling == PrintScaling::TileFull && set.overlap < 2.0 * set.margin {
+        job.warnings.push(
+            "Tile Full Pages leaves the printer's margins unprinted between the pages: tile the imageable areas, or overlap the pages by at least twice the margin"
+                .into(),
+        );
+    }
     let title = opts.title.clone().unwrap_or_else(|| job.doc.title.clone());
     let created = opts.created.or_else(vectorcraft_doc::metadata::output_time);
     let sep = Separator::new(&job.doc, set);
@@ -365,7 +371,7 @@ pub fn plan<'a>(doc: &'a Document, opts: &PrintOptions) -> Result<PrintPlan<'a>,
         .filter_map(|(l, plate)| {
             let l = job.layouts.get(*l)?;
             let ink = job.ink(*plate);
-            let art = marks_art(&job.doc, &marks, l, ink, &title, created).map(|mut art| {
+            let art = with_pattern_marks(marks_art(&job.doc, &marks, l, ink, &title, created), l, set).map(|mut art| {
                 if let Some(ink) = ink {
                     sep.node(&ink.name, &mut art);
                 }
@@ -434,6 +440,56 @@ fn print_inner(doc: &Document, opts: &PrintOptions, left_out: &mut HashSet<Strin
         }
     }
     Ok(PrintReport { bytes, pages: plan.order.len(), warnings })
+}
+
+/// The printer's marks `art` with, when the settings ask for them, the sewing-pattern marks of page
+/// `l` ([`pf_core::tiling`]): its test squares, and on a tile its name, the printable area's edge
+/// and the overlap lines. Black, thin, in drawing space like the printer's marks.
+fn with_pattern_marks(art: Option<Node>, l: &Layout, set: &PrintSettings) -> Option<Node> {
+    if !set.pattern_marks {
+        return art;
+    }
+    use pf_core::tiling::{TileAt, page_marks};
+    use vectorcraft_doc::{Appearance, CharStyle, NodeId, NodeKind, TextObject};
+    use vectorcraft_geom::{Affine, PathData, Point, SubPath};
+    let p = l.printable;
+    let area = pf_core::tiling::Rect::new(p.x0, p.y0, p.x1, p.y1);
+    let tile = l.tile.and_then(|(i, n)| TileAt::of(i, n, l.columns));
+    // With full-page tiles the next page's printable area starts a margin inside its paper: the
+    // pages repeat each other by the overlap less both margins.
+    let overlap = if set.scaling == PrintScaling::TileFull { set.overlap - 2.0 * set.margin } else { set.overlap };
+    let m = page_marks(area, tile, overlap);
+    let black = vectorcraft_color::Paint::solid(vectorcraft_color::Color::BLACK);
+    let poly = |pts: &[pf_core::Pt], closed: bool| SubPath::polyline(&pts.iter().map(|q| Point::new(q.x, q.y)).collect::<Vec<_>>(), closed);
+    // The marks are drawn straight from this art, so their ids don't matter.
+    let look = |kind: NodeKind, a: Appearance| {
+        let mut n = Node::new(NodeId(0), kind);
+        n.appearance = a.into();
+        n
+    };
+    let path = |subs: Vec<SubPath>, width: f64| {
+        let kind = NodeKind::Path { path: PathData::new(subs), rule: Default::default(), live: None, clipping: false, guide: false };
+        look(kind, Appearance::basic(vectorcraft_color::Paint::None, black.clone(), width))
+    };
+    let mut children: Vec<std::sync::Arc<Node>> = Vec::new();
+    if let Some(a) = art {
+        children.push(std::sync::Arc::new(a));
+    }
+    if !m.lines.is_empty() {
+        children.push(std::sync::Arc::new(path(m.lines.iter().map(|l| poly(l, false)).collect(), 0.25)));
+    }
+    // Each square a path of its own, so a reader measures each one alone.
+    for sq in &m.squares {
+        children.push(std::sync::Arc::new(path(vec![poly(sq, true)], 0.5)));
+    }
+    for (at, size, text) in &m.texts {
+        let style = CharStyle { size: *size, fill: black.clone(), ..Default::default() };
+        let mut t = TextObject::point(Point::ZERO, text, style);
+        // Point type sits on its baseline: put the text's top at `at`.
+        t.xf = Affine::translate((at.x, at.y + size * 0.8));
+        children.push(std::sync::Arc::new(look(NodeKind::Text(Box::new(t)), Appearance::basic(black.clone(), vectorcraft_color::Paint::None, 0.0))));
+    }
+    Some(Node::group(NodeId(0), children))
 }
 
 /// The printer's marks of page `l` (`None` without marks), with its page information: the

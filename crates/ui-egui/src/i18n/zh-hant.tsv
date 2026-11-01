@@ -4839,3 +4839,571 @@ lighting	Light	光源
 @msg	{key} must be an array of non-negative integer object ids	{key} 必須是由非負整數物件 id 組成的陣列
 @msg	invalid object id {value}: expected a non-negative integer	無效的物件 id {value}：應為非負整數
 @msg	no such object id {value}	沒有 id 為 {value} 的物件
+# PatternFoundry: pattern pieces (PF-1).
+	Add Notch	新增剪口
+	Make Pattern Piece	建立紙樣裁片
+	Pattern Pieces	紙樣裁片
+	Piece Info	裁片資訊
+	Piece Options	裁片選項
+	Release Pattern Piece	釋放紙樣裁片
+	Remove Notch	刪除剪口
+	Cut {count}	裁剪 {count} 片
+	Each selected closed path becomes a piece: the path is its seam line	每個選取的封閉路徑都會成為一個裁片：路徑就是它的完成線
+	Edges	邊
+	Fabric	布料
+	Mirrored pairs	鏡像成對
+	No pattern pieces yet	還沒有紙樣裁片
+	Notches	剪口
+	Pattern piece	紙樣裁片
+	Pieces	裁片
+	Seam allowance	縫份
+	Seam line length	完成線長度
+	Selected piece	選取的裁片
+# PatternFoundry: true-scale printing (PF-2).
+	Pattern Marks (test squares, page names, overlap lines)	紙樣標記（測試方塊、頁面名稱、重疊線）
+# PatternFoundry: measurements (PF-3).
+	Add Measurement	新增尺寸
+	Clear Measurements	清除尺寸
+	Clear Point Formulas	清除點公式
+	Draft Info	製圖資訊
+	Formulas	公式
+	Import Size Chart	匯入尺碼表
+	Let PDF and SVG files saved with Preserve Editing keep the measured values	以「保留編輯功能」儲存的 PDF 和 SVG 檔案保留測量值
+	Measurements	尺寸
+	No measurements yet	還沒有尺寸
+	Set Measurements	設定尺寸
+	Set Point Formula	設定點公式
+	Share in exported files	在轉存的檔案中分享
+	Figure	體型
+	Female	女性
+	Male	男性
+	Child	兒童
+	The avatar takes what the measurements don't give from a survey's women's, men's or children's proportions	量身未給出的部分，頭像按一項調查中女性、男性或兒童的比例補足
+	Size chart	尺碼表
+	Use Size	使用尺碼
+# PatternFoundry: blocks (PF-4).
+	Draft Bodice Block	繪製衣身原型
+	Block Measurements	原型尺寸
+	Draft Skirt Block	繪製裙子原型
+# PatternFoundry: design tools (PF-5).
+	Rotate Dart	轉移褶子
+	Split at Points	在點處分割
+	Seam Length	縫線長度
+	Slash and Spread	剪開展開
+	Match Seam Length	匹配縫線長度
+	Make Facing	建立貼邊
+	Add Pleat	新增褶襉
+	Draft Sleeve Block	繪製袖子原型
+	Draft Trouser Block	繪製褲子原型
+	Draft Men's Trouser Block	繪製男褲原型
+	Draft Men's Shirt Block	繪製男襯衫原型
+	Draft Men's Shirt Sleeve Block	繪製男襯衫袖原型
+	Gather	抽褶
+	Draft Collar	繪製領子
+	Patch Pocket	貼袋
+	Walk Seams	核對縫線
+	Smooth Across Seam	跨縫線平滑
+	Draft Stand Collar	繪製立領
+	In-Seam Pocket	縫內插袋
+	Welt Pocket	嵌線口袋
+	Make Wrap Front	裹身前片
+	Make Band	建立條帶
+	Grade Nest	放碼
+	Clear Graded Nest	清除放碼
+	Set Size Range	設定尺碼範圍
+	Set Grade Rule	設定放碼規則
+	Grade Info	放碼資訊
+	Grading	放碼
+	Base size	基礎碼
+	Grade rules (mm a size)	放碼規則（每碼 mm）
+	Name the sizes, smallest first, to give the points grade rules	請由小到大列出尺碼，才能為點設定放碼規則
+	Select one pattern piece to grade its points	選取一個裁片來為其點放碼
+	Sizes	尺碼
+	per size	依尺碼
+	Copy Grade Rules	複製放碼規則
+	Copy Rules To	複製規則到
+	Mirrored	鏡像
+	For the opposite half: places mirrored left to right, x moves the other way	用於另一半：位置左右鏡像，x 方向的移動相反
+	Draft Shirt Collar	繪製襯衫領
+file-filter	DXF-AAMA (cutting room)	DXF-AAMA（裁剪車間）
+@msg	DXF-AAMA files are DXF R13 (ASTM D6673) or R12	DXF-AAMA 檔案為 DXF R13（ASTM D6673）或 R12
+@msg	no pattern pieces to export	沒有可匯出的版型裁片
+@msg	the piece {_1} has no outline	裁片 {_1} 沒有輪廓
+file-filter	SVG for cutting	用於裁剪的 SVG
+file-filter	PDF for projector	用於投影機的 PDF
+	Foundry Account…	Foundry 帳戶…
+	Publish to MakerFoundry…	發佈到 MakerFoundry…
+	Publish to MakerFoundry	發佈到 MakerFoundry
+	Publish	發佈
+	Sign In…	登入…
+	Not signed in	未登入
+	Your Foundry Account	你的 Foundry 帳戶
+	Sent to	傳送到
+	SVG, a vector design	SVG，向量設計
+	What it is, e.g. A-line skirt	這是什麼，例如 A 字裙
+	Your design goes to MakerFoundry as a private draft, to finish on its page. Nothing is public until you publish it there.	你的設計會以私人草稿傳送到 MakerFoundry，在它的頁面上完成。在你於那裡發佈之前，不會公開任何內容。
+	Draft {id} made.	已建立草稿 {id}。
+	Draft {id} made on MakerFoundry: finish it on the page that opened in your browser.	已在 MakerFoundry 建立草稿 {id}：請在瀏覽器開啟的頁面上完成。
+	Finish it on MakerFoundry's page, which opened in your browser: it stays private until you publish it there.	請在瀏覽器開啟的 MakerFoundry 頁面上完成：在你於那裡發佈之前，它保持私密。
+	A password needs at least 8 characters.	密碼至少需要 8 個字元。
+	Account	帳戶
+	Allow	允許
+	Anthropic API key:	Anthropic API 金鑰：
+	Ask	提問
+	Buy credits	購買點數
+	Buy…	購買…
+	Change key	更換金鑰
+	Create Free Account	建立免費帳戶
+	Create a free Foundry Account	建立免費 Foundry 帳戶
+	Don't Allow	不允許
+	Edit › Undo takes each change back.	編輯 › 還原可復原每項修改。
+	Email	電子郵件
+	Foundry Account	Foundry 帳戶
+	Foundry accounts aren't open yet. Until then, the AI features work with your own Anthropic API key.	Foundry 帳戶尚未開放。在此之前，AI 功能使用您自己的 Anthropic API 金鑰。
+	Get a key	取得金鑰
+	I have an account: Sign In	已有帳戶:登入
+	New Conversation	新對話
+	New here? Create a free account	新使用者?建立免費帳戶
+	No card needed, and no API key to set up	無需信用卡,也無需設定 API 金鑰
+	Paid with Foundry credits ({n} left).	以 Foundry 點數支付（剩餘 {n}）。
+	Paid with Foundry credits.	以 Foundry 點數支付。
+	Pay for the AI features with my Foundry credits	用我的 Foundry 點數支付 AI 功能
+	Pay with Foundry credits instead	改用 Foundry 點數支付
+	Payment is on Stripe's secure page, in your browser; your card never reaches PatternFoundry.	在瀏覽器中的 Stripe 安全頁面付款；您的信用卡資料絕不會到達 PatternFoundry。
+	Reading your credits…	正在讀取點數…
+	Remember the key on this computer	在此電腦上記住金鑰
+	Server	伺服器
+	Sign In	登入
+	Sign Out	登出
+	Sign in to your Foundry Account	登入你的 Foundry 帳戶
+	Signed in as {email}	已登入：{email}
+	Thinking…	思考中…
+	Type your question, then press Enter	輸入問題，然後按 Enter
+	{n} credits	{n} 點數
+	{n} credits for {price}	{n} 點數，{price}
+@msg	Anthropic refused the API key: {0}	Anthropic 拒絕了此 API 金鑰：{0}
+@msg	Couldn't reach the AI service: {0}	無法連線到 AI 服務：{0}
+@msg	Enter your Anthropic API key first.	請先輸入您的 Anthropic API 金鑰。
+@msg	The AI declined to answer this: ask another way.	AI 拒絕回答此問題：請換一種問法。
+@msg	The AI service failed (error {0}): try again later.	AI 服務發生錯誤 (錯誤 {0})：請稍後再試一次。
+@msg	The AI service is busy: try again in a minute.	AI 服務忙碌中：請一分鐘後再試一次。
+@msg	The API key isn't valid: paste it again from the Anthropic Console.	API 金鑰無效：請從 Anthropic Console 重新貼上。
+@msg	The question is too long: keep it under 2,000 characters.	問題太長：請不要超過 2,000 個字元。
+@msg	The reply had no answer: try again, or ask something narrower.	回覆中沒有回答：請重試，或問得更具體些。
+@msg	The request failed (error {0}): {1}	請求失敗 (錯誤 {0})：{1}
+@msg	Type a question first.	請先輸入問題。
+@msg	Your Anthropic account can't pay for this: {0}	您的 Anthropic 帳號無法支付此費用：{0}
+@msg	already asking: wait for the answer	正在提問：請等待回答
+@msg	This conversation is long: start a New Conversation.	此對話已很長：請開始新對話。
+@msg	Claude took too many steps: ask again, more simply.	Claude 用了太多步驟：請更簡單地再問一次。
+	Ask About Patterns…	詢問紙樣問題…
+	Answers come from Claude with your own Anthropic API key, billed to your Anthropic account. They can be wrong: sew a muslin before cutting good fabric.	回答由 Claude 使用您自己的 Anthropic API 金鑰產生，費用計入您的 Anthropic 帳戶。回答可能有誤：裁剪好布料前請先用胚布縫製樣衣。
+	Ask About Patterns	詢問紙樣問題
+	Ask anything about sewing patterns or PatternFoundry: how much ease to add, how to move a dart, which block to start from, where a feature is. Claude can also draft and change your pattern when you ask, after you allow it.	關於紙樣或 PatternFoundry 的任何問題都可以問：該加多少鬆份、如何轉移褶子、從哪個原型開始、某項功能在哪裡。在您允許後，Claude 也可以依您的要求繪製和修改紙樣。
+	Claude asks to:	Claude 請求：
+	Couldn't do:	無法完成：
+	Done:	已完成：
+	Free credits for the AI features, no API key needed	AI 功能免費點數，無需 API 金鑰
+	Free credits to try the AI features: Ask About Patterns drafts and changes patterns with you	免費點數試用 AI 功能：「詢問紙樣問題」與您一起繪製和修改紙樣
+	Include my pattern	附上我的紙樣
+	Its pieces and sizes, and which measurements are set: never their values	其裁片和尺碼，以及設定了哪些尺寸：絕不包括具體數值
+	Leave it empty for the Foundry service.	留空則使用 Foundry 服務。
+	Not allowed:	不允許：
+	One account for every SiteSentrix app	一個帳戶通用所有 SiteSentrix 應用程式
+	Read your measurements	讀取您的尺寸
+@msg	An account with that email already exists: sign in instead.	已有使用此電子郵件的帳戶：請改為登入。
+@msg	Ask About Patterns needs a build that can reach the AI service	「詢問紙樣問題」需要能連線 AI 服務的版本
+@msg	Foundry Account needs a build that can reach the AI service	「Foundry 帳戶」需要能連線 AI 服務的版本
+@msg	Foundry accounts aren't open yet.	Foundry 帳戶尚未開放。
+@msg	Not enough Foundry credits: buy more in Foundry Account.	Foundry 點數不足：請在 Foundry 帳戶中購買。
+@msg	Sign in to your Foundry account (Help › Foundry Account…).	請登入您的 Foundry 帳戶（說明 › Foundry 帳戶…）。
+@msg	The Foundry service can't do this yet: try again later.	Foundry 服務暫時無法完成此操作：請稍後再試。
+@msg	this needs a connection to the AI service, which this build doesn't have	此功能需要連線 AI 服務，而此版本不具備該連線
+@msg	Account made: welcome to PatternFoundry.	帳戶已建立：歡迎使用 PatternFoundry。
+@msg	Signed in.	已登入。
+@msg	Signed out.	已登出。
+@msg	Type your email address.	請輸入您的電子郵件地址。
+@msg	Pay on the page that opened in your browser, then press Refresh.	請在瀏覽器開啟的頁面上付款，然後按「重新整理」。
+	Add Photos…	新增照片…
+	Choose the photos in the browser's window…	請在瀏覽器視窗中選擇照片…
+	About the fit	關於合身度
+	Anything else? For example: folds below the back neck	還有別的嗎？例如：後領口下方有皺褶
+	Check My Muslin	檢查我的樣衣
+	Claude looks at the photos with your own Anthropic API key, billed to your Anthropic account. It can be wrong: sew the altered part again in muslin before cutting good fabric.	Claude 使用您自己的 Anthropic API 金鑰查看照片，費用計入您的 Anthropic 帳戶。它可能出錯：裁剪好布料前，請先用胚布把修改過的部分重新縫製一次樣衣。
+	Final fabric	正式布料
+	Hard to raise my arms	手臂難以抬起
+	How it feels:	穿著感受：
+	Include the pattern it was cut from (open now), so it can be altered	附上裁剪所用的紙樣（目前開啟的），以便修改
+	Loose or gaping somewhere	某處鬆垮或豁開
+	Muslin fabric	樣衣布料
+	My muslin ({n} photos)	我的樣衣（{n} 張照片）
+	Photos of your muslin, tried on	您試穿樣衣的照片
+	The front, the side and the back, standing straight with your arms down, and close-ups of any folds or pulling.	正面、側面和背面，站直、手臂自然下垂，以及所有皺褶或拉扯處的特寫。
+	The neckline gapes or pulls	領口豁開或拉扯
+	The photos go to Claude for this check only; PatternFoundry doesn't keep them.	照片僅為本次檢查傳送給 Claude；PatternFoundry 不會保留。
+	The shoulder seams don't sit on my shoulders	肩縫沒有落在我的肩上
+	Tight across the back or shoulders	背部或肩部太緊
+	Tight across the bust or chest	胸部太緊
+	Tight at the waist or hips	腰部或臀部太緊
+	Too long or too short	太長或太短
+	e.g. calico, an old sheet	例如 胚布、舊床單
+	e.g. cotton poplin, jersey	例如 棉府綢、針織布
+	Check My Muslin…	檢查我的樣衣…
+@msg	Add a photo of the muslin first.	請先新增一張樣衣照片。
+@msg	Check My Muslin needs a build that can reach the AI service	「檢查我的樣衣」需要能連線 AI 服務的版本
+@msg	The image is too large to send: crop it, or send a smaller copy.	影像過大，無法傳送：請裁切影像，或傳送較小的複本。
+@msg	This photo is too large: send a smaller copy.	這張照片太大：請傳送較小的複本。
+@msg	no files here	這裡沒有檔案
+@msg	At most 6 photos: remove one first.	最多 6 張照片：請先移除一張。
+@msg	This photo can't be read: save or send it as a JPEG (on an iPhone: Settings › Camera › Formats › Most Compatible).	無法讀取這張照片：請另存或以 JPEG 傳送（iPhone：設定 › 相機 › 格式 › 最相容）。
+	Make Marker	製作排料圖
+	Make Marker…	製作排料圖…
+	Gap	間距
+	Precision	精度
+	One Way	單向
+	Cut on fold	對摺裁剪
+	Folded	對摺
+	The straight edge laid on the fabric's fold: no allowance there	放在布料摺線上的直邊：此處無縫份
+	Check Sleeve Ease	檢查袖山吃份
+	Sleeve Ease	袖山吃份
+	Crown {crown} mm, armhole {armhole} mm (back {back}, front {front}): the crown takes in {ease} mm ({percent}%).	袖山 {crown} mm，袖窿 {armhole} mm（後片 {back}，前片 {front}）：袖山吃份 {ease} mm（{percent}%）。
+	Less than the {min} to {max} mm it should take in: the sleeve may pull across the cap. Set sleeve_crown to {wanted} mm in Measurements to redraft the sleeve block with the ease in the middle.	少於應有的 {min} 至 {max} mm 吃份：袖山可能會緊繃。在「量身」中把 sleeve_crown 設為 {wanted} mm，即可依置中的吃份重畫袖原型。
+	More than the {min} to {max} mm it should take in: the cap may pucker when it is set in. Set sleeve_crown to {wanted} mm in Measurements to redraft the sleeve block with the ease in the middle.	多於應有的 {min} 至 {max} mm 吃份：上袖時袖山可能起皺。在「量身」中把 sleeve_crown 設為 {wanted} mm，即可依置中的吃份重畫袖原型。
+	Within the {min} to {max} mm it should take in.	在應有的 {min} 至 {max} mm 吃份之內。
+	Edges: {edges}, notches: {notches}	邊：{edges}，剪口：{notches}
+	Edge {n}	邊 {n}
+	On fold	對摺
+	Back to the piece's seam allowance	恢復為衣片的縫份
+	A notch in the middle of the edge	在邊的中點加剪口
+	Notch on edge {edge}, {at}% along	邊 {edge} 上的剪口，位於 {at}%
+	Piece Outlines	衣片輪廓
+	Projector	投影機
+	Projector Scale (screen points per mm, 0: not calibrated)	投影機比例（每公釐螢幕點數，0：未校準）
+	Projector View	投影檢視
+	Measure the square on the cutting mat: it should be 10 cm each way. The arrows make it bigger or smaller (with Shift, faster); Enter keeps it; Escape leaves. Scale: {scale} points per mm.	在裁布墊上量正方形：橫豎都應為 10 cm。方向鍵放大或縮小（按住 Shift 更快）；Enter 保留；Esc 離開。比例：每公釐 {scale} 點。
+	Arrows move the pattern 1 cm (Shift: 1 mm) · M mirrors it · C calibrates · Escape leaves	方向鍵將紙型移動 1 cm（Shift：1 mm）· M 鏡像 · C 校準 · Esc 離開
+@msg	no pattern pieces to project: make the outlines pattern pieces first (Pattern › Make Pattern Piece)	沒有可投影的衣片：請先把輪廓做成衣片（紙型 › 製作衣片）
+@msg	scale: screen points per mm, more than 0	比例：每公釐螢幕點數，大於 0
+	Delete Saved Measurements	刪除儲存的尺寸
+	Load Measurements	載入尺寸
+	My Measurements	我的尺寸
+	Save to My Measurements	儲存到我的尺寸
+	Delete from this computer	從這部電腦刪除
+	Kept on this computer only, to load into any pattern	只儲存在這部電腦上，可載入任何紙型
+	Load	載入
+	Use these measurements in this pattern	在這個紙型中使用這些尺寸
+	Whose (Me)	誰的（我）
+	Shorten Dart	縮短褶子
+	Shorten Dart…	縮短褶子…
+	Shorten	縮短
+	Add Notch Here	在此新增剪口
+	Cut on Fold Here	此處對摺裁剪
+	Seam Allowance Here…	此處的縫份…
+	Grade This Point…	放碼此點…
+	Edge Allowance	邊的縫份
+	Across	橫向
+	Down	向下
+	One step	統一檔差
+	The same move for each size, from the size above the base	每個尺碼相同的移動（取基礎碼上一碼）
+	Per size	按尺碼
+	A move for each size of its own	每個尺碼各自的移動
+	Add Drill Hole Here	在此新增鑽孔
+	Remove Drill Hole Here	刪除此處的鑽孔
+	Add Drill Hole	新增鑽孔
+	Remove Drill Hole	刪除鑽孔
+	Drill holes: {count}	鑽孔：{count}
+	Right-click inside the piece: Add Drill Hole Here	在衣片內按一下右鍵：在此新增鑽孔
+	Drill hole {n}, {mm} mm	鑽孔 {n}，{mm} mm
+	Drill hole {n}	鑽孔 {n}
+	Notch Shape	剪口形狀
+	Slit notch	直剪口
+	Double notch	雙剪口
+	V notch	V 形剪口
+	T notch	T 形剪口
+	Castle notch	方形剪口
+	U notch	U 形剪口
+	As drawn	依繪製
+	Side by side	並排
+	Block Options…	原型選項…
+	Block Options	原型選項
+	Ease	放鬆量
+	Waist ease	腰圍放鬆量
+	Bust dart	胸褶
+	Shoulder dart	肩褶
+	Back dart	後片褶
+	Back dart length	後片褶長
+	Front dart length	前片褶長
+	Option	選項
+	Back to the block's default	恢復原型預設值
+	from the measurements	依尺寸
+	Block Options Info	原型選項資訊
+	Check Trouser Seams	檢查褲子縫線
+	Trouser Seams	褲子縫線
+	Inseam, knee to hem	內側縫，膝到褲口
+	Inseam, crotch to knee	內側縫，襠到膝
+	Side seam, knee to hem	側縫，膝到褲口
+	Side seam, waist to knee	側縫，腰到膝
+	{seam}: front {front} mm, back {back} mm ({difference} mm)	{seam}：前片 {front} mm，後片 {back} mm（{difference} mm）
+	Walk them on the pattern too: where a line doesn't run on smoothly from front to back, find the point half way between the two and correct both lines. The back inseam is more curved, so it is often longer: lowering the back crotch curve slightly to match is fine.	也請在紙型上對一對：前後片之間線條不順接的地方，找到兩線之間的中點並同時修正兩條線。後片內側縫弧度較大，所以常常較長：把後襠弧線稍微降低一點來對齊是可以的。
+	Front dart	前片褶
+	Draft Trouser Waistband	繪製褲腰
+	Flap Pocket…	袋蓋口袋…
+	Crown ease	袖山吃勢
+	Remove Design Step	刪除設計步驟
+	Dart moved	已轉移褶子
+	Dart shortened {mm} mm	褶子已縮短 {mm} mm
+	Slashed and spread {mm} mm	已剪開並展開 {mm} mm
+	Seam trued to {mm} mm	縫線已調整為 {mm} mm
+	Split into panels	已分割為裁片
+	Design step	設計步驟
+	Design steps: {count}	設計步驟：{count}
+	Design changes made on the block (darts, splits, spreads, seam lengths) show here; each is made again when the measurements change	在原型上所做的變更（褶子、分割、展開、縫線長度）顯示在這裡；尺寸改變時每項都會重新執行
+	Remove this step and the ones after it (they were made on the outline it made)	刪除此步驟及其後的步驟（它們是在此步驟得到的輪廓上進行的）
+	Selected block part	選取的原型部分
+	Curve Dart Legs…	彎曲褶子邊…
+	Curve Dart Legs	彎曲褶子邊
+	Dart legs curved {mm} mm	褶子邊已彎曲 {mm} mm
+	Draft Rounded Stand Collar	繪製圓角立領
+	Draft Wing Collar	繪製翼領
+	Check Marker	檢查排料圖
+	{length} cm long, {efficiency}% of the fabric used	長 {length} 公分，用料 {efficiency}%
+	{a} overlaps {b}	{a} 與 {b} 重疊
+	{piece} is off the fabric	{piece} 超出布料
+	No pieces overlap, and all are on the fabric.	沒有裁片重疊，全部都在布料上。
+	Plaid	格紋
+menu	Pattern	紙型
+@msg	a and b are two pieces (or paths) that sew together	a 和 b 是縫合在一起的兩個裁片（或路徑）
+@msg	a corner is "mitre" or "square"	轉角為 "mitre" 或 "square"
+@msg	a facing runs along part of the outline	貼邊須沿輪廓的一部分
+@msg	a facing runs between two different points of the outline	貼邊須位於輪廓上兩個不同的點之間
+@msg	a name takes at most 200 characters	名稱最多 200 個字元
+@msg	a neckline runs between two different points of its outline, and the shoulder point is one of them	領口線須位於其輪廓上兩個不同的點之間，且其中一個是肩點
+@msg	a seam allowance is a number of mm, or a length with its unit ("5/8 in")	縫份為 mm 數值，或帶單位的長度（"5/8 in"）
+@msg	a seam has no length	有一條縫線長度為零
+@msg	a shoulder point is on its neck point	肩點與其頸側點重合
+@msg	a slash runs between two points of the outline that aren't neighbours	剪開線須位於輪廓上兩個不相鄰的點之間
+@msg	a split leaves a piece with fewer than three anchors	分割後會留下錨點少於三個的裁片
+@msg	a split made two panels: delete the panel you don't want instead	分割已產生兩個裁片：請改為刪除不需要的那個裁片
+@msg	a split needs two different anchors on the outline	分割需要輪廓上兩個不同的錨點
+@msg	amount: a share of the dart, (0, 1]	amount: 褶子量的比例，(0, 1]
+@msg	amount: how far it opens, mm	amount: 展開量，mm
+@msg	anchor: the point's number along the path, from 0	anchor: 該點沿路徑的編號，從 0 開始
+@msg	anchor: the seam line's point, from 0	anchor: 完成線上的點，從 0 開始
+@msg	anchors: [a, b] or [a]	anchors: [a, b] 或 [a]
+@msg	anchors: point numbers along the path	anchors: 沿路徑的點編號
+@msg	apex: the dart's point (or select that one point)	apex: 褶尖（或選取該點）
+@msg	at: 0 (the edge's start) to 1 (its end)	at: 0（邊的起點）到 1（終點）
+@msg	at: [x, y], the document point on the edge	at: [x, y]，邊上的點（文件座標）
+@msg	base: the size the pattern is drawn in	base: 繪製紙型所用的尺碼
+@msg	block: "bodice", "skirt", "sleeve" or "trousers"	block: "bodice"、"skirt"、"sleeve" 或 "trousers"
+@msg	can't make the seam that long by moving its end	移動端點無法使縫線達到該長度
+@msg	curve: mm the wrap edge bows into the piece	curve: 裹身邊向裁片內彎曲的量，mm
+@msg	cut is a whole number, 1 to 999	cut 為 1 到 999 的整數
+@msg	data: the chart's text	data: 尺碼表的文字
+@msg	depth: how deep the pleat folds under, mm	depth: 褶襉向內摺入的深度，mm
+@msg	depth: mm (less than 0 bows the legs in)	depth: mm（小於 0 時褶子邊向內彎）
+@msg	diameter: a number of mm, or a length with its unit ("1/8 in")	diameter: mm 數值，或帶單位的長度（"1/8 in"）
+@msg	edge: the edge's number, from 0 (or point)	edge: 邊的編號，從 0 開始（或使用 point）
+@msg	edges and corners are numbered from 0	邊和轉角從 0 開始編號
+@msg	every: mm, at least 10	every: mm，至少 10
+@msg	face: only a box pleat has one	face: 只有工字褶才有
+@msg	face: the box pleat's width between its folds, mm	face: 工字褶兩條摺邊之間的寬度，mm
+@msg	flapShape: "square", "rounded" or "pointed"	flapShape: "square"、"rounded" 或 "pointed"
+@msg	fold is an edge's number (0..), or null	fold 為邊的編號（0..）或 null
+@msg	fold: [a, b], the centre front edge's two points	fold: [a, b]，前中邊的兩個點
+@msg	fold: true or false	fold: true 或 false
+@msg	foldAt: [x, y] in document points	foldAt: [x, y]，以文件點為單位
+@msg	folded: true or false	folded: true 或 false
+@msg	from: [x, y] in document points	from: [x, y]，以文件點為單位
+@msg	from: not a pattern piece	from: 不是紙樣裁片
+@msg	from: the pattern piece whose rules are copied	from: 要複製其規則的紙樣裁片
+@msg	from: the piece has no seam line	from: 該裁片沒有完成線
+@msg	frontShape: "square", "rounded" or "winged"	frontShape: "square"、"rounded" 或 "winged"
+@msg	gathering runs between two different points of the outline	抽褶須位於輪廓上兩個不同的點之間
+@msg	give apex and one of to or toAnchor (or select the two points)	請提供 apex 以及 to 或 toAnchor 其中之一（或選取這兩個點）
+@msg	height: mm, 10 to 100 (the tutorial's is at most 30)	height: mm，10 到 100（教學中的最多為 30）
+@msg	id: a block part's id	id: 原型部分的 id
+@msg	index: the drill hole's place in the list, from 0 (or point)	index: 鑽孔在清單中的位置，從 0 開始（或使用 point）
+@msg	index: the notch's place in the list, from 0	index: 剪口在清單中的位置，從 0 開始
+@msg	index: the step's place, from 0	index: 步驟的位置，從 0 開始
+@msg	into: the length it gathers into, mm	into: 抽褶後的長度，mm
+@msg	kind: "slit", "double", "v", "t", "castle" or "u"	kind: "slit"、"double"、"v"、"t"、"castle" 或 "u"
+@msg	kind: the notch's new shape	kind: 剪口的新形狀
+@msg	layer: a marker layer's id	layer: 排料圖圖層的 id
+@msg	length (mm) or likeId with likeFrom and likeTo: the seam to match	length（mm）或 likeId 加 likeFrom 和 likeTo：要匹配的縫線
+@msg	length: mm, more than 0	length: mm，大於 0
+@msg	line: "cut" or "seam"	line: "cut" 或 "seam"
+@msg	match: the seam it sews to is shorter than the pocket opening's end	match: 與之縫合的縫線比袋口末端還短
+@msg	min is more than max	min 大於 max
+@msg	mirror is true or false	mirror 為 true 或 false
+@msg	mirror: "none", "x", "y" or "xy"	mirror: "none"、"x"、"y" 或 "xy"
+@msg	name: the saved set's name	name: 已儲存尺寸組的名稱
+@msg	name: whose measurements they are ("Me")	name: 這些尺寸是誰的（"Me"）
+@msg	no drill hole near the point	該點附近沒有鑽孔
+@msg	no drill hole with that index	沒有該索引的鑽孔
+@msg	no notch with that index	沒有該索引的剪口
+@msg	no object with that id	沒有該 id 的物件
+@msg	no pattern pieces to grade: make the outlines pattern pieces first (Pattern › Make Pattern Piece)	沒有可放碼的紙樣裁片：請先把輪廓做成紙樣裁片（紙型 › 建立紙樣裁片）
+@msg	no straight centre front edge on the outline's side: name it with fold: [a, b]	輪廓這一側沒有筆直的前中邊：請用 fold: [a, b] 指定
+@msg	not a drafted block part	不是繪製的原型部分
+@msg	not a marker's layer (Pattern › Make Marker…)	不是排料圖的圖層（紙型 › 製作排料圖…）
+@msg	not a pattern piece	不是紙樣裁片
+@msg	not a stand collar's outline	不是立領的輪廓
+@msg	notches go on pattern pieces: make both seams' paths pieces first (Pattern › Make Pattern Piece)	剪口只能加在紙樣裁片上：請先把兩條縫線的路徑做成裁片（紙型 › 建立紙樣裁片）
+@msg	notches: [mm, …]	notches: [mm, …]
+@msg	notches: distances from the seams' starts, mm	notches: 距縫線起點的距離，mm
+@msg	on and at go together: the garment piece and where the opening's top-left corner goes on it	on 和 at 須同時提供：衣片，以及袋口左上角在衣片上的位置
+@msg	on and at go together: the garment piece and where the pocket's top-left corner goes on it	on 和 at 須同時提供：衣片，以及口袋左上角在衣片上的位置
+@msg	one point splits only where another point is at the same place (two darts' point)	只有在另一個點位於同一位置時（兩個褶子的褶尖），才能用一個點分割
+@msg	oneWay: true or false	oneWay: true 或 false
+@msg	openFolds: true or false	openFolds: true 或 false
+@msg	origin: [x, y] in document points	origin: [x, y]，以文件點為單位
+@msg	overlap: mm past centre front, more than 0	overlap: 越過前中的疊門量，mm，大於 0
+@msg	overlap: the edge misses the outline	overlap: 邊緣與輪廓不相交
+@msg	plaid: the repeat (mm, or [along, across])	plaid: 循環尺寸（mm，或 [along, across]）
+@msg	plaid: the repeat along and across, 1 to 10 000 mm each	plaid: 縱向和橫向的循環尺寸，各為 1 到 10 000 mm
+@msg	point: [x, y] in document points	point: [x, y]，以文件點為單位
+@msg	select a drafted block part (Pattern › Draft … Block)	請選取一個繪製的原型部分（紙型 › 繪製…原型）
+@msg	select a path or a pattern piece	請選取路徑或紙樣裁片
+@msg	select a pattern piece (Pattern › Make Pattern Piece makes one)	請選取紙樣裁片（可用 紙型 › 建立紙樣裁片 建立）
+@msg	select a piece on the marker to check	請選取排料圖上要檢查的裁片
+@msg	select closed paths: each becomes a piece, the path its seam line	請選取封閉路徑：每個路徑都會成為一個裁片，路徑即為其完成線
+@msg	select one path	請選取一個路徑
+@msg	select one pattern piece	請選取一個紙樣裁片
+@msg	select two points of one path (or one that two darts share)	請選取同一路徑上的兩個點（或兩個褶子共用的一個點）
+@msg	select two points of one path: the dart's point and where the dart moves to	請選取同一路徑上的兩個點：褶尖和褶子要轉移到的位置
+@msg	select two points of one path: the ends of the edge to face	請選取同一路徑上的兩個點：要做貼邊的邊的兩端
+@msg	select two points of one path: the ends of the edge to gather	請選取同一路徑上的兩個點：要抽褶的邊的兩端
+@msg	share is true or false	share 為 true 或 false
+@msg	shorten: mm (less than 0 lengthens)	shorten: mm（小於 0 時加長）
+@msg	shoulder: longer than the outline	shoulder: 比輪廓還長
+@msg	shoulder: mm, 0 or more	shoulder: mm，0 或更大
+@msg	size: one of the chart's sizes	size: 尺碼表中的某個尺碼
+@msg	size: the name of a size of the size range or chart	size: 尺碼範圍或尺碼表中某個尺碼的名稱
+@msg	sizes: name one size at least	sizes: 請至少指定一個尺碼
+@msg	sizes: the sizes' names	sizes: 各尺碼的名稱
+@msg	sizes: the sizes' names, smallest first (null removes them)	sizes: 各尺碼的名稱，從小到大（null 表示刪除）
+@msg	split the seam line on its own: release the piece first (Pattern › Release Pattern Piece)	要單獨分割完成線，請先釋放裁片（紙型 › 釋放紙樣裁片）
+@msg	step: [dx, dy] in mm	step: [dx, dy]，以 mm 為單位
+@msg	style: classic, casual or shirt	style: classic、casual 或 shirt
+@msg	that anchor's neighbours don't make a dart	該錨點的相鄰點不能構成褶子
+@msg	that point is not a dart's point: its legs open a right angle or wider	該點不是褶尖：其褶子邊張開成直角或更大
+@msg	the amount is a share of the dart, more than 0 and at most 1	量為褶子量的比例，大於 0 且不超過 1
+@msg	the back's outline encloses no area	後片的輪廓沒有圍成面積
+@msg	the box pleat's face is more than 0 wide	工字褶的面寬須大於 0
+@msg	the chart is larger than 1 MB	尺碼表大於 1 MB
+@msg	the curve has no length at the meeting point	曲線在交會點處長度為零
+@msg	the curves leave the seam the same way	這些曲線從縫線以相同方向離開
+@msg	the dart has no length	褶子長度為零
+@msg	the dart is not that long	褶子沒有那麼長
+@msg	the dart point or the new dart's anchor is not on the outline	褶尖或新褶子的錨點不在輪廓上
+@msg	the dart's legs must be straight lines	褶子邊必須是直線
+@msg	the dart's point is past the outline's end	褶尖超出了輪廓的末端
+@msg	the depth to curve the legs by is not a number	彎曲褶子邊的深度不是數字
+@msg	the document has no marker (Pattern › Make Marker…)	文件中沒有排料圖（紙型 › 製作排料圖…）
+@msg	the document has no measurements to save	文件中沒有可儲存的尺寸
+@msg	the document has no size chart (measure.importChart)	文件中沒有尺碼表（measure.importChart）
+@msg	the drop at the front is less than half the neck edge	前端下落量須小於領口邊的一半
+@msg	the edge has no length	該邊長度為零
+@msg	the edge's anchor is past the outline's end	該邊的錨點超出了輪廓的末端
+@msg	the fabric's width must be more than 0	布料幅寬必須大於 0
+@msg	the flap is deeper than twice its width	袋蓋深度超過其寬度的兩倍
+@msg	the flap's width and depth are more than 0, its allowance 0 or more	袋蓋的寬度和深度須大於 0，縫份須為 0 或更大
+@msg	the fold edge has no length	對摺邊長度為零
+@msg	the fold edge's anchors are past the outline's end	對摺邊的錨點超出了輪廓的末端
+@msg	the fold edge's two anchors must be neighbours on the outline	對摺邊的兩個錨點必須在輪廓上相鄰
+@msg	the fold must be a straight edge	對摺線必須是直邊
+@msg	the front end has no length	前端長度為零
+@msg	the gap must be 0 or more	間距必須為 0 或更大
+@msg	the grainline's ends are the same point	布紋線的兩端是同一個點
+@msg	the legs can't curve that far: the dart isn't wide enough	褶子邊無法彎曲到這種程度：褶子不夠寬
+@msg	the length to shorten by is not a number	要縮短的長度不是數字
+@msg	the marker has lost its fabric outline	排料圖的布料輪廓已遺失
+@msg	the marker has no pieces	排料圖中沒有裁片
+@msg	the marker is too large at this precision: give a coarser one	在此精度下排料圖過大：請使用較粗的精度
+@msg	the measurements could not be saved	無法儲存尺寸
+@msg	the meeting point and the seam's other end are points of the outline	交會點和縫線的另一端須為輪廓上的點
+@msg	the neckline has no length	領口線長度為零
+@msg	the neckline lengths and the stand's height are more than 0, the rise and extension 0 or more	領口線長度和領座高度須大於 0，起翹和搭門量須為 0 或更大
+@msg	the new dart is on the old dart	新褶子與原褶子重合
+@msg	the opening is longer than twice its height	袋口長度超過其高度的兩倍
+@msg	the opening, depth and width are more than 0, the width more than the allowance	袋口、深度和寬度須大於 0，且寬度須大於縫份
+@msg	the opening, the welt and the depth are more than 0, the allowances 0 or more	袋口、嵌線和深度須大於 0，縫份須為 0 或更大
+@msg	the outline encloses no area	輪廓沒有圍成面積
+@msg	the outline has no side seam	輪廓沒有側縫
+@msg	the path has no outline	路徑沒有輪廓
+@msg	the path must be one closed outline	路徑必須是一個封閉輪廓
+@msg	the piece has no grade rules to copy	該裁片沒有可複製的放碼規則
+@msg	the piece has no straight edge to cut on the fold	該裁片沒有可對摺裁剪的直邊
+@msg	the pieces have no cutting lines to lay	裁片沒有可排放的裁剪線
+@msg	the plaid's repeat must be more than 0 along and across	格紋的循環尺寸在縱向和橫向上都必須大於 0
+@msg	the pocket (its opening and the allowance past both ends) fits on the seam	口袋（袋口及兩端以外的縫份）須能放在縫線上
+@msg	the point is not inside the piece	該點不在裁片內
+@msg	the point is not on the seam line or in its allowance	該點不在完成線上，也不在縫份內
+@msg	the precision must be more than 0	精度必須大於 0
+@msg	the rise at centre front is less than the front neckline is long	前中起翹量須小於前領口線的長度
+@msg	the seam has no length there	縫線在該處長度為零
+@msg	the seam runs between two different points of the outline	縫線須位於輪廓上兩個不同的點之間
+@msg	the seam's other end is a neighbour of the meeting point	縫線的另一端與交會點相鄰
+@msg	the top edge has no length	上邊長度為零
+@msg	the wing is more than 0 long	翼的長度須大於 0
+@msg	there is no folder to keep measurement sets in here (the desktop app keeps them next to its preferences)	此處沒有用於儲存尺寸組的資料夾（桌面應用程式會將其儲存在偏好設定旁邊）
+@msg	there is no point of the seam line there	該處沒有完成線上的點
+@msg	to or toAnchor: where the dart moves to	to 或 toAnchor: 褶子要轉移到的位置
+@msg	to: [x, y] in document points	to: [x, y]，以文件點為單位
+@msg	to: the pieces to copy the rules to (select them, or name them)	to: 要將規則複製到的裁片（選取它們，或指定名稱）
+@msg	too many objects at once	一次處理的物件過多
+@msg	too many pieces at once	一次處理的裁片過多
+@msg	too many pieces to lay at once	一次要排放的裁片過多
+@msg	too many sizes at once	一次處理的尺碼過多
+@msg	unit: "mm", "cm" or "in"	unit: "mm"、"cm" 或 "in"
+@msg	width: mm, more than 0	width: mm，大於 0
+	Draw Avatar	繪製人台
+	Export Avatar as OBJ	將人台匯出為 OBJ
+	Sewn seams: {count}	已縫合的縫線：{count}
+	{label}: sewn to {piece}, {mm} mm longer	{label}：與 {piece} 縫合，長 {mm} mm
+	{label}: sewn to {piece}, {mm} mm shorter	{label}：與 {piece} 縫合，短 {mm} mm
+	{label}: sewn to {piece}	{label}：與 {piece} 縫合
+	Sew Seams	縫合縫線
+	Unsew Seams	拆開縫線
+	Sewn Seams	已縫合的縫線
+	Drape on Avatar	在人台上懸垂
+	Use as Fabric…	用作布料…
+	Use as Fabric	用作布料
+	Stop Using as Fabric	停止用作布料
+	Fabric Photos	布料照片
+@msg	the drape view's picture is the wrong size	垂墜檢視的圖片尺寸不對
+@msg	the drape view: {e}	垂墜檢視：{e}
+@msg	a fabric photo is the wrong size	布料照片的尺寸不對
+@msg	a fabric photo: {e}	布料照片：{e}
+	Export Avatar as glTF	將虛擬人體匯出為 glTF
+	Export Avatar as glTF…	將虛擬人體匯出為 glTF…
+	Export Drape as glTF…	將垂墜匯出為 glTF…
+@msg	format: "obj" or "glb"	format："obj" 或 "glb"
+@msg	colour: "fabric" or "fit"	format："fabric" 或 "fit"
+@msg	a piece could not be placed on the body	有一個裁片無法放到身體上
+@msg	{name} is already open	{name} 已經開啟
+@msg	Draping on Avatar	正在將衣片垂墜到虛擬人體上
+	Step {n} of {total}	第 {n} 步，共 {total} 步
+@msg	The drape was cancelled	已取消垂墜
+@msg	Draped on the avatar	已垂墜到虛擬人體上
+@msg	the document was closed	文件已關閉
+@msg	the drape stopped	垂墜已停止
+@msg	width: the photo's width on the fabric, 10 to 5000 mm	width：照片在布料上的寬度，10 至 5000 mm
+@msg	turns: 0, 1, 2 or 3	turns：0、1、2 或 3
+@msg	the image is not a fabric photo (Pattern › Use as Fabric…)	該影像不是布料照片（紙型 › 用作布料…）
+@msg	even: true or false	even: true 或 false
+@msg	seamless: true or false	seamless: true 或 false
+@msg	Sign in to your Foundry Account first: Help › Foundry Account…	請先登入你的 Foundry 帳戶：說明 › Foundry 帳戶…
+@msg	The document is empty: there is nothing to publish.	文件是空的：沒有可發佈的內容。
+@msg	The design is too large for MakerFoundry: at most 8 MB.	設計對 MakerFoundry 來說太大：最多 8 MB。
+@msg	MakerFoundry's answer couldn't be read.	無法讀取 MakerFoundry 的回覆。
+@msg	MakerFoundry answered with a page on another site, which wasn't opened.	MakerFoundry 以其他網站的頁面回覆，該頁面未開啟。
+@msg	MakerFoundry: {1}	MakerFoundry：{1}
+@msg	MakerFoundry couldn't be reached: {0}	無法連線到 MakerFoundry：{0}
+@msg	Publish to MakerFoundry needs a build that can reach MakerFoundry	發佈到 MakerFoundry 需要能連線到 MakerFoundry 的版本
+@msg	open Publish to MakerFoundry first: it shows what is sent	請先開啟「發佈到 MakerFoundry」：其中會顯示要傳送的內容
+@msg	That link isn't a design file on MakerFoundry, so it wasn't opened.	該連結不是 MakerFoundry 上的設計檔案，因此未開啟。
+@msg	The design is too large to open: at most 32 MB.	設計太大，無法開啟：最多 32 MB。
+@msg	PatternFoundry opens SVG and DXF designs from MakerFoundry; that file is neither.	PatternFoundry 可開啟 MakerFoundry 上的 SVG 和 DXF 設計；該檔案兩者皆非。
+@msg	The design couldn't be downloaded from MakerFoundry: {0}	無法從 MakerFoundry 下載設計：{0}

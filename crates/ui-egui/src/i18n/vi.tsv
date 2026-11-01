@@ -4802,3 +4802,571 @@ theme	Appearance	Giao diện
 @msg	the file's variables and data sets weren't read (variables: {variables}, data sets: {data_sets}): the Variables panel doesn't list them	các biến và tập dữ liệu của tệp chưa được đọc (biến: {variables}, tập dữ liệu: {data_sets}): bảng Biến không liệt kê chúng
 # Select by Color (select.color)
 	Select by Color	Chọn theo màu
+# PatternFoundry: pattern pieces (PF-1).
+	Add Notch	Thêm dấu bấm
+	Make Pattern Piece	Tạo chi tiết rập
+	Pattern Pieces	Chi tiết rập
+	Piece Info	Thông tin chi tiết
+	Piece Options	Tùy chọn chi tiết
+	Release Pattern Piece	Giải phóng chi tiết rập
+	Remove Notch	Xóa dấu bấm
+	Cut {count}	Cắt {count}
+	Each selected closed path becomes a piece: the path is its seam line	Mỗi đường dẫn khép kín được chọn trở thành một chi tiết: đường dẫn là đường may của nó
+	Edges	Cạnh
+	Fabric	Vải
+	Mirrored pairs	Cặp đối xứng
+	No pattern pieces yet	Chưa có chi tiết rập nào
+	Notches	Dấu bấm
+	Pattern piece	Chi tiết rập
+	Pieces	Chi tiết
+	Seam allowance	Đường may chừa
+	Seam line length	Chiều dài đường may
+	Selected piece	Chi tiết đã chọn
+# PatternFoundry: true-scale printing (PF-2).
+	Pattern Marks (test squares, page names, overlap lines)	Dấu rập (ô vuông kiểm tra, tên trang, đường chồng mép)
+# PatternFoundry: measurements (PF-3).
+	Add Measurement	Thêm số đo
+	Clear Measurements	Xóa số đo
+	Clear Point Formulas	Xóa công thức điểm
+	Draft Info	Thông tin dựng rập
+	Formulas	Công thức
+	Import Size Chart	Nhập bảng cỡ
+	Let PDF and SVG files saved with Preserve Editing keep the measured values	Tệp PDF và SVG lưu với Giữ khả năng chỉnh sửa giữ lại các giá trị đo
+	Measurements	Số đo
+	No measurements yet	Chưa có số đo nào
+	Set Measurements	Đặt số đo
+	Set Point Formula	Đặt công thức điểm
+	Share in exported files	Chia sẻ trong tệp đã xuất
+	Figure	Vóc dáng
+	Female	Nữ
+	Male	Nam
+	Child	Trẻ em
+	The avatar takes what the measurements don't give from a survey's women's, men's or children's proportions	Hình đại diện lấy những gì số đo không cho từ tỷ lệ của nữ, nam hoặc trẻ em trong một khảo sát
+	Size chart	Bảng cỡ
+	Use Size	Dùng cỡ
+# PatternFoundry: blocks (PF-4).
+	Draft Bodice Block	Dựng rập cơ bản thân áo
+	Block Measurements	Số đo cho rập cơ bản
+	Draft Skirt Block	Dựng rập cơ bản chân váy
+# PatternFoundry: design tools (PF-5).
+	Rotate Dart	Xoay pen
+	Split at Points	Tách tại các điểm
+	Seam Length	Chiều dài đường may
+	Slash and Spread	Cắt và xòe
+	Match Seam Length	Khớp chiều dài đường may
+	Make Facing	Tạo nẹp
+	Add Pleat	Thêm ly
+	Draft Sleeve Block	Dựng rập cơ bản tay áo
+	Draft Trouser Block	Dựng rập cơ bản quần
+	Draft Men's Trouser Block	Dựng rập nền quần nam
+	Draft Men's Shirt Block	Dựng rập nền áo sơ mi nam
+	Draft Men's Shirt Sleeve Block	Dựng rập nền tay áo sơ mi nam
+	Gather	Nhún
+	Draft Collar	Dựng cổ áo
+	Patch Pocket	Túi đắp
+	Walk Seams	Đối chiếu đường may
+	Smooth Across Seam	Làm mượt qua đường may
+	Draft Stand Collar	Dựng cổ đứng
+	In-Seam Pocket	Túi trong đường may
+	Welt Pocket	Túi viền
+	Make Wrap Front	Thân trước vạt chéo
+	Make Band	Tạo dải
+	Grade Nest	Nhảy cỡ
+	Clear Graded Nest	Xóa nhảy cỡ
+	Set Size Range	Đặt dải cỡ
+	Set Grade Rule	Đặt quy tắc nhảy cỡ
+	Grade Info	Thông tin nhảy cỡ
+	Grading	Nhảy cỡ
+	Base size	Cỡ gốc
+	Grade rules (mm a size)	Quy tắc nhảy cỡ (mm mỗi cỡ)
+	Name the sizes, smallest first, to give the points grade rules	Đặt tên các cỡ, từ nhỏ đến lớn, để gán quy tắc cho các điểm
+	Select one pattern piece to grade its points	Chọn một chi tiết rập để nhảy cỡ các điểm của nó
+	Sizes	Cỡ
+	per size	theo từng cỡ
+	Copy Grade Rules	Sao chép quy tắc nhảy cỡ
+	Copy Rules To	Sao chép quy tắc sang
+	Mirrored	Đối xứng
+	For the opposite half: places mirrored left to right, x moves the other way	Cho nửa đối diện: vị trí đối xứng trái sang phải, dịch chuyển x ngược chiều
+	Draft Shirt Collar	Dựng cổ sơ mi
+file-filter	DXF-AAMA (cutting room)	DXF-AAMA (xưởng cắt)
+@msg	DXF-AAMA files are DXF R13 (ASTM D6673) or R12	Tệp DXF-AAMA là DXF R13 (ASTM D6673) hoặc R12
+@msg	no pattern pieces to export	không có chi tiết rập nào để xuất
+@msg	the piece {_1} has no outline	chi tiết {_1} không có đường viền
+file-filter	SVG for cutting	SVG để cắt
+file-filter	PDF for projector	PDF cho máy chiếu
+	Foundry Account…	Tài khoản Foundry…
+	Publish to MakerFoundry…	Đăng lên MakerFoundry…
+	Publish to MakerFoundry	Đăng lên MakerFoundry
+	Publish	Đăng
+	Sign In…	Đăng nhập…
+	Not signed in	Chưa đăng nhập
+	Your Foundry Account	Tài khoản Foundry của bạn
+	Sent to	Gửi đến
+	SVG, a vector design	SVG, một thiết kế vector
+	What it is, e.g. A-line skirt	Đây là gì, ví dụ chân váy chữ A
+	Your design goes to MakerFoundry as a private draft, to finish on its page. Nothing is public until you publish it there.	Thiết kế của bạn được gửi lên MakerFoundry dưới dạng bản nháp riêng tư để hoàn tất trên trang của nó. Không có gì công khai cho đến khi bạn đăng ở đó.
+	Draft {id} made.	Đã tạo bản nháp {id}.
+	Draft {id} made on MakerFoundry: finish it on the page that opened in your browser.	Đã tạo bản nháp {id} trên MakerFoundry: hãy hoàn tất trên trang vừa mở trong trình duyệt.
+	Finish it on MakerFoundry's page, which opened in your browser: it stays private until you publish it there.	Hãy hoàn tất trên trang MakerFoundry vừa mở trong trình duyệt: bản nháp vẫn riêng tư cho đến khi bạn đăng ở đó.
+	A password needs at least 8 characters.	Mật khẩu cần ít nhất 8 ký tự.
+	Account	Tài khoản
+	Allow	Cho phép
+	Anthropic API key:	Khóa API Anthropic:
+	Ask	Hỏi
+	Buy credits	Mua tín dụng
+	Buy…	Mua…
+	Change key	Đổi khóa
+	Create Free Account	Tạo tài khoản miễn phí
+	Create a free Foundry Account	Tạo tài khoản Foundry miễn phí
+	Don't Allow	Không cho phép
+	Edit › Undo takes each change back.	Chỉnh sửa › Hoàn tác lấy lại từng thay đổi.
+	Email	Email
+	Foundry Account	Tài khoản Foundry
+	Foundry accounts aren't open yet. Until then, the AI features work with your own Anthropic API key.	Tài khoản Foundry chưa mở. Cho đến lúc đó, tính năng AI dùng khóa API Anthropic của riêng bạn.
+	Get a key	Lấy khóa
+	I have an account: Sign In	Tôi đã có tài khoản: Đăng nhập
+	New Conversation	Cuộc trò chuyện mới
+	New here? Create a free account	Mới đến? Tạo tài khoản miễn phí
+	No card needed, and no API key to set up	Không cần thẻ, không cần cài khóa API
+	Paid with Foundry credits ({n} left).	Trả bằng tín dụng Foundry (còn {n}).
+	Paid with Foundry credits.	Trả bằng tín dụng Foundry.
+	Pay for the AI features with my Foundry credits	Trả tiền tính năng AI bằng tín dụng Foundry của tôi
+	Pay with Foundry credits instead	Trả bằng tín dụng Foundry thay vào đó
+	Payment is on Stripe's secure page, in your browser; your card never reaches PatternFoundry.	Thanh toán diễn ra trên trang bảo mật của Stripe trong trình duyệt; thẻ của bạn không bao giờ đến PatternFoundry.
+	Reading your credits…	Đang đọc tín dụng…
+	Remember the key on this computer	Ghi nhớ khóa trên máy tính này
+	Server	Máy chủ
+	Sign In	Đăng nhập
+	Sign Out	Đăng xuất
+	Sign in to your Foundry Account	Đăng nhập Tài khoản Foundry của bạn
+	Signed in as {email}	Đã đăng nhập: {email}
+	Thinking…	Đang suy nghĩ…
+	Type your question, then press Enter	Gõ câu hỏi, rồi nhấn Enter
+	{n} credits	{n} tín dụng
+	{n} credits for {price}	{n} tín dụng giá {price}
+@msg	Anthropic refused the API key: {0}	Anthropic từ chối khóa API: {0}
+@msg	Couldn't reach the AI service: {0}	Không thể kết nối dịch vụ AI: {0}
+@msg	Enter your Anthropic API key first.	Hãy nhập khóa API Anthropic trước.
+@msg	The AI declined to answer this: ask another way.	AI từ chối trả lời câu này: hãy hỏi theo cách khác.
+@msg	The AI service failed (error {0}): try again later.	Dịch vụ AI gặp lỗi (lỗi {0}): hãy thử lại sau.
+@msg	The AI service is busy: try again in a minute.	Dịch vụ AI đang bận: hãy thử lại sau một phút.
+@msg	The API key isn't valid: paste it again from the Anthropic Console.	Khóa API không hợp lệ: hãy dán lại từ Anthropic Console.
+@msg	The question is too long: keep it under 2,000 characters.	Câu hỏi quá dài: hãy giữ dưới 2.000 ký tự.
+@msg	The reply had no answer: try again, or ask something narrower.	Câu trả lời không có nội dung: hãy thử lại, hoặc hỏi điều gì đó hẹp hơn.
+@msg	The request failed (error {0}): {1}	Yêu cầu thất bại (lỗi {0}): {1}
+@msg	Type a question first.	Hãy gõ câu hỏi trước.
+@msg	Your Anthropic account can't pay for this: {0}	Tài khoản Anthropic của bạn không thể thanh toán cho việc này: {0}
+@msg	already asking: wait for the answer	đang hỏi: hãy chờ câu trả lời
+@msg	This conversation is long: start a New Conversation.	Cuộc trò chuyện này đã dài: hãy bắt đầu Cuộc trò chuyện mới.
+@msg	Claude took too many steps: ask again, more simply.	Claude đã thực hiện quá nhiều bước: hãy hỏi lại, đơn giản hơn.
+	Ask About Patterns…	Hỏi về rập…
+	Answers come from Claude with your own Anthropic API key, billed to your Anthropic account. They can be wrong: sew a muslin before cutting good fabric.	Câu trả lời đến từ Claude bằng khóa API Anthropic của riêng bạn, tính phí vào tài khoản Anthropic của bạn. Chúng có thể sai: hãy may thử bằng vải mộc trước khi cắt vải tốt.
+	Ask About Patterns	Hỏi về rập
+	Ask anything about sewing patterns or PatternFoundry: how much ease to add, how to move a dart, which block to start from, where a feature is. Claude can also draft and change your pattern when you ask, after you allow it.	Hỏi bất cứ điều gì về rập may hoặc PatternFoundry: nên thêm bao nhiêu độ cử động, cách xoay pen, nên bắt đầu từ rập cơ bản nào, một tính năng nằm ở đâu. Claude cũng có thể dựng và thay đổi rập của bạn khi bạn yêu cầu, sau khi bạn cho phép.
+	Claude asks to:	Claude xin phép:
+	Couldn't do:	Không thể thực hiện:
+	Done:	Đã xong:
+	Free credits for the AI features, no API key needed	Tín dụng miễn phí cho các tính năng AI, không cần khóa API
+	Free credits to try the AI features: Ask About Patterns drafts and changes patterns with you	Tín dụng miễn phí để dùng thử các tính năng AI: Hỏi về rập cùng bạn dựng và thay đổi rập
+	Include my pattern	Kèm rập của tôi
+	Its pieces and sizes, and which measurements are set: never their values	Các chi tiết và cỡ của rập, cùng những số đo đã được đặt: không bao giờ gửi giá trị
+	Leave it empty for the Foundry service.	Để trống để dùng dịch vụ Foundry.
+	Not allowed:	Không được phép:
+	One account for every SiteSentrix app	Một tài khoản cho mọi ứng dụng SiteSentrix
+	Read your measurements	Đọc số đo của bạn
+@msg	An account with that email already exists: sign in instead.	Đã có tài khoản với email đó: hãy đăng nhập.
+@msg	Ask About Patterns needs a build that can reach the AI service	Hỏi về rập cần bản dựng có thể kết nối tới dịch vụ AI
+@msg	Foundry Account needs a build that can reach the AI service	Tài khoản Foundry cần bản dựng có thể kết nối tới dịch vụ AI
+@msg	Foundry accounts aren't open yet.	Tài khoản Foundry chưa mở.
+@msg	Not enough Foundry credits: buy more in Foundry Account.	Không đủ tín dụng Foundry: hãy mua thêm trong Tài khoản Foundry.
+@msg	Sign in to your Foundry account (Help › Foundry Account…).	Hãy đăng nhập vào tài khoản Foundry của bạn (Trợ giúp › Tài khoản Foundry…).
+@msg	The Foundry service can't do this yet: try again later.	Dịch vụ Foundry chưa làm được việc này: hãy thử lại sau.
+@msg	this needs a connection to the AI service, which this build doesn't have	việc này cần kết nối tới dịch vụ AI, mà bản dựng này không có
+@msg	Account made: welcome to PatternFoundry.	Đã tạo tài khoản: chào mừng bạn đến với PatternFoundry.
+@msg	Signed in.	Đã đăng nhập.
+@msg	Signed out.	Đã đăng xuất.
+@msg	Type your email address.	Hãy nhập địa chỉ email của bạn.
+@msg	Pay on the page that opened in your browser, then press Refresh.	Hãy thanh toán trên trang đã mở trong trình duyệt, rồi nhấn Làm mới.
+	Add Photos…	Thêm ảnh…
+	Choose the photos in the browser's window…	Hãy chọn ảnh trong cửa sổ trình duyệt…
+	About the fit	Về độ vừa vặn
+	Anything else? For example: folds below the back neck	Còn gì khác? Ví dụ: nếp nhăn dưới cổ áo phía sau
+	Check My Muslin	Kiểm tra bản may thử của tôi
+	Claude looks at the photos with your own Anthropic API key, billed to your Anthropic account. It can be wrong: sew the altered part again in muslin before cutting good fabric.	Claude xem ảnh bằng khóa API Anthropic của bạn, tính phí vào tài khoản Anthropic của bạn. Nó có thể sai: hãy may thử lại phần đã chỉnh bằng vải mộc trước khi cắt vải tốt.
+	Final fabric	Vải chính
+	Hard to raise my arms	Khó giơ tay lên
+	How it feels:	Cảm giác khi mặc:
+	Include the pattern it was cut from (open now), so it can be altered	Gửi kèm rập đã dùng để cắt (đang mở) để có thể chỉnh sửa
+	Loose or gaping somewhere	Bị rộng hoặc hở ở đâu đó
+	Muslin fabric	Vải may thử
+	My muslin ({n} photos)	Bản may thử của tôi ({n} ảnh)
+	Photos of your muslin, tried on	Ảnh bản may thử khi mặc lên người
+	The front, the side and the back, standing straight with your arms down, and close-ups of any folds or pulling.	Mặt trước, bên hông và phía sau, đứng thẳng và buông tay xuống, cùng ảnh cận cảnh mọi nếp nhăn hoặc chỗ bị kéo căng.
+	The neckline gapes or pulls	Cổ áo bị hở hoặc bị kéo
+	The photos go to Claude for this check only; PatternFoundry doesn't keep them.	Ảnh chỉ được gửi đến Claude cho lần kiểm tra này; PatternFoundry không lưu giữ chúng.
+	The shoulder seams don't sit on my shoulders	Đường may vai không nằm trên vai tôi
+	Tight across the back or shoulders	Chật ở lưng hoặc vai
+	Tight across the bust or chest	Chật ở ngực
+	Tight at the waist or hips	Chật ở eo hoặc hông
+	Too long or too short	Quá dài hoặc quá ngắn
+	e.g. calico, an old sheet	vd. vải mộc, một tấm ga trải giường cũ
+	e.g. cotton poplin, jersey	vd. vải cotton poplin, vải thun jersey
+	Check My Muslin…	Kiểm tra bản may thử của tôi…
+@msg	Add a photo of the muslin first.	Hãy thêm ảnh bản may thử trước.
+@msg	Check My Muslin needs a build that can reach the AI service	Kiểm tra bản may thử của tôi cần bản dựng có thể kết nối tới dịch vụ AI
+@msg	The image is too large to send: crop it, or send a smaller copy.	Ảnh quá lớn để gửi: hãy cắt bớt, hoặc gửi một bản nhỏ hơn.
+@msg	This photo is too large: send a smaller copy.	Ảnh này quá lớn: hãy gửi một bản nhỏ hơn.
+@msg	no files here	không có tệp nào ở đây
+@msg	At most 6 photos: remove one first.	Tối đa 6 ảnh: hãy xóa bớt một ảnh trước.
+@msg	This photo can't be read: save or send it as a JPEG (on an iPhone: Settings › Camera › Formats › Most Compatible).	Không đọc được ảnh này: hãy lưu hoặc gửi ảnh dưới dạng JPEG (trên iPhone: Cài đặt › Camera › Định dạng › Tương thích nhất).
+	Make Marker	Tạo sơ đồ cắt
+	Make Marker…	Tạo sơ đồ cắt…
+	Gap	Khoảng cách
+	Precision	Độ chính xác
+	One Way	Một chiều
+	Cut on fold	Cắt ở nếp gấp
+	Folded	Gấp đôi
+	The straight edge laid on the fabric's fold: no allowance there	Cạnh thẳng đặt ở nếp gấp vải: không có đường may chừa ở đó
+	Check Sleeve Ease	Kiểm tra độ bai đầu tay áo
+	Sleeve Ease	Độ bai đầu tay áo
+	Crown {crown} mm, armhole {armhole} mm (back {back}, front {front}): the crown takes in {ease} mm ({percent}%).	Đầu tay {crown} mm, vòng nách {armhole} mm (thân sau {back}, thân trước {front}): đầu tay bai {ease} mm ({percent}%).
+	Less than the {min} to {max} mm it should take in: the sleeve may pull across the cap. Set sleeve_crown to {wanted} mm in Measurements to redraft the sleeve block with the ease in the middle.	Ít hơn mức {min} đến {max} mm cần bai: tay áo có thể bị kéo ở đầu tay. Đặt sleeve_crown thành {wanted} mm trong Số đo để vẽ lại rập tay cơ bản với độ bai ở giữa khoảng.
+	More than the {min} to {max} mm it should take in: the cap may pucker when it is set in. Set sleeve_crown to {wanted} mm in Measurements to redraft the sleeve block with the ease in the middle.	Nhiều hơn mức {min} đến {max} mm cần bai: đầu tay có thể bị nhăn khi tra. Đặt sleeve_crown thành {wanted} mm trong Số đo để vẽ lại rập tay cơ bản với độ bai ở giữa khoảng.
+	Within the {min} to {max} mm it should take in.	Nằm trong mức {min} đến {max} mm cần bai.
+	Edges: {edges}, notches: {notches}	Cạnh: {edges}, dấu bấm: {notches}
+	Edge {n}	Cạnh {n}
+	On fold	Ở nếp gấp
+	Back to the piece's seam allowance	Trở về đường may chừa của chi tiết
+	A notch in the middle of the edge	Một dấu bấm ở giữa cạnh
+	Notch on edge {edge}, {at}% along	Dấu bấm trên cạnh {edge}, tại {at}%
+	Piece Outlines	Đường viền chi tiết
+	Projector	Máy chiếu
+	Projector Scale (screen points per mm, 0: not calibrated)	Tỷ lệ máy chiếu (điểm màn hình trên mm, 0: chưa hiệu chỉnh)
+	Projector View	Chế độ máy chiếu
+	Measure the square on the cutting mat: it should be 10 cm each way. The arrows make it bigger or smaller (with Shift, faster); Enter keeps it; Escape leaves. Scale: {scale} points per mm.	Đo hình vuông trên tấm lót cắt: mỗi chiều phải là 10 cm. Các phím mũi tên làm nó to hơn hoặc nhỏ hơn (giữ Shift để nhanh hơn); Enter giữ lại; Escape thoát. Tỷ lệ: {scale} điểm trên mm.
+	Arrows move the pattern 1 cm (Shift: 1 mm) · M mirrors it · C calibrates · Escape leaves	Phím mũi tên dời rập 1 cm (Shift: 1 mm) · M lật gương · C hiệu chỉnh · Escape thoát
+@msg	no pattern pieces to project: make the outlines pattern pieces first (Pattern › Make Pattern Piece)	không có chi tiết rập để chiếu: hãy biến các đường viền thành chi tiết rập trước (Rập › Tạo chi tiết rập)
+@msg	scale: screen points per mm, more than 0	tỷ lệ: điểm màn hình trên mm, lớn hơn 0
+	Delete Saved Measurements	Xóa số đo đã lưu
+	Load Measurements	Tải số đo
+	My Measurements	Số đo của tôi
+	Save to My Measurements	Lưu vào Số đo của tôi
+	Delete from this computer	Xóa khỏi máy tính này
+	Kept on this computer only, to load into any pattern	Chỉ lưu trên máy tính này, để tải vào bất kỳ rập nào
+	Load	Tải
+	Use these measurements in this pattern	Dùng các số đo này trong rập này
+	Whose (Me)	Của ai (Tôi)
+	Shorten Dart	Rút ngắn pen
+	Shorten Dart…	Rút ngắn pen…
+	Shorten	Rút ngắn
+	Add Notch Here	Thêm dấu bấm ở đây
+	Cut on Fold Here	Cắt ở nếp gấp tại đây
+	Seam Allowance Here…	Đường may chừa ở đây…
+	Grade This Point…	Nhảy cỡ điểm này…
+	Edge Allowance	Đường may chừa của cạnh
+	Across	Theo chiều ngang
+	Down	Xuống dưới
+	One step	Một bước
+	The same move for each size, from the size above the base	Cùng một độ dời cho mọi cỡ, theo cỡ trên cỡ gốc
+	Per size	Theo từng cỡ
+	A move for each size of its own	Mỗi cỡ một độ dời riêng
+	Add Drill Hole Here	Thêm lỗ khoan tại đây
+	Remove Drill Hole Here	Xóa lỗ khoan tại đây
+	Add Drill Hole	Thêm lỗ khoan
+	Remove Drill Hole	Xóa lỗ khoan
+	Drill holes: {count}	Lỗ khoan: {count}
+	Right-click inside the piece: Add Drill Hole Here	Nhấp chuột phải bên trong chi tiết: Thêm lỗ khoan tại đây
+	Drill hole {n}, {mm} mm	Lỗ khoan {n}, {mm} mm
+	Drill hole {n}	Lỗ khoan {n}
+	Notch Shape	Hình dạng dấu bấm
+	Slit notch	Dấu bấm khe
+	Double notch	Dấu bấm đôi
+	V notch	Dấu bấm chữ V
+	T notch	Dấu bấm chữ T
+	Castle notch	Dấu bấm vuông
+	U notch	Dấu bấm chữ U
+	As drawn	Như đã vẽ
+	Side by side	Cạnh nhau
+	Block Options…	Tùy chọn rập cơ bản…
+	Block Options	Tùy chọn rập cơ bản
+	Ease	Độ cử động
+	Waist ease	Độ cử động eo
+	Bust dart	Chiết ly ngực
+	Shoulder dart	Chiết ly vai
+	Back dart	Chiết ly thân sau
+	Back dart length	Độ dài chiết ly thân sau
+	Front dart length	Độ dài chiết ly thân trước
+	Option	Tùy chọn
+	Back to the block's default	Trở về mặc định của rập cơ bản
+	from the measurements	theo số đo
+	Block Options Info	Thông tin tùy chọn rập cơ bản
+	Check Trouser Seams	Kiểm tra đường may quần
+	Trouser Seams	Đường may quần
+	Inseam, knee to hem	Đường may trong, gối đến lai
+	Inseam, crotch to knee	Đường may trong, đáy đến gối
+	Side seam, knee to hem	Đường may sườn, gối đến lai
+	Side seam, waist to knee	Đường may sườn, eo đến gối
+	{seam}: front {front} mm, back {back} mm ({difference} mm)	{seam}: trước {front} mm, sau {back} mm ({difference} mm)
+	Walk them on the pattern too: where a line doesn't run on smoothly from front to back, find the point half way between the two and correct both lines. The back inseam is more curved, so it is often longer: lowering the back crotch curve slightly to match is fine.	Hãy kiểm tra cả trên rập: chỗ nào đường không nối mượt từ thân trước sang thân sau, tìm điểm ở giữa hai đường và sửa cả hai. Đường may trong thân sau cong hơn nên thường dài hơn: hạ nhẹ đường cong đáy sau cho khớp là được.
+	Front dart	Chiết ly thân trước
+	Draft Trouser Waistband	Dựng cạp quần
+	Flap Pocket…	Túi có nắp…
+	Crown ease	Độ lơi đầu tay
+	Remove Design Step	Xóa bước thiết kế
+	Dart moved	Đã xoay pen
+	Dart shortened {mm} mm	Đã rút ngắn pen {mm} mm
+	Slashed and spread {mm} mm	Đã cắt và mở rộng {mm} mm
+	Seam trued to {mm} mm	Đã chỉnh đường may thành {mm} mm
+	Split into panels	Đã tách thành các mảnh
+	Design step	Bước thiết kế
+	Design steps: {count}	Các bước thiết kế: {count}
+	Design changes made on the block (darts, splits, spreads, seam lengths) show here; each is made again when the measurements change	Các thay đổi trên rập cơ bản (pen, đường tách, phần mở rộng, chiều dài đường may) hiện ở đây; mỗi thay đổi được làm lại khi số đo thay đổi
+	Remove this step and the ones after it (they were made on the outline it made)	Xóa bước này và các bước sau nó (chúng được làm trên đường viền mà bước này tạo ra)
+	Selected block part	Phần rập cơ bản đã chọn
+	Curve Dart Legs…	Uốn cong cạnh pen…
+	Curve Dart Legs	Uốn cong cạnh pen
+	Dart legs curved {mm} mm	Đã uốn cong cạnh pen {mm} mm
+	Draft Rounded Stand Collar	Dựng cổ đứng bo tròn
+	Draft Wing Collar	Dựng cổ cánh
+	Check Marker	Kiểm tra sơ đồ cắt
+	{length} cm long, {efficiency}% of the fabric used	Dài {length} cm, dùng {efficiency}% vải
+	{a} overlaps {b}	{a} chồng lên {b}
+	{piece} is off the fabric	{piece} nằm ngoài vải
+	No pieces overlap, and all are on the fabric.	Không có chi tiết nào chồng nhau, tất cả đều nằm trên vải.
+	Plaid	Kẻ ca rô
+menu	Pattern	Rập
+@msg	a and b are two pieces (or paths) that sew together	a và b là hai chi tiết (hoặc đường dẫn) may với nhau
+@msg	a corner is "mitre" or "square"	góc là "mitre" hoặc "square"
+@msg	a facing runs along part of the outline	nẹp chạy dọc theo một phần đường viền
+@msg	a facing runs between two different points of the outline	nẹp chạy giữa hai điểm khác nhau của đường viền
+@msg	a name takes at most 200 characters	tên có tối đa 200 ký tự
+@msg	a neckline runs between two different points of its outline, and the shoulder point is one of them	vòng cổ chạy giữa hai điểm khác nhau của đường viền, và điểm vai là một trong hai điểm đó
+@msg	a seam allowance is a number of mm, or a length with its unit ("5/8 in")	đường may chừa là một số mm, hoặc một độ dài kèm đơn vị ("5/8 in")
+@msg	a seam has no length	một đường may không có chiều dài
+@msg	a shoulder point is on its neck point	một điểm vai trùng với điểm cổ của nó
+@msg	a slash runs between two points of the outline that aren't neighbours	đường cắt xòe phải chạy giữa hai điểm không kề nhau của đường viền
+@msg	a split leaves a piece with fewer than three anchors	phép tách sẽ để lại một chi tiết có ít hơn ba điểm neo
+@msg	a split made two panels: delete the panel you don't want instead	phép tách đã tạo hai mảnh: hãy xóa mảnh bạn không cần
+@msg	a split needs two different anchors on the outline	phép tách cần hai điểm neo khác nhau trên đường viền
+@msg	amount: a share of the dart, (0, 1]	amount: một phần của pen, (0, 1]
+@msg	amount: how far it opens, mm	amount: độ mở, mm
+@msg	anchor: the point's number along the path, from 0	anchor: số thứ tự của điểm dọc theo đường dẫn, từ 0
+@msg	anchor: the seam line's point, from 0	anchor: điểm của đường may, từ 0
+@msg	anchors: [a, b] or [a]	anchors: [a, b] hoặc [a]
+@msg	anchors: point numbers along the path	anchors: số thứ tự các điểm dọc theo đường dẫn
+@msg	apex: the dart's point (or select that one point)	apex: đỉnh pen (hoặc chọn điểm đó)
+@msg	at: 0 (the edge's start) to 1 (its end)	at: 0 (đầu cạnh) đến 1 (cuối cạnh)
+@msg	at: [x, y], the document point on the edge	at: [x, y], điểm trên cạnh theo tọa độ tài liệu
+@msg	base: the size the pattern is drawn in	base: cỡ mà rập được vẽ
+@msg	block: "bodice", "skirt", "sleeve" or "trousers"	block: "bodice", "skirt", "sleeve" hoặc "trousers"
+@msg	can't make the seam that long by moving its end	không thể làm đường may dài đến thế bằng cách dời điểm cuối
+@msg	curve: mm the wrap edge bows into the piece	curve: số mm cạnh vạt chéo cong vào trong chi tiết
+@msg	cut is a whole number, 1 to 999	cut là số nguyên, từ 1 đến 999
+@msg	data: the chart's text	data: nội dung văn bản của bảng cỡ
+@msg	depth: how deep the pleat folds under, mm	depth: độ sâu ly gấp vào trong, mm
+@msg	depth: mm (less than 0 bows the legs in)	depth: mm (nhỏ hơn 0 sẽ uốn cạnh pen vào trong)
+@msg	diameter: a number of mm, or a length with its unit ("1/8 in")	diameter: một số mm, hoặc một độ dài kèm đơn vị ("1/8 in")
+@msg	edge: the edge's number, from 0 (or point)	edge: số thứ tự của cạnh, từ 0 (hoặc point)
+@msg	edges and corners are numbered from 0	cạnh và góc được đánh số từ 0
+@msg	every: mm, at least 10	every: mm, ít nhất 10
+@msg	face: only a box pleat has one	face: chỉ ly hộp mới có
+@msg	face: the box pleat's width between its folds, mm	face: bề rộng ly hộp giữa hai nếp gấp, mm
+@msg	flapShape: "square", "rounded" or "pointed"	flapShape: "square", "rounded" hoặc "pointed"
+@msg	fold is an edge's number (0..), or null	fold là số thứ tự của một cạnh (0..), hoặc null
+@msg	fold: [a, b], the centre front edge's two points	fold: [a, b], hai điểm của cạnh giữa thân trước
+@msg	fold: true or false	fold: true hoặc false
+@msg	foldAt: [x, y] in document points	foldAt: [x, y] theo điểm (pt) của tài liệu
+@msg	folded: true or false	folded: true hoặc false
+@msg	from: [x, y] in document points	from: [x, y] theo điểm (pt) của tài liệu
+@msg	from: not a pattern piece	from: không phải chi tiết rập
+@msg	from: the pattern piece whose rules are copied	from: chi tiết rập có quy tắc được sao chép
+@msg	from: the piece has no seam line	from: chi tiết không có đường may
+@msg	frontShape: "square", "rounded" or "winged"	frontShape: "square", "rounded" hoặc "winged"
+@msg	gathering runs between two different points of the outline	đường nhún phải chạy giữa hai điểm khác nhau của đường viền
+@msg	give apex and one of to or toAnchor (or select the two points)	hãy cho apex và một trong to hoặc toAnchor (hoặc chọn hai điểm)
+@msg	height: mm, 10 to 100 (the tutorial's is at most 30)	height: mm, từ 10 đến 100 (của bài hướng dẫn tối đa là 30)
+@msg	id: a block part's id	id: id của một phần rập cơ bản
+@msg	index: the drill hole's place in the list, from 0 (or point)	index: vị trí của lỗ khoan trong danh sách, từ 0 (hoặc point)
+@msg	index: the notch's place in the list, from 0	index: vị trí của dấu bấm trong danh sách, từ 0
+@msg	index: the step's place, from 0	index: vị trí của bước, từ 0
+@msg	into: the length it gathers into, mm	into: chiều dài sau khi nhún, mm
+@msg	kind: "slit", "double", "v", "t", "castle" or "u"	kind: "slit", "double", "v", "t", "castle" hoặc "u"
+@msg	kind: the notch's new shape	kind: hình dạng mới của dấu bấm
+@msg	layer: a marker layer's id	layer: id của lớp sơ đồ cắt
+@msg	length (mm) or likeId with likeFrom and likeTo: the seam to match	length (mm) hoặc likeId cùng likeFrom và likeTo: đường may cần khớp theo
+@msg	length: mm, more than 0	length: mm, lớn hơn 0
+@msg	line: "cut" or "seam"	line: "cut" hoặc "seam"
+@msg	match: the seam it sews to is shorter than the pocket opening's end	match: đường may được may vào ngắn hơn vị trí cuối miệng túi
+@msg	min is more than max	min lớn hơn max
+@msg	mirror is true or false	mirror là true hoặc false
+@msg	mirror: "none", "x", "y" or "xy"	mirror: "none", "x", "y" hoặc "xy"
+@msg	name: the saved set's name	name: tên của bộ số đo đã lưu
+@msg	name: whose measurements they are ("Me")	name: số đo của ai ("Me")
+@msg	no drill hole near the point	không có lỗ khoan nào gần điểm này
+@msg	no drill hole with that index	không có lỗ khoan với chỉ mục đó
+@msg	no notch with that index	không có dấu bấm với chỉ mục đó
+@msg	no object with that id	không có đối tượng với id đó
+@msg	no pattern pieces to grade: make the outlines pattern pieces first (Pattern › Make Pattern Piece)	không có chi tiết rập nào để nhảy cỡ: hãy biến các đường viền thành chi tiết rập trước (Rập › Tạo chi tiết rập)
+@msg	no straight centre front edge on the outline's side: name it with fold: [a, b]	không có cạnh giữa thân trước thẳng ở phía này của đường viền: hãy chỉ định nó bằng fold: [a, b]
+@msg	not a drafted block part	không phải phần rập cơ bản đã dựng
+@msg	not a marker's layer (Pattern › Make Marker…)	không phải lớp của sơ đồ cắt (Rập › Tạo sơ đồ cắt…)
+@msg	not a pattern piece	không phải chi tiết rập
+@msg	not a stand collar's outline	không phải đường viền của cổ đứng
+@msg	notches go on pattern pieces: make both seams' paths pieces first (Pattern › Make Pattern Piece)	dấu bấm đặt trên chi tiết rập: hãy biến đường dẫn của cả hai đường may thành chi tiết trước (Rập › Tạo chi tiết rập)
+@msg	notches: [mm, …]	notches: [mm, …]
+@msg	notches: distances from the seams' starts, mm	notches: khoảng cách từ đầu các đường may, mm
+@msg	on and at go together: the garment piece and where the opening's top-left corner goes on it	on và at đi cùng nhau: chi tiết quần áo và vị trí đặt góc trên bên trái của miệng túi trên đó
+@msg	on and at go together: the garment piece and where the pocket's top-left corner goes on it	on và at đi cùng nhau: chi tiết quần áo và vị trí đặt góc trên bên trái của túi trên đó
+@msg	one point splits only where another point is at the same place (two darts' point)	chỉ tách bằng một điểm được ở nơi có điểm khác cùng vị trí (đỉnh chung của hai pen)
+@msg	oneWay: true or false	oneWay: true hoặc false
+@msg	openFolds: true or false	openFolds: true hoặc false
+@msg	origin: [x, y] in document points	origin: [x, y] theo điểm (pt) của tài liệu
+@msg	overlap: mm past centre front, more than 0	overlap: số mm vượt qua giữa thân trước, lớn hơn 0
+@msg	overlap: the edge misses the outline	overlap: cạnh không chạm tới đường viền
+@msg	plaid: the repeat (mm, or [along, across])	plaid: bước lặp (mm, hoặc [along, across])
+@msg	plaid: the repeat along and across, 1 to 10 000 mm each	plaid: bước lặp theo chiều dọc và chiều ngang, mỗi chiều từ 1 đến 10 000 mm
+@msg	point: [x, y] in document points	point: [x, y] theo điểm (pt) của tài liệu
+@msg	select a drafted block part (Pattern › Draft … Block)	hãy chọn một phần rập cơ bản đã dựng (Rập › Dựng rập cơ bản …)
+@msg	select a path or a pattern piece	hãy chọn một đường dẫn hoặc một chi tiết rập
+@msg	select a pattern piece (Pattern › Make Pattern Piece makes one)	hãy chọn một chi tiết rập (Rập › Tạo chi tiết rập sẽ tạo một chi tiết)
+@msg	select a piece on the marker to check	hãy chọn một chi tiết trên sơ đồ cắt để kiểm tra
+@msg	select closed paths: each becomes a piece, the path its seam line	hãy chọn các đường dẫn khép kín: mỗi đường dẫn trở thành một chi tiết, đường dẫn là đường may của nó
+@msg	select one path	hãy chọn một đường dẫn
+@msg	select one pattern piece	hãy chọn một chi tiết rập
+@msg	select two points of one path (or one that two darts share)	hãy chọn hai điểm của một đường dẫn (hoặc một điểm mà hai pen dùng chung)
+@msg	select two points of one path: the dart's point and where the dart moves to	hãy chọn hai điểm của một đường dẫn: đỉnh pen và nơi pen được chuyển tới
+@msg	select two points of one path: the ends of the edge to face	hãy chọn hai điểm của một đường dẫn: hai đầu của cạnh cần làm nẹp
+@msg	select two points of one path: the ends of the edge to gather	hãy chọn hai điểm của một đường dẫn: hai đầu của cạnh cần nhún
+@msg	share is true or false	share là true hoặc false
+@msg	shorten: mm (less than 0 lengthens)	shorten: mm (nhỏ hơn 0 sẽ làm dài ra)
+@msg	shoulder: longer than the outline	shoulder: dài hơn đường viền
+@msg	shoulder: mm, 0 or more	shoulder: mm, từ 0 trở lên
+@msg	size: one of the chart's sizes	size: một trong các cỡ của bảng cỡ
+@msg	size: the name of a size of the size range or chart	size: tên một cỡ trong dải cỡ hoặc bảng cỡ
+@msg	sizes: name one size at least	sizes: hãy đặt tên ít nhất một cỡ
+@msg	sizes: the sizes' names	sizes: tên các cỡ
+@msg	sizes: the sizes' names, smallest first (null removes them)	sizes: tên các cỡ, cỡ nhỏ nhất trước (null để xóa)
+@msg	split the seam line on its own: release the piece first (Pattern › Release Pattern Piece)	để tách riêng đường may: hãy giải phóng chi tiết trước (Rập › Giải phóng chi tiết rập)
+@msg	step: [dx, dy] in mm	step: [dx, dy] tính bằng mm
+@msg	style: classic, casual or shirt	style: classic, casual hoặc shirt
+@msg	that anchor's neighbours don't make a dart	các điểm kề của điểm neo đó không tạo thành pen
+@msg	that point is not a dart's point: its legs open a right angle or wider	điểm đó không phải đỉnh pen: hai cạnh pen mở thành góc vuông hoặc rộng hơn
+@msg	the amount is a share of the dart, more than 0 and at most 1	lượng là một phần của pen, lớn hơn 0 và tối đa là 1
+@msg	the back's outline encloses no area	đường viền thân sau không bao quanh diện tích nào
+@msg	the box pleat's face is more than 0 wide	mặt ly hộp phải rộng hơn 0
+@msg	the chart is larger than 1 MB	bảng cỡ lớn hơn 1 MB
+@msg	the curve has no length at the meeting point	đường cong không có chiều dài tại điểm gặp nhau
+@msg	the curves leave the seam the same way	các đường cong rời đường may theo cùng một hướng
+@msg	the dart has no length	pen không có chiều dài
+@msg	the dart is not that long	pen không dài đến thế
+@msg	the dart point or the new dart's anchor is not on the outline	đỉnh pen hoặc điểm neo của pen mới không nằm trên đường viền
+@msg	the dart's legs must be straight lines	các cạnh pen phải là đường thẳng
+@msg	the dart's point is past the outline's end	đỉnh pen nằm quá điểm cuối của đường viền
+@msg	the depth to curve the legs by is not a number	độ sâu để uốn cong cạnh pen không phải là số
+@msg	the document has no marker (Pattern › Make Marker…)	tài liệu không có sơ đồ cắt (Rập › Tạo sơ đồ cắt…)
+@msg	the document has no measurements to save	tài liệu không có số đo nào để lưu
+@msg	the document has no size chart (measure.importChart)	tài liệu không có bảng cỡ (measure.importChart)
+@msg	the drop at the front is less than half the neck edge	độ hạ ở phía trước phải nhỏ hơn một nửa cạnh cổ
+@msg	the edge has no length	cạnh không có chiều dài
+@msg	the edge's anchor is past the outline's end	điểm neo của cạnh nằm quá điểm cuối của đường viền
+@msg	the fabric's width must be more than 0	khổ vải phải lớn hơn 0
+@msg	the flap is deeper than twice its width	nắp túi sâu hơn hai lần bề rộng của nó
+@msg	the flap's width and depth are more than 0, its allowance 0 or more	bề rộng và độ sâu của nắp túi phải lớn hơn 0, đường may chừa từ 0 trở lên
+@msg	the fold edge has no length	cạnh nếp gấp không có chiều dài
+@msg	the fold edge's anchors are past the outline's end	các điểm neo của cạnh nếp gấp nằm quá điểm cuối của đường viền
+@msg	the fold edge's two anchors must be neighbours on the outline	hai điểm neo của cạnh nếp gấp phải kề nhau trên đường viền
+@msg	the fold must be a straight edge	nếp gấp phải là một cạnh thẳng
+@msg	the front end has no length	đầu phía trước không có chiều dài
+@msg	the gap must be 0 or more	khoảng cách phải từ 0 trở lên
+@msg	the grainline's ends are the same point	hai đầu đường canh sợi là cùng một điểm
+@msg	the legs can't curve that far: the dart isn't wide enough	các cạnh pen không thể cong đến thế: pen không đủ rộng
+@msg	the length to shorten by is not a number	độ dài cần rút ngắn không phải là số
+@msg	the marker has lost its fabric outline	sơ đồ cắt đã mất đường viền vải
+@msg	the marker has no pieces	sơ đồ cắt không có chi tiết nào
+@msg	the marker is too large at this precision: give a coarser one	sơ đồ cắt quá lớn ở độ chính xác này: hãy dùng độ chính xác thô hơn
+@msg	the measurements could not be saved	không thể lưu số đo
+@msg	the meeting point and the seam's other end are points of the outline	điểm gặp nhau và đầu còn lại của đường may phải là các điểm của đường viền
+@msg	the neckline has no length	vòng cổ không có chiều dài
+@msg	the neckline lengths and the stand's height are more than 0, the rise and extension 0 or more	chiều dài vòng cổ và chiều cao chân cổ phải lớn hơn 0, độ nâng và phần nối dài từ 0 trở lên
+@msg	the new dart is on the old dart	pen mới nằm trên pen cũ
+@msg	the opening is longer than twice its height	miệng túi dài hơn hai lần chiều cao của nó
+@msg	the opening, depth and width are more than 0, the width more than the allowance	miệng túi, độ sâu và bề rộng phải lớn hơn 0, bề rộng phải lớn hơn đường may chừa
+@msg	the opening, the welt and the depth are more than 0, the allowances 0 or more	miệng túi, viền túi và độ sâu phải lớn hơn 0, các đường may chừa từ 0 trở lên
+@msg	the outline encloses no area	đường viền không bao quanh diện tích nào
+@msg	the outline has no side seam	đường viền không có đường may sườn
+@msg	the path has no outline	đường dẫn không có đường viền
+@msg	the path must be one closed outline	đường dẫn phải là một đường viền khép kín
+@msg	the piece has no grade rules to copy	chi tiết không có quy tắc nhảy cỡ nào để sao chép
+@msg	the piece has no straight edge to cut on the fold	chi tiết không có cạnh thẳng để cắt ở nếp gấp
+@msg	the pieces have no cutting lines to lay	các chi tiết không có đường cắt để xếp
+@msg	the plaid's repeat must be more than 0 along and across	bước lặp kẻ ca rô phải lớn hơn 0 theo cả chiều dọc và chiều ngang
+@msg	the pocket (its opening and the allowance past both ends) fits on the seam	túi (miệng túi và đường may chừa vượt qua hai đầu) phải nằm vừa trên đường may
+@msg	the point is not inside the piece	điểm không nằm trong chi tiết
+@msg	the point is not on the seam line or in its allowance	điểm không nằm trên đường may hoặc trong đường may chừa
+@msg	the precision must be more than 0	độ chính xác phải lớn hơn 0
+@msg	the rise at centre front is less than the front neckline is long	độ nâng ở giữa thân trước phải nhỏ hơn chiều dài vòng cổ trước
+@msg	the seam has no length there	đường may không có chiều dài ở đó
+@msg	the seam runs between two different points of the outline	đường may phải chạy giữa hai điểm khác nhau của đường viền
+@msg	the seam's other end is a neighbour of the meeting point	đầu còn lại của đường may kề với điểm gặp nhau
+@msg	the top edge has no length	cạnh trên không có chiều dài
+@msg	the wing is more than 0 long	cánh cổ phải dài hơn 0
+@msg	there is no folder to keep measurement sets in here (the desktop app keeps them next to its preferences)	ở đây không có thư mục để lưu các bộ số đo (ứng dụng máy tính lưu chúng cạnh tệp tùy chọn)
+@msg	there is no point of the seam line there	không có điểm nào của đường may ở đó
+@msg	to or toAnchor: where the dart moves to	to hoặc toAnchor: nơi pen được chuyển tới
+@msg	to: [x, y] in document points	to: [x, y] theo điểm (pt) của tài liệu
+@msg	to: the pieces to copy the rules to (select them, or name them)	to: các chi tiết cần sao chép quy tắc sang (chọn chúng, hoặc chỉ định tên)
+@msg	too many objects at once	quá nhiều đối tượng cùng lúc
+@msg	too many pieces at once	quá nhiều chi tiết cùng lúc
+@msg	too many pieces to lay at once	quá nhiều chi tiết để xếp cùng lúc
+@msg	too many sizes at once	quá nhiều cỡ cùng lúc
+@msg	unit: "mm", "cm" or "in"	unit: "mm", "cm" hoặc "in"
+@msg	width: mm, more than 0	width: mm, lớn hơn 0
+	Draw Avatar	Vẽ hình nhân
+	Export Avatar as OBJ	Xuất hình nhân dạng OBJ
+	Sewn seams: {count}	Đường may đã nối: {count}
+	{label}: sewn to {piece}, {mm} mm longer	{label}: may với {piece}, dài hơn {mm} mm
+	{label}: sewn to {piece}, {mm} mm shorter	{label}: may với {piece}, ngắn hơn {mm} mm
+	{label}: sewn to {piece}	{label}: may với {piece}
+	Sew Seams	May nối đường may
+	Unsew Seams	Tháo đường may
+	Sewn Seams	Đường may đã nối
+	Drape on Avatar	Phủ lên hình nhân
+	Use as Fabric…	Dùng làm vải…
+	Use as Fabric	Dùng làm vải
+	Stop Using as Fabric	Ngừng dùng làm vải
+	Fabric Photos	Ảnh vải
+@msg	the drape view's picture is the wrong size	hình của khung xem độ rủ có kích thước sai
+@msg	the drape view: {e}	khung xem độ rủ: {e}
+@msg	a fabric photo is the wrong size	ảnh vải có kích thước sai
+@msg	a fabric photo: {e}	ảnh vải: {e}
+	Export Avatar as glTF	Xuất hình nhân dạng glTF
+	Export Avatar as glTF…	Xuất hình nhân dạng glTF…
+	Export Drape as glTF…	Xuất độ rủ dạng glTF…
+@msg	format: "obj" or "glb"	format: "obj" hoặc "glb"
+@msg	colour: "fabric" or "fit"	colour: "fabric" hoặc "fit"
+@msg	a piece could not be placed on the body	không thể đặt một mảnh rập lên cơ thể
+@msg	{name} is already open	{name} đã được mở
+@msg	Draping on Avatar	Đang cho vải rủ lên hình nhân
+	Step {n} of {total}	Bước {n}/{total}
+@msg	The drape was cancelled	Đã hủy cho vải rủ
+@msg	Draped on the avatar	Đã cho vải rủ lên hình nhân
+@msg	the document was closed	tài liệu đã bị đóng
+@msg	the drape stopped	việc cho vải rủ đã dừng
+@msg	width: the photo's width on the fabric, 10 to 5000 mm	width: chiều rộng của ảnh trên vải, từ 10 đến 5000 mm
+@msg	turns: 0, 1, 2 or 3	turns: 0, 1, 2 hoặc 3
+@msg	the image is not a fabric photo (Pattern › Use as Fabric…)	hình ảnh không phải là ảnh vải (Rập › Dùng làm vải…)
+@msg	even: true or false	even: true hoặc false
+@msg	seamless: true or false	seamless: true hoặc false
+@msg	Sign in to your Foundry Account first: Help › Foundry Account…	Hãy đăng nhập Tài khoản Foundry trước: Trợ giúp › Tài khoản Foundry…
+@msg	The document is empty: there is nothing to publish.	Tài liệu trống: không có gì để đăng.
+@msg	The design is too large for MakerFoundry: at most 8 MB.	Thiết kế quá lớn đối với MakerFoundry: tối đa 8 MB.
+@msg	MakerFoundry's answer couldn't be read.	Không đọc được câu trả lời của MakerFoundry.
+@msg	MakerFoundry answered with a page on another site, which wasn't opened.	MakerFoundry trả lời bằng một trang thuộc trang web khác, trang đó không được mở.
+@msg	MakerFoundry: {1}	MakerFoundry: {1}
+@msg	MakerFoundry couldn't be reached: {0}	Không kết nối được MakerFoundry: {0}
+@msg	Publish to MakerFoundry needs a build that can reach MakerFoundry	Đăng lên MakerFoundry cần một bản dựng có thể kết nối MakerFoundry
+@msg	open Publish to MakerFoundry first: it shows what is sent	hãy mở Đăng lên MakerFoundry trước: cửa sổ cho thấy những gì được gửi
+@msg	That link isn't a design file on MakerFoundry, so it wasn't opened.	Liên kết đó không phải tệp thiết kế trên MakerFoundry nên không được mở.
+@msg	The design is too large to open: at most 32 MB.	Thiết kế quá lớn để mở: tối đa 32 MB.
+@msg	PatternFoundry opens SVG and DXF designs from MakerFoundry; that file is neither.	PatternFoundry mở thiết kế SVG và DXF từ MakerFoundry; tệp đó không phải loại nào trong hai loại này.
+@msg	The design couldn't be downloaded from MakerFoundry: {0}	Không tải được thiết kế từ MakerFoundry: {0}

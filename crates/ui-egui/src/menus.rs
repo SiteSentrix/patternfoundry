@@ -568,6 +568,60 @@ pub const UI_COMMANDS: &[(&str, &str, &str, &str)] = &[
         "{objects?: [paths|shapes|text|images|effects|groups|linkedFiles|guides], layers?: [locked|hidden]} set the Layers panel's Filter (By Object, By Layer): a row stays when it is of a kind in `objects` and in a state in `layers` (its own lock or eye; an empty list takes every row), or when a row inside it stays; Search All narrows the rows further. A key left out keeps its list. The filter lasts the session and does not change the document, its open rows or the selection → {objects, layers}",
     ),
     (
+        "ui.askAboutPatterns",
+        "Ask About Patterns…",
+        "",
+        "{question?: text (asked at once)} open Ask About Patterns: questions about sewing patterns or PatternFoundry answered by Claude with your own Anthropic API key or paid with Foundry credits; it can draft and change the pattern through the commands, each change after your Allow (the conversation and a summary of the pattern open now go along: its pieces and sizes and the names of the measurements set, never their values, which Claude reads only with your Allow) → {open, asking}",
+    ),
+    (
+        "ui.projector",
+        "Projector View",
+        "",
+        "{on?: bool (default: the other way), calibrate?: bool, mirror?: bool, openFolds?: bool (true), size?, scale?: screen points per mm on the mat (kept as Preferences › Devices › Projector Scale)} the pattern pieces full screen at true size, white on black, for a projector over the cutting table (piece.outlines); not calibrated, it opens on a 10 cm square to measure on the mat and size with the arrows (Enter keeps it). Keys: the arrows move the pattern 1 cm (Shift: 1 mm), M mirrors it, C calibrates, Escape leaves → {on, calibrating, mirror, openFolds, scale, pan}",
+    ),
+    (
+        "ui.blockOptions",
+        "Block Options…",
+        "",
+        "{id? (default: the selected block part)} open Block Options (dialog `blockOptions`: one field per option of block.options, mm or null for the default); OK runs block.setOptions",
+    ),
+    (
+        "ui.checkMarker",
+        "Check Marker",
+        "",
+        "{layer? (a marker's layer id; default: the marker the selection is on, or the document's only one)} after moving a marker's pieces by hand: its fabric drawn to the last piece and its caption brought up to date, told in a message with the pieces that overlap or lie off the fabric → marker.check",
+    ),
+    (
+        "ui.checkTrouserSeams",
+        "Check Trouser Seams",
+        "",
+        "{} walk the drafted trouser block's front against its back, told in a message: each run's lengths (the inseams and side seams, from the knee to the hem and up) and what to do where they don't match → design.trouserSeams",
+    ),
+    (
+        "ui.checkSleeveEase",
+        "Check Sleeve Ease",
+        "",
+        "{sleeve?, back?, front?, style?, min?, max? (as design.sleeveEase)} the sleeve's crown against the armhole, told in a message: the lengths, the ease and whether it is in range, and the sleeve_crown that redrafts the sleeve block to the middle of it → design.sleeveEase",
+    ),
+    (
+        "ui.checkMuslin",
+        "Check My Muslin…",
+        "",
+        "{photos?: [path] (added), check?: bool (send the check now)} open Check My Muslin: photos of a muslin (a toile) tried on, the pattern open now and a few answers about the fit, looked at by Claude (your own Anthropic API key or Foundry credits), which says what doesn't fit and how to alter the pattern, and offers to make the alterations (in the Ask About Patterns window, each after your Allow); the photos go with the check only and aren't kept → {open, photos, error}",
+    ),
+    (
+        "ui.publishToMakerFoundry",
+        "Publish to MakerFoundry…",
+        "",
+        "{send?: bool (send what the open window shows)} open Publish to MakerFoundry: the document as SVG, shown with its file name, size and where it goes (https://makerfoundry.app/api/v1/designs), sent when you press Publish (or with send: true) with your Foundry Account session as a private draft of a vector design, whose page opens in the browser for you to finish; nothing is sent before → {open, fileName, bytes, sentTo, signedIn} | {sending}",
+    ),
+    (
+        "ui.account",
+        "Foundry Account…",
+        "",
+        "{create?: bool (open on Create Account, else Sign In)} open Foundry Account: make an account or sign in to the Foundry service shared by the SiteSentrix apps, see the credits and buy more (Stripe's page opens in the browser), and choose to pay for the AI features with them instead of your own Anthropic API key → {open, signedIn, server, credits, payWithCredits}",
+    ),
+    (
         "ui.tileEdgeColor",
         "Tile Edge Color…",
         "",
@@ -1478,6 +1532,9 @@ pub fn run_ui_command(app: &mut VectorcraftApp, id: &str, p: &Value) -> Option<R
             let mut fields = p.get("params").and_then(Value::as_object).cloned().unwrap_or_default();
             fields.insert("__command".into(), json!(cmd));
             fields.insert("__label".into(), json!(s("label").unwrap_or(cmd.clone())));
+            if let Some(fixed) = p.get("fixed").filter(|f| f.is_object()) {
+                fields.insert("__params".into(), fixed.clone());
+            }
             app.ui.dialog = Some(crate::state::Dialog { kind: "command".into(), fields });
             Ok(Value::Null)
         }
@@ -1556,6 +1613,22 @@ pub fn run_ui_command(app: &mut VectorcraftApp, id: &str, p: &Value) -> Option<R
             crate::dialogs::graphic_style_options::open_merge(app, names.unwrap_or_default())
         }
         "ui.tileEdgeColor" => crate::dialogs::tile_edge_color::open(app),
+        "ui.askAboutPatterns" => crate::ai::ask::open(app, p),
+        "ui.checkSleeveEase" => crate::dialogs::sleeve_ease::check(app, p),
+        "ui.blockOptions" => crate::dialogs::block_options::open(app, p),
+        "ui.checkTrouserSeams" => crate::dialogs::trouser_seams::check(app, p),
+        "ui.checkMarker" => crate::dialogs::check_marker::check(app, p),
+        "ui.projector" => crate::projector::command(app, p),
+        "ui.checkMuslin" => crate::ai::muslin::open(app, p).and_then(|v| {
+            if p.get("check").and_then(Value::as_bool) == Some(true) {
+                crate::ai::muslin::check(app)?;
+                Ok(json!({"open": true, "photos": 0, "checking": true}))
+            } else {
+                Ok(v)
+            }
+        }),
+        "ui.account" => crate::ai::account::open(app, p),
+        "ui.publishToMakerFoundry" => crate::ai::publish::command(app, p),
         "ui.layerOptions" => crate::dialogs::layer_options::open(app, p),
         "ui.newLayer" => crate::dialogs::layer_options::open_new(app, p),
         "ui.newArtboard" => crate::dialogs::artboard_options::open_new(app),
@@ -1618,6 +1691,18 @@ pub fn run_ui_command(app: &mut VectorcraftApp, id: &str, p: &Value) -> Option<R
         // Save for Office Documents…: its dialog; with options, pick the file (or write `path`).
         "document.exportForOffice" if p.as_object().is_none_or(|o| o.is_empty()) => crate::dialogs::office_export::open(app),
         "document.exportForOffice" => io::save_command_output(app, id, "png", p.clone()).map(|path| json!({ "path": path })),
+        // The 3D fit preview's glTF files (PF-10.5) written to a picked file (the web downloads
+        // it). The drape asks first: it takes a while, and a dialog answered later runs it again.
+        "avatar.exportGlb" if s("path").is_none() => io::save_command_output(app, id, "glb", json!({})).map(|path| json!({ "path": path })),
+        // Drape on Avatar: off the UI thread, its progress shown (PF-10.7).
+        "drape.make" if p.get("background").and_then(Value::as_bool) == Some(true) && s("path").is_none() && s("format").is_none() => {
+            crate::drape_job::start(app, p)
+        }
+        "drape.make" if s("path").is_none() && s("format").as_deref() == Some("glb") => io::target_path(app, None, "glb").and_then(|path| {
+            let mut params = p.clone();
+            params["path"] = json!(path);
+            io::save_command_output(app, id, "glb", params).map(|path| json!({ "path": path }))
+        }),
         "ui.dxfOptionsDialog" if app.session.active().is_none() => Err("no document".into()),
         "ui.dxfOptionsDialog" => {
             crate::dialogs::dxf_options::open(app, p);
@@ -2248,6 +2333,9 @@ pub fn enabled(app: &VectorcraftApp, id: &str) -> bool {
         "type.bold" | "type.italic" => crate::panels::character::text_style(app).is_some(),
         id if crate::panels::paragraph::ALIGN_COMMANDS.iter().any(|c| c.0 == id) => crate::panels::character::text_style(app).is_some(),
         "file.reveal" => app.services.reveal.is_some() && app.session.active().is_some_and(|d| d.path.is_some()),
+        "ui.askAboutPatterns" | "ui.checkMuslin" | "ui.account" => crate::ai::available(app),
+        "ui.publishToMakerFoundry" => crate::ai::available(app) && app.session.active().is_some_and(|st| st.doc.art_bounds().is_some()),
+        "ui.checkSleeveEase" | "ui.checkTrouserSeams" | "ui.checkMarker" | "ui.projector" | "ui.blockOptions" => app.session.active().is_some(),
         "file.cancelExport" | "file.exportInBackground" => app.background.jobs.iter().any(|j| j.progress.is_some() && !j.cancelled()),
         "file.place"
         | "file.export.svg"
@@ -2384,6 +2472,7 @@ pub fn menu_tree_named(english_names: bool) -> Vec<(&'static str, Vec<Item>)> {
                     ],
                 ),
                 c("Export Selection…", "file.exportSelection"),
+                c("Publish to MakerFoundry…", "ui.publishToMakerFoundry"),
                 Sep,
                 c("Package…", "ui.packageDialog"),
                 sub("Scripts", vec![c("Check Script…", "ui.checkScript"), todos("Other Script…", "Cmd+F12")]),
@@ -2688,6 +2777,66 @@ pub fn menu_tree_named(english_names: bool) -> Vec<(&'static str, Vec<Item>)> {
             ],
         ),
         (
+            // PatternFoundry's sewing-pattern commands (PF-1 on).
+            "Pattern",
+            vec![
+                c("Draft Bodice Block", "block.bodice"),
+                c("Draft Skirt Block", "block.skirt"),
+                c("Draft Sleeve Block", "block.sleeve"),
+                c("Draft Trouser Block", "block.trousers"),
+                c("Draft Men's Trouser Block", "block.mensTrousers"),
+                c("Draft Men's Shirt Block", "block.mensShirt"),
+                c("Draft Men's Shirt Sleeve Block", "block.mensShirtSleeve"),
+                c("Draft Trouser Waistband", "design.trouserWaistband"),
+                c("Block Options…", "ui.blockOptions"),
+                Sep,
+                c("Rotate Dart", "design.rotateDart"),
+                cp("Shorten Dart…", "design.shortenDart", json!({"shorten": 25})),
+                cp("Curve Dart Legs…", "design.curveDart", json!({"depth": 3})),
+                c("Split at Points", "design.split"),
+                c("Make Wrap Front", "design.wrapFront"),
+                c("Make Band", "design.band"),
+                c("Check Sleeve Ease", "ui.checkSleeveEase"),
+                c("Check Trouser Seams", "ui.checkTrouserSeams"),
+                c("Make Facing", "design.facing"),
+                c("Gather", "design.gather"),
+                c("Draft Collar", "design.collar"),
+                c("Draft Stand Collar", "design.standCollar"),
+                cp("Draft Rounded Stand Collar", "design.standCollar", json!({"frontShape": "rounded"})),
+                cp("Draft Wing Collar", "design.standCollar", json!({"frontShape": "winged"})),
+                c("Draft Shirt Collar", "design.shirtCollar"),
+                c("In-Seam Pocket", "design.inSeamPocket"),
+                c("Welt Pocket", "design.weltPocket"),
+                cp("Flap Pocket…", "design.weltPocket", json!({"flap": 50, "flapShape": "rounded"})),
+                Sep,
+                c("Make Pattern Piece", "piece.make"),
+                c("Release Pattern Piece", "piece.release"),
+                Sep,
+                c("Grade Nest", "grade.nest"),
+                c("Clear Graded Nest", "grade.clear"),
+                c("Projector View", "ui.projector"),
+                c("Draw Avatar", "avatar.draw"),
+                cp("Drape on Avatar", "drape.make", json!({"background": true})),
+                cp("Use as Fabric…", "fabric.set", json!({"width": "", "name": "", "turns": 0, "even": true, "seamless": true})),
+                c("Stop Using as Fabric", "fabric.clear"),
+                c("Export Avatar as glTF…", "avatar.exportGlb"),
+                cp("Export Drape as glTF…", "drape.make", json!({"format": "glb", "draw": false})),
+                cp(
+                    "Make Marker…",
+                    "marker.make",
+                    json!({"width": "150 cm", "fabric": "", "gap": "2 mm", "oneWay": false, "folded": false, "plaid": "", "size": "", "precision": "5 mm"}),
+                ),
+                c("Check Marker", "ui.checkMarker"),
+                Sep,
+                c("Ask About Patterns…", "ui.askAboutPatterns"),
+                c("Check My Muslin…", "ui.checkMuslin"),
+                Sep,
+                panel("Measurements", "measurements"),
+                panel("Grading", "grading"),
+                panel("Pattern Pieces", "pieces"),
+            ],
+        ),
+        (
             "Type",
             vec![
                 sub("Font", font_items(english_names)),
@@ -2940,6 +3089,7 @@ pub fn menu_tree_named(english_names: bool) -> Vec<(&'static str, Vec<Item>)> {
                 panel("Document Info", "docInfo"),
                 panel("Flattener Preview", crate::panels::flattener_preview::ID),
                 panel("Gradient", "gradient"),
+                panel("Grading", "grading"),
                 panel("Graphic Styles", "graphicStyles"),
                 panel("History", "history"),
                 panel("Image Trace", "imageTrace"),
@@ -2948,9 +3098,11 @@ pub fn menu_tree_named(english_names: bool) -> Vec<(&'static str, Vec<Item>)> {
                 panel("Libraries", "libraries"),
                 panel("Links", crate::panels::links::ID),
                 panel("Magic Wand", "magicWand"),
+                panel("Measurements", "measurements"),
                 panel("Navigator", "navigator"),
                 panel("Pathfinder", "pathfinder"),
                 panel("Pattern Options", "patternOptions"),
+                panel("Pattern Pieces", "pieces"),
                 panel("Properties", "properties"),
                 panel("Separations Preview", "separations"),
                 panel("Stroke", "stroke"),
@@ -2986,6 +3138,10 @@ pub fn menu_tree_named(english_names: bool) -> Vec<(&'static str, Vec<Item>)> {
                 Sep,
                 c("Search Commands…", "help.commandPalette"),
                 todos("PatternFoundry Help…", "F1"),
+                Sep,
+                c("Ask About Patterns…", "ui.askAboutPatterns"),
+                c("Check My Muslin…", "ui.checkMuslin"),
+                c("Foundry Account…", "ui.account"),
                 Sep,
                 c("About PatternFoundry", "help.about"),
             ],
@@ -3065,6 +3221,31 @@ pub fn context_items(app: &VectorcraftApp) -> Vec<Item> {
         ]);
     } else {
         v.extend([c("Cut", "edit.cut"), c("Copy", "edit.copy"), c("Paste", "edit.paste"), Sep]);
+        // A pattern piece right-clicked on or near its seam line: a notch there, or that edge on
+        // the fold (piece.addNotch, piece.set with the point; refused away from the seam line).
+        if let ([piece], Some((uid, at))) = (roots.as_slice(), app.ui.context_point)
+            && uid == st.uid
+            && piece.extras().pattern.as_deref().and_then(pf_core::PatternTag::piece).is_some()
+        {
+            let data = piece.extras().pattern.as_deref().and_then(pf_core::PatternTag::piece);
+            let allowance = data.map_or(10.0, |pc| pc.allowance);
+            v.extend([
+                cp("Add Notch Here", "piece.addNotch", json!({ "id": piece.id.0, "point": at })),
+                cp("Cut on Fold Here", "piece.set", json!({ "id": piece.id.0, "foldAt": at })),
+                cp("Seam Allowance Here…", "piece.set", json!({ "edgeAllowance": allowance, "__fixed": { "id": piece.id.0, "at": at } })),
+                cp("Add Drill Hole Here", "piece.addDrill", json!({ "id": piece.id.0, "point": at })),
+            ]);
+            // A drill hole within 5 mm of the click: it can go.
+            let near = pf_core::mm_to_pt(5.0);
+            if data.is_some_and(|pc| pc.drills.iter().any(|d| (d.at - pf_core::Pt::new(at[0], at[1])).len() <= near)) {
+                v.push(cp("Remove Drill Hole Here", "piece.removeDrill", json!({ "id": piece.id.0, "point": at })));
+            }
+            // With a size range: a grade rule for the seam line's point there.
+            if st.doc.grade_sizes.is_some() {
+                v.push(cp("Grade This Point…", "grade.setRule", json!({ "across": 0, "down": 0, "__fixed": { "id": piece.id.0, "point": at } })));
+            }
+            v.push(Sep);
+        }
         if let [one] = roots.as_slice()
             && one.is_container()
         {
@@ -3188,7 +3369,7 @@ pub fn menu_bar(app: &mut VectorcraftApp, ui: &mut egui::Ui) -> f32 {
         .ui(ui, |ui| {
             let mut titles = Vec::with_capacity(tree.len());
             for (title, items) in tree.iter() {
-                let text = egui::RichText::new(tl!(title)).size(13.0).color(t.text);
+                let text = egui::RichText::new(crate::i18n::t_menu(title)).size(13.0).color(t.text);
                 titles.push(ui.menu_button(text, |ui| menu_body(app, ui, items, &mut clicked)).response);
             }
             (ui.cursor().min.x, switch_on_hover(ui.ctx(), &titles))
@@ -3330,7 +3511,14 @@ pub fn click_target(label: &str, id: &str, p: &Value) -> (String, Value) {
         && p.as_object().is_some_and(|o| !o.is_empty())
         && !matches!(id, "effect.dialog" | "window.panel" | "window.brightness" | "view.screenMode" | "plugin.dialog");
     if dialog {
-        return ("ui.paramDialog".into(), json!({"command": id, "label": label.trim_end_matches('…'), "params": p}));
+        // `__fixed`: params the command takes as they are, not shown (where a click was).
+        let mut fields = p.clone();
+        let fixed = fields.as_object_mut().and_then(|o| o.remove("__fixed"));
+        let mut v = json!({"command": id, "label": label.trim_end_matches('…'), "params": fields});
+        if let Some(f) = fixed {
+            v["fixed"] = f;
+        }
+        return ("ui.paramDialog".into(), v);
     }
     (id.to_string(), if p.is_null() { json!({}) } else { p.clone() })
 }
@@ -3909,6 +4097,12 @@ pub const CONTEXT_LABELS: &[&str] = &[
     "Make Compound Path",
     "Release Compound Path",
     "Select All",
+    "Add Notch Here",
+    "Cut on Fold Here",
+    "Seam Allowance Here…",
+    "Grade This Point…",
+    "Add Drill Hole Here",
+    "Remove Drill Hole Here",
 ];
 
 /// The labels [`dynamic_label`] can show in place of an item's own (Show/Hide pairs and the like),

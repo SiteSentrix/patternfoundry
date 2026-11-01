@@ -55,6 +55,8 @@ struct Host {
     locks: Option<WebLocks>,
     /// Graphics restarts so far.
     restarts: u32,
+    /// Sentences for the status bar from work done outside a frame (a MakerFoundry link).
+    notes: crate::makerfoundry::Notes,
 }
 
 pub fn start() {
@@ -64,6 +66,8 @@ pub fn start() {
         return;
     };
     detect_language();
+    // Read and taken out of the page address before anything else can see it.
+    let link = crate::makerfoundry::take_link();
     wasm_bindgen_futures::spawn_local(async move {
         // Before the first frame, which looks for copies a crash left behind.
         let locks = WebLocks::start(RECOVERY_PREFIX).await;
@@ -79,8 +83,18 @@ pub fn start() {
             pointers: SharedPointers::default(),
             locks,
             restarts: 0,
+            notes: Rc::default(),
         };
         track_paste(&host.pasted);
+        if let Some(link) = link {
+            let (inbox, notes, pasted) = (host.inbox.clone(), host.notes.clone(), host.pasted.clone());
+            let wake = move || {
+                if let Some(ctx) = &pasted.borrow().ctx {
+                    ctx.request_repaint();
+                }
+            };
+            wasm_bindgen_futures::spawn_local(crate::makerfoundry::open(link, inbox, notes, wake));
+        }
         run(host, canvas, None).await;
     });
 }
@@ -365,6 +379,10 @@ impl eframe::App for WebShell {
             self.restart(&why);
         }
         let Some(app) = &mut self.app else { return };
+        let notes = std::mem::take(&mut *self.host.notes.borrow_mut());
+        for note in notes {
+            app.status(note);
+        }
         let pasted = self.host.pasted.borrow_mut().flavour.take();
         if let Some((f, held)) = pasted {
             app.paste_from_host(ctx, f, held);
@@ -418,6 +436,7 @@ fn services(inbox: Inbox, place_inbox: PlaceInbox, ctx: egui::Context, locks: Op
     let picked = place_inbox.clone();
     let place_ctx = ctx.clone();
     let screen_color = eye_dropper(ctx.clone());
+    let ai_ctx = ctx.clone();
     Services {
         // File → Place…: the picked files go to the Place dialog.
         place_async: Some(Box::new(move || {
@@ -463,7 +482,69 @@ fn services(inbox: Inbox, place_inbox: PlaceInbox, ctx: egui::Context, locks: Op
         recovery_store: Some(Arc::new(BrowserStore { locks })),
         // File → Print: the browser's print dialog.
         print: Some(Box::new(BrowserPrint)),
+        // Ask About Patterns and Foundry Account: the browser's fetch, the key and session kept by it.
+        http_post_async: Some(http_post_async(ai_ctx)),
+        secrets: Some(Box::new(BrowserSecrets)),
         ..Default::default()
+    }
+}
+
+/// HTTPS POSTs (Ask About Patterns, Foundry Account) with the browser's fetch; to Anthropic
+/// with the user's own key, Anthropic answers a web page only when it says it means to
+/// (`anthropic-dangerous-direct-browser-access`), as a page holding its user's own key does.
+/// From StitchFoundry's web build.
+fn http_post_async(ctx: egui::Context) -> vectorcraft_ui_egui::HttpPostAsyncFn {
+    Rc::new(move |request, done| {
+        let ctx = ctx.clone();
+        wasm_bindgen_futures::spawn_local(async move {
+            done(post(&request).await);
+            ctx.request_repaint();
+        });
+    })
+}
+
+async fn post(request: &vectorcraft_ui_egui::HttpRequest) -> Result<(u16, String), String> {
+    use wasm_bindgen_futures::JsFuture;
+    let window = web_sys::window().ok_or("no window")?;
+    let headers = web_sys::Headers::new().map_err(js_err)?;
+    for (k, v) in &request.headers {
+        headers.set(k, v).map_err(js_err)?;
+    }
+    if request.url.starts_with("https://api.anthropic.com/") {
+        headers.set("anthropic-dangerous-direct-browser-access", "true").map_err(js_err)?;
+    }
+    let init = web_sys::RequestInit::new();
+    init.set_method("POST");
+    // The request carries a key or session: no cookies, and no redirect takes it elsewhere.
+    init.set_credentials(web_sys::RequestCredentials::Omit);
+    init.set_redirect(web_sys::RequestRedirect::Error);
+    init.set_headers(&headers);
+    init.set_body(&wasm_bindgen::JsValue::from_str(&request.body));
+    let response: web_sys::Response =
+        JsFuture::from(window.fetch_with_str_and_init(&request.url, &init)).await.map_err(js_err)?.dyn_into().map_err(js_err)?;
+    let status = response.status();
+    let text = JsFuture::from(response.text().map_err(js_err)?).await.map_err(js_err)?.as_string().unwrap_or_default();
+    Ok((status, text))
+}
+
+/// The API key and Foundry session the AI features keep, in the browser's local storage (this
+/// browser only; Remember the key off forgets it).
+struct BrowserSecrets;
+
+const SECRET_PREFIX: &str = "patternfoundry.secret/";
+
+impl vectorcraft_ui_egui::SecretStore for BrowserSecrets {
+    fn load(&self, name: &str) -> Option<String> {
+        local_storage().ok()?.get_item(&format!("{SECRET_PREFIX}{name}")).ok().flatten()
+    }
+
+    fn save(&self, name: &str, value: Option<&str>) -> Result<(), String> {
+        let store = local_storage()?;
+        let key = format!("{SECRET_PREFIX}{name}");
+        match value {
+            Some(v) => store.set_item(&key, v).map_err(js_err),
+            None => store.remove_item(&key).map_err(js_err),
+        }
     }
 }
 

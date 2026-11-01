@@ -56,6 +56,8 @@ pub struct Job {
     pub progress: Option<Arc<Progress>>,
     /// Continue in Background: the progress dialog no longer shows this job.
     pub hidden: bool,
+    /// How the progress dialog counts its steps (a message template with `{n}` and `{total}`).
+    pub step: &'static str,
     then: Then,
 }
 
@@ -158,6 +160,22 @@ pub fn run_with_progress(
     work: impl FnOnce(Writer) -> Result<Value, String> + Send + 'static,
     then: impl FnOnce(&mut VectorcraftApp, Result<Value, String>) -> Result<Value, String> + 'static,
 ) -> Result<Value, String> {
+    run_with_steps(app, enabled, label, doc, progress, "Artboard {n} of {total}", work, then)
+}
+
+/// [`run_with_progress`] for work whose steps the progress dialog counts with `step` (a message
+/// template with `{n}` and `{total}`: a drape's "Step {n} of {total}").
+#[allow(clippy::too_many_arguments)]
+pub fn run_with_steps(
+    app: &mut VectorcraftApp,
+    enabled: bool,
+    label: String,
+    doc: Option<u64>,
+    progress: Option<Arc<Progress>>,
+    step: &'static str,
+    work: impl FnOnce(Writer) -> Result<Value, String> + Send + 'static,
+    then: impl FnOnce(&mut VectorcraftApp, Result<Value, String>) -> Result<Value, String> + 'static,
+) -> Result<Value, String> {
     let mut work: Work = Box::new(work);
     let shared = app.services.write_shared.clone().filter(|_| enabled && app.services.download.is_none());
     if let Some(write) = shared {
@@ -167,7 +185,7 @@ pub fn run_with_progress(
                 Ok(()) => {
                     let bg = &mut app.background;
                     bg.next_id += 1;
-                    bg.jobs.push(Job { id, label: label.clone(), doc, progress, hidden: false, then: Box::new(then) });
+                    bg.jobs.push(Job { id, label: label.clone(), doc, progress, hidden: false, step, then: Box::new(then) });
                     if label.is_empty() {
                         return Ok(json!({ "background": true }));
                     }

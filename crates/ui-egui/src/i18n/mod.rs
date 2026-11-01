@@ -512,6 +512,12 @@ pub fn tr_ctx<'a>(lang: Lang, context: &str, s: &'a str) -> &'a str {
     lang.catalog().contextual(context, s).unwrap_or_else(|| tr(lang, s))
 }
 
+/// A top-level menu's title in the current language: its `menu` row where the title is also a
+/// word used elsewhere (PatternFoundry's Pattern menu, not the fill pattern of Object › Pattern).
+pub fn t_menu(title: &str) -> &str {
+    tr_ctx(current(), "menu", title)
+}
+
 /// A name the app gives something (a default swatch's), translated where the current language has
 /// a `context` row for it; any other name (one the user gave) comes back as it is.
 pub fn t_name<'a>(context: &str, name: &'a str) -> &'a str {

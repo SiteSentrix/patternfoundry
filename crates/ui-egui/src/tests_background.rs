@@ -209,3 +209,55 @@ fn bad_options_fail_before_going_to_the_background() {
     }
     assert!(app.background.jobs.is_empty() && written(&files).is_empty());
 }
+
+/// A skirt of two panels sewn at the sides, on a measured document (`drape.make`'s own test's).
+fn skirt(app: &mut VectorcraftApp) {
+    app.run("file.new", json!({"width": 2000, "height": 1000})).unwrap();
+    app.run("measure.set", json!({"values": {"bust": 880, "waist": 680, "hip": 960, "nape_to_waist": 410, "waist_to_hip": 200}})).unwrap();
+    let mm = pf_core::mm_to_pt;
+    let mut ids = Vec::new();
+    for x in [0.0, 900.0] {
+        let d = format!("M{} 0 L{} 0 L{} {} L{} {} Z", mm(x + 220.0), mm(x + 580.0), mm(x + 800.0), mm(600.0), mm(x), mm(600.0));
+        let path = app.run("path.create", json!({"d": d})).unwrap()["id"].clone();
+        ids.push(app.run("piece.make", json!({"ids": [path]})).unwrap()["ids"][0].clone());
+    }
+    app.run("piece.sew", json!({"a": {"id": ids[0], "from": 1, "to": 2}, "b": {"id": ids[1], "from": 3, "to": 0}})).unwrap();
+    app.run("piece.sew", json!({"a": {"id": ids[1], "from": 1, "to": 2}, "b": {"id": ids[0], "from": 3, "to": 0}})).unwrap();
+}
+
+fn drape_layers(app: &VectorcraftApp, i: usize) -> usize {
+    app.session.documents()[i].doc.layers.iter().filter(|l| l.name.as_deref() == Some("Drape")).count()
+}
+
+/// Pattern › Drape on Avatar (PF-10.7) drapes off the UI thread: the call comes back at once, a
+/// job shows its progress (counting the drape's steps) with Cancel, and the drape view is drawn
+/// in the document it was asked for when it is done, even with another document in front by then.
+/// Cancelled, nothing is drawn.
+#[test]
+fn the_drape_runs_in_the_background_and_can_be_cancelled() {
+    let (mut app, _) = app(Gate::default());
+    skirt(&mut app);
+    let r = app.run("drape.make", json!({"background": true, "precision": 30, "steps": 20})).unwrap();
+    assert_eq!(r["background"], json!(true), "{r}");
+    let job = app.background.jobs.first().expect("a job");
+    assert_eq!((job.label.as_str(), job.step), ("Draping on Avatar", "Step {n} of {total}"));
+    assert!(job.progress.is_some());
+    // Another document in front while it runs.
+    app.run("file.new", json!({"width": 100, "height": 100})).unwrap();
+    background::wait_all(&mut app);
+    assert_eq!(app.session.active_index(), Some(0), "the draped document is brought to the front");
+    assert_eq!(drape_layers(&app, 0), 1);
+    assert_eq!(drape_layers(&app, 1), 0);
+    assert_eq!(app.ui.status, "Draped on the avatar");
+    // Cancelled: no new drawing.
+    app.run("edit.undo", json!({})).unwrap();
+    assert_eq!(drape_layers(&app, 0), 0);
+    app.run("drape.make", json!({"background": true, "precision": 30, "steps": 2000})).unwrap();
+    app.run("file.cancelExport", json!({})).unwrap();
+    background::wait_all(&mut app);
+    assert_eq!(drape_layers(&app, 0), 0);
+    assert_eq!(app.ui.status, "The drape was cancelled");
+    // Not asked for in the background (an agent calling drape.make): at once, as before.
+    let r = app.run("drape.make", json!({"precision": 30, "steps": 5})).unwrap();
+    assert!(r.get("background").is_none() && r["pieces"] == json!(2), "{r}");
+}

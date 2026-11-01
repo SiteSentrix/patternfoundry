@@ -4785,3 +4785,571 @@ lighting	Light	광원
 @msg	the file's variables and data sets weren't read (variables: {variables}, data sets: {data_sets}): the Variables panel doesn't list them	파일의 변수와 데이터 세트를 읽지 않았습니다(변수: {variables}, 데이터 세트: {data_sets}). 변수 패널에 표시되지 않습니다
 # Select by Color (select.color)
 	Select by Color	색상별 선택
+# PatternFoundry: pattern pieces (PF-1).
+	Add Notch	너치 추가
+	Make Pattern Piece	패턴 조각 만들기
+	Pattern Pieces	패턴 조각
+	Piece Info	조각 정보
+	Piece Options	조각 옵션
+	Release Pattern Piece	패턴 조각 해제
+	Remove Notch	너치 제거
+	Cut {count}	재단 {count}장
+	Each selected closed path becomes a piece: the path is its seam line	선택한 닫힌 패스가 각각 조각이 됩니다. 패스가 완성선입니다
+	Edges	변
+	Fabric	원단
+	Mirrored pairs	대칭 쌍
+	No pattern pieces yet	아직 패턴 조각이 없습니다
+	Notches	너치
+	Pattern piece	패턴 조각
+	Pieces	조각
+	Seam allowance	시접
+	Seam line length	완성선 길이
+	Selected piece	선택한 조각
+# PatternFoundry: true-scale printing (PF-2).
+	Pattern Marks (test squares, page names, overlap lines)	패턴 표시(테스트 사각형, 페이지 이름, 겹침선)
+# PatternFoundry: measurements (PF-3).
+	Add Measurement	치수 추가
+	Clear Measurements	치수 지우기
+	Clear Point Formulas	점 수식 지우기
+	Draft Info	제도 정보
+	Formulas	수식
+	Import Size Chart	사이즈표 가져오기
+	Let PDF and SVG files saved with Preserve Editing keep the measured values	편집 기능 보존으로 저장한 PDF와 SVG 파일에 측정값을 남깁니다
+	Measurements	치수
+	No measurements yet	아직 치수가 없습니다
+	Set Measurements	치수 설정
+	Set Point Formula	점 수식 설정
+	Share in exported files	내보낸 파일에서 공유
+	Figure	체형
+	Female	여성
+	Male	남성
+	Child	어린이
+	The avatar takes what the measurements don't give from a survey's women's, men's or children's proportions	치수에 없는 부분은 조사의 여성, 남성 또는 어린이 비율로 아바타가 채웁니다
+	Size chart	사이즈표
+	Use Size	사이즈 사용
+# PatternFoundry: blocks (PF-4).
+	Draft Bodice Block	몸판 원형 제도
+	Block Measurements	원형 치수
+	Draft Skirt Block	스커트 원형 제도
+# PatternFoundry: design tools (PF-5).
+	Rotate Dart	다트 이동
+	Split at Points	점에서 분할
+	Seam Length	솔기 길이
+	Slash and Spread	절개 후 벌리기
+	Match Seam Length	솔기 길이 맞추기
+	Make Facing	안단 만들기
+	Add Pleat	주름 추가
+	Draft Sleeve Block	소매 원형 제도
+	Draft Trouser Block	바지 원형 제도
+	Draft Men's Trouser Block	남성 바지 원형 제도
+	Draft Men's Shirt Block	남성 셔츠 원형 제도
+	Draft Men's Shirt Sleeve Block	남성 셔츠 소매 원형 제도
+	Gather	개더
+	Draft Collar	칼라 제도
+	Patch Pocket	패치 포켓
+	Walk Seams	솔기 맞추기
+	Smooth Across Seam	솔기를 가로질러 다듬기
+	Draft Stand Collar	스탠드 칼라 제도
+	In-Seam Pocket	솔기 주머니
+	Welt Pocket	입술 주머니
+	Make Wrap Front	랩 앞판
+	Make Band	밴드 만들기
+	Grade Nest	그레이딩(사이즈 전개)
+	Clear Graded Nest	그레이딩 지우기
+	Set Size Range	사이즈 범위 설정
+	Set Grade Rule	그레이딩 규칙 설정
+	Grade Info	그레이딩 정보
+	Grading	그레이딩
+	Base size	기준 사이즈
+	Grade rules (mm a size)	그레이딩 규칙(사이즈당 mm)
+	Name the sizes, smallest first, to give the points grade rules	점에 규칙을 주려면 사이즈를 작은 것부터 입력하세요
+	Select one pattern piece to grade its points	점을 그레이딩할 패턴 조각을 하나 선택하세요
+	Sizes	사이즈
+	per size	사이즈별
+	Copy Grade Rules	그레이딩 규칙 복사
+	Copy Rules To	규칙 복사 대상
+	Mirrored	대칭
+	For the opposite half: places mirrored left to right, x moves the other way	반대쪽 절반용: 위치를 좌우 대칭하고 x 이동을 반대로 합니다
+	Draft Shirt Collar	셔츠 칼라 제도
+file-filter	DXF-AAMA (cutting room)	DXF-AAMA (재단실)
+@msg	DXF-AAMA files are DXF R13 (ASTM D6673) or R12	DXF-AAMA 파일은 DXF R13(ASTM D6673) 또는 R12입니다
+@msg	no pattern pieces to export	내보낼 패턴 조각이 없습니다
+@msg	the piece {_1} has no outline	조각 {_1}에 윤곽선이 없습니다
+file-filter	SVG for cutting	재단용 SVG
+file-filter	PDF for projector	프로젝터용 PDF
+	Foundry Account…	Foundry 계정…
+	Publish to MakerFoundry…	MakerFoundry에 게시…
+	Publish to MakerFoundry	MakerFoundry에 게시
+	Publish	게시
+	Sign In…	로그인…
+	Not signed in	로그인하지 않음
+	Your Foundry Account	내 Foundry 계정
+	Sent to	보낼 곳
+	SVG, a vector design	SVG, 벡터 디자인
+	What it is, e.g. A-line skirt	무엇인지, 예: A라인 스커트
+	Your design goes to MakerFoundry as a private draft, to finish on its page. Nothing is public until you publish it there.	디자인은 비공개 초안으로 MakerFoundry에 보내져 그 페이지에서 마무리합니다. 그곳에서 게시하기 전에는 아무것도 공개되지 않습니다.
+	Draft {id} made.	초안 {id}을(를) 만들었습니다.
+	Draft {id} made on MakerFoundry: finish it on the page that opened in your browser.	MakerFoundry에 초안 {id}을(를) 만들었습니다. 브라우저에 열린 페이지에서 마무리하세요.
+	Finish it on MakerFoundry's page, which opened in your browser: it stays private until you publish it there.	브라우저에 열린 MakerFoundry 페이지에서 마무리하세요. 그곳에서 게시하기 전까지 비공개로 유지됩니다.
+	A password needs at least 8 characters.	비밀번호는 8자 이상이어야 합니다.
+	Account	계정
+	Allow	허용
+	Anthropic API key:	Anthropic API 키:
+	Ask	질문
+	Buy credits	크레딧 구매
+	Buy…	구매…
+	Change key	키 변경
+	Create Free Account	무료 계정 만들기
+	Create a free Foundry Account	무료 Foundry 계정 만들기
+	Don't Allow	허용 안 함
+	Edit › Undo takes each change back.	편집 › 실행 취소로 각 변경을 되돌릴 수 있습니다.
+	Email	이메일
+	Foundry Account	Foundry 계정
+	Foundry accounts aren't open yet. Until then, the AI features work with your own Anthropic API key.	Foundry 계정은 아직 열리지 않았습니다. 그때까지 AI 기능은 사용자의 Anthropic API 키로 작동합니다.
+	Get a key	키 받기
+	I have an account: Sign In	계정이 있어요: 로그인
+	New Conversation	새 대화
+	New here? Create a free account	처음이신가요? 무료 계정 만들기
+	No card needed, and no API key to set up	카드도, API 키 설정도 필요 없음
+	Paid with Foundry credits ({n} left).	Foundry 크레딧으로 결제(남은 크레딧 {n}).
+	Paid with Foundry credits.	Foundry 크레딧으로 결제.
+	Pay for the AI features with my Foundry credits	AI 기능을 내 Foundry 크레딧으로 결제
+	Pay with Foundry credits instead	대신 Foundry 크레딧으로 결제
+	Payment is on Stripe's secure page, in your browser; your card never reaches PatternFoundry.	결제는 브라우저의 Stripe 보안 페이지에서 이루어지며, 카드 정보는 PatternFoundry에 전달되지 않습니다.
+	Reading your credits…	크레딧을 읽는 중…
+	Remember the key on this computer	이 컴퓨터에 키 기억
+	Server	서버
+	Sign In	로그인
+	Sign Out	로그아웃
+	Sign in to your Foundry Account	Foundry 계정에 로그인
+	Signed in as {email}	{email}(으)로 로그인됨
+	Thinking…	생각하는 중…
+	Type your question, then press Enter	질문을 입력하고 Enter를 누르세요
+	{n} credits	{n} 크레딧
+	{n} credits for {price}	{n} 크레딧, {price}
+@msg	Anthropic refused the API key: {0}	Anthropic이 API 키를 거부했습니다: {0}
+@msg	Couldn't reach the AI service: {0}	AI 서비스에 연결할 수 없습니다: {0}
+@msg	Enter your Anthropic API key first.	먼저 Anthropic API 키를 입력하세요.
+@msg	The AI declined to answer this: ask another way.	AI가 이 질문에 답하기를 거절했습니다: 다르게 질문해 보세요.
+@msg	The AI service failed (error {0}): try again later.	AI 서비스에서 오류가 발생했습니다(오류 {0}): 나중에 다시 시도하세요.
+@msg	The AI service is busy: try again in a minute.	AI 서비스가 바쁩니다: 1분 후에 다시 시도하세요.
+@msg	The API key isn't valid: paste it again from the Anthropic Console.	API 키가 올바르지 않습니다: Anthropic Console에서 다시 붙여넣으세요.
+@msg	The question is too long: keep it under 2,000 characters.	질문이 너무 깁니다: 2,000자 이내로 줄이세요.
+@msg	The reply had no answer: try again, or ask something narrower.	응답에 답변이 없습니다: 다시 시도하거나 더 좁은 범위로 질문하세요.
+@msg	The request failed (error {0}): {1}	요청이 실패했습니다(오류 {0}): {1}
+@msg	Type a question first.	먼저 질문을 입력하세요.
+@msg	Your Anthropic account can't pay for this: {0}	Anthropic 계정으로 결제할 수 없습니다: {0}
+@msg	already asking: wait for the answer	이미 질문하는 중입니다: 답변을 기다리세요
+@msg	This conversation is long: start a New Conversation.	대화가 깁니다: 새 대화를 시작하세요.
+@msg	Claude took too many steps: ask again, more simply.	Claude가 너무 많은 단계를 거쳤습니다: 더 간단하게 다시 질문하세요.
+	Ask About Patterns…	패턴에 대해 질문…
+	Answers come from Claude with your own Anthropic API key, billed to your Anthropic account. They can be wrong: sew a muslin before cutting good fabric.	답변은 사용자의 Anthropic API 키로 Claude가 제공하며 비용은 사용자의 Anthropic 계정에 청구됩니다. 답변이 틀릴 수 있으니 좋은 원단을 재단하기 전에 광목으로 가봉해 보세요.
+	Ask About Patterns	패턴에 대해 질문
+	Ask anything about sewing patterns or PatternFoundry: how much ease to add, how to move a dart, which block to start from, where a feature is. Claude can also draft and change your pattern when you ask, after you allow it.	옷 패턴이나 PatternFoundry에 대해 무엇이든 물어보세요: 여유분을 얼마나 넣을지, 다트를 어떻게 옮길지, 어떤 원형에서 시작할지, 기능이 어디에 있는지 등. 허용하면 요청에 따라 Claude가 패턴을 제도하고 변경할 수도 있습니다.
+	Claude asks to:	Claude의 요청:
+	Couldn't do:	할 수 없음:
+	Done:	완료:
+	Free credits for the AI features, no API key needed	AI 기능용 무료 크레딧, API 키 필요 없음
+	Free credits to try the AI features: Ask About Patterns drafts and changes patterns with you	AI 기능을 체험할 무료 크레딧: '패턴에 대해 질문'이 사용자와 함께 패턴을 제도하고 변경합니다
+	Include my pattern	내 패턴 포함
+	Its pieces and sizes, and which measurements are set: never their values	조각과 사이즈, 설정된 치수 항목: 치수 값은 절대 보내지 않음
+	Leave it empty for the Foundry service.	Foundry 서비스를 쓰려면 비워 두세요.
+	Not allowed:	허용 안 됨:
+	One account for every SiteSentrix app	모든 SiteSentrix 앱에서 쓰는 하나의 계정
+	Read your measurements	치수 읽기
+@msg	An account with that email already exists: sign in instead.	이 이메일을 쓰는 계정이 이미 있습니다. 대신 로그인하세요.
+@msg	Ask About Patterns needs a build that can reach the AI service	'패턴에 대해 질문'에는 AI 서비스에 연결할 수 있는 빌드가 필요합니다
+@msg	Foundry Account needs a build that can reach the AI service	'Foundry 계정'에는 AI 서비스에 연결할 수 있는 빌드가 필요합니다
+@msg	Foundry accounts aren't open yet.	Foundry 계정은 아직 열리지 않았습니다.
+@msg	Not enough Foundry credits: buy more in Foundry Account.	Foundry 크레딧이 부족합니다. Foundry 계정에서 더 구입하세요.
+@msg	Sign in to your Foundry account (Help › Foundry Account…).	Foundry 계정에 로그인하세요(도움말 › Foundry 계정…).
+@msg	The Foundry service can't do this yet: try again later.	Foundry 서비스는 아직 이 작업을 할 수 없습니다. 나중에 다시 시도하세요.
+@msg	this needs a connection to the AI service, which this build doesn't have	이 작업에는 AI 서비스 연결이 필요하지만 이 빌드에는 없습니다
+@msg	Account made: welcome to PatternFoundry.	계정을 만들었습니다. PatternFoundry에 오신 것을 환영합니다.
+@msg	Signed in.	로그인했습니다.
+@msg	Signed out.	로그아웃했습니다.
+@msg	Type your email address.	이메일 주소를 입력하세요.
+@msg	Pay on the page that opened in your browser, then press Refresh.	브라우저에 열린 페이지에서 결제한 다음 새로 고침을 누르세요.
+	Add Photos…	사진 추가…
+	Choose the photos in the browser's window…	브라우저 창에서 사진을 고르세요…
+	About the fit	핏에 대해
+	Anything else? For example: folds below the back neck	더 있나요? 예: 뒷목 아래에 주름이 생김
+	Check My Muslin	내 가봉 확인
+	Claude looks at the photos with your own Anthropic API key, billed to your Anthropic account. It can be wrong: sew the altered part again in muslin before cutting good fabric.	Claude가 사용자의 Anthropic API 키로 사진을 봅니다. 요금은 사용자의 Anthropic 계정에 청구됩니다. 틀릴 수 있으니 좋은 원단을 재단하기 전에 수정한 부분을 광목으로 다시 가봉해 보세요.
+	Final fabric	본 원단
+	Hard to raise my arms	팔을 들기 어려움
+	How it feels:	착용감:
+	Include the pattern it was cut from (open now), so it can be altered	재단에 사용한 패턴(지금 열려 있음)을 함께 보내 수정할 수 있게 하기
+	Loose or gaping somewhere	어딘가 헐렁하거나 들뜸
+	Muslin fabric	가봉용 원단
+	My muslin ({n} photos)	내 가봉(사진 {n}장)
+	Photos of your muslin, tried on	가봉한 옷을 입은 사진
+	The front, the side and the back, standing straight with your arms down, and close-ups of any folds or pulling.	팔을 내리고 똑바로 선 자세로 앞, 옆, 뒤를 찍고, 주름이나 당김이 있는 곳은 근접 사진도 찍어 주세요.
+	The neckline gapes or pulls	목둘레가 들뜨거나 당김
+	The photos go to Claude for this check only; PatternFoundry doesn't keep them.	사진은 이번 확인에만 Claude에 보내지며 PatternFoundry는 보관하지 않습니다.
+	The shoulder seams don't sit on my shoulders	어깨 솔기가 어깨 위에 오지 않음
+	Tight across the back or shoulders	등이나 어깨가 끼임
+	Tight across the bust or chest	가슴이 끼임
+	Tight at the waist or hips	허리나 엉덩이가 끼임
+	Too long or too short	너무 길거나 너무 짧음
+	e.g. calico, an old sheet	예: 광목, 헌 침대 시트
+	e.g. cotton poplin, jersey	예: 면 포플린, 저지
+	Check My Muslin…	내 가봉 확인…
+@msg	Add a photo of the muslin first.	먼저 가봉 사진을 추가하세요.
+@msg	Check My Muslin needs a build that can reach the AI service	'내 가봉 확인'에는 AI 서비스에 연결할 수 있는 빌드가 필요합니다
+@msg	The image is too large to send: crop it, or send a smaller copy.	이미지가 너무 커서 보낼 수 없습니다: 자르거나 더 작은 사본을 보내세요.
+@msg	This photo is too large: send a smaller copy.	이 사진은 너무 큽니다: 더 작은 사본을 보내세요.
+@msg	no files here	여기에 파일이 없습니다
+@msg	At most 6 photos: remove one first.	사진은 최대 6장입니다: 먼저 하나를 제거하세요.
+@msg	This photo can't be read: save or send it as a JPEG (on an iPhone: Settings › Camera › Formats › Most Compatible).	이 사진을 읽을 수 없습니다: JPEG로 저장하거나 보내세요(iPhone: 설정 › 카메라 › 포맷 › 높은 호환성).
+	Make Marker	마커 만들기
+	Make Marker…	마커 만들기…
+	Gap	간격
+	Precision	정밀도
+	One Way	한 방향
+	Cut on fold	골선으로 재단
+	Folded	접은
+	The straight edge laid on the fabric's fold: no allowance there	원단 골선에 놓는 직선 변: 그곳엔 시접 없음
+	Check Sleeve Ease	소매 이세 확인
+	Sleeve Ease	소매 이세
+	Crown {crown} mm, armhole {armhole} mm (back {back}, front {front}): the crown takes in {ease} mm ({percent}%).	소매산 {crown} mm, 진동둘레 {armhole} mm (뒤 {back}, 앞 {front}): 소매산 이세 {ease} mm ({percent}%).
+	Less than the {min} to {max} mm it should take in: the sleeve may pull across the cap. Set sleeve_crown to {wanted} mm in Measurements to redraft the sleeve block with the ease in the middle.	필요한 이세 {min}~{max} mm보다 적습니다: 소매산이 당길 수 있습니다. 치수에서 sleeve_crown을 {wanted} mm로 설정하면 이세가 범위 가운데가 되도록 소매 원형이 다시 그려집니다.
+	More than the {min} to {max} mm it should take in: the cap may pucker when it is set in. Set sleeve_crown to {wanted} mm in Measurements to redraft the sleeve block with the ease in the middle.	필요한 이세 {min}~{max} mm보다 많습니다: 달 때 소매산이 울 수 있습니다. 치수에서 sleeve_crown을 {wanted} mm로 설정하면 이세가 범위 가운데가 되도록 소매 원형이 다시 그려집니다.
+	Within the {min} to {max} mm it should take in.	필요한 이세 {min}~{max} mm 안에 있습니다.
+	Edges: {edges}, notches: {notches}	변: {edges}, 너치: {notches}
+	Edge {n}	변 {n}
+	On fold	골선
+	Back to the piece's seam allowance	패턴 조각의 시접으로 되돌리기
+	A notch in the middle of the edge	변 가운데에 너치
+	Notch on edge {edge}, {at}% along	변 {edge}의 너치, {at}% 위치
+	Piece Outlines	패턴 조각 윤곽
+	Projector	프로젝터
+	Projector Scale (screen points per mm, 0: not calibrated)	프로젝터 배율(mm당 화면 포인트, 0: 보정 안 됨)
+	Projector View	프로젝터 보기
+	Measure the square on the cutting mat: it should be 10 cm each way. The arrows make it bigger or smaller (with Shift, faster); Enter keeps it; Escape leaves. Scale: {scale} points per mm.	커팅 매트에서 정사각형을 재세요. 가로세로 모두 10 cm여야 합니다. 화살표로 크게 또는 작게(Shift와 함께 더 빠르게), Enter로 유지, Escape로 나갑니다. 배율: mm당 {scale} 포인트.
+	Arrows move the pattern 1 cm (Shift: 1 mm) · M mirrors it · C calibrates · Escape leaves	화살표로 패턴을 1 cm 이동(Shift: 1 mm) · M 좌우 반전 · C 보정 · Escape 나가기
+@msg	no pattern pieces to project: make the outlines pattern pieces first (Pattern › Make Pattern Piece)	투사할 패턴 조각이 없습니다: 먼저 윤곽을 패턴 조각으로 만드세요(패턴 › 패턴 조각 만들기)
+@msg	scale: screen points per mm, more than 0	배율: mm당 화면 포인트, 0보다 크게
+	Delete Saved Measurements	저장된 치수 삭제
+	Load Measurements	치수 불러오기
+	My Measurements	내 치수
+	Save to My Measurements	내 치수에 저장
+	Delete from this computer	이 컴퓨터에서 삭제
+	Kept on this computer only, to load into any pattern	이 컴퓨터에만 보관되며 어떤 패턴에도 불러올 수 있습니다
+	Load	불러오기
+	Use these measurements in this pattern	이 치수를 이 패턴에 사용
+	Whose (Me)	누구의 것(나)
+	Shorten Dart	다트 줄이기
+	Shorten Dart…	다트 줄이기…
+	Shorten	줄이기
+	Add Notch Here	여기에 너치 추가
+	Cut on Fold Here	여기를 골선으로
+	Seam Allowance Here…	여기 시접…
+	Grade This Point…	이 점 그레이딩…
+	Edge Allowance	변의 시접
+	Across	가로
+	Down	아래로
+	One step	한 단계
+	The same move for each size, from the size above the base	모든 사이즈에 같은 이동(기준 위 사이즈 기준)
+	Per size	사이즈별
+	A move for each size of its own	사이즈마다 따로 이동
+	Add Drill Hole Here	여기에 드릴 구멍 추가
+	Remove Drill Hole Here	여기의 드릴 구멍 제거
+	Add Drill Hole	드릴 구멍 추가
+	Remove Drill Hole	드릴 구멍 제거
+	Drill holes: {count}	드릴 구멍: {count}
+	Right-click inside the piece: Add Drill Hole Here	조각 안쪽을 마우스 오른쪽 버튼으로 클릭: 여기에 드릴 구멍 추가
+	Drill hole {n}, {mm} mm	드릴 구멍 {n}, {mm} mm
+	Drill hole {n}	드릴 구멍 {n}
+	Notch Shape	너치 모양
+	Slit notch	슬릿 너치
+	Double notch	이중 너치
+	V notch	V 너치
+	T notch	T 너치
+	Castle notch	캐슬 너치
+	U notch	U 너치
+	As drawn	그린 대로
+	Side by side	나란히
+	Block Options…	원형 옵션…
+	Block Options	원형 옵션
+	Ease	여유분
+	Waist ease	허리 여유분
+	Bust dart	가슴 다트
+	Shoulder dart	어깨 다트
+	Back dart	뒤 다트
+	Back dart length	뒤 다트 길이
+	Front dart length	앞 다트 길이
+	Option	옵션
+	Back to the block's default	원형 기본값으로 되돌리기
+	from the measurements	치수에서
+	Block Options Info	원형 옵션 정보
+	Check Trouser Seams	바지 솔기 확인
+	Trouser Seams	바지 솔기
+	Inseam, knee to hem	안솔기, 무릎에서 밑단
+	Inseam, crotch to knee	안솔기, 밑위에서 무릎
+	Side seam, knee to hem	옆솔기, 무릎에서 밑단
+	Side seam, waist to knee	옆솔기, 허리에서 무릎
+	{seam}: front {front} mm, back {back} mm ({difference} mm)	{seam}: 앞 {front} mm, 뒤 {back} mm ({difference} mm)
+	Walk them on the pattern too: where a line doesn't run on smoothly from front to back, find the point half way between the two and correct both lines. The back inseam is more curved, so it is often longer: lowering the back crotch curve slightly to match is fine.	패턴 위에서도 맞춰 보세요. 앞에서 뒤로 선이 매끄럽게 이어지지 않는 곳은 두 선의 중간점을 찾아 두 선을 모두 고치세요. 뒤 안솔기는 더 굽어 있어 대개 더 깁니다. 맞추기 위해 뒤 밑위 곡선을 조금 낮추는 것은 괜찮습니다.
+	Front dart	앞 다트
+	Draft Trouser Waistband	바지 허리밴드 제도
+	Flap Pocket…	플랩 포켓…
+	Crown ease	소매산 이즈 분량
+	Remove Design Step	디자인 단계 제거
+	Dart moved	다트 이동됨
+	Dart shortened {mm} mm	다트 {mm} mm 줄임
+	Slashed and spread {mm} mm	절개 후 {mm} mm 벌림
+	Seam trued to {mm} mm	솔기를 {mm} mm에 맞춤
+	Split into panels	패널로 분할됨
+	Design step	디자인 단계
+	Design steps: {count}	디자인 단계: {count}
+	Design changes made on the block (darts, splits, spreads, seam lengths) show here; each is made again when the measurements change	원형에 적용한 변경(다트, 분할, 벌림, 솔기 길이)이 여기에 표시되며, 치수가 바뀌면 각각 다시 적용됩니다
+	Remove this step and the ones after it (they were made on the outline it made)	이 단계와 그 이후 단계 제거(이후 단계는 이 단계가 만든 윤곽선에서 수행됨)
+	Selected block part	선택한 원형 조각
+	Curve Dart Legs…	다트 선 곡선화…
+	Curve Dart Legs	다트 선 곡선화
+	Dart legs curved {mm} mm	다트 선을 {mm} mm 곡선화함
+	Draft Rounded Stand Collar	둥근 스탠드 칼라 제도
+	Draft Wing Collar	윙 칼라 제도
+	Check Marker	마커 확인
+	{length} cm long, {efficiency}% of the fabric used	길이 {length} cm, 원단의 {efficiency}% 사용
+	{a} overlaps {b}	{a}이(가) {b}와(과) 겹칩니다
+	{piece} is off the fabric	{piece}이(가) 원단 밖에 있습니다
+	No pieces overlap, and all are on the fabric.	겹치는 조각이 없고 모두 원단 위에 있습니다.
+	Plaid	체크무늬
+menu	Pattern	패턴
+@msg	a and b are two pieces (or paths) that sew together	a와 b는 서로 봉제되는 두 조각(또는 패스)입니다
+@msg	a corner is "mitre" or "square"	모서리는 "mitre" 또는 "square"입니다
+@msg	a facing runs along part of the outline	안단은 윤곽의 일부를 따라 만듭니다
+@msg	a facing runs between two different points of the outline	안단은 윤곽의 서로 다른 두 점 사이에 만듭니다
+@msg	a name takes at most 200 characters	이름은 최대 200자입니다
+@msg	a neckline runs between two different points of its outline, and the shoulder point is one of them	목둘레선은 윤곽의 서로 다른 두 점 사이에 있어야 하며, 그중 하나가 어깨끝점이어야 합니다
+@msg	a seam allowance is a number of mm, or a length with its unit ("5/8 in")	시접은 mm 단위 숫자 또는 단위가 붙은 길이("5/8 in")입니다
+@msg	a seam has no length	솔기의 길이가 없습니다
+@msg	a shoulder point is on its neck point	어깨끝점이 옆목점과 겹쳐 있습니다
+@msg	a slash runs between two points of the outline that aren't neighbours	절개선은 윤곽에서 서로 이웃하지 않은 두 점 사이에 그어야 합니다
+@msg	a split leaves a piece with fewer than three anchors	분할하면 앵커가 세 개 미만인 조각이 남습니다
+@msg	a split made two panels: delete the panel you don't want instead	분할로 패널 두 개가 만들어졌습니다: 대신 원하지 않는 패널을 삭제하세요
+@msg	a split needs two different anchors on the outline	분할하려면 윤곽에 서로 다른 앵커 두 개가 필요합니다
+@msg	amount: a share of the dart, (0, 1]	amount: 다트 분량의 비율, (0, 1]
+@msg	amount: how far it opens, mm	amount: 벌리는 양, mm
+@msg	anchor: the point's number along the path, from 0	anchor: 패스를 따라 매긴 점 번호, 0부터
+@msg	anchor: the seam line's point, from 0	anchor: 완성선의 점, 0부터
+@msg	anchors: [a, b] or [a]	anchors: [a, b] 또는 [a]
+@msg	anchors: point numbers along the path	anchors: 패스를 따라 매긴 점 번호
+@msg	apex: the dart's point (or select that one point)	apex: 다트 끝점(또는 그 점 하나를 선택)
+@msg	at: 0 (the edge's start) to 1 (its end)	at: 0(변의 시작)부터 1(끝)까지
+@msg	at: [x, y], the document point on the edge	at: [x, y], 변 위의 점(문서 좌표)
+@msg	base: the size the pattern is drawn in	base: 패턴을 그린 사이즈
+@msg	block: "bodice", "skirt", "sleeve" or "trousers"	block: "bodice", "skirt", "sleeve" 또는 "trousers"
+@msg	can't make the seam that long by moving its end	끝점을 옮겨서는 솔기를 그 길이로 만들 수 없습니다
+@msg	curve: mm the wrap edge bows into the piece	curve: 랩 가장자리가 조각 안쪽으로 휘는 양, mm
+@msg	cut is a whole number, 1 to 999	cut은 1~999 사이의 정수입니다
+@msg	data: the chart's text	data: 사이즈표의 텍스트
+@msg	depth: how deep the pleat folds under, mm	depth: 주름이 안으로 접히는 깊이, mm
+@msg	depth: mm (less than 0 bows the legs in)	depth: mm(0보다 작으면 다트 선이 안쪽으로 휩니다)
+@msg	diameter: a number of mm, or a length with its unit ("1/8 in")	diameter: mm 단위 숫자 또는 단위가 붙은 길이("1/8 in")
+@msg	edge: the edge's number, from 0 (or point)	edge: 변 번호, 0부터(또는 point)
+@msg	edges and corners are numbered from 0	변과 모서리는 0부터 번호가 매겨집니다
+@msg	every: mm, at least 10	every: mm, 10 이상
+@msg	face: only a box pleat has one	face: 박스 주름에만 있습니다
+@msg	face: the box pleat's width between its folds, mm	face: 박스 주름의 접힌 선 사이 너비, mm
+@msg	flapShape: "square", "rounded" or "pointed"	flapShape: "square", "rounded" 또는 "pointed"
+@msg	fold is an edge's number (0..), or null	fold는 변 번호(0..) 또는 null입니다
+@msg	fold: [a, b], the centre front edge's two points	fold: [a, b], 앞중심 변의 두 점
+@msg	fold: true or false	fold: true 또는 false
+@msg	foldAt: [x, y] in document points	foldAt: [x, y], 문서 포인트 단위
+@msg	folded: true or false	folded: true 또는 false
+@msg	from: [x, y] in document points	from: [x, y], 문서 포인트 단위
+@msg	from: not a pattern piece	from: 패턴 조각이 아닙니다
+@msg	from: the pattern piece whose rules are copied	from: 규칙을 복사해 올 패턴 조각
+@msg	from: the piece has no seam line	from: 조각에 완성선이 없습니다
+@msg	frontShape: "square", "rounded" or "winged"	frontShape: "square", "rounded" 또는 "winged"
+@msg	gathering runs between two different points of the outline	개더는 윤곽의 서로 다른 두 점 사이에 넣습니다
+@msg	give apex and one of to or toAnchor (or select the two points)	apex와 to 또는 toAnchor 중 하나를 지정하세요(또는 두 점을 선택)
+@msg	height: mm, 10 to 100 (the tutorial's is at most 30)	height: mm, 10~100(튜토리얼의 값은 최대 30)
+@msg	id: a block part's id	id: 원형 조각의 id
+@msg	index: the drill hole's place in the list, from 0 (or point)	index: 목록에서 드릴 구멍의 위치, 0부터(또는 point)
+@msg	index: the notch's place in the list, from 0	index: 목록에서 너치의 위치, 0부터
+@msg	index: the step's place, from 0	index: 단계의 위치, 0부터
+@msg	into: the length it gathers into, mm	into: 개더를 잡은 뒤의 길이, mm
+@msg	kind: "slit", "double", "v", "t", "castle" or "u"	kind: "slit", "double", "v", "t", "castle" 또는 "u"
+@msg	kind: the notch's new shape	kind: 너치의 새 모양
+@msg	layer: a marker layer's id	layer: 마커 레이어의 id
+@msg	length (mm) or likeId with likeFrom and likeTo: the seam to match	length(mm) 또는 likeId와 likeFrom, likeTo: 맞출 솔기
+@msg	length: mm, more than 0	length: mm, 0보다 큼
+@msg	line: "cut" or "seam"	line: "cut" 또는 "seam"
+@msg	match: the seam it sews to is shorter than the pocket opening's end	match: 함께 봉제할 솔기가 주머니 입구 끝보다 짧습니다
+@msg	min is more than max	min이 max보다 큽니다
+@msg	mirror is true or false	mirror는 true 또는 false입니다
+@msg	mirror: "none", "x", "y" or "xy"	mirror: "none", "x", "y" 또는 "xy"
+@msg	name: the saved set's name	name: 저장한 치수 세트의 이름
+@msg	name: whose measurements they are ("Me")	name: 누구의 치수인지("Me")
+@msg	no drill hole near the point	그 점 근처에 드릴 구멍이 없습니다
+@msg	no drill hole with that index	해당 인덱스의 드릴 구멍이 없습니다
+@msg	no notch with that index	해당 인덱스의 너치가 없습니다
+@msg	no object with that id	해당 id의 개체가 없습니다
+@msg	no pattern pieces to grade: make the outlines pattern pieces first (Pattern › Make Pattern Piece)	그레이딩할 패턴 조각이 없습니다: 먼저 윤곽을 패턴 조각으로 만드세요(패턴 › 패턴 조각 만들기)
+@msg	no straight centre front edge on the outline's side: name it with fold: [a, b]	윤곽의 해당 쪽에 곧은 앞중심 변이 없습니다: fold: [a, b]로 지정하세요
+@msg	not a drafted block part	제도한 원형 조각이 아닙니다
+@msg	not a marker's layer (Pattern › Make Marker…)	마커 레이어가 아닙니다(패턴 › 마커 만들기…)
+@msg	not a pattern piece	패턴 조각이 아닙니다
+@msg	not a stand collar's outline	스탠드 칼라의 윤곽이 아닙니다
+@msg	notches go on pattern pieces: make both seams' paths pieces first (Pattern › Make Pattern Piece)	너치는 패턴 조각에 넣습니다: 먼저 두 솔기의 패스를 조각으로 만드세요(패턴 › 패턴 조각 만들기)
+@msg	notches: [mm, …]	notches: [mm, …]
+@msg	notches: distances from the seams' starts, mm	notches: 솔기 시작점으로부터의 거리, mm
+@msg	on and at go together: the garment piece and where the opening's top-left corner goes on it	on과 at은 함께 지정합니다: 옷 조각과, 그 위에서 입구의 왼쪽 위 모서리가 놓일 위치
+@msg	on and at go together: the garment piece and where the pocket's top-left corner goes on it	on과 at은 함께 지정합니다: 옷 조각과, 그 위에서 주머니의 왼쪽 위 모서리가 놓일 위치
+@msg	one point splits only where another point is at the same place (two darts' point)	점 하나로는 같은 위치에 다른 점이 있는 곳(두 다트의 끝점)에서만 분할할 수 있습니다
+@msg	oneWay: true or false	oneWay: true 또는 false
+@msg	openFolds: true or false	openFolds: true 또는 false
+@msg	origin: [x, y] in document points	origin: [x, y], 문서 포인트 단위
+@msg	overlap: mm past centre front, more than 0	overlap: 앞중심을 넘는 겹침, mm, 0보다 큼
+@msg	overlap: the edge misses the outline	overlap: 가장자리가 윤곽과 만나지 않습니다
+@msg	plaid: the repeat (mm, or [along, across])	plaid: 반복 간격(mm 또는 [along, across])
+@msg	plaid: the repeat along and across, 1 to 10 000 mm each	plaid: 길이 방향과 폭 방향의 반복 간격, 각각 1~10 000 mm
+@msg	point: [x, y] in document points	point: [x, y], 문서 포인트 단위
+@msg	select a drafted block part (Pattern › Draft … Block)	제도한 원형 조각을 선택하세요(패턴 › … 원형 제도)
+@msg	select a path or a pattern piece	패스 또는 패턴 조각을 선택하세요
+@msg	select a pattern piece (Pattern › Make Pattern Piece makes one)	패턴 조각을 선택하세요(패턴 › 패턴 조각 만들기로 만들 수 있습니다)
+@msg	select a piece on the marker to check	확인할 마커 위의 조각을 선택하세요
+@msg	select closed paths: each becomes a piece, the path its seam line	닫힌 패스를 선택하세요: 각각 조각이 되고, 패스가 완성선이 됩니다
+@msg	select one path	패스 하나를 선택하세요
+@msg	select one pattern piece	패턴 조각 하나를 선택하세요
+@msg	select two points of one path (or one that two darts share)	한 패스의 두 점을 선택하세요(또는 두 다트가 공유하는 점 하나)
+@msg	select two points of one path: the dart's point and where the dart moves to	한 패스의 두 점을 선택하세요: 다트 끝점과 다트를 옮길 위치
+@msg	select two points of one path: the ends of the edge to face	한 패스의 두 점을 선택하세요: 안단을 댈 변의 양 끝
+@msg	select two points of one path: the ends of the edge to gather	한 패스의 두 점을 선택하세요: 개더를 잡을 변의 양 끝
+@msg	share is true or false	share는 true 또는 false입니다
+@msg	shorten: mm (less than 0 lengthens)	shorten: mm(0보다 작으면 길어집니다)
+@msg	shoulder: longer than the outline	shoulder: 윤곽보다 깁니다
+@msg	shoulder: mm, 0 or more	shoulder: mm, 0 이상
+@msg	size: one of the chart's sizes	size: 사이즈표에 있는 사이즈 중 하나
+@msg	size: the name of a size of the size range or chart	size: 사이즈 범위 또는 사이즈표에 있는 사이즈 이름
+@msg	sizes: name one size at least	sizes: 사이즈를 하나 이상 지정하세요
+@msg	sizes: the sizes' names	sizes: 사이즈 이름
+@msg	sizes: the sizes' names, smallest first (null removes them)	sizes: 사이즈 이름, 작은 것부터(null이면 삭제)
+@msg	split the seam line on its own: release the piece first (Pattern › Release Pattern Piece)	완성선만 분할하려면 먼저 조각을 해제하세요(패턴 › 패턴 조각 해제)
+@msg	step: [dx, dy] in mm	step: [dx, dy], mm 단위
+@msg	style: classic, casual or shirt	style: classic, casual 또는 shirt
+@msg	that anchor's neighbours don't make a dart	그 앵커의 이웃 점들로는 다트가 되지 않습니다
+@msg	that point is not a dart's point: its legs open a right angle or wider	그 점은 다트 끝점이 아닙니다: 다트 선이 직각 이상으로 벌어져 있습니다
+@msg	the amount is a share of the dart, more than 0 and at most 1	양은 다트 분량의 비율로, 0보다 크고 1 이하입니다
+@msg	the back's outline encloses no area	뒤판 윤곽이 면적을 둘러싸지 않습니다
+@msg	the box pleat's face is more than 0 wide	박스 주름의 겉면 너비는 0보다 커야 합니다
+@msg	the chart is larger than 1 MB	사이즈표가 1 MB보다 큽니다
+@msg	the curve has no length at the meeting point	만나는 점에서 곡선의 길이가 없습니다
+@msg	the curves leave the seam the same way	곡선들이 솔기에서 같은 방향으로 나갑니다
+@msg	the dart has no length	다트의 길이가 없습니다
+@msg	the dart is not that long	다트가 그만큼 길지 않습니다
+@msg	the dart point or the new dart's anchor is not on the outline	다트 끝점 또는 새 다트의 앵커가 윤곽 위에 없습니다
+@msg	the dart's legs must be straight lines	다트 선은 직선이어야 합니다
+@msg	the dart's point is past the outline's end	다트 끝점이 윤곽의 끝을 넘어갑니다
+@msg	the depth to curve the legs by is not a number	다트 선을 휘게 할 깊이가 숫자가 아닙니다
+@msg	the document has no marker (Pattern › Make Marker…)	문서에 마커가 없습니다(패턴 › 마커 만들기…)
+@msg	the document has no measurements to save	문서에 저장할 치수가 없습니다
+@msg	the document has no size chart (measure.importChart)	문서에 사이즈표가 없습니다(measure.importChart)
+@msg	the drop at the front is less than half the neck edge	앞쪽 내림은 칼라 목둘레 변의 절반보다 작아야 합니다
+@msg	the edge has no length	변의 길이가 없습니다
+@msg	the edge's anchor is past the outline's end	변의 앵커가 윤곽의 끝을 넘어갑니다
+@msg	the fabric's width must be more than 0	원단 폭은 0보다 커야 합니다
+@msg	the flap is deeper than twice its width	플랩의 깊이가 너비의 두 배를 넘습니다
+@msg	the flap's width and depth are more than 0, its allowance 0 or more	플랩의 너비와 깊이는 0보다 크고, 시접은 0 이상이어야 합니다
+@msg	the fold edge has no length	골선 변의 길이가 없습니다
+@msg	the fold edge's anchors are past the outline's end	골선 변의 앵커가 윤곽의 끝을 넘어갑니다
+@msg	the fold edge's two anchors must be neighbours on the outline	골선 변의 두 앵커는 윤곽에서 서로 이웃해야 합니다
+@msg	the fold must be a straight edge	골선은 곧은 변이어야 합니다
+@msg	the front end has no length	앞쪽 끝의 길이가 없습니다
+@msg	the gap must be 0 or more	간격은 0 이상이어야 합니다
+@msg	the grainline's ends are the same point	식서선의 양 끝이 같은 점입니다
+@msg	the legs can't curve that far: the dart isn't wide enough	다트 선을 그만큼 휘게 할 수 없습니다: 다트가 충분히 넓지 않습니다
+@msg	the length to shorten by is not a number	줄일 길이가 숫자가 아닙니다
+@msg	the marker has lost its fabric outline	마커의 원단 윤곽이 없어졌습니다
+@msg	the marker has no pieces	마커에 조각이 없습니다
+@msg	the marker is too large at this precision: give a coarser one	이 정밀도에서는 마커가 너무 큽니다: 더 낮은 정밀도를 지정하세요
+@msg	the measurements could not be saved	치수를 저장할 수 없었습니다
+@msg	the meeting point and the seam's other end are points of the outline	만나는 점과 솔기의 다른 쪽 끝은 윤곽의 점이어야 합니다
+@msg	the neckline has no length	목둘레선의 길이가 없습니다
+@msg	the neckline lengths and the stand's height are more than 0, the rise and extension 0 or more	목둘레선 길이와 스탠드 높이는 0보다 크고, 올림과 여밈분은 0 이상이어야 합니다
+@msg	the new dart is on the old dart	새 다트가 기존 다트 위에 있습니다
+@msg	the opening is longer than twice its height	입구가 높이의 두 배보다 깁니다
+@msg	the opening, depth and width are more than 0, the width more than the allowance	입구, 깊이, 너비는 0보다 크고, 너비는 시접보다 커야 합니다
+@msg	the opening, the welt and the depth are more than 0, the allowances 0 or more	입구, 입술, 깊이는 0보다 크고, 시접은 0 이상이어야 합니다
+@msg	the outline encloses no area	윤곽이 면적을 둘러싸지 않습니다
+@msg	the outline has no side seam	윤곽에 옆솔기가 없습니다
+@msg	the path has no outline	패스에 윤곽이 없습니다
+@msg	the path must be one closed outline	패스는 하나의 닫힌 윤곽이어야 합니다
+@msg	the piece has no grade rules to copy	조각에 복사할 그레이딩 규칙이 없습니다
+@msg	the piece has no straight edge to cut on the fold	조각에 골선으로 재단할 곧은 변이 없습니다
+@msg	the pieces have no cutting lines to lay	조각에 배치할 재단선이 없습니다
+@msg	the plaid's repeat must be more than 0 along and across	체크무늬 반복 간격은 길이 방향과 폭 방향 모두 0보다 커야 합니다
+@msg	the pocket (its opening and the allowance past both ends) fits on the seam	주머니(입구와 양 끝 너머의 시접)가 솔기 안에 들어가야 합니다
+@msg	the point is not inside the piece	점이 조각 안에 있지 않습니다
+@msg	the point is not on the seam line or in its allowance	점이 완성선 위나 시접 안에 있지 않습니다
+@msg	the precision must be more than 0	정밀도는 0보다 커야 합니다
+@msg	the rise at centre front is less than the front neckline is long	앞중심의 올림은 앞목둘레선 길이보다 작아야 합니다
+@msg	the seam has no length there	그곳에서 솔기의 길이가 없습니다
+@msg	the seam runs between two different points of the outline	솔기는 윤곽의 서로 다른 두 점 사이에 있어야 합니다
+@msg	the seam's other end is a neighbour of the meeting point	솔기의 다른 쪽 끝이 만나는 점의 이웃 점입니다
+@msg	the top edge has no length	위쪽 변의 길이가 없습니다
+@msg	the wing is more than 0 long	윙의 길이는 0보다 커야 합니다
+@msg	there is no folder to keep measurement sets in here (the desktop app keeps them next to its preferences)	여기에는 치수 세트를 보관할 폴더가 없습니다(데스크톱 앱은 환경 설정 옆에 보관합니다)
+@msg	there is no point of the seam line there	그곳에 완성선의 점이 없습니다
+@msg	to or toAnchor: where the dart moves to	to 또는 toAnchor: 다트를 옮길 위치
+@msg	to: [x, y] in document points	to: [x, y], 문서 포인트 단위
+@msg	to: the pieces to copy the rules to (select them, or name them)	to: 규칙을 복사할 조각(선택하거나 이름으로 지정)
+@msg	too many objects at once	한 번에 처리할 개체가 너무 많습니다
+@msg	too many pieces at once	한 번에 처리할 조각이 너무 많습니다
+@msg	too many pieces to lay at once	한 번에 배치할 조각이 너무 많습니다
+@msg	too many sizes at once	한 번에 처리할 사이즈가 너무 많습니다
+@msg	unit: "mm", "cm" or "in"	unit: "mm", "cm" 또는 "in"
+@msg	width: mm, more than 0	width: mm, 0보다 큼
+	Draw Avatar	아바타 그리기
+	Export Avatar as OBJ	아바타를 OBJ로 내보내기
+	Sewn seams: {count}	봉제한 솔기: {count}
+	{label}: sewn to {piece}, {mm} mm longer	{label}: {piece}와(과) 봉제, {mm} mm 더 김
+	{label}: sewn to {piece}, {mm} mm shorter	{label}: {piece}와(과) 봉제, {mm} mm 더 짧음
+	{label}: sewn to {piece}	{label}: {piece}와(과) 봉제
+	Sew Seams	솔기 봉제
+	Unsew Seams	솔기 풀기
+	Sewn Seams	봉제한 솔기
+	Drape on Avatar	아바타에 드레이핑
+	Use as Fabric…	원단으로 사용…
+	Use as Fabric	원단으로 사용
+	Stop Using as Fabric	원단으로 사용 중지
+	Fabric Photos	원단 사진
+@msg	the drape view's picture is the wrong size	드레이프 보기 그림의 크기가 잘못되었습니다
+@msg	the drape view: {e}	드레이프 보기: {e}
+@msg	a fabric photo is the wrong size	원단 사진의 크기가 잘못되었습니다
+@msg	a fabric photo: {e}	원단 사진: {e}
+	Export Avatar as glTF	아바타를 glTF로 내보내기
+	Export Avatar as glTF…	아바타를 glTF로 내보내기…
+	Export Drape as glTF…	드레이프를 glTF로 내보내기…
+@msg	format: "obj" or "glb"	format: "obj" 또는 "glb"
+@msg	colour: "fabric" or "fit"	colour: "fabric" 또는 "fit"
+@msg	a piece could not be placed on the body	패턴 조각을 몸에 놓을 수 없습니다
+@msg	{name} is already open	{name}이(가) 이미 열려 있습니다
+@msg	Draping on Avatar	아바타에 드레이프하는 중
+	Step {n} of {total}	{total}단계 중 {n}단계
+@msg	The drape was cancelled	드레이프가 취소되었습니다
+@msg	Draped on the avatar	아바타에 드레이프했습니다
+@msg	the document was closed	문서가 닫혔습니다
+@msg	the drape stopped	드레이프가 중단되었습니다
+@msg	width: the photo's width on the fabric, 10 to 5000 mm	width: 원단 위 사진의 너비, 10~5000 mm
+@msg	turns: 0, 1, 2 or 3	turns: 0, 1, 2 또는 3
+@msg	the image is not a fabric photo (Pattern › Use as Fabric…)	이미지가 원단 사진이 아닙니다 (패턴 › 원단으로 사용…)
+@msg	even: true or false	even: true 또는 false
+@msg	seamless: true or false	seamless: true 또는 false
+@msg	Sign in to your Foundry Account first: Help › Foundry Account…	먼저 Foundry 계정에 로그인하세요: 도움말 › Foundry 계정…
+@msg	The document is empty: there is nothing to publish.	문서가 비어 있습니다. 게시할 것이 없습니다.
+@msg	The design is too large for MakerFoundry: at most 8 MB.	디자인이 MakerFoundry에 너무 큽니다: 최대 8MB.
+@msg	MakerFoundry's answer couldn't be read.	MakerFoundry의 응답을 읽을 수 없습니다.
+@msg	MakerFoundry answered with a page on another site, which wasn't opened.	MakerFoundry가 다른 사이트의 페이지로 응답하여 열지 않았습니다.
+@msg	MakerFoundry: {1}	MakerFoundry: {1}
+@msg	MakerFoundry couldn't be reached: {0}	MakerFoundry에 연결할 수 없습니다: {0}
+@msg	Publish to MakerFoundry needs a build that can reach MakerFoundry	MakerFoundry에 게시하려면 MakerFoundry에 연결할 수 있는 빌드가 필요합니다
+@msg	open Publish to MakerFoundry first: it shows what is sent	먼저 MakerFoundry에 게시를 여세요. 보내는 내용이 표시됩니다
+@msg	That link isn't a design file on MakerFoundry, so it wasn't opened.	이 링크는 MakerFoundry의 디자인 파일이 아니어서 열지 않았습니다.
+@msg	The design is too large to open: at most 32 MB.	디자인이 너무 커서 열 수 없습니다: 최대 32MB.
+@msg	PatternFoundry opens SVG and DXF designs from MakerFoundry; that file is neither.	PatternFoundry는 MakerFoundry의 SVG 및 DXF 디자인을 엽니다. 이 파일은 둘 다 아닙니다.
+@msg	The design couldn't be downloaded from MakerFoundry: {0}	MakerFoundry에서 디자인을 내려받지 못했습니다: {0}

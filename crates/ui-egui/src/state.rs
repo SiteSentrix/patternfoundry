@@ -174,6 +174,9 @@ pub const ICON_PANELS: &[(&str, &str, &str)] = &[
     ("actions", "Actions", "dc-actions"),
     ("info", "Info", "info"),
     ("docInfo", "Document Info", "dc-list-view"),
+    ("pieces", "Pattern Pieces", "scissors"),
+    ("measurements", "Measurements", "ruler"),
+    ("grading", "Grading", "scaling"),
     ("navigator", "Navigator", "map"),
     ("separations", "Separations Preview", "printer"),
     ("imageTrace", "Image Trace", "image"),
@@ -324,6 +327,9 @@ pub struct UiState {
     /// saved.
     #[serde(skip)]
     pub context_locked: Option<(u64, Vec<vectorcraft_doc::NodeId>)>,
+    /// Where the canvas was right-clicked (document uid, document point), for the context menu's
+    /// items that act there (Add Notch Here).
+    pub context_point: Option<(u64, [f64; 2])>,
     /// Last tool shown in each toolbar slot (keyed by the slot's first tool id).
     #[serde(default)]
     pub slot_tool: std::collections::BTreeMap<String, String>,
@@ -768,6 +774,7 @@ impl Default for UiState {
             task_bar: true,
             task_bar_place: TaskBarPlace::default(),
             context_locked: None,
+            context_point: None,
             slot_tool: Default::default(),
             floating_flyouts: vec![],
             toolbar_edits: ToolbarEdits::default(),

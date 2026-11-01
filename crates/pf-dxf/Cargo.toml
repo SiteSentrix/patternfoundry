@@ -1,0 +1,17 @@
+[package]
+name = "pf-dxf"
+description = "Standalone DXF tag reader/writer (ASCII and binary, pre-2007 code pages), from the published DXF reference; adapted from CADCraft's crates/dxf"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+rust-version.workspace = true
+repository.workspace = true
+publish = false
+
+[dependencies]
+thiserror = { workspace = true }
+log = { workspace = true }
+encoding_rs = { workspace = true }
+
+[lints]
+workspace = true

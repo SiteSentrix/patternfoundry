@@ -972,6 +972,9 @@ pub struct Prefs {
     // Devices
     pub touch_workspace: bool,
     pub touch_gestures: bool,
+    /// Devices › Projector › Projector Scale (PF-7.5): screen points per millimetre on the cutting
+    /// mat, from calibrating the projector view against its 10 cm square; 0 until calibrated.
+    pub projector_scale: f64,
     // Graphic Styles panel
     /// Override Character Color: a graphic style applied to type replaces its characters' fill
     /// and stroke with the style's fills and strokes.
@@ -1188,6 +1191,7 @@ impl Default for Prefs {
             black_output: s("accurate"),
             touch_workspace: true,
             touch_gestures: true,
+            projector_scale: 0.0,
             override_char_color: true,
             pattern_tile_edge_color: {
                 let [r, g, b] = vectorcraft_doc::LAYER_COLORS[0].1;
@@ -1278,6 +1282,8 @@ pub struct Session {
     /// Where the saved PDF presets are kept, one file each; `None`: only for the session
     /// ([`Session::attach_pdf_preset_store`]).
     pdf_preset_dir: Option<std::path::PathBuf>,
+    /// Where the user's measurement sets are kept (PF-3.4), when an app attached a folder.
+    measurement_dir: Option<std::path::PathBuf>,
     /// Where the ICC profiles `color.loadProfile` loads are kept; `None`: only for the process
     /// ([`Session::attach_profile_store`]).
     profile_dir: Option<std::path::PathBuf>,
@@ -1377,6 +1383,7 @@ impl Session {
             style_libraries: Default::default(),
             libraries: Default::default(),
             pdf_preset_dir: None,
+            measurement_dir: None,
             profile_dir: None,
             plugin_dir: None,
             recent_urls: vec![],
@@ -1705,6 +1712,9 @@ impl Session {
         // Dimensions follow the art they measure.
         let result = match f(doc, &mut st.selection).and_then(|v| {
             cmd::dimension::refresh(&before, doc)?;
+            // Drafted points follow the measurements; then pattern pieces follow their seam lines.
+            cmd::measure::refresh(doc)?;
+            cmd::piece::refresh(&before, doc)?;
             Ok(v)
         }) {
             Ok(v) => match cmd::shaper::refresh(&before, Arc::make_mut(&mut st.doc)) {
@@ -2029,6 +2039,8 @@ fn refresh_tree_text_bounds(n: &mut Arc<vectorcraft_doc::Node>) {
 #[cfg(test)]
 mod tests;
 #[cfg(test)]
+mod tests_aama;
+#[cfg(test)]
 mod tests_adjust;
 #[cfg(test)]
 mod tests_appearance;
@@ -2039,6 +2051,8 @@ mod tests_assets;
 #[cfg(test)]
 mod tests_attributes;
 #[cfg(test)]
+mod tests_avatar;
+#[cfg(test)]
 mod tests_bboxrotate;
 #[cfg(test)]
 mod tests_blendfidelity;
@@ -2046,6 +2060,8 @@ mod tests_blendfidelity;
 mod tests_blendopts;
 #[cfg(test)]
 mod tests_blendspine;
+#[cfg(test)]
+mod tests_block;
 #[cfg(test)]
 mod tests_brushsym;
 #[cfg(test)]
@@ -2083,9 +2099,13 @@ mod tests_cut;
 #[cfg(test)]
 mod tests_dashalign;
 #[cfg(test)]
+mod tests_design;
+#[cfg(test)]
 mod tests_distort;
 #[cfg(test)]
 mod tests_docsetup;
+#[cfg(test)]
+mod tests_drape;
 #[cfg(test)]
 mod tests_draw2;
 #[cfg(test)]
@@ -2122,6 +2142,8 @@ mod tests_fontfiles;
 mod tests_fontlist;
 #[cfg(test)]
 mod tests_freeform;
+#[cfg(test)]
+mod tests_grade;
 #[cfg(test)]
 mod tests_gradient;
 #[cfg(test)]
@@ -2175,7 +2197,11 @@ mod tests_live;
 #[cfg(test)]
 mod tests_livecorners;
 #[cfg(test)]
+mod tests_marker;
+#[cfg(test)]
 mod tests_maskview;
+#[cfg(test)]
+mod tests_measure;
 #[cfg(test)]
 mod tests_menucmds;
 #[cfg(test)]
@@ -2227,6 +2253,8 @@ mod tests_persp_text;
 #[cfg(test)]
 mod tests_perspgrid;
 #[cfg(test)]
+mod tests_piece;
+#[cfg(test)]
 mod tests_place;
 #[cfg(test)]
 mod tests_placed_document;
@@ -2248,6 +2276,8 @@ mod tests_printpreview;
 mod tests_printps;
 #[cfg(test)]
 mod tests_printtiling;
+#[cfg(test)]
+mod tests_projector;
 #[cfg(test)]
 mod tests_proxyitems;
 #[cfg(test)]
@@ -2298,6 +2328,8 @@ mod tests_stylelib;
 mod tests_stylepanel;
 #[cfg(test)]
 mod tests_styles;
+#[cfg(test)]
+mod tests_svgcut;
 #[cfg(test)]
 mod tests_swatchcmds;
 #[cfg(test)]

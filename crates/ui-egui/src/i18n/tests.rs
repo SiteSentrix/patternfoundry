@@ -1872,7 +1872,8 @@ const COMPLETE_MESSAGES: &[&str] =
     &["cs", "de", "el", "es", "fr", "hu", "it", "ja", "ka", "ko", "pl", "pt-br", "ru", "sv", "uk", "vi", "zh-hans", "zh-hant", "fi"];
 
 /// Crates whose error and status messages reach the status bar.
-const MESSAGE_CRATES: &[&str] = &["ui-egui", "engine", "doc", "format", "svg", "pdf", "eps", "text", "plugins", "metafile", "cad", "trace"];
+const MESSAGE_CRATES: &[&str] =
+    &["ui-egui", "engine", "doc", "format", "svg", "pdf", "eps", "text", "plugins", "metafile", "cad", "trace", "pf-aama", "pf-ai"];
 
 /// Where a message literal starts: a status, an error value, a `thiserror` message.
 const MESSAGE_MARKERS: &[&str] = &[".status(", "ui.status = ", "status = ", "Other(", "Err(", "ok_or(", "ok_or_else(|| ", "#[error("];
@@ -2116,4 +2117,22 @@ fn japanese_names_the_default_swatches() {
     assert!(missing.is_empty(), "{missing:?}");
     assert_eq!(ja.contextual("swatch", "White"), Some("ホワイト"));
     assert_eq!(ja.contextual("swatch", "My Red"), None);
+}
+
+/// The pattern commands' messages are translated (PF-1.5), the menu path in them as the menu
+/// reads; the Pattern menu is the sewing pattern, not Object › Pattern's fill.
+#[test]
+fn pattern_messages_and_the_pattern_menu_are_translated() {
+    let de = de();
+    let m = message(de, "invalid parameters for `block.options`: select a drafted block part (Pattern › Draft … Block)");
+    assert_eq!(
+        m,
+        "ungültige Parameter für `block.options`: wählen Sie ein konstruiertes Grundschnittteil aus (Schnitt › Grundschnitt … konstruieren)"
+    );
+    assert_eq!((tr_ctx(de, "menu", "Pattern"), tr(de, "Pattern")), ("Schnitt", "Muster"));
+    // Every language has the menu's own word, and every one of the pattern messages.
+    for l in LANGUAGES.iter().filter(|l| !l.source.is_empty()).map(Lang) {
+        assert!(l.catalog().contextual("menu", "Pattern").is_some(), "{}", l.code());
+        assert_ne!(message(l, "select one pattern piece"), "select one pattern piece", "{}", l.code());
+    }
 }

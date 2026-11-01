@@ -236,6 +236,22 @@ pub(crate) fn open_file(app: &mut VectorcraftApp, path: &str, background: bool) 
         note_recent(app, path);
         return Ok(Value::Null);
     }
+    // A file already open is shown, not opened again: two tabs of one file would each save over
+    // the other's changes.
+    if let Some(i) = open_index(app, path) {
+        app.ui.home = None;
+        app.session.set_active(i);
+        let name = fileio::file_name(path);
+        app.status(format!("{name} is already open"));
+        note_recent(app, path);
+        let title = app.session.active().map(|d| d.doc.title.clone()).unwrap_or_default();
+        return Ok(json!({ "index": i, "title": title, "alreadyOpen": true }));
+    }
+    if let Some(p) = app.opening.pending.iter().find(|p| same_file(&p.path, path)) {
+        let status = format!("{}…", p.label);
+        app.status(status.clone());
+        return Ok(json!({ "background": true, "status": status }));
+    }
     let mut bytes = read(app, path)?;
     if background && opens_as(path).is_none() {
         // A PDF with several pages or a password, or a DXF drawing, asks first, as at once.
@@ -254,6 +270,34 @@ pub(crate) fn open_file(app: &mut VectorcraftApp, path: &str, background: bool) 
     let r = open_bytes(app, path, &bytes, Some(path.to_string()))?;
     note_recent(app, path);
     Ok(r)
+}
+
+/// Whether paths `a` and `b` name the same file: the same path, or (on the desktop) the same file
+/// once links and `..` are followed.
+pub(crate) fn same_file(a: &str, b: &str) -> bool {
+    if a == b {
+        return true;
+    }
+    match (std::fs::canonicalize(a), std::fs::canonicalize(b)) {
+        (Ok(x), Ok(y)) => x == y,
+        _ => false,
+    }
+}
+
+/// The index of the open document saved at `path`, if one is.
+fn open_index(app: &VectorcraftApp, path: &str) -> Option<usize> {
+    app.session.documents().iter().position(|d| d.path.as_deref().is_some_and(|p| same_file(p, path)))
+}
+
+/// Tests: open the file at `path` as if afresh, closing it first when it is open (opening an open
+/// file shows its tab).
+#[cfg(test)]
+pub(crate) fn reopen(app: &mut VectorcraftApp, path: &str) -> Result<Value, String> {
+    while let Some(i) = open_index(app, path) {
+        app.session.execute("file.close", &json!({ "index": i })).map_err(|e| e.to_string())?;
+    }
+    app.sync_views();
+    open_path(app, path)
 }
 
 /// File → New from Template…: a template (or any readable file) as a new untitled document. Without
@@ -363,6 +407,7 @@ const FILE_TYPES: &[(&str, &[&str])] = &[
     ("Print presets", vectorcraft_engine::cmd::printpresets::PRESET_EXTS),
     ("CSS", &["css"]),
     ("PostScript", &["ps"]),
+    ("glTF", &["glb"]),
 ];
 
 /// The file type a save panel shows for a file with extension `ext`: its format's, else its
@@ -651,7 +696,7 @@ fn write_plan(app: &mut VectorcraftApp, plan: SavePlan) -> Result<Value, String>
 
 /// Open the save options dialog of format `f` before writing `path`: `action` is the save command
 /// it finishes, and `pick` (the web's Save As) also names the file and chooses the format.
-fn open_options(app: &mut VectorcraftApp, action: &str, f: &Format, path: &str, pick: bool) -> Value {
+pub(crate) fn open_options(app: &mut VectorcraftApp, action: &str, f: &Format, path: &str, pick: bool) -> Value {
     let mut fields = dialogs::save_options::option_values(app, f);
     fields.insert("__action".into(), json!(action));
     fields.insert("__pick".into(), json!(pick));

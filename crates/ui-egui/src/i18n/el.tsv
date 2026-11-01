@@ -5159,3 +5159,571 @@ effect	Points	Σημεία
 @msg	the file's variables and data sets weren't read (variables: {variables}, data sets: {data_sets}): the Variables panel doesn't list them	οι μεταβλητές και τα σύνολα δεδομένων του αρχείου δεν διαβάστηκαν (μεταβλητές: {variables}, σύνολα δεδομένων: {data_sets}): ο πίνακας Μεταβλητές δεν τα εμφανίζει
 # Select by Color (select.color)
 	Select by Color	Επιλογή βάσει χρώματος
+# PatternFoundry: pattern pieces (PF-1).
+	Add Notch	Προσθήκη εγκοπής
+	Make Pattern Piece	Δημιουργία κομματιού πατρόν
+	Pattern Pieces	Κομμάτια πατρόν
+	Piece Info	Πληροφορίες κομματιού
+	Piece Options	Επιλογές κομματιού
+	Release Pattern Piece	Αποδέσμευση κομματιού πατρόν
+	Remove Notch	Αφαίρεση εγκοπής
+	Cut {count}	Κόψιμο {count}
+	Each selected closed path becomes a piece: the path is its seam line	Κάθε επιλεγμένη κλειστή διαδρομή γίνεται κομμάτι: η διαδρομή είναι η γραμμή ραφής του
+	Edges	Άκρες
+	Fabric	Ύφασμα
+	Mirrored pairs	Κατοπτρικά ζεύγη
+	No pattern pieces yet	Δεν υπάρχουν ακόμη κομμάτια πατρόν
+	Notches	Εγκοπές
+	Pattern piece	Κομμάτι πατρόν
+	Pieces	Κομμάτια
+	Seam allowance	Περιθώριο ραφής
+	Seam line length	Μήκος γραμμής ραφής
+	Selected piece	Επιλεγμένο κομμάτι
+# PatternFoundry: true-scale printing (PF-2).
+	Pattern Marks (test squares, page names, overlap lines)	Σημάδια πατρόν (τετράγωνα ελέγχου, ονόματα σελίδων, γραμμές επικάλυψης)
+# PatternFoundry: measurements (PF-3).
+	Add Measurement	Προσθήκη μέτρου
+	Clear Measurements	Απαλοιφή μέτρων
+	Clear Point Formulas	Απαλοιφή τύπων σημείων
+	Draft Info	Πληροφορίες σχεδίου
+	Formulas	Τύποι
+	Import Size Chart	Εισαγωγή πίνακα μεγεθών
+	Let PDF and SVG files saved with Preserve Editing keep the measured values	Τα αρχεία PDF και SVG που αποθηκεύονται με Διατήρηση επεξεργασίας κρατούν τις μετρημένες τιμές
+	Measurements	Μέτρα
+	No measurements yet	Δεν υπάρχουν ακόμη μέτρα
+	Set Measurements	Ορισμός μέτρων
+	Set Point Formula	Ορισμός τύπου σημείου
+	Share in exported files	Κοινή χρήση στα εξαγόμενα αρχεία
+	Figure	Σιλουέτα
+	Female	Γυναικεία
+	Male	Ανδρική
+	Child	Παιδί
+	The avatar takes what the measurements don't give from a survey's women's, men's or children's proportions	Το άβαταρ παίρνει ό,τι δεν δίνουν οι μετρήσεις από τις αναλογίες γυναικών, ανδρών ή παιδιών μιας έρευνας
+	Size chart	Πίνακας μεγεθών
+	Use Size	Χρήση μεγέθους
+# PatternFoundry: blocks (PF-4).
+	Draft Bodice Block	Σχεδίαση βασικού πατρόν μπούστου
+	Block Measurements	Μέτρα για το βασικό πατρόν
+	Draft Skirt Block	Σχεδίαση βασικού πατρόν φούστας
+# PatternFoundry: design tools (PF-5).
+	Rotate Dart	Περιστροφή πένσας
+	Split at Points	Διαίρεση στα σημεία
+	Seam Length	Μήκος ραφής
+	Slash and Spread	Κόψιμο και άνοιγμα
+	Match Seam Length	Εξίσωση μήκους ραφής
+	Make Facing	Δημιουργία φάσας
+	Add Pleat	Προσθήκη πιέτας
+	Draft Sleeve Block	Σχεδίαση βασικού πατρόν μανικιού
+	Draft Trouser Block	Σχεδίαση βασικού πατρόν παντελονιού
+	Draft Men's Trouser Block	Σχεδίαση βασικού πατρόν ανδρικού παντελονιού
+	Draft Men's Shirt Block	Σχεδίαση βασικού πατρόν ανδρικού πουκαμίσου
+	Draft Men's Shirt Sleeve Block	Σχεδίαση βασικού πατρόν μανικιού ανδρικού πουκαμίσου
+	Gather	Σούρα
+	Draft Collar	Σχεδίαση γιακά
+	Patch Pocket	Επιρραμμένη τσέπη
+	Walk Seams	Έλεγχος ραφών
+	Smooth Across Seam	Εξομάλυνση πάνω από τη ραφή
+	Draft Stand Collar	Σχεδίαση όρθιου γιακά
+	In-Seam Pocket	Τσέπη στη ραφή
+	Welt Pocket	Τσέπη με φιλέτο
+	Make Wrap Front	Κρουαζέ μπροστινό
+	Make Band	Δημιουργία ζώνης
+	Grade Nest	Διαβάθμιση μεγεθών
+	Clear Graded Nest	Απαλοιφή διαβαθμισμένων μεγεθών
+	Set Size Range	Ορισμός σειράς μεγεθών
+	Set Grade Rule	Ορισμός κανόνα διαβάθμισης
+	Grade Info	Πληροφορίες διαβάθμισης
+	Grading	Διαβάθμιση
+	Base size	Βασικό μέγεθος
+	Grade rules (mm a size)	Κανόνες διαβάθμισης (mm ανά μέγεθος)
+	Name the sizes, smallest first, to give the points grade rules	Ονομάστε τα μεγέθη, από το μικρότερο, για να δώσετε κανόνες στα σημεία
+	Select one pattern piece to grade its points	Επιλέξτε ένα κομμάτι πατρόν για να διαβαθμίσετε τα σημεία του
+	Sizes	Μεγέθη
+	per size	ανά μέγεθος
+	Copy Grade Rules	Αντιγραφή κανόνων διαβάθμισης
+	Copy Rules To	Αντιγραφή κανόνων σε
+	Mirrored	Κατοπτρικά
+	For the opposite half: places mirrored left to right, x moves the other way	Για το απέναντι μισό: θέσεις κατοπτρισμένες αριστερά-δεξιά, μετακινήσεις x αντίστροφα
+	Draft Shirt Collar	Σχεδίαση γιακά πουκαμίσου
+file-filter	DXF-AAMA (cutting room)	DXF-AAMA (κοπτήριο)
+@msg	DXF-AAMA files are DXF R13 (ASTM D6673) or R12	Τα αρχεία DXF-AAMA είναι DXF R13 (ASTM D6673) ή R12
+@msg	no pattern pieces to export	δεν υπάρχουν κομμάτια πατρόν για εξαγωγή
+@msg	the piece {_1} has no outline	το κομμάτι {_1} δεν έχει περίγραμμα
+file-filter	SVG for cutting	SVG για κοπή
+file-filter	PDF for projector	PDF για προβολέα
+	Foundry Account…	Λογαριασμός Foundry…
+	Publish to MakerFoundry…	Δημοσίευση στο MakerFoundry…
+	Publish to MakerFoundry	Δημοσίευση στο MakerFoundry
+	Publish	Δημοσίευση
+	Sign In…	Σύνδεση…
+	Not signed in	Δεν έχετε συνδεθεί
+	Your Foundry Account	Ο λογαριασμός σας Foundry
+	Sent to	Αποστολή σε
+	SVG, a vector design	SVG, διανυσματικό σχέδιο
+	What it is, e.g. A-line skirt	Τι είναι, π.χ. φούστα εβαζέ
+	Your design goes to MakerFoundry as a private draft, to finish on its page. Nothing is public until you publish it there.	Το σχέδιό σας πηγαίνει στο MakerFoundry ως ιδιωτικό πρόχειρο, για να το ολοκληρώσετε στη σελίδα του. Τίποτα δεν είναι δημόσιο μέχρι να το δημοσιεύσετε εκεί.
+	Draft {id} made.	Δημιουργήθηκε το πρόχειρο {id}.
+	Draft {id} made on MakerFoundry: finish it on the page that opened in your browser.	Δημιουργήθηκε το πρόχειρο {id} στο MakerFoundry: ολοκληρώστε το στη σελίδα που άνοιξε στο πρόγραμμα περιήγησης.
+	Finish it on MakerFoundry's page, which opened in your browser: it stays private until you publish it there.	Ολοκληρώστε το στη σελίδα του MakerFoundry που άνοιξε στο πρόγραμμα περιήγησης: μένει ιδιωτικό μέχρι να το δημοσιεύσετε εκεί.
+	A password needs at least 8 characters.	Ο κωδικός χρειάζεται τουλάχιστον 8 χαρακτήρες.
+	Account	Λογαριασμός
+	Allow	Να επιτρέπεται
+	Anthropic API key:	Κλειδί API της Anthropic:
+	Ask	Ερώτηση
+	Buy credits	Αγορά μονάδων
+	Buy…	Αγορά…
+	Change key	Αλλαγή κλειδιού
+	Create Free Account	Δημιουργία δωρεάν λογαριασμού
+	Create a free Foundry Account	Δημιουργήστε δωρεάν λογαριασμό Foundry
+	Don't Allow	Να μην επιτρέπεται
+	Edit › Undo takes each change back.	Η εντολή Επεξεργασία › Αναίρεση αναιρεί κάθε αλλαγή ξεχωριστά.
+	Email	Email
+	Foundry Account	Λογαριασμός Foundry
+	Foundry accounts aren't open yet. Until then, the AI features work with your own Anthropic API key.	Οι λογαριασμοί Foundry δεν έχουν ανοίξει ακόμα. Ως τότε, οι λειτουργίες ΤΝ δουλεύουν με το δικό σας κλειδί API της Anthropic.
+	Get a key	Λήψη κλειδιού
+	I have an account: Sign In	Έχω λογαριασμό: σύνδεση
+	New Conversation	Νέα συνομιλία
+	New here? Create a free account	Νέος εδώ; Δημιουργήστε δωρεάν λογαριασμό
+	No card needed, and no API key to set up	Χωρίς κάρτα και χωρίς κλειδί API για ρύθμιση
+	Paid with Foundry credits ({n} left).	Πληρωμή με μονάδες Foundry (απομένουν {n}).
+	Paid with Foundry credits.	Πληρωμή με μονάδες Foundry.
+	Pay for the AI features with my Foundry credits	Πληρωμή των λειτουργιών ΤΝ με τις μονάδες Foundry μου
+	Pay with Foundry credits instead	Πληρωμή με μονάδες Foundry αντί γι' αυτό
+	Payment is on Stripe's secure page, in your browser; your card never reaches PatternFoundry.	Η πληρωμή γίνεται στην ασφαλή σελίδα της Stripe, στο πρόγραμμα περιήγησής σας· η κάρτα σας δεν φτάνει ποτέ στο PatternFoundry.
+	Reading your credits…	Ανάγνωση των μονάδων σας…
+	Remember the key on this computer	Απομνημόνευση του κλειδιού σε αυτόν τον υπολογιστή
+	Server	Διακομιστής
+	Sign In	Σύνδεση
+	Sign Out	Αποσύνδεση
+	Sign in to your Foundry Account	Συνδεθείτε στον λογαριασμό σας Foundry
+	Signed in as {email}	Συνδεδεμένος ως {email}
+	Thinking…	Σκέφτεται…
+	Type your question, then press Enter	Πληκτρολογήστε την ερώτησή σας και πατήστε Enter
+	{n} credits	{n} μονάδες
+	{n} credits for {price}	{n} μονάδες για {price}
+@msg	Anthropic refused the API key: {0}	Η Anthropic απέρριψε το κλειδί API: {0}
+@msg	Couldn't reach the AI service: {0}	Δεν ήταν δυνατή η σύνδεση με την υπηρεσία AI: {0}
+@msg	Enter your Anthropic API key first.	Εισαγάγετε πρώτα το κλειδί API της Anthropic.
+@msg	The AI declined to answer this: ask another way.	Η AI αρνήθηκε να απαντήσει: ρωτήστε με άλλο τρόπο.
+@msg	The AI service failed (error {0}): try again later.	Η υπηρεσία AI απέτυχε (σφάλμα {0}): δοκιμάστε ξανά αργότερα.
+@msg	The AI service is busy: try again in a minute.	Η υπηρεσία AI είναι απασχολημένη: δοκιμάστε ξανά σε ένα λεπτό.
+@msg	The API key isn't valid: paste it again from the Anthropic Console.	Το κλειδί API δεν είναι έγκυρο: επικολλήστε το ξανά από το Anthropic Console.
+@msg	The question is too long: keep it under 2,000 characters.	Η ερώτηση είναι πολύ μεγάλη: κρατήστε την κάτω από 2.000 χαρακτήρες.
+@msg	The reply had no answer: try again, or ask something narrower.	Η απάντηση ήταν κενή: δοκιμάστε ξανά ή ρωτήστε κάτι πιο συγκεκριμένο.
+@msg	The request failed (error {0}): {1}	Το αίτημα απέτυχε (σφάλμα {0}): {1}
+@msg	Type a question first.	Πληκτρολογήστε πρώτα μια ερώτηση.
+@msg	Your Anthropic account can't pay for this: {0}	Ο λογαριασμός σας στην Anthropic δεν μπορεί να πληρώσει γι' αυτό: {0}
+@msg	already asking: wait for the answer	η ερώτηση είναι ήδη σε εξέλιξη: περιμένετε την απάντηση
+@msg	This conversation is long: start a New Conversation.	Αυτή η συνομιλία είναι μεγάλη: ξεκινήστε μια Νέα συνομιλία.
+@msg	Claude took too many steps: ask again, more simply.	Ο Claude έκανε υπερβολικά πολλά βήματα: ρωτήστε ξανά, πιο απλά.
+	Ask About Patterns…	Ερώτηση για πατρόν…
+	Answers come from Claude with your own Anthropic API key, billed to your Anthropic account. They can be wrong: sew a muslin before cutting good fabric.	Οι απαντήσεις προέρχονται από τον Claude με το δικό σας κλειδί API της Anthropic, με χρέωση στον λογαριασμό σας στην Anthropic. Μπορεί να είναι λανθασμένες: ράψτε ένα δοκιμαστικό ρούχο (τουάλ) πριν κόψετε καλό ύφασμα.
+	Ask About Patterns	Ερώτηση για πατρόν
+	Ask anything about sewing patterns or PatternFoundry: how much ease to add, how to move a dart, which block to start from, where a feature is. Claude can also draft and change your pattern when you ask, after you allow it.	Ρωτήστε οτιδήποτε για πατρόν ραπτικής ή για το PatternFoundry: πόση άνεση να προσθέσετε, πώς να μετακινήσετε μια πένσα, από ποιο βασικό πατρόν να ξεκινήσετε, πού βρίσκεται μια λειτουργία. Ο Claude μπορεί επίσης να σχεδιάσει και να αλλάξει το πατρόν σας όταν το ζητήσετε, αφού το επιτρέψετε.
+	Claude asks to:	Ο Claude ζητά να:
+	Couldn't do:	Δεν ήταν δυνατό:
+	Done:	Έγινε:
+	Free credits for the AI features, no API key needed	Δωρεάν μονάδες για τις λειτουργίες AI, χωρίς κλειδί API
+	Free credits to try the AI features: Ask About Patterns drafts and changes patterns with you	Δωρεάν μονάδες για να δοκιμάσετε τις λειτουργίες AI: η Ερώτηση για πατρόν σχεδιάζει και αλλάζει πατρόν μαζί σας
+	Include my pattern	Συμπερίληψη του πατρόν μου
+	Its pieces and sizes, and which measurements are set: never their values	Τα κομμάτια και τα μεγέθη του, και ποια μέτρα έχουν οριστεί: ποτέ οι τιμές τους
+	Leave it empty for the Foundry service.	Αφήστε το κενό για την υπηρεσία Foundry.
+	Not allowed:	Δεν επιτρέπεται:
+	One account for every SiteSentrix app	Ένας λογαριασμός για όλες τις εφαρμογές της SiteSentrix
+	Read your measurements	Ανάγνωση των μέτρων σας
+@msg	An account with that email already exists: sign in instead.	Υπάρχει ήδη λογαριασμός με αυτό το email: συνδεθείτε σε αυτόν.
+@msg	Ask About Patterns needs a build that can reach the AI service	Η «Ερώτηση για πατρόν» χρειάζεται μια έκδοση που μπορεί να συνδεθεί στην υπηρεσία AI
+@msg	Foundry Account needs a build that can reach the AI service	Ο «Λογαριασμός Foundry» χρειάζεται μια έκδοση που μπορεί να συνδεθεί στην υπηρεσία AI
+@msg	Foundry accounts aren't open yet.	Οι λογαριασμοί Foundry δεν έχουν ανοίξει ακόμη.
+@msg	Not enough Foundry credits: buy more in Foundry Account.	Δεν υπάρχουν αρκετές μονάδες Foundry: αγοράστε περισσότερες στον Λογαριασμό Foundry.
+@msg	Sign in to your Foundry account (Help › Foundry Account…).	Συνδεθείτε στον λογαριασμό σας Foundry (Βοήθεια › Λογαριασμός Foundry…).
+@msg	The Foundry service can't do this yet: try again later.	Η υπηρεσία Foundry δεν μπορεί να το κάνει αυτό ακόμη: δοκιμάστε ξανά αργότερα.
+@msg	this needs a connection to the AI service, which this build doesn't have	αυτό χρειάζεται σύνδεση με την υπηρεσία AI, την οποία αυτή η έκδοση δεν έχει
+@msg	Account made: welcome to PatternFoundry.	Ο λογαριασμός δημιουργήθηκε: καλώς ήρθατε στο PatternFoundry.
+@msg	Signed in.	Συνδεθήκατε.
+@msg	Signed out.	Αποσυνδεθήκατε.
+@msg	Type your email address.	Πληκτρολογήστε τη διεύθυνση email σας.
+@msg	Pay on the page that opened in your browser, then press Refresh.	Πληρώστε στη σελίδα που άνοιξε στο πρόγραμμα περιήγησης και, στη συνέχεια, πατήστε «Ανανέωση».
+	Add Photos…	Προσθήκη φωτογραφιών…
+	Choose the photos in the browser's window…	Επιλέξτε τις φωτογραφίες στο παράθυρο του προγράμματος περιήγησης…
+	About the fit	Σχετικά με την εφαρμογή
+	Anything else? For example: folds below the back neck	Κάτι άλλο; Για παράδειγμα: πτυχές κάτω από τη λαιμόκοψη της πλάτης
+	Check My Muslin	Έλεγχος του δοκιμαστικού μου
+	Claude looks at the photos with your own Anthropic API key, billed to your Anthropic account. It can be wrong: sew the altered part again in muslin before cutting good fabric.	Ο Claude βλέπει τις φωτογραφίες με το δικό σας κλειδί API της Anthropic, με χρέωση στον λογαριασμό σας στην Anthropic. Μπορεί να κάνει λάθος: ράψτε ξανά το τροποποιημένο μέρος σε δοκιμαστικό ρούχο (τουάλ) πριν κόψετε καλό ύφασμα.
+	Final fabric	Τελικό ύφασμα
+	Hard to raise my arms	Δυσκολεύομαι να σηκώσω τα χέρια
+	How it feels:	Πώς το νιώθω:
+	Include the pattern it was cut from (open now), so it can be altered	Να συμπεριληφθεί το πατρόν από το οποίο κόπηκε (ανοιχτό τώρα), ώστε να μπορεί να τροποποιηθεί
+	Loose or gaping somewhere	Φαρδύ ή ανοίγει κάπου
+	Muslin fabric	Ύφασμα δοκιμαστικού
+	My muslin ({n} photos)	Το δοκιμαστικό μου ({n} φωτογραφίες)
+	Photos of your muslin, tried on	Φωτογραφίες του δοκιμαστικού σας, φορεμένου
+	The front, the side and the back, standing straight with your arms down, and close-ups of any folds or pulling.	Από μπροστά, από το πλάι και από πίσω, όρθιοι με τα χέρια κάτω, και κοντινά πλάνα από πτυχές ή τραβήγματα.
+	The neckline gapes or pulls	Η λαιμόκοψη ανοίγει ή τραβάει
+	The photos go to Claude for this check only; PatternFoundry doesn't keep them.	Οι φωτογραφίες πηγαίνουν στον Claude μόνο για αυτόν τον έλεγχο· το PatternFoundry δεν τις κρατά.
+	The shoulder seams don't sit on my shoulders	Οι ραφές των ώμων δεν κάθονται στους ώμους μου
+	Tight across the back or shoulders	Στενό στην πλάτη ή στους ώμους
+	Tight across the bust or chest	Στενό στο στήθος
+	Tight at the waist or hips	Στενό στη μέση ή στους γοφούς
+	Too long or too short	Πολύ μακρύ ή πολύ κοντό
+	e.g. calico, an old sheet	π.χ. αμερικάνικο πανί, ένα παλιό σεντόνι
+	e.g. cotton poplin, jersey	π.χ. βαμβακερή ποπλίνα, ζέρσεϊ
+	Check My Muslin…	Έλεγχος του δοκιμαστικού μου…
+@msg	Add a photo of the muslin first.	Προσθέστε πρώτα μια φωτογραφία του δοκιμαστικού.
+@msg	Check My Muslin needs a build that can reach the AI service	Ο «Έλεγχος του δοκιμαστικού μου» χρειάζεται μια έκδοση που μπορεί να συνδεθεί στην υπηρεσία AI
+@msg	The image is too large to send: crop it, or send a smaller copy.	Η εικόνα είναι πολύ μεγάλη για αποστολή: περικόψτε την ή στείλτε ένα μικρότερο αντίγραφο.
+@msg	This photo is too large: send a smaller copy.	Αυτή η φωτογραφία είναι πολύ μεγάλη: στείλτε ένα μικρότερο αντίγραφο.
+@msg	no files here	δεν υπάρχουν αρχεία εδώ
+@msg	At most 6 photos: remove one first.	Το πολύ 6 φωτογραφίες: αφαιρέστε πρώτα μία.
+@msg	This photo can't be read: save or send it as a JPEG (on an iPhone: Settings › Camera › Formats › Most Compatible).	Αυτή η φωτογραφία δεν μπορεί να διαβαστεί: αποθηκεύστε ή στείλτε τη ως JPEG (σε iPhone: Ρυθμίσεις › Κάμερα › Μορφές › Πιο συμβατό).
+	Make Marker	Δημιουργία σχεδίου κοπής
+	Make Marker…	Δημιουργία σχεδίου κοπής…
+	Gap	Κενό
+	Precision	Ακρίβεια
+	One Way	Μία κατεύθυνση
+	Cut on fold	Κοπή στο δίπλωμα
+	Folded	Διπλωμένο
+	The straight edge laid on the fabric's fold: no allowance there	Η ευθεία άκρη πάνω στο δίπλωμα του υφάσματος: χωρίς ραφή εκεί
+	Check Sleeve Ease	Έλεγχος χαλαρότητας μανικιού
+	Sleeve Ease	Χαλαρότητα μανικιού
+	Crown {crown} mm, armhole {armhole} mm (back {back}, front {front}): the crown takes in {ease} mm ({percent}%).	Κορυφή μανικιού {crown} mm, αμπαδούρα {armhole} mm (πλάτη {back}, μπροστά {front}): η κορυφή μαζεύει {ease} mm ({percent}%).
+	Less than the {min} to {max} mm it should take in: the sleeve may pull across the cap. Set sleeve_crown to {wanted} mm in Measurements to redraft the sleeve block with the ease in the middle.	Λιγότερο από τα {min} έως {max} mm που πρέπει να μαζεύει: το μανίκι μπορεί να τραβάει στην κορυφή. Ορίστε το sleeve_crown στα {wanted} mm στις Μετρήσεις για να ξανασχεδιαστεί το βασικό μανίκι με τη χαλαρότητα στη μέση.
+	More than the {min} to {max} mm it should take in: the cap may pucker when it is set in. Set sleeve_crown to {wanted} mm in Measurements to redraft the sleeve block with the ease in the middle.	Περισσότερο από τα {min} έως {max} mm που πρέπει να μαζεύει: η κορυφή μπορεί να ζαρώσει όταν ραφτεί. Ορίστε το sleeve_crown στα {wanted} mm στις Μετρήσεις για να ξανασχεδιαστεί το βασικό μανίκι με τη χαλαρότητα στη μέση.
+	Within the {min} to {max} mm it should take in.	Μέσα στα {min} έως {max} mm που πρέπει να μαζεύει.
+	Edges: {edges}, notches: {notches}	Άκρες: {edges}, εγκοπές: {notches}
+	Edge {n}	Άκρη {n}
+	On fold	Στο δίπλωμα
+	Back to the piece's seam allowance	Πίσω στη ραφή του κομματιού
+	A notch in the middle of the edge	Μια εγκοπή στη μέση της άκρης
+	Notch on edge {edge}, {at}% along	Εγκοπή στην άκρη {edge}, στο {at}%
+	Piece Outlines	Περιγράμματα κομματιών
+	Projector	Προβολέας
+	Projector Scale (screen points per mm, 0: not calibrated)	Κλίμακα προβολέα (σημεία οθόνης ανά mm, 0: χωρίς βαθμονόμηση)
+	Projector View	Προβολή για προβολέα
+	Measure the square on the cutting mat: it should be 10 cm each way. The arrows make it bigger or smaller (with Shift, faster); Enter keeps it; Escape leaves. Scale: {scale} points per mm.	Μετρήστε το τετράγωνο στο επιφάνεια κοπής: πρέπει να είναι 10 cm προς κάθε κατεύθυνση. Τα βέλη το μεγαλώνουν ή το μικραίνουν (με Shift πιο γρήγορα)· το Enter το κρατά· το Escape βγαίνει. Κλίμακα: {scale} σημεία ανά mm.
+	Arrows move the pattern 1 cm (Shift: 1 mm) · M mirrors it · C calibrates · Escape leaves	Τα βέλη μετακινούν το πατρόν κατά 1 cm (Shift: 1 mm) · M το καθρεφτίζει · C βαθμονομεί · Escape βγαίνει
+@msg	no pattern pieces to project: make the outlines pattern pieces first (Pattern › Make Pattern Piece)	δεν υπάρχουν κομμάτια πατρόν για προβολή: κάντε πρώτα τα περιγράμματα κομμάτια πατρόν (Πατρόν › Δημιουργία κομματιού)
+@msg	scale: screen points per mm, more than 0	κλίμακα: σημεία οθόνης ανά mm, πάνω από 0
+	Delete Saved Measurements	Διαγραφή αποθηκευμένων μέτρων
+	Load Measurements	Φόρτωση μέτρων
+	My Measurements	Τα μέτρα μου
+	Save to My Measurements	Αποθήκευση στα Μέτρα μου
+	Delete from this computer	Διαγραφή από αυτόν τον υπολογιστή
+	Kept on this computer only, to load into any pattern	Φυλάσσονται μόνο σε αυτόν τον υπολογιστή, για φόρτωση σε κάθε πατρόν
+	Load	Φόρτωση
+	Use these measurements in this pattern	Χρήση αυτών των μέτρων σε αυτό το πατρόν
+	Whose (Me)	Ποιανού (Εγώ)
+	Shorten Dart	Κόντεμα πένσας
+	Shorten Dart…	Κόντεμα πένσας…
+	Shorten	Κόντεμα
+	Add Notch Here	Προσθήκη εγκοπής εδώ
+	Cut on Fold Here	Κοπή στο δίπλωμα εδώ
+	Seam Allowance Here…	Ραφή εδώ…
+	Grade This Point…	Διαβάθμιση αυτού του σημείου…
+	Edge Allowance	Ραφή άκρης
+	Across	Οριζόντια
+	Down	Προς τα κάτω
+	One step	Ένα βήμα
+	The same move for each size, from the size above the base	Η ίδια μετακίνηση για κάθε μέγεθος, από το μέγεθος πάνω από τη βάση
+	Per size	Ανά μέγεθος
+	A move for each size of its own	Δική του μετακίνηση για κάθε μέγεθος
+	Add Drill Hole Here	Προσθήκη οπής εδώ
+	Remove Drill Hole Here	Αφαίρεση οπής εδώ
+	Add Drill Hole	Προσθήκη οπής
+	Remove Drill Hole	Αφαίρεση οπής
+	Drill holes: {count}	Οπές: {count}
+	Right-click inside the piece: Add Drill Hole Here	Δεξί κλικ μέσα στο κομμάτι: Προσθήκη οπής εδώ
+	Drill hole {n}, {mm} mm	Οπή {n}, {mm} mm
+	Drill hole {n}	Οπή {n}
+	Notch Shape	Σχήμα εγκοπής
+	Slit notch	Εγκοπή σχισμή
+	Double notch	Διπλή εγκοπή
+	V notch	Εγκοπή V
+	T notch	Εγκοπή T
+	Castle notch	Ορθογώνια εγκοπή
+	U notch	Εγκοπή U
+	As drawn	Όπως σχεδιάστηκε
+	Side by side	Το ένα δίπλα στο άλλο
+	Block Options…	Επιλογές βασικού πατρόν…
+	Block Options	Επιλογές βασικού πατρόν
+	Ease	Άνεση
+	Waist ease	Άνεση στη μέση
+	Bust dart	Πένσα στήθους
+	Shoulder dart	Πένσα ώμου
+	Back dart	Πένσα πλάτης
+	Back dart length	Μήκος πένσας πλάτης
+	Front dart length	Μήκος μπροστινής πένσας
+	Option	Επιλογή
+	Back to the block's default	Επιστροφή στην προεπιλογή του βασικού πατρόν
+	from the measurements	από τις μετρήσεις
+	Block Options Info	Πληροφορίες επιλογών βασικού πατρόν
+	Check Trouser Seams	Έλεγχος ραφών παντελονιού
+	Trouser Seams	Ραφές παντελονιού
+	Inseam, knee to hem	Εσωτερική ραφή, από το γόνατο στο στρίφωμα
+	Inseam, crotch to knee	Εσωτερική ραφή, από τον καβάλο στο γόνατο
+	Side seam, knee to hem	Πλαϊνή ραφή, από το γόνατο στο στρίφωμα
+	Side seam, waist to knee	Πλαϊνή ραφή, από τη μέση στο γόνατο
+	{seam}: front {front} mm, back {back} mm ({difference} mm)	{seam}: μπροστά {front} mm, πίσω {back} mm ({difference} mm)
+	Walk them on the pattern too: where a line doesn't run on smoothly from front to back, find the point half way between the two and correct both lines. The back inseam is more curved, so it is often longer: lowering the back crotch curve slightly to match is fine.	Ελέγξτε τες και πάνω στο πατρόν: όπου μια γραμμή δεν συνεχίζει ομαλά από μπροστά προς τα πίσω, βρείτε το σημείο στη μέση ανάμεσά τους και διορθώστε και τις δύο γραμμές. Η πίσω εσωτερική ραφή είναι πιο καμπύλη, γι' αυτό συχνά είναι μακρύτερη: είναι εντάξει να χαμηλώσετε λίγο την πίσω καμπύλη του καβάλου για να ταιριάξει.
+	Front dart	Μπροστινή πένσα
+	Draft Trouser Waistband	Σχεδίαση ζώνης παντελονιού
+	Flap Pocket…	Τσέπη με καπάκι…
+	Crown ease	Άνεση κορυφής μανικιού
+	Remove Design Step	Αφαίρεση βήματος σχεδίασης
+	Dart moved	Η πένσα μετακινήθηκε
+	Dart shortened {mm} mm	Η πένσα κονταίνει κατά {mm} mm
+	Slashed and spread {mm} mm	Κόπηκε και ανοίχτηκε κατά {mm} mm
+	Seam trued to {mm} mm	Η ραφή προσαρμόστηκε στα {mm} mm
+	Split into panels	Χωρίστηκε σε κομμάτια
+	Design step	Βήμα σχεδίασης
+	Design steps: {count}	Βήματα σχεδίασης: {count}
+	Design changes made on the block (darts, splits, spreads, seam lengths) show here; each is made again when the measurements change	Οι αλλαγές στο βασικό πατρόν (πένσες, διαιρέσεις, ανοίγματα, μήκη ραφών) εμφανίζονται εδώ· η καθεμία γίνεται ξανά όταν αλλάζουν οι μετρήσεις
+	Remove this step and the ones after it (they were made on the outline it made)	Αφαίρεση αυτού του βήματος και των επόμενων (έγιναν στο περίγραμμα που αυτό έδωσε)
+	Selected block part	Επιλεγμένο τμήμα βασικού πατρόν
+	Curve Dart Legs…	Καμπύλωση πλευρών πένσας…
+	Curve Dart Legs	Καμπύλωση πλευρών πένσας
+	Dart legs curved {mm} mm	Οι πλευρές της πένσας καμπυλώθηκαν κατά {mm} mm
+	Draft Rounded Stand Collar	Σχεδίαση όρθιου γιακά με στρογγυλές άκρες
+	Draft Wing Collar	Σχεδίαση γιακά με φτερά
+	Check Marker	Έλεγχος σχεδίου κοπής
+	{length} cm long, {efficiency}% of the fabric used	Μήκος {length} cm, χρησιμοποιείται το {efficiency}% του υφάσματος
+	{a} overlaps {b}	Το {a} επικαλύπτει το {b}
+	{piece} is off the fabric	Το {piece} βγαίνει έξω από το ύφασμα
+	No pieces overlap, and all are on the fabric.	Κανένα κομμάτι δεν επικαλύπτεται και όλα είναι πάνω στο ύφασμα.
+	Plaid	Καρό
+menu	Pattern	Πατρόν
+@msg	a and b are two pieces (or paths) that sew together	τα a και b είναι δύο κομμάτια (ή διαδρομές) που ράβονται μεταξύ τους
+@msg	a corner is "mitre" or "square"	η γωνία είναι "mitre" ή "square"
+@msg	a facing runs along part of the outline	η φάσα ακολουθεί μέρος του περιγράμματος
+@msg	a facing runs between two different points of the outline	η φάσα εκτείνεται μεταξύ δύο διαφορετικών σημείων του περιγράμματος
+@msg	a name takes at most 200 characters	το όνομα έχει έως 200 χαρακτήρες
+@msg	a neckline runs between two different points of its outline, and the shoulder point is one of them	η λαιμόκοψη εκτείνεται μεταξύ δύο διαφορετικών σημείων του περιγράμματός της, και το ένα είναι το σημείο του ώμου
+@msg	a seam allowance is a number of mm, or a length with its unit ("5/8 in")	το περιθώριο ραφής είναι αριθμός σε mm ή μήκος με τη μονάδα του ("5/8 in")
+@msg	a seam has no length	η ραφή έχει μηδενικό μήκος
+@msg	a shoulder point is on its neck point	το σημείο του ώμου συμπίπτει με το σημείο του λαιμού
+@msg	a slash runs between two points of the outline that aren't neighbours	η τομή εκτείνεται μεταξύ δύο μη γειτονικών σημείων του περιγράμματος
+@msg	a split leaves a piece with fewer than three anchors	ο διαχωρισμός αφήνει κομμάτι με λιγότερα από τρία σημεία αγκύρωσης
+@msg	a split made two panels: delete the panel you don't want instead	ο διαχωρισμός δημιούργησε δύο τμήματα: διαγράψτε αντί γι' αυτό το τμήμα που δεν θέλετε
+@msg	a split needs two different anchors on the outline	ο διαχωρισμός χρειάζεται δύο διαφορετικά σημεία αγκύρωσης στο περίγραμμα
+@msg	amount: a share of the dart, (0, 1]	amount: ποσοστό της πένσας, (0, 1]
+@msg	amount: how far it opens, mm	amount: πόσο ανοίγει, mm
+@msg	anchor: the point's number along the path, from 0	anchor: ο αριθμός του σημείου κατά μήκος της διαδρομής, από 0
+@msg	anchor: the seam line's point, from 0	anchor: το σημείο της γραμμής ραφής, από 0
+@msg	anchors: [a, b] or [a]	anchors: [a, b] ή [a]
+@msg	anchors: point numbers along the path	anchors: αριθμοί σημείων κατά μήκος της διαδρομής
+@msg	apex: the dart's point (or select that one point)	apex: η κορυφή της πένσας (ή επιλέξτε αυτό το σημείο)
+@msg	at: 0 (the edge's start) to 1 (its end)	at: από 0 (η αρχή της ακμής) έως 1 (το τέλος της)
+@msg	at: [x, y], the document point on the edge	at: [x, y], το σημείο του εγγράφου πάνω στην ακμή
+@msg	base: the size the pattern is drawn in	base: το μέγεθος στο οποίο είναι σχεδιασμένο το πατρόν
+@msg	block: "bodice", "skirt", "sleeve" or "trousers"	block: "bodice", "skirt", "sleeve" ή "trousers"
+@msg	can't make the seam that long by moving its end	δεν είναι δυνατό να γίνει η ραφή τόσο μακριά μετακινώντας το άκρο της
+@msg	curve: mm the wrap edge bows into the piece	curve: πόσα mm καμπυλώνει η άκρη του κρουαζέ προς το εσωτερικό του κομματιού
+@msg	cut is a whole number, 1 to 999	το cut είναι ακέραιος αριθμός, από 1 έως 999
+@msg	data: the chart's text	data: το κείμενο του πίνακα
+@msg	depth: how deep the pleat folds under, mm	depth: πόσο βαθιά διπλώνει η πιέτα από κάτω, mm
+@msg	depth: mm (less than 0 bows the legs in)	depth: mm (κάτω από 0 τα σκέλη καμπυλώνουν προς τα μέσα)
+@msg	diameter: a number of mm, or a length with its unit ("1/8 in")	diameter: αριθμός σε mm ή μήκος με τη μονάδα του ("1/8 in")
+@msg	edge: the edge's number, from 0 (or point)	edge: ο αριθμός της ακμής, από 0 (ή point)
+@msg	edges and corners are numbered from 0	οι ακμές και οι γωνίες αριθμούνται από 0
+@msg	every: mm, at least 10	every: mm, τουλάχιστον 10
+@msg	face: only a box pleat has one	face: υπάρχει μόνο σε κουτιαστή πιέτα
+@msg	face: the box pleat's width between its folds, mm	face: το πλάτος της κουτιαστής πιέτας μεταξύ των διπλωμάτων της, mm
+@msg	flapShape: "square", "rounded" or "pointed"	flapShape: "square", "rounded" ή "pointed"
+@msg	fold is an edge's number (0..), or null	το fold είναι αριθμός ακμής (0..) ή null
+@msg	fold: [a, b], the centre front edge's two points	fold: [a, b], τα δύο σημεία της ακμής του μέσου εμπρός
+@msg	fold: true or false	fold: true ή false
+@msg	foldAt: [x, y] in document points	foldAt: [x, y] σε pt του εγγράφου
+@msg	folded: true or false	folded: true ή false
+@msg	from: [x, y] in document points	from: [x, y] σε pt του εγγράφου
+@msg	from: not a pattern piece	from: δεν είναι κομμάτι πατρόν
+@msg	from: the pattern piece whose rules are copied	from: το κομμάτι πατρόν του οποίου οι κανόνες αντιγράφονται
+@msg	from: the piece has no seam line	from: το κομμάτι δεν έχει γραμμή ραφής
+@msg	frontShape: "square", "rounded" or "winged"	frontShape: "square", "rounded" ή "winged"
+@msg	gathering runs between two different points of the outline	η σούρα εκτείνεται μεταξύ δύο διαφορετικών σημείων του περιγράμματος
+@msg	give apex and one of to or toAnchor (or select the two points)	δώστε το apex και ένα από τα to ή toAnchor (ή επιλέξτε τα δύο σημεία)
+@msg	height: mm, 10 to 100 (the tutorial's is at most 30)	height: mm, από 10 έως 100 (στη μέθοδο είναι έως 30)
+@msg	id: a block part's id	id: το id ενός τμήματος βασικού πατρόν
+@msg	index: the drill hole's place in the list, from 0 (or point)	index: η θέση της οπής στη λίστα, από 0 (ή point)
+@msg	index: the notch's place in the list, from 0	index: η θέση της εγκοπής στη λίστα, από 0
+@msg	index: the step's place, from 0	index: η θέση του βήματος, από 0
+@msg	into: the length it gathers into, mm	into: το μήκος στο οποίο μαζεύεται, mm
+@msg	kind: "slit", "double", "v", "t", "castle" or "u"	kind: "slit", "double", "v", "t", "castle" ή "u"
+@msg	kind: the notch's new shape	kind: το νέο σχήμα της εγκοπής
+@msg	layer: a marker layer's id	layer: το id ενός επιπέδου σχεδίου κοπής
+@msg	length (mm) or likeId with likeFrom and likeTo: the seam to match	length (mm) ή likeId με likeFrom και likeTo: η ραφή με την οποία θα ταιριάξει
+@msg	length: mm, more than 0	length: mm, περισσότερο από 0
+@msg	line: "cut" or "seam"	line: "cut" ή "seam"
+@msg	match: the seam it sews to is shorter than the pocket opening's end	match: η ραφή με την οποία ράβεται είναι μικρότερη από το τέλος του ανοίγματος της τσέπης
+@msg	min is more than max	το min είναι μεγαλύτερο από το max
+@msg	mirror is true or false	το mirror είναι true ή false
+@msg	mirror: "none", "x", "y" or "xy"	mirror: "none", "x", "y" ή "xy"
+@msg	name: the saved set's name	name: το όνομα του αποθηκευμένου συνόλου
+@msg	name: whose measurements they are ("Me")	name: σε ποιον ανήκουν τα μέτρα ("Me")
+@msg	no drill hole near the point	δεν υπάρχει οπή κοντά στο σημείο
+@msg	no drill hole with that index	δεν υπάρχει οπή με αυτόν τον δείκτη
+@msg	no notch with that index	δεν υπάρχει εγκοπή με αυτόν τον δείκτη
+@msg	no object with that id	δεν υπάρχει αντικείμενο με αυτό το id
+@msg	no pattern pieces to grade: make the outlines pattern pieces first (Pattern › Make Pattern Piece)	δεν υπάρχουν κομμάτια πατρόν για διαβάθμιση: κάντε πρώτα τα περιγράμματα κομμάτια πατρόν (Πατρόν › Δημιουργία κομματιού πατρόν)
+@msg	no straight centre front edge on the outline's side: name it with fold: [a, b]	δεν υπάρχει ευθεία ακμή μέσου εμπρός σε αυτή την πλευρά του περιγράμματος: ορίστε τη με fold: [a, b]
+@msg	not a drafted block part	δεν είναι τμήμα σχεδιασμένου βασικού πατρόν
+@msg	not a marker's layer (Pattern › Make Marker…)	δεν είναι επίπεδο σχεδίου κοπής (Πατρόν › Δημιουργία σχεδίου κοπής…)
+@msg	not a pattern piece	δεν είναι κομμάτι πατρόν
+@msg	not a stand collar's outline	δεν είναι περίγραμμα όρθιου γιακά
+@msg	notches go on pattern pieces: make both seams' paths pieces first (Pattern › Make Pattern Piece)	οι εγκοπές μπαίνουν σε κομμάτια πατρόν: κάντε πρώτα κομμάτια τις διαδρομές και των δύο ραφών (Πατρόν › Δημιουργία κομματιού πατρόν)
+@msg	notches: [mm, …]	notches: [mm, …]
+@msg	notches: distances from the seams' starts, mm	notches: αποστάσεις από την αρχή των ραφών, mm
+@msg	on and at go together: the garment piece and where the opening's top-left corner goes on it	τα on και at δίνονται μαζί: το κομμάτι του ρούχου και το σημείο του όπου πηγαίνει η πάνω αριστερή γωνία του ανοίγματος
+@msg	on and at go together: the garment piece and where the pocket's top-left corner goes on it	τα on και at δίνονται μαζί: το κομμάτι του ρούχου και το σημείο του όπου πηγαίνει η πάνω αριστερή γωνία της τσέπης
+@msg	one point splits only where another point is at the same place (two darts' point)	ένα σημείο διαχωρίζεται μόνο εκεί όπου υπάρχει άλλο σημείο στην ίδια θέση (κοινή κορυφή δύο πενσών)
+@msg	oneWay: true or false	oneWay: true ή false
+@msg	openFolds: true or false	openFolds: true ή false
+@msg	origin: [x, y] in document points	origin: [x, y] σε pt του εγγράφου
+@msg	overlap: mm past centre front, more than 0	overlap: mm πέρα από το μέσο εμπρός, περισσότερο από 0
+@msg	overlap: the edge misses the outline	overlap: η ακμή δεν συναντά το περίγραμμα
+@msg	plaid: the repeat (mm, or [along, across])	plaid: η επανάληψη (mm ή [along, across])
+@msg	plaid: the repeat along and across, 1 to 10 000 mm each	plaid: η επανάληψη κατά μήκος και κατά πλάτος, από 1 έως 10 000 mm η καθεμία
+@msg	point: [x, y] in document points	point: [x, y] σε pt του εγγράφου
+@msg	select a drafted block part (Pattern › Draft … Block)	επιλέξτε ένα τμήμα σχεδιασμένου βασικού πατρόν (Πατρόν › Σχεδίαση βασικού πατρόν …)
+@msg	select a path or a pattern piece	επιλέξτε μια διαδρομή ή ένα κομμάτι πατρόν
+@msg	select a pattern piece (Pattern › Make Pattern Piece makes one)	επιλέξτε ένα κομμάτι πατρόν (το δημιουργεί η εντολή Πατρόν › Δημιουργία κομματιού πατρόν)
+@msg	select a piece on the marker to check	επιλέξτε ένα κομμάτι στο σχέδιο κοπής για έλεγχο
+@msg	select closed paths: each becomes a piece, the path its seam line	επιλέξτε κλειστές διαδρομές: κάθε μία γίνεται κομμάτι και η διαδρομή η γραμμή ραφής του
+@msg	select one path	επιλέξτε μία διαδρομή
+@msg	select one pattern piece	επιλέξτε ένα κομμάτι πατρόν
+@msg	select two points of one path (or one that two darts share)	επιλέξτε δύο σημεία μίας διαδρομής (ή ένα που μοιράζονται δύο πένσες)
+@msg	select two points of one path: the dart's point and where the dart moves to	επιλέξτε δύο σημεία μίας διαδρομής: την κορυφή της πένσας και το σημείο όπου μετακινείται
+@msg	select two points of one path: the ends of the edge to face	επιλέξτε δύο σημεία μίας διαδρομής: τα άκρα της ακμής που θα πάρει φάσα
+@msg	select two points of one path: the ends of the edge to gather	επιλέξτε δύο σημεία μίας διαδρομής: τα άκρα της ακμής που θα σουρωθεί
+@msg	share is true or false	το share είναι true ή false
+@msg	shorten: mm (less than 0 lengthens)	shorten: mm (κάτω από 0 μακραίνει)
+@msg	shoulder: longer than the outline	shoulder: μακρύτερος από το περίγραμμα
+@msg	shoulder: mm, 0 or more	shoulder: mm, 0 ή περισσότερο
+@msg	size: one of the chart's sizes	size: ένα από τα μεγέθη του πίνακα
+@msg	size: the name of a size of the size range or chart	size: το όνομα ενός μεγέθους της σειράς μεγεθών ή του πίνακα
+@msg	sizes: name one size at least	sizes: ονομάστε τουλάχιστον ένα μέγεθος
+@msg	sizes: the sizes' names	sizes: τα ονόματα των μεγεθών
+@msg	sizes: the sizes' names, smallest first (null removes them)	sizes: τα ονόματα των μεγεθών, από το μικρότερο (το null τα αφαιρεί)
+@msg	split the seam line on its own: release the piece first (Pattern › Release Pattern Piece)	για να διαχωρίσετε μόνο τη γραμμή ραφής, αποδεσμεύστε πρώτα το κομμάτι (Πατρόν › Αποδέσμευση κομματιού πατρόν)
+@msg	step: [dx, dy] in mm	step: [dx, dy] σε mm
+@msg	style: classic, casual or shirt	style: classic, casual ή shirt
+@msg	that anchor's neighbours don't make a dart	τα γειτονικά σημεία αυτού του σημείου αγκύρωσης δεν σχηματίζουν πένσα
+@msg	that point is not a dart's point: its legs open a right angle or wider	αυτό το σημείο δεν είναι κορυφή πένσας: τα σκέλη του ανοίγουν ορθή ή μεγαλύτερη γωνία
+@msg	the amount is a share of the dart, more than 0 and at most 1	η ποσότητα είναι ποσοστό της πένσας, μεγαλύτερο από 0 και έως 1
+@msg	the back's outline encloses no area	το περίγραμμα της πλάτης δεν περικλείει εμβαδόν
+@msg	the box pleat's face is more than 0 wide	το πλάτος της όψης της κουτιαστής πιέτας είναι μεγαλύτερο από 0
+@msg	the chart is larger than 1 MB	ο πίνακας είναι μεγαλύτερος από 1 MB
+@msg	the curve has no length at the meeting point	η καμπύλη έχει μηδενικό μήκος στο σημείο συνάντησης
+@msg	the curves leave the seam the same way	οι καμπύλες φεύγουν από τη ραφή προς την ίδια κατεύθυνση
+@msg	the dart has no length	η πένσα έχει μηδενικό μήκος
+@msg	the dart is not that long	η πένσα δεν είναι τόσο μακριά
+@msg	the dart point or the new dart's anchor is not on the outline	η κορυφή της πένσας ή το σημείο αγκύρωσης της νέας πένσας δεν βρίσκεται στο περίγραμμα
+@msg	the dart's legs must be straight lines	τα σκέλη της πένσας πρέπει να είναι ευθείες γραμμές
+@msg	the dart's point is past the outline's end	η κορυφή της πένσας είναι πέρα από το τέλος του περιγράμματος
+@msg	the depth to curve the legs by is not a number	το βάθος καμπύλωσης των σκελών δεν είναι αριθμός
+@msg	the document has no marker (Pattern › Make Marker…)	το έγγραφο δεν έχει σχέδιο κοπής (Πατρόν › Δημιουργία σχεδίου κοπής…)
+@msg	the document has no measurements to save	το έγγραφο δεν έχει μέτρα για αποθήκευση
+@msg	the document has no size chart (measure.importChart)	το έγγραφο δεν έχει πίνακα μεγεθών (measure.importChart)
+@msg	the drop at the front is less than half the neck edge	το βάθος της λαιμόκοψης μπροστά είναι μικρότερο από το μισό της ακμής του λαιμού
+@msg	the edge has no length	η ακμή έχει μηδενικό μήκος
+@msg	the edge's anchor is past the outline's end	το σημείο αγκύρωσης της ακμής είναι πέρα από το τέλος του περιγράμματος
+@msg	the fabric's width must be more than 0	το πλάτος του υφάσματος πρέπει να είναι μεγαλύτερο από 0
+@msg	the flap is deeper than twice its width	το καπάκι είναι βαθύτερο από το διπλάσιο του πλάτους του
+@msg	the flap's width and depth are more than 0, its allowance 0 or more	το πλάτος και το βάθος του καπακιού είναι μεγαλύτερα από 0, το περιθώριό του 0 ή περισσότερο
+@msg	the fold edge has no length	η ακμή διπλώματος έχει μηδενικό μήκος
+@msg	the fold edge's anchors are past the outline's end	τα σημεία αγκύρωσης της ακμής διπλώματος είναι πέρα από το τέλος του περιγράμματος
+@msg	the fold edge's two anchors must be neighbours on the outline	τα δύο σημεία αγκύρωσης της ακμής διπλώματος πρέπει να είναι γειτονικά στο περίγραμμα
+@msg	the fold must be a straight edge	το δίπλωμα πρέπει να είναι ευθεία ακμή
+@msg	the front end has no length	το μπροστινό άκρο έχει μηδενικό μήκος
+@msg	the gap must be 0 or more	το διάκενο πρέπει να είναι 0 ή περισσότερο
+@msg	the grainline's ends are the same point	τα άκρα της γραμμής νήματος είναι το ίδιο σημείο
+@msg	the legs can't curve that far: the dart isn't wide enough	τα σκέλη δεν μπορούν να καμπυλώσουν τόσο: η πένσα δεν είναι αρκετά φαρδιά
+@msg	the length to shorten by is not a number	το μήκος κονταίματος δεν είναι αριθμός
+@msg	the marker has lost its fabric outline	το σχέδιο κοπής έχασε το περίγραμμα του υφάσματος
+@msg	the marker has no pieces	το σχέδιο κοπής δεν έχει κομμάτια
+@msg	the marker is too large at this precision: give a coarser one	το σχέδιο κοπής είναι πολύ μεγάλο σε αυτή την ακρίβεια: δώστε μια πιο αδρή
+@msg	the measurements could not be saved	δεν ήταν δυνατή η αποθήκευση των μέτρων
+@msg	the meeting point and the seam's other end are points of the outline	το σημείο συνάντησης και το άλλο άκρο της ραφής πρέπει να είναι σημεία του περιγράμματος
+@msg	the neckline has no length	η λαιμόκοψη έχει μηδενικό μήκος
+@msg	the neckline lengths and the stand's height are more than 0, the rise and extension 0 or more	τα μήκη της λαιμόκοψης και το ύψος του ποδιού είναι μεγαλύτερα από 0, η ανύψωση και η προέκταση 0 ή περισσότερο
+@msg	the new dart is on the old dart	η νέα πένσα βρίσκεται πάνω στην παλιά
+@msg	the opening is longer than twice its height	το άνοιγμα είναι μακρύτερο από το διπλάσιο του ύψους του
+@msg	the opening, depth and width are more than 0, the width more than the allowance	το άνοιγμα, το βάθος και το πλάτος είναι μεγαλύτερα από 0, το πλάτος μεγαλύτερο από το περιθώριο
+@msg	the opening, the welt and the depth are more than 0, the allowances 0 or more	το άνοιγμα, το φιλέτο και το βάθος είναι μεγαλύτερα από 0, τα περιθώρια 0 ή περισσότερο
+@msg	the outline encloses no area	το περίγραμμα δεν περικλείει εμβαδόν
+@msg	the outline has no side seam	το περίγραμμα δεν έχει πλαϊνή ραφή
+@msg	the path has no outline	η διαδρομή δεν έχει περίγραμμα
+@msg	the path must be one closed outline	η διαδρομή πρέπει να είναι ένα κλειστό περίγραμμα
+@msg	the piece has no grade rules to copy	το κομμάτι δεν έχει κανόνες διαβάθμισης για αντιγραφή
+@msg	the piece has no straight edge to cut on the fold	το κομμάτι δεν έχει ευθεία ακμή για κοπή στο δίπλωμα
+@msg	the pieces have no cutting lines to lay	τα κομμάτια δεν έχουν γραμμές κοπής για τοποθέτηση
+@msg	the plaid's repeat must be more than 0 along and across	η επανάληψη του καρό πρέπει να είναι μεγαλύτερη από 0 κατά μήκος και κατά πλάτος
+@msg	the pocket (its opening and the allowance past both ends) fits on the seam	η τσέπη (το άνοιγμά της και το περιθώριο πέρα από τα δύο άκρα) πρέπει να χωράει στη ραφή
+@msg	the point is not inside the piece	το σημείο δεν είναι μέσα στο κομμάτι
+@msg	the point is not on the seam line or in its allowance	το σημείο δεν είναι στη γραμμή ραφής ούτε στο περιθώριό της
+@msg	the precision must be more than 0	η ακρίβεια πρέπει να είναι μεγαλύτερη από 0
+@msg	the rise at centre front is less than the front neckline is long	η ανύψωση στο μέσο εμπρός είναι μικρότερη από το μήκος της μπροστινής λαιμόκοψης
+@msg	the seam has no length there	η ραφή έχει μηδενικό μήκος σε εκείνο το σημείο
+@msg	the seam runs between two different points of the outline	η ραφή εκτείνεται μεταξύ δύο διαφορετικών σημείων του περιγράμματος
+@msg	the seam's other end is a neighbour of the meeting point	το άλλο άκρο της ραφής είναι γειτονικό με το σημείο συνάντησης
+@msg	the top edge has no length	η πάνω ακμή έχει μηδενικό μήκος
+@msg	the wing is more than 0 long	το φτερό έχει μήκος μεγαλύτερο από 0
+@msg	there is no folder to keep measurement sets in here (the desktop app keeps them next to its preferences)	δεν υπάρχει εδώ φάκελος για τα σύνολα μέτρων (η εφαρμογή υπολογιστή τα κρατά δίπλα στις προτιμήσεις της)
+@msg	there is no point of the seam line there	δεν υπάρχει εκεί σημείο της γραμμής ραφής
+@msg	to or toAnchor: where the dart moves to	to ή toAnchor: πού μετακινείται η πένσα
+@msg	to: [x, y] in document points	to: [x, y] σε pt του εγγράφου
+@msg	to: the pieces to copy the rules to (select them, or name them)	to: τα κομμάτια στα οποία αντιγράφονται οι κανόνες (επιλέξτε τα ή ονομάστε τα)
+@msg	too many objects at once	πάρα πολλά αντικείμενα ταυτόχρονα
+@msg	too many pieces at once	πάρα πολλά κομμάτια ταυτόχρονα
+@msg	too many pieces to lay at once	πάρα πολλά κομμάτια για τοποθέτηση ταυτόχρονα
+@msg	too many sizes at once	πάρα πολλά μεγέθη ταυτόχρονα
+@msg	unit: "mm", "cm" or "in"	unit: "mm", "cm" ή "in"
+@msg	width: mm, more than 0	width: mm, περισσότερο από 0
+	Draw Avatar	Σχεδίαση άβαταρ
+	Export Avatar as OBJ	Εξαγωγή άβαταρ ως OBJ
+	Sewn seams: {count}	Ραμμένες ραφές: {count}
+	{label}: sewn to {piece}, {mm} mm longer	{label}: ραμμένη με {piece}, {mm} mm μακρύτερη
+	{label}: sewn to {piece}, {mm} mm shorter	{label}: ραμμένη με {piece}, {mm} mm κοντύτερη
+	{label}: sewn to {piece}	{label}: ραμμένη με {piece}
+	Sew Seams	Ράψιμο ραφών
+	Unsew Seams	Ξήλωμα ραφών
+	Sewn Seams	Ραμμένες ραφές
+	Drape on Avatar	Ντραπάρισμα στο άβαταρ
+	Use as Fabric…	Χρήση ως ύφασμα…
+	Use as Fabric	Χρήση ως ύφασμα
+	Stop Using as Fabric	Διακοπή χρήσης ως ύφασμα
+	Fabric Photos	Φωτογραφίες υφασμάτων
+@msg	the drape view's picture is the wrong size	η εικόνα της προβολής πτώσης έχει λάθος μέγεθος
+@msg	the drape view: {e}	η προβολή πτώσης: {e}
+@msg	a fabric photo is the wrong size	η φωτογραφία υφάσματος έχει λάθος μέγεθος
+@msg	a fabric photo: {e}	η φωτογραφία υφάσματος: {e}
+	Export Avatar as glTF	Εξαγωγή άβαταρ ως glTF
+	Export Avatar as glTF…	Εξαγωγή άβαταρ ως glTF…
+	Export Drape as glTF…	Εξαγωγή πτώσης ως glTF…
+@msg	format: "obj" or "glb"	format: "obj" ή "glb"
+@msg	colour: "fabric" or "fit"	colour: "fabric" ή "fit"
+@msg	a piece could not be placed on the body	ένα κομμάτι δεν μπόρεσε να τοποθετηθεί στο σώμα
+@msg	{name} is already open	Το {name} είναι ήδη ανοιχτό
+@msg	Draping on Avatar	Πτώση στο άβαταρ
+	Step {n} of {total}	Βήμα {n} από {total}
+@msg	The drape was cancelled	Η πτώση ακυρώθηκε
+@msg	Draped on the avatar	Η πτώση στο άβαταρ ολοκληρώθηκε
+@msg	the document was closed	το έγγραφο έκλεισε
+@msg	the drape stopped	η πτώση σταμάτησε
+@msg	width: the photo's width on the fabric, 10 to 5000 mm	width: το πλάτος της φωτογραφίας πάνω στο ύφασμα, 10 έως 5000 mm
+@msg	turns: 0, 1, 2 or 3	turns: 0, 1, 2 ή 3
+@msg	the image is not a fabric photo (Pattern › Use as Fabric…)	η εικόνα δεν είναι φωτογραφία υφάσματος (Πατρόν › Χρήση ως ύφασμα…)
+@msg	even: true or false	even: true ή false
+@msg	seamless: true or false	seamless: true ή false
+@msg	Sign in to your Foundry Account first: Help › Foundry Account…	Συνδεθείτε πρώτα στον λογαριασμό σας Foundry: Βοήθεια › Λογαριασμός Foundry…
+@msg	The document is empty: there is nothing to publish.	Το έγγραφο είναι κενό: δεν υπάρχει τίποτα για δημοσίευση.
+@msg	The design is too large for MakerFoundry: at most 8 MB.	Το σχέδιο είναι πολύ μεγάλο για το MakerFoundry: έως 8 MB.
+@msg	MakerFoundry's answer couldn't be read.	Η απάντηση του MakerFoundry δεν μπόρεσε να διαβαστεί.
+@msg	MakerFoundry answered with a page on another site, which wasn't opened.	Το MakerFoundry απάντησε με σελίδα άλλου ιστότοπου, που δεν ανοίχτηκε.
+@msg	MakerFoundry: {1}	MakerFoundry: {1}
+@msg	MakerFoundry couldn't be reached: {0}	Δεν ήταν δυνατή η σύνδεση με το MakerFoundry: {0}
+@msg	Publish to MakerFoundry needs a build that can reach MakerFoundry	Η Δημοσίευση στο MakerFoundry χρειάζεται έκδοση που φτάνει στο MakerFoundry
+@msg	open Publish to MakerFoundry first: it shows what is sent	ανοίξτε πρώτα τη Δημοσίευση στο MakerFoundry: δείχνει τι αποστέλλεται
+@msg	That link isn't a design file on MakerFoundry, so it wasn't opened.	Αυτός ο σύνδεσμος δεν είναι αρχείο σχεδίου στο MakerFoundry, γι' αυτό δεν άνοιξε.
+@msg	The design is too large to open: at most 32 MB.	Το σχέδιο είναι πολύ μεγάλο για να ανοίξει: έως 32 MB.
+@msg	PatternFoundry opens SVG and DXF designs from MakerFoundry; that file is neither.	Το PatternFoundry ανοίγει σχέδια SVG και DXF από το MakerFoundry· αυτό το αρχείο δεν είναι κανένα από τα δύο.
+@msg	The design couldn't be downloaded from MakerFoundry: {0}	Δεν ήταν δυνατή η λήψη του σχεδίου από το MakerFoundry: {0}

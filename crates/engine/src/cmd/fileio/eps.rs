@@ -233,6 +233,8 @@ fn render(r: &mut vectorcraft_render::Renderer, doc: &Document, rect: Rect, max:
 /// What the file carries to reopen: `doc` (with only artboard `board` when the file is one of
 /// several artboards), with linked images whole when `include_linked`.
 fn native(doc: &Document, board: Option<usize>, include_linked: bool) -> Vec<u8> {
+    // Personal measurements stay out of the copy a shared file carries (crate::cmd::measure).
+    let doc = &*crate::cmd::measure::for_sharing(doc);
     let several = board.filter(|_| doc.artboards.len() > 1);
     if several.is_none() && !include_linked {
         return vectorcraft_format::save(doc, false);

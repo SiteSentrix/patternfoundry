@@ -5171,3 +5171,571 @@ mark-style	Japanese	Japanilainen
 @msg	the file's variables and data sets weren't read (variables: {variables}, data sets: {data_sets}): the Variables panel doesn't list them	tiedoston muuttujia ja tietojoukkoja ei luettu (muuttujia: {variables}, tietojoukkoja: {data_sets}): Muuttujat-paneeli ei näytä niitä
 # Select by Color (select.color)
 	Select by Color	Valitse värin mukaan
+# PatternFoundry: pattern pieces (PF-1).
+	Add Notch	Lisää merkkilovi
+	Make Pattern Piece	Luo kaavan osa
+	Pattern Pieces	Kaavan osat
+	Piece Info	Kaavan osan tiedot
+	Piece Options	Kaavan osan asetukset
+	Release Pattern Piece	Pura kaavan osa
+	Remove Notch	Poista merkkilovi
+	Cut {count}	Leikkaa {count}
+	Each selected closed path becomes a piece: the path is its seam line	Jokaisesta valitusta suljetusta polusta tulee kaavan osa: polku on sen saumaviiva
+	Edges	Reunat
+	Fabric	Kangas
+	Mirrored pairs	Peilikuvaparit
+	No pattern pieces yet	Ei vielä kaavan osia
+	Notches	Merkkilovet
+	Pattern piece	Kaavan osa
+	Pieces	Osat
+	Seam allowance	Saumanvara
+	Seam line length	Saumaviivan pituus
+	Selected piece	Valittu kaavan osa
+# PatternFoundry: true-scale printing (PF-2).
+	Pattern Marks (test squares, page names, overlap lines)	Kaavamerkit (testineliöt, sivujen nimet, limityslinjat)
+# PatternFoundry: measurements (PF-3).
+	Add Measurement	Lisää mitta
+	Clear Measurements	Tyhjennä mitat
+	Clear Point Formulas	Tyhjennä pistekaavat
+	Draft Info	Kaavapiirustuksen tiedot
+	Formulas	Kaavat
+	Import Size Chart	Tuo kokotaulukko
+	Let PDF and SVG files saved with Preserve Editing keep the measured values	Säilytä muokattavuus -asetuksella tallennetut PDF- ja SVG-tiedostot säilyttävät mitatut arvot
+	Measurements	Mitat
+	No measurements yet	Ei vielä mittoja
+	Set Measurements	Aseta mitat
+	Set Point Formula	Aseta pistekaava
+	Share in exported files	Jaa vietyihin tiedostoihin
+	Figure	Vartalo
+	Female	Nainen
+	Male	Mies
+	Child	Lapsi
+	The avatar takes what the measurements don't give from a survey's women's, men's or children's proportions	Avatar ottaa sen, mitä mitat eivät kerro, tutkimuksen naisten, miesten tai lasten mittasuhteista
+	Size chart	Kokotaulukko
+	Use Size	Käytä kokoa
+# PatternFoundry: blocks (PF-4).
+	Draft Bodice Block	Piirrä yläosan peruskaava
+	Block Measurements	Peruskaavan mitat
+	Draft Skirt Block	Piirrä hameen peruskaava
+# PatternFoundry: design tools (PF-5).
+	Rotate Dart	Siirrä laskos
+	Split at Points	Jaa pisteistä
+	Seam Length	Sauman pituus
+	Slash and Spread	Leikkaa ja levitä
+	Match Seam Length	Sovita sauman pituus
+	Make Facing	Tee huolittelukaitale
+	Add Pleat	Lisää laskos
+	Draft Sleeve Block	Piirrä hihan peruskaava
+	Draft Trouser Block	Piirrä housujen peruskaava
+	Draft Men's Trouser Block	Piirrä miesten housujen peruskaava
+	Draft Men's Shirt Block	Piirrä miesten paidan peruskaava
+	Draft Men's Shirt Sleeve Block	Piirrä miesten paidan hihan peruskaava
+	Gather	Rypytä
+	Draft Collar	Piirrä kaulus
+	Patch Pocket	Tikattu tasku
+	Walk Seams	Tarkista saumat
+	Smooth Across Seam	Tasoita sauman yli
+	Draft Stand Collar	Piirrä pystykaulus
+	In-Seam Pocket	Saumatasku
+	Welt Pocket	Paspeltasku
+	Make Wrap Front	Kietaisuetukappale
+	Make Band	Tee vyötärönauha
+	Grade Nest	Porrasta koot
+	Clear Graded Nest	Poista porrastetut koot
+	Set Size Range	Aseta kokosarja
+	Set Grade Rule	Aseta porrastussääntö
+	Grade Info	Porrastuksen tiedot
+	Grading	Porrastus
+	Base size	Peruskoko
+	Grade rules (mm a size)	Porrastussäännöt (mm kokoa kohden)
+	Name the sizes, smallest first, to give the points grade rules	Nimeä koot pienimmästä alkaen antaaksesi pisteille porrastussäännöt
+	Select one pattern piece to grade its points	Valitse yksi kaavanosa porrastaaksesi sen pisteet
+	Sizes	Koot
+	per size	kooittain
+	Copy Grade Rules	Kopioi porrastussäännöt
+	Copy Rules To	Kopioi säännöt kohteeseen
+	Mirrored	Peilattu
+	For the opposite half: places mirrored left to right, x moves the other way	Vastakkaiselle puoliskolle: kohdat peilattu vasemmalta oikealle, x-siirrot toiseen suuntaan
+	Draft Shirt Collar	Piirrä paitakaulus
+file-filter	DXF-AAMA (cutting room)	DXF-AAMA (leikkaamo)
+@msg	DXF-AAMA files are DXF R13 (ASTM D6673) or R12	DXF-AAMA-tiedostot ovat DXF R13 (ASTM D6673) tai R12
+@msg	no pattern pieces to export	ei vietäviä kaavan osia
+@msg	the piece {_1} has no outline	kaavan osalla {_1} ei ole ääriviivaa
+file-filter	SVG for cutting	SVG leikkaamiseen
+file-filter	PDF for projector	PDF projektorille
+	Foundry Account…	Foundry-tili…
+	Publish to MakerFoundry…	Julkaise MakerFoundryssa…
+	Publish to MakerFoundry	Julkaise MakerFoundryssa
+	Publish	Julkaise
+	Sign In…	Kirjaudu sisään…
+	Not signed in	Ei kirjautunut
+	Your Foundry Account	Foundry-tilisi
+	Sent to	Lähetetään osoitteeseen
+	SVG, a vector design	SVG, vektorimalli
+	What it is, e.g. A-line skirt	Mikä se on, esim. A-linjainen hame
+	Your design goes to MakerFoundry as a private draft, to finish on its page. Nothing is public until you publish it there.	Mallisi menee MakerFoundryyn yksityisenä luonnoksena, joka viimeistellään sen sivulla. Mikään ei ole julkista ennen kuin julkaiset sen siellä.
+	Draft {id} made.	Luonnos {id} tehty.
+	Draft {id} made on MakerFoundry: finish it on the page that opened in your browser.	Luonnos {id} tehty MakerFoundryyn: viimeistele se selaimeen avautuneella sivulla.
+	Finish it on MakerFoundry's page, which opened in your browser: it stays private until you publish it there.	Viimeistele se MakerFoundryn sivulla, joka avautui selaimeen: se pysyy yksityisenä, kunnes julkaiset sen siellä.
+	A password needs at least 8 characters.	Salasanassa on oltava vähintään 8 merkkiä.
+	Account	Tili
+	Allow	Salli
+	Anthropic API key:	Anthropic API -avain:
+	Ask	Kysy
+	Buy credits	Osta krediittejä
+	Buy…	Osta…
+	Change key	Vaihda avain
+	Create Free Account	Luo ilmainen tili
+	Create a free Foundry Account	Luo ilmainen Foundry-tili
+	Don't Allow	Älä salli
+	Edit › Undo takes each change back.	Muokkaa › Kumoa peruu jokaisen muutoksen.
+	Email	Sähköposti
+	Foundry Account	Foundry-tili
+	Foundry accounts aren't open yet. Until then, the AI features work with your own Anthropic API key.	Foundry-tilit eivät ole vielä auki. Siihen asti tekoälytoiminnot toimivat omalla Anthropic API -avaimellasi.
+	Get a key	Hanki avain
+	I have an account: Sign In	Minulla on tili: kirjaudu
+	New Conversation	Uusi keskustelu
+	New here? Create a free account	Uusi täällä? Luo ilmainen tili
+	No card needed, and no API key to set up	Ei korttia eikä API-avainta asetettavaksi
+	Paid with Foundry credits ({n} left).	Maksettu Foundry-krediiteillä ({n} jäljellä).
+	Paid with Foundry credits.	Maksettu Foundry-krediiteillä.
+	Pay for the AI features with my Foundry credits	Maksa tekoälytoiminnot Foundry-krediiteilläni
+	Pay with Foundry credits instead	Maksa sen sijaan Foundry-krediiteillä
+	Payment is on Stripe's secure page, in your browser; your card never reaches PatternFoundry.	Maksu tehdään Stripen suojatulla sivulla selaimessasi; korttisi ei koskaan päädy PatternFoundrylle.
+	Reading your credits…	Luetaan krediittejä…
+	Remember the key on this computer	Muista avain tällä tietokoneella
+	Server	Palvelin
+	Sign In	Kirjaudu sisään
+	Sign Out	Kirjaudu ulos
+	Sign in to your Foundry Account	Kirjaudu Foundry-tiliisi
+	Signed in as {email}	Kirjautuneena: {email}
+	Thinking…	Mietitään…
+	Type your question, then press Enter	Kirjoita kysymyksesi ja paina Enter
+	{n} credits	{n} krediittiä
+	{n} credits for {price}	{n} krediittiä hintaan {price}
+@msg	Anthropic refused the API key: {0}	Anthropic hylkäsi API-avaimen: {0}
+@msg	Couldn't reach the AI service: {0}	Tekoälypalveluun ei saatu yhteyttä: {0}
+@msg	Enter your Anthropic API key first.	Anna ensin Anthropic API -avaimesi.
+@msg	The AI declined to answer this: ask another way.	Tekoäly kieltäytyi vastaamasta tähän: kysy toisin.
+@msg	The AI service failed (error {0}): try again later.	Tekoälypalvelu epäonnistui (virhe {0}): yritä myöhemmin uudelleen.
+@msg	The AI service is busy: try again in a minute.	Tekoälypalvelu on varattu: yritä uudelleen minuutin kuluttua.
+@msg	The API key isn't valid: paste it again from the Anthropic Console.	API-avain ei kelpaa: liitä se uudelleen Anthropic Consolesta.
+@msg	The question is too long: keep it under 2,000 characters.	Kysymys on liian pitkä: pidä se alle 2 000 merkissä.
+@msg	The reply had no answer: try again, or ask something narrower.	Vastauksessa ei ollut vastausta: yritä uudelleen tai kysy jotain rajatumpaa.
+@msg	The request failed (error {0}): {1}	Pyyntö epäonnistui (virhe {0}): {1}
+@msg	Type a question first.	Kirjoita ensin kysymys.
+@msg	Your Anthropic account can't pay for this: {0}	Anthropic-tilisi ei voi maksaa tätä: {0}
+@msg	already asking: wait for the answer	kysytään jo: odota vastausta
+@msg	This conversation is long: start a New Conversation.	Tämä keskustelu on pitkä: aloita uusi keskustelu.
+@msg	Claude took too many steps: ask again, more simply.	Claude otti liian monta vaihetta: kysy uudelleen yksinkertaisemmin.
+	Ask About Patterns…	Kysy kaavoista…
+	Answers come from Claude with your own Anthropic API key, billed to your Anthropic account. They can be wrong: sew a muslin before cutting good fabric.	Vastaukset tulevat Claudelta omalla Anthropic API -avaimellasi, ja ne laskutetaan Anthropic-tililtäsi. Ne voivat olla vääriä: ompele koeasu ennen kuin leikkaat hyvää kangasta.
+	Ask About Patterns	Kysy kaavoista
+	Ask anything about sewing patterns or PatternFoundry: how much ease to add, how to move a dart, which block to start from, where a feature is. Claude can also draft and change your pattern when you ask, after you allow it.	Kysy mitä tahansa ompelukaavoista tai PatternFoundrysta: kuinka paljon väljyyttä lisätään, miten laskos siirretään, mistä peruskaavasta aloitetaan, missä jokin toiminto on. Claude voi myös piirtää ja muuttaa kaavaasi pyynnöstäsi, kun olet sallinut sen.
+	Claude asks to:	Claude pyytää:
+	Couldn't do:	Ei voitu tehdä:
+	Done:	Tehty:
+	Free credits for the AI features, no API key needed	Ilmaisia krediittejä tekoälytoimintoihin, ei API-avainta
+	Free credits to try the AI features: Ask About Patterns drafts and changes patterns with you	Ilmaisia krediittejä tekoälytoimintojen kokeiluun: Kysy kaavoista piirtää ja muuttaa kaavoja kanssasi
+	Include my pattern	Liitä mukaan kaavani
+	Its pieces and sizes, and which measurements are set: never their values	Sen osat ja koot sekä mitkä mitat on asetettu: ei koskaan niiden arvoja
+	Leave it empty for the Foundry service.	Jätä tyhjäksi Foundry-palvelua varten.
+	Not allowed:	Ei sallittu:
+	One account for every SiteSentrix app	Yksi tili kaikkiin SiteSentrix-sovelluksiin
+	Read your measurements	Lukea mittasi
+@msg	An account with that email already exists: sign in instead.	Tällä sähköpostiosoitteella on jo tili: kirjaudu sen sijaan sisään.
+@msg	Ask About Patterns needs a build that can reach the AI service	Kysy kaavoista vaatii version, joka saa yhteyden tekoälypalveluun
+@msg	Foundry Account needs a build that can reach the AI service	Foundry-tili vaatii version, joka saa yhteyden tekoälypalveluun
+@msg	Foundry accounts aren't open yet.	Foundry-tilit eivät ole vielä avoinna.
+@msg	Not enough Foundry credits: buy more in Foundry Account.	Foundry-krediittejä ei ole tarpeeksi: osta lisää Foundry-tililtä.
+@msg	Sign in to your Foundry account (Help › Foundry Account…).	Kirjaudu Foundry-tilillesi (Ohje › Foundry-tili…).
+@msg	The Foundry service can't do this yet: try again later.	Foundry-palvelu ei vielä osaa tätä: yritä myöhemmin uudelleen.
+@msg	this needs a connection to the AI service, which this build doesn't have	tämä vaatii yhteyden tekoälypalveluun, jota tässä versiossa ei ole
+@msg	Account made: welcome to PatternFoundry.	Tili luotu: tervetuloa PatternFoundryyn.
+@msg	Signed in.	Kirjauduttu sisään.
+@msg	Signed out.	Kirjauduttu ulos.
+@msg	Type your email address.	Kirjoita sähköpostiosoitteesi.
+@msg	Pay on the page that opened in your browser, then press Refresh.	Maksa selaimessa avautuneella sivulla ja paina sitten Päivitä.
+	Add Photos…	Lisää kuvia…
+	Choose the photos in the browser's window…	Valitse kuvat selaimen ikkunassa…
+	About the fit	Istuvuudesta
+	Anything else? For example: folds below the back neck	Jotain muuta? Esimerkiksi: poimuja takaniskan alapuolella
+	Check My Muslin	Tarkista koeasuni
+	Claude looks at the photos with your own Anthropic API key, billed to your Anthropic account. It can be wrong: sew the altered part again in muslin before cutting good fabric.	Claude katsoo kuvat omalla Anthropic API -avaimellasi, ja maksu menee Anthropic-tilillesi. Se voi erehtyä: ompele muutettu osa uudelleen koeasuksi ennen kuin leikkaat hyvää kangasta.
+	Final fabric	Lopullinen kangas
+	Hard to raise my arms	Käsiä on vaikea nostaa
+	How it feels:	Miltä se tuntuu:
+	Include the pattern it was cut from (open now), so it can be altered	Liitä kaava, josta se leikattiin (nyt auki), jotta sitä voi muuttaa
+	Loose or gaping somewhere	Jostain väljä tai irtoaa vartalosta
+	Muslin fabric	Koeasun kangas
+	My muslin ({n} photos)	Koeasuni ({n} kuvaa)
+	Photos of your muslin, tried on	Kuvat koeasustasi päällä
+	The front, the side and the back, standing straight with your arms down, and close-ups of any folds or pulling.	Edestä, sivulta ja takaa suorassa seisten kädet alhaalla, ja lähikuvat kaikista poimuista ja kiristyksistä.
+	The neckline gapes or pulls	Pääntie repsottaa tai kiristää
+	The photos go to Claude for this check only; PatternFoundry doesn't keep them.	Kuvat menevät Claudelle vain tätä tarkistusta varten; PatternFoundry ei säilytä niitä.
+	The shoulder seams don't sit on my shoulders	Olkasaumat eivät ole olkapäideni päällä
+	Tight across the back or shoulders	Kireä selästä tai hartioista
+	Tight across the bust or chest	Kireä rinnan kohdalta
+	Tight at the waist or hips	Kireä vyötäröltä tai lantiolta
+	Too long or too short	Liian pitkä tai liian lyhyt
+	e.g. calico, an old sheet	esim. lakanakangas, vanha lakana
+	e.g. cotton poplin, jersey	esim. puuvillapopliini, trikoo
+	Check My Muslin…	Tarkista koeasuni…
+@msg	Add a photo of the muslin first.	Lisää ensin kuva koeasusta.
+@msg	Check My Muslin needs a build that can reach the AI service	Tarkista koeasuni vaatii version, joka saa yhteyden tekoälypalveluun
+@msg	The image is too large to send: crop it, or send a smaller copy.	Kuva on liian suuri lähetettäväksi: rajaa se tai lähetä pienempi kopio.
+@msg	This photo is too large: send a smaller copy.	Tämä kuva on liian suuri: lähetä pienempi kopio.
+@msg	no files here	täällä ei ole tiedostoja
+@msg	At most 6 photos: remove one first.	Enintään 6 kuvaa: poista ensin yksi.
+@msg	This photo can't be read: save or send it as a JPEG (on an iPhone: Settings › Camera › Formats › Most Compatible).	Tätä kuvaa ei voi lukea: tallenna tai lähetä se JPEG-muodossa (iPhonessa: Asetukset › Kamera › Muodot › Yhteensopivin).
+	Make Marker	Tee leikkuukuva
+	Make Marker…	Tee leikkuukuva…
+	Gap	Väli
+	Precision	Tarkkuus
+	One Way	Yhteen suuntaan
+	Cut on fold	Leikataan taitteelta
+	Folded	Taitettu
+	The straight edge laid on the fabric's fold: no allowance there	Suora reuna kankaan taitteella: ei saumanvaraa siinä
+	Check Sleeve Ease	Tarkista hihan väljyys
+	Sleeve Ease	Hihan väljyys
+	Crown {crown} mm, armhole {armhole} mm (back {back}, front {front}): the crown takes in {ease} mm ({percent}%).	Hihan kupu {crown} mm, kädentie {armhole} mm (takakappale {back}, etukappale {front}): kupu sovittaa {ease} mm ({percent} %).
+	Less than the {min} to {max} mm it should take in: the sleeve may pull across the cap. Set sleeve_crown to {wanted} mm in Measurements to redraft the sleeve block with the ease in the middle.	Vähemmän kuin {min}–{max} mm, jonka sen pitäisi sovittaa: hiha voi kiristää kuvun kohdalta. Aseta sleeve_crown arvoon {wanted} mm Mitoissa, niin hihan peruskaava piirretään uudelleen väljyys keskellä.
+	More than the {min} to {max} mm it should take in: the cap may pucker when it is set in. Set sleeve_crown to {wanted} mm in Measurements to redraft the sleeve block with the ease in the middle.	Enemmän kuin {min}–{max} mm, jonka sen pitäisi sovittaa: kupu voi rypyttyä kiinnitettäessä. Aseta sleeve_crown arvoon {wanted} mm Mitoissa, niin hihan peruskaava piirretään uudelleen väljyys keskellä.
+	Within the {min} to {max} mm it should take in.	{min}–{max} mm:n sisällä, jonka sen pitäisi sovittaa.
+	Edges: {edges}, notches: {notches}	Reunat: {edges}, merkkilovet: {notches}
+	Edge {n}	Reuna {n}
+	On fold	Taitteella
+	Back to the piece's seam allowance	Takaisin kappaleen saumanvaraan
+	A notch in the middle of the edge	Merkkilovi reunan keskelle
+	Notch on edge {edge}, {at}% along	Merkkilovi reunalla {edge}, {at} %:n kohdalla
+	Piece Outlines	Kaavaosien ääriviivat
+	Projector	Projektori
+	Projector Scale (screen points per mm, 0: not calibrated)	Projektorin mittakaava (näyttöpisteitä millille, 0: kalibroimatta)
+	Projector View	Projektorinäkymä
+	Measure the square on the cutting mat: it should be 10 cm each way. The arrows make it bigger or smaller (with Shift, faster); Enter keeps it; Escape leaves. Scale: {scale} points per mm.	Mittaa neliö leikkuualustalta: sen pitäisi olla 10 cm kumpaankin suuntaan. Nuolet suurentavat tai pienentävät sitä (vaihtonäppäimen kanssa nopeammin); Enter säilyttää sen; Esc poistuu. Mittakaava: {scale} pistettä millille.
+	Arrows move the pattern 1 cm (Shift: 1 mm) · M mirrors it · C calibrates · Escape leaves	Nuolet siirtävät kaavaa 1 cm (vaihto: 1 mm) · M peilaa sen · C kalibroi · Esc poistuu
+@msg	no pattern pieces to project: make the outlines pattern pieces first (Pattern › Make Pattern Piece)	ei projisoitavia kaavaosia: tee ääriviivoista ensin kaavaosia (Kaava › Tee kaavaosa)
+@msg	scale: screen points per mm, more than 0	mittakaava: näyttöpisteitä millille, yli 0
+	Delete Saved Measurements	Poista tallennetut mitat
+	Load Measurements	Lataa mitat
+	My Measurements	Omat mitat
+	Save to My Measurements	Tallenna Omiin mittoihin
+	Delete from this computer	Poista tältä tietokoneelta
+	Kept on this computer only, to load into any pattern	Säilytetään vain tällä tietokoneella, ladattaviksi mihin tahansa kaavaan
+	Load	Lataa
+	Use these measurements in this pattern	Käytä näitä mittoja tässä kaavassa
+	Whose (Me)	Kenen (Minä)
+	Shorten Dart	Lyhennä laskosta
+	Shorten Dart…	Lyhennä laskosta…
+	Shorten	Lyhennä
+	Add Notch Here	Lisää merkkilovi tähän
+	Cut on Fold Here	Leikataan taitteelta tästä
+	Seam Allowance Here…	Saumanvara tähän…
+	Grade This Point…	Porrasta tämä piste…
+	Edge Allowance	Reunan saumanvara
+	Across	Vaakasuunnassa
+	Down	Alaspäin
+	One step	Yksi askel
+	The same move for each size, from the size above the base	Sama siirto jokaiselle koolle, peruskokoa seuraavan koon mukaan
+	Per size	Koon mukaan
+	A move for each size of its own	Oma siirto jokaiselle koolle
+	Add Drill Hole Here	Lisää porareikä tähän
+	Remove Drill Hole Here	Poista porareikä tästä
+	Add Drill Hole	Lisää porareikä
+	Remove Drill Hole	Poista porareikä
+	Drill holes: {count}	Porareiät: {count}
+	Right-click inside the piece: Add Drill Hole Here	Napsauta kappaleen sisällä hiiren oikealla: Lisää porareikä tähän
+	Drill hole {n}, {mm} mm	Porareikä {n}, {mm} mm
+	Drill hole {n}	Porareikä {n}
+	Notch Shape	Loven muoto
+	Slit notch	Viiltolovi
+	Double notch	Kaksoislovi
+	V notch	V-lovi
+	T notch	T-lovi
+	Castle notch	Linnalovi
+	U notch	U-lovi
+	As drawn	Kuten piirretty
+	Side by side	Rinnakkain
+	Block Options…	Peruskaavan asetukset…
+	Block Options	Peruskaavan asetukset
+	Ease	Väljyys
+	Waist ease	Vyötärön väljyys
+	Bust dart	Rintasauma
+	Shoulder dart	Olkasauma
+	Back dart	Takasauma
+	Back dart length	Takasauman pituus
+	Front dart length	Etusauman pituus
+	Option	Asetus
+	Back to the block's default	Takaisin peruskaavan oletukseen
+	from the measurements	mitoista
+	Block Options Info	Peruskaavan asetusten tiedot
+	Check Trouser Seams	Tarkista housujen saumat
+	Trouser Seams	Housujen saumat
+	Inseam, knee to hem	Sisäsauma, polvesta helmaan
+	Inseam, crotch to knee	Sisäsauma, haarasta polveen
+	Side seam, knee to hem	Sivusauma, polvesta helmaan
+	Side seam, waist to knee	Sivusauma, vyötäröltä polveen
+	{seam}: front {front} mm, back {back} mm ({difference} mm)	{seam}: etu {front} mm, taka {back} mm ({difference} mm)
+	Walk them on the pattern too: where a line doesn't run on smoothly from front to back, find the point half way between the two and correct both lines. The back inseam is more curved, so it is often longer: lowering the back crotch curve slightly to match is fine.	Kulje ne myös kaavalla: missä viiva ei jatku tasaisesti edestä taakse, etsi kohta näiden puolivälistä ja korjaa molemmat viivat. Takasisäsauma on kaarevampi ja siksi usein pidempi: takahaaran kaaren laskeminen hieman, jotta se sopii, on hyvä.
+	Front dart	Etusauma
+	Draft Trouser Waistband	Piirrä housujen vyötärökaitale
+	Flap Pocket…	Läppätasku…
+	Crown ease	Hihankuvun väljyys
+	Remove Design Step	Poista suunnitteluvaihe
+	Dart moved	Laskos siirretty
+	Dart shortened {mm} mm	Laskosta lyhennetty {mm} mm
+	Slashed and spread {mm} mm	Leikattu auki ja levitetty {mm} mm
+	Seam trued to {mm} mm	Sauma sovitettu {mm} mm:iin
+	Split into panels	Jaettu kappaleisiin
+	Design step	Suunnitteluvaihe
+	Design steps: {count}	Suunnitteluvaiheet: {count}
+	Design changes made on the block (darts, splits, spreads, seam lengths) show here; each is made again when the measurements change	Peruskaavaan tehdyt muutokset (laskokset, jaot, levitykset, saumojen pituudet) näkyvät tässä; jokainen tehdään uudelleen, kun mitat muuttuvat
+	Remove this step and the ones after it (they were made on the outline it made)	Poista tämä vaihe ja sen jälkeiset (ne tehtiin sen tuottamaan ääriviivaan)
+	Selected block part	Valittu peruskaavan osa
+	Curve Dart Legs…	Kaarra laskoksen sivut…
+	Curve Dart Legs	Kaarra laskoksen sivut
+	Dart legs curved {mm} mm	Laskoksen sivuja kaarrettu {mm} mm
+	Draft Rounded Stand Collar	Piirrä pyöristetty pystykaulus
+	Draft Wing Collar	Piirrä siipikaulus
+	Check Marker	Tarkista leikkuukaavio
+	{length} cm long, {efficiency}% of the fabric used	{length} cm pitkä, {efficiency} % kankaasta käytetty
+	{a} overlaps {b}	{a} on päällekkäin kappaleen {b} kanssa
+	{piece} is off the fabric	{piece} on kankaan ulkopuolella
+	No pieces overlap, and all are on the fabric.	Mitkään kappaleet eivät ole päällekkäin, ja kaikki ovat kankaalla.
+	Plaid	Ruudullinen
+menu	Pattern	Kaava
+@msg	a and b are two pieces (or paths) that sew together	a ja b ovat kaksi kaavan osaa (tai polkua), jotka ommellaan yhteen
+@msg	a corner is "mitre" or "square"	kulma on "mitre" tai "square"
+@msg	a facing runs along part of the outline	huolittelukaitale kulkee osalla ääriviivaa
+@msg	a facing runs between two different points of the outline	huolittelukaitale kulkee ääriviivan kahden eri pisteen välillä
+@msg	a name takes at most 200 characters	nimessä voi olla enintään 200 merkkiä
+@msg	a neckline runs between two different points of its outline, and the shoulder point is one of them	pääntie kulkee ääriviivansa kahden eri pisteen välillä, ja olkapiste on toinen niistä
+@msg	a seam allowance is a number of mm, or a length with its unit ("5/8 in")	saumanvara on millimäärä tai pituus yksikköineen ("5/8 in")
+@msg	a seam has no length	saumalla ei ole pituutta
+@msg	a shoulder point is on its neck point	olkapiste on kaulapisteen kohdalla
+@msg	a slash runs between two points of the outline that aren't neighbours	leikkaus kulkee kahden sellaisen ääriviivan pisteen välillä, jotka eivät ole vierekkäisiä
+@msg	a split leaves a piece with fewer than three anchors	jako jättää osaan alle kolme ankkuripistettä
+@msg	a split made two panels: delete the panel you don't want instead	jako teki kaksi osaa: poista sen sijaan osa, jota et halua
+@msg	a split needs two different anchors on the outline	jako tarvitsee kaksi eri ankkuripistettä ääriviivalta
+@msg	amount: a share of the dart, (0, 1]	amount: osuus muotolaskoksesta, (0, 1]
+@msg	amount: how far it opens, mm	amount: kuinka paljon se avautuu, mm
+@msg	anchor: the point's number along the path, from 0	anchor: pisteen numero polulla, 0:sta alkaen
+@msg	anchor: the seam line's point, from 0	anchor: saumaviivan piste, 0:sta alkaen
+@msg	anchors: [a, b] or [a]	anchors: [a, b] tai [a]
+@msg	anchors: point numbers along the path	anchors: pisteiden numerot polulla
+@msg	apex: the dart's point (or select that one point)	apex: muotolaskoksen kärki (tai valitse juuri se piste)
+@msg	at: 0 (the edge's start) to 1 (its end)	at: 0 (reunan alku) – 1 (sen loppu)
+@msg	at: [x, y], the document point on the edge	at: [x, y], reunalla oleva dokumentin piste
+@msg	base: the size the pattern is drawn in	base: koko, jossa kaava on piirretty
+@msg	block: "bodice", "skirt", "sleeve" or "trousers"	block: "bodice", "skirt", "sleeve" tai "trousers"
+@msg	can't make the seam that long by moving its end	saumaa ei saa noin pitkäksi siirtämällä sen päätä
+@msg	curve: mm the wrap edge bows into the piece	curve: mm, jonka verran kietaisureuna kaartuu kappaleen sisään
+@msg	cut is a whole number, 1 to 999	cut on kokonaisluku 1–999
+@msg	data: the chart's text	data: taulukon teksti
+@msg	depth: how deep the pleat folds under, mm	depth: kuinka syvälle laskos taittuu alle, mm
+@msg	depth: mm (less than 0 bows the legs in)	depth: mm (alle 0 kaartaa sivut sisäänpäin)
+@msg	diameter: a number of mm, or a length with its unit ("1/8 in")	diameter: millimäärä tai pituus yksikköineen ("1/8 in")
+@msg	edge: the edge's number, from 0 (or point)	edge: reunan numero, 0:sta alkaen (tai point)
+@msg	edges and corners are numbered from 0	reunat ja kulmat numeroidaan 0:sta alkaen
+@msg	every: mm, at least 10	every: mm, vähintään 10
+@msg	face: only a box pleat has one	face: vain laatikkolaskoksella on sellainen
+@msg	face: the box pleat's width between its folds, mm	face: laatikkolaskoksen leveys taitteiden välillä, mm
+@msg	flapShape: "square", "rounded" or "pointed"	flapShape: "square", "rounded" tai "pointed"
+@msg	fold is an edge's number (0..), or null	fold on reunan numero (0..) tai null
+@msg	fold: [a, b], the centre front edge's two points	fold: [a, b], etukeskiviivan reunan kaksi pistettä
+@msg	fold: true or false	fold: true tai false
+@msg	foldAt: [x, y] in document points	foldAt: [x, y] dokumentin pisteinä
+@msg	folded: true or false	folded: true tai false
+@msg	from: [x, y] in document points	from: [x, y] dokumentin pisteinä
+@msg	from: not a pattern piece	from: ei ole kaavan osa
+@msg	from: the pattern piece whose rules are copied	from: kaavan osa, jonka säännöt kopioidaan
+@msg	from: the piece has no seam line	from: kappaleella ei ole saumaviivaa
+@msg	frontShape: "square", "rounded" or "winged"	frontShape: "square", "rounded" tai "winged"
+@msg	gathering runs between two different points of the outline	rypytys kulkee ääriviivan kahden eri pisteen välillä
+@msg	give apex and one of to or toAnchor (or select the two points)	anna apex ja joko to tai toAnchor (tai valitse kaksi pistettä)
+@msg	height: mm, 10 to 100 (the tutorial's is at most 30)	height: mm, 10–100 (ohjeen mallissa enintään 30)
+@msg	id: a block part's id	id: peruskaavan osan id
+@msg	index: the drill hole's place in the list, from 0 (or point)	index: porareiän paikka luettelossa, 0:sta alkaen (tai point)
+@msg	index: the notch's place in the list, from 0	index: merkkilovin paikka luettelossa, 0:sta alkaen
+@msg	index: the step's place, from 0	index: vaiheen paikka, 0:sta alkaen
+@msg	into: the length it gathers into, mm	into: pituus, johon rypytetään, mm
+@msg	kind: "slit", "double", "v", "t", "castle" or "u"	kind: "slit", "double", "v", "t", "castle" tai "u"
+@msg	kind: the notch's new shape	kind: merkkilovin uusi muoto
+@msg	layer: a marker layer's id	layer: leikkuukuvatason id
+@msg	length (mm) or likeId with likeFrom and likeTo: the seam to match	length (mm) tai likeId sekä likeFrom ja likeTo: sauma, johon sovitetaan
+@msg	length: mm, more than 0	length: mm, yli 0
+@msg	line: "cut" or "seam"	line: "cut" tai "seam"
+@msg	match: the seam it sews to is shorter than the pocket opening's end	match: sauma, johon se ommellaan, on lyhyempi kuin taskun aukon pää edellyttää
+@msg	min is more than max	min on suurempi kuin max
+@msg	mirror is true or false	mirror on true tai false
+@msg	mirror: "none", "x", "y" or "xy"	mirror: "none", "x", "y" tai "xy"
+@msg	name: the saved set's name	name: tallennetun sarjan nimi
+@msg	name: whose measurements they are ("Me")	name: kenen mitat ne ovat ("Me")
+@msg	no drill hole near the point	pisteen lähellä ei ole porareikää
+@msg	no drill hole with that index	tällä indeksillä ei ole porareikää
+@msg	no notch with that index	tällä indeksillä ei ole merkkiloveä
+@msg	no object with that id	tällä id:llä ei ole objektia
+@msg	no pattern pieces to grade: make the outlines pattern pieces first (Pattern › Make Pattern Piece)	ei porrastettavia kaavan osia: tee ääriviivoista ensin kaavan osia (Kaava › Luo kaavan osa)
+@msg	no straight centre front edge on the outline's side: name it with fold: [a, b]	ääriviivan sillä puolella ei ole suoraa etukeskiviivan reunaa: nimeä se arvolla fold: [a, b]
+@msg	not a drafted block part	ei ole piirretyn peruskaavan osa
+@msg	not a marker's layer (Pattern › Make Marker…)	ei ole leikkuukuvan taso (Kaava › Tee leikkuukuva…)
+@msg	not a pattern piece	ei ole kaavan osa
+@msg	not a stand collar's outline	ei ole pystykauluksen ääriviiva
+@msg	notches go on pattern pieces: make both seams' paths pieces first (Pattern › Make Pattern Piece)	merkkilovet tulevat kaavan osiin: tee ensin molempien saumojen poluista kaavan osia (Kaava › Luo kaavan osa)
+@msg	notches: [mm, …]	notches: [mm, …]
+@msg	notches: distances from the seams' starts, mm	notches: etäisyydet saumojen alusta, mm
+@msg	on and at go together: the garment piece and where the opening's top-left corner goes on it	on ja at annetaan yhdessä: vaatekappale ja kohta, johon aukon vasen yläkulma sijoitetaan
+@msg	on and at go together: the garment piece and where the pocket's top-left corner goes on it	on ja at annetaan yhdessä: vaatekappale ja kohta, johon taskun vasen yläkulma sijoitetaan
+@msg	one point splits only where another point is at the same place (two darts' point)	yksittäinen piste jakaa vain, jos toinen piste on samassa kohdassa (kahden muotolaskoksen kärki)
+@msg	oneWay: true or false	oneWay: true tai false
+@msg	openFolds: true or false	openFolds: true tai false
+@msg	origin: [x, y] in document points	origin: [x, y] dokumentin pisteinä
+@msg	overlap: mm past centre front, more than 0	overlap: mm etukeskiviivan yli, yli 0
+@msg	overlap: the edge misses the outline	overlap: reuna ei osu ääriviivaan
+@msg	plaid: the repeat (mm, or [along, across])	plaid: raportti (mm tai [along, across])
+@msg	plaid: the repeat along and across, 1 to 10 000 mm each	plaid: raportti pituus- ja poikkisuunnassa, kumpikin 1–10 000 mm
+@msg	point: [x, y] in document points	point: [x, y] dokumentin pisteinä
+@msg	select a drafted block part (Pattern › Draft … Block)	valitse piirretyn peruskaavan osa (Kaava › Piirrä … peruskaava)
+@msg	select a path or a pattern piece	valitse polku tai kaavan osa
+@msg	select a pattern piece (Pattern › Make Pattern Piece makes one)	valitse kaavan osa (Kaava › Luo kaavan osa luo sellaisen)
+@msg	select a piece on the marker to check	valitse tarkistettava kappale leikkuukuvasta
+@msg	select closed paths: each becomes a piece, the path its seam line	valitse suljettuja polkuja: kustakin tulee kaavan osa ja polusta sen saumaviiva
+@msg	select one path	valitse yksi polku
+@msg	select one pattern piece	valitse yksi kaavan osa
+@msg	select two points of one path (or one that two darts share)	valitse saman polun kaksi pistettä (tai yksi, joka on kahden muotolaskoksen yhteinen)
+@msg	select two points of one path: the dart's point and where the dart moves to	valitse saman polun kaksi pistettä: muotolaskoksen kärki ja kohta, johon muotolaskos siirretään
+@msg	select two points of one path: the ends of the edge to face	valitse saman polun kaksi pistettä: huoliteltavan reunan päät
+@msg	select two points of one path: the ends of the edge to gather	valitse saman polun kaksi pistettä: rypytettävän reunan päät
+@msg	share is true or false	share on true tai false
+@msg	shorten: mm (less than 0 lengthens)	shorten: mm (alle 0 pidentää)
+@msg	shoulder: longer than the outline	shoulder: pidempi kuin ääriviiva
+@msg	shoulder: mm, 0 or more	shoulder: mm, 0 tai enemmän
+@msg	size: one of the chart's sizes	size: yksi taulukon koista
+@msg	size: the name of a size of the size range or chart	size: kokosarjan tai taulukon koon nimi
+@msg	sizes: name one size at least	sizes: nimeä vähintään yksi koko
+@msg	sizes: the sizes' names	sizes: kokojen nimet
+@msg	sizes: the sizes' names, smallest first (null removes them)	sizes: kokojen nimet pienimmästä alkaen (null poistaa ne)
+@msg	split the seam line on its own: release the piece first (Pattern › Release Pattern Piece)	jaa saumaviiva erikseen: pura ensin kaavan osa (Kaava › Pura kaavan osa)
+@msg	step: [dx, dy] in mm	step: [dx, dy] millimetreinä
+@msg	style: classic, casual or shirt	style: classic, casual tai shirt
+@msg	that anchor's neighbours don't make a dart	tämän ankkuripisteen naapurit eivät muodosta muotolaskosta
+@msg	that point is not a dart's point: its legs open a right angle or wider	piste ei ole muotolaskoksen kärki: sen sivut avautuvat suoraan kulmaan tai laajemmin
+@msg	the amount is a share of the dart, more than 0 and at most 1	määrä on osuus muotolaskoksesta, yli 0 ja enintään 1
+@msg	the back's outline encloses no area	takakappaleen ääriviiva ei rajaa pinta-alaa
+@msg	the box pleat's face is more than 0 wide	laatikkolaskoksen etupuolen leveys on yli 0
+@msg	the chart is larger than 1 MB	taulukko on suurempi kuin 1 Mt
+@msg	the curve has no length at the meeting point	kaarella ei ole pituutta kohtauspisteessä
+@msg	the curves leave the seam the same way	kaaret lähtevät saumasta samaan suuntaan
+@msg	the dart has no length	muotolaskoksella ei ole pituutta
+@msg	the dart is not that long	muotolaskos ei ole niin pitkä
+@msg	the dart point or the new dart's anchor is not on the outline	muotolaskoksen kärki tai uuden muotolaskoksen ankkuripiste ei ole ääriviivalla
+@msg	the dart's legs must be straight lines	muotolaskoksen sivujen on oltava suoria viivoja
+@msg	the dart's point is past the outline's end	muotolaskoksen kärki on ääriviivan lopun jälkeen
+@msg	the depth to curve the legs by is not a number	sivujen kaarron syvyys ei ole luku
+@msg	the document has no marker (Pattern › Make Marker…)	dokumentissa ei ole leikkuukuvaa (Kaava › Tee leikkuukuva…)
+@msg	the document has no measurements to save	dokumentissa ei ole tallennettavia mittoja
+@msg	the document has no size chart (measure.importChart)	dokumentissa ei ole kokotaulukkoa (measure.importChart)
+@msg	the drop at the front is less than half the neck edge	edun syvennys on alle puolet pääntien reunasta
+@msg	the edge has no length	reunalla ei ole pituutta
+@msg	the edge's anchor is past the outline's end	reunan ankkuripiste on ääriviivan lopun jälkeen
+@msg	the fabric's width must be more than 0	kankaan leveyden on oltava yli 0
+@msg	the flap is deeper than twice its width	läppä on syvempi kuin kaksi kertaa leveytensä
+@msg	the flap's width and depth are more than 0, its allowance 0 or more	läpän leveys ja syvyys ovat yli 0, sen saumanvara 0 tai enemmän
+@msg	the fold edge has no length	taitereunalla ei ole pituutta
+@msg	the fold edge's anchors are past the outline's end	taitereunan ankkuripisteet ovat ääriviivan lopun jälkeen
+@msg	the fold edge's two anchors must be neighbours on the outline	taitereunan kahden ankkuripisteen on oltava ääriviivalla vierekkäin
+@msg	the fold must be a straight edge	taitteen on oltava suora reuna
+@msg	the front end has no length	etupäällä ei ole pituutta
+@msg	the gap must be 0 or more	välin on oltava 0 tai enemmän
+@msg	the grainline's ends are the same point	langansuunnan päät ovat sama piste
+@msg	the legs can't curve that far: the dart isn't wide enough	sivuja ei voi kaartaa niin paljon: muotolaskos ei ole tarpeeksi leveä
+@msg	the length to shorten by is not a number	lyhennyksen pituus ei ole luku
+@msg	the marker has lost its fabric outline	leikkuukuvasta on kadonnut kankaan ääriviiva
+@msg	the marker has no pieces	leikkuukuvassa ei ole kappaleita
+@msg	the marker is too large at this precision: give a coarser one	leikkuukuva on liian suuri tällä tarkkuudella: anna karkeampi
+@msg	the measurements could not be saved	mittoja ei voitu tallentaa
+@msg	the meeting point and the seam's other end are points of the outline	kohtauspiste ja sauman toinen pää ovat ääriviivan pisteitä
+@msg	the neckline has no length	pääntiellä ei ole pituutta
+@msg	the neckline lengths and the stand's height are more than 0, the rise and extension 0 or more	pääntien pituudet ja jalan korkeus ovat yli 0, nousu ja jatke 0 tai enemmän
+@msg	the new dart is on the old dart	uusi muotolaskos on vanhan päällä
+@msg	the opening is longer than twice its height	aukko on pidempi kuin kaksi kertaa korkeutensa
+@msg	the opening, depth and width are more than 0, the width more than the allowance	aukko, syvyys ja leveys ovat yli 0, leveys suurempi kuin saumanvara
+@msg	the opening, the welt and the depth are more than 0, the allowances 0 or more	aukko, paspeli ja syvyys ovat yli 0, saumanvarat 0 tai enemmän
+@msg	the outline encloses no area	ääriviiva ei rajaa pinta-alaa
+@msg	the outline has no side seam	ääriviivalla ei ole sivusaumaa
+@msg	the path has no outline	polulla ei ole ääriviivaa
+@msg	the path must be one closed outline	polun on oltava yksi suljettu ääriviiva
+@msg	the piece has no grade rules to copy	kappaleella ei ole kopioitavia porrastussääntöjä
+@msg	the piece has no straight edge to cut on the fold	kappaleella ei ole suoraa reunaa taitteelta leikattavaksi
+@msg	the pieces have no cutting lines to lay	kappaleilla ei ole asetettavia leikkuuviivoja
+@msg	the plaid's repeat must be more than 0 along and across	ruudutuksen raportin on oltava yli 0 pituus- ja poikkisuunnassa
+@msg	the pocket (its opening and the allowance past both ends) fits on the seam	taskun (sen aukon ja molempien päiden yli menevän saumanvaran) on mahduttava saumalle
+@msg	the point is not inside the piece	piste ei ole kappaleen sisällä
+@msg	the point is not on the seam line or in its allowance	piste ei ole saumaviivalla eikä sen saumanvarassa
+@msg	the precision must be more than 0	tarkkuuden on oltava yli 0
+@msg	the rise at centre front is less than the front neckline is long	nousu etukeskiviivalla on pienempi kuin etupääntien pituus
+@msg	the seam has no length there	saumalla ei ole siinä kohdassa pituutta
+@msg	the seam runs between two different points of the outline	sauma kulkee ääriviivan kahden eri pisteen välillä
+@msg	the seam's other end is a neighbour of the meeting point	sauman toinen pää on kohtauspisteen naapuri
+@msg	the top edge has no length	yläreunalla ei ole pituutta
+@msg	the wing is more than 0 long	siiven pituus on yli 0
+@msg	there is no folder to keep measurement sets in here (the desktop app keeps them next to its preferences)	täällä ei ole kansiota mittasarjojen säilyttämiseen (työpöytäsovellus säilyttää ne asetustensa vieressä)
+@msg	there is no point of the seam line there	siinä kohdassa ei ole saumaviivan pistettä
+@msg	to or toAnchor: where the dart moves to	to tai toAnchor: kohta, johon muotolaskos siirretään
+@msg	to: [x, y] in document points	to: [x, y] dokumentin pisteinä
+@msg	to: the pieces to copy the rules to (select them, or name them)	to: kappaleet, joihin säännöt kopioidaan (valitse tai nimeä ne)
+@msg	too many objects at once	liian monta objektia kerralla
+@msg	too many pieces at once	liian monta kappaletta kerralla
+@msg	too many pieces to lay at once	liian monta asetettavaa kappaletta kerralla
+@msg	too many sizes at once	liian monta kokoa kerralla
+@msg	unit: "mm", "cm" or "in"	unit: "mm", "cm" tai "in"
+@msg	width: mm, more than 0	width: mm, yli 0
+	Draw Avatar	Piirrä avatar
+	Export Avatar as OBJ	Vie avatar OBJ-muodossa
+	Sewn seams: {count}	Ommellut saumat: {count}
+	{label}: sewn to {piece}, {mm} mm longer	{label}: ommeltu kappaleeseen {piece}, {mm} mm pidempi
+	{label}: sewn to {piece}, {mm} mm shorter	{label}: ommeltu kappaleeseen {piece}, {mm} mm lyhyempi
+	{label}: sewn to {piece}	{label}: ommeltu kappaleeseen {piece}
+	Sew Seams	Ompele saumat yhteen
+	Unsew Seams	Pura saumat
+	Sewn Seams	Ommellut saumat
+	Drape on Avatar	Laskeuta avatarille
+	Use as Fabric…	Käytä kankaana…
+	Use as Fabric	Käytä kankaana
+	Stop Using as Fabric	Lopeta käyttö kankaana
+	Fabric Photos	Kangaskuvat
+@msg	the drape view's picture is the wrong size	laskeumanäkymän kuva on väärän kokoinen
+@msg	the drape view: {e}	laskeumanäkymä: {e}
+@msg	a fabric photo is the wrong size	kangaskuva on väärän kokoinen
+@msg	a fabric photo: {e}	kangaskuva: {e}
+	Export Avatar as glTF	Vie avatar glTF-muodossa
+	Export Avatar as glTF…	Vie avatar glTF-muodossa…
+	Export Drape as glTF…	Vie laskeuma glTF-muodossa…
+@msg	format: "obj" or "glb"	format: "obj" tai "glb"
+@msg	colour: "fabric" or "fit"	colour: "fabric" tai "fit"
+@msg	a piece could not be placed on the body	kaavan osaa ei voitu sijoittaa vartalolle
+@msg	{name} is already open	{name} on jo auki
+@msg	Draping on Avatar	Laskeuma avatarille
+	Step {n} of {total}	Vaihe {n}/{total}
+@msg	The drape was cancelled	Laskeuma peruttiin
+@msg	Draped on the avatar	Laskeuma avatarille valmis
+@msg	the document was closed	dokumentti suljettiin
+@msg	the drape stopped	laskeuma pysähtyi
+@msg	width: the photo's width on the fabric, 10 to 5000 mm	width: kuvan leveys kankaalla, 10–5000 mm
+@msg	turns: 0, 1, 2 or 3	turns: 0, 1, 2 tai 3
+@msg	the image is not a fabric photo (Pattern › Use as Fabric…)	kuva ei ole kangaskuva (Kaava › Käytä kankaana…)
+@msg	even: true or false	even: true tai false
+@msg	seamless: true or false	seamless: true tai false
+@msg	Sign in to your Foundry Account first: Help › Foundry Account…	Kirjaudu ensin Foundry-tiliisi: Ohje › Foundry-tili…
+@msg	The document is empty: there is nothing to publish.	Asiakirja on tyhjä: julkaistavaa ei ole.
+@msg	The design is too large for MakerFoundry: at most 8 MB.	Malli on liian suuri MakerFoundrylle: enintään 8 Mt.
+@msg	MakerFoundry's answer couldn't be read.	MakerFoundryn vastausta ei voitu lukea.
+@msg	MakerFoundry answered with a page on another site, which wasn't opened.	MakerFoundry vastasi toisen sivuston sivulla, jota ei avattu.
+@msg	MakerFoundry: {1}	MakerFoundry: {1}
+@msg	MakerFoundry couldn't be reached: {0}	MakerFoundryyn ei saatu yhteyttä: {0}
+@msg	Publish to MakerFoundry needs a build that can reach MakerFoundry	Julkaise MakerFoundryssa vaatii version, joka saa yhteyden MakerFoundryyn
+@msg	open Publish to MakerFoundry first: it shows what is sent	avaa ensin Julkaise MakerFoundryssa: se näyttää, mitä lähetetään
+@msg	That link isn't a design file on MakerFoundry, so it wasn't opened.	Linkki ei ole MakerFoundryn mallitiedosto, joten sitä ei avattu.
+@msg	The design is too large to open: at most 32 MB.	Malli on liian suuri avattavaksi: enintään 32 Mt.
+@msg	PatternFoundry opens SVG and DXF designs from MakerFoundry; that file is neither.	PatternFoundry avaa MakerFoundrysta SVG- ja DXF-malleja; tiedosto ei ole kumpaakaan.
+@msg	The design couldn't be downloaded from MakerFoundry: {0}	Mallia ei voitu ladata MakerFoundrysta: {0}

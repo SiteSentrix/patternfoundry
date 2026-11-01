@@ -5232,3 +5232,571 @@ swatch	Bright Violet	Felviolet
 	Justification	Uitvullen
 # Select by Color (select.color)
 	Select by Color	Selecteren op kleur
+# PatternFoundry: pattern pieces (PF-1).
+	Add Notch	Inknipje toevoegen
+	Make Pattern Piece	Patroondeel maken
+	Pattern Pieces	Patroondelen
+	Piece Info	Info over patroondeel
+	Piece Options	Opties voor patroondeel
+	Release Pattern Piece	Patroondeel vrijgeven
+	Remove Notch	Inknipje verwijderen
+	Cut {count}	{count}× knippen
+	Each selected closed path becomes a piece: the path is its seam line	Elk geselecteerd gesloten pad wordt een patroondeel: het pad is de naadlijn
+	Edges	Randen
+	Fabric	Stof
+	Mirrored pairs	Gespiegelde paren
+	No pattern pieces yet	Nog geen patroondelen
+	Notches	Inknipjes
+	Pattern piece	Patroondeel
+	Pieces	Delen
+	Seam allowance	Naadtoeslag
+	Seam line length	Lengte van de naadlijn
+	Selected piece	Geselecteerd patroondeel
+# PatternFoundry: true-scale printing (PF-2).
+	Pattern Marks (test squares, page names, overlap lines)	Patroonmarkeringen (testvierkanten, paginanamen, overlaplijnen)
+# PatternFoundry: measurements (PF-3).
+	Add Measurement	Maat toevoegen
+	Clear Measurements	Maten wissen
+	Clear Point Formulas	Puntformules wissen
+	Draft Info	Info over constructie
+	Formulas	Formules
+	Import Size Chart	Maattabel importeren
+	Let PDF and SVG files saved with Preserve Editing keep the measured values	PDF- en SVG-bestanden die met Bewerkingsmogelijkheden behouden zijn opgeslagen, houden de gemeten waarden
+	Measurements	Maten
+	No measurements yet	Nog geen maten
+	Set Measurements	Maten instellen
+	Set Point Formula	Puntformule instellen
+	Share in exported files	Delen in geëxporteerde bestanden
+	Figure	Figuur
+	Female	Vrouw
+	Male	Man
+	Child	Kind
+	The avatar takes what the measurements don't give from a survey's women's, men's or children's proportions	De avatar neemt wat de maten niet geven uit de verhoudingen van de vrouwen, mannen of kinderen in een onderzoek
+	Size chart	Maattabel
+	Use Size	Maat gebruiken
+# PatternFoundry: blocks (PF-4).
+	Draft Bodice Block	Basispatroon lijfje construeren
+	Block Measurements	Maten voor het basispatroon
+	Draft Skirt Block	Basispatroon rok construeren
+# PatternFoundry: design tools (PF-5).
+	Rotate Dart	Figuurnaad verleggen
+	Split at Points	Splitsen bij punten
+	Seam Length	Naadlengte
+	Slash and Spread	Inknippen en spreiden
+	Match Seam Length	Naadlengte gelijkmaken
+	Make Facing	Beleg maken
+	Add Pleat	Plooi toevoegen
+	Draft Sleeve Block	Basispatroon mouw construeren
+	Draft Trouser Block	Basispatroon broek construeren
+	Draft Men's Trouser Block	Basispatroon herenbroek tekenen
+	Draft Men's Shirt Block	Basispatroon herenoverhemd tekenen
+	Draft Men's Shirt Sleeve Block	Basispatroon herenoverhemdmouw tekenen
+	Gather	Rimpelen
+	Draft Collar	Kraag construeren
+	Patch Pocket	Opgestikte zak
+	Walk Seams	Naden nalopen
+	Smooth Across Seam	Over de naad afronden
+	Draft Stand Collar	Opstaande kraag tekenen
+	In-Seam Pocket	Naadzak
+	Welt Pocket	Paspelzak
+	Make Wrap Front	Overslagvoorpand
+	Make Band	Band maken
+	Grade Nest	Maten gradueren
+	Clear Graded Nest	Gegradueerde maten wissen
+	Set Size Range	Maatreeks instellen
+	Set Grade Rule	Gradeerregel instellen
+	Grade Info	Gradeerinfo
+	Grading	Graderen
+	Base size	Basismaat
+	Grade rules (mm a size)	Gradeerregels (mm per maat)
+	Name the sizes, smallest first, to give the points grade rules	Geef de maten een naam, kleinste eerst, om de punten gradeerregels te geven
+	Select one pattern piece to grade its points	Selecteer één patroondeel om de punten te gradueren
+	Sizes	Maten
+	per size	per maat
+	Copy Grade Rules	Gradeerregels kopiëren
+	Copy Rules To	Regels kopiëren naar
+	Mirrored	Gespiegeld
+	For the opposite half: places mirrored left to right, x moves the other way	Voor de andere helft: plaatsen links-rechts gespiegeld, x-verschuivingen omgekeerd
+	Draft Shirt Collar	Overhemdkraag tekenen
+file-filter	DXF-AAMA (cutting room)	DXF-AAMA (snijzaal)
+@msg	DXF-AAMA files are DXF R13 (ASTM D6673) or R12	DXF-AAMA-bestanden zijn DXF R13 (ASTM D6673) of R12
+@msg	no pattern pieces to export	geen patroondelen om te exporteren
+@msg	the piece {_1} has no outline	het patroondeel {_1} heeft geen omtrek
+file-filter	SVG for cutting	SVG om te snijden
+file-filter	PDF for projector	PDF voor projector
+	Foundry Account…	Foundry-account…
+	Publish to MakerFoundry…	Publiceren op MakerFoundry…
+	Publish to MakerFoundry	Publiceren op MakerFoundry
+	Publish	Publiceren
+	Sign In…	Aanmelden…
+	Not signed in	Niet aangemeld
+	Your Foundry Account	Je Foundry-account
+	Sent to	Verzonden naar
+	SVG, a vector design	SVG, een vectorontwerp
+	What it is, e.g. A-line skirt	Wat het is, bijv. A-lijnrok
+	Your design goes to MakerFoundry as a private draft, to finish on its page. Nothing is public until you publish it there.	Je ontwerp gaat als privéconcept naar MakerFoundry, om af te maken op de pagina daar. Niets is openbaar tot je het daar publiceert.
+	Draft {id} made.	Concept {id} gemaakt.
+	Draft {id} made on MakerFoundry: finish it on the page that opened in your browser.	Concept {id} gemaakt op MakerFoundry: maak het af op de pagina die in je browser opende.
+	Finish it on MakerFoundry's page, which opened in your browser: it stays private until you publish it there.	Maak het af op de pagina van MakerFoundry die in je browser opende: het blijft privé tot je het daar publiceert.
+	A password needs at least 8 characters.	Een wachtwoord heeft minstens 8 tekens nodig.
+	Account	Account
+	Allow	Toestaan
+	Anthropic API key:	Anthropic API-sleutel:
+	Ask	Vragen
+	Buy credits	Credits kopen
+	Buy…	Kopen…
+	Change key	Sleutel wijzigen
+	Create Free Account	Gratis account maken
+	Create a free Foundry Account	Maak een gratis Foundry-account
+	Don't Allow	Niet toestaan
+	Edit › Undo takes each change back.	Bewerken › Ongedaan maken draait elke wijziging terug.
+	Email	E-mail
+	Foundry Account	Foundry-account
+	Foundry accounts aren't open yet. Until then, the AI features work with your own Anthropic API key.	Foundry-accounts zijn nog niet open. Tot dan werken de AI-functies met uw eigen Anthropic API-sleutel.
+	Get a key	Een sleutel aanvragen
+	I have an account: Sign In	Ik heb een account: aanmelden
+	New Conversation	Nieuw gesprek
+	New here? Create a free account	Nieuw? Maak een gratis account
+	No card needed, and no API key to set up	Geen kaart nodig en geen API-sleutel in te stellen
+	Paid with Foundry credits ({n} left).	Betaald met Foundry-credits (nog {n}).
+	Paid with Foundry credits.	Betaald met Foundry-credits.
+	Pay for the AI features with my Foundry credits	De AI-functies betalen met mijn Foundry-credits
+	Pay with Foundry credits instead	In plaats daarvan betalen met Foundry-credits
+	Payment is on Stripe's secure page, in your browser; your card never reaches PatternFoundry.	Betalen gebeurt op de beveiligde pagina van Stripe, in uw browser; uw kaart komt nooit bij PatternFoundry.
+	Reading your credits…	Uw credits ophalen…
+	Remember the key on this computer	De sleutel op deze computer onthouden
+	Server	Server
+	Sign In	Aanmelden
+	Sign Out	Afmelden
+	Sign in to your Foundry Account	Meld je aan bij je Foundry-account
+	Signed in as {email}	Aangemeld als {email}
+	Thinking…	Denken…
+	Type your question, then press Enter	Typ uw vraag en druk dan op Enter
+	{n} credits	{n} credits
+	{n} credits for {price}	{n} credits voor {price}
+	Ask About Patterns…	Vraag over patronen…
+	Answers come from Claude with your own Anthropic API key, billed to your Anthropic account. They can be wrong: sew a muslin before cutting good fabric.	Antwoorden komen van Claude met uw eigen Anthropic API-sleutel, gefactureerd op uw Anthropic-account. Ze kunnen fout zijn: naai eerst een proefmodel van nessel voordat u goede stof knipt.
+	Ask About Patterns	Vraag over patronen
+	Ask anything about sewing patterns or PatternFoundry: how much ease to add, how to move a dart, which block to start from, where a feature is. Claude can also draft and change your pattern when you ask, after you allow it.	Vraag alles over naaipatronen of PatternFoundry: hoeveel bewegingsruimte u toevoegt, hoe u een figuurnaad verlegt, van welk basispatroon u uitgaat, waar een functie zit. Claude kan uw patroon ook construeren en wijzigen als u daarom vraagt, nadat u dat hebt toegestaan.
+	Claude asks to:	Claude vraagt om:
+	Couldn't do:	Kon niet uitvoeren:
+	Done:	Gedaan:
+	Free credits for the AI features, no API key needed	Gratis credits voor de AI-functies, geen API-sleutel nodig
+	Free credits to try the AI features: Ask About Patterns drafts and changes patterns with you	Gratis credits om de AI-functies te proberen: Vraag over patronen construeert en wijzigt patronen samen met u
+	Include my pattern	Mijn patroon meesturen
+	Its pieces and sizes, and which measurements are set: never their values	De delen en maten ervan, en welke lichaamsmaten zijn ingesteld: nooit de waarden
+	Leave it empty for the Foundry service.	Laat dit leeg voor de Foundry-dienst.
+	Not allowed:	Niet toegestaan:
+	One account for every SiteSentrix app	Eén account voor alle apps van SiteSentrix
+	Read your measurements	Uw maten lezen
+@msg	An account with that email already exists: sign in instead.	Er bestaat al een account met dat e-mailadres: meld u in plaats daarvan aan.
+@msg	Ask About Patterns needs a build that can reach the AI service	Vraag over patronen heeft een versie nodig die de AI-dienst kan bereiken
+@msg	Foundry Account needs a build that can reach the AI service	Foundry-account heeft een versie nodig die de AI-dienst kan bereiken
+@msg	Foundry accounts aren't open yet.	Foundry-accounts zijn nog niet open.
+@msg	Not enough Foundry credits: buy more in Foundry Account.	Niet genoeg Foundry-credits: koop er meer in Foundry-account.
+@msg	Sign in to your Foundry account (Help › Foundry Account…).	Meld u aan bij uw Foundry-account (Help › Foundry-account…).
+@msg	The Foundry service can't do this yet: try again later.	De Foundry-dienst kan dit nog niet: probeer het later opnieuw.
+@msg	this needs a connection to the AI service, which this build doesn't have	hiervoor is een verbinding met de AI-dienst nodig, die deze versie niet heeft
+@msg	Account made: welcome to PatternFoundry.	Account aangemaakt: welkom bij PatternFoundry.
+@msg	Signed in.	Aangemeld.
+@msg	Signed out.	Afgemeld.
+@msg	Type your email address.	Typ uw e-mailadres.
+@msg	Pay on the page that opened in your browser, then press Refresh.	Betaal op de pagina die in uw browser is geopend en druk daarna op Vernieuwen.
+@msg	Anthropic refused the API key: {0}	Anthropic heeft de API-sleutel geweigerd: {0}
+@msg	Couldn't reach the AI service: {0}	Kon de AI-dienst niet bereiken: {0}
+@msg	Enter your Anthropic API key first.	Voer eerst uw Anthropic API-sleutel in.
+@msg	The AI declined to answer this: ask another way.	De AI weigerde hierop te antwoorden: vraag het anders.
+@msg	The AI service failed (error {0}): try again later.	De AI-dienst is mislukt (fout {0}): probeer het later opnieuw.
+@msg	The AI service is busy: try again in a minute.	De AI-dienst is bezet: probeer het over een minuut opnieuw.
+@msg	The API key isn't valid: paste it again from the Anthropic Console.	De API-sleutel is niet geldig: plak hem opnieuw vanuit de Anthropic Console.
+@msg	The question is too long: keep it under 2,000 characters.	De vraag is te lang: houd hem onder 2.000 tekens.
+@msg	The reply had no answer: try again, or ask something narrower.	De reactie bevatte geen antwoord: probeer het opnieuw of stel een specifiekere vraag.
+@msg	The request failed (error {0}): {1}	Het verzoek is mislukt (fout {0}): {1}
+@msg	Type a question first.	Typ eerst een vraag.
+@msg	Your Anthropic account can't pay for this: {0}	Uw Anthropic-account kan hier niet voor betalen: {0}
+@msg	already asking: wait for the answer	er wordt al gevraagd: wacht op het antwoord
+@msg	This conversation is long: start a New Conversation.	Dit gesprek is lang: begin een nieuw gesprek.
+@msg	Claude took too many steps: ask again, more simply.	Claude had te veel stappen nodig: vraag het opnieuw, eenvoudiger.
+	Add Photos…	Foto's toevoegen…
+	Choose the photos in the browser's window…	Kies de foto's in het venster van de browser…
+	About the fit	Over de pasvorm
+	Anything else? For example: folds below the back neck	Nog iets anders? Bijvoorbeeld: plooien onder de achterhals
+	Check My Muslin	Mijn proefmodel controleren
+	Claude looks at the photos with your own Anthropic API key, billed to your Anthropic account. It can be wrong: sew the altered part again in muslin before cutting good fabric.	Claude bekijkt de foto's met uw eigen Anthropic API-sleutel, gefactureerd op uw Anthropic-account. Het kan fout zijn: naai het aangepaste deel nog eens in nessel voordat u goede stof knipt.
+	Final fabric	Definitieve stof
+	Hard to raise my arms	Moeilijk om mijn armen op te tillen
+	How it feels:	Hoe het zit:
+	Include the pattern it was cut from (open now), so it can be altered	Het patroon waaruit het geknipt is meesturen (nu open), zodat het aangepast kan worden
+	Loose or gaping somewhere	Ergens te ruim of het gaapt
+	Muslin fabric	Stof voor het proefmodel
+	My muslin ({n} photos)	Mijn proefmodel ({n} foto's)
+	Photos of your muslin, tried on	Foto's van uw proefmodel, aangetrokken
+	The front, the side and the back, standing straight with your arms down, and close-ups of any folds or pulling.	De voorkant, de zijkant en de achterkant, rechtop staand met de armen omlaag, en close-ups van plooien of trekken.
+	The neckline gapes or pulls	De halslijn gaapt of trekt
+	The photos go to Claude for this check only; PatternFoundry doesn't keep them.	De foto's gaan alleen voor deze controle naar Claude; PatternFoundry bewaart ze niet.
+	The shoulder seams don't sit on my shoulders	De schoudernaden zitten niet op mijn schouders
+	Tight across the back or shoulders	Te nauw over de rug of de schouders
+	Tight across the bust or chest	Te nauw over de buste of borst
+	Tight at the waist or hips	Te nauw in de taille of over de heupen
+	Too long or too short	Te lang of te kort
+	e.g. calico, an old sheet	bijv. nessel, een oud laken
+	e.g. cotton poplin, jersey	bijv. katoenpopeline, tricot
+	Check My Muslin…	Mijn proefmodel controleren…
+@msg	Add a photo of the muslin first.	Voeg eerst een foto van het proefmodel toe.
+@msg	Check My Muslin needs a build that can reach the AI service	Mijn proefmodel controleren heeft een versie nodig die de AI-dienst kan bereiken
+@msg	The image is too large to send: crop it, or send a smaller copy.	De afbeelding is te groot om te verzenden: snijd haar bij of stuur een kleinere kopie.
+@msg	This photo is too large: send a smaller copy.	Deze foto is te groot: stuur een kleinere kopie.
+@msg	no files here	geen bestanden hier
+@msg	At most 6 photos: remove one first.	Hoogstens 6 foto's: verwijder er eerst een.
+@msg	This photo can't be read: save or send it as a JPEG (on an iPhone: Settings › Camera › Formats › Most Compatible).	Deze foto kan niet worden gelezen: sla hem op of stuur hem als JPEG (op een iPhone: Instellingen › Camera › Formaten › Meest compatibel).
+	Make Marker	Legplan maken
+	Make Marker…	Legplan maken…
+	Gap	Tussenruimte
+	Precision	Precisie
+	One Way	In één richting
+	Cut on fold	Op de vouw knippen
+	Folded	Gevouwen
+	The straight edge laid on the fabric's fold: no allowance there	De rechte kant op de stofvouw: daar geen naadtoeslag
+	Check Sleeve Ease	Mouwinhalen controleren
+	Sleeve Ease	Mouwinhalen
+	Crown {crown} mm, armhole {armhole} mm (back {back}, front {front}): the crown takes in {ease} mm ({percent}%).	Mouwkop {crown} mm, armsgat {armhole} mm (rug {back}, voorpand {front}): de mouwkop haalt {ease} mm in ({percent}%).
+	Less than the {min} to {max} mm it should take in: the sleeve may pull across the cap. Set sleeve_crown to {wanted} mm in Measurements to redraft the sleeve block with the ease in the middle.	Minder dan de {min} tot {max} mm die hij zou moeten inhalen: de mouw kan over de kop trekken. Zet sleeve_crown in Maten op {wanted} mm om het mouwpatroon opnieuw te tekenen met het inhalen in het midden.
+	More than the {min} to {max} mm it should take in: the cap may pucker when it is set in. Set sleeve_crown to {wanted} mm in Measurements to redraft the sleeve block with the ease in the middle.	Meer dan de {min} tot {max} mm die hij zou moeten inhalen: de kop kan bij het inzetten plooien. Zet sleeve_crown in Maten op {wanted} mm om het mouwpatroon opnieuw te tekenen met het inhalen in het midden.
+	Within the {min} to {max} mm it should take in.	Binnen de {min} tot {max} mm die hij zou moeten inhalen.
+	Edges: {edges}, notches: {notches}	Randen: {edges}, inknipjes: {notches}
+	Edge {n}	Rand {n}
+	On fold	Op de vouw
+	Back to the piece's seam allowance	Terug naar de naadtoeslag van het patroondeel
+	A notch in the middle of the edge	Een inknipje midden op de rand
+	Notch on edge {edge}, {at}% along	Inknipje op rand {edge}, op {at}%
+	Piece Outlines	Omtrekken van patroondelen
+	Projector	Projector
+	Projector Scale (screen points per mm, 0: not calibrated)	Projectorschaal (schermpunten per mm, 0: niet gekalibreerd)
+	Projector View	Projectorweergave
+	Measure the square on the cutting mat: it should be 10 cm each way. The arrows make it bigger or smaller (with Shift, faster); Enter keeps it; Escape leaves. Scale: {scale} points per mm.	Meet het vierkant op de snijmat: het moet in beide richtingen 10 cm zijn. De pijltjes maken het groter of kleiner (met Shift sneller); Enter bewaart het; Escape sluit af. Schaal: {scale} punten per mm.
+	Arrows move the pattern 1 cm (Shift: 1 mm) · M mirrors it · C calibrates · Escape leaves	Pijltjes verschuiven het patroon 1 cm (Shift: 1 mm) · M spiegelt het · C kalibreert · Escape sluit af
+@msg	no pattern pieces to project: make the outlines pattern pieces first (Pattern › Make Pattern Piece)	geen patroondelen om te projecteren: maak eerst patroondelen van de omtrekken (Patroon › Patroondeel maken)
+@msg	scale: screen points per mm, more than 0	schaal: schermpunten per mm, meer dan 0
+	Delete Saved Measurements	Bewaarde maten verwijderen
+	Load Measurements	Maten laden
+	My Measurements	Mijn maten
+	Save to My Measurements	Bewaren in Mijn maten
+	Delete from this computer	Van deze computer verwijderen
+	Kept on this computer only, to load into any pattern	Alleen op deze computer bewaard, te laden in elk patroon
+	Load	Laden
+	Use these measurements in this pattern	Deze maten in dit patroon gebruiken
+	Whose (Me)	Van wie (Ik)
+	Shorten Dart	Figuurnaad inkorten
+	Shorten Dart…	Figuurnaad inkorten…
+	Shorten	Inkorten
+	Add Notch Here	Inknipje hier toevoegen
+	Cut on Fold Here	Hier op de vouw knippen
+	Seam Allowance Here…	Naadtoeslag hier…
+	Grade This Point…	Dit punt gradueren…
+	Edge Allowance	Naadtoeslag van de rand
+	Across	Horizontaal
+	Down	Omlaag
+	One step	Eén stap
+	The same move for each size, from the size above the base	Dezelfde verschuiving voor elke maat, die van de maat boven de basis
+	Per size	Per maat
+	A move for each size of its own	Een eigen verschuiving voor elke maat
+	Add Drill Hole Here	Boorgat hier toevoegen
+	Remove Drill Hole Here	Boorgat hier verwijderen
+	Add Drill Hole	Boorgat toevoegen
+	Remove Drill Hole	Boorgat verwijderen
+	Drill holes: {count}	Boorgaten: {count}
+	Right-click inside the piece: Add Drill Hole Here	Rechtsklik in het patroondeel: Boorgat hier toevoegen
+	Drill hole {n}, {mm} mm	Boorgat {n}, {mm} mm
+	Drill hole {n}	Boorgat {n}
+	Notch Shape	Vorm van de inknip
+	Slit notch	Inknip als spleet
+	Double notch	Dubbele inknip
+	V notch	V-inknip
+	T notch	T-inknip
+	Castle notch	Kantelinknip
+	U notch	U-inknip
+	As drawn	Zoals getekend
+	Side by side	Naast elkaar
+	Block Options…	Opties voor het basispatroon…
+	Block Options	Opties voor het basispatroon
+	Ease	Bewegingsruimte
+	Waist ease	Bewegingsruimte taille
+	Bust dart	Borstfiguurnaad
+	Shoulder dart	Schouderfiguurnaad
+	Back dart	Rugfiguurnaad
+	Back dart length	Lengte van de rugfiguurnaad
+	Front dart length	Lengte van de voorfiguurnaad
+	Option	Optie
+	Back to the block's default	Terug naar de standaard van het basispatroon
+	from the measurements	uit de maten
+	Block Options Info	Info over opties voor het basispatroon
+	Check Trouser Seams	Broeknaden controleren
+	Trouser Seams	Broeknaden
+	Inseam, knee to hem	Binnenbeennaad, knie tot zoom
+	Inseam, crotch to knee	Binnenbeennaad, kruis tot knie
+	Side seam, knee to hem	Zijnaad, knie tot zoom
+	Side seam, waist to knee	Zijnaad, taille tot knie
+	{seam}: front {front} mm, back {back} mm ({difference} mm)	{seam}: voor {front} mm, achter {back} mm ({difference} mm)
+	Walk them on the pattern too: where a line doesn't run on smoothly from front to back, find the point half way between the two and correct both lines. The back inseam is more curved, so it is often longer: lowering the back crotch curve slightly to match is fine.	Loop ze ook op het patroon na: waar een lijn niet vloeiend van voor naar achter doorloopt, zoek het punt halverwege beide en corrigeer beide lijnen. De binnenbeennaad achter is sterker gebogen en dus vaak langer: de kruisronding achter iets verlagen om aan te sluiten is prima.
+	Front dart	Voorfiguurnaad
+	Draft Trouser Waistband	Broekband tekenen
+	Flap Pocket…	Paspelzak met klep…
+	Crown ease	Inhalen van de mouwkop
+	Remove Design Step	Ontwerpstap verwijderen
+	Dart moved	Figuurnaad verlegd
+	Dart shortened {mm} mm	Figuurnaad {mm} mm ingekort
+	Slashed and spread {mm} mm	Ingeknipt en {mm} mm uitgespreid
+	Seam trued to {mm} mm	Naad op {mm} mm gebracht
+	Split into panels	In panelen gesplitst
+	Design step	Ontwerpstap
+	Design steps: {count}	Ontwerpstappen: {count}
+	Design changes made on the block (darts, splits, spreads, seam lengths) show here; each is made again when the measurements change	Wijzigingen aan het basispatroon (figuurnaden, splitsingen, uitspreidingen, naadlengtes) staan hier; elke wordt opnieuw gedaan als de maten veranderen
+	Remove this step and the ones after it (they were made on the outline it made)	Deze stap en de volgende verwijderen (ze zijn gedaan op de omtrek die deze opleverde)
+	Selected block part	Geselecteerd deel van het basispatroon
+	Curve Dart Legs…	Benen van de figuurnaad welven…
+	Curve Dart Legs	Benen van de figuurnaad welven
+	Dart legs curved {mm} mm	Benen van de figuurnaad {mm} mm gewelfd
+	Draft Rounded Stand Collar	Opstaande kraag met ronde hoeken tekenen
+	Draft Wing Collar	Vleugelkraag tekenen
+	Check Marker	Legplan controleren
+	{length} cm long, {efficiency}% of the fabric used	{length} cm lang, {efficiency}% van de stof gebruikt
+	{a} overlaps {b}	{a} overlapt {b}
+	{piece} is off the fabric	{piece} ligt buiten de stof
+	No pieces overlap, and all are on the fabric.	Geen delen overlappen en alle liggen op de stof.
+	Plaid	Ruit
+menu	Pattern	Patroon
+@msg	a and b are two pieces (or paths) that sew together	a en b zijn twee patroondelen (of paden) die aan elkaar worden genaaid
+@msg	a corner is "mitre" or "square"	een hoek is "mitre" of "square"
+@msg	a facing runs along part of the outline	een beleg loopt langs een deel van de omtrek
+@msg	a facing runs between two different points of the outline	een beleg loopt tussen twee verschillende punten van de omtrek
+@msg	a name takes at most 200 characters	een naam heeft maximaal 200 tekens
+@msg	a neckline runs between two different points of its outline, and the shoulder point is one of them	een halslijn loopt tussen twee verschillende punten van de omtrek, en het schouderpunt is er een van
+@msg	a seam allowance is a number of mm, or a length with its unit ("5/8 in")	een naadtoeslag is een aantal mm, of een lengte met eenheid ("5/8 in")
+@msg	a seam has no length	een naad heeft geen lengte
+@msg	a shoulder point is on its neck point	een schouderpunt ligt op het halspunt
+@msg	a slash runs between two points of the outline that aren't neighbours	een insnede loopt tussen twee punten van de omtrek die niet naast elkaar liggen
+@msg	a split leaves a piece with fewer than three anchors	een splitsing laat een patroondeel met minder dan drie ankerpunten over
+@msg	a split made two panels: delete the panel you don't want instead	een splitsing heeft twee panelen opgeleverd: verwijder in plaats daarvan het paneel dat u niet wilt
+@msg	a split needs two different anchors on the outline	een splitsing heeft twee verschillende ankerpunten op de omtrek nodig
+@msg	amount: a share of the dart, (0, 1]	amount: een deel van de figuurnaad, (0, 1]
+@msg	amount: how far it opens, mm	amount: hoe ver het opengaat, mm
+@msg	anchor: the point's number along the path, from 0	anchor: het nummer van het punt langs het pad, vanaf 0
+@msg	anchor: the seam line's point, from 0	anchor: het punt van de naadlijn, vanaf 0
+@msg	anchors: [a, b] or [a]	anchors: [a, b] of [a]
+@msg	anchors: point numbers along the path	anchors: puntnummers langs het pad
+@msg	apex: the dart's point (or select that one point)	apex: de punt van de figuurnaad (of selecteer dat ene punt)
+@msg	at: 0 (the edge's start) to 1 (its end)	at: 0 (het begin van de rand) tot 1 (het einde)
+@msg	at: [x, y], the document point on the edge	at: [x, y], het documentpunt op de rand
+@msg	base: the size the pattern is drawn in	base: de maat waarin het patroon is getekend
+@msg	block: "bodice", "skirt", "sleeve" or "trousers"	block: "bodice", "skirt", "sleeve" of "trousers"
+@msg	can't make the seam that long by moving its end	de naad kan niet zo lang worden door het uiteinde te verplaatsen
+@msg	curve: mm the wrap edge bows into the piece	curve: mm dat de overslagrand het patroondeel in buigt
+@msg	cut is a whole number, 1 to 999	cut is een geheel getal, 1 tot 999
+@msg	data: the chart's text	data: de tekst van de tabel
+@msg	depth: how deep the pleat folds under, mm	depth: hoe diep de plooi naar onderen vouwt, mm
+@msg	depth: mm (less than 0 bows the legs in)	depth: mm (minder dan 0 buigt de benen naar binnen)
+@msg	diameter: a number of mm, or a length with its unit ("1/8 in")	diameter: een aantal mm, of een lengte met eenheid ("1/8 in")
+@msg	edge: the edge's number, from 0 (or point)	edge: het nummer van de rand, vanaf 0 (of point)
+@msg	edges and corners are numbered from 0	randen en hoeken worden genummerd vanaf 0
+@msg	every: mm, at least 10	every: mm, minstens 10
+@msg	face: only a box pleat has one	face: alleen een stolpplooi heeft er een
+@msg	face: the box pleat's width between its folds, mm	face: de breedte van de stolpplooi tussen de vouwen, mm
+@msg	flapShape: "square", "rounded" or "pointed"	flapShape: "square", "rounded" of "pointed"
+@msg	fold is an edge's number (0..), or null	fold is het nummer van een rand (0..), of null
+@msg	fold: [a, b], the centre front edge's two points	fold: [a, b], de twee punten van de rand midden voor
+@msg	fold: true or false	fold: true of false
+@msg	foldAt: [x, y] in document points	foldAt: [x, y] in documentpunten
+@msg	folded: true or false	folded: true of false
+@msg	from: [x, y] in document points	from: [x, y] in documentpunten
+@msg	from: not a pattern piece	from: geen patroondeel
+@msg	from: the pattern piece whose rules are copied	from: het patroondeel waarvan de regels worden gekopieerd
+@msg	from: the piece has no seam line	from: het patroondeel heeft geen naadlijn
+@msg	frontShape: "square", "rounded" or "winged"	frontShape: "square", "rounded" of "winged"
+@msg	gathering runs between two different points of the outline	rimpelen loopt tussen twee verschillende punten van de omtrek
+@msg	give apex and one of to or toAnchor (or select the two points)	geef apex en een van to of toAnchor op (of selecteer de twee punten)
+@msg	height: mm, 10 to 100 (the tutorial's is at most 30)	height: mm, 10 tot 100 (die van de handleiding is maximaal 30)
+@msg	id: a block part's id	id: de id van een deel van een basispatroon
+@msg	index: the drill hole's place in the list, from 0 (or point)	index: de plaats van het boorgat in de lijst, vanaf 0 (of point)
+@msg	index: the notch's place in the list, from 0	index: de plaats van het inknipje in de lijst, vanaf 0
+@msg	index: the step's place, from 0	index: de plaats van de stap, vanaf 0
+@msg	into: the length it gathers into, mm	into: de lengte waarop wordt ingerimpeld, mm
+@msg	kind: "slit", "double", "v", "t", "castle" or "u"	kind: "slit", "double", "v", "t", "castle" of "u"
+@msg	kind: the notch's new shape	kind: de nieuwe vorm van het inknipje
+@msg	layer: a marker layer's id	layer: de id van een legplanlaag
+@msg	length (mm) or likeId with likeFrom and likeTo: the seam to match	length (mm) of likeId met likeFrom en likeTo: de naad om op af te stemmen
+@msg	length: mm, more than 0	length: mm, meer dan 0
+@msg	line: "cut" or "seam"	line: "cut" of "seam"
+@msg	match: the seam it sews to is shorter than the pocket opening's end	match: de naad waaraan het wordt genaaid is korter dan het einde van de zakopening
+@msg	min is more than max	min is groter dan max
+@msg	mirror is true or false	mirror is true of false
+@msg	mirror: "none", "x", "y" or "xy"	mirror: "none", "x", "y" of "xy"
+@msg	name: the saved set's name	name: de naam van de opgeslagen set maten
+@msg	name: whose measurements they are ("Me")	name: van wie de maten zijn ("Ik")
+@msg	no drill hole near the point	geen boorgat bij het punt
+@msg	no drill hole with that index	geen boorgat met die index
+@msg	no notch with that index	geen inknipje met die index
+@msg	no object with that id	geen object met die id
+@msg	no pattern pieces to grade: make the outlines pattern pieces first (Pattern › Make Pattern Piece)	geen patroondelen om te gradueren: maak eerst patroondelen van de omtrekken (Patroon › Patroondeel maken)
+@msg	no straight centre front edge on the outline's side: name it with fold: [a, b]	geen rechte rand midden voor aan de kant van de omtrek: geef die op met fold: [a, b]
+@msg	not a drafted block part	geen deel van een geconstrueerd basispatroon
+@msg	not a marker's layer (Pattern › Make Marker…)	geen laag van een legplan (Patroon › Legplan maken…)
+@msg	not a pattern piece	geen patroondeel
+@msg	not a stand collar's outline	geen omtrek van een opstaande kraag
+@msg	notches go on pattern pieces: make both seams' paths pieces first (Pattern › Make Pattern Piece)	inknipjes horen op patroondelen: maak eerst patroondelen van de paden van beide naden (Patroon › Patroondeel maken)
+@msg	notches: [mm, …]	notches: [mm, …]
+@msg	notches: distances from the seams' starts, mm	notches: afstanden vanaf het begin van de naden, mm
+@msg	on and at go together: the garment piece and where the opening's top-left corner goes on it	on en at horen bij elkaar: het kledingdeel en waar de linkerbovenhoek van de opening erop komt
+@msg	on and at go together: the garment piece and where the pocket's top-left corner goes on it	on en at horen bij elkaar: het kledingdeel en waar de linkerbovenhoek van de zak erop komt
+@msg	one point splits only where another point is at the same place (two darts' point)	een punt splitst alleen waar een ander punt op dezelfde plaats ligt (de punt van twee figuurnaden)
+@msg	oneWay: true or false	oneWay: true of false
+@msg	openFolds: true or false	openFolds: true of false
+@msg	origin: [x, y] in document points	origin: [x, y] in documentpunten
+@msg	overlap: mm past centre front, more than 0	overlap: mm voorbij midden voor, meer dan 0
+@msg	overlap: the edge misses the outline	overlap: de rand mist de omtrek
+@msg	plaid: the repeat (mm, or [along, across])	plaid: het rapport (mm, of [along, across])
+@msg	plaid: the repeat along and across, 1 to 10 000 mm each	plaid: het rapport in de lengte en in de breedte, elk 1 tot 10 000 mm
+@msg	point: [x, y] in document points	point: [x, y] in documentpunten
+@msg	select a drafted block part (Pattern › Draft … Block)	selecteer een deel van een geconstrueerd basispatroon (Patroon › Basispatroon … construeren)
+@msg	select a path or a pattern piece	selecteer een pad of een patroondeel
+@msg	select a pattern piece (Pattern › Make Pattern Piece makes one)	selecteer een patroondeel (Patroon › Patroondeel maken maakt er een)
+@msg	select a piece on the marker to check	selecteer een patroondeel op het legplan om te controleren
+@msg	select closed paths: each becomes a piece, the path its seam line	selecteer gesloten paden: elk wordt een patroondeel, het pad de naadlijn
+@msg	select one path	selecteer één pad
+@msg	select one pattern piece	selecteer één patroondeel
+@msg	select two points of one path (or one that two darts share)	selecteer twee punten van één pad (of één dat twee figuurnaden delen)
+@msg	select two points of one path: the dart's point and where the dart moves to	selecteer twee punten van één pad: de punt van de figuurnaad en waar de figuurnaad naartoe gaat
+@msg	select two points of one path: the ends of the edge to face	selecteer twee punten van één pad: de uiteinden van de rand die een beleg krijgt
+@msg	select two points of one path: the ends of the edge to gather	selecteer twee punten van één pad: de uiteinden van de rand die wordt gerimpeld
+@msg	share is true or false	share is true of false
+@msg	shorten: mm (less than 0 lengthens)	shorten: mm (minder dan 0 verlengt)
+@msg	shoulder: longer than the outline	shoulder: langer dan de omtrek
+@msg	shoulder: mm, 0 or more	shoulder: mm, 0 of meer
+@msg	size: one of the chart's sizes	size: een van de maten van de tabel
+@msg	size: the name of a size of the size range or chart	size: de naam van een maat uit de maatreeks of de tabel
+@msg	sizes: name one size at least	sizes: noem minstens één maat
+@msg	sizes: the sizes' names	sizes: de namen van de maten
+@msg	sizes: the sizes' names, smallest first (null removes them)	sizes: de namen van de maten, kleinste eerst (null verwijdert ze)
+@msg	split the seam line on its own: release the piece first (Pattern › Release Pattern Piece)	om alleen de naadlijn te splitsen, geeft u eerst het patroondeel vrij (Patroon › Patroondeel vrijgeven)
+@msg	step: [dx, dy] in mm	step: [dx, dy] in mm
+@msg	style: classic, casual or shirt	style: classic, casual of shirt
+@msg	that anchor's neighbours don't make a dart	de buren van dat ankerpunt vormen geen figuurnaad
+@msg	that point is not a dart's point: its legs open a right angle or wider	dat punt is geen punt van een figuurnaad: de benen maken een rechte hoek of groter
+@msg	the amount is a share of the dart, more than 0 and at most 1	de hoeveelheid is een deel van de figuurnaad, meer dan 0 en hoogstens 1
+@msg	the back's outline encloses no area	de omtrek van het achterpand omsluit geen oppervlak
+@msg	the box pleat's face is more than 0 wide	de stolpplooi is tussen de vouwen breder dan 0
+@msg	the chart is larger than 1 MB	de tabel is groter dan 1 MB
+@msg	the curve has no length at the meeting point	de curve heeft geen lengte op het ontmoetingspunt
+@msg	the curves leave the seam the same way	de curven verlaten de naad in dezelfde richting
+@msg	the dart has no length	de figuurnaad heeft geen lengte
+@msg	the dart is not that long	de figuurnaad is niet zo lang
+@msg	the dart point or the new dart's anchor is not on the outline	de punt van de figuurnaad of het ankerpunt van de nieuwe figuurnaad ligt niet op de omtrek
+@msg	the dart's legs must be straight lines	de benen van de figuurnaad moeten rechte lijnen zijn
+@msg	the dart's point is past the outline's end	de punt van de figuurnaad ligt voorbij het einde van de omtrek
+@msg	the depth to curve the legs by is not a number	de diepte waarmee de benen worden gebogen is geen getal
+@msg	the document has no marker (Pattern › Make Marker…)	het document heeft geen legplan (Patroon › Legplan maken…)
+@msg	the document has no measurements to save	het document heeft geen maten om op te slaan
+@msg	the document has no size chart (measure.importChart)	het document heeft geen maattabel (measure.importChart)
+@msg	the drop at the front is less than half the neck edge	de verlaging voor is minder dan de helft van de halsrand
+@msg	the edge has no length	de rand heeft geen lengte
+@msg	the edge's anchor is past the outline's end	het ankerpunt van de rand ligt voorbij het einde van de omtrek
+@msg	the fabric's width must be more than 0	de stofbreedte moet groter dan 0 zijn
+@msg	the flap is deeper than twice its width	de klep is meer dan twee keer zo diep als breed
+@msg	the flap's width and depth are more than 0, its allowance 0 or more	de breedte en diepte van de klep zijn groter dan 0, de toeslag 0 of meer
+@msg	the fold edge has no length	de vouwrand heeft geen lengte
+@msg	the fold edge's anchors are past the outline's end	de ankerpunten van de vouwrand liggen voorbij het einde van de omtrek
+@msg	the fold edge's two anchors must be neighbours on the outline	de twee ankerpunten van de vouwrand moeten op de omtrek naast elkaar liggen
+@msg	the fold must be a straight edge	de vouw moet een rechte rand zijn
+@msg	the front end has no length	het voorste uiteinde heeft geen lengte
+@msg	the gap must be 0 or more	de tussenruimte moet 0 of meer zijn
+@msg	the grainline's ends are the same point	de uiteinden van de draadrichting zijn hetzelfde punt
+@msg	the legs can't curve that far: the dart isn't wide enough	de benen kunnen niet zo ver buigen: de figuurnaad is niet breed genoeg
+@msg	the length to shorten by is not a number	de lengte om in te korten is geen getal
+@msg	the marker has lost its fabric outline	het legplan heeft de stofomtrek verloren
+@msg	the marker has no pieces	het legplan heeft geen patroondelen
+@msg	the marker is too large at this precision: give a coarser one	het legplan is te groot bij deze precisie: geef een grovere op
+@msg	the measurements could not be saved	de maten konden niet worden opgeslagen
+@msg	the meeting point and the seam's other end are points of the outline	het ontmoetingspunt en het andere uiteinde van de naad zijn punten van de omtrek
+@msg	the neckline has no length	de halslijn heeft geen lengte
+@msg	the neckline lengths and the stand's height are more than 0, the rise and extension 0 or more	de lengtes van de halslijn en de hoogte van de kraagband zijn groter dan 0, de stijging en verlenging 0 of meer
+@msg	the new dart is on the old dart	de nieuwe figuurnaad ligt op de oude
+@msg	the opening is longer than twice its height	de opening is meer dan twee keer zo lang als hoog
+@msg	the opening, depth and width are more than 0, the width more than the allowance	de opening, diepte en breedte zijn groter dan 0, de breedte groter dan de toeslag
+@msg	the opening, the welt and the depth are more than 0, the allowances 0 or more	de opening, de paspel en de diepte zijn groter dan 0, de toeslagen 0 of meer
+@msg	the outline encloses no area	de omtrek omsluit geen oppervlak
+@msg	the outline has no side seam	de omtrek heeft geen zijnaad
+@msg	the path has no outline	het pad heeft geen omtrek
+@msg	the path must be one closed outline	het pad moet één gesloten omtrek zijn
+@msg	the piece has no grade rules to copy	het patroondeel heeft geen gradeerregels om te kopiëren
+@msg	the piece has no straight edge to cut on the fold	het patroondeel heeft geen rechte rand om op de vouw te knippen
+@msg	the pieces have no cutting lines to lay	de patroondelen hebben geen kniplijnen om te leggen
+@msg	the plaid's repeat must be more than 0 along and across	het rapport van de ruit moet in de lengte en in de breedte groter dan 0 zijn
+@msg	the pocket (its opening and the allowance past both ends) fits on the seam	de zak (de opening en de toeslag voorbij beide uiteinden) past op de naad
+@msg	the point is not inside the piece	het punt ligt niet binnen het patroondeel
+@msg	the point is not on the seam line or in its allowance	het punt ligt niet op de naadlijn of in de toeslag
+@msg	the precision must be more than 0	de precisie moet groter dan 0 zijn
+@msg	the rise at centre front is less than the front neckline is long	de stijging op midden voor is minder dan de lengte van de voorste halslijn
+@msg	the seam has no length there	de naad heeft daar geen lengte
+@msg	the seam runs between two different points of the outline	de naad loopt tussen twee verschillende punten van de omtrek
+@msg	the seam's other end is a neighbour of the meeting point	het andere uiteinde van de naad ligt naast het ontmoetingspunt
+@msg	the top edge has no length	de bovenrand heeft geen lengte
+@msg	the wing is more than 0 long	de vleugel is langer dan 0
+@msg	there is no folder to keep measurement sets in here (the desktop app keeps them next to its preferences)	er is hier geen map om sets maten in te bewaren (de desktop-app bewaart ze naast de voorkeuren)
+@msg	there is no point of the seam line there	daar is geen punt van de naadlijn
+@msg	to or toAnchor: where the dart moves to	to of toAnchor: waar de figuurnaad naartoe gaat
+@msg	to: [x, y] in document points	to: [x, y] in documentpunten
+@msg	to: the pieces to copy the rules to (select them, or name them)	to: de patroondelen waarnaar de regels worden gekopieerd (selecteer ze of noem ze)
+@msg	too many objects at once	te veel objecten tegelijk
+@msg	too many pieces at once	te veel patroondelen tegelijk
+@msg	too many pieces to lay at once	te veel patroondelen om tegelijk te leggen
+@msg	too many sizes at once	te veel maten tegelijk
+@msg	unit: "mm", "cm" or "in"	unit: "mm", "cm" of "in"
+@msg	width: mm, more than 0	width: mm, meer dan 0
+	Draw Avatar	Avatar tekenen
+	Export Avatar as OBJ	Avatar exporteren als OBJ
+	Sewn seams: {count}	Gestikte naden: {count}
+	{label}: sewn to {piece}, {mm} mm longer	{label}: aan {piece} gestikt, {mm} mm langer
+	{label}: sewn to {piece}, {mm} mm shorter	{label}: aan {piece} gestikt, {mm} mm korter
+	{label}: sewn to {piece}	{label}: aan {piece} gestikt
+	Sew Seams	Naden aan elkaar stikken
+	Unsew Seams	Naden lostornen
+	Sewn Seams	Gestikte naden
+	Drape on Avatar	Op avatar draperen
+	Use as Fabric…	Als stof gebruiken…
+	Use as Fabric	Als stof gebruiken
+	Stop Using as Fabric	Niet meer als stof gebruiken
+	Fabric Photos	Stoffoto's
+@msg	the drape view's picture is the wrong size	de afbeelding van de valweergave heeft de verkeerde grootte
+@msg	the drape view: {e}	de valweergave: {e}
+@msg	a fabric photo is the wrong size	de stoffoto heeft de verkeerde grootte
+@msg	a fabric photo: {e}	de stoffoto: {e}
+	Export Avatar as glTF	Avatar exporteren als glTF
+	Export Avatar as glTF…	Avatar exporteren als glTF…
+	Export Drape as glTF…	Val exporteren als glTF…
+@msg	format: "obj" or "glb"	format: "obj" of "glb"
+@msg	colour: "fabric" or "fit"	colour: "fabric" of "fit"
+@msg	a piece could not be placed on the body	een patroondeel kon niet op het lichaam worden geplaatst
+@msg	{name} is already open	{name} is al geopend
+@msg	Draping on Avatar	Val op avatar
+	Step {n} of {total}	Stap {n} van {total}
+@msg	The drape was cancelled	De val is geannuleerd
+@msg	Draped on the avatar	Val op avatar klaar
+@msg	the document was closed	het document is gesloten
+@msg	the drape stopped	de val is gestopt
+@msg	width: the photo's width on the fabric, 10 to 5000 mm	width: de breedte van de foto op de stof, 10 tot 5000 mm
+@msg	turns: 0, 1, 2 or 3	turns: 0, 1, 2 of 3
+@msg	the image is not a fabric photo (Pattern › Use as Fabric…)	de afbeelding is geen stoffoto (Patroon › Als stof gebruiken…)
+@msg	even: true or false	even: true of false
+@msg	seamless: true or false	seamless: true of false
+@msg	Sign in to your Foundry Account first: Help › Foundry Account…	Meld je eerst aan bij je Foundry-account: Help › Foundry-account…
+@msg	The document is empty: there is nothing to publish.	Het document is leeg: er is niets te publiceren.
+@msg	The design is too large for MakerFoundry: at most 8 MB.	Het ontwerp is te groot voor MakerFoundry: hoogstens 8 MB.
+@msg	MakerFoundry's answer couldn't be read.	Het antwoord van MakerFoundry was niet te lezen.
+@msg	MakerFoundry answered with a page on another site, which wasn't opened.	MakerFoundry antwoordde met een pagina op een andere site; die is niet geopend.
+@msg	MakerFoundry: {1}	MakerFoundry: {1}
+@msg	MakerFoundry couldn't be reached: {0}	MakerFoundry is niet bereikbaar: {0}
+@msg	Publish to MakerFoundry needs a build that can reach MakerFoundry	Publiceren op MakerFoundry vraagt een versie die MakerFoundry kan bereiken
+@msg	open Publish to MakerFoundry first: it shows what is sent	open eerst Publiceren op MakerFoundry: daar zie je wat er verzonden wordt
+@msg	That link isn't a design file on MakerFoundry, so it wasn't opened.	Die link is geen ontwerpbestand op MakerFoundry en is daarom niet geopend.
+@msg	The design is too large to open: at most 32 MB.	Het ontwerp is te groot om te openen: hooguit 32 MB.
+@msg	PatternFoundry opens SVG and DXF designs from MakerFoundry; that file is neither.	PatternFoundry opent SVG- en DXF-ontwerpen van MakerFoundry; dat bestand is geen van beide.
+@msg	The design couldn't be downloaded from MakerFoundry: {0}	Het ontwerp kon niet van MakerFoundry worden gedownload: {0}

@@ -4862,3 +4862,571 @@ lighting	Light	ライト
 @msg	the file's variables and data sets weren't read (variables: {variables}, data sets: {data_sets}): the Variables panel doesn't list them	ファイルの変数とデータセットは読み込まれませんでした (変数: {variables}、データセット: {data_sets})。変数パネルには表示されません
 # Select by Color (select.color)
 	Select by Color	カラーで選択
+# PatternFoundry: pattern pieces (PF-1).
+	Add Notch	合印を追加
+	Make Pattern Piece	型紙パーツを作成
+	Pattern Pieces	型紙パーツ
+	Piece Info	パーツ情報
+	Piece Options	パーツのオプション
+	Release Pattern Piece	型紙パーツを解除
+	Remove Notch	合印を削除
+	Cut {count}	裁断 {count} 枚
+	Each selected closed path becomes a piece: the path is its seam line	選択した閉じたパスはそれぞれパーツになります。パスはその出来上がり線です
+	Edges	辺
+	Fabric	生地
+	Mirrored pairs	左右対称のペア
+	No pattern pieces yet	型紙パーツはまだありません
+	Notches	合印
+	Pattern piece	型紙パーツ
+	Pieces	パーツ
+	Seam allowance	縫い代
+	Seam line length	出来上がり線の長さ
+	Selected piece	選択したパーツ
+# PatternFoundry: true-scale printing (PF-2).
+	Pattern Marks (test squares, page names, overlap lines)	型紙マーク（テスト用の正方形、ページ名、重なり線）
+# PatternFoundry: measurements (PF-3).
+	Add Measurement	寸法を追加
+	Clear Measurements	寸法を消去
+	Clear Point Formulas	点の数式を消去
+	Draft Info	製図の情報
+	Formulas	数式
+	Import Size Chart	サイズ表を読み込む
+	Let PDF and SVG files saved with Preserve Editing keep the measured values	編集機能を保持して保存した PDF と SVG に計測値を残します
+	Measurements	寸法
+	No measurements yet	寸法はまだありません
+	Set Measurements	寸法を設定
+	Set Point Formula	点の数式を設定
+	Share in exported files	書き出したファイルで共有
+	Figure	体型
+	Female	女性
+	Male	男性
+	Child	子ども
+	The avatar takes what the measurements don't give from a survey's women's, men's or children's proportions	採寸にない部分は、調査の女性・男性・子どもの比率からアバターが補います
+	Size chart	サイズ表
+	Use Size	サイズを使用
+# PatternFoundry: blocks (PF-4).
+	Draft Bodice Block	身頃原型を製図
+	Block Measurements	原型の寸法
+	Draft Skirt Block	スカート原型を製図
+# PatternFoundry: design tools (PF-5).
+	Rotate Dart	ダーツを移動
+	Split at Points	点で分割
+	Seam Length	縫い目の長さ
+	Slash and Spread	切り開き
+	Match Seam Length	縫い目の長さを合わせる
+	Make Facing	見返しを作成
+	Add Pleat	プリーツを追加
+	Draft Sleeve Block	袖原型を製図
+	Draft Trouser Block	パンツ原型を製図
+	Draft Men's Trouser Block	メンズパンツ原型を製図
+	Draft Men's Shirt Block	メンズシャツ原型を製図
+	Draft Men's Shirt Sleeve Block	メンズシャツ袖原型を製図
+	Gather	ギャザー
+	Draft Collar	衿を製図
+	Patch Pocket	パッチポケット
+	Walk Seams	縫い目を合わせる
+	Smooth Across Seam	縫い目をまたいでなめらかに
+	Draft Stand Collar	スタンドカラーを製図
+	In-Seam Pocket	縫い目ポケット
+	Welt Pocket	玉縁ポケット
+	Make Wrap Front	ラップ前身頃
+	Make Band	帯を作成
+	Grade Nest	グレーディング（サイズ展開）
+	Clear Graded Nest	グレーディングを消去
+	Set Size Range	サイズ展開を設定
+	Set Grade Rule	グレーディングルールを設定
+	Grade Info	グレーディング情報
+	Grading	グレーディング
+	Base size	基本サイズ
+	Grade rules (mm a size)	グレーディングルール（1サイズあたりmm）
+	Name the sizes, smallest first, to give the points grade rules	ポイントにルールを付けるには、サイズを小さい順に入力してください
+	Select one pattern piece to grade its points	ポイントをグレーディングするパーツを1つ選択してください
+	Sizes	サイズ
+	per size	サイズごと
+	Copy Grade Rules	グレーディングルールをコピー
+	Copy Rules To	ルールのコピー先
+	Mirrored	反転
+	For the opposite half: places mirrored left to right, x moves the other way	反対側の半身用：位置を左右反転し、x方向の移動を逆にします
+	Draft Shirt Collar	シャツカラーを製図
+file-filter	DXF-AAMA (cutting room)	DXF-AAMA（裁断室）
+@msg	DXF-AAMA files are DXF R13 (ASTM D6673) or R12	DXF-AAMA ファイルは DXF R13（ASTM D6673）または R12 です
+@msg	no pattern pieces to export	書き出すパターンピースがありません
+@msg	the piece {_1} has no outline	ピース {_1} に輪郭がありません
+file-filter	SVG for cutting	カット用 SVG
+file-filter	PDF for projector	プロジェクター用 PDF
+	Foundry Account…	Foundry アカウント…
+	Publish to MakerFoundry…	MakerFoundry に公開…
+	Publish to MakerFoundry	MakerFoundry に公開
+	Publish	公開
+	Sign In…	サインイン…
+	Not signed in	サインインしていません
+	Your Foundry Account	Foundry アカウント
+	Sent to	送信先
+	SVG, a vector design	SVG、ベクターデザイン
+	What it is, e.g. A-line skirt	内容、例: A ラインスカート
+	Your design goes to MakerFoundry as a private draft, to finish on its page. Nothing is public until you publish it there.	デザインは非公開の下書きとして MakerFoundry に送られ、そのページで仕上げます。そこで公開するまで、何も公開されません。
+	Draft {id} made.	下書き {id} を作成しました。
+	Draft {id} made on MakerFoundry: finish it on the page that opened in your browser.	MakerFoundry に下書き {id} を作成しました。ブラウザーで開いたページで仕上げてください。
+	Finish it on MakerFoundry's page, which opened in your browser: it stays private until you publish it there.	ブラウザーで開いた MakerFoundry のページで仕上げてください。そこで公開するまで非公開のままです。
+	A password needs at least 8 characters.	パスワードは 8 文字以上必要です。
+	Account	アカウント
+	Allow	許可
+	Anthropic API key:	Anthropic API キー:
+	Ask	質問する
+	Buy credits	クレジットを購入
+	Buy…	購入…
+	Change key	キーを変更
+	Create Free Account	無料アカウントを作成
+	Create a free Foundry Account	無料の Foundry アカウントを作成
+	Don't Allow	許可しない
+	Edit › Undo takes each change back.	編集 › 取り消しで各変更を元に戻せます。
+	Email	メール
+	Foundry Account	Foundry アカウント
+	Foundry accounts aren't open yet. Until then, the AI features work with your own Anthropic API key.	Foundry アカウントはまだ始まっていません。それまでは、AI 機能はご自分の Anthropic API キーで使えます。
+	Get a key	キーを取得
+	I have an account: Sign In	アカウントをお持ちの方:サインイン
+	New Conversation	新しい会話
+	New here? Create a free account	はじめての方は無料アカウントを作成
+	No card needed, and no API key to set up	カード不要、API キーの設定も不要
+	Paid with Foundry credits ({n} left).	Foundry クレジットで支払い（残り {n}）。
+	Paid with Foundry credits.	Foundry クレジットで支払い。
+	Pay for the AI features with my Foundry credits	AI 機能を Foundry クレジットで支払う
+	Pay with Foundry credits instead	代わりに Foundry クレジットで支払う
+	Payment is on Stripe's secure page, in your browser; your card never reaches PatternFoundry.	支払いはブラウザーで開く Stripe の安全なページで行います。カード情報が PatternFoundry に届くことはありません。
+	Reading your credits…	クレジットを読み込み中…
+	Remember the key on this computer	このコンピューターにキーを保存
+	Server	サーバー
+	Sign In	サインイン
+	Sign Out	サインアウト
+	Sign in to your Foundry Account	Foundry アカウントにサインイン
+	Signed in as {email}	{email} でサインイン中
+	Thinking…	考え中…
+	Type your question, then press Enter	質問を入力して Enter キーを押してください
+	{n} credits	{n} クレジット
+	{n} credits for {price}	{n} クレジット（{price}）
+@msg	An account with that email already exists: sign in instead.	そのメールのアカウントはすでにあります。サインインしてください。
+@msg	Anthropic refused the API key: {0}	Anthropic が API キーを拒否しました: {0}
+@msg	Couldn't reach the AI service: {0}	AI サービスに接続できませんでした: {0}
+@msg	Enter your Anthropic API key first.	先に Anthropic API キーを入力してください。
+@msg	Foundry accounts aren't open yet.	Foundry アカウントはまだ始まっていません。
+@msg	Not enough Foundry credits: buy more in Foundry Account.	Foundry クレジットが足りません。Foundry アカウントで購入してください。
+@msg	The AI declined to answer this: ask another way.	AI がこの質問への回答を断りました：別の聞き方をしてください。
+@msg	The AI service failed (error {0}): try again later.	AI サービスでエラーが発生しました (エラー {0}): しばらくしてからもう一度お試しください。
+@msg	The AI service is busy: try again in a minute.	AI サービスが混み合っています: 1 分ほどしてからもう一度お試しください。
+@msg	The API key isn't valid: paste it again from the Anthropic Console.	API キーが正しくありません: Anthropic Console からもう一度貼り付けてください。
+@msg	The question is too long: keep it under 2,000 characters.	質問が長すぎます：2,000 文字以内にしてください。
+@msg	The reply had no answer: try again, or ask something narrower.	回答が空でした：もう一度試すか、より具体的に質問してください。
+@msg	The request failed (error {0}): {1}	リクエストに失敗しました (エラー {0}): {1}
+@msg	Type a question first.	まず質問を入力してください。
+@msg	Your Anthropic account can't pay for this: {0}	お使いの Anthropic アカウントではこの料金を支払えません: {0}
+@msg	already asking: wait for the answer	質問中です：回答をお待ちください
+@msg	this needs a connection to the AI service, which this build doesn't have	これには AI サービスへの接続が必要ですが、このビルドにはありません
+@msg	This conversation is long: start a New Conversation.	会話が長くなりました：新しい会話を始めてください。
+@msg	Claude took too many steps: ask again, more simply.	Claude の手順が多すぎました：もっと簡単に、もう一度質問してください。
+@msg	Account made: welcome to PatternFoundry.	アカウントを作成しました。PatternFoundry へようこそ。
+@msg	Signed in.	サインインしました。
+@msg	Signed out.	サインアウトしました。
+@msg	Type your email address.	メールアドレスを入力してください。
+@msg	Pay on the page that opened in your browser, then press Refresh.	ブラウザーで開いたページで支払い、それから「更新」を押してください。
+	Ask About Patterns…	型紙について質問…
+	Answers come from Claude with your own Anthropic API key, billed to your Anthropic account. They can be wrong: sew a muslin before cutting good fabric.	回答はお客様自身の Anthropic API キーを使って Claude が作成し、Anthropic アカウントに請求されます。回答は誤っている場合があります。良い生地を裁つ前に、シーチングで仮縫い（トワル）をしてください。
+	Ask About Patterns	型紙について質問
+	Ask anything about sewing patterns or PatternFoundry: how much ease to add, how to move a dart, which block to start from, where a feature is. Claude can also draft and change your pattern when you ask, after you allow it.	型紙や PatternFoundry について何でも質問できます。ゆとりをどれだけ加えるか、ダーツの移動方法、どの原型から始めるか、機能の場所など。許可すれば、依頼に応じて Claude が型紙を製図・変更することもできます。
+	Claude asks to:	Claude からの依頼：
+	Couldn't do:	実行できませんでした：
+	Done:	完了：
+	Free credits for the AI features, no API key needed	AI 機能用の無料クレジット、API キー不要
+	Free credits to try the AI features: Ask About Patterns drafts and changes patterns with you	AI 機能を試せる無料クレジット：「型紙について質問」で型紙を一緒に製図・変更できます
+	Include my pattern	型紙を含める
+	Its pieces and sizes, and which measurements are set: never their values	パーツとサイズ、設定済みの寸法の項目：寸法の値は含めません
+	Leave it empty for the Foundry service.	Foundry のサービスを使うときは空欄のままにします。
+	Not allowed:	許可されていません：
+	One account for every SiteSentrix app	すべての SiteSentrix アプリで使える 1 つのアカウント
+	Read your measurements	寸法を読み取る
+@msg	Ask About Patterns needs a build that can reach the AI service	「型紙について質問」には AI サービスに接続できるビルドが必要です
+@msg	Foundry Account needs a build that can reach the AI service	「Foundry アカウント」には AI サービスに接続できるビルドが必要です
+@msg	Sign in to your Foundry account (Help › Foundry Account…).	Foundry アカウントにサインインしてください（ヘルプ › Foundry アカウント…）。
+@msg	The Foundry service can't do this yet: try again later.	Foundry のサービスはまだこれに対応していません。後でもう一度お試しください。
+	Add Photos…	写真を追加…
+	Choose the photos in the browser's window…	ブラウザーのウィンドウで写真を選んでください…
+@msg	This photo is too large: send a smaller copy.	この写真は大きすぎます。小さいコピーを送ってください。
+@msg	no files here	ここにはファイルがありません
+	About the fit	フィットについて
+	Anything else? For example: folds below the back neck	ほかに何か？ 例：後ろ衿ぐりの下にしわが出る
+	Check My Muslin	仮縫いをチェック
+	Claude looks at the photos with your own Anthropic API key, billed to your Anthropic account. It can be wrong: sew the altered part again in muslin before cutting good fabric.	Claude はお使いの Anthropic API キーで写真を見ます。料金はお使いの Anthropic アカウントに請求されます。間違えることもあるので、良い生地を裁つ前に、補正した部分をもう一度シーチングで仮縫いしてください。
+	Final fabric	本番の生地
+	Hard to raise my arms	腕が上げにくい
+	How it feels:	着心地：
+	Include the pattern it was cut from (open now), so it can be altered	裁断に使った型紙（いま開いているもの）を含め、補正できるようにする
+	Loose or gaping somewhere	どこかがゆるい、または浮いている
+	Muslin fabric	仮縫い用の生地
+	My muslin ({n} photos)	私の仮縫い（写真 {n} 枚）
+	Photos of your muslin, tried on	仮縫いを着た写真
+	The front, the side and the back, standing straight with your arms down, and close-ups of any folds or pulling.	正面、横、後ろを、まっすぐ立って腕を下ろした姿勢で。しわや引きつれがあれば、その拡大写真も。
+	The neckline gapes or pulls	衿ぐりが浮く、または引きつれる
+	The photos go to Claude for this check only; PatternFoundry doesn't keep them.	写真はこのチェックのためだけに Claude に送られます。PatternFoundry には保存されません。
+	The shoulder seams don't sit on my shoulders	肩線が肩に乗っていない
+	Tight across the back or shoulders	背中や肩がきつい
+	Tight across the bust or chest	バストや胸がきつい
+	Tight at the waist or hips	ウエストやヒップがきつい
+	Too long or too short	長すぎる、または短すぎる
+	e.g. calico, an old sheet	例：シーチング、古いシーツ
+	e.g. cotton poplin, jersey	例：綿ブロード、ジャージー
+	Check My Muslin…	仮縫いをチェック…
+@msg	Add a photo of the muslin first.	まず仮縫いの写真を追加してください。
+@msg	Check My Muslin needs a build that can reach the AI service	「仮縫いをチェック」には AI サービスに接続できるビルドが必要です
+@msg	The image is too large to send: crop it, or send a smaller copy.	画像が大きすぎて送信できません。切り抜くか、小さいコピーを送ってください。
+@msg	At most 6 photos: remove one first.	写真は 6 枚までです。先に 1 枚削除してください。
+@msg	This photo can't be read: save or send it as a JPEG (on an iPhone: Settings › Camera › Formats › Most Compatible).	この写真は読み込めません。JPEG で保存するか送ってください（iPhone では 設定 › カメラ › フォーマット › 互換性優先）。
+	Make Marker	型入れを作成
+	Make Marker…	型入れを作成…
+	Gap	間隔
+	Precision	精度
+	One Way	一方向
+	Cut on fold	わで裁つ
+	Folded	二つ折り
+	The straight edge laid on the fabric's fold: no allowance there	布のわに合わせる直線の辺：縫い代なし
+	Check Sleeve Ease	袖山のいせ込みを確認
+	Sleeve Ease	袖山のいせ込み
+	Crown {crown} mm, armhole {armhole} mm (back {back}, front {front}): the crown takes in {ease} mm ({percent}%).	袖山 {crown} mm、袖ぐり {armhole} mm（後ろ {back}、前 {front}）：袖山のいせ込みは {ease} mm（{percent}%）。
+	Less than the {min} to {max} mm it should take in: the sleeve may pull across the cap. Set sleeve_crown to {wanted} mm in Measurements to redraft the sleeve block with the ease in the middle.	いせ込みの目安 {min}〜{max} mm より少ない：袖山がつれることがあります。採寸で sleeve_crown を {wanted} mm にすると、いせ込みが目安の中ほどになるよう袖の原型が引き直されます。
+	More than the {min} to {max} mm it should take in: the cap may pucker when it is set in. Set sleeve_crown to {wanted} mm in Measurements to redraft the sleeve block with the ease in the middle.	いせ込みの目安 {min}〜{max} mm より多い：付けるときに袖山にしわが寄ることがあります。採寸で sleeve_crown を {wanted} mm にすると、いせ込みが目安の中ほどになるよう袖の原型が引き直されます。
+	Within the {min} to {max} mm it should take in.	いせ込みの目安 {min}〜{max} mm の範囲内です。
+	Edges: {edges}, notches: {notches}	辺：{edges}、合印：{notches}
+	Edge {n}	辺 {n}
+	On fold	わ
+	Back to the piece's seam allowance	パーツの縫い代に戻す
+	A notch in the middle of the edge	辺の中央に合印
+	Notch on edge {edge}, {at}% along	辺 {edge} の合印（{at}% の位置）
+	Piece Outlines	パーツの輪郭
+	Projector	プロジェクター
+	Projector Scale (screen points per mm, 0: not calibrated)	プロジェクターの倍率（1 mm あたりの画面ポイント、0：未調整）
+	Projector View	プロジェクター表示
+	Measure the square on the cutting mat: it should be 10 cm each way. The arrows make it bigger or smaller (with Shift, faster); Enter keeps it; Escape leaves. Scale: {scale} points per mm.	カッティングマット上で正方形を測ってください。縦横とも 10 cm になるはずです。矢印キーで大きく・小さく（Shift で速く）、Enter で決定、Escape で終了。倍率：1 mm あたり {scale} ポイント。
+	Arrows move the pattern 1 cm (Shift: 1 mm) · M mirrors it · C calibrates · Escape leaves	矢印キーで型紙を 1 cm 移動（Shift：1 mm）· M で反転 · C で調整 · Escape で終了
+@msg	no pattern pieces to project: make the outlines pattern pieces first (Pattern › Make Pattern Piece)	投影する型紙パーツがありません：先に輪郭を型紙パーツにしてください（型紙 › 型紙パーツを作成）
+@msg	scale: screen points per mm, more than 0	倍率：1 mm あたりの画面ポイント、0 より大きく
+	Delete Saved Measurements	保存した寸法を削除
+	Load Measurements	寸法を読み込む
+	My Measurements	マイ寸法
+	Save to My Measurements	マイ寸法に保存
+	Delete from this computer	このコンピューターから削除
+	Kept on this computer only, to load into any pattern	このコンピューターだけに保存され、どの型紙にも読み込めます
+	Load	読み込む
+	Use these measurements in this pattern	この寸法をこの型紙で使う
+	Whose (Me)	だれの（自分）
+	Shorten Dart	ダーツを短くする
+	Shorten Dart…	ダーツを短くする…
+	Shorten	短くする
+	Add Notch Here	ここに合印を追加
+	Cut on Fold Here	ここをわにする
+	Seam Allowance Here…	ここの縫い代…
+	Grade This Point…	この点をグレーディング…
+	Edge Allowance	辺の縫い代
+	Across	横方向
+	Down	下方向
+	One step	同じ刻み
+	The same move for each size, from the size above the base	各サイズで同じ移動量（基準の一つ上のサイズから）
+	Per size	サイズごと
+	A move for each size of its own	サイズごとに個別の移動量
+	Add Drill Hole Here	ここにドリル穴を追加
+	Remove Drill Hole Here	ここのドリル穴を削除
+	Add Drill Hole	ドリル穴を追加
+	Remove Drill Hole	ドリル穴を削除
+	Drill holes: {count}	ドリル穴: {count}
+	Right-click inside the piece: Add Drill Hole Here	パーツの内側を右クリック: ここにドリル穴を追加
+	Drill hole {n}, {mm} mm	ドリル穴 {n}、{mm} mm
+	Drill hole {n}	ドリル穴 {n}
+	Notch Shape	ノッチの形
+	Slit notch	切り込みノッチ
+	Double notch	ダブルノッチ
+	V notch	Vノッチ
+	T notch	Tノッチ
+	Castle notch	キャッスルノッチ
+	U notch	Uノッチ
+	As drawn	描いたとおり
+	Side by side	横に並べる
+	Block Options…	原型のオプション…
+	Block Options	原型のオプション
+	Ease	ゆとり
+	Waist ease	ウエストのゆとり
+	Bust dart	胸ダーツ
+	Shoulder dart	肩ダーツ
+	Back dart	後ろダーツ
+	Back dart length	後ろダーツの長さ
+	Front dart length	前ダーツの長さ
+	Option	オプション
+	Back to the block's default	原型の既定値に戻す
+	from the measurements	寸法から
+	Block Options Info	原型のオプション情報
+	Check Trouser Seams	パンツの縫い目を確認
+	Trouser Seams	パンツの縫い目
+	Inseam, knee to hem	股下、ひざから裾
+	Inseam, crotch to knee	股下、股からひざ
+	Side seam, knee to hem	脇、ひざから裾
+	Side seam, waist to knee	脇、ウエストからひざ
+	{seam}: front {front} mm, back {back} mm ({difference} mm)	{seam}: 前 {front} mm、後ろ {back} mm（{difference} mm）
+	Walk them on the pattern too: where a line doesn't run on smoothly from front to back, find the point half way between the two and correct both lines. The back inseam is more curved, so it is often longer: lowering the back crotch curve slightly to match is fine.	型紙の上でも合わせてください。前から後ろへ線がなめらかにつながらないところは、両者の中間の点を見つけて両方の線を直します。後ろの股下はカーブが強いので長くなりがちです。合わせるために後ろの股ぐりを少し下げるのは問題ありません。
+	Front dart	前ダーツ
+	Draft Trouser Waistband	パンツのウエストベルトを作図
+	Flap Pocket…	フラップポケット…
+	Crown ease	袖山のいせ分量
+	Remove Design Step	デザイン手順を削除
+	Dart moved	ダーツを移動しました
+	Dart shortened {mm} mm	ダーツを {mm} mm 短くしました
+	Slashed and spread {mm} mm	切り開いて {mm} mm 展開しました
+	Seam trued to {mm} mm	縫い目を {mm} mm に合わせました
+	Split into panels	パネルに分割しました
+	Design step	デザイン手順
+	Design steps: {count}	デザイン手順: {count}
+	Design changes made on the block (darts, splits, spreads, seam lengths) show here; each is made again when the measurements change	原型に加えた変更（ダーツ、分割、展開、縫い目の長さ）はここに表示されます。採寸値が変わると、それぞれがやり直されます
+	Remove this step and the ones after it (they were made on the outline it made)	この手順とそれ以降の手順を削除（それ以降はこの手順でできた輪郭の上で行われています）
+	Selected block part	選択した原型パーツ
+	Curve Dart Legs…	ダーツ線をカーブさせる…
+	Curve Dart Legs	ダーツ線をカーブさせる
+	Dart legs curved {mm} mm	ダーツ線を {mm} mm カーブさせました
+	Draft Rounded Stand Collar	角の丸いスタンドカラーを製図
+	Draft Wing Collar	ウィングカラーを製図
+	Check Marker	マーカーを確認
+	{length} cm long, {efficiency}% of the fabric used	長さ {length} cm、生地の {efficiency}% を使用
+	{a} overlaps {b}	{a} が {b} と重なっています
+	{piece} is off the fabric	{piece} が生地からはみ出しています
+	No pieces overlap, and all are on the fabric.	重なっているパーツはなく、すべて生地の上にあります。
+	Plaid	チェック柄
+menu	Pattern	型紙
+@msg	a and b are two pieces (or paths) that sew together	a と b には、縫い合わせる 2 つのパーツ（またはパス）を指定してください
+@msg	a corner is "mitre" or "square"	角は "mitre" または "square" で指定してください
+@msg	a facing runs along part of the outline	見返しは輪郭の一部に沿って作ります
+@msg	a facing runs between two different points of the outline	見返しは輪郭上の異なる 2 点の間に作ります
+@msg	a name takes at most 200 characters	名前は 200 文字以内にしてください
+@msg	a neckline runs between two different points of its outline, and the shoulder point is one of them	衿ぐりは輪郭上の異なる 2 点の間にあり、その一方が肩先である必要があります
+@msg	a seam allowance is a number of mm, or a length with its unit ("5/8 in")	縫い代は mm 単位の数値、または単位付きの長さ（"5/8 in"）で指定してください
+@msg	a seam has no length	縫い目の長さがありません
+@msg	a shoulder point is on its neck point	肩先がサイドネックポイントと重なっています
+@msg	a slash runs between two points of the outline that aren't neighbours	切り開き線は、輪郭上の隣り合わない 2 点の間に引いてください
+@msg	a split leaves a piece with fewer than three anchors	分割すると、アンカーポイントが 3 つ未満のパーツができてしまいます
+@msg	a split made two panels: delete the panel you don't want instead	分割でパネルが 2 つできています：代わりに不要なパネルを削除してください
+@msg	a split needs two different anchors on the outline	分割には輪郭上の異なる 2 つのアンカーポイントが必要です
+@msg	amount: a share of the dart, (0, 1]	amount: ダーツ分量の割合、(0, 1]
+@msg	amount: how far it opens, mm	amount: 開く量、mm
+@msg	anchor: the point's number along the path, from 0	anchor: パス上の点の番号（0 から）
+@msg	anchor: the seam line's point, from 0	anchor: 出来上がり線の点（0 から）
+@msg	anchors: [a, b] or [a]	anchors: [a, b] または [a]
+@msg	anchors: point numbers along the path	anchors: パス上の点の番号
+@msg	apex: the dart's point (or select that one point)	apex: ダーツ先（またはその 1 点を選択）
+@msg	at: 0 (the edge's start) to 1 (its end)	at: 0（辺の始点）～ 1（終点）
+@msg	at: [x, y], the document point on the edge	at: [x, y]、辺上の点（ドキュメント座標）
+@msg	base: the size the pattern is drawn in	base: 型紙を描いたサイズ
+@msg	block: "bodice", "skirt", "sleeve" or "trousers"	block: "bodice"、"skirt"、"sleeve"、"trousers" のいずれか
+@msg	can't make the seam that long by moving its end	端を動かしても、縫い目をその長さにできません
+@msg	curve: mm the wrap edge bows into the piece	curve: 打ち合わせの端がパーツの内側へ弧を描く量、mm
+@msg	cut is a whole number, 1 to 999	cut は 1～999 の整数で指定してください
+@msg	data: the chart's text	data: サイズ表のテキスト
+@msg	depth: how deep the pleat folds under, mm	depth: プリーツを内側に折り込む深さ、mm
+@msg	depth: mm (less than 0 bows the legs in)	depth: mm（0 未満でダーツ線を内側にカーブ）
+@msg	diameter: a number of mm, or a length with its unit ("1/8 in")	diameter: mm 単位の数値、または単位付きの長さ（"1/8 in"）
+@msg	edge: the edge's number, from 0 (or point)	edge: 辺の番号、0 から（または point）
+@msg	edges and corners are numbered from 0	辺と角の番号は 0 から始まります
+@msg	every: mm, at least 10	every: mm、10 以上
+@msg	face: only a box pleat has one	face: ボックスプリーツにのみ指定できます
+@msg	face: the box pleat's width between its folds, mm	face: ボックスプリーツの折り山間の幅、mm
+@msg	flapShape: "square", "rounded" or "pointed"	flapShape: "square"、"rounded"、"pointed" のいずれか
+@msg	fold is an edge's number (0..), or null	fold には辺の番号（0..）または null を指定してください
+@msg	fold: [a, b], the centre front edge's two points	fold: [a, b]、前中心の辺の 2 点
+@msg	fold: true or false	fold: true または false
+@msg	foldAt: [x, y] in document points	foldAt: [x, y]（ドキュメントのポイント単位）
+@msg	folded: true or false	folded: true または false
+@msg	from: [x, y] in document points	from: [x, y]（ドキュメントのポイント単位）
+@msg	from: not a pattern piece	from: 型紙パーツではありません
+@msg	from: the pattern piece whose rules are copied	from: ルールのコピー元の型紙パーツ
+@msg	from: the piece has no seam line	from: パーツに出来上がり線がありません
+@msg	frontShape: "square", "rounded" or "winged"	frontShape: "square"、"rounded"、"winged" のいずれか
+@msg	gathering runs between two different points of the outline	ギャザーは輪郭上の異なる 2 点の間に入れます
+@msg	give apex and one of to or toAnchor (or select the two points)	apex と、to または toAnchor のどちらかを指定してください（または 2 点を選択）
+@msg	height: mm, 10 to 100 (the tutorial's is at most 30)	height: mm、10～100（チュートリアルでは 30 以下）
+@msg	id: a block part's id	id: 原型パーツの id
+@msg	index: the drill hole's place in the list, from 0 (or point)	index: リスト内のドリル穴の位置、0 から（または point）
+@msg	index: the notch's place in the list, from 0	index: リスト内の合印の位置（0 から）
+@msg	index: the step's place, from 0	index: 手順の位置（0 から）
+@msg	into: the length it gathers into, mm	into: ギャザーを寄せた後の長さ、mm
+@msg	kind: "slit", "double", "v", "t", "castle" or "u"	kind: "slit"、"double"、"v"、"t"、"castle"、"u" のいずれか
+@msg	kind: the notch's new shape	kind: 合印の新しい形
+@msg	layer: a marker layer's id	layer: 型入れレイヤーの id
+@msg	length (mm) or likeId with likeFrom and likeTo: the seam to match	length（mm）、または likeId と likeFrom・likeTo：合わせる縫い目
+@msg	length: mm, more than 0	length: mm、0 より大きい値
+@msg	line: "cut" or "seam"	line: "cut" または "seam"
+@msg	match: the seam it sews to is shorter than the pocket opening's end	match: 縫い合わせる縫い目が、ポケット口の終わりまで届きません
+@msg	min is more than max	min が max より大きくなっています
+@msg	mirror is true or false	mirror は true または false で指定してください
+@msg	mirror: "none", "x", "y" or "xy"	mirror: "none"、"x"、"y"、"xy" のいずれか
+@msg	name: the saved set's name	name: 保存した寸法セットの名前
+@msg	name: whose measurements they are ("Me")	name: だれの寸法か（"Me"）
+@msg	no drill hole near the point	その点の近くにドリル穴がありません
+@msg	no drill hole with that index	その index のドリル穴はありません
+@msg	no notch with that index	その index の合印はありません
+@msg	no object with that id	その id のオブジェクトはありません
+@msg	no pattern pieces to grade: make the outlines pattern pieces first (Pattern › Make Pattern Piece)	グレーディングする型紙パーツがありません：先に輪郭を型紙パーツにしてください（型紙 › 型紙パーツを作成）
+@msg	no straight centre front edge on the outline's side: name it with fold: [a, b]	輪郭のこちら側に、まっすぐな前中心の辺がありません：fold: [a, b] で指定してください
+@msg	not a drafted block part	製図した原型パーツではありません
+@msg	not a marker's layer (Pattern › Make Marker…)	型入れのレイヤーではありません（型紙 › 型入れを作成…）
+@msg	not a pattern piece	型紙パーツではありません
+@msg	not a stand collar's outline	スタンドカラーの輪郭ではありません
+@msg	notches go on pattern pieces: make both seams' paths pieces first (Pattern › Make Pattern Piece)	合印は型紙パーツに付けます：先に両方の縫い目のパスをパーツにしてください（型紙 › 型紙パーツを作成）
+@msg	notches: [mm, …]	notches: [mm, …]
+@msg	notches: distances from the seams' starts, mm	notches: 縫い目の始点からの距離、mm
+@msg	on and at go together: the garment piece and where the opening's top-left corner goes on it	on と at は一緒に指定します：衣服のパーツと、その上でポケット口の左上角を置く位置
+@msg	on and at go together: the garment piece and where the pocket's top-left corner goes on it	on と at は一緒に指定します：衣服のパーツと、その上でポケットの左上角を置く位置
+@msg	one point splits only where another point is at the same place (two darts' point)	1 点だけで分割できるのは、同じ位置に別の点があるところ（2 本のダーツの共通の先）だけです
+@msg	oneWay: true or false	oneWay: true または false
+@msg	openFolds: true or false	openFolds: true または false
+@msg	origin: [x, y] in document points	origin: [x, y]（ドキュメントのポイント単位）
+@msg	overlap: mm past centre front, more than 0	overlap: 前中心から先の打ち合わせ分、mm、0 より大きい値
+@msg	overlap: the edge misses the outline	overlap: 端が輪郭と交わりません
+@msg	plaid: the repeat (mm, or [along, across])	plaid: リピート（mm、または [along, across]）
+@msg	plaid: the repeat along and across, 1 to 10 000 mm each	plaid: 縦方向と横方向のリピート、それぞれ 1～10 000 mm
+@msg	point: [x, y] in document points	point: [x, y]（ドキュメントのポイント単位）
+@msg	select a drafted block part (Pattern › Draft … Block)	製図した原型パーツを選択してください（型紙 › …原型を製図）
+@msg	select a path or a pattern piece	パスまたは型紙パーツを選択してください
+@msg	select a pattern piece (Pattern › Make Pattern Piece makes one)	型紙パーツを選択してください（型紙 › 型紙パーツを作成 で作成できます）
+@msg	select a piece on the marker to check	確認する型入れ上のパーツを選択してください
+@msg	select closed paths: each becomes a piece, the path its seam line	閉じたパスを選択してください：それぞれがパーツになり、パスがその出来上がり線になります
+@msg	select one path	パスを 1 つ選択してください
+@msg	select one pattern piece	型紙パーツを 1 つ選択してください
+@msg	select two points of one path (or one that two darts share)	1 つのパス上の 2 点を選択してください（または 2 本のダーツが共有する 1 点）
+@msg	select two points of one path: the dart's point and where the dart moves to	1 つのパス上の 2 点を選択してください：ダーツ先と、ダーツの移動先
+@msg	select two points of one path: the ends of the edge to face	1 つのパス上の 2 点を選択してください：見返しを付ける辺の両端
+@msg	select two points of one path: the ends of the edge to gather	1 つのパス上の 2 点を選択してください：ギャザーを寄せる辺の両端
+@msg	share is true or false	share は true または false で指定してください
+@msg	shorten: mm (less than 0 lengthens)	shorten: mm（0 未満で長くなります）
+@msg	shoulder: longer than the outline	shoulder: 輪郭より長くなっています
+@msg	shoulder: mm, 0 or more	shoulder: mm、0 以上
+@msg	size: one of the chart's sizes	size: サイズ表にあるサイズのいずれか
+@msg	size: the name of a size of the size range or chart	size: サイズ展開またはサイズ表にあるサイズの名前
+@msg	sizes: name one size at least	sizes: サイズを 1 つ以上指定してください
+@msg	sizes: the sizes' names	sizes: サイズの名前
+@msg	sizes: the sizes' names, smallest first (null removes them)	sizes: サイズの名前、小さい順（null で削除）
+@msg	split the seam line on its own: release the piece first (Pattern › Release Pattern Piece)	出来上がり線だけを分割するには、先にパーツを解除してください（型紙 › 型紙パーツを解除）
+@msg	step: [dx, dy] in mm	step: [dx, dy]（mm 単位）
+@msg	style: classic, casual or shirt	style: classic、casual、shirt のいずれか
+@msg	that anchor's neighbours don't make a dart	そのアンカーポイントの隣の点では、ダーツになりません
+@msg	that point is not a dart's point: its legs open a right angle or wider	その点はダーツ先ではありません：ダーツ線の開きが直角以上です
+@msg	the amount is a share of the dart, more than 0 and at most 1	量はダーツ分量の割合で、0 より大きく 1 以下です
+@msg	the back's outline encloses no area	後ろ身頃の輪郭が面積を囲んでいません
+@msg	the box pleat's face is more than 0 wide	ボックスプリーツの表側の幅は 0 より大きくしてください
+@msg	the chart is larger than 1 MB	サイズ表が 1 MB を超えています
+@msg	the curve has no length at the meeting point	合流点で曲線の長さがありません
+@msg	the curves leave the seam the same way	曲線が縫い目から同じ向きに出ています
+@msg	the dart has no length	ダーツの長さがありません
+@msg	the dart is not that long	ダーツはそれほど長くありません
+@msg	the dart point or the new dart's anchor is not on the outline	ダーツ先または新しいダーツのアンカーポイントが輪郭上にありません
+@msg	the dart's legs must be straight lines	ダーツ線は直線にしてください
+@msg	the dart's point is past the outline's end	ダーツ先が輪郭の終わりを越えています
+@msg	the depth to curve the legs by is not a number	ダーツ線をカーブさせる深さが数値ではありません
+@msg	the document has no marker (Pattern › Make Marker…)	ドキュメントに型入れがありません（型紙 › 型入れを作成…）
+@msg	the document has no measurements to save	保存する寸法がドキュメントにありません
+@msg	the document has no size chart (measure.importChart)	ドキュメントにサイズ表がありません（measure.importChart）
+@msg	the drop at the front is less than half the neck edge	前の下がりは衿付け線の半分未満にしてください
+@msg	the edge has no length	辺の長さがありません
+@msg	the edge's anchor is past the outline's end	辺のアンカーポイントが輪郭の終わりを越えています
+@msg	the fabric's width must be more than 0	生地幅は 0 より大きくしてください
+@msg	the flap is deeper than twice its width	フラップの深さが幅の 2 倍を超えています
+@msg	the flap's width and depth are more than 0, its allowance 0 or more	フラップの幅と深さは 0 より大きく、縫い代は 0 以上にしてください
+@msg	the fold edge has no length	わの辺の長さがありません
+@msg	the fold edge's anchors are past the outline's end	わの辺のアンカーポイントが輪郭の終わりを越えています
+@msg	the fold edge's two anchors must be neighbours on the outline	わの辺の 2 つのアンカーポイントは、輪郭上で隣り合っている必要があります
+@msg	the fold must be a straight edge	わは直線の辺にしてください
+@msg	the front end has no length	前端の長さがありません
+@msg	the gap must be 0 or more	間隔は 0 以上にしてください
+@msg	the grainline's ends are the same point	布目線の両端が同じ点です
+@msg	the legs can't curve that far: the dart isn't wide enough	ダーツ線をそこまでカーブさせられません：ダーツの幅が足りません
+@msg	the length to shorten by is not a number	短くする長さが数値ではありません
+@msg	the marker has lost its fabric outline	型入れの生地の輪郭がなくなっています
+@msg	the marker has no pieces	型入れにパーツがありません
+@msg	the marker is too large at this precision: give a coarser one	この精度では型入れが大きすぎます：より粗い精度を指定してください
+@msg	the measurements could not be saved	寸法を保存できませんでした
+@msg	the meeting point and the seam's other end are points of the outline	合流点と縫い目のもう一方の端は、輪郭上の点にしてください
+@msg	the neckline has no length	衿ぐりの長さがありません
+@msg	the neckline lengths and the stand's height are more than 0, the rise and extension 0 or more	衿ぐりの長さとスタンドの高さは 0 より大きく、上がりと持ち出しは 0 以上にしてください
+@msg	the new dart is on the old dart	新しいダーツが元のダーツと重なっています
+@msg	the opening is longer than twice its height	口の長さが高さの 2 倍を超えています
+@msg	the opening, depth and width are more than 0, the width more than the allowance	口の長さ、深さ、幅は 0 より大きく、幅は縫い代より大きくしてください
+@msg	the opening, the welt and the depth are more than 0, the allowances 0 or more	口の長さ、玉縁、深さは 0 より大きく、縫い代は 0 以上にしてください
+@msg	the outline encloses no area	輪郭が面積を囲んでいません
+@msg	the outline has no side seam	輪郭に脇線がありません
+@msg	the path has no outline	パスに輪郭がありません
+@msg	the path must be one closed outline	パスは 1 つの閉じた輪郭にしてください
+@msg	the piece has no grade rules to copy	パーツにコピーするグレーディングルールがありません
+@msg	the piece has no straight edge to cut on the fold	パーツに、わで裁つための直線の辺がありません
+@msg	the pieces have no cutting lines to lay	パーツに配置する裁ち切り線がありません
+@msg	the plaid's repeat must be more than 0 along and across	チェック柄のリピートは縦横とも 0 より大きくしてください
+@msg	the pocket (its opening and the allowance past both ends) fits on the seam	ポケット（ポケット口と両端の先の縫い代）が縫い目に収まるようにしてください
+@msg	the point is not inside the piece	点がパーツの内側にありません
+@msg	the point is not on the seam line or in its allowance	点が出来上がり線上にも縫い代内にもありません
+@msg	the precision must be more than 0	精度は 0 より大きくしてください
+@msg	the rise at centre front is less than the front neckline is long	前中心の上がりは前衿ぐりの長さより小さくしてください
+@msg	the seam has no length there	そこでは縫い目の長さがありません
+@msg	the seam runs between two different points of the outline	縫い目は輪郭上の異なる 2 点の間にしてください
+@msg	the seam's other end is a neighbour of the meeting point	縫い目のもう一方の端が合流点の隣の点です
+@msg	the top edge has no length	上端の辺の長さがありません
+@msg	the wing is more than 0 long	ウィングの長さは 0 より大きくしてください
+@msg	there is no folder to keep measurement sets in here (the desktop app keeps them next to its preferences)	この環境には寸法セットを保存するフォルダーがありません（デスクトップアプリでは環境設定と同じ場所に保存します）
+@msg	there is no point of the seam line there	そこに出来上がり線の点はありません
+@msg	to or toAnchor: where the dart moves to	to または toAnchor: ダーツの移動先
+@msg	to: [x, y] in document points	to: [x, y]（ドキュメントのポイント単位）
+@msg	to: the pieces to copy the rules to (select them, or name them)	to: ルールのコピー先のパーツ（選択するか、名前で指定）
+@msg	too many objects at once	一度に扱えるオブジェクトの数を超えています
+@msg	too many pieces at once	一度に扱えるパーツの数を超えています
+@msg	too many pieces to lay at once	一度に配置できるパーツの数を超えています
+@msg	too many sizes at once	一度に扱えるサイズの数を超えています
+@msg	unit: "mm", "cm" or "in"	unit: "mm"、"cm"、"in" のいずれか
+@msg	width: mm, more than 0	width: mm、0 より大きい値
+	Draw Avatar	アバターを描画
+	Export Avatar as OBJ	アバターを OBJ で書き出し
+	Sewn seams: {count}	縫い合わせた縫い目: {count}
+	{label}: sewn to {piece}, {mm} mm longer	{label}: {piece} と縫い合わせ、{mm} mm 長い
+	{label}: sewn to {piece}, {mm} mm shorter	{label}: {piece} と縫い合わせ、{mm} mm 短い
+	{label}: sewn to {piece}	{label}: {piece} と縫い合わせ
+	Sew Seams	縫い目を縫い合わせる
+	Unsew Seams	縫い目をほどく
+	Sewn Seams	縫い合わせた縫い目
+	Drape on Avatar	アバターに着せる
+	Use as Fabric…	生地として使用…
+	Use as Fabric	生地として使用
+	Stop Using as Fabric	生地としての使用を解除
+	Fabric Photos	生地の写真
+@msg	the drape view's picture is the wrong size	ドレープ表示の画像のサイズが正しくありません
+@msg	the drape view: {e}	ドレープ表示: {e}
+@msg	a fabric photo is the wrong size	生地の写真のサイズが正しくありません
+@msg	a fabric photo: {e}	生地の写真: {e}
+	Export Avatar as glTF	アバターを glTF で書き出し
+	Export Avatar as glTF…	アバターを glTF で書き出し…
+	Export Drape as glTF…	ドレープを glTF で書き出し…
+@msg	format: "obj" or "glb"	format: "obj" または "glb"
+@msg	colour: "fabric" or "fit"	colour: "fabric" または "fit"
+@msg	a piece could not be placed on the body	パーツを体に配置できませんでした
+@msg	{name} is already open	{name} はすでに開いています
+@msg	Draping on Avatar	アバターに着せています
+	Step {n} of {total}	ステップ {n}/{total}
+@msg	The drape was cancelled	着せ付けをキャンセルしました
+@msg	Draped on the avatar	アバターに着せました
+@msg	the document was closed	ドキュメントが閉じられました
+@msg	the drape stopped	着せ付けが止まりました
+@msg	width: the photo's width on the fabric, 10 to 5000 mm	width: 生地上での写真の幅（10～5000 mm）
+@msg	turns: 0, 1, 2 or 3	turns: 0、1、2、3 のいずれか
+@msg	the image is not a fabric photo (Pattern › Use as Fabric…)	この画像は生地の写真ではありません（型紙 › 生地として使用…）
+@msg	even: true or false	even: true または false
+@msg	seamless: true or false	seamless: true または false
+@msg	Sign in to your Foundry Account first: Help › Foundry Account…	先に Foundry アカウントにサインインしてください: ヘルプ › Foundry アカウント…
+@msg	The document is empty: there is nothing to publish.	ドキュメントが空です。公開するものがありません。
+@msg	The design is too large for MakerFoundry: at most 8 MB.	デザインが MakerFoundry には大きすぎます (最大 8 MB)。
+@msg	MakerFoundry's answer couldn't be read.	MakerFoundry の応答を読み取れませんでした。
+@msg	MakerFoundry answered with a page on another site, which wasn't opened.	MakerFoundry が別のサイトのページで応答したため、開きませんでした。
+@msg	MakerFoundry: {1}	MakerFoundry: {1}
+@msg	MakerFoundry couldn't be reached: {0}	MakerFoundry に接続できません: {0}
+@msg	Publish to MakerFoundry needs a build that can reach MakerFoundry	MakerFoundry に公開するには、MakerFoundry に接続できるビルドが必要です
+@msg	open Publish to MakerFoundry first: it shows what is sent	先に「MakerFoundry に公開」を開いてください。送信内容が表示されます
+@msg	That link isn't a design file on MakerFoundry, so it wasn't opened.	そのリンクは MakerFoundry のデザインファイルではないため、開きませんでした。
+@msg	The design is too large to open: at most 32 MB.	デザインが大きすぎて開けません: 最大 32 MB です。
+@msg	PatternFoundry opens SVG and DXF designs from MakerFoundry; that file is neither.	PatternFoundry は MakerFoundry の SVG と DXF のデザインを開きます。このファイルはどちらでもありません。
+@msg	The design couldn't be downloaded from MakerFoundry: {0}	MakerFoundry からデザインをダウンロードできませんでした: {0}

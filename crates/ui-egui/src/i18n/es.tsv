@@ -5150,3 +5150,571 @@ mark-style	Japanese	Japonesas
 @msg	the file's variables and data sets weren't read (variables: {variables}, data sets: {data_sets}): the Variables panel doesn't list them	no se leyeron las variables ni los conjuntos de datos del archivo (variables: {variables}, conjuntos de datos: {data_sets}): el panel Variables no los muestra
 # Select by Color (select.color)
 	Select by Color	Seleccionar por color
+# PatternFoundry: pattern pieces (PF-1).
+	Add Notch	Añadir piquete
+	Make Pattern Piece	Crear pieza de patrón
+	Pattern Pieces	Piezas de patrón
+	Piece Info	Información de la pieza
+	Piece Options	Opciones de la pieza
+	Release Pattern Piece	Liberar pieza de patrón
+	Remove Notch	Quitar piquete
+	Cut {count}	Cortar {count}
+	Each selected closed path becomes a piece: the path is its seam line	Cada trazado cerrado seleccionado se convierte en una pieza: el trazado es su línea de costura
+	Edges	Bordes
+	Fabric	Tela
+	Mirrored pairs	Pares simétricos
+	No pattern pieces yet	Aún no hay piezas de patrón
+	Notches	Piquetes
+	Pattern piece	Pieza de patrón
+	Pieces	Piezas
+	Seam allowance	Margen de costura
+	Seam line length	Longitud de la línea de costura
+	Selected piece	Pieza seleccionada
+# PatternFoundry: true-scale printing (PF-2).
+	Pattern Marks (test squares, page names, overlap lines)	Marcas de patrón (cuadrados de prueba, nombres de página, líneas de solapamiento)
+# PatternFoundry: measurements (PF-3).
+	Add Measurement	Añadir medida
+	Clear Measurements	Borrar medidas
+	Clear Point Formulas	Borrar fórmulas de puntos
+	Draft Info	Información del trazado
+	Formulas	Fórmulas
+	Import Size Chart	Importar tabla de tallas
+	Let PDF and SVG files saved with Preserve Editing keep the measured values	Los archivos PDF y SVG guardados con Conservar edición mantienen los valores medidos
+	Measurements	Medidas
+	No measurements yet	Aún no hay medidas
+	Set Measurements	Definir medidas
+	Set Point Formula	Definir fórmula del punto
+	Share in exported files	Compartir en los archivos exportados
+	Figure	Figura
+	Female	Femenina
+	Male	Masculina
+	Child	Niño
+	The avatar takes what the measurements don't give from a survey's women's, men's or children's proportions	El avatar toma lo que las medidas no dan de las proporciones de las mujeres, los hombres o los niños de un estudio
+	Size chart	Tabla de tallas
+	Use Size	Usar talla
+# PatternFoundry: blocks (PF-4).
+	Draft Bodice Block	Trazar el patrón base del cuerpo
+	Block Measurements	Medidas del patrón base
+	Draft Skirt Block	Trazar el patrón base de la falda
+# PatternFoundry: design tools (PF-5).
+	Rotate Dart	Girar la pinza
+	Split at Points	Dividir en los puntos
+	Seam Length	Longitud de costura
+	Slash and Spread	Cortar y abrir
+	Match Seam Length	Igualar la longitud de costura
+	Make Facing	Crear vista
+	Add Pleat	Añadir pliegue
+	Draft Sleeve Block	Trazar el patrón base de la manga
+	Draft Trouser Block	Trazar el patrón base del pantalón
+	Draft Men's Trouser Block	Trazar patrón base de pantalón de hombre
+	Draft Men's Shirt Block	Trazar patrón base de camisa de hombre
+	Draft Men's Shirt Sleeve Block	Trazar patrón base de manga de camisa de hombre
+	Gather	Fruncir
+	Draft Collar	Trazar cuello
+	Patch Pocket	Bolsillo de parche
+	Walk Seams	Cotejar costuras
+	Smooth Across Seam	Suavizar a través de la costura
+	Draft Stand Collar	Trazar cuello mao
+	In-Seam Pocket	Bolsillo en la costura
+	Welt Pocket	Bolsillo de vivo
+	Make Wrap Front	Delantero cruzado
+	Make Band	Crear pretina
+	Grade Nest	Escalar tallas
+	Clear Graded Nest	Borrar tallas escaladas
+	Set Size Range	Definir gama de tallas
+	Set Grade Rule	Definir regla de escalado
+	Grade Info	Información del escalado
+	Grading	Escalado
+	Base size	Talla base
+	Grade rules (mm a size)	Reglas de escalado (mm por talla)
+	Name the sizes, smallest first, to give the points grade rules	Nombre las tallas, de menor a mayor, para dar reglas a los puntos
+	Select one pattern piece to grade its points	Seleccione una pieza del patrón para escalar sus puntos
+	Sizes	Tallas
+	per size	por talla
+	Copy Grade Rules	Copiar reglas de escalado
+	Copy Rules To	Copiar reglas a
+	Mirrored	Reflejado
+	For the opposite half: places mirrored left to right, x moves the other way	Para la mitad opuesta: posiciones reflejadas de izquierda a derecha, movimientos en x al revés
+	Draft Shirt Collar	Trazar cuello camisero
+file-filter	DXF-AAMA (cutting room)	DXF-AAMA (sala de corte)
+@msg	DXF-AAMA files are DXF R13 (ASTM D6673) or R12	Los archivos DXF-AAMA son DXF R13 (ASTM D6673) o R12
+@msg	no pattern pieces to export	no hay piezas de patrón que exportar
+@msg	the piece {_1} has no outline	la pieza {_1} no tiene contorno
+file-filter	SVG for cutting	SVG para corte
+file-filter	PDF for projector	PDF para proyector
+	Foundry Account…	Cuenta de Foundry…
+	Publish to MakerFoundry…	Publicar en MakerFoundry…
+	Publish to MakerFoundry	Publicar en MakerFoundry
+	Publish	Publicar
+	Sign In…	Iniciar sesión…
+	Not signed in	Sin iniciar sesión
+	Your Foundry Account	Tu cuenta de Foundry
+	Sent to	Se envía a
+	SVG, a vector design	SVG, un diseño vectorial
+	What it is, e.g. A-line skirt	Qué es, p. ej. falda evasé
+	Your design goes to MakerFoundry as a private draft, to finish on its page. Nothing is public until you publish it there.	Tu diseño va a MakerFoundry como borrador privado, para terminarlo en su página. Nada es público hasta que lo publiques allí.
+	Draft {id} made.	Borrador {id} creado.
+	Draft {id} made on MakerFoundry: finish it on the page that opened in your browser.	Borrador {id} creado en MakerFoundry: termínalo en la página que se abrió en el navegador.
+	Finish it on MakerFoundry's page, which opened in your browser: it stays private until you publish it there.	Termínalo en la página de MakerFoundry que se abrió en el navegador: sigue siendo privado hasta que lo publiques allí.
+	A password needs at least 8 characters.	La contraseña necesita al menos 8 caracteres.
+	Account	Cuenta
+	Allow	Permitir
+	Anthropic API key:	Clave de API de Anthropic:
+	Ask	Preguntar
+	Buy credits	Comprar créditos
+	Buy…	Comprar…
+	Change key	Cambiar clave
+	Create Free Account	Crear cuenta gratis
+	Create a free Foundry Account	Crea una cuenta gratis de Foundry
+	Don't Allow	No permitir
+	Edit › Undo takes each change back.	Edición › Deshacer revierte cada cambio.
+	Email	Correo electrónico
+	Foundry Account	Cuenta de Foundry
+	Foundry accounts aren't open yet. Until then, the AI features work with your own Anthropic API key.	Las cuentas de Foundry aún no están abiertas. Hasta entonces, las funciones de IA usan su propia clave de API de Anthropic.
+	Get a key	Obtener una clave
+	I have an account: Sign In	Ya tengo cuenta: iniciar sesión
+	New Conversation	Nueva conversación
+	New here? Create a free account	¿Eres nuevo? Crea una cuenta gratis
+	No card needed, and no API key to set up	Sin tarjeta y sin clave de API que configurar
+	Paid with Foundry credits ({n} left).	Pagado con créditos de Foundry (quedan {n}).
+	Paid with Foundry credits.	Pagado con créditos de Foundry.
+	Pay for the AI features with my Foundry credits	Pagar las funciones de IA con mis créditos de Foundry
+	Pay with Foundry credits instead	Pagar con créditos de Foundry
+	Payment is on Stripe's secure page, in your browser; your card never reaches PatternFoundry.	El pago se hace en la página segura de Stripe, en su navegador; su tarjeta nunca llega a PatternFoundry.
+	Reading your credits…	Leyendo sus créditos…
+	Remember the key on this computer	Recordar la clave en este equipo
+	Server	Servidor
+	Sign In	Iniciar sesión
+	Sign Out	Cerrar sesión
+	Sign in to your Foundry Account	Inicia sesión en tu cuenta de Foundry
+	Signed in as {email}	Sesión iniciada como {email}
+	Thinking…	Pensando…
+	Type your question, then press Enter	Escriba su pregunta y pulse Intro
+	{n} credits	{n} créditos
+	{n} credits for {price}	{n} créditos por {price}
+@msg	An account with that email already exists: sign in instead.	Ya existe una cuenta con ese correo: inicie sesión.
+@msg	Anthropic refused the API key: {0}	Anthropic rechazó la clave de API: {0}
+@msg	Couldn't reach the AI service: {0}	No se pudo conectar con el servicio de IA: {0}
+@msg	Enter your Anthropic API key first.	Introduce primero tu clave de API de Anthropic.
+@msg	Foundry accounts aren't open yet.	Las cuentas de Foundry aún no están abiertas.
+@msg	Not enough Foundry credits: buy more in Foundry Account.	No hay suficientes créditos de Foundry: compre más en Cuenta de Foundry.
+@msg	The AI declined to answer this: ask another way.	La IA se negó a responder: pregunte de otra manera.
+@msg	The AI service failed (error {0}): try again later.	El servicio de IA falló (error {0}): inténtalo de nuevo más tarde.
+@msg	The AI service is busy: try again in a minute.	El servicio de IA está ocupado: inténtalo de nuevo en un minuto.
+@msg	The API key isn't valid: paste it again from the Anthropic Console.	La clave de API no es válida: vuelve a pegarla desde Anthropic Console.
+@msg	The question is too long: keep it under 2,000 characters.	La pregunta es demasiado larga: no supere los 2000 caracteres.
+@msg	The reply had no answer: try again, or ask something narrower.	La respuesta llegó vacía: inténtelo de nuevo o haga una pregunta más concreta.
+@msg	The request failed (error {0}): {1}	La solicitud falló (error {0}): {1}
+@msg	Type a question first.	Escriba primero una pregunta.
+@msg	Your Anthropic account can't pay for this: {0}	Tu cuenta de Anthropic no puede pagar esto: {0}
+@msg	already asking: wait for the answer	ya se está preguntando: espere la respuesta
+@msg	this needs a connection to the AI service, which this build doesn't have	esto necesita una conexión con el servicio de IA, que esta versión no tiene
+@msg	This conversation is long: start a New Conversation.	Esta conversación es larga: empiece una nueva conversación.
+@msg	Claude took too many steps: ask again, more simply.	Claude necesitó demasiados pasos: pregunte de nuevo, de forma más sencilla.
+@msg	Account made: welcome to PatternFoundry.	Cuenta creada: bienvenido a PatternFoundry.
+@msg	Signed in.	Sesión iniciada.
+@msg	Signed out.	Sesión cerrada.
+@msg	Type your email address.	Escriba su dirección de correo.
+@msg	Pay on the page that opened in your browser, then press Refresh.	Pague en la página que se abrió en su navegador y luego pulse Actualizar.
+	Ask About Patterns…	Preguntar sobre patrones…
+	Answers come from Claude with your own Anthropic API key, billed to your Anthropic account. They can be wrong: sew a muslin before cutting good fabric.	Las respuestas vienen de Claude con su propia clave de API de Anthropic, facturada a su cuenta de Anthropic. Pueden ser incorrectas: cosa una prueba en muselina antes de cortar una buena tela.
+	Ask About Patterns	Preguntar sobre patrones
+	Ask anything about sewing patterns or PatternFoundry: how much ease to add, how to move a dart, which block to start from, where a feature is. Claude can also draft and change your pattern when you ask, after you allow it.	Pregunte lo que quiera sobre patrones de costura o PatternFoundry: cuánta holgura añadir, cómo trasladar una pinza, de qué patrón base partir, dónde está una función. Claude también puede trazar y cambiar su patrón cuando lo pida, después de que usted lo permita.
+	Claude asks to:	Claude pide:
+	Couldn't do:	No se pudo hacer:
+	Done:	Hecho:
+	Free credits for the AI features, no API key needed	Créditos gratis para las funciones de IA, sin clave de API
+	Free credits to try the AI features: Ask About Patterns drafts and changes patterns with you	Créditos gratis para probar las funciones de IA: Preguntar sobre patrones traza y cambia patrones con usted
+	Include my pattern	Incluir mi patrón
+	Its pieces and sizes, and which measurements are set: never their values	Sus piezas y tallas, y qué medidas están definidas: nunca sus valores
+	Leave it empty for the Foundry service.	Déjelo vacío para el servicio de Foundry.
+	Not allowed:	No permitido:
+	One account for every SiteSentrix app	Una sola cuenta para todas las aplicaciones de SiteSentrix
+	Read your measurements	Leer sus medidas
+@msg	Ask About Patterns needs a build that can reach the AI service	Preguntar sobre patrones necesita una versión que pueda conectarse al servicio de IA
+@msg	Foundry Account needs a build that can reach the AI service	Cuenta de Foundry necesita una versión que pueda conectarse al servicio de IA
+@msg	Sign in to your Foundry account (Help › Foundry Account…).	Inicie sesión en su cuenta de Foundry (Ayuda › Cuenta de Foundry…).
+@msg	The Foundry service can't do this yet: try again later.	El servicio de Foundry aún no puede hacer esto: inténtelo más tarde.
+	Add Photos…	Añadir fotos…
+	Choose the photos in the browser's window…	Elija las fotos en la ventana del navegador…
+@msg	This photo is too large: send a smaller copy.	Esta foto es demasiado grande: envíe una copia más pequeña.
+@msg	no files here	aquí no hay archivos
+	About the fit	Sobre el ajuste
+	Anything else? For example: folds below the back neck	¿Algo más? Por ejemplo: arrugas debajo del escote de la espalda
+	Check My Muslin	Revisar mi prueba de muselina
+	Claude looks at the photos with your own Anthropic API key, billed to your Anthropic account. It can be wrong: sew the altered part again in muslin before cutting good fabric.	Claude mira las fotos con su propia clave de API de Anthropic, cobrada en su cuenta de Anthropic. Puede equivocarse: vuelva a coser la parte modificada en muselina antes de cortar una buena tela.
+	Final fabric	Tela definitiva
+	Hard to raise my arms	Me cuesta levantar los brazos
+	How it feels:	Cómo se siente:
+	Include the pattern it was cut from (open now), so it can be altered	Incluir el patrón con el que se cortó (abierto ahora), para poder modificarlo
+	Loose or gaping somewhere	Holgado o abierto en algún sitio
+	Muslin fabric	Tela de la prueba
+	My muslin ({n} photos)	Mi prueba de muselina ({n} fotos)
+	Photos of your muslin, tried on	Fotos de su prueba de muselina, puesta
+	The front, the side and the back, standing straight with your arms down, and close-ups of any folds or pulling.	De frente, de lado y de espaldas, de pie y recto con los brazos abajo, y primeros planos de cualquier arruga o tirantez.
+	The neckline gapes or pulls	El escote se abre o tira
+	The photos go to Claude for this check only; PatternFoundry doesn't keep them.	Las fotos van a Claude solo para esta revisión; PatternFoundry no las guarda.
+	The shoulder seams don't sit on my shoulders	Las costuras de los hombros no quedan sobre mis hombros
+	Tight across the back or shoulders	Ajustado en la espalda o los hombros
+	Tight across the bust or chest	Ajustado en el busto o el pecho
+	Tight at the waist or hips	Ajustado en la cintura o las caderas
+	Too long or too short	Demasiado largo o demasiado corto
+	e.g. calico, an old sheet	p. ej. calicó, una sábana vieja
+	e.g. cotton poplin, jersey	p. ej. popelina de algodón, punto (jersey)
+	Check My Muslin…	Revisar mi prueba de muselina…
+@msg	Add a photo of the muslin first.	Añada primero una foto de la prueba de muselina.
+@msg	Check My Muslin needs a build that can reach the AI service	Revisar mi prueba de muselina necesita una versión que pueda conectarse al servicio de IA
+@msg	The image is too large to send: crop it, or send a smaller copy.	La imagen es demasiado grande para enviarla: recórtela o envíe una copia más pequeña.
+@msg	At most 6 photos: remove one first.	Como máximo 6 fotos: quite una primero.
+@msg	This photo can't be read: save or send it as a JPEG (on an iPhone: Settings › Camera › Formats › Most Compatible).	Esta foto no se puede leer: guárdela o envíela como JPEG (en un iPhone: Ajustes › Cámara › Formatos › Más compatible).
+	Make Marker	Crear marcada
+	Make Marker…	Crear marcada…
+	Gap	Separación
+	Precision	Precisión
+	One Way	En un solo sentido
+	Cut on fold	Cortar al doblez
+	Folded	Doblada
+	The straight edge laid on the fabric's fold: no allowance there	El borde recto colocado en el doblez de la tela: sin margen de costura ahí
+	Check Sleeve Ease	Comprobar embebido de manga
+	Sleeve Ease	Embebido de manga
+	Crown {crown} mm, armhole {armhole} mm (back {back}, front {front}): the crown takes in {ease} mm ({percent}%).	Copa {crown} mm, sisa {armhole} mm (espalda {back}, delantero {front}): la copa embebe {ease} mm ({percent} %).
+	Less than the {min} to {max} mm it should take in: the sleeve may pull across the cap. Set sleeve_crown to {wanted} mm in Measurements to redraft the sleeve block with the ease in the middle.	Menos de los {min} a {max} mm que debería embeber: la manga puede tirar en la copa. Ponga sleeve_crown en {wanted} mm en Medidas para volver a trazar la manga base con el embebido en el centro.
+	More than the {min} to {max} mm it should take in: the cap may pucker when it is set in. Set sleeve_crown to {wanted} mm in Measurements to redraft the sleeve block with the ease in the middle.	Más de los {min} a {max} mm que debería embeber: la copa puede fruncirse al montarla. Ponga sleeve_crown en {wanted} mm en Medidas para volver a trazar la manga base con el embebido en el centro.
+	Within the {min} to {max} mm it should take in.	Dentro de los {min} a {max} mm que debería embeber.
+	Edges: {edges}, notches: {notches}	Bordes: {edges}, piquetes: {notches}
+	Edge {n}	Borde {n}
+	On fold	Al doblez
+	Back to the piece's seam allowance	Volver al margen de costura de la pieza
+	A notch in the middle of the edge	Un piquete en el centro del borde
+	Notch on edge {edge}, {at}% along	Piquete en el borde {edge}, al {at} %
+	Piece Outlines	Contornos de las piezas
+	Projector	Proyector
+	Projector Scale (screen points per mm, 0: not calibrated)	Escala del proyector (puntos de pantalla por mm, 0: sin calibrar)
+	Projector View	Vista de proyector
+	Measure the square on the cutting mat: it should be 10 cm each way. The arrows make it bigger or smaller (with Shift, faster); Enter keeps it; Escape leaves. Scale: {scale} points per mm.	Mida el cuadrado sobre la base de corte: debe medir 10 cm en cada sentido. Las flechas lo agrandan o lo reducen (con Mayús, más rápido); Intro lo guarda; Esc sale. Escala: {scale} puntos por mm.
+	Arrows move the pattern 1 cm (Shift: 1 mm) · M mirrors it · C calibrates · Escape leaves	Las flechas mueven el patrón 1 cm (Mayús: 1 mm) · M lo refleja · C calibra · Esc sale
+@msg	no pattern pieces to project: make the outlines pattern pieces first (Pattern › Make Pattern Piece)	no hay piezas de patrón que proyectar: convierta primero los contornos en piezas de patrón (Patrón › Crear pieza de patrón)
+@msg	scale: screen points per mm, more than 0	escala: puntos de pantalla por mm, más de 0
+	Delete Saved Measurements	Eliminar medidas guardadas
+	Load Measurements	Cargar medidas
+	My Measurements	Mis medidas
+	Save to My Measurements	Guardar en Mis medidas
+	Delete from this computer	Eliminar de este equipo
+	Kept on this computer only, to load into any pattern	Se guardan solo en este equipo, para cargarlas en cualquier patrón
+	Load	Cargar
+	Use these measurements in this pattern	Usar estas medidas en este patrón
+	Whose (Me)	De quién (Yo)
+	Shorten Dart	Acortar la pinza
+	Shorten Dart…	Acortar la pinza…
+	Shorten	Acortar
+	Add Notch Here	Añadir piquete aquí
+	Cut on Fold Here	Cortar al doblez aquí
+	Seam Allowance Here…	Margen de costura aquí…
+	Grade This Point…	Escalar este punto…
+	Edge Allowance	Margen del borde
+	Across	En horizontal
+	Down	Hacia abajo
+	One step	Un solo paso
+	The same move for each size, from the size above the base	El mismo desplazamiento para cada talla, el de la talla sobre la base
+	Per size	Por talla
+	A move for each size of its own	Un desplazamiento propio para cada talla
+	Add Drill Hole Here	Añadir perforación aquí
+	Remove Drill Hole Here	Quitar perforación aquí
+	Add Drill Hole	Añadir perforación
+	Remove Drill Hole	Quitar perforación
+	Drill holes: {count}	Perforaciones: {count}
+	Right-click inside the piece: Add Drill Hole Here	Clic derecho dentro de la pieza: Añadir perforación aquí
+	Drill hole {n}, {mm} mm	Perforación {n}, {mm} mm
+	Drill hole {n}	Perforación {n}
+	Notch Shape	Forma del piquete
+	Slit notch	Piquete de corte
+	Double notch	Piquete doble
+	V notch	Piquete en V
+	T notch	Piquete en T
+	Castle notch	Piquete almenado
+	U notch	Piquete en U
+	As drawn	Como está dibujado
+	Side by side	Uno al lado del otro
+	Block Options…	Opciones del patrón base…
+	Block Options	Opciones del patrón base
+	Ease	Holgura
+	Waist ease	Holgura de cintura
+	Bust dart	Pinza de busto
+	Shoulder dart	Pinza de hombro
+	Back dart	Pinza de espalda
+	Back dart length	Largo de la pinza de espalda
+	Front dart length	Largo de la pinza delantera
+	Option	Opción
+	Back to the block's default	Volver al valor predeterminado del patrón base
+	from the measurements	según las medidas
+	Block Options Info	Información de opciones del patrón base
+	Check Trouser Seams	Comprobar costuras del pantalón
+	Trouser Seams	Costuras del pantalón
+	Inseam, knee to hem	Entrepierna, de la rodilla al bajo
+	Inseam, crotch to knee	Entrepierna, del tiro a la rodilla
+	Side seam, knee to hem	Costura lateral, de la rodilla al bajo
+	Side seam, waist to knee	Costura lateral, de la cintura a la rodilla
+	{seam}: front {front} mm, back {back} mm ({difference} mm)	{seam}: delantero {front} mm, trasero {back} mm ({difference} mm)
+	Walk them on the pattern too: where a line doesn't run on smoothly from front to back, find the point half way between the two and correct both lines. The back inseam is more curved, so it is often longer: lowering the back crotch curve slightly to match is fine.	Compruébelas también en el patrón: donde una línea no continúe suave del delantero al trasero, busque el punto medio entre ambas y corrija las dos líneas. La entrepierna trasera es más curva, así que suele ser más larga: bajar un poco la curva del tiro trasero para igualarla está bien.
+	Front dart	Pinza delantera
+	Draft Trouser Waistband	Trazar la pretina del pantalón
+	Flap Pocket…	Bolsillo de vivo con cartera…
+	Crown ease	Embebido de la copa
+	Remove Design Step	Quitar paso de transformación
+	Dart moved	Pinza girada
+	Dart shortened {mm} mm	Pinza acortada {mm} mm
+	Slashed and spread {mm} mm	Cortado y abierto {mm} mm
+	Seam trued to {mm} mm	Costura igualada a {mm} mm
+	Split into panels	Dividido en paneles
+	Design step	Paso de transformación
+	Design steps: {count}	Pasos de transformación: {count}
+	Design changes made on the block (darts, splits, spreads, seam lengths) show here; each is made again when the measurements change	Los cambios hechos en el patrón base (pinzas, divisiones, aperturas, largos de costura) aparecen aquí; cada uno se vuelve a hacer cuando cambian las medidas
+	Remove this step and the ones after it (they were made on the outline it made)	Quitar este paso y los siguientes (se hicieron sobre el contorno que este dejó)
+	Selected block part	Parte del patrón base seleccionada
+	Curve Dart Legs…	Curvar los lados de la pinza…
+	Curve Dart Legs	Curvar los lados de la pinza
+	Dart legs curved {mm} mm	Lados de la pinza curvados {mm} mm
+	Draft Rounded Stand Collar	Trazar cuello mao redondeado
+	Draft Wing Collar	Trazar cuello de pajarita
+	Check Marker	Comprobar la marcada
+	{length} cm long, {efficiency}% of the fabric used	{length} cm de largo, {efficiency} % de la tela usada
+	{a} overlaps {b}	{a} se superpone con {b}
+	{piece} is off the fabric	{piece} queda fuera de la tela
+	No pieces overlap, and all are on the fabric.	Ninguna pieza se superpone y todas están sobre la tela.
+	Plaid	Cuadros
+menu	Pattern	Patrón
+@msg	a and b are two pieces (or paths) that sew together	a y b son dos piezas (o trazados) que se cosen entre sí
+@msg	a corner is "mitre" or "square"	una esquina es "mitre" o "square"
+@msg	a facing runs along part of the outline	una vista recorre parte del contorno
+@msg	a facing runs between two different points of the outline	una vista va entre dos puntos distintos del contorno
+@msg	a name takes at most 200 characters	un nombre tiene como máximo 200 caracteres
+@msg	a neckline runs between two different points of its outline, and the shoulder point is one of them	un escote va entre dos puntos distintos de su contorno, y el punto del hombro es uno de ellos
+@msg	a seam allowance is a number of mm, or a length with its unit ("5/8 in")	un margen de costura es un número de mm, o una longitud con su unidad ("5/8 in")
+@msg	a seam has no length	una costura no tiene longitud
+@msg	a shoulder point is on its neck point	un punto del hombro está sobre su punto del cuello
+@msg	a slash runs between two points of the outline that aren't neighbours	un corte va entre dos puntos del contorno que no son vecinos
+@msg	a split leaves a piece with fewer than three anchors	una división deja una pieza con menos de tres anclas
+@msg	a split made two panels: delete the panel you don't want instead	una división ha creado dos paneles: elimine en su lugar el panel que no quiera
+@msg	a split needs two different anchors on the outline	una división necesita dos anclas distintas en el contorno
+@msg	amount: a share of the dart, (0, 1]	amount: una parte de la pinza, (0, 1]
+@msg	amount: how far it opens, mm	amount: cuánto se abre, mm
+@msg	anchor: the point's number along the path, from 0	anchor: el número del punto a lo largo del trazado, desde 0
+@msg	anchor: the seam line's point, from 0	anchor: el punto de la línea de costura, desde 0
+@msg	anchors: [a, b] or [a]	anchors: [a, b] o [a]
+@msg	anchors: point numbers along the path	anchors: números de punto a lo largo del trazado
+@msg	apex: the dart's point (or select that one point)	apex: el vértice de la pinza (o seleccione ese único punto)
+@msg	at: 0 (the edge's start) to 1 (its end)	at: de 0 (el inicio del borde) a 1 (su final)
+@msg	at: [x, y], the document point on the edge	at: [x, y], el punto del documento sobre el borde
+@msg	base: the size the pattern is drawn in	base: la talla en la que está dibujado el patrón
+@msg	block: "bodice", "skirt", "sleeve" or "trousers"	block: "bodice", "skirt", "sleeve" o "trousers"
+@msg	can't make the seam that long by moving its end	no se puede alargar tanto la costura moviendo su extremo
+@msg	curve: mm the wrap edge bows into the piece	curve: mm que el borde cruzado se curva hacia dentro de la pieza
+@msg	cut is a whole number, 1 to 999	cut es un número entero, de 1 a 999
+@msg	data: the chart's text	data: el texto de la tabla
+@msg	depth: how deep the pleat folds under, mm	depth: cuánto se dobla el pliegue por debajo, mm
+@msg	depth: mm (less than 0 bows the legs in)	depth: mm (menos de 0 curva los lados hacia dentro)
+@msg	diameter: a number of mm, or a length with its unit ("1/8 in")	diameter: un número de mm, o una longitud con su unidad ("1/8 in")
+@msg	edge: the edge's number, from 0 (or point)	edge: el número del borde, desde 0 (o point)
+@msg	edges and corners are numbered from 0	los bordes y las esquinas se numeran desde 0
+@msg	every: mm, at least 10	every: mm, como mínimo 10
+@msg	face: only a box pleat has one	face: solo un tablón la tiene
+@msg	face: the box pleat's width between its folds, mm	face: el ancho del tablón entre sus dobleces, mm
+@msg	flapShape: "square", "rounded" or "pointed"	flapShape: "square", "rounded" o "pointed"
+@msg	fold is an edge's number (0..), or null	fold es el número de un borde (0..), o null
+@msg	fold: [a, b], the centre front edge's two points	fold: [a, b], los dos puntos del borde del centro delantero
+@msg	fold: true or false	fold: true o false
+@msg	foldAt: [x, y] in document points	foldAt: [x, y] en puntos del documento
+@msg	folded: true or false	folded: true o false
+@msg	from: [x, y] in document points	from: [x, y] en puntos del documento
+@msg	from: not a pattern piece	from: no es una pieza de patrón
+@msg	from: the pattern piece whose rules are copied	from: la pieza de patrón cuyas reglas se copian
+@msg	from: the piece has no seam line	from: la pieza no tiene línea de costura
+@msg	frontShape: "square", "rounded" or "winged"	frontShape: "square", "rounded" o "winged"
+@msg	gathering runs between two different points of the outline	el fruncido va entre dos puntos distintos del contorno
+@msg	give apex and one of to or toAnchor (or select the two points)	indique apex y uno de to o toAnchor (o seleccione los dos puntos)
+@msg	height: mm, 10 to 100 (the tutorial's is at most 30)	height: mm, de 10 a 100 (la del tutorial es como máximo 30)
+@msg	id: a block part's id	id: el id de una parte del patrón base
+@msg	index: the drill hole's place in the list, from 0 (or point)	index: la posición de la perforación en la lista, desde 0 (o point)
+@msg	index: the notch's place in the list, from 0	index: la posición del piquete en la lista, desde 0
+@msg	index: the step's place, from 0	index: la posición del paso, desde 0
+@msg	into: the length it gathers into, mm	into: la longitud a la que se frunce, mm
+@msg	kind: "slit", "double", "v", "t", "castle" or "u"	kind: "slit", "double", "v", "t", "castle" o "u"
+@msg	kind: the notch's new shape	kind: la nueva forma del piquete
+@msg	layer: a marker layer's id	layer: el id de una capa de marcada
+@msg	length (mm) or likeId with likeFrom and likeTo: the seam to match	length (mm) o likeId con likeFrom y likeTo: la costura a igualar
+@msg	length: mm, more than 0	length: mm, más de 0
+@msg	line: "cut" or "seam"	line: "cut" o "seam"
+@msg	match: the seam it sews to is shorter than the pocket opening's end	match: la costura a la que se cose es más corta que el final de la abertura del bolsillo
+@msg	min is more than max	min es mayor que max
+@msg	mirror is true or false	mirror es true o false
+@msg	mirror: "none", "x", "y" or "xy"	mirror: "none", "x", "y" o "xy"
+@msg	name: the saved set's name	name: el nombre del conjunto de medidas guardado
+@msg	name: whose measurements they are ("Me")	name: de quién son las medidas ("Yo")
+@msg	no drill hole near the point	no hay ninguna perforación cerca del punto
+@msg	no drill hole with that index	no hay ninguna perforación con ese índice
+@msg	no notch with that index	no hay ningún piquete con ese índice
+@msg	no object with that id	no hay ningún objeto con ese id
+@msg	no pattern pieces to grade: make the outlines pattern pieces first (Pattern › Make Pattern Piece)	no hay piezas de patrón que escalar: convierta primero los contornos en piezas de patrón (Patrón › Crear pieza de patrón)
+@msg	no straight centre front edge on the outline's side: name it with fold: [a, b]	no hay ningún borde recto de centro delantero en el lado del contorno: indíquelo con fold: [a, b]
+@msg	not a drafted block part	no es una parte de un patrón base trazado
+@msg	not a marker's layer (Pattern › Make Marker…)	no es una capa de una marcada (Patrón › Crear marcada…)
+@msg	not a pattern piece	no es una pieza de patrón
+@msg	not a stand collar's outline	no es el contorno de un cuello mao
+@msg	notches go on pattern pieces: make both seams' paths pieces first (Pattern › Make Pattern Piece)	los piquetes van en piezas de patrón: convierta primero en piezas los trazados de ambas costuras (Patrón › Crear pieza de patrón)
+@msg	notches: [mm, …]	notches: [mm, …]
+@msg	notches: distances from the seams' starts, mm	notches: distancias desde el inicio de las costuras, mm
+@msg	on and at go together: the garment piece and where the opening's top-left corner goes on it	on y at van juntos: la pieza de la prenda y dónde va sobre ella la esquina superior izquierda de la abertura
+@msg	on and at go together: the garment piece and where the pocket's top-left corner goes on it	on y at van juntos: la pieza de la prenda y dónde va sobre ella la esquina superior izquierda del bolsillo
+@msg	one point splits only where another point is at the same place (two darts' point)	un punto solo se divide donde hay otro punto en el mismo lugar (el vértice de dos pinzas)
+@msg	oneWay: true or false	oneWay: true o false
+@msg	openFolds: true or false	openFolds: true o false
+@msg	origin: [x, y] in document points	origin: [x, y] en puntos del documento
+@msg	overlap: mm past centre front, more than 0	overlap: mm más allá del centro delantero, más de 0
+@msg	overlap: the edge misses the outline	overlap: el borde no alcanza el contorno
+@msg	plaid: the repeat (mm, or [along, across])	plaid: la repetición (mm, o [along, across])
+@msg	plaid: the repeat along and across, 1 to 10 000 mm each	plaid: la repetición a lo largo y a lo ancho, de 1 a 10 000 mm cada una
+@msg	point: [x, y] in document points	point: [x, y] en puntos del documento
+@msg	select a drafted block part (Pattern › Draft … Block)	seleccione una parte de un patrón base trazado (Patrón › Trazar el patrón base …)
+@msg	select a path or a pattern piece	seleccione un trazado o una pieza de patrón
+@msg	select a pattern piece (Pattern › Make Pattern Piece makes one)	seleccione una pieza de patrón (Patrón › Crear pieza de patrón crea una)
+@msg	select a piece on the marker to check	seleccione una pieza de la marcada para comprobarla
+@msg	select closed paths: each becomes a piece, the path its seam line	seleccione trazados cerrados: cada uno se convierte en una pieza, y el trazado en su línea de costura
+@msg	select one path	seleccione un trazado
+@msg	select one pattern piece	seleccione una pieza de patrón
+@msg	select two points of one path (or one that two darts share)	seleccione dos puntos de un trazado (o uno que compartan dos pinzas)
+@msg	select two points of one path: the dart's point and where the dart moves to	seleccione dos puntos de un trazado: el vértice de la pinza y adónde se traslada la pinza
+@msg	select two points of one path: the ends of the edge to face	seleccione dos puntos de un trazado: los extremos del borde que lleva vista
+@msg	select two points of one path: the ends of the edge to gather	seleccione dos puntos de un trazado: los extremos del borde que se frunce
+@msg	share is true or false	share es true o false
+@msg	shorten: mm (less than 0 lengthens)	shorten: mm (menos de 0 alarga)
+@msg	shoulder: longer than the outline	shoulder: más largo que el contorno
+@msg	shoulder: mm, 0 or more	shoulder: mm, 0 o más
+@msg	size: one of the chart's sizes	size: una de las tallas de la tabla
+@msg	size: the name of a size of the size range or chart	size: el nombre de una talla de la gama de tallas o de la tabla
+@msg	sizes: name one size at least	sizes: indique al menos una talla
+@msg	sizes: the sizes' names	sizes: los nombres de las tallas
+@msg	sizes: the sizes' names, smallest first (null removes them)	sizes: los nombres de las tallas, de la más pequeña a la más grande (null las quita)
+@msg	split the seam line on its own: release the piece first (Pattern › Release Pattern Piece)	para dividir solo la línea de costura, libere primero la pieza (Patrón › Liberar pieza de patrón)
+@msg	step: [dx, dy] in mm	step: [dx, dy] en mm
+@msg	style: classic, casual or shirt	style: classic, casual o shirt
+@msg	that anchor's neighbours don't make a dart	los vecinos de esa ancla no forman una pinza
+@msg	that point is not a dart's point: its legs open a right angle or wider	ese punto no es el vértice de una pinza: sus lados abren un ángulo recto o mayor
+@msg	the amount is a share of the dart, more than 0 and at most 1	la cantidad es una parte de la pinza, mayor que 0 y como máximo 1
+@msg	the back's outline encloses no area	el contorno de la espalda no encierra ninguna superficie
+@msg	the box pleat's face is more than 0 wide	la cara del tablón tiene un ancho mayor que 0
+@msg	the chart is larger than 1 MB	la tabla ocupa más de 1 MB
+@msg	the curve has no length at the meeting point	la curva no tiene longitud en el punto de encuentro
+@msg	the curves leave the seam the same way	las curvas salen de la costura en la misma dirección
+@msg	the dart has no length	la pinza no tiene longitud
+@msg	the dart is not that long	la pinza no es tan larga
+@msg	the dart point or the new dart's anchor is not on the outline	el vértice de la pinza o el ancla de la nueva pinza no está en el contorno
+@msg	the dart's legs must be straight lines	los lados de la pinza deben ser líneas rectas
+@msg	the dart's point is past the outline's end	el vértice de la pinza está más allá del final del contorno
+@msg	the depth to curve the legs by is not a number	la profundidad con la que curvar los lados no es un número
+@msg	the document has no marker (Pattern › Make Marker…)	el documento no tiene ninguna marcada (Patrón › Crear marcada…)
+@msg	the document has no measurements to save	el documento no tiene medidas que guardar
+@msg	the document has no size chart (measure.importChart)	el documento no tiene tabla de tallas (measure.importChart)
+@msg	the drop at the front is less than half the neck edge	la bajada en el delantero es menor que la mitad del borde del cuello
+@msg	the edge has no length	el borde no tiene longitud
+@msg	the edge's anchor is past the outline's end	el ancla del borde está más allá del final del contorno
+@msg	the fabric's width must be more than 0	el ancho de la tela debe ser mayor que 0
+@msg	the flap is deeper than twice its width	la cartera tiene más del doble de profundidad que de ancho
+@msg	the flap's width and depth are more than 0, its allowance 0 or more	el ancho y la profundidad de la cartera son mayores que 0, y su margen 0 o más
+@msg	the fold edge has no length	el borde del doblez no tiene longitud
+@msg	the fold edge's anchors are past the outline's end	las anclas del borde del doblez están más allá del final del contorno
+@msg	the fold edge's two anchors must be neighbours on the outline	las dos anclas del borde del doblez deben ser vecinas en el contorno
+@msg	the fold must be a straight edge	el doblez debe ser un borde recto
+@msg	the front end has no length	el extremo delantero no tiene longitud
+@msg	the gap must be 0 or more	la separación debe ser 0 o más
+@msg	the grainline's ends are the same point	los extremos del hilo son el mismo punto
+@msg	the legs can't curve that far: the dart isn't wide enough	los lados no se pueden curvar tanto: la pinza no es lo bastante ancha
+@msg	the length to shorten by is not a number	la longitud que acortar no es un número
+@msg	the marker has lost its fabric outline	la marcada ha perdido el contorno de la tela
+@msg	the marker has no pieces	la marcada no tiene piezas
+@msg	the marker is too large at this precision: give a coarser one	la marcada es demasiado grande con esta precisión: indique una más gruesa
+@msg	the measurements could not be saved	no se han podido guardar las medidas
+@msg	the meeting point and the seam's other end are points of the outline	el punto de encuentro y el otro extremo de la costura son puntos del contorno
+@msg	the neckline has no length	el escote no tiene longitud
+@msg	the neckline lengths and the stand's height are more than 0, the rise and extension 0 or more	las longitudes del escote y la altura del pie de cuello son mayores que 0, y la subida y la prolongación 0 o más
+@msg	the new dart is on the old dart	la nueva pinza está sobre la antigua
+@msg	the opening is longer than twice its height	la abertura tiene más del doble de largo que de alto
+@msg	the opening, depth and width are more than 0, the width more than the allowance	la abertura, la profundidad y el ancho son mayores que 0, y el ancho mayor que el margen
+@msg	the opening, the welt and the depth are more than 0, the allowances 0 or more	la abertura, el vivo y la profundidad son mayores que 0, y los márgenes 0 o más
+@msg	the outline encloses no area	el contorno no encierra ninguna superficie
+@msg	the outline has no side seam	el contorno no tiene costura lateral
+@msg	the path has no outline	el trazado no tiene contorno
+@msg	the path must be one closed outline	el trazado debe ser un único contorno cerrado
+@msg	the piece has no grade rules to copy	la pieza no tiene reglas de escalado que copiar
+@msg	the piece has no straight edge to cut on the fold	la pieza no tiene ningún borde recto para cortar al doblez
+@msg	the pieces have no cutting lines to lay	las piezas no tienen líneas de corte que colocar
+@msg	the plaid's repeat must be more than 0 along and across	la repetición de los cuadros debe ser mayor que 0 a lo largo y a lo ancho
+@msg	the pocket (its opening and the allowance past both ends) fits on the seam	el bolsillo (su abertura y el margen más allá de ambos extremos) cabe en la costura
+@msg	the point is not inside the piece	el punto no está dentro de la pieza
+@msg	the point is not on the seam line or in its allowance	el punto no está en la línea de costura ni en su margen
+@msg	the precision must be more than 0	la precisión debe ser mayor que 0
+@msg	the rise at centre front is less than the front neckline is long	la subida en el centro delantero es menor que la longitud del escote delantero
+@msg	the seam has no length there	la costura no tiene longitud ahí
+@msg	the seam runs between two different points of the outline	la costura va entre dos puntos distintos del contorno
+@msg	the seam's other end is a neighbour of the meeting point	el otro extremo de la costura es vecino del punto de encuentro
+@msg	the top edge has no length	el borde superior no tiene longitud
+@msg	the wing is more than 0 long	el ala tiene una longitud mayor que 0
+@msg	there is no folder to keep measurement sets in here (the desktop app keeps them next to its preferences)	aquí no hay ninguna carpeta donde guardar conjuntos de medidas (la aplicación de escritorio los guarda junto a sus preferencias)
+@msg	there is no point of the seam line there	ahí no hay ningún punto de la línea de costura
+@msg	to or toAnchor: where the dart moves to	to o toAnchor: adónde se traslada la pinza
+@msg	to: [x, y] in document points	to: [x, y] en puntos del documento
+@msg	to: the pieces to copy the rules to (select them, or name them)	to: las piezas a las que copiar las reglas (selecciónelas o nómbrelas)
+@msg	too many objects at once	demasiados objetos a la vez
+@msg	too many pieces at once	demasiadas piezas a la vez
+@msg	too many pieces to lay at once	demasiadas piezas que colocar a la vez
+@msg	too many sizes at once	demasiadas tallas a la vez
+@msg	unit: "mm", "cm" or "in"	unit: "mm", "cm" o "in"
+@msg	width: mm, more than 0	width: mm, más de 0
+	Draw Avatar	Dibujar avatar
+	Export Avatar as OBJ	Exportar avatar como OBJ
+	Sewn seams: {count}	Costuras unidas: {count}
+	{label}: sewn to {piece}, {mm} mm longer	{label}: unida a {piece}, {mm} mm más larga
+	{label}: sewn to {piece}, {mm} mm shorter	{label}: unida a {piece}, {mm} mm más corta
+	{label}: sewn to {piece}	{label}: unida a {piece}
+	Sew Seams	Unir costuras
+	Unsew Seams	Separar costuras
+	Sewn Seams	Costuras unidas
+	Drape on Avatar	Drapear en el avatar
+	Use as Fabric…	Usar como tela…
+	Use as Fabric	Usar como tela
+	Stop Using as Fabric	Dejar de usar como tela
+	Fabric Photos	Fotos de telas
+@msg	the drape view's picture is the wrong size	la imagen de la vista de caída tiene el tamaño incorrecto
+@msg	the drape view: {e}	la vista de caída: {e}
+@msg	a fabric photo is the wrong size	la foto de tela tiene el tamaño incorrecto
+@msg	a fabric photo: {e}	la foto de tela: {e}
+	Export Avatar as glTF	Exportar avatar como glTF
+	Export Avatar as glTF…	Exportar avatar como glTF…
+	Export Drape as glTF…	Exportar caída como glTF…
+@msg	format: "obj" or "glb"	format: "obj" o "glb"
+@msg	colour: "fabric" or "fit"	colour: "fabric" o "fit"
+@msg	a piece could not be placed on the body	no se pudo colocar una pieza sobre el cuerpo
+@msg	{name} is already open	{name} ya está abierto
+@msg	Draping on Avatar	Aplicando la caída sobre el avatar
+	Step {n} of {total}	Paso {n} de {total}
+@msg	The drape was cancelled	Se canceló la caída
+@msg	Draped on the avatar	Caída aplicada sobre el avatar
+@msg	the document was closed	se cerró el documento
+@msg	the drape stopped	la caída se detuvo
+@msg	width: the photo's width on the fabric, 10 to 5000 mm	width: el ancho de la foto sobre la tela, de 10 a 5000 mm
+@msg	turns: 0, 1, 2 or 3	turns: 0, 1, 2 o 3
+@msg	the image is not a fabric photo (Pattern › Use as Fabric…)	la imagen no es una foto de tela (Patrón › Usar como tela…)
+@msg	even: true or false	even: true o false
+@msg	seamless: true or false	seamless: true o false
+@msg	Sign in to your Foundry Account first: Help › Foundry Account…	Inicia sesión primero en tu cuenta de Foundry: Ayuda › Cuenta de Foundry…
+@msg	The document is empty: there is nothing to publish.	El documento está vacío: no hay nada que publicar.
+@msg	The design is too large for MakerFoundry: at most 8 MB.	El diseño es demasiado grande para MakerFoundry: 8 MB como máximo.
+@msg	MakerFoundry's answer couldn't be read.	No se pudo leer la respuesta de MakerFoundry.
+@msg	MakerFoundry answered with a page on another site, which wasn't opened.	MakerFoundry respondió con una página de otro sitio, que no se abrió.
+@msg	MakerFoundry: {1}	MakerFoundry: {1}
+@msg	MakerFoundry couldn't be reached: {0}	No se pudo contactar con MakerFoundry: {0}
+@msg	Publish to MakerFoundry needs a build that can reach MakerFoundry	Publicar en MakerFoundry necesita una versión que pueda contactar con MakerFoundry
+@msg	open Publish to MakerFoundry first: it shows what is sent	abre primero Publicar en MakerFoundry: muestra lo que se envía
+@msg	That link isn't a design file on MakerFoundry, so it wasn't opened.	Ese enlace no es un archivo de diseño de MakerFoundry, así que no se abrió.
+@msg	The design is too large to open: at most 32 MB.	El diseño es demasiado grande para abrirlo: 32 MB como máximo.
+@msg	PatternFoundry opens SVG and DXF designs from MakerFoundry; that file is neither.	PatternFoundry abre diseños SVG y DXF de MakerFoundry; ese archivo no es ninguno de los dos.
+@msg	The design couldn't be downloaded from MakerFoundry: {0}	No se pudo descargar el diseño de MakerFoundry: {0}

@@ -5115,3 +5115,571 @@ imageTrace	Outline	კონტური
 # Select by Color (select.color)
 	Select by Color	მონიშვნა ფერის მიხედვით
 @msg	thumbnail: no page {n} (the file has 1)	thumbnail: გვერდი {n} არ არსებობს (ფაილს 1 გვერდი აქვს)
+# PatternFoundry: pattern pieces (PF-1).
+	Add Notch	ნაჭდევის დამატება
+	Make Pattern Piece	თარგის დეტალის შექმნა
+	Pattern Pieces	თარგის დეტალები
+	Piece Info	დეტალის ინფორმაცია
+	Piece Options	დეტალის პარამეტრები
+	Release Pattern Piece	თარგის დეტალის გათავისუფლება
+	Remove Notch	ნაჭდევის წაშლა
+	Cut {count}	მოჭრა {count}
+	Each selected closed path becomes a piece: the path is its seam line	ყოველი არჩეული დახურული კონტური დეტალი ხდება: კონტური მისი ნაკერის ხაზია
+	Edges	კიდეები
+	Fabric	ქსოვილი
+	Mirrored pairs	სარკისებრი წყვილები
+	No pattern pieces yet	თარგის დეტალები ჯერ არ არის
+	Notches	ნაჭდევები
+	Pattern piece	თარგის დეტალი
+	Pieces	დეტალები
+	Seam allowance	ნაკერის მარაგი
+	Seam line length	ნაკერის ხაზის სიგრძე
+	Selected piece	არჩეული დეტალი
+# PatternFoundry: true-scale printing (PF-2).
+	Pattern Marks (test squares, page names, overlap lines)	თარგის ნიშნები (სატესტო კვადრატები, გვერდების სახელები, გადაფარვის ხაზები)
+# PatternFoundry: measurements (PF-3).
+	Add Measurement	ზომის დამატება
+	Clear Measurements	ზომების გასუფთავება
+	Clear Point Formulas	წერტილების ფორმულების გასუფთავება
+	Draft Info	აგების ინფორმაცია
+	Formulas	ფორმულები
+	Import Size Chart	ზომების ცხრილის იმპორტი
+	Let PDF and SVG files saved with Preserve Editing keep the measured values	PDF და SVG ფაილები, რომლებიც რედაქტირების შენარჩუნებით ინახება, ინარჩუნებენ გაზომილ მნიშვნელობებს
+	Measurements	ზომები
+	No measurements yet	ზომები ჯერ არ არის
+	Set Measurements	ზომების დაყენება
+	Set Point Formula	წერტილის ფორმულის დაყენება
+	Share in exported files	გაზიარება ექსპორტირებულ ფაილებში
+	Figure	ფიგურა
+	Female	ქალის
+	Male	მამაკაცის
+	Child	ბავშვი
+	The avatar takes what the measurements don't give from a survey's women's, men's or children's proportions	ავატარი იმას, რასაც ზომები არ იძლევა, კვლევის ქალების, მამაკაცების ან ბავშვების პროპორციებიდან იღებს
+	Size chart	ზომების ცხრილი
+	Use Size	ზომის გამოყენება
+# PatternFoundry: blocks (PF-4).
+	Draft Bodice Block	ზედა ნაწილის საბაზისო თარგის აგება
+	Block Measurements	საბაზისო თარგის ზომები
+	Draft Skirt Block	ქვედაბოლოს საბაზისო თარგის აგება
+# PatternFoundry: design tools (PF-5).
+	Rotate Dart	გამონაჭრის გადატანა
+	Split at Points	გაყოფა წერტილებში
+	Seam Length	ნაკერის სიგრძე
+	Slash and Spread	გაჭრა და გაშლა
+	Match Seam Length	ნაკერის სიგრძის გათანაბრება
+	Make Facing	ამოსაკერის შექმნა
+	Add Pleat	ნაოჭის დამატება
+	Draft Sleeve Block	სახელოს საბაზისო თარგის აგება
+	Draft Trouser Block	შარვლის საბაზისო თარგის აგება
+	Draft Men's Trouser Block	მამაკაცის შარვლის საბაზისო თარგის აგება
+	Draft Men's Shirt Block	მამაკაცის პერანგის საბაზისო თარგის აგება
+	Draft Men's Shirt Sleeve Block	მამაკაცის პერანგის სახელოს საბაზისო თარგის აგება
+	Gather	ნაოჭის ჩაწყობა
+	Draft Collar	საყელოს აგება
+	Patch Pocket	დაკერებული ჯიბე
+	Walk Seams	ნაკერების შედარება
+	Smooth Across Seam	ნაკერზე გადასვლის გასწორება
+	Draft Stand Collar	მდგომი საყელოს აგება
+	In-Seam Pocket	ნაკერის ჯიბე
+	Welt Pocket	ჩაჭრილი ჯიბე
+	Make Wrap Front	გადასაფარებელი წინა ნაწილი
+	Make Band	ზოლის შექმნა
+	Grade Nest	ზომების გრადაცია
+	Clear Graded Nest	ზომების გრადაციის წაშლა
+	Set Size Range	ზომების რიგის დაყენება
+	Set Grade Rule	გრადაციის წესის დაყენება
+	Grade Info	გრადაციის ინფორმაცია
+	Grading	გრადაცია
+	Base size	საბაზო ზომა
+	Grade rules (mm a size)	გრადაციის წესები (მმ ზომაზე)
+	Name the sizes, smallest first, to give the points grade rules	დაასახელეთ ზომები, უმცირესიდან, რომ წერტილებს წესები მისცეთ
+	Select one pattern piece to grade its points	აირჩიეთ ერთი თარგის ნაწილი მისი წერტილების გრადაციისთვის
+	Sizes	ზომები
+	per size	თითო ზომაზე
+	Copy Grade Rules	გრადაციის წესების კოპირება
+	Copy Rules To	წესების კოპირება
+	Mirrored	სარკისებრი
+	For the opposite half: places mirrored left to right, x moves the other way	მოპირდაპირე ნახევრისთვის: ადგილები სარკისებრად მარცხნიდან მარჯვნივ, x გადაადგილება საპირისპიროდ
+	Draft Shirt Collar	პერანგის საყელოს აგება
+file-filter	DXF-AAMA (cutting room)	DXF-AAMA (საჭრელი საამქრო)
+@msg	DXF-AAMA files are DXF R13 (ASTM D6673) or R12	DXF-AAMA ფაილები არის DXF R13 (ASTM D6673) ან R12
+@msg	no pattern pieces to export	გასატანი თარგის ნაწილები არ არის
+@msg	the piece {_1} has no outline	ნაწილს {_1} კონტური არ აქვს
+file-filter	SVG for cutting	SVG ჭრისთვის
+file-filter	PDF for projector	PDF პროექტორისთვის
+	Foundry Account…	Foundry-ის ანგარიში…
+	Publish to MakerFoundry…	MakerFoundry-ზე გამოქვეყნება…
+	Publish to MakerFoundry	MakerFoundry-ზე გამოქვეყნება
+	Publish	გამოქვეყნება
+	Sign In…	შესვლა…
+	Not signed in	არ ხართ შესული
+	Your Foundry Account	თქვენი Foundry-ის ანგარიში
+	Sent to	იგზავნება
+	SVG, a vector design	SVG, ვექტორული დიზაინი
+	What it is, e.g. A-line skirt	რა არის, მაგ. A-სილუეტის ქვედაბოლო
+	Your design goes to MakerFoundry as a private draft, to finish on its page. Nothing is public until you publish it there.	თქვენი დიზაინი MakerFoundry-ზე პირად მონახაზად იგზავნება, რომ მის გვერდზე დაასრულოთ. არაფერია საჯარო, სანამ იქ არ გამოაქვეყნებთ.
+	Draft {id} made.	მონახაზი {id} შეიქმნა.
+	Draft {id} made on MakerFoundry: finish it on the page that opened in your browser.	მონახაზი {id} შეიქმნა MakerFoundry-ზე: დაასრულეთ ბრაუზერში გახსნილ გვერდზე.
+	Finish it on MakerFoundry's page, which opened in your browser: it stays private until you publish it there.	დაასრულეთ MakerFoundry-ის ბრაუზერში გახსნილ გვერდზე: პირადი რჩება, სანამ იქ არ გამოაქვეყნებთ.
+	A password needs at least 8 characters.	პაროლს სჭირდება მინიმუმ 8 სიმბოლო.
+	Account	ანგარიში
+	Allow	ნების დართვა
+	Anthropic API key:	Anthropic API გასაღები:
+	Ask	კითხვა
+	Buy credits	კრედიტების ყიდვა
+	Buy…	ყიდვა…
+	Change key	გასაღების შეცვლა
+	Create Free Account	უფასო ანგარიშის შექმნა
+	Create a free Foundry Account	შექმენით უფასო Foundry-ის ანგარიში
+	Don't Allow	არ დაირთოს ნება
+	Edit › Undo takes each change back.	რედაქტირება › დაბრუნება ყოველ ცვლილებას აუქმებს.
+	Email	ელფოსტა
+	Foundry Account	Foundry-ის ანგარიში
+	Foundry accounts aren't open yet. Until then, the AI features work with your own Anthropic API key.	Foundry-ის ანგარიშები ჯერ არ გახსნილა. მანამდე AI ფუნქციები თქვენი საკუთარი Anthropic API გასაღებით მუშაობს.
+	Get a key	გასაღების მიღება
+	I have an account: Sign In	ანგარიში მაქვს: შესვლა
+	New Conversation	ახალი საუბარი
+	New here? Create a free account	ახალი ხართ? შექმენით უფასო ანგარიში
+	No card needed, and no API key to set up	ბარათი არ არის საჭირო და არც API გასაღების დაყენება
+	Paid with Foundry credits ({n} left).	გადახდილია Foundry-ის კრედიტებით (დარჩა {n}).
+	Paid with Foundry credits.	გადახდილია Foundry-ის კრედიტებით.
+	Pay for the AI features with my Foundry credits	AI ფუნქციების გადახდა ჩემი Foundry-ის კრედიტებით
+	Pay with Foundry credits instead	ამის ნაცვლად Foundry-ის კრედიტებით გადახდა
+	Payment is on Stripe's secure page, in your browser; your card never reaches PatternFoundry.	გადახდა ხდება Stripe-ის დაცულ გვერდზე, თქვენს ბრაუზერში; თქვენი ბარათი PatternFoundry-მდე არასოდეს აღწევს.
+	Reading your credits…	თქვენი კრედიტები იკითხება…
+	Remember the key on this computer	გასაღების დამახსოვრება ამ კომპიუტერზე
+	Server	სერვერი
+	Sign In	შესვლა
+	Sign Out	გასვლა
+	Sign in to your Foundry Account	შედით თქვენს Foundry-ის ანგარიშში
+	Signed in as {email}	შესული ხართ როგორც {email}
+	Thinking…	ვფიქრობ…
+	Type your question, then press Enter	აკრიფეთ თქვენი კითხვა, შემდეგ დააჭირეთ Enter-ს
+	{n} credits	{n} კრედიტი
+	{n} credits for {price}	{n} კრედიტი {price}-ად
+	Ask About Patterns…	კითხვა თარგების შესახებ…
+	Answers come from Claude with your own Anthropic API key, billed to your Anthropic account. They can be wrong: sew a muslin before cutting good fabric.	პასუხებს Claude იძლევა თქვენი საკუთარი Anthropic API გასაღებით, ღირებულება თქვენს Anthropic ანგარიშს ერიცხება. პასუხი შეიძლება მცდარი იყოს: კარგი ქსოვილის გამოჭრამდე შეკერეთ საცდელი მოდელი იაფი ქსოვილისგან.
+	Ask About Patterns	კითხვა თარგების შესახებ
+	Ask anything about sewing patterns or PatternFoundry: how much ease to add, how to move a dart, which block to start from, where a feature is. Claude can also draft and change your pattern when you ask, after you allow it.	იკითხეთ ნებისმიერი რამ საკერავი თარგების ან PatternFoundry-ის შესახებ: რამდენი თავისუფლება დაუმატოთ, როგორ გადაიტანოთ გამონაჭერი, რომელი საბაზისო თარგიდან დაიწყოთ, სად არის ესა თუ ის ფუნქცია. Claude-ს ასევე შეუძლია თქვენი თარგის აგება და შეცვლა, როცა სთხოვთ, მას შემდეგ, რაც ნებას დართავთ.
+	Claude asks to:	Claude ითხოვს:
+	Couldn't do:	ვერ შესრულდა:
+	Done:	შესრულდა:
+	Free credits for the AI features, no API key needed	უფასო კრედიტები AI ფუნქციებისთვის, API გასაღების გარეშე
+	Free credits to try the AI features: Ask About Patterns drafts and changes patterns with you	უფასო კრედიტები AI ფუნქციების გამოსაცდელად: „კითხვა თარგების შესახებ“ თქვენთან ერთად აგებს და ცვლის თარგებს
+	Include my pattern	ჩემი თარგის დართვა
+	Its pieces and sizes, and which measurements are set: never their values	მისი დეტალები და ზომები და რომელი ზომებია დაყენებული: მათი მნიშვნელობები არასდროს
+	Leave it empty for the Foundry service.	Foundry-ის სერვისისთვის ცარიელი დატოვეთ.
+	Not allowed:	არ არის დაშვებული:
+	One account for every SiteSentrix app	ერთი ანგარიში SiteSentrix-ის ყველა აპისთვის
+	Read your measurements	თქვენი ზომების წაკითხვა
+@msg	An account with that email already exists: sign in instead.	ამ ელფოსტით ანგარიში უკვე არსებობს: ამის ნაცვლად შედით.
+@msg	Ask About Patterns needs a build that can reach the AI service	„კითხვა თარგების შესახებ“ საჭიროებს ვერსიას, რომელიც AI სერვისს უკავშირდება
+@msg	Foundry Account needs a build that can reach the AI service	„Foundry-ის ანგარიში“ საჭიროებს ვერსიას, რომელიც AI სერვისს უკავშირდება
+@msg	Foundry accounts aren't open yet.	Foundry-ის ანგარიშები ჯერ არ გახსნილა.
+@msg	Not enough Foundry credits: buy more in Foundry Account.	Foundry-ის კრედიტები საკმარისი არ არის: შეიძინეთ მეტი Foundry-ის ანგარიშში.
+@msg	Sign in to your Foundry account (Help › Foundry Account…).	შედით თქვენს Foundry-ის ანგარიშში (დახმარება › Foundry-ის ანგარიში…).
+@msg	The Foundry service can't do this yet: try again later.	Foundry-ის სერვისს ამის გაკეთება ჯერ არ შეუძლია: სცადეთ მოგვიანებით.
+@msg	this needs a connection to the AI service, which this build doesn't have	ამისთვის საჭიროა კავშირი AI სერვისთან, რომელიც ამ ვერსიას არ აქვს
+@msg	Account made: welcome to PatternFoundry.	ანგარიში შეიქმნა: კეთილი იყოს თქვენი მობრძანება PatternFoundry-ში.
+@msg	Signed in.	შესული ხართ.
+@msg	Signed out.	გამოსული ხართ.
+@msg	Type your email address.	შეიყვანეთ თქვენი ელფოსტის მისამართი.
+@msg	Pay on the page that opened in your browser, then press Refresh.	გადაიხადეთ ბრაუზერში გახსნილ გვერდზე, შემდეგ დააჭირეთ „განახლებას“.
+@msg	Anthropic refused the API key: {0}	Anthropic-მა API გასაღები უარყო: {0}
+@msg	Couldn't reach the AI service: {0}	AI სერვისთან დაკავშირება ვერ მოხერხდა: {0}
+@msg	Enter your Anthropic API key first.	ჯერ შეიყვანეთ თქვენი Anthropic API გასაღები.
+@msg	The AI declined to answer this: ask another way.	AI-მ ამაზე პასუხის გაცემაზე უარი თქვა: იკითხეთ სხვაგვარად.
+@msg	The AI service failed (error {0}): try again later.	AI სერვისმა ვერ იმუშავა (შეცდომა {0}): სცადეთ მოგვიანებით.
+@msg	The AI service is busy: try again in a minute.	AI სერვისი დაკავებულია: სცადეთ ერთ წუთში.
+@msg	The API key isn't valid: paste it again from the Anthropic Console.	API გასაღები არასწორია: ხელახლა ჩასვით ის Anthropic Console-დან.
+@msg	The question is too long: keep it under 2,000 characters.	კითხვა ძალიან გრძელია: დაწერეთ 2000 სიმბოლოზე ნაკლები.
+@msg	The reply had no answer: try again, or ask something narrower.	პასუხი ცარიელი იყო: სცადეთ ხელახლა ან დასვით უფრო კონკრეტული კითხვა.
+@msg	The request failed (error {0}): {1}	მოთხოვნა ვერ შესრულდა (შეცდომა {0}): {1}
+@msg	Type a question first.	ჯერ დაწერეთ კითხვა.
+@msg	Your Anthropic account can't pay for this: {0}	თქვენს Anthropic ანგარიშს ამის გადახდა არ შეუძლია: {0}
+@msg	already asking: wait for the answer	კითხვა უკვე დასმულია: დაელოდეთ პასუხს
+@msg	This conversation is long: start a New Conversation.	ეს საუბარი გრძელია: დაიწყეთ ახალი საუბარი.
+@msg	Claude took too many steps: ask again, more simply.	Claude-მ ძალიან ბევრი ნაბიჯი გადადგა: იკითხეთ ხელახლა, უფრო მარტივად.
+	Add Photos…	ფოტოების დამატება…
+	Choose the photos in the browser's window…	აირჩიეთ ფოტოები ბრაუზერის ფანჯარაში…
+	About the fit	მორგების შესახებ
+	Anything else? For example: folds below the back neck	კიდევ რამე? მაგალითად: ნაოჭები უკანა საყელოს ქვემოთ
+	Check My Muslin	ჩემი საცდელი მოდელის შემოწმება
+	Claude looks at the photos with your own Anthropic API key, billed to your Anthropic account. It can be wrong: sew the altered part again in muslin before cutting good fabric.	Claude ფოტოებს თქვენი საკუთარი Anthropic API გასაღებით ათვალიერებს, ღირებულება თქვენს Anthropic ანგარიშს ერიცხება. შეიძლება შეცდეს: კარგი ქსოვილის გამოჭრამდე შეცვლილი ნაწილი ხელახლა შეკერეთ საცდელ მოდელად იაფი ქსოვილისგან.
+	Final fabric	საბოლოო ქსოვილი
+	Hard to raise my arms	ხელების აწევა მიჭირს
+	How it feels:	როგორ ზის:
+	Include the pattern it was cut from (open now), so it can be altered	თარგის დართვა, რომლითაც ის გამოიჭრა (ახლა გახსნილი), რომ მისი შეცვლა შეიძლებოდეს
+	Loose or gaping somewhere	სადღაც ფართოა ან იხსნება
+	Muslin fabric	საცდელი მოდელის ქსოვილი
+	My muslin ({n} photos)	ჩემი საცდელი მოდელი (ფოტო: {n})
+	Photos of your muslin, tried on	თქვენი საცდელი მოდელის ფოტოები, ჩაცმული
+	The front, the side and the back, standing straight with your arms down, and close-ups of any folds or pulling.	წინიდან, გვერდიდან და უკნიდან, სწორად მდგომი, ხელებჩამოშვებული, და ყველა ნაოჭისა თუ დაჭიმულობის ახლო ხედები.
+	The neckline gapes or pulls	საყელო იხსნება ან იჭიმება
+	The photos go to Claude for this check only; PatternFoundry doesn't keep them.	ფოტოები Claude-ს მხოლოდ ამ შემოწმებისთვის ეგზავნება; PatternFoundry მათ არ ინახავს.
+	The shoulder seams don't sit on my shoulders	მხრის ნაკერები ჩემს მხრებზე არ ზის
+	Tight across the back or shoulders	ვიწროა ზურგში ან მხრებში
+	Tight across the bust or chest	ვიწროა მკერდში
+	Tight at the waist or hips	ვიწროა წელში ან თეძოებში
+	Too long or too short	ზედმეტად გრძელია ან მოკლე
+	e.g. calico, an old sheet	მაგ. ბამბის უხეში ქსოვილი, ძველი ზეწარი
+	e.g. cotton poplin, jersey	მაგ. ბამბის პოპლინი, ჯერსი
+	Check My Muslin…	ჩემი საცდელი მოდელის შემოწმება…
+@msg	Add a photo of the muslin first.	ჯერ საცდელი მოდელის ფოტო დაამატეთ.
+@msg	Check My Muslin needs a build that can reach the AI service	„ჩემი საცდელი მოდელის შემოწმება“ საჭიროებს ვერსიას, რომელიც AI სერვისს უკავშირდება
+@msg	The image is too large to send: crop it, or send a smaller copy.	სურათი ძალიან დიდია გასაგზავნად: ჩამოჭერით ან გაგზავნეთ უფრო მცირე ასლი.
+@msg	This photo is too large: send a smaller copy.	ეს ფოტო ძალიან დიდია: გაგზავნეთ უფრო მცირე ასლი.
+@msg	no files here	აქ ფაილები არ არის
+@msg	At most 6 photos: remove one first.	მაქსიმუმ 6 ფოტო: ჯერ ერთი წაშალეთ.
+@msg	This photo can't be read: save or send it as a JPEG (on an iPhone: Settings › Camera › Formats › Most Compatible).	ამ ფოტოს წაკითხვა შეუძლებელია: შეინახეთ ან გაგზავნეთ JPEG ფორმატში (iPhone-ზე: Settings › Camera › Formats › Most Compatible).
+	Make Marker	გამოჭრის განლაგების შექმნა
+	Make Marker…	გამოჭრის განლაგების შექმნა…
+	Gap	დაშორება
+	Precision	სიზუსტე
+	One Way	ერთი მიმართულებით
+	Cut on fold	ნაკეცზე გამოჭრა
+	Folded	მოკეცილი
+	The straight edge laid on the fabric's fold: no allowance there	ქსოვილის ნაკეცზე დადებული სწორი კიდე: იქ ნაკერის მარაგი არ არის
+	Check Sleeve Ease	სახელოს თავისუფლების შემოწმება
+	Sleeve Ease	სახელოს თავისუფლება
+	Crown {crown} mm, armhole {armhole} mm (back {back}, front {front}): the crown takes in {ease} mm ({percent}%).	სახელოს თავი {crown} მმ, სახელოს ამოჭრა {armhole} მმ (ზურგი {back}, წინა {front}): თავი იკავებს {ease} მმ-ს ({percent}%).
+	Less than the {min} to {max} mm it should take in: the sleeve may pull across the cap. Set sleeve_crown to {wanted} mm in Measurements to redraft the sleeve block with the ease in the middle.	ნაკლებია, ვიდრე {min}–{max} მმ, რაც უნდა დაიკავოს: სახელო შეიძლება თავზე დაიჭიმოს. Measurements-ში sleeve_crown დააყენეთ {wanted} მმ-ზე და სახელოს ბაზა ხელახლა დაიხაზება თავისუფლებით შუაში.
+	More than the {min} to {max} mm it should take in: the cap may pucker when it is set in. Set sleeve_crown to {wanted} mm in Measurements to redraft the sleeve block with the ease in the middle.	მეტია, ვიდრე {min}–{max} მმ, რაც უნდა დაიკავოს: თავი შეიძლება ჩაკერებისას დაიჭმუჭნოს. Measurements-ში sleeve_crown დააყენეთ {wanted} მმ-ზე და სახელოს ბაზა ხელახლა დაიხაზება თავისუფლებით შუაში.
+	Within the {min} to {max} mm it should take in.	{min}–{max} მმ-ის ფარგლებშია, რაც უნდა დაიკავოს.
+	Edges: {edges}, notches: {notches}	კიდეები: {edges}, ნაჭდევები: {notches}
+	Edge {n}	კიდე {n}
+	On fold	ნაკეცზე
+	Back to the piece's seam allowance	დეტალის ნაკერის მარაგზე დაბრუნება
+	A notch in the middle of the edge	ნაჭდევი კიდის შუაში
+	Notch on edge {edge}, {at}% along	ნაჭდევი კიდეზე {edge}, {at}%-ზე
+	Piece Outlines	დეტალების კონტურები
+	Projector	პროექტორი
+	Projector Scale (screen points per mm, 0: not calibrated)	პროექტორის მასშტაბი (ეკრანის წერტილები მმ-ზე, 0: არ არის კალიბრირებული)
+	Projector View	პროექტორის ხედი
+	Measure the square on the cutting mat: it should be 10 cm each way. The arrows make it bigger or smaller (with Shift, faster); Enter keeps it; Escape leaves. Scale: {scale} points per mm.	გაზომეთ კვადრატი საჭრელ ხალიჩაზე: ყოველი მიმართულებით 10 სმ უნდა იყოს. ისრები ადიდებს ან აპატარავებს (Shift-ით სწრაფად); Enter ინახავს; Escape გამოდის. მასშტაბი: {scale} წერტილი მმ-ზე.
+	Arrows move the pattern 1 cm (Shift: 1 mm) · M mirrors it · C calibrates · Escape leaves	ისრები გადაადგილებს თარგს 1 სმ-ით (Shift: 1 მმ) · M ასარკავს · C აკალიბრებს · Escape გამოდის
+@msg	no pattern pieces to project: make the outlines pattern pieces first (Pattern › Make Pattern Piece)	საპროექციო თარგის დეტალები არ არის: ჯერ კონტურები გადააქციეთ თარგის დეტალებად (თარგი › თარგის დეტალის შექმნა)
+@msg	scale: screen points per mm, more than 0	მასშტაბი: ეკრანის წერტილები მმ-ზე, 0-ზე მეტი
+	Delete Saved Measurements	შენახული ზომების წაშლა
+	Load Measurements	ზომების ჩატვირთვა
+	My Measurements	ჩემი ზომები
+	Save to My Measurements	ჩემს ზომებში შენახვა
+	Delete from this computer	ამ კომპიუტერიდან წაშლა
+	Kept on this computer only, to load into any pattern	ინახება მხოლოდ ამ კომპიუტერზე, ნებისმიერ თარგში ჩასატვირთად
+	Load	ჩატვირთვა
+	Use these measurements in this pattern	ამ ზომების გამოყენება ამ თარგში
+	Whose (Me)	ვისი (მე)
+	Shorten Dart	გამონაჭრის დამოკლება
+	Shorten Dart…	გამონაჭრის დამოკლება…
+	Shorten	დამოკლება
+	Add Notch Here	ნაჭდევის დამატება აქ
+	Cut on Fold Here	აქ ნაკეცზე გამოჭრა
+	Seam Allowance Here…	ნაკერის მარაგი აქ…
+	Grade This Point…	ამ წერტილის გრადაცია…
+	Edge Allowance	კიდის მარაგი
+	Across	ჰორიზონტალურად
+	Down	ქვემოთ
+	One step	ერთი ნაბიჯი
+	The same move for each size, from the size above the base	ერთი და იგივე გადაადგილება ყველა ზომისთვის, საბაზისოს ზემოთა ზომიდან
+	Per size	ზომების მიხედვით
+	A move for each size of its own	თითოეულ ზომას თავისი გადაადგილება
+	Add Drill Hole Here	ნახვრეტის დამატება აქ
+	Remove Drill Hole Here	ნახვრეტის წაშლა აქ
+	Add Drill Hole	ნახვრეტის დამატება
+	Remove Drill Hole	ნახვრეტის წაშლა
+	Drill holes: {count}	ნახვრეტები: {count}
+	Right-click inside the piece: Add Drill Hole Here	დააწკაპუნეთ მარჯვენა ღილაკით დეტალის შიგნით: ნახვრეტის დამატება აქ
+	Drill hole {n}, {mm} mm	ნახვრეტი {n}, {mm} მმ
+	Drill hole {n}	ნახვრეტი {n}
+	Notch Shape	ჭრილის ფორმა
+	Slit notch	სწორი ჭრილი
+	Double notch	ორმაგი ჭრილი
+	V notch	V ჭრილი
+	T notch	T ჭრილი
+	Castle notch	მართკუთხა ჭრილი
+	U notch	U ჭრილი
+	As drawn	როგორც დახატულია
+	Side by side	გვერდიგვერდ
+	Block Options…	საბაზისო თარგის პარამეტრები…
+	Block Options	საბაზისო თარგის პარამეტრები
+	Ease	თავისუფალი მონატება
+	Waist ease	წელის მონატება
+	Bust dart	მკერდის ვიტაჩკა
+	Shoulder dart	მხრის ვიტაჩკა
+	Back dart	ზურგის ვიტაჩკა
+	Back dart length	ზურგის ვიტაჩკის სიგრძე
+	Front dart length	წინა ვიტაჩკის სიგრძე
+	Option	პარამეტრი
+	Back to the block's default	დაბრუნება ნაგულისხმევ მნიშვნელობაზე
+	from the measurements	ზომებიდან
+	Block Options Info	საბაზისო თარგის პარამეტრების ინფორმაცია
+	Check Trouser Seams	შარვლის ნაკერების შემოწმება
+	Trouser Seams	შარვლის ნაკერები
+	Inseam, knee to hem	შიდა ნაკერი, მუხლიდან ბოლომდე
+	Inseam, crotch to knee	შიდა ნაკერი, ბიჯიდან მუხლამდე
+	Side seam, knee to hem	გვერდითი ნაკერი, მუხლიდან ბოლომდე
+	Side seam, waist to knee	გვერდითი ნაკერი, წელიდან მუხლამდე
+	{seam}: front {front} mm, back {back} mm ({difference} mm)	{seam}: წინა {front} მმ, უკანა {back} მმ ({difference} მმ)
+	Walk them on the pattern too: where a line doesn't run on smoothly from front to back, find the point half way between the two and correct both lines. The back inseam is more curved, so it is often longer: lowering the back crotch curve slightly to match is fine.	შეამოწმეთ ისინი თარგზეც: სადაც ხაზი წინადან უკანამდე გლუვად არ გრძელდება, იპოვეთ შუა წერტილი ორს შორის და შეასწორეთ ორივე ხაზი. უკანა შიდა ნაკერი უფრო მრუდეა და ამიტომ ხშირად გრძელია: უკანა ბიჯის მრუდის ოდნავ დაწევა, რომ დაემთხვეს, ნორმალურია.
+	Front dart	წინა ვიტაჩკა
+	Draft Trouser Waistband	შარვლის ქამრის აგება
+	Flap Pocket…	ჯიბე სარქველით…
+	Crown ease	სახელოს თავის მონატება
+	Remove Design Step	დიზაინის ნაბიჯის წაშლა
+	Dart moved	გამონაჭერი გადატანილია
+	Dart shortened {mm} mm	გამონაჭერი დამოკლებულია {mm} მმ-ით
+	Slashed and spread {mm} mm	გაჭრილია და გაშლილია {mm} მმ-ით
+	Seam trued to {mm} mm	ნაკერი გასწორებულია {mm} მმ-მდე
+	Split into panels	დაყოფილია ნაწილებად
+	Design step	დიზაინის ნაბიჯი
+	Design steps: {count}	დიზაინის ნაბიჯები: {count}
+	Design changes made on the block (darts, splits, spreads, seam lengths) show here; each is made again when the measurements change	საბაზისო თარგზე შეტანილი ცვლილებები (გამონაჭრები, დაყოფები, გაშლები, ნაკერების სიგრძეები) აქ ჩანს; თითოეული ხელახლა სრულდება, როცა ზომები იცვლება
+	Remove this step and the ones after it (they were made on the outline it made)	ამ ნაბიჯისა და მომდევნოების წაშლა (ისინი მის მიერ მიღებულ კონტურზე შესრულდა)
+	Selected block part	საბაზისო თარგის არჩეული ნაწილი
+	Curve Dart Legs…	გამონაჭრის გვერდების მოხრა…
+	Curve Dart Legs	გამონაჭრის გვერდების მოხრა
+	Dart legs curved {mm} mm	გამონაჭრის გვერდები მოხრილია {mm} მმ-ით
+	Draft Rounded Stand Collar	მომრგვალებული მდგომი საყელოს აგება
+	Draft Wing Collar	ფრთიანი საყელოს აგება
+	Check Marker	განლაგების შემოწმება
+	{length} cm long, {efficiency}% of the fabric used	სიგრძე {length} სმ, გამოყენებულია ქსოვილის {efficiency}%
+	{a} overlaps {b}	{a} ფარავს {b}-ს
+	{piece} is off the fabric	{piece} ქსოვილის გარეთაა
+	No pieces overlap, and all are on the fabric.	არცერთი დეტალი არ ფარავს მეორეს და ყველა ქსოვილზეა.
+	Plaid	უჯრედი
+menu	Pattern	თარგი
+@msg	a and b are two pieces (or paths) that sew together	a და b ორი დეტალია (ან ტრაექტორია), რომლებიც ერთმანეთს ეკერება
+@msg	a corner is "mitre" or "square"	კუთხე არის "mitre" ან "square"
+@msg	a facing runs along part of the outline	ამოსაკერი კონტურის ნაწილს მიუყვება
+@msg	a facing runs between two different points of the outline	ამოსაკერი კონტურის ორ სხვადასხვა წერტილს შორის გადის
+@msg	a name takes at most 200 characters	სახელი შეიძლება იყოს მაქსიმუმ 200 სიმბოლო
+@msg	a neckline runs between two different points of its outline, and the shoulder point is one of them	საყელოს ხაზი თავისი კონტურის ორ სხვადასხვა წერტილს შორის გადის და ერთ-ერთი მათგანი მხრის წერტილია
+@msg	a seam allowance is a number of mm, or a length with its unit ("5/8 in")	ნაკერის მარაგი არის რიცხვი მმ-ში ან სიგრძე ერთეულით ("5/8 in")
+@msg	a seam has no length	ნაკერს სიგრძე არ აქვს
+@msg	a shoulder point is on its neck point	მხრის წერტილი კისრის წერტილს ემთხვევა
+@msg	a slash runs between two points of the outline that aren't neighbours	ჭრილი კონტურის ორ არამეზობელ წერტილს შორის გადის
+@msg	a split leaves a piece with fewer than three anchors	გაყოფის შემდეგ დეტალს სამზე ნაკლები საყრდენი წერტილი რჩება
+@msg	a split made two panels: delete the panel you don't want instead	გაყოფამ ორი ნაწილი შექმნა: სანაცვლოდ წაშალეთ ის ნაწილი, რომელიც არ გჭირდებათ
+@msg	a split needs two different anchors on the outline	გასაყოფად კონტურზე ორი სხვადასხვა საყრდენი წერტილია საჭირო
+@msg	amount: a share of the dart, (0, 1]	amount: გამონაჭრის წილი, (0, 1]
+@msg	amount: how far it opens, mm	amount: რამდენად იხსნება, მმ
+@msg	anchor: the point's number along the path, from 0	anchor: წერტილის ნომერი ტრაექტორიის გასწვრივ, 0-დან
+@msg	anchor: the seam line's point, from 0	anchor: ნაკერის ხაზის წერტილი, 0-დან
+@msg	anchors: [a, b] or [a]	anchors: [a, b] ან [a]
+@msg	anchors: point numbers along the path	anchors: წერტილების ნომრები ტრაექტორიის გასწვრივ
+@msg	apex: the dart's point (or select that one point)	apex: გამონაჭრის წვერო (ან მონიშნეთ ეს ერთი წერტილი)
+@msg	at: 0 (the edge's start) to 1 (its end)	at: 0-დან (კიდის დასაწყისი) 1-მდე (მისი ბოლო)
+@msg	at: [x, y], the document point on the edge	at: [x, y], დოკუმენტის წერტილი კიდეზე
+@msg	base: the size the pattern is drawn in	base: ზომა, რომელშიც თარგია აგებული
+@msg	block: "bodice", "skirt", "sleeve" or "trousers"	block: "bodice", "skirt", "sleeve" ან "trousers"
+@msg	can't make the seam that long by moving its end	ნაკერის ასეთი სიგრძის მიღწევა მისი ბოლოს გადაადგილებით შეუძლებელია
+@msg	curve: mm the wrap edge bows into the piece	curve: რამდენი მმ-ით იღუნება გადაფარვის კიდე დეტალის შიგნით
+@msg	cut is a whole number, 1 to 999	cut მთელი რიცხვია, 1-დან 999-მდე
+@msg	data: the chart's text	data: ცხრილის ტექსტი
+@msg	depth: how deep the pleat folds under, mm	depth: რამდენად ღრმად იკეცება ნაოჭი ქვემოთ, მმ
+@msg	depth: mm (less than 0 bows the legs in)	depth: მმ (0-ზე ნაკლები გვერდებს შიგნით ღუნავს)
+@msg	diameter: a number of mm, or a length with its unit ("1/8 in")	diameter: რიცხვი მმ-ში ან სიგრძე ერთეულით ("1/8 in")
+@msg	edge: the edge's number, from 0 (or point)	edge: კიდის ნომერი, 0-დან (ან point)
+@msg	edges and corners are numbered from 0	კიდეები და კუთხეები 0-დან ინომრება
+@msg	every: mm, at least 10	every: მმ, მინიმუმ 10
+@msg	face: only a box pleat has one	face: მხოლოდ ორმხრივ ნაოჭს აქვს
+@msg	face: the box pleat's width between its folds, mm	face: ორმხრივი ნაოჭის სიგანე მის ნაკეცებს შორის, მმ
+@msg	flapShape: "square", "rounded" or "pointed"	flapShape: "square", "rounded" ან "pointed"
+@msg	fold is an edge's number (0..), or null	fold არის კიდის ნომერი (0..) ან null
+@msg	fold: [a, b], the centre front edge's two points	fold: [a, b], წინა შუა ხაზის კიდის ორი წერტილი
+@msg	fold: true or false	fold: true ან false
+@msg	foldAt: [x, y] in document points	foldAt: [x, y] დოკუმენტის პუნქტებში
+@msg	folded: true or false	folded: true ან false
+@msg	from: [x, y] in document points	from: [x, y] დოკუმენტის პუნქტებში
+@msg	from: not a pattern piece	from: თარგის დეტალი არ არის
+@msg	from: the pattern piece whose rules are copied	from: თარგის დეტალი, რომლის წესებიც კოპირდება
+@msg	from: the piece has no seam line	from: დეტალს ნაკერის ხაზი არ აქვს
+@msg	frontShape: "square", "rounded" or "winged"	frontShape: "square", "rounded" ან "winged"
+@msg	gathering runs between two different points of the outline	ნაოჭის ჩაწყობა კონტურის ორ სხვადასხვა წერტილს შორის გადის
+@msg	give apex and one of to or toAnchor (or select the two points)	მიუთითეთ apex და to-დან ან toAnchor-დან ერთ-ერთი (ან მონიშნეთ ორი წერტილი)
+@msg	height: mm, 10 to 100 (the tutorial's is at most 30)	height: მმ, 10-დან 100-მდე (მეთოდიკაში მაქსიმუმ 30)
+@msg	id: a block part's id	id: საბაზისო თარგის ნაწილის id
+@msg	index: the drill hole's place in the list, from 0 (or point)	index: ნახვრეტის ადგილი სიაში, 0-დან (ან point)
+@msg	index: the notch's place in the list, from 0	index: ნაჭდევის ადგილი სიაში, 0-დან
+@msg	index: the step's place, from 0	index: ნაბიჯის ადგილი, 0-დან
+@msg	into: the length it gathers into, mm	into: სიგრძე, რომლამდეც ნაოჭდება, მმ
+@msg	kind: "slit", "double", "v", "t", "castle" or "u"	kind: "slit", "double", "v", "t", "castle" ან "u"
+@msg	kind: the notch's new shape	kind: ნაჭდევის ახალი ფორმა
+@msg	layer: a marker layer's id	layer: გამოჭრის განლაგების შრის id
+@msg	length (mm) or likeId with likeFrom and likeTo: the seam to match	length (მმ) ან likeId likeFrom-ითა და likeTo-თი: ნაკერი, რომელსაც სიგრძით უნდა მოერგოს
+@msg	length: mm, more than 0	length: მმ, 0-ზე მეტი
+@msg	line: "cut" or "seam"	line: "cut" ან "seam"
+@msg	match: the seam it sews to is shorter than the pocket opening's end	match: ნაკერი, რომელსაც ეკერება, ჯიბის ჭრილის ბოლოზე მოკლეა
+@msg	min is more than max	min მეტია max-ზე
+@msg	mirror is true or false	mirror არის true ან false
+@msg	mirror: "none", "x", "y" or "xy"	mirror: "none", "x", "y" ან "xy"
+@msg	name: the saved set's name	name: შენახული ნაკრების სახელი
+@msg	name: whose measurements they are ("Me")	name: ვისი ზომებია ("Me")
+@msg	no drill hole near the point	წერტილთან ახლოს ნახვრეტი არ არის
+@msg	no drill hole with that index	ამ ინდექსით ნახვრეტი არ არის
+@msg	no notch with that index	ამ ინდექსით ნაჭდევი არ არის
+@msg	no object with that id	ამ id-ით ობიექტი არ არის
+@msg	no pattern pieces to grade: make the outlines pattern pieces first (Pattern › Make Pattern Piece)	გრადაციისთვის თარგის დეტალები არ არის: ჯერ კონტურები თარგის დეტალებად აქციეთ (თარგი › თარგის დეტალის შექმნა)
+@msg	no straight centre front edge on the outline's side: name it with fold: [a, b]	კონტურის ამ მხარეს წინა შუა ხაზის სწორი კიდე არ არის: მიუთითეთ ის fold: [a, b]-ით
+@msg	not a drafted block part	აგებული საბაზისო თარგის ნაწილი არ არის
+@msg	not a marker's layer (Pattern › Make Marker…)	გამოჭრის განლაგების შრე არ არის (თარგი › გამოჭრის განლაგების შექმნა…)
+@msg	not a pattern piece	თარგის დეტალი არ არის
+@msg	not a stand collar's outline	მდგომი საყელოს კონტური არ არის
+@msg	notches go on pattern pieces: make both seams' paths pieces first (Pattern › Make Pattern Piece)	ნაჭდევები თარგის დეტალებზე იდება: ჯერ ორივე ნაკერის ტრაექტორია დეტალებად აქციეთ (თარგი › თარგის დეტალის შექმნა)
+@msg	notches: [mm, …]	notches: [მმ, …]
+@msg	notches: distances from the seams' starts, mm	notches: მანძილები ნაკერების დასაწყისიდან, მმ
+@msg	on and at go together: the garment piece and where the opening's top-left corner goes on it	on და at ერთად მიეთითება: ნაკეთობის დეტალი და ადგილი მასზე, სადაც ჭრილის ზედა მარცხენა კუთხე მოხვდება
+@msg	on and at go together: the garment piece and where the pocket's top-left corner goes on it	on და at ერთად მიეთითება: ნაკეთობის დეტალი და ადგილი მასზე, სადაც ჯიბის ზედა მარცხენა კუთხე მოხვდება
+@msg	one point splits only where another point is at the same place (two darts' point)	ერთი წერტილი მხოლოდ იქ იყოფა, სადაც იმავე ადგილას სხვა წერტილიცაა (ორი გამონაჭრის საერთო წვერო)
+@msg	oneWay: true or false	oneWay: true ან false
+@msg	openFolds: true or false	openFolds: true ან false
+@msg	origin: [x, y] in document points	origin: [x, y] დოკუმენტის პუნქტებში
+@msg	overlap: mm past centre front, more than 0	overlap: მმ წინა შუა ხაზს მიღმა, 0-ზე მეტი
+@msg	overlap: the edge misses the outline	overlap: კიდე კონტურს არ კვეთს
+@msg	plaid: the repeat (mm, or [along, across])	plaid: რაპორტი (მმ ან [along, across])
+@msg	plaid: the repeat along and across, 1 to 10 000 mm each	plaid: რაპორტი სიგრძივ და განივად, თითოეული 1-დან 10 000 მმ-მდე
+@msg	point: [x, y] in document points	point: [x, y] დოკუმენტის პუნქტებში
+@msg	select a drafted block part (Pattern › Draft … Block)	მონიშნეთ აგებული საბაზისო თარგის ნაწილი (თარგი › … საბაზისო თარგის აგება)
+@msg	select a path or a pattern piece	მონიშნეთ ტრაექტორია ან თარგის დეტალი
+@msg	select a pattern piece (Pattern › Make Pattern Piece makes one)	მონიშნეთ თარგის დეტალი (მას ქმნის თარგი › თარგის დეტალის შექმნა)
+@msg	select a piece on the marker to check	მონიშნეთ შესამოწმებელი დეტალი გამოჭრის განლაგებაზე
+@msg	select closed paths: each becomes a piece, the path its seam line	მონიშნეთ დახურული ტრაექტორიები: თითოეული დეტალი გახდება, ტრაექტორია კი — მისი ნაკერის ხაზი
+@msg	select one path	მონიშნეთ ერთი ტრაექტორია
+@msg	select one pattern piece	მონიშნეთ თარგის ერთი დეტალი
+@msg	select two points of one path (or one that two darts share)	მონიშნეთ ერთი ტრაექტორიის ორი წერტილი (ან ერთი, რომელიც ორ გამონაჭერს აქვს საერთო)
+@msg	select two points of one path: the dart's point and where the dart moves to	მონიშნეთ ერთი ტრაექტორიის ორი წერტილი: გამონაჭრის წვერო და ადგილი, სადაც გამონაჭერი გადადის
+@msg	select two points of one path: the ends of the edge to face	მონიშნეთ ერთი ტრაექტორიის ორი წერტილი: კიდის ბოლოები, რომელსაც ამოსაკერი დაემატება
+@msg	select two points of one path: the ends of the edge to gather	მონიშნეთ ერთი ტრაექტორიის ორი წერტილი: კიდის ბოლოები, რომელიც უნდა დანაოჭდეს
+@msg	share is true or false	share არის true ან false
+@msg	shorten: mm (less than 0 lengthens)	shorten: მმ (0-ზე ნაკლები აგრძელებს)
+@msg	shoulder: longer than the outline	shoulder: კონტურზე გრძელია
+@msg	shoulder: mm, 0 or more	shoulder: მმ, 0 ან მეტი
+@msg	size: one of the chart's sizes	size: ცხრილის ერთ-ერთი ზომა
+@msg	size: the name of a size of the size range or chart	size: ზომების რიგის ან ცხრილის ზომის სახელი
+@msg	sizes: name one size at least	sizes: დაასახელეთ მინიმუმ ერთი ზომა
+@msg	sizes: the sizes' names	sizes: ზომების სახელები
+@msg	sizes: the sizes' names, smallest first (null removes them)	sizes: ზომების სახელები, უმცირესიდან (null მათ შლის)
+@msg	split the seam line on its own: release the piece first (Pattern › Release Pattern Piece)	მხოლოდ ნაკერის ხაზის გასაყოფად ჯერ დეტალი გაათავისუფლეთ (თარგი › თარგის დეტალის გათავისუფლება)
+@msg	step: [dx, dy] in mm	step: [dx, dy] მმ-ში
+@msg	style: classic, casual or shirt	style: classic, casual ან shirt
+@msg	that anchor's neighbours don't make a dart	ამ საყრდენი წერტილის მეზობლები გამონაჭერს არ ქმნიან
+@msg	that point is not a dart's point: its legs open a right angle or wider	ეს წერტილი გამონაჭრის წვერო არ არის: მისი გვერდები მართ ან უფრო ფართო კუთხეს ქმნის
+@msg	the amount is a share of the dart, more than 0 and at most 1	სიდიდე გამონაჭრის წილია, 0-ზე მეტი და მაქსიმუმ 1
+@msg	the back's outline encloses no area	ზურგის კონტური ფართობს არ შემოსაზღვრავს
+@msg	the box pleat's face is more than 0 wide	ორმხრივი ნაოჭის პირის სიგანე 0-ზე მეტი უნდა იყოს
+@msg	the chart is larger than 1 MB	ცხრილი 1 MB-ზე დიდია
+@msg	the curve has no length at the meeting point	მრუდს შეხვედრის წერტილში სიგრძე არ აქვს
+@msg	the curves leave the seam the same way	მრუდები ნაკერს ერთი მიმართულებით ტოვებს
+@msg	the dart has no length	გამონაჭერს სიგრძე არ აქვს
+@msg	the dart is not that long	გამონაჭერი ასეთი გრძელი არ არის
+@msg	the dart point or the new dart's anchor is not on the outline	გამონაჭრის წვერო ან ახალი გამონაჭრის საყრდენი წერტილი კონტურზე არ არის
+@msg	the dart's legs must be straight lines	გამონაჭრის გვერდები სწორი ხაზები უნდა იყოს
+@msg	the dart's point is past the outline's end	გამონაჭრის წვერო კონტურის ბოლოს მიღმაა
+@msg	the depth to curve the legs by is not a number	გვერდების მოღუნვის სიღრმე რიცხვი არ არის
+@msg	the document has no marker (Pattern › Make Marker…)	დოკუმენტს გამოჭრის განლაგება არ აქვს (თარგი › გამოჭრის განლაგების შექმნა…)
+@msg	the document has no measurements to save	დოკუმენტს შესანახი ზომები არ აქვს
+@msg	the document has no size chart (measure.importChart)	დოკუმენტს ზომების ცხრილი არ აქვს (measure.importChart)
+@msg	the drop at the front is less than half the neck edge	წინა მხარეს ჩაღრმავება საყელოს კიდის ნახევარზე ნაკლებია
+@msg	the edge has no length	კიდეს სიგრძე არ აქვს
+@msg	the edge's anchor is past the outline's end	კიდის საყრდენი წერტილი კონტურის ბოლოს მიღმაა
+@msg	the fabric's width must be more than 0	ქსოვილის სიგანე 0-ზე მეტი უნდა იყოს
+@msg	the flap is deeper than twice its width	სარქველის სიღრმე თავის ორმაგ სიგანეზე მეტია
+@msg	the flap's width and depth are more than 0, its allowance 0 or more	სარქველის სიგანე და სიღრმე 0-ზე მეტი უნდა იყოს, მისი მარაგი — 0 ან მეტი
+@msg	the fold edge has no length	ნაკეცის კიდეს სიგრძე არ აქვს
+@msg	the fold edge's anchors are past the outline's end	ნაკეცის კიდის საყრდენი წერტილები კონტურის ბოლოს მიღმაა
+@msg	the fold edge's two anchors must be neighbours on the outline	ნაკეცის კიდის ორი საყრდენი წერტილი კონტურზე მეზობელი უნდა იყოს
+@msg	the fold must be a straight edge	ნაკეცი სწორი კიდე უნდა იყოს
+@msg	the front end has no length	წინა ბოლოს სიგრძე არ აქვს
+@msg	the gap must be 0 or more	შუალედი 0 ან მეტი უნდა იყოს
+@msg	the grainline's ends are the same point	ძაფის მიმართულების ხაზის ბოლოები ერთი და იგივე წერტილია
+@msg	the legs can't curve that far: the dart isn't wide enough	გვერდების ასე მოღუნვა შეუძლებელია: გამონაჭერი საკმარისად ფართო არ არის
+@msg	the length to shorten by is not a number	დამოკლების სიგრძე რიცხვი არ არის
+@msg	the marker has lost its fabric outline	გამოჭრის განლაგებამ ქსოვილის კონტური დაკარგა
+@msg	the marker has no pieces	გამოჭრის განლაგებაში დეტალები არ არის
+@msg	the marker is too large at this precision: give a coarser one	ამ სიზუსტით გამოჭრის განლაგება ზედმეტად დიდია: მიუთითეთ უფრო უხეში
+@msg	the measurements could not be saved	ზომების შენახვა ვერ მოხერხდა
+@msg	the meeting point and the seam's other end are points of the outline	შეხვედრის წერტილი და ნაკერის მეორე ბოლო კონტურის წერტილები უნდა იყოს
+@msg	the neckline has no length	საყელოს ხაზს სიგრძე არ აქვს
+@msg	the neckline lengths and the stand's height are more than 0, the rise and extension 0 or more	საყელოს ხაზის სიგრძეები და დგარის სიმაღლე 0-ზე მეტი უნდა იყოს, აწევა და გაგრძელება — 0 ან მეტი
+@msg	the new dart is on the old dart	ახალი გამონაჭერი ძველს ემთხვევა
+@msg	the opening is longer than twice its height	ჭრილი თავის ორმაგ სიმაღლეზე გრძელია
+@msg	the opening, depth and width are more than 0, the width more than the allowance	ჭრილი, სიღრმე და სიგანე 0-ზე მეტი უნდა იყოს, სიგანე კი — მარაგზე მეტი
+@msg	the opening, the welt and the depth are more than 0, the allowances 0 or more	ჭრილი, ზოლი და სიღრმე 0-ზე მეტი უნდა იყოს, მარაგები — 0 ან მეტი
+@msg	the outline encloses no area	კონტური ფართობს არ შემოსაზღვრავს
+@msg	the outline has no side seam	კონტურს გვერდითი ნაკერი არ აქვს
+@msg	the path has no outline	ტრაექტორიას კონტური არ აქვს
+@msg	the path must be one closed outline	ტრაექტორია ერთი დახურული კონტური უნდა იყოს
+@msg	the piece has no grade rules to copy	დეტალს კოპირებისთვის გრადაციის წესები არ აქვს
+@msg	the piece has no straight edge to cut on the fold	დეტალს ნაკეცზე გამოსაჭრელად სწორი კიდე არ აქვს
+@msg	the pieces have no cutting lines to lay	დეტალებს დასალაგებლად გამოჭრის ხაზები არ აქვს
+@msg	the plaid's repeat must be more than 0 along and across	უჯრედის რაპორტი სიგრძივ და განივად 0-ზე მეტი უნდა იყოს
+@msg	the pocket (its opening and the allowance past both ends) fits on the seam	ჯიბე (მისი ჭრილი და მარაგი ორივე ბოლოს მიღმა) ნაკერზე უნდა ეტეოდეს
+@msg	the point is not inside the piece	წერტილი დეტალის შიგნით არ არის
+@msg	the point is not on the seam line or in its allowance	წერტილი არც ნაკერის ხაზზეა და არც მის მარაგში
+@msg	the precision must be more than 0	სიზუსტე 0-ზე მეტი უნდა იყოს
+@msg	the rise at centre front is less than the front neckline is long	აწევა წინა შუა ხაზზე წინა საყელოს ხაზის სიგრძეზე ნაკლებია
+@msg	the seam has no length there	ნაკერს იმ ადგილას სიგრძე არ აქვს
+@msg	the seam runs between two different points of the outline	ნაკერი კონტურის ორ სხვადასხვა წერტილს შორის გადის
+@msg	the seam's other end is a neighbour of the meeting point	ნაკერის მეორე ბოლო შეხვედრის წერტილის მეზობელია
+@msg	the top edge has no length	ზედა კიდეს სიგრძე არ აქვს
+@msg	the wing is more than 0 long	ფრთის სიგრძე 0-ზე მეტი უნდა იყოს
+@msg	there is no folder to keep measurement sets in here (the desktop app keeps them next to its preferences)	აქ ზომების ნაკრებების შესანახი საქაღალდე არ არის (დესკტოპის აპი მათ თავის პარამეტრებთან ერთად ინახავს)
+@msg	there is no point of the seam line there	იქ ნაკერის ხაზის წერტილი არ არის
+@msg	to or toAnchor: where the dart moves to	to ან toAnchor: სად გადადის გამონაჭერი
+@msg	to: [x, y] in document points	to: [x, y] დოკუმენტის პუნქტებში
+@msg	to: the pieces to copy the rules to (select them, or name them)	to: დეტალები, რომლებზეც წესები კოპირდება (მონიშნეთ ან დაასახელეთ ისინი)
+@msg	too many objects at once	ერთდროულად ზედმეტად ბევრი ობიექტია
+@msg	too many pieces at once	ერთდროულად ზედმეტად ბევრი დეტალია
+@msg	too many pieces to lay at once	ერთდროულად დასალაგებლად ზედმეტად ბევრი დეტალია
+@msg	too many sizes at once	ერთდროულად ზედმეტად ბევრი ზომაა
+@msg	unit: "mm", "cm" or "in"	unit: "mm", "cm" ან "in"
+@msg	width: mm, more than 0	width: მმ, 0-ზე მეტი
+	Draw Avatar	ავატარის დახატვა
+	Export Avatar as OBJ	ავატარის ექსპორტი OBJ-ად
+	Sewn seams: {count}	შეკერილი ნაკერები: {count}
+	{label}: sewn to {piece}, {mm} mm longer	{label}: შეკერილია {piece}-თან, {mm} მმ-ით გრძელი
+	{label}: sewn to {piece}, {mm} mm shorter	{label}: შეკერილია {piece}-თან, {mm} მმ-ით მოკლე
+	{label}: sewn to {piece}	{label}: შეკერილია {piece}-თან
+	Sew Seams	ნაკერების შეკერვა
+	Unsew Seams	ნაკერების დაშლა
+	Sewn Seams	შეკერილი ნაკერები
+	Drape on Avatar	ავატარზე დრაპირება
+	Use as Fabric…	ქსოვილად გამოყენება…
+	Use as Fabric	ქსოვილად გამოყენება
+	Stop Using as Fabric	ქსოვილად გამოყენების შეწყვეტა
+	Fabric Photos	ქსოვილის ფოტოები
+@msg	the drape view's picture is the wrong size	დრაპირების ხედის სურათს არასწორი ზომა აქვს
+@msg	the drape view: {e}	დრაპირების ხედი: {e}
+@msg	a fabric photo is the wrong size	ქსოვილის ფოტოს არასწორი ზომა აქვს
+@msg	a fabric photo: {e}	ქსოვილის ფოტო: {e}
+	Export Avatar as glTF	ავატარის ექსპორტი glTF-ად
+	Export Avatar as glTF…	ავატარის ექსპორტი glTF-ად…
+	Export Drape as glTF…	დრაპირების ექსპორტი glTF-ად…
+@msg	format: "obj" or "glb"	format: "obj" ან "glb"
+@msg	colour: "fabric" or "fit"	colour: "fabric" ან "fit"
+@msg	a piece could not be placed on the body	ნაწილის სხეულზე განთავსება ვერ მოხერხდა
+@msg	{name} is already open	{name} უკვე გახსნილია
+@msg	Draping on Avatar	ავატარზე დრაპირება
+	Step {n} of {total}	ნაბიჯი {n} / {total}
+@msg	The drape was cancelled	დრაპირება გაუქმდა
+@msg	Draped on the avatar	ავატარზე დრაპირება დასრულდა
+@msg	the document was closed	დოკუმენტი დაიხურა
+@msg	the drape stopped	დრაპირება შეწყდა
+@msg	width: the photo's width on the fabric, 10 to 5000 mm	width: ფოტოს სიგანე ქსოვილზე, 10-დან 5000 mm-მდე
+@msg	turns: 0, 1, 2 or 3	turns: 0, 1, 2 ან 3
+@msg	the image is not a fabric photo (Pattern › Use as Fabric…)	გამოსახულება ქსოვილის ფოტო არ არის (თარგი › ქსოვილად გამოყენება…)
+@msg	even: true or false	even: true ან false
+@msg	seamless: true or false	seamless: true ან false
+@msg	Sign in to your Foundry Account first: Help › Foundry Account…	ჯერ შედით თქვენს Foundry-ის ანგარიშზე: დახმარება › Foundry-ის ანგარიში…
+@msg	The document is empty: there is nothing to publish.	დოკუმენტი ცარიელია: გამოსაქვეყნებელი არაფერია.
+@msg	The design is too large for MakerFoundry: at most 8 MB.	დიზაინი MakerFoundry-სთვის ზედმეტად დიდია: მაქსიმუმ 8 MB.
+@msg	MakerFoundry's answer couldn't be read.	MakerFoundry-ის პასუხი ვერ წაიკითხა.
+@msg	MakerFoundry answered with a page on another site, which wasn't opened.	MakerFoundry-მა სხვა საიტის გვერდით უპასუხა, რომელიც არ გაიხსნა.
+@msg	MakerFoundry: {1}	MakerFoundry: {1}
+@msg	MakerFoundry couldn't be reached: {0}	MakerFoundry-თან კავშირი ვერ მოხერხდა: {0}
+@msg	Publish to MakerFoundry needs a build that can reach MakerFoundry	MakerFoundry-ზე გამოქვეყნებას სჭირდება ვერსია, რომელიც MakerFoundry-ს მიწვდება
+@msg	open Publish to MakerFoundry first: it shows what is sent	ჯერ გახსენით „MakerFoundry-ზე გამოქვეყნება“: იქ ჩანს, რა იგზავნება
+@msg	That link isn't a design file on MakerFoundry, so it wasn't opened.	ეს ბმული MakerFoundry-ის დიზაინის ფაილი არ არის, ამიტომ არ გაიხსნა.
+@msg	The design is too large to open: at most 32 MB.	დიზაინი გასახსნელად ზედმეტად დიდია: მაქსიმუმ 32 MB.
+@msg	PatternFoundry opens SVG and DXF designs from MakerFoundry; that file is neither.	PatternFoundry ხსნის MakerFoundry-ის SVG და DXF დიზაინებს; ეს ფაილი არც ერთია.
+@msg	The design couldn't be downloaded from MakerFoundry: {0}	დიზაინი MakerFoundry-დან ვერ ჩამოიტვირთა: {0}

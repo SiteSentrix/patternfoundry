@@ -245,19 +245,26 @@ struct FaxRows {
 }
 
 impl Decoder for FaxRows {
-    fn push_pixel(&mut self, white: bool) {
-        if self.x.is_multiple_of(8) {
-            self.data.push(0);
+    fn push_pixels(&mut self, white: bool, count: u32) {
+        let mut left = count;
+        while left > 0 {
+            // Whole bytes at once where the row is at a byte's start.
+            if self.x.is_multiple_of(8) && left >= 8 {
+                let bytes = left / 8;
+                self.data.extend(std::iter::repeat_n(if white { 0xff } else { 0 }, bytes as usize));
+                self.x = self.x.saturating_add(bytes * 8);
+                left -= bytes * 8;
+                continue;
+            }
+            if self.x.is_multiple_of(8) {
+                self.data.push(0);
+            }
+            if white && let Some(b) = self.data.last_mut() {
+                *b |= 0x80 >> (self.x % 8);
+            }
+            self.x = self.x.saturating_add(1);
+            left -= 1;
         }
-        if white && let Some(b) = self.data.last_mut() {
-            *b |= 0x80 >> (self.x % 8);
-        }
-        self.x = self.x.saturating_add(1);
-    }
-
-    fn push_pixel_chunk(&mut self, white: bool, chunk_count: u32) {
-        self.data.extend(std::iter::repeat_n(if white { 0xff } else { 0 }, chunk_count as usize));
-        self.x = self.x.saturating_add(chunk_count.saturating_mul(8));
     }
 
     fn next_line(&mut self) {
@@ -270,9 +277,7 @@ impl Decoder for FaxRows {
 struct Dropped;
 
 impl Decoder for Dropped {
-    fn push_pixel(&mut self, _: bool) {}
-
-    fn push_pixel_chunk(&mut self, _: bool, _: u32) {}
+    fn push_pixels(&mut self, _: bool, _: u32) {}
 
     fn next_line(&mut self) {}
 }

@@ -5193,3 +5193,571 @@ imageTrace	Outline	Körvonal
 @msg	the file's variables and data sets weren't read (variables: {variables}, data sets: {data_sets}): the Variables panel doesn't list them	a fájl változói és adatkészletei nem lettek beolvasva (változók: {variables}, adatkészletek: {data_sets}): a Változók panel nem listázza őket
 # Select by Color (select.color)
 	Select by Color	Kijelölés szín szerint
+# PatternFoundry: pattern pieces (PF-1).
+	Add Notch	Bevágás hozzáadása
+	Make Pattern Piece	Szabásmintadarab létrehozása
+	Pattern Pieces	Szabásmintadarabok
+	Piece Info	Darab adatai
+	Piece Options	Darab beállításai
+	Release Pattern Piece	Szabásmintadarab felbontása
+	Remove Notch	Bevágás eltávolítása
+	Cut {count}	Szabás: {count}
+	Each selected closed path becomes a piece: the path is its seam line	Minden kijelölt zárt útvonalból darab lesz: az útvonal a varrásvonala
+	Edges	Élek
+	Fabric	Anyag
+	Mirrored pairs	Tükrözött párok
+	No pattern pieces yet	Még nincsenek szabásmintadarabok
+	Notches	Bevágások
+	Pattern piece	Szabásmintadarab
+	Pieces	Darabok
+	Seam allowance	Varrásráhagyás
+	Seam line length	Varrásvonal hossza
+	Selected piece	Kijelölt darab
+# PatternFoundry: true-scale printing (PF-2).
+	Pattern Marks (test squares, page names, overlap lines)	Szabásminta-jelek (tesztnégyzetek, oldalnevek, átfedési vonalak)
+# PatternFoundry: measurements (PF-3).
+	Add Measurement	Méret hozzáadása
+	Clear Measurements	Méretek törlése
+	Clear Point Formulas	Pontképletek törlése
+	Draft Info	Szerkesztés adatai
+	Formulas	Képletek
+	Import Size Chart	Mérettáblázat importálása
+	Let PDF and SVG files saved with Preserve Editing keep the measured values	A Szerkeszthetőség megőrzése beállítással mentett PDF- és SVG-fájlok megtartják a mért értékeket
+	Measurements	Méretek
+	No measurements yet	Még nincsenek méretek
+	Set Measurements	Méretek beállítása
+	Set Point Formula	Pontképlet beállítása
+	Share in exported files	Megosztás az exportált fájlokban
+	Figure	Alkat
+	Female	Női
+	Male	Férfi
+	Child	Gyermek
+	The avatar takes what the measurements don't give from a survey's women's, men's or children's proportions	Az avatar azt, amit a méretek nem adnak meg, egy felmérés nőinek, férfiainak vagy gyermekeinek arányaiból veszi
+	Size chart	Mérettáblázat
+	Use Size	Méret használata
+# PatternFoundry: blocks (PF-4).
+	Draft Bodice Block	Alapszabásminta szerkesztése (felsőrész)
+	Block Measurements	Az alapszabásminta méretei
+	Draft Skirt Block	Alapszabásminta szerkesztése (szoknya)
+# PatternFoundry: design tools (PF-5).
+	Rotate Dart	Varrás áthelyezése
+	Split at Points	Felosztás a pontoknál
+	Seam Length	Varrathossz
+	Slash and Spread	Bevágás és szétnyitás
+	Match Seam Length	Varrathossz egyeztetése
+	Make Facing	Tisztázó készítése
+	Add Pleat	Berakás hozzáadása
+	Draft Sleeve Block	Alapszabásminta szerkesztése (ujj)
+	Draft Trouser Block	Alapszabásminta szerkesztése (nadrág)
+	Draft Men's Trouser Block	Férfinadrág alapszabásminta szerkesztése
+	Draft Men's Shirt Block	Férfiing alapszabásminta szerkesztése
+	Draft Men's Shirt Sleeve Block	Férfiing ujjának alapszabásmintája
+	Gather	Ráncolás
+	Draft Collar	Gallér szerkesztése
+	Patch Pocket	Rátett zseb
+	Walk Seams	Varratok egyeztetése
+	Smooth Across Seam	Simítás a varraton át
+	Draft Stand Collar	Állógallér szerkesztése
+	In-Seam Pocket	Varrásba rejtett zseb
+	Welt Pocket	Paszpólozott zseb
+	Make Wrap Front	Átlapolt eleje
+	Make Band	Pánt készítése
+	Grade Nest	Méretek fokozása
+	Clear Graded Nest	Fokozott méretek törlése
+	Set Size Range	Mérettartomány beállítása
+	Set Grade Rule	Fokozási szabály beállítása
+	Grade Info	Fokozási adatok
+	Grading	Fokozás
+	Base size	Alapméret
+	Grade rules (mm a size)	Fokozási szabályok (mm/méret)
+	Name the sizes, smallest first, to give the points grade rules	Nevezze el a méreteket a legkisebbtől, hogy a pontoknak szabályt adhasson
+	Select one pattern piece to grade its points	Jelöljön ki egy szabásmintadarabot a pontjai fokozásához
+	Sizes	Méretek
+	per size	méretenként
+	Copy Grade Rules	Fokozási szabályok másolása
+	Copy Rules To	Szabályok másolása ide
+	Mirrored	Tükrözve
+	For the opposite half: places mirrored left to right, x moves the other way	A szemközti félhez: a helyek balról jobbra tükrözve, az x elmozdulások ellenkező irányba
+	Draft Shirt Collar	Ingnyakú gallér szerkesztése
+file-filter	DXF-AAMA (cutting room)	DXF-AAMA (szabászat)
+@msg	DXF-AAMA files are DXF R13 (ASTM D6673) or R12	A DXF-AAMA fájlok DXF R13 (ASTM D6673) vagy R12 formátumúak
+@msg	no pattern pieces to export	nincs exportálható szabásminta-darab
+@msg	the piece {_1} has no outline	a(z) {_1} darabnak nincs körvonala
+file-filter	SVG for cutting	SVG vágáshoz
+file-filter	PDF for projector	PDF projektorhoz
+	Foundry Account…	Foundry-fiók…
+	Publish to MakerFoundry…	Közzététel a MakerFoundryn…
+	Publish to MakerFoundry	Közzététel a MakerFoundryn
+	Publish	Közzététel
+	Sign In…	Bejelentkezés…
+	Not signed in	Nincs bejelentkezve
+	Your Foundry Account	Az Ön Foundry-fiókja
+	Sent to	Címzett
+	SVG, a vector design	SVG, vektoros terv
+	What it is, e.g. A-line skirt	Mi ez, pl. A-vonalú szoknya
+	Your design goes to MakerFoundry as a private draft, to finish on its page. Nothing is public until you publish it there.	A terve privát vázlatként kerül a MakerFoundryre, és az oldalán fejezheti be. Semmi sem nyilvános, amíg ott közzé nem teszi.
+	Draft {id} made.	A(z) {id}. vázlat elkészült.
+	Draft {id} made on MakerFoundry: finish it on the page that opened in your browser.	A(z) {id}. vázlat elkészült a MakerFoundryn: fejezze be a böngészőben megnyílt oldalon.
+	Finish it on MakerFoundry's page, which opened in your browser: it stays private until you publish it there.	Fejezze be a MakerFoundry böngészőben megnyílt oldalán: privát marad, amíg ott közzé nem teszi.
+	A password needs at least 8 characters.	A jelszónak legalább 8 karakterből kell állnia.
+	Account	Fiók
+	Allow	Engedélyezés
+	Anthropic API key:	Anthropic API-kulcs:
+	Ask	Kérdezés
+	Buy credits	Kredit vásárlása
+	Buy…	Vásárlás…
+	Change key	Kulcs módosítása
+	Create Free Account	Ingyenes fiók létrehozása
+	Create a free Foundry Account	Hozzon létre ingyenes Foundry-fiókot
+	Don't Allow	Tiltás
+	Edit › Undo takes each change back.	A Szerkesztés › Visszavonás egyenként visszavonja a módosításokat.
+	Email	E-mail
+	Foundry Account	Foundry-fiók
+	Foundry accounts aren't open yet. Until then, the AI features work with your own Anthropic API key.	A Foundry-fiókok még nem nyíltak meg. Addig az MI-funkciók a saját Anthropic API-kulcsával működnek.
+	Get a key	Kulcs igénylése
+	I have an account: Sign In	Van fiókom: bejelentkezés
+	New Conversation	Új beszélgetés
+	New here? Create a free account	Új itt? Hozzon létre ingyenes fiókot
+	No card needed, and no API key to set up	Nem kell kártya, és API-kulcsot sem kell beállítani
+	Paid with Foundry credits ({n} left).	Foundry-kredittel fizetve ({n} maradt).
+	Paid with Foundry credits.	Foundry-kredittel fizetve.
+	Pay for the AI features with my Foundry credits	Az MI-funkciók fizetése a Foundry-kreditjeimmel
+	Pay with Foundry credits instead	Fizetés inkább Foundry-kredittel
+	Payment is on Stripe's secure page, in your browser; your card never reaches PatternFoundry.	A fizetés a Stripe biztonságos oldalán történik a böngészőjében; a kártyája sosem jut el a PatternFoundryhez.
+	Reading your credits…	Kreditek beolvasása…
+	Remember the key on this computer	A kulcs megjegyzése ezen a számítógépen
+	Server	Kiszolgáló
+	Sign In	Bejelentkezés
+	Sign Out	Kijelentkezés
+	Sign in to your Foundry Account	Jelentkezzen be a Foundry-fiókjába
+	Signed in as {email}	Bejelentkezve: {email}
+	Thinking…	Gondolkodás…
+	Type your question, then press Enter	Írd be a kérdésed, majd nyomd meg az Entert
+	{n} credits	{n} kredit
+	{n} credits for {price}	{n} kredit {price} áron
+@msg	Anthropic refused the API key: {0}	Az Anthropic elutasította az API-kulcsot: {0}
+@msg	Couldn't reach the AI service: {0}	Nem érhető el az MI-szolgáltatás: {0}
+@msg	Enter your Anthropic API key first.	Előbb add meg az Anthropic API-kulcsodat.
+@msg	The AI declined to answer this: ask another way.	Az MI nem vállalta a válaszadást: kérdezz másképp.
+@msg	The AI service failed (error {0}): try again later.	Az MI-szolgáltatás hibát jelzett ({0}): próbáld újra később.
+@msg	The AI service is busy: try again in a minute.	Az MI-szolgáltatás foglalt: próbáld újra egy perc múlva.
+@msg	The API key isn't valid: paste it again from the Anthropic Console.	Az API-kulcs érvénytelen: másold be újra az Anthropic Console-ból.
+@msg	The question is too long: keep it under 2,000 characters.	A kérdés túl hosszú: legyen 2000 karakternél rövidebb.
+@msg	The reply had no answer: try again, or ask something narrower.	A válasz üres volt: próbáld újra, vagy kérdezz szűkebben.
+@msg	The request failed (error {0}): {1}	A kérés sikertelen ({0}): {1}
+@msg	Type a question first.	Előbb írj be egy kérdést.
+@msg	Your Anthropic account can't pay for this: {0}	Az Anthropic-fiókod nem tudja kifizetni ezt: {0}
+@msg	already asking: wait for the answer	a kérdezés már folyamatban van: várd meg a választ
+@msg	This conversation is long: start a New Conversation.	Ez a beszélgetés hosszú: kezdj egy új beszélgetést.
+@msg	Claude took too many steps: ask again, more simply.	Claude túl sok lépést tett: kérdezz újra, egyszerűbben.
+	Ask About Patterns…	Kérdezzen a szabásmintákról…
+	Answers come from Claude with your own Anthropic API key, billed to your Anthropic account. They can be wrong: sew a muslin before cutting good fabric.	A válaszokat Claude adja az Ön saját Anthropic API-kulcsával, a díjat az Anthropic-fiókja terheli. Tévedhetnek: mielőtt értékes anyagot szab ki, varrjon próbadarabot olcsó vászonból.
+	Ask About Patterns	Kérdezzen a szabásmintákról
+	Ask anything about sewing patterns or PatternFoundry: how much ease to add, how to move a dart, which block to start from, where a feature is. Claude can also draft and change your pattern when you ask, after you allow it.	Kérdezzen bármit a szabásmintákról vagy a PatternFoundryról: mennyi bőséget adjon hozzá, hogyan helyezzen át egy varrást, melyik alapszabásmintából induljon, hol talál egy funkciót. Claude kérésre meg is szerkesztheti és módosíthatja a szabásmintáját, miután engedélyezte.
+	Claude asks to:	Claude engedélyt kér erre:
+	Couldn't do:	Nem sikerült:
+	Done:	Kész:
+	Free credits for the AI features, no API key needed	Ingyenes kreditek az MI-funkciókhoz, API-kulcs nélkül
+	Free credits to try the AI features: Ask About Patterns drafts and changes patterns with you	Ingyenes kreditek az MI-funkciók kipróbálásához: a Kérdezzen a szabásmintákról Önnel együtt szerkeszt és módosít szabásmintákat
+	Include my pattern	A szabásmintám csatolása
+	Its pieces and sizes, and which measurements are set: never their values	Darabjai és méretei, valamint hogy mely méretek vannak megadva: az értékeik soha
+	Leave it empty for the Foundry service.	Hagyja üresen a Foundry szolgáltatáshoz.
+	Not allowed:	Nem engedélyezett:
+	One account for every SiteSentrix app	Egy fiók az összes SiteSentrix-alkalmazáshoz
+	Read your measurements	Az Ön méreteinek beolvasása
+@msg	An account with that email already exists: sign in instead.	Ezzel az e-mail-címmel már létezik fiók: inkább jelentkezzen be.
+@msg	Ask About Patterns needs a build that can reach the AI service	A Kérdezzen a szabásmintákról funkcióhoz olyan verzió kell, amely eléri az MI-szolgáltatást
+@msg	Foundry Account needs a build that can reach the AI service	A Foundry-fiókhoz olyan verzió kell, amely eléri az MI-szolgáltatást
+@msg	Foundry accounts aren't open yet.	A Foundry-fiókok még nem nyíltak meg.
+@msg	Not enough Foundry credits: buy more in Foundry Account.	Nincs elég Foundry-kredit: vásároljon többet a Foundry-fiókban.
+@msg	Sign in to your Foundry account (Help › Foundry Account…).	Jelentkezzen be Foundry-fiókjába (Súgó › Foundry-fiók…).
+@msg	The Foundry service can't do this yet: try again later.	A Foundry szolgáltatás ezt még nem tudja: próbálja újra később.
+@msg	this needs a connection to the AI service, which this build doesn't have	ehhez kapcsolat kell az MI-szolgáltatással, ami ebben a verzióban nincs
+@msg	Account made: welcome to PatternFoundry.	Fiók létrehozva: üdvözöljük a PatternFoundryban.
+@msg	Signed in.	Bejelentkezett.
+@msg	Signed out.	Kijelentkezett.
+@msg	Type your email address.	Írja be az e-mail-címét.
+@msg	Pay on the page that opened in your browser, then press Refresh.	Fizessen a böngészőben megnyílt oldalon, majd nyomja meg a Frissítés gombot.
+	Add Photos…	Fotók hozzáadása…
+	Choose the photos in the browser's window…	Válassza ki a fotókat a böngésző ablakában…
+	About the fit	Az illeszkedésről
+	Anything else? For example: folds below the back neck	Valami más? Például: ráncok a hátsó nyakkivágás alatt
+	Check My Muslin	Próbadarabom ellenőrzése
+	Claude looks at the photos with your own Anthropic API key, billed to your Anthropic account. It can be wrong: sew the altered part again in muslin before cutting good fabric.	Claude a saját Anthropic API-kulcsával nézi meg a fotókat, az Anthropic-fiókja terhére. Tévedhet: mielőtt értékes anyagot szab ki, varrja meg újra a módosított részt próbadarabként olcsó vászonból.
+	Final fabric	Végleges anyag
+	Hard to raise my arms	Nehezen emelem fel a karomat
+	How it feels:	Milyen viselni:
+	Include the pattern it was cut from (open now), so it can be altered	A szabásminta csatolása, amelyből kiszabták (most nyitva), hogy módosítani lehessen
+	Loose or gaping somewhere	Valahol bő vagy elálló
+	Muslin fabric	A próbadarab anyaga
+	My muslin ({n} photos)	A próbadarabom ({n} fotó)
+	Photos of your muslin, tried on	Fotók a felpróbált próbadarabról
+	The front, the side and the back, standing straight with your arms down, and close-ups of any folds or pulling.	Elölről, oldalról és hátulról, egyenesen állva, leengedett karral, valamint közeli képek a ráncokról és a húzódásokról.
+	The neckline gapes or pulls	A nyakkivágás elálló vagy húz
+	The photos go to Claude for this check only; PatternFoundry doesn't keep them.	A fotók csak ehhez az ellenőrzéshez kerülnek Claude-hoz; a PatternFoundry nem tárolja őket.
+	The shoulder seams don't sit on my shoulders	A vállvarrások nem a vállamon ülnek
+	Tight across the back or shoulders	Szűk a háton vagy a vállaknál
+	Tight across the bust or chest	Szűk a mellbőségnél
+	Tight at the waist or hips	Szűk a derékon vagy a csípőn
+	Too long or too short	Túl hosszú vagy túl rövid
+	e.g. calico, an old sheet	pl. nyersvászon, egy régi lepedő
+	e.g. cotton poplin, jersey	pl. pamutpoplin, jersey
+	Check My Muslin…	Próbadarabom ellenőrzése…
+@msg	Add a photo of the muslin first.	Előbb adjon hozzá egy fotót a próbadarabról.
+@msg	Check My Muslin needs a build that can reach the AI service	A Próbadarabom ellenőrzése funkcióhoz olyan verzió kell, amely eléri az MI-szolgáltatást
+@msg	The image is too large to send: crop it, or send a smaller copy.	A kép túl nagy a küldéshez: vágja körül, vagy küldjön egy kisebb másolatot.
+@msg	This photo is too large: send a smaller copy.	Ez a fotó túl nagy: küldjön egy kisebb másolatot.
+@msg	no files here	itt nincsenek fájlok
+@msg	At most 6 photos: remove one first.	Legfeljebb 6 fotó: előbb távolítson el egyet.
+@msg	This photo can't be read: save or send it as a JPEG (on an iPhone: Settings › Camera › Formats › Most Compatible).	Ez a fotó nem olvasható: mentse vagy küldje el JPEG formátumban (iPhone-on: Beállítások › Kamera › Formátumok › Legkompatibilisebb).
+	Make Marker	Szabásterv készítése
+	Make Marker…	Szabásterv készítése…
+	Gap	Térköz
+	Precision	Pontosság
+	One Way	Egy irányba
+	Cut on fold	Hajtásra szabni
+	Folded	Hajtott
+	The straight edge laid on the fabric's fold: no allowance there	Az anyag hajtására fektetett egyenes él: ott nincs varrásráhagyás
+	Check Sleeve Ease	Ujjbevarrás bőségének ellenőrzése
+	Sleeve Ease	Ujjbevarrás bősége
+	Crown {crown} mm, armhole {armhole} mm (back {back}, front {front}): the crown takes in {ease} mm ({percent}%).	Ujjfej {crown} mm, karöltő {armhole} mm (hát {back}, eleje {front}): az ujjfej {ease} mm-t dolgoz be ({percent}%).
+	Less than the {min} to {max} mm it should take in: the sleeve may pull across the cap. Set sleeve_crown to {wanted} mm in Measurements to redraft the sleeve block with the ease in the middle.	Kevesebb, mint a bedolgozandó {min}–{max} mm: az ujj húzhat az ujjfejnél. Állítsa a sleeve_crown értékét {wanted} mm-re a Méretekben, és az ujjalapszabás a tartomány közepére igazodva rajzolódik újra.
+	More than the {min} to {max} mm it should take in: the cap may pucker when it is set in. Set sleeve_crown to {wanted} mm in Measurements to redraft the sleeve block with the ease in the middle.	Több, mint a bedolgozandó {min}–{max} mm: az ujjfej ráncolódhat bevarráskor. Állítsa a sleeve_crown értékét {wanted} mm-re a Méretekben, és az ujjalapszabás a tartomány közepére igazodva rajzolódik újra.
+	Within the {min} to {max} mm it should take in.	A bedolgozandó {min}–{max} mm-en belül.
+	Edges: {edges}, notches: {notches}	Élek: {edges}, bevágások: {notches}
+	Edge {n}	{n}. él
+	On fold	Hajtásra
+	Back to the piece's seam allowance	Vissza a darab varrásráhagyásához
+	A notch in the middle of the edge	Bevágás az él közepén
+	Notch on edge {edge}, {at}% along	Bevágás a(z) {edge}. élen, {at}%-nál
+	Piece Outlines	Szabásminta-darabok körvonalai
+	Projector	Projektor
+	Projector Scale (screen points per mm, 0: not calibrated)	Projektor méretaránya (képernyőpont mm-enként, 0: nincs kalibrálva)
+	Projector View	Projektornézet
+	Measure the square on the cutting mat: it should be 10 cm each way. The arrows make it bigger or smaller (with Shift, faster); Enter keeps it; Escape leaves. Scale: {scale} points per mm.	Mérje meg a négyzetet a vágóalátéten: mindkét irányban 10 cm-nek kell lennie. A nyilak nagyítják vagy kicsinyítik (Shifttel gyorsabban); az Enter megtartja; az Escape kilép. Méretarány: {scale} pont mm-enként.
+	Arrows move the pattern 1 cm (Shift: 1 mm) · M mirrors it · C calibrates · Escape leaves	A nyilak 1 cm-rel mozgatják a mintát (Shift: 1 mm) · M tükrözi · C kalibrál · Escape kilép
+@msg	no pattern pieces to project: make the outlines pattern pieces first (Pattern › Make Pattern Piece)	nincs kivetíthető szabásminta-darab: előbb alakítsa a körvonalakat szabásminta-darabokká (Szabásminta › Szabásminta-darab készítése)
+@msg	scale: screen points per mm, more than 0	méretarány: képernyőpont mm-enként, 0-nál több
+	Delete Saved Measurements	Mentett méretek törlése
+	Load Measurements	Méretek betöltése
+	My Measurements	Saját méretek
+	Save to My Measurements	Mentés a Saját méretek közé
+	Delete from this computer	Törlés erről a számítógépről
+	Kept on this computer only, to load into any pattern	Csak ezen a számítógépen tárolva, bármely mintába betölthető
+	Load	Betöltés
+	Use these measurements in this pattern	Ezek a méretek ehhez a mintához
+	Whose (Me)	Kié (Én)
+	Shorten Dart	Varrás rövidítése
+	Shorten Dart…	Varrás rövidítése…
+	Shorten	Rövidítés
+	Add Notch Here	Bevágás hozzáadása ide
+	Cut on Fold Here	Itt hajtásra szabni
+	Seam Allowance Here…	Varrásráhagyás itt…
+	Grade This Point…	E pont fokozása…
+	Edge Allowance	Az él ráhagyása
+	Across	Vízszintesen
+	Down	Lefelé
+	One step	Egy lépés
+	The same move for each size, from the size above the base	Minden méretnél ugyanaz az elmozdulás, az alapméret feletti méretből
+	Per size	Méretenként
+	A move for each size of its own	Minden méretnek saját elmozdulás
+	Add Drill Hole Here	Fúrt lyuk hozzáadása ide
+	Remove Drill Hole Here	Fúrt lyuk eltávolítása innen
+	Add Drill Hole	Fúrt lyuk hozzáadása
+	Remove Drill Hole	Fúrt lyuk eltávolítása
+	Drill holes: {count}	Fúrt lyukak: {count}
+	Right-click inside the piece: Add Drill Hole Here	Kattintson jobb gombbal a darabon belül: Fúrt lyuk hozzáadása ide
+	Drill hole {n}, {mm} mm	{n}. fúrt lyuk, {mm} mm
+	Drill hole {n}	{n}. fúrt lyuk
+	Notch Shape	Bevágás alakja
+	Slit notch	Egyenes bevágás
+	Double notch	Dupla bevágás
+	V notch	V bevágás
+	T notch	T bevágás
+	Castle notch	Szögletes bevágás
+	U notch	U bevágás
+	As drawn	Ahogy rajzolva
+	Side by side	Egymás mellett
+	Block Options…	Alapszabásminta beállításai…
+	Block Options	Alapszabásminta beállításai
+	Ease	Bővítés
+	Waist ease	Derékbővítés
+	Bust dart	Mellvarrás
+	Shoulder dart	Vállvarrás
+	Back dart	Hátvarrás
+	Back dart length	A hátvarrás hossza
+	Front dart length	Az elővarrás hossza
+	Option	Beállítás
+	Back to the block's default	Vissza az alapszabásminta alapértékéhez
+	from the measurements	a méretekből
+	Block Options Info	Alapszabásminta beállításainak adatai
+	Check Trouser Seams	Nadrágvarrások ellenőrzése
+	Trouser Seams	Nadrágvarrások
+	Inseam, knee to hem	Belső szár, térdtől az aljáig
+	Inseam, crotch to knee	Belső szár, ülésvonaltól a térdig
+	Side seam, knee to hem	Oldalvarrás, térdtől az aljáig
+	Side seam, waist to knee	Oldalvarrás, derékig a térdtől
+	{seam}: front {front} mm, back {back} mm ({difference} mm)	{seam}: elöl {front} mm, hátul {back} mm ({difference} mm)
+	Walk them on the pattern too: where a line doesn't run on smoothly from front to back, find the point half way between the two and correct both lines. The back inseam is more curved, so it is often longer: lowering the back crotch curve slightly to match is fine.	Járja végig őket a szabásmintán is: ahol egy vonal nem folytatódik simán elölről hátra, keresse meg a kettő közti felezőpontot, és javítsa mindkét vonalat. A hátsó belső szár ívesebb, ezért gyakran hosszabb: a hátsó ülésív kissé lejjebb vétele, hogy illeszkedjen, rendben van.
+	Front dart	Elővarrás
+	Draft Trouser Waistband	Nadrágpánt szerkesztése
+	Flap Pocket…	Fedőlapos zseb…
+	Crown ease	Ujjafej bedolgozás
+	Remove Design Step	Szerkesztési lépés eltávolítása
+	Dart moved	Varrás áthelyezve
+	Dart shortened {mm} mm	Varrás rövidítve {mm} mm-rel
+	Slashed and spread {mm} mm	Felvágva és {mm} mm-rel szétnyitva
+	Seam trued to {mm} mm	Varrás {mm} mm-re igazítva
+	Split into panels	Részekre osztva
+	Design step	Szerkesztési lépés
+	Design steps: {count}	Szerkesztési lépések: {count}
+	Design changes made on the block (darts, splits, spreads, seam lengths) show here; each is made again when the measurements change	Az alapszabásmintán végzett módosítások (varrások, osztások, szétnyitások, varráshosszak) itt jelennek meg; mindegyik újra elkészül, ha a méretek változnak
+	Remove this step and the ones after it (they were made on the outline it made)	E lépés és az utána következők eltávolítása (azokat az általa létrehozott körvonalon végezték)
+	Selected block part	Kijelölt alapszabásminta-rész
+	Curve Dart Legs…	Varrásszárak ívelése…
+	Curve Dart Legs	Varrásszárak ívelése
+	Dart legs curved {mm} mm	Varrásszárak ívelve {mm} mm-rel
+	Draft Rounded Stand Collar	Lekerekített állógallér szerkesztése
+	Draft Wing Collar	Szárnyas gallér szerkesztése
+	Check Marker	Szabásterv ellenőrzése
+	{length} cm long, {efficiency}% of the fabric used	{length} cm hosszú, az anyag {efficiency}%-a felhasználva
+	{a} overlaps {b}	{a} átfedi ezt: {b}
+	{piece} is off the fabric	{piece} kilóg az anyagról
+	No pieces overlap, and all are on the fabric.	Egyik darab sem fedi át a másikat, és mind az anyagon van.
+	Plaid	Kockás
+menu	Pattern	Szabásminta
+@msg	a and b are two pieces (or paths) that sew together	a és b két összevarrandó darab (vagy útvonal)
+@msg	a corner is "mitre" or "square"	a sarok "mitre" vagy "square"
+@msg	a facing runs along part of the outline	a tisztázó a körvonal egy része mentén fut
+@msg	a facing runs between two different points of the outline	a tisztázó a körvonal két különböző pontja között fut
+@msg	a name takes at most 200 characters	a név legfeljebb 200 karakter lehet
+@msg	a neckline runs between two different points of its outline, and the shoulder point is one of them	a nyakkivágás a körvonala két különböző pontja között fut, és a vállpont az egyik közülük
+@msg	a seam allowance is a number of mm, or a length with its unit ("5/8 in")	a varrásráhagyás mm-ben megadott szám vagy mértékegységgel megadott hossz ("5/8 in")
+@msg	a seam has no length	a varratnak nincs hossza
+@msg	a shoulder point is on its neck point	a vállpont a nyakponton van
+@msg	a slash runs between two points of the outline that aren't neighbours	a szétnyitási vonal a körvonal két nem szomszédos pontja között fut
+@msg	a split leaves a piece with fewer than three anchors	a felosztás után háromnál kevesebb horgonypont maradna egy darabon
+@msg	a split made two panels: delete the panel you don't want instead	a felosztás két darabot hozott létre: inkább a nem kívánt darabot törölje
+@msg	a split needs two different anchors on the outline	a felosztáshoz két különböző horgonypont kell a körvonalon
+@msg	amount: a share of the dart, (0, 1]	amount: a varrás egy hányada, (0, 1]
+@msg	amount: how far it opens, mm	amount: mennyire nyílik szét, mm
+@msg	anchor: the point's number along the path, from 0	anchor: a pont sorszáma az útvonal mentén, 0-tól
+@msg	anchor: the seam line's point, from 0	anchor: a varrásvonal pontja, 0-tól
+@msg	anchors: [a, b] or [a]	anchors: [a, b] vagy [a]
+@msg	anchors: point numbers along the path	anchors: pontsorszámok az útvonal mentén
+@msg	apex: the dart's point (or select that one point)	apex: a varrás csúcsa (vagy jelölje ki csak azt az egy pontot)
+@msg	at: 0 (the edge's start) to 1 (its end)	at: 0 (az él eleje) és 1 (a vége) között
+@msg	at: [x, y], the document point on the edge	at: [x, y], a dokumentum pontja az élen
+@msg	base: the size the pattern is drawn in	base: a méret, amelyben a szabásminta készült
+@msg	block: "bodice", "skirt", "sleeve" or "trousers"	block: "bodice", "skirt", "sleeve" vagy "trousers"
+@msg	can't make the seam that long by moving its end	a varrat a vége áthelyezésével nem tehető ilyen hosszúra
+@msg	curve: mm the wrap edge bows into the piece	curve: mm, amennyivel az átlapolás éle a darabba ível
+@msg	cut is a whole number, 1 to 999	cut 1 és 999 közötti egész szám
+@msg	data: the chart's text	data: a táblázat szövege
+@msg	depth: how deep the pleat folds under, mm	depth: milyen mélyen hajlik be a berakás, mm
+@msg	depth: mm (less than 0 bows the legs in)	depth: mm (0 alatt befelé íveli a szárakat)
+@msg	diameter: a number of mm, or a length with its unit ("1/8 in")	diameter: mm-ben megadott szám vagy mértékegységgel megadott hossz ("1/8 in")
+@msg	edge: the edge's number, from 0 (or point)	edge: az él sorszáma, 0-tól (vagy point)
+@msg	edges and corners are numbered from 0	az élek és sarkok számozása 0-tól indul
+@msg	every: mm, at least 10	every: mm, legalább 10
+@msg	face: only a box pleat has one	face: csak dobozberakásnak van ilyen
+@msg	face: the box pleat's width between its folds, mm	face: a dobozberakás szélessége a hajtásai között, mm
+@msg	flapShape: "square", "rounded" or "pointed"	flapShape: "square", "rounded" vagy "pointed"
+@msg	fold is an edge's number (0..), or null	fold egy él sorszáma (0..) vagy null
+@msg	fold: [a, b], the centre front edge's two points	fold: [a, b], az eleje középvonalán lévő él két pontja
+@msg	fold: true or false	fold: true vagy false
+@msg	foldAt: [x, y] in document points	foldAt: [x, y] dokumentumpontban
+@msg	folded: true or false	folded: true vagy false
+@msg	from: [x, y] in document points	from: [x, y] dokumentumpontban
+@msg	from: not a pattern piece	from: nem szabásmintadarab
+@msg	from: the pattern piece whose rules are copied	from: a szabásmintadarab, amelynek szabályait másolja
+@msg	from: the piece has no seam line	from: a darabnak nincs varrásvonala
+@msg	frontShape: "square", "rounded" or "winged"	frontShape: "square", "rounded" vagy "winged"
+@msg	gathering runs between two different points of the outline	a ráncolás a körvonal két különböző pontja között fut
+@msg	give apex and one of to or toAnchor (or select the two points)	adja meg az apex értéket és a to vagy a toAnchor egyikét (vagy jelölje ki a két pontot)
+@msg	height: mm, 10 to 100 (the tutorial's is at most 30)	height: mm, 10 és 100 között (az útmutatóban legfeljebb 30)
+@msg	id: a block part's id	id: egy alapszabásminta-rész azonosítója
+@msg	index: the drill hole's place in the list, from 0 (or point)	index: a fúrt lyuk helye a listában, 0-tól (vagy point)
+@msg	index: the notch's place in the list, from 0	index: a bevágás helye a listában, 0-tól
+@msg	index: the step's place, from 0	index: a lépés helye, 0-tól
+@msg	into: the length it gathers into, mm	into: a hossz, amelyre összeráncolja, mm
+@msg	kind: "slit", "double", "v", "t", "castle" or "u"	kind: "slit", "double", "v", "t", "castle" vagy "u"
+@msg	kind: the notch's new shape	kind: a bevágás új alakja
+@msg	layer: a marker layer's id	layer: egy szabástervréteg azonosítója
+@msg	length (mm) or likeId with likeFrom and likeTo: the seam to match	length (mm) vagy likeId a likeFrom és likeTo értékkel: az egyeztetendő varrat
+@msg	length: mm, more than 0	length: mm, 0-nál több
+@msg	line: "cut" or "seam"	line: "cut" vagy "seam"
+@msg	match: the seam it sews to is shorter than the pocket opening's end	match: a varrat, amelyhez varrják, rövidebb, mint ameddig a zsebnyílás vége ér
+@msg	min is more than max	min nagyobb, mint max
+@msg	mirror is true or false	mirror true vagy false
+@msg	mirror: "none", "x", "y" or "xy"	mirror: "none", "x", "y" vagy "xy"
+@msg	name: the saved set's name	name: a mentett készlet neve
+@msg	name: whose measurements they are ("Me")	name: kinek a méretei ("Me")
+@msg	no drill hole near the point	nincs fúrt lyuk a pont közelében
+@msg	no drill hole with that index	nincs ilyen indexű fúrt lyuk
+@msg	no notch with that index	nincs ilyen indexű bevágás
+@msg	no object with that id	nincs ilyen azonosítójú objektum
+@msg	no pattern pieces to grade: make the outlines pattern pieces first (Pattern › Make Pattern Piece)	nincs fokozható szabásmintadarab: előbb alakítsa a körvonalakat szabásmintadarabbá (Szabásminta › Szabásmintadarab létrehozása)
+@msg	no straight centre front edge on the outline's side: name it with fold: [a, b]	a körvonal azon oldalán nincs egyenes eleje középvonali él: adja meg a fold: [a, b] értékkel
+@msg	not a drafted block part	nem szerkesztett alapszabásminta része
+@msg	not a marker's layer (Pattern › Make Marker…)	nem szabástervréteg (Szabásminta › Szabásterv készítése…)
+@msg	not a pattern piece	nem szabásmintadarab
+@msg	not a stand collar's outline	nem állógallér körvonala
+@msg	notches go on pattern pieces: make both seams' paths pieces first (Pattern › Make Pattern Piece)	a bevágások szabásmintadarabokra kerülnek: előbb alakítsa mindkét varrat útvonalát darabbá (Szabásminta › Szabásmintadarab létrehozása)
+@msg	notches: [mm, …]	notches: [mm, …]
+@msg	notches: distances from the seams' starts, mm	notches: távolságok a varratok elejétől, mm
+@msg	on and at go together: the garment piece and where the opening's top-left corner goes on it	on és at együtt adandó meg: a ruhadarab, és hogy hová kerüljön rajta a nyílás bal felső sarka
+@msg	on and at go together: the garment piece and where the pocket's top-left corner goes on it	on és at együtt adandó meg: a ruhadarab, és hogy hová kerüljön rajta a zseb bal felső sarka
+@msg	one point splits only where another point is at the same place (two darts' point)	egyetlen pont csak ott oszt fel, ahol egy másik pont is ugyanazon a helyen van (két varrás csúcsa)
+@msg	oneWay: true or false	oneWay: true vagy false
+@msg	openFolds: true or false	openFolds: true vagy false
+@msg	origin: [x, y] in document points	origin: [x, y] dokumentumpontban
+@msg	overlap: mm past centre front, more than 0	overlap: mm az eleje középvonalán túl, 0-nál több
+@msg	overlap: the edge misses the outline	overlap: az él nem éri el a körvonalat
+@msg	plaid: the repeat (mm, or [along, across])	plaid: a mintaismétlődés (mm vagy [along, across])
+@msg	plaid: the repeat along and across, 1 to 10 000 mm each	plaid: a mintaismétlődés hosszában és keresztben, egyenként 1 és 10 000 mm között
+@msg	point: [x, y] in document points	point: [x, y] dokumentumpontban
+@msg	select a drafted block part (Pattern › Draft … Block)	jelöljön ki egy szerkesztett alapszabásminta-részt (Szabásminta › Alapszabásminta szerkesztése (…))
+@msg	select a path or a pattern piece	jelöljön ki egy útvonalat vagy egy szabásmintadarabot
+@msg	select a pattern piece (Pattern › Make Pattern Piece makes one)	jelöljön ki egy szabásmintadarabot (a Szabásminta › Szabásmintadarab létrehozása készít egyet)
+@msg	select a piece on the marker to check	jelölje ki az ellenőrizendő darabot a szabásterven
+@msg	select closed paths: each becomes a piece, the path its seam line	jelöljön ki zárt útvonalakat: mindegyikből darab lesz, az útvonal pedig a varrásvonala
+@msg	select one path	jelöljön ki egy útvonalat
+@msg	select one pattern piece	jelöljön ki egy szabásmintadarabot
+@msg	select two points of one path (or one that two darts share)	jelölje ki egy útvonal két pontját (vagy egyet, amelyen két varrás osztozik)
+@msg	select two points of one path: the dart's point and where the dart moves to	jelölje ki egy útvonal két pontját: a varrás csúcsát és azt a helyet, ahová a varrás kerül
+@msg	select two points of one path: the ends of the edge to face	jelölje ki egy útvonal két pontját: a tisztázandó él végeit
+@msg	select two points of one path: the ends of the edge to gather	jelölje ki egy útvonal két pontját: a ráncolandó él végeit
+@msg	share is true or false	share true vagy false
+@msg	shorten: mm (less than 0 lengthens)	shorten: mm (0 alatt meghosszabbít)
+@msg	shoulder: longer than the outline	shoulder: hosszabb a körvonalnál
+@msg	shoulder: mm, 0 or more	shoulder: mm, 0 vagy több
+@msg	size: one of the chart's sizes	size: a táblázat egyik mérete
+@msg	size: the name of a size of the size range or chart	size: a mérettartomány vagy a táblázat egyik méretének neve
+@msg	sizes: name one size at least	sizes: legalább egy méretet adjon meg
+@msg	sizes: the sizes' names	sizes: a méretek nevei
+@msg	sizes: the sizes' names, smallest first (null removes them)	sizes: a méretek nevei, a legkisebbtől kezdve (a null eltávolítja őket)
+@msg	split the seam line on its own: release the piece first (Pattern › Release Pattern Piece)	a varrásvonal önálló felosztásához előbb bontsa fel a darabot (Szabásminta › Szabásmintadarab felbontása)
+@msg	step: [dx, dy] in mm	step: [dx, dy] mm-ben
+@msg	style: classic, casual or shirt	style: classic, casual vagy shirt
+@msg	that anchor's neighbours don't make a dart	ennek a horgonypontnak a szomszédai nem alkotnak varrást
+@msg	that point is not a dart's point: its legs open a right angle or wider	ez a pont nem varráscsúcs: a szárai derékszögben vagy annál tágabban nyílnak
+@msg	the amount is a share of the dart, more than 0 and at most 1	a mennyiség a varrás egy hányada, 0-nál több és legfeljebb 1
+@msg	the back's outline encloses no area	a hátrész körvonala nem zár közre területet
+@msg	the box pleat's face is more than 0 wide	a dobozberakás színoldala 0-nál szélesebb
+@msg	the chart is larger than 1 MB	a táblázat nagyobb 1 MB-nál
+@msg	the curve has no length at the meeting point	a görbének nincs hossza a találkozási pontban
+@msg	the curves leave the seam the same way	a görbék ugyanabba az irányba hagyják el a varratot
+@msg	the dart has no length	a varrásnak nincs hossza
+@msg	the dart is not that long	a varrás nem ilyen hosszú
+@msg	the dart point or the new dart's anchor is not on the outline	a varrás csúcsa vagy az új varrás horgonypontja nincs a körvonalon
+@msg	the dart's legs must be straight lines	a varrás szárainak egyenes vonalaknak kell lenniük
+@msg	the dart's point is past the outline's end	a varrás csúcsa a körvonal végén túl van
+@msg	the depth to curve the legs by is not a number	a szárak ívelésének mélysége nem szám
+@msg	the document has no marker (Pattern › Make Marker…)	a dokumentumban nincs szabásterv (Szabásminta › Szabásterv készítése…)
+@msg	the document has no measurements to save	a dokumentumban nincsenek menthető méretek
+@msg	the document has no size chart (measure.importChart)	a dokumentumban nincs mérettáblázat (measure.importChart)
+@msg	the drop at the front is less than half the neck edge	az elöl mélyítés kisebb a nyakél felénél
+@msg	the edge has no length	az élnek nincs hossza
+@msg	the edge's anchor is past the outline's end	az él horgonypontja a körvonal végén túl van
+@msg	the fabric's width must be more than 0	az anyag szélességének 0-nál többnek kell lennie
+@msg	the flap is deeper than twice its width	a fedőlap mélyebb a szélessége kétszeresénél
+@msg	the flap's width and depth are more than 0, its allowance 0 or more	a fedőlap szélessége és mélysége 0-nál több, a ráhagyása 0 vagy több
+@msg	the fold edge has no length	a hajtásélnek nincs hossza
+@msg	the fold edge's anchors are past the outline's end	a hajtásél horgonypontjai a körvonal végén túl vannak
+@msg	the fold edge's two anchors must be neighbours on the outline	a hajtásél két horgonypontjának szomszédosnak kell lennie a körvonalon
+@msg	the fold must be a straight edge	a hajtásnak egyenes élnek kell lennie
+@msg	the front end has no length	az elülső végnek nincs hossza
+@msg	the gap must be 0 or more	a térköznek 0-nak vagy többnek kell lennie
+@msg	the grainline's ends are the same point	a szálirány két vége ugyanaz a pont
+@msg	the legs can't curve that far: the dart isn't wide enough	a szárak nem ívelhetők ennyire: a varrás nem elég széles
+@msg	the length to shorten by is not a number	a rövidítés hossza nem szám
+@msg	the marker has lost its fabric outline	a szabásterv elvesztette az anyag körvonalát
+@msg	the marker has no pieces	a szabásterven nincsenek darabok
+@msg	the marker is too large at this precision: give a coarser one	a szabásterv túl nagy ennél a pontosságnál: adjon meg durvábbat
+@msg	the measurements could not be saved	a méreteket nem sikerült menteni
+@msg	the meeting point and the seam's other end are points of the outline	a találkozási pont és a varrat másik vége a körvonal pontjai
+@msg	the neckline has no length	a nyakkivágásnak nincs hossza
+@msg	the neckline lengths and the stand's height are more than 0, the rise and extension 0 or more	a nyakkivágás hosszai és a talp magassága 0-nál több, az emelés és a toldás 0 vagy több
+@msg	the new dart is on the old dart	az új varrás a régin van
+@msg	the opening is longer than twice its height	a nyílás hosszabb a magassága kétszeresénél
+@msg	the opening, depth and width are more than 0, the width more than the allowance	a nyílás, a mélység és a szélesség 0-nál több, a szélesség nagyobb a ráhagyásnál
+@msg	the opening, the welt and the depth are more than 0, the allowances 0 or more	a nyílás, a paszpól és a mélység 0-nál több, a ráhagyások 0 vagy több
+@msg	the outline encloses no area	a körvonal nem zár közre területet
+@msg	the outline has no side seam	a körvonalnak nincs oldalvarrata
+@msg	the path has no outline	az útvonalnak nincs körvonala
+@msg	the path must be one closed outline	az útvonalnak egyetlen zárt körvonalnak kell lennie
+@msg	the piece has no grade rules to copy	a darabnak nincsenek másolható fokozási szabályai
+@msg	the piece has no straight edge to cut on the fold	a darabnak nincs hajtásra szabható egyenes éle
+@msg	the pieces have no cutting lines to lay	a daraboknak nincsenek elhelyezhető vágóvonalai
+@msg	the plaid's repeat must be more than 0 along and across	a kockás minta ismétlődésének hosszában és keresztben is 0-nál többnek kell lennie
+@msg	the pocket (its opening and the allowance past both ends) fits on the seam	a zseb (a nyílása és a két végén túli ráhagyás) elfér a varraton
+@msg	the point is not inside the piece	a pont nincs a darabon belül
+@msg	the point is not on the seam line or in its allowance	a pont nincs a varrásvonalon és a ráhagyásában sem
+@msg	the precision must be more than 0	a pontosságnak 0-nál többnek kell lennie
+@msg	the rise at centre front is less than the front neckline is long	az eleje középvonalán az emelés kisebb az elülső nyakkivágás hosszánál
+@msg	the seam has no length there	a varratnak ott nincs hossza
+@msg	the seam runs between two different points of the outline	a varrat a körvonal két különböző pontja között fut
+@msg	the seam's other end is a neighbour of the meeting point	a varrat másik vége a találkozási pont szomszédja
+@msg	the top edge has no length	a felső élnek nincs hossza
+@msg	the wing is more than 0 long	a szárny 0-nál hosszabb
+@msg	there is no folder to keep measurement sets in here (the desktop app keeps them next to its preferences)	itt nincs mappa a méretkészletek tárolására (az asztali alkalmazás a beállításai mellett tárolja őket)
+@msg	there is no point of the seam line there	ott nincs a varrásvonalnak pontja
+@msg	to or toAnchor: where the dart moves to	to vagy toAnchor: ahová a varrás kerül
+@msg	to: [x, y] in document points	to: [x, y] dokumentumpontban
+@msg	to: the pieces to copy the rules to (select them, or name them)	to: a darabok, amelyekre a szabályokat másolja (jelölje ki vagy nevezze meg őket)
+@msg	too many objects at once	túl sok objektum egyszerre
+@msg	too many pieces at once	túl sok darab egyszerre
+@msg	too many pieces to lay at once	túl sok elhelyezendő darab egyszerre
+@msg	too many sizes at once	túl sok méret egyszerre
+@msg	unit: "mm", "cm" or "in"	unit: "mm", "cm" vagy "in"
+@msg	width: mm, more than 0	width: mm, 0-nál több
+	Draw Avatar	Avatar rajzolása
+	Export Avatar as OBJ	Avatar exportálása OBJ-ként
+	Sewn seams: {count}	Összevarrt varratok: {count}
+	{label}: sewn to {piece}, {mm} mm longer	{label}: összevarrva ezzel: {piece}, {mm} mm-rel hosszabb
+	{label}: sewn to {piece}, {mm} mm shorter	{label}: összevarrva ezzel: {piece}, {mm} mm-rel rövidebb
+	{label}: sewn to {piece}	{label}: összevarrva ezzel: {piece}
+	Sew Seams	Varratok összevarrása
+	Unsew Seams	Varratok szétbontása
+	Sewn Seams	Összevarrt varratok
+	Drape on Avatar	Drapírozás az avatarra
+	Use as Fabric…	Használat anyagként…
+	Use as Fabric	Használat anyagként
+	Stop Using as Fabric	Ne legyen anyag
+	Fabric Photos	Anyagfotók
+@msg	the drape view's picture is the wrong size	az esésnézet képe rossz méretű
+@msg	the drape view: {e}	az esésnézet: {e}
+@msg	a fabric photo is the wrong size	az anyagfotó rossz méretű
+@msg	a fabric photo: {e}	az anyagfotó: {e}
+	Export Avatar as glTF	Avatar exportálása glTF-ként
+	Export Avatar as glTF…	Avatar exportálása glTF-ként…
+	Export Drape as glTF…	Esés exportálása glTF-ként…
+@msg	format: "obj" or "glb"	format: "obj" vagy "glb"
+@msg	colour: "fabric" or "fit"	colour: "fabric" vagy "fit"
+@msg	a piece could not be placed on the body	egy szabásmintadarabot nem sikerült a testre helyezni
+@msg	{name} is already open	{name} már meg van nyitva
+@msg	Draping on Avatar	Esés az avataron
+	Step {n} of {total}	{n}. lépés / {total}
+@msg	The drape was cancelled	Az esés megszakadt
+@msg	Draped on the avatar	Esés az avataron kész
+@msg	the document was closed	a dokumentumot bezárták
+@msg	the drape stopped	az esés leállt
+@msg	width: the photo's width on the fabric, 10 to 5000 mm	width: a fénykép szélessége az anyagon, 10–5000 mm
+@msg	turns: 0, 1, 2 or 3	turns: 0, 1, 2 vagy 3
+@msg	the image is not a fabric photo (Pattern › Use as Fabric…)	a kép nem anyagfotó (Szabásminta › Használat anyagként…)
+@msg	even: true or false	even: true vagy false
+@msg	seamless: true or false	seamless: true vagy false
+@msg	Sign in to your Foundry Account first: Help › Foundry Account…	Előbb jelentkezzen be a Foundry-fiókjába: Súgó › Foundry-fiók…
+@msg	The document is empty: there is nothing to publish.	A dokumentum üres: nincs mit közzétenni.
+@msg	The design is too large for MakerFoundry: at most 8 MB.	A terv túl nagy a MakerFoundry számára: legfeljebb 8 MB.
+@msg	MakerFoundry's answer couldn't be read.	A MakerFoundry válasza nem olvasható.
+@msg	MakerFoundry answered with a page on another site, which wasn't opened.	A MakerFoundry egy másik webhely oldalával válaszolt, amely nem nyílt meg.
+@msg	MakerFoundry: {1}	MakerFoundry: {1}
+@msg	MakerFoundry couldn't be reached: {0}	A MakerFoundry nem érhető el: {0}
+@msg	Publish to MakerFoundry needs a build that can reach MakerFoundry	A Közzététel a MakerFoundryn olyan változatot igényel, amely eléri a MakerFoundryt
+@msg	open Publish to MakerFoundry first: it shows what is sent	előbb nyissa meg a Közzététel a MakerFoundryn ablakot: megmutatja, mi kerül elküldésre
+@msg	That link isn't a design file on MakerFoundry, so it wasn't opened.	Ez a hivatkozás nem MakerFoundry-tervfájl, ezért nem nyílt meg.
+@msg	The design is too large to open: at most 32 MB.	A terv túl nagy a megnyitáshoz: legfeljebb 32 MB.
+@msg	PatternFoundry opens SVG and DXF designs from MakerFoundry; that file is neither.	A PatternFoundry SVG- és DXF-terveket nyit meg a MakerFoundryról; ez a fájl egyik sem.
+@msg	The design couldn't be downloaded from MakerFoundry: {0}	A tervet nem sikerült letölteni a MakerFoundryról: {0}

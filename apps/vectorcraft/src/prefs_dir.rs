@@ -62,6 +62,14 @@ pub fn attach_pdf_preset_store(session: &mut vectorcraft_engine::Session) {
     }
 }
 
+/// Keep the user's measurement sets (PF-3.4) in the Measurements folder next to the preferences,
+/// on this computer only.
+pub fn attach_measurement_store(session: &mut vectorcraft_engine::Session) {
+    if let Some(dir) = store_dir("Measurements") {
+        session.attach_measurement_store(dir);
+    }
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;

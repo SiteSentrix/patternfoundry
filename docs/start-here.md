@@ -22,9 +22,11 @@ anything he clicks through.
   MPL-2.0 `acadrust`); DWG is not on our plan.
 - **StitchFoundry** (github.com/Stitchwright/StitchFoundry): VectorCraft plus embroidery; the
   model for how a mode is added (its `docs/stitchfoundry-spec.md`, `crates/sf-core`, the
-  `embroidery.*` commands, the AI features and StitchFoundry Account), and its CI, release and
+  `embroidery.*` commands, the AI features and the Foundry Account window), and its CI, release and
   translation set-up (23 complete languages).
-- **StitchFoundry cloud** (cloud.stitchfoundry.app): accounts, credits, Stripe, AI.
+- **StitchFoundry cloud** (cloud.stitchfoundry.app): the shared **Foundry Account** (one sign-in and
+  one credit balance for every SiteSentrix app), credits, Stripe, AI (see Hosting, accounts and AI
+  below).
 - Websites on Cloudflare Pages from bwattendorf/sitesentrix-web; email through Cloudflare Email
   Routing and Resend; hosting on Railway Pro.
 
@@ -33,13 +35,53 @@ anything he clicks through.
   StitchFoundry.
 - We build our own and never copy (see `CLAUDE.md`): commercial software is studied only through
   its public documentation, to match and beat its features.
+- **Its own app** (owner's decision, 2026-10-30, replacing 2026-10-23's "a mode inside
+  StitchFoundry"): PatternFoundry stays a separate app in this repository and is not combined
+  into StitchFoundry. PF-11 (the move) is dropped.
+
+## Hosting, accounts and AI (owner's decisions, 2026-10-19)
+- **Hosting:** GitHub Pages for the web build and GitHub Releases for the desktop downloads, as
+  StitchFoundry does. PatternFoundry has no server of its own and nothing on Railway.
+- **Accounts and AI:** the shared **Foundry Account** (one sign-in and one balance of "Foundry
+  credits" across all SiteSentrix apps), served by the StitchFoundry cloud service,
+  https://cloud.stitchfoundry.app. PatternFoundry never holds an Anthropic key: AI requests go
+  through the service, which adds the owner's key and charges the user's credits. Users may still
+  enter their own Anthropic key in the app's AI settings instead.
+- **Building the AI features (PF-8):** reuse StitchFoundry's client code
+  (`crates/sf-core/src/ai/cloud.rs`, and the Foundry Account window in
+  `crates/ui-egui/src/embroidery/account.rs`), and point builds at the service with `SF_CLOUD_URL`,
+  as StitchFoundry's build workflows do.
+- **The service:** `POST /v1/signup`, `/v1/signin`, `/v1/signout`, `/v1/account`,
+  `/v1/checkout {pack}` and `/v1/messages`, with a bearer token `sfs_…`. `/v1/messages` accepts
+  only `model`, `max_tokens`, `system`, `messages`, `tools`, `tool_choice`, `output_config`,
+  `fallbacks` and `thinking`; no streaming; `max_tokens` at most 16,000; the model must be one the
+  service allows (today `claude-opus-5-5`). For another model or limit, ask the StitchFoundry chat:
+  the service lives in github.com/Stitchwright/StitchFoundry, `apps/stitchfoundry-cloud`, documented
+  in its `docs/cloud.md`.
+- Body measurements still stay on the user's computer: an AI request sends only what that request
+  needs, and nothing is logged (CLAUDE.md).
 
 ## The owner decides (ask, don't assume)
 Money, legal wording, anything public, domains, and the open decisions in `docs/plan.md`.
 
+**Standing instruction (2026-10-23):** the owner has no pattern-making experience and wants the
+work carried on through the list without stopping for questions: on pattern-making and technical
+choices, do what you recommend and record why (in `docs/plan.md`, citing the public source).
+Still ask before spending money, publishing anything, or touching accounts and services outside
+this repository; note what such an item needs and work around it.
+
 ## Next task
-PF-0 is done (see the progress log in `docs/plan.md`). Next is **PF-1**, pattern pieces: piece data
-on paths (name, cut count, fabric, grainline), seam allowance per edge with mitred or squared
-corners, notches, labels and a Pieces panel, as `pattern.*` engine commands with tests, in a
-pattern core crate below the UI (as StitchFoundry's `sf-core`). Look at CADCraft first for what can
-be reused (see above).
+PF-0 to PF-4 are done (with PF-4.1 and PF-4.2, the sleeve and trouser blocks; PF-4.4, Check Sleeve Ease;
+PF-3.4, My Measurements kept on this computer; PF-1.1, the cutting
+line bridging darts), PF-5's tools are in (dart rotation, splitting, slash and spread, seam length
+and matching, walking seams, smoothing across seams, facings, knife, inverted and box pleats,
+gathering marks, flat, stand and shirt collars, patch, in-seam and welt pockets) and PF-7 has
+DXF-AAMA export (PF-7.1), SVG for cutting (PF-7.2) and the projector PDF (PF-7.3; see the
+progress log in `docs/plan.md`). PF-6 (grading, PF-6.1 to 6.5) is done but for graded DXF-AAMA
+(the rule table), which waits on the owner (see PF-6.3). PF-8 has Ask About Patterns and
+Foundry Account (PF-8.1), the wrap dress's pieces (PF-5.16, 5.17) and Check My Muslin (PF-8.2).
+PF-9 has markers (PF-9.1, Pattern › Make Marker…) with pieces cut on the fold and folded fabric
+(PF-9.2); the exports know the fold too (PF-7.4: the DXF-AAMA mirror line, opened out on the
+projector), and Pattern › Projector View shows the pattern at true size on a calibrated projector
+(PF-7.5). Next: a real request through the
+Foundry service, then drafting a garment from a description; selling patterns on MakerFoundry is still to do.

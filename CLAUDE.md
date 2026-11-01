@@ -49,21 +49,23 @@ chapter notes in [`docs/debug-book-notes.md`](docs/debug-book-notes.md)). The ru
   `patternfoundry-cli run` that fails, not a full `cargo xtask ci` per question. Check that you are
   running what you think (stale `target/`, another app on the control port).
 - **Look at what the program actually did** before theorising: the command's JSON result,
-  `ui.screenshot` / `ui.render`, the exported file, the log. Add a switchable probe or a command when
+  `ui.screenshot` / `ui.render`, the exported file, the log; for a scale bug, measure the 10 cm test
+  square in the output file itself. Add a switchable probe or a command when
   you keep wanting to see something; never log body measurements.
 - **State a hypothesis and how you will test it** before building; one change per run.
 - **Do not give up on an idea after one bad run, and do not trust a baseline you have not checked.**
-- **Change strategy** after two or three failed guesses: `git bisect` when it used to work, cut the
+- **Change strategy** after two or three failed guesses (or about an hour of guessing): `git bisect` when it used to work, cut the
   case down to a minimal repro, follow the data to where it first goes wrong.
 - **Fix the root cause, then verify**: reproduce, undo and see it return, re-apply and see it go;
   search for the same mistake elsewhere; turn the repro into a test.
 - Keep a log of leads, experiments and ruled-out areas in `docs/debug-logs/YYYY-MM-DD-<topic>.md`.
 
 ## Commit authorship
-Commits are authored by **Bruce Wattendorf**; AI assistance is a trailer, never the author.
-- `git config user.name "Bruce Wattendorf"` and `git config user.email "bwattendorf@gmail.com"`
-  before the first commit (or `--author="Bruce Wattendorf <bwattendorf@gmail.com>"`).
-- End every commit message with: `Co-Authored-By: Claude <noreply@anthropic.com>`
+Commits are made by **Claude**, with Bruce Wattendorf credited as co-author (owner's decision,
+2026-10-21; it replaces the earlier rule that commits were authored as Bruce).
+- `git config user.name "Claude"` and `git config user.email "noreply@anthropic.com"` before the
+  first commit.
+- End every commit message with: `Co-Authored-By: Bruce Wattendorf <bwattendorf@gmail.com>`
 - One task id per commit (`PF-1.2: seam allowance`). No model names in commits, code or docs.
 
 ## Licence

@@ -5171,3 +5171,571 @@ theme	Appearance	Външен вид
 @msg	the file's variables and data sets weren't read (variables: {variables}, data sets: {data_sets}): the Variables panel doesn't list them	променливите и наборите от данни на файла не бяха прочетени (променливи: {variables}, набори от данни: {data_sets}): панелът „Променливи“ не ги показва
 # Select by Color (select.color)
 	Select by Color	Избиране по цвят
+# PatternFoundry: pattern pieces (PF-1).
+	Add Notch	Добавяне на насечка
+	Make Pattern Piece	Създаване на детайл от кройка
+	Pattern Pieces	Детайли от кройка
+	Piece Info	Информация за детайла
+	Piece Options	Опции на детайла
+	Release Pattern Piece	Освобождаване на детайла
+	Remove Notch	Премахване на насечка
+	Cut {count}	Крой {count}
+	Each selected closed path becomes a piece: the path is its seam line	Всеки избран затворен контур става детайл: контурът е неговата линия на шева
+	Edges	Ръбове
+	Fabric	Плат
+	Mirrored pairs	Огледални двойки
+	No pattern pieces yet	Още няма детайли от кройка
+	Notches	Насечки
+	Pattern piece	Детайл от кройка
+	Pieces	Детайли
+	Seam allowance	Добавка за шев
+	Seam line length	Дължина на линията на шева
+	Selected piece	Избран детайл
+# PatternFoundry: true-scale printing (PF-2).
+	Pattern Marks (test squares, page names, overlap lines)	Маркировки за кройка (тестови квадрати, имена на страници, линии на застъпване)
+# PatternFoundry: measurements (PF-3).
+	Add Measurement	Добавяне на мярка
+	Clear Measurements	Изчистване на мерките
+	Clear Point Formulas	Изчистване на формулите на точките
+	Draft Info	Информация за конструкцията
+	Formulas	Формули
+	Import Size Chart	Импортиране на таблица с размери
+	Let PDF and SVG files saved with Preserve Editing keep the measured values	PDF и SVG файловете, записани със Запазване на редактирането, запазват измерените стойности
+	Measurements	Мерки
+	No measurements yet	Още няма мерки
+	Set Measurements	Задаване на мерки
+	Set Point Formula	Задаване на формула на точка
+	Share in exported files	Споделяне в експортираните файлове
+	Figure	Фигура
+	Female	Женска
+	Male	Мъжка
+	Child	Дете
+	The avatar takes what the measurements don't give from a survey's women's, men's or children's proportions	Аватарът взема това, което мерките не дават, от пропорциите на жените, мъжете или децата в едно проучване
+	Size chart	Таблица с размери
+	Use Size	Използване на размер
+# PatternFoundry: blocks (PF-4).
+	Draft Bodice Block	Конструиране на основна кройка на корсаж
+	Block Measurements	Мерки за основната кройка
+	Draft Skirt Block	Конструиране на основна кройка на пола
+# PatternFoundry: design tools (PF-5).
+	Rotate Dart	Преместване на пенса
+	Split at Points	Разделяне в точките
+	Seam Length	Дължина на шева
+	Slash and Spread	Срязване и разтваряне
+	Match Seam Length	Изравняване на дължината на шева
+	Make Facing	Създаване на обточка
+	Add Pleat	Добавяне на плисе
+	Draft Sleeve Block	Конструиране на основна кройка на ръкав
+	Draft Trouser Block	Конструиране на основна кройка на панталон
+	Draft Men's Trouser Block	Конструиране на основна кройка за мъжки панталон
+	Draft Men's Shirt Block	Конструиране на основна кройка за мъжка риза
+	Draft Men's Shirt Sleeve Block	Конструиране на основна кройка за ръкав на мъжка риза
+	Gather	Набиране
+	Draft Collar	Конструиране на яка
+	Patch Pocket	Пришит джоб
+	Walk Seams	Съгласуване на шевовете
+	Smooth Across Seam	Изглаждане през шева
+	Draft Stand Collar	Конструиране на права яка
+	In-Seam Pocket	Джоб в шева
+	Welt Pocket	Джоб с лайсна
+	Make Wrap Front	Предница с прехлупване
+	Make Band	Създаване на лента
+	Grade Nest	Степенуване на размерите
+	Clear Graded Nest	Изчистване на степенуваните размери
+	Set Size Range	Задаване на гама размери
+	Set Grade Rule	Задаване на правило за степенуване
+	Grade Info	Информация за степенуването
+	Grading	Степенуване
+	Base size	Базов размер
+	Grade rules (mm a size)	Правила за степенуване (мм на размер)
+	Name the sizes, smallest first, to give the points grade rules	Назовете размерите, от най-малкия, за да зададете правила на точките
+	Select one pattern piece to grade its points	Изберете една кройка, за да степенувате точките ѝ
+	Sizes	Размери
+	per size	за всеки размер
+	Copy Grade Rules	Копиране на правилата за степенуване
+	Copy Rules To	Копирай правилата в
+	Mirrored	Огледално
+	For the opposite half: places mirrored left to right, x moves the other way	За отсрещната половина: местата са огледални отляво надясно, движенията по x са обратни
+	Draft Shirt Collar	Конструиране на риза яка
+file-filter	DXF-AAMA (cutting room)	DXF-AAMA (кроялня)
+@msg	DXF-AAMA files are DXF R13 (ASTM D6673) or R12	DXF-AAMA файловете са DXF R13 (ASTM D6673) или R12
+@msg	no pattern pieces to export	няма детайли на кройка за експорт
+@msg	the piece {_1} has no outline	детайлът {_1} няма контур
+file-filter	SVG for cutting	SVG за рязане
+file-filter	PDF for projector	PDF за проектор
+	Foundry Account…	Акаунт в Foundry…
+	Publish to MakerFoundry…	Публикуване в MakerFoundry…
+	Publish to MakerFoundry	Публикуване в MakerFoundry
+	Publish	Публикуване
+	Sign In…	Вход…
+	Not signed in	Не сте влезли
+	Your Foundry Account	Вашият акаунт в Foundry
+	Sent to	Изпраща се до
+	SVG, a vector design	SVG, векторен дизайн
+	What it is, e.g. A-line skirt	Какво е, напр. пола в А-силует
+	Your design goes to MakerFoundry as a private draft, to finish on its page. Nothing is public until you publish it there.	Дизайнът ви отива в MakerFoundry като лична чернова, която да довършите на страницата му. Нищо не е публично, докато не го публикувате там.
+	Draft {id} made.	Черновата {id} е създадена.
+	Draft {id} made on MakerFoundry: finish it on the page that opened in your browser.	Черновата {id} е създадена в MakerFoundry: довършете я на страницата, отворена в браузъра.
+	Finish it on MakerFoundry's page, which opened in your browser: it stays private until you publish it there.	Довършете я на страницата на MakerFoundry, отворена в браузъра: остава лична, докато не я публикувате там.
+	A password needs at least 8 characters.	Паролата трябва да е поне 8 знака.
+	Account	Акаунт
+	Allow	Разрешаване
+	Anthropic API key:	API ключ за Anthropic:
+	Ask	Питане
+	Buy credits	Купуване на кредити
+	Buy…	Купуване…
+	Change key	Смяна на ключа
+	Create Free Account	Създаване на безплатен акаунт
+	Create a free Foundry Account	Създайте безплатен акаунт в Foundry
+	Don't Allow	Без разрешение
+	Edit › Undo takes each change back.	Редактиране › Отмени връща всяка промяна.
+	Email	Имейл
+	Foundry Account	Акаунт в Foundry
+	Foundry accounts aren't open yet. Until then, the AI features work with your own Anthropic API key.	Акаунтите в Foundry още не са отворени. Дотогава функциите с ИИ работят със собствения ви API ключ на Anthropic.
+	Get a key	Вземете ключ
+	I have an account: Sign In	Имам акаунт: вход
+	New Conversation	Нов разговор
+	New here? Create a free account	Нови сте тук? Създайте безплатен акаунт
+	No card needed, and no API key to set up	Без карта и без API ключ за настройване
+	Paid with Foundry credits ({n} left).	Платено с кредити на Foundry (остават {n}).
+	Paid with Foundry credits.	Платено с кредити на Foundry.
+	Pay for the AI features with my Foundry credits	Плащане на функциите с ИИ с моите кредити на Foundry
+	Pay with Foundry credits instead	Плащане с кредити на Foundry вместо това
+	Payment is on Stripe's secure page, in your browser; your card never reaches PatternFoundry.	Плащането става на защитената страница на Stripe в браузъра ви; картата ви никога не стига до PatternFoundry.
+	Reading your credits…	Четене на кредитите…
+	Remember the key on this computer	Запомняне на ключа на този компютър
+	Server	Сървър
+	Sign In	Вход
+	Sign Out	Изход
+	Sign in to your Foundry Account	Влезте в акаунта си в Foundry
+	Signed in as {email}	Влезли сте като {email}
+	Thinking…	Мисля…
+	Type your question, then press Enter	Въведете въпроса си и натиснете Enter
+	{n} credits	{n} кредита
+	{n} credits for {price}	{n} кредита за {price}
+@msg	Anthropic refused the API key: {0}	Anthropic отхвърли API ключа: {0}
+@msg	Couldn't reach the AI service: {0}	Няма връзка с AI услугата: {0}
+@msg	Enter your Anthropic API key first.	Първо въведете своя API ключ за Anthropic.
+@msg	The AI declined to answer this: ask another way.	AI отказа да отговори на това: попитайте по друг начин.
+@msg	The AI service failed (error {0}): try again later.	AI услугата не успя (грешка {0}): опитайте отново по-късно.
+@msg	The AI service is busy: try again in a minute.	AI услугата е заета: опитайте отново след минута.
+@msg	The API key isn't valid: paste it again from the Anthropic Console.	API ключът не е валиден: поставете го отново от Anthropic Console.
+@msg	The question is too long: keep it under 2,000 characters.	Въпросът е твърде дълъг: нека бъде под 2000 знака.
+@msg	The reply had no answer: try again, or ask something narrower.	Отговорът не съдържаше отговор: опитайте отново или задайте по-конкретен въпрос.
+@msg	The request failed (error {0}): {1}	Заявката не успя (грешка {0}): {1}
+@msg	Type a question first.	Първо въведете въпрос.
+@msg	Your Anthropic account can't pay for this: {0}	Вашият акаунт в Anthropic не може да плати за това: {0}
+@msg	already asking: wait for the answer	вече се пита: изчакайте отговора
+@msg	This conversation is long: start a New Conversation.	Този разговор е дълъг: започнете нов разговор.
+@msg	Claude took too many steps: ask again, more simply.	Claude направи твърде много стъпки: попитайте отново, по-просто.
+	Ask About Patterns…	Питане за кройки…
+	Answers come from Claude with your own Anthropic API key, billed to your Anthropic account. They can be wrong: sew a muslin before cutting good fabric.	Отговорите идват от Claude с вашия собствен API ключ за Anthropic, като разходите се начисляват по вашия акаунт в Anthropic. Те може да са грешни: ушийте пробен модел от евтин плат, преди да кроите хубав плат.
+	Ask About Patterns	Питане за кройки
+	Ask anything about sewing patterns or PatternFoundry: how much ease to add, how to move a dart, which block to start from, where a feature is. Claude can also draft and change your pattern when you ask, after you allow it.	Питайте каквото и да е за кройки или PatternFoundry: колко свобода да добавите, как да преместите пенс, от коя основна кройка да започнете, къде е дадена функция. Claude може също да конструира и променя кройката ви, когато поискате, след като разрешите.
+	Claude asks to:	Claude иска да:
+	Couldn't do:	Не можа да се изпълни:
+	Done:	Готово:
+	Free credits for the AI features, no API key needed	Безплатни кредити за функциите с ИИ, без API ключ
+	Free credits to try the AI features: Ask About Patterns drafts and changes patterns with you	Безплатни кредити, за да опитате функциите с ИИ: „Питане за кройки“ конструира и променя кройки заедно с вас
+	Include my pattern	Включване на моята кройка
+	Its pieces and sizes, and which measurements are set: never their values	Детайлите и размерите ѝ и кои мерки са зададени: никога техните стойности
+	Leave it empty for the Foundry service.	Оставете празно за услугата Foundry.
+	Not allowed:	Не е разрешено:
+	One account for every SiteSentrix app	Един акаунт за всички приложения на SiteSentrix
+	Read your measurements	Четене на мерките ви
+@msg	An account with that email already exists: sign in instead.	Вече има акаунт с този имейл: влезте в него.
+@msg	Ask About Patterns needs a build that can reach the AI service	„Питане за кройки“ изисква версия, която може да се свърже с услугата с ИИ
+@msg	Foundry Account needs a build that can reach the AI service	„Акаунт в Foundry“ изисква версия, която може да се свърже с услугата с ИИ
+@msg	Foundry accounts aren't open yet.	Акаунтите в Foundry все още не са отворени.
+@msg	Not enough Foundry credits: buy more in Foundry Account.	Няма достатъчно кредити на Foundry: купете още в „Акаунт в Foundry“.
+@msg	Sign in to your Foundry account (Help › Foundry Account…).	Влезте в акаунта си в Foundry (Помощ › Акаунт в Foundry…).
+@msg	The Foundry service can't do this yet: try again later.	Услугата Foundry все още не може да направи това: опитайте по-късно.
+@msg	this needs a connection to the AI service, which this build doesn't have	това изисква връзка с услугата с ИИ, каквато тази версия няма
+@msg	Account made: welcome to PatternFoundry.	Акаунтът е създаден: добре дошли в PatternFoundry.
+@msg	Signed in.	Влязохте.
+@msg	Signed out.	Излязохте.
+@msg	Type your email address.	Въведете своя имейл адрес.
+@msg	Pay on the page that opened in your browser, then press Refresh.	Платете на страницата, която се отвори в браузъра ви, след това натиснете „Обновяване“.
+	Add Photos…	Добавяне на снимки…
+	Choose the photos in the browser's window…	Изберете снимките в прозореца на браузъра…
+	About the fit	За прилягането
+	Anything else? For example: folds below the back neck	Нещо друго? Например: гънки под задното деколте
+	Check My Muslin	Проверка на пробния модел
+	Claude looks at the photos with your own Anthropic API key, billed to your Anthropic account. It can be wrong: sew the altered part again in muslin before cutting good fabric.	Claude разглежда снимките с вашия собствен API ключ на Anthropic, таксуван към вашия акаунт в Anthropic. Може да греши: ушийте отново променената част като пробен модел от евтин плат, преди да кроите хубав плат.
+	Final fabric	Окончателен плат
+	Hard to raise my arms	Трудно вдигам ръцете си
+	How it feels:	Как стои:
+	Include the pattern it was cut from (open now), so it can be altered	Включване на кройката, по която е скроен (отворена сега), за да може да бъде променена
+	Loose or gaping somewhere	Свободен или отстои някъде
+	Muslin fabric	Плат за пробния модел
+	My muslin ({n} photos)	Моят пробен модел ({n} снимки)
+	Photos of your muslin, tried on	Снимки на пробния ви модел, облечен
+	The front, the side and the back, standing straight with your arms down, and close-ups of any folds or pulling.	Отпред, отстрани и отзад, изправени със спуснати ръце, и близки кадри на всички гънки или опъвания.
+	The neckline gapes or pulls	Деколтето отстои или дърпа
+	The photos go to Claude for this check only; PatternFoundry doesn't keep them.	Снимките отиват при Claude само за тази проверка; PatternFoundry не ги пази.
+	The shoulder seams don't sit on my shoulders	Раменните шевове не стоят на раменете ми
+	Tight across the back or shoulders	Тесен в гърба или раменете
+	Tight across the bust or chest	Тесен в бюста или гърдите
+	Tight at the waist or hips	Тесен в талията или ханша
+	Too long or too short	Твърде дълъг или твърде къс
+	e.g. calico, an old sheet	напр. американ, стар чаршаф
+	e.g. cotton poplin, jersey	напр. памучен поплин, трико
+	Check My Muslin…	Проверка на пробния модел…
+@msg	Add a photo of the muslin first.	Първо добавете снимка на пробния модел.
+@msg	Check My Muslin needs a build that can reach the AI service	„Проверка на пробния модел“ изисква версия, която може да се свърже с услугата с ИИ
+@msg	The image is too large to send: crop it, or send a smaller copy.	Изображението е твърде голямо за изпращане: изрежете го или изпратете по-малко копие.
+@msg	This photo is too large: send a smaller copy.	Тази снимка е твърде голяма: изпратете по-малко копие.
+@msg	no files here	тук няма файлове
+@msg	At most 6 photos: remove one first.	Най-много 6 снимки: първо премахнете една.
+@msg	This photo can't be read: save or send it as a JPEG (on an iPhone: Settings › Camera › Formats › Most Compatible).	Тази снимка не може да бъде прочетена: запазете я или я изпратете като JPEG (на iPhone: Настройки › Камера › Формати › Най-съвместим).
+	Make Marker	Създаване на кройна подредба
+	Make Marker…	Създаване на кройна подредба…
+	Gap	Отстояние
+	Precision	Точност
+	One Way	В една посока
+	Cut on fold	Крои се на сгъвка
+	Folded	Сгънат
+	The straight edge laid on the fabric's fold: no allowance there	Правият ръб, поставен на сгъвката на плата: там няма добавка за шев
+	Check Sleeve Ease	Проверка на свиването на ръкава
+	Sleeve Ease	Свиване на ръкава
+	Crown {crown} mm, armhole {armhole} mm (back {back}, front {front}): the crown takes in {ease} mm ({percent}%).	Глава на ръкава {crown} мм, ръкавна извивка {armhole} мм (гръб {back}, предница {front}): главата свива {ease} мм ({percent} %).
+	Less than the {min} to {max} mm it should take in: the sleeve may pull across the cap. Set sleeve_crown to {wanted} mm in Measurements to redraft the sleeve block with the ease in the middle.	По-малко от {min} до {max} мм, които трябва да свие: ръкавът може да дърпа на главата. Задайте sleeve_crown на {wanted} мм в Мерки, за да се начертае основата на ръкава отново със свиване по средата.
+	More than the {min} to {max} mm it should take in: the cap may pucker when it is set in. Set sleeve_crown to {wanted} mm in Measurements to redraft the sleeve block with the ease in the middle.	Повече от {min} до {max} мм, които трябва да свие: главата може да се набере при вшиване. Задайте sleeve_crown на {wanted} мм в Мерки, за да се начертае основата на ръкава отново със свиване по средата.
+	Within the {min} to {max} mm it should take in.	В рамките на {min} до {max} мм, които трябва да свие.
+	Edges: {edges}, notches: {notches}	Ръбове: {edges}, насечки: {notches}
+	Edge {n}	Ръб {n}
+	On fold	На сгъвка
+	Back to the piece's seam allowance	Обратно към добавката за шев на детайла
+	A notch in the middle of the edge	Насечка в средата на ръба
+	Notch on edge {edge}, {at}% along	Насечка на ръб {edge}, на {at}%
+	Piece Outlines	Контури на детайлите
+	Projector	Проектор
+	Projector Scale (screen points per mm, 0: not calibrated)	Мащаб на проектора (екранни точки на мм, 0: не е калибриран)
+	Projector View	Изглед за проектор
+	Measure the square on the cutting mat: it should be 10 cm each way. The arrows make it bigger or smaller (with Shift, faster); Enter keeps it; Escape leaves. Scale: {scale} points per mm.	Измерете квадрата върху подложката за рязане: трябва да е 10 см във всяка посока. Стрелките го уголемяват или смаляват (с Shift по-бързо); Enter го запазва; Escape излиза. Мащаб: {scale} точки на мм.
+	Arrows move the pattern 1 cm (Shift: 1 mm) · M mirrors it · C calibrates · Escape leaves	Стрелките местят кройката с 1 см (Shift: 1 мм) · M я огледално обръща · C калибрира · Escape излиза
+@msg	no pattern pieces to project: make the outlines pattern pieces first (Pattern › Make Pattern Piece)	няма детайли на кройка за проектиране: първо направете контурите детайли на кройка (Кройка › Създаване на детайл)
+@msg	scale: screen points per mm, more than 0	мащаб: екранни точки на мм, повече от 0
+	Delete Saved Measurements	Изтриване на запазените мерки
+	Load Measurements	Зареждане на мерки
+	My Measurements	Моите мерки
+	Save to My Measurements	Запазване в Моите мерки
+	Delete from this computer	Изтриване от този компютър
+	Kept on this computer only, to load into any pattern	Пазят се само на този компютър, за зареждане във всяка кройка
+	Load	Зареждане
+	Use these measurements in this pattern	Използване на тези мерки в тази кройка
+	Whose (Me)	Чии (Аз)
+	Shorten Dart	Скъсяване на пенса
+	Shorten Dart…	Скъсяване на пенса…
+	Shorten	Скъсяване
+	Add Notch Here	Добавяне на насечка тук
+	Cut on Fold Here	Крои се на сгъвка тук
+	Seam Allowance Here…	Добавка за шев тук…
+	Grade This Point…	Градиране на тази точка…
+	Edge Allowance	Добавка за ръба
+	Across	Хоризонтално
+	Down	Надолу
+	One step	Една стъпка
+	The same move for each size, from the size above the base	Една и съща промяна за всеки размер, от размера над основния
+	Per size	По размери
+	A move for each size of its own	Своя промяна за всеки размер
+	Add Drill Hole Here	Добавяне на отвор тук
+	Remove Drill Hole Here	Премахване на отвора тук
+	Add Drill Hole	Добавяне на отвор
+	Remove Drill Hole	Премахване на отвор
+	Drill holes: {count}	Отвори: {count}
+	Right-click inside the piece: Add Drill Hole Here	Щракнете с десния бутон в детайла: Добавяне на отвор тук
+	Drill hole {n}, {mm} mm	Отвор {n}, {mm} мм
+	Drill hole {n}	Отвор {n}
+	Notch Shape	Форма на насечката
+	Slit notch	Права насечка
+	Double notch	Двойна насечка
+	V notch	V-насечка
+	T notch	T-насечка
+	Castle notch	Правоъгълна насечка
+	U notch	U-насечка
+	As drawn	Както е начертано
+	Side by side	Едно до друго
+	Block Options…	Настройки на основната кройка…
+	Block Options	Настройки на основната кройка
+	Ease	Свободна добавка
+	Waist ease	Добавка в талията
+	Bust dart	Гръден пенс
+	Shoulder dart	Раменен пенс
+	Back dart	Пенс на гърба
+	Back dart length	Дължина на пенса на гърба
+	Front dart length	Дължина на предния пенс
+	Option	Настройка
+	Back to the block's default	Обратно към стойността по подразбиране
+	from the measurements	от мерките
+	Block Options Info	Информация за настройките на основната кройка
+	Check Trouser Seams	Проверка на шевовете на панталона
+	Trouser Seams	Шевове на панталона
+	Inseam, knee to hem	Вътрешен шев, от коляното до подгъва
+	Inseam, crotch to knee	Вътрешен шев, от чатала до коляното
+	Side seam, knee to hem	Страничен шев, от коляното до подгъва
+	Side seam, waist to knee	Страничен шев, от талията до коляното
+	{seam}: front {front} mm, back {back} mm ({difference} mm)	{seam}: предница {front} мм, гръб {back} мм ({difference} мм)
+	Walk them on the pattern too: where a line doesn't run on smoothly from front to back, find the point half way between the two and correct both lines. The back inseam is more curved, so it is often longer: lowering the back crotch curve slightly to match is fine.	Проверете ги и по кройката: където линия не продължава гладко от предницата към гърба, намерете точката по средата между двете и коригирайте и двете линии. Задният вътрешен шев е по-извит и затова често е по-дълъг: леко сваляне на задната крива на чатала, за да съвпадне, е наред.
+	Front dart	Преден пенс
+	Draft Trouser Waistband	Начертаване на колан на панталона
+	Flap Pocket…	Джоб с капак…
+	Crown ease	Набиране на ръкавната глава
+	Remove Design Step	Премахване на стъпка от моделирането
+	Dart moved	Пенсът е преместен
+	Dart shortened {mm} mm	Пенсът е скъсен с {mm} мм
+	Slashed and spread {mm} mm	Разрязано и раздалечено с {mm} мм
+	Seam trued to {mm} mm	Шевът е изравнен до {mm} мм
+	Split into panels	Разделено на части
+	Design step	Стъпка от моделирането
+	Design steps: {count}	Стъпки от моделирането: {count}
+	Design changes made on the block (darts, splits, spreads, seam lengths) show here; each is made again when the measurements change	Промените в основната кройка (пенсове, разделяния, раздалечавания, дължини на шевове) се показват тук; всяка се прави отново, когато мерките се променят
+	Remove this step and the ones after it (they were made on the outline it made)	Премахване на тази стъпка и следващите (те са направени върху контура, който тя даде)
+	Selected block part	Избрана част от основната кройка
+	Curve Dart Legs…	Извиване на страните на пенса…
+	Curve Dart Legs	Извиване на страните на пенса
+	Dart legs curved {mm} mm	Страните на пенса са извити с {mm} мм
+	Draft Rounded Stand Collar	Конструиране на права яка със заоблени краища
+	Draft Wing Collar	Конструиране на яка с крилца
+	Check Marker	Проверка на разкроя
+	{length} cm long, {efficiency}% of the fabric used	Дължина {length} см, използвани {efficiency}% от плата
+	{a} overlaps {b}	{a} се застъпва с {b}
+	{piece} is off the fabric	{piece} излиза извън плата
+	No pieces overlap, and all are on the fabric.	Няма застъпващи се детайли и всички са върху плата.
+	Plaid	Каре
+menu	Pattern	Кройка
+@msg	a and b are two pieces (or paths) that sew together	a и b са два детайла (или два пътя), които се съшиват помежду си
+@msg	a corner is "mitre" or "square"	ъгълът е "mitre" или "square"
+@msg	a facing runs along part of the outline	обточката минава по част от контура
+@msg	a facing runs between two different points of the outline	обточката минава между две различни точки на контура
+@msg	a name takes at most 200 characters	името може да съдържа най-много 200 знака
+@msg	a neckline runs between two different points of its outline, and the shoulder point is one of them	деколтето минава между две различни точки на своя контур и едната от тях е раменната точка
+@msg	a seam allowance is a number of mm, or a length with its unit ("5/8 in")	добавката за шев е число в мм или дължина с мерна единица ("5/8 in")
+@msg	a seam has no length	шевът има нулева дължина
+@msg	a shoulder point is on its neck point	раменната точка съвпада с точката на врата
+@msg	a slash runs between two points of the outline that aren't neighbours	разрезът минава между две несъседни точки на контура
+@msg	a split leaves a piece with fewer than three anchors	след разделянето детайлът остава с по-малко от три опорни точки
+@msg	a split made two panels: delete the panel you don't want instead	разделянето създаде две части: вместо това изтрийте ненужната част
+@msg	a split needs two different anchors on the outline	за разделяне са нужни две различни опорни точки на контура
+@msg	amount: a share of the dart, (0, 1]	amount: дял от пенса, (0, 1]
+@msg	amount: how far it opens, mm	amount: колко се разтваря, мм
+@msg	anchor: the point's number along the path, from 0	anchor: номер на точката по пътя, от 0
+@msg	anchor: the seam line's point, from 0	anchor: точка от линията на шева, от 0
+@msg	anchors: [a, b] or [a]	anchors: [a, b] или [a]
+@msg	anchors: point numbers along the path	anchors: номера на точките по пътя
+@msg	apex: the dart's point (or select that one point)	apex: върхът на пенса (или изберете тази точка)
+@msg	at: 0 (the edge's start) to 1 (its end)	at: от 0 (началото на ръба) до 1 (краят му)
+@msg	at: [x, y], the document point on the edge	at: [x, y], точка от документа върху ръба
+@msg	base: the size the pattern is drawn in	base: размерът, в който е начертана кройката
+@msg	block: "bodice", "skirt", "sleeve" or "trousers"	block: "bodice", "skirt", "sleeve" или "trousers"
+@msg	can't make the seam that long by moving its end	шевът не може да стане толкова дълъг чрез преместване на края му
+@msg	curve: mm the wrap edge bows into the piece	curve: с колко мм ръбът на прехвърлянето се извива навътре в детайла
+@msg	cut is a whole number, 1 to 999	cut е цяло число от 1 до 999
+@msg	data: the chart's text	data: текстът на таблицата
+@msg	depth: how deep the pleat folds under, mm	depth: колко дълбоко се подгъва плисето, мм
+@msg	depth: mm (less than 0 bows the legs in)	depth: мм (под 0 страните се извиват навътре)
+@msg	diameter: a number of mm, or a length with its unit ("1/8 in")	diameter: число в мм или дължина с мерна единица ("1/8 in")
+@msg	edge: the edge's number, from 0 (or point)	edge: номер на ръба, от 0 (или point)
+@msg	edges and corners are numbered from 0	ръбовете и ъглите се номерират от 0
+@msg	every: mm, at least 10	every: мм, поне 10
+@msg	face: only a box pleat has one	face: има само при бантово плисе
+@msg	face: the box pleat's width between its folds, mm	face: ширината на бантовото плисе между сгъвките, мм
+@msg	flapShape: "square", "rounded" or "pointed"	flapShape: "square", "rounded" или "pointed"
+@msg	fold is an edge's number (0..), or null	fold е номер на ръб (0..) или null
+@msg	fold: [a, b], the centre front edge's two points	fold: [a, b], двете точки на ръба по средата на предницата
+@msg	fold: true or false	fold: true или false
+@msg	foldAt: [x, y] in document points	foldAt: [x, y] в точки на документа
+@msg	folded: true or false	folded: true или false
+@msg	from: [x, y] in document points	from: [x, y] в точки на документа
+@msg	from: not a pattern piece	from: не е детайл от кройка
+@msg	from: the pattern piece whose rules are copied	from: детайлът от кройка, чиито правила се копират
+@msg	from: the piece has no seam line	from: детайлът няма линия на шева
+@msg	frontShape: "square", "rounded" or "winged"	frontShape: "square", "rounded" или "winged"
+@msg	gathering runs between two different points of the outline	набирането минава между две различни точки на контура
+@msg	give apex and one of to or toAnchor (or select the two points)	задайте apex и едно от to или toAnchor (или изберете двете точки)
+@msg	height: mm, 10 to 100 (the tutorial's is at most 30)	height: мм, от 10 до 100 (в методиката е най-много 30)
+@msg	id: a block part's id	id: id на детайл от основна кройка
+@msg	index: the drill hole's place in the list, from 0 (or point)	index: номер на отвора в списъка, от 0 (или point)
+@msg	index: the notch's place in the list, from 0	index: номер на насечката в списъка, от 0
+@msg	index: the step's place, from 0	index: номер на стъпката, от 0
+@msg	into: the length it gathers into, mm	into: дължината след набирането, мм
+@msg	kind: "slit", "double", "v", "t", "castle" or "u"	kind: "slit", "double", "v", "t", "castle" или "u"
+@msg	kind: the notch's new shape	kind: новата форма на насечката
+@msg	layer: a marker layer's id	layer: id на слой от кройна подредба
+@msg	length (mm) or likeId with likeFrom and likeTo: the seam to match	length (мм) или likeId с likeFrom и likeTo: шевът, по чиято дължина да се изравни
+@msg	length: mm, more than 0	length: мм, повече от 0
+@msg	line: "cut" or "seam"	line: "cut" или "seam"
+@msg	match: the seam it sews to is shorter than the pocket opening's end	match: шевът, към който се пришива, свършва преди края на отвора на джоба
+@msg	min is more than max	min е по-голямо от max
+@msg	mirror is true or false	mirror е true или false
+@msg	mirror: "none", "x", "y" or "xy"	mirror: "none", "x", "y" или "xy"
+@msg	name: the saved set's name	name: името на запазения набор
+@msg	name: whose measurements they are ("Me")	name: чии са мерките ("Me")
+@msg	no drill hole near the point	няма отвор близо до точката
+@msg	no drill hole with that index	няма отвор с този индекс
+@msg	no notch with that index	няма насечка с този индекс
+@msg	no object with that id	няма обект с този id
+@msg	no pattern pieces to grade: make the outlines pattern pieces first (Pattern › Make Pattern Piece)	няма детайли от кройка за степенуване: първо направете контурите детайли от кройка (Кройка › Създаване на детайл от кройка)
+@msg	no straight centre front edge on the outline's side: name it with fold: [a, b]	на тази страна на контура няма прав ръб по средата на предницата: посочете го с fold: [a, b]
+@msg	not a drafted block part	не е детайл от конструирана основна кройка
+@msg	not a marker's layer (Pattern › Make Marker…)	не е слой от кройна подредба (Кройка › Създаване на кройна подредба…)
+@msg	not a pattern piece	не е детайл от кройка
+@msg	not a stand collar's outline	не е контур на права яка
+@msg	notches go on pattern pieces: make both seams' paths pieces first (Pattern › Make Pattern Piece)	насечките се поставят върху детайли от кройка: първо направете пътищата на двата шева детайли (Кройка › Създаване на детайл от кройка)
+@msg	notches: [mm, …]	notches: [мм, …]
+@msg	notches: distances from the seams' starts, mm	notches: разстояния от началото на шевовете, мм
+@msg	on and at go together: the garment piece and where the opening's top-left corner goes on it	on и at се задават заедно: детайлът на изделието и мястото върху него за горния ляв ъгъл на отвора
+@msg	on and at go together: the garment piece and where the pocket's top-left corner goes on it	on и at се задават заедно: детайлът на изделието и мястото върху него за горния ляв ъгъл на джоба
+@msg	one point splits only where another point is at the same place (two darts' point)	една точка се разделя само ако на същото място има друга точка (общ връх на два пенса)
+@msg	oneWay: true or false	oneWay: true или false
+@msg	openFolds: true or false	openFolds: true или false
+@msg	origin: [x, y] in document points	origin: [x, y] в точки на документа
+@msg	overlap: mm past centre front, more than 0	overlap: мм отвъд средата на предницата, повече от 0
+@msg	overlap: the edge misses the outline	overlap: ръбът не пресича контура
+@msg	plaid: the repeat (mm, or [along, across])	plaid: рапортът (мм или [along, across])
+@msg	plaid: the repeat along and across, 1 to 10 000 mm each	plaid: рапортът по дължина и по ширина, от 1 до 10 000 мм всеки
+@msg	point: [x, y] in document points	point: [x, y] в точки на документа
+@msg	select a drafted block part (Pattern › Draft … Block)	изберете детайл от конструирана основна кройка (Кройка › Конструиране на основна кройка …)
+@msg	select a path or a pattern piece	изберете път или детайл от кройка
+@msg	select a pattern piece (Pattern › Make Pattern Piece makes one)	изберете детайл от кройка (създава се с Кройка › Създаване на детайл от кройка)
+@msg	select a piece on the marker to check	изберете детайл в кройната подредба за проверка
+@msg	select closed paths: each becomes a piece, the path its seam line	изберете затворени пътища: всеки става детайл, а пътят — неговата линия на шева
+@msg	select one path	изберете един път
+@msg	select one pattern piece	изберете един детайл от кройка
+@msg	select two points of one path (or one that two darts share)	изберете две точки от един път (или една, обща за два пенса)
+@msg	select two points of one path: the dart's point and where the dart moves to	изберете две точки от един път: върха на пенса и мястото, където да се премести
+@msg	select two points of one path: the ends of the edge to face	изберете две точки от един път: краищата на ръба, който да се обработи с обточка
+@msg	select two points of one path: the ends of the edge to gather	изберете две точки от един път: краищата на ръба, който да се набере
+@msg	share is true or false	share е true или false
+@msg	shorten: mm (less than 0 lengthens)	shorten: мм (под 0 удължава)
+@msg	shoulder: longer than the outline	shoulder: по-дълго от контура
+@msg	shoulder: mm, 0 or more	shoulder: мм, 0 или повече
+@msg	size: one of the chart's sizes	size: един от размерите в таблицата
+@msg	size: the name of a size of the size range or chart	size: името на размер от гамата размери или от таблицата
+@msg	sizes: name one size at least	sizes: посочете поне един размер
+@msg	sizes: the sizes' names	sizes: имената на размерите
+@msg	sizes: the sizes' names, smallest first (null removes them)	sizes: имената на размерите, от най-малкия (null ги премахва)
+@msg	split the seam line on its own: release the piece first (Pattern › Release Pattern Piece)	за да разделите само линията на шева, първо освободете детайла (Кройка › Освобождаване на детайла)
+@msg	step: [dx, dy] in mm	step: [dx, dy] в мм
+@msg	style: classic, casual or shirt	style: classic, casual или shirt
+@msg	that anchor's neighbours don't make a dart	съседните точки на тази опорна точка не образуват пенс
+@msg	that point is not a dart's point: its legs open a right angle or wider	тази точка не е връх на пенс: страните ѝ образуват прав или по-широк ъгъл
+@msg	the amount is a share of the dart, more than 0 and at most 1	стойността е дял от пенса, повече от 0 и най-много 1
+@msg	the back's outline encloses no area	контурът на гърба няма площ
+@msg	the box pleat's face is more than 0 wide	ширината на лицевата част на бантовото плисе трябва да е повече от 0
+@msg	the chart is larger than 1 MB	таблицата е по-голяма от 1 MB
+@msg	the curve has no length at the meeting point	кривата има нулева дължина в точката на срещане
+@msg	the curves leave the seam the same way	кривите излизат от шева в една и съща посока
+@msg	the dart has no length	пенсът има нулева дължина
+@msg	the dart is not that long	пенсът е по-къс от зададеното
+@msg	the dart point or the new dart's anchor is not on the outline	върхът на пенса или опорната точка на новия пенс не е върху контура
+@msg	the dart's legs must be straight lines	страните на пенса трябва да са прави линии
+@msg	the dart's point is past the outline's end	върхът на пенса е след края на контура
+@msg	the depth to curve the legs by is not a number	дълбочината на извиване на страните не е число
+@msg	the document has no marker (Pattern › Make Marker…)	документът няма кройна подредба (Кройка › Създаване на кройна подредба…)
+@msg	the document has no measurements to save	документът няма мерки за запазване
+@msg	the document has no size chart (measure.importChart)	документът няма таблица с размери (measure.importChart)
+@msg	the drop at the front is less than half the neck edge	дълбочината на деколтето отпред е по-малка от половината ръб на деколтето
+@msg	the edge has no length	ръбът има нулева дължина
+@msg	the edge's anchor is past the outline's end	опорната точка на ръба е след края на контура
+@msg	the fabric's width must be more than 0	ширината на плата трябва да е повече от 0
+@msg	the flap is deeper than twice its width	капакът е по-дълбок от двойната си ширина
+@msg	the flap's width and depth are more than 0, its allowance 0 or more	ширината и дълбочината на капака трябва да са повече от 0, а добавката — 0 или повече
+@msg	the fold edge has no length	ръбът на сгъвката има нулева дължина
+@msg	the fold edge's anchors are past the outline's end	опорните точки на ръба на сгъвката са след края на контура
+@msg	the fold edge's two anchors must be neighbours on the outline	двете опорни точки на ръба на сгъвката трябва да са съседни на контура
+@msg	the fold must be a straight edge	сгъвката трябва да е прав ръб
+@msg	the front end has no length	предният край има нулева дължина
+@msg	the gap must be 0 or more	разстоянието трябва да е 0 или повече
+@msg	the grainline's ends are the same point	краищата на линията на основата са една и съща точка
+@msg	the legs can't curve that far: the dart isn't wide enough	страните не могат да се извият толкова: пенсът не е достатъчно широк
+@msg	the length to shorten by is not a number	дължината на скъсяване не е число
+@msg	the marker has lost its fabric outline	кройната подредба е загубила контура на плата
+@msg	the marker has no pieces	кройната подредба няма детайли
+@msg	the marker is too large at this precision: give a coarser one	кройната подредба е твърде голяма при тази точност: задайте по-груба
+@msg	the measurements could not be saved	мерките не можаха да бъдат запазени
+@msg	the meeting point and the seam's other end are points of the outline	точката на срещане и другият край на шева трябва да са точки от контура
+@msg	the neckline has no length	деколтето има нулева дължина
+@msg	the neckline lengths and the stand's height are more than 0, the rise and extension 0 or more	дължините на деколтето и височината на стойката трябва да са повече от 0, а издигането и удължението — 0 или повече
+@msg	the new dart is on the old dart	новият пенс съвпада със стария
+@msg	the opening is longer than twice its height	отворът е по-дълъг от двойната си височина
+@msg	the opening, depth and width are more than 0, the width more than the allowance	отворът, дълбочината и ширината трябва да са повече от 0, а ширината — повече от добавката
+@msg	the opening, the welt and the depth are more than 0, the allowances 0 or more	отворът, лайсната и дълбочината трябва да са повече от 0, а добавките — 0 или повече
+@msg	the outline encloses no area	контурът няма площ
+@msg	the outline has no side seam	контурът няма страничен шев
+@msg	the path has no outline	пътят няма контур
+@msg	the path must be one closed outline	пътят трябва да е един затворен контур
+@msg	the piece has no grade rules to copy	детайлът няма правила за степенуване за копиране
+@msg	the piece has no straight edge to cut on the fold	детайлът няма прав ръб за кроене на сгъвка
+@msg	the pieces have no cutting lines to lay	детайлите нямат линии на рязане за подреждане
+@msg	the plaid's repeat must be more than 0 along and across	рапортът на карето трябва да е повече от 0 по дължина и по ширина
+@msg	the pocket (its opening and the allowance past both ends) fits on the seam	джобът (отворът и добавката след двата му края) трябва да се побира върху шева
+@msg	the point is not inside the piece	точката не е вътре в детайла
+@msg	the point is not on the seam line or in its allowance	точката не е върху линията на шева или в добавката ѝ
+@msg	the precision must be more than 0	точността трябва да е повече от 0
+@msg	the rise at centre front is less than the front neckline is long	издигането по средата на предницата е по-малко от дължината на предното деколте
+@msg	the seam has no length there	шевът има нулева дължина на това място
+@msg	the seam runs between two different points of the outline	шевът трябва да минава между две различни точки на контура
+@msg	the seam's other end is a neighbour of the meeting point	другият край на шева е съседен на точката на срещане
+@msg	the top edge has no length	горният ръб има нулева дължина
+@msg	the wing is more than 0 long	крилцето трябва да е по-дълго от 0
+@msg	there is no folder to keep measurement sets in here (the desktop app keeps them next to its preferences)	тук няма папка за наборите от мерки (настолното приложение ги пази до своите настройки)
+@msg	there is no point of the seam line there	тук няма точка от линията на шева
+@msg	to or toAnchor: where the dart moves to	to или toAnchor: накъде се премества пенсът
+@msg	to: [x, y] in document points	to: [x, y] в точки на документа
+@msg	to: the pieces to copy the rules to (select them, or name them)	to: детайлите, към които се копират правилата (изберете ги или ги посочете)
+@msg	too many objects at once	твърде много обекти наведнъж
+@msg	too many pieces at once	твърде много детайли наведнъж
+@msg	too many pieces to lay at once	твърде много детайли за подреждане наведнъж
+@msg	too many sizes at once	твърде много размери наведнъж
+@msg	unit: "mm", "cm" or "in"	unit: "mm", "cm" или "in"
+@msg	width: mm, more than 0	width: мм, повече от 0
+	Draw Avatar	Изчертаване на аватар
+	Export Avatar as OBJ	Експортиране на аватара като OBJ
+	Sewn seams: {count}	Съшити шевове: {count}
+	{label}: sewn to {piece}, {mm} mm longer	{label}: съшит с „{piece}“, по-дълъг с {mm} мм
+	{label}: sewn to {piece}, {mm} mm shorter	{label}: съшит с „{piece}“, по-къс с {mm} мм
+	{label}: sewn to {piece}	{label}: съшит с „{piece}“
+	Sew Seams	Съшиване на шевове
+	Unsew Seams	Разпаряне на шевове
+	Sewn Seams	Съшити шевове
+	Drape on Avatar	Драпиране върху аватара
+	Use as Fabric…	Използвай като плат…
+	Use as Fabric	Използвай като плат
+	Stop Using as Fabric	Спри да използваш като плат
+	Fabric Photos	Снимки на платове
+@msg	the drape view's picture is the wrong size	картината на изгледа на драпирането е с грешен размер
+@msg	the drape view: {e}	изгледът на драпирането: {e}
+@msg	a fabric photo is the wrong size	снимката на плата е с грешен размер
+@msg	a fabric photo: {e}	снимката на плата: {e}
+	Export Avatar as glTF	Експортиране на аватара като glTF
+	Export Avatar as glTF…	Експортиране на аватара като glTF…
+	Export Drape as glTF…	Експортиране на драпирането като glTF…
+@msg	format: "obj" or "glb"	format: "obj" или "glb"
+@msg	colour: "fabric" or "fit"	colour: "fabric" или "fit"
+@msg	a piece could not be placed on the body	част от кройката не можа да бъде поставена върху тялото
+@msg	{name} is already open	{name} вече е отворен
+@msg	Draping on Avatar	Драпиране върху аватара
+	Step {n} of {total}	Стъпка {n} от {total}
+@msg	The drape was cancelled	Драпирането беше отменено
+@msg	Draped on the avatar	Драпирано върху аватара
+@msg	the document was closed	документът беше затворен
+@msg	the drape stopped	драпирането спря
+@msg	width: the photo's width on the fabric, 10 to 5000 mm	width: ширината на снимката върху плата, от 10 до 5000 mm
+@msg	turns: 0, 1, 2 or 3	turns: 0, 1, 2 или 3
+@msg	the image is not a fabric photo (Pattern › Use as Fabric…)	изображението не е снимка на плат (Кройка › Използвай като плат…)
+@msg	even: true or false	even: true или false
+@msg	seamless: true or false	seamless: true или false
+@msg	Sign in to your Foundry Account first: Help › Foundry Account…	Първо влезте в акаунта си в Foundry: Помощ › Акаунт в Foundry…
+@msg	The document is empty: there is nothing to publish.	Документът е празен: няма какво да се публикува.
+@msg	The design is too large for MakerFoundry: at most 8 MB.	Дизайнът е твърде голям за MakerFoundry: най-много 8 MB.
+@msg	MakerFoundry's answer couldn't be read.	Отговорът на MakerFoundry не можа да бъде прочетен.
+@msg	MakerFoundry answered with a page on another site, which wasn't opened.	MakerFoundry отговори със страница от друг сайт, която не беше отворена.
+@msg	MakerFoundry: {1}	MakerFoundry: {1}
+@msg	MakerFoundry couldn't be reached: {0}	Няма връзка с MakerFoundry: {0}
+@msg	Publish to MakerFoundry needs a build that can reach MakerFoundry	Публикуването в MakerFoundry изисква версия, която може да се свърже с MakerFoundry
+@msg	open Publish to MakerFoundry first: it shows what is sent	първо отворете „Публикуване в MakerFoundry“: там се вижда какво се изпраща
+@msg	That link isn't a design file on MakerFoundry, so it wasn't opened.	Тази връзка не е файл с дизайн в MakerFoundry, затова не беше отворена.
+@msg	The design is too large to open: at most 32 MB.	Дизайнът е твърде голям за отваряне: най-много 32 MB.
+@msg	PatternFoundry opens SVG and DXF designs from MakerFoundry; that file is neither.	PatternFoundry отваря дизайни SVG и DXF от MakerFoundry; този файл не е нито едното, нито другото.
+@msg	The design couldn't be downloaded from MakerFoundry: {0}	Дизайнът не можа да бъде изтеглен от MakerFoundry: {0}

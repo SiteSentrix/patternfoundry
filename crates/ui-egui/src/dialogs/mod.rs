@@ -10,8 +10,10 @@ mod about;
 pub mod action_batch;
 pub mod artboard_options;
 pub mod blend_options;
+pub mod block_options;
 mod brush_art_options;
 pub mod brush_options;
+pub mod check_marker;
 pub mod color_balance;
 pub mod color_guide_options;
 mod color_picker;
@@ -88,6 +90,7 @@ pub mod save_swatch_library;
 pub mod script_check;
 mod shapes;
 pub mod shortcut_import;
+pub mod sleeve_ease;
 pub mod slices;
 pub mod spot_colors;
 pub(crate) mod svg_options;
@@ -102,6 +105,7 @@ pub mod tile_edge_color;
 mod tools;
 pub(crate) mod transform;
 pub mod transform_each;
+pub mod trouser_seams;
 pub mod variables;
 mod warp_effect;
 pub mod width_point;
@@ -320,6 +324,7 @@ registry! {
     PerspectiveGridOptions: [perspective_options::KIND] => perspective_options::SPEC,
     BlendOptions: [blend_options::KIND] => blend_options::SPEC,
     LivePaintGaps: [live_paint_gaps::KIND] => live_paint_gaps::SPEC,
+    BlockOptions: [block_options::KIND] => block_options::SPEC,
     BrushOptions: [brush_options::KIND] => brush_options::SPEC,
     EditSelection: [edit_selection::KIND] => edit_selection::SPEC,
     PerspectivePlane: [perspective_plane::KIND] => perspective_plane::SPEC,

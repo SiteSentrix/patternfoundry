@@ -254,6 +254,11 @@ pub fn load_with(name: &str, bytes: &[u8], opts: &LoadOptions) -> Result<Loaded>
                 Err(e) => Err(e),
             })?
         }
+        // A DXF-AAMA file opens as its pattern pieces.
+        "dxf" if super::aamaimport::is_aama(bytes) => {
+            let (doc, warnings) = super::aamaimport::import(bytes)?;
+            (doc, warnings, false)
+        }
         "dxf" => {
             let (doc, warnings) = super::dxfimport::import(bytes, &opts.dxf)?;
             (doc, warnings, false)

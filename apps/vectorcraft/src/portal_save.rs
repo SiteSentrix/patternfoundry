@@ -437,9 +437,12 @@ mod tests {
             zbus::blocking::connection::Builder::address(address.as_str()).ok()?.name("org.freedesktop.portal.Desktop").ok()?.build().ok()?;
         let seen = Seen::default();
         let log = seen.clone();
+        // Listening before the client exists: a connection drops what comes while nothing listens,
+        // so a `SaveFile` call sent before the thread ran would never be answered.
+        let incoming = zbus::blocking::MessageIterator::from(&server);
         std::thread::spawn(move || {
             let mut script = script.into_iter();
-            for msg in zbus::blocking::MessageIterator::from(&server) {
+            for msg in incoming {
                 let Ok(msg) = msg else { break };
                 let header = msg.header();
                 if header.message_type() != zbus::message::Type::MethodCall || header.member().map(|m| m.as_str()) != Some("SaveFile") {

@@ -182,7 +182,8 @@ fn viewer_glyph_positions(svg: &str, faces: &[Arc<vectorcraft_text::FontFace>]) 
     for f in faces {
         db.load_font_data(f.file_data().to_vec());
     }
-    let opt = usvg::Options { fontdb: Arc::new(db), ..Default::default() };
+    // Points as pixels (72 per inch): the files give their size in points.
+    let opt = usvg::Options { fontdb: Arc::new(db), dpi: 72.0, ..Default::default() };
     let tree = usvg::Tree::from_str(svg, &opt).unwrap();
     fn walk(g: &usvg::Group, out: &mut Vec<Drawn>) {
         for n in g.children() {
@@ -373,7 +374,8 @@ fn japanese_composition_keeps_its_spacing() {
 fn viewer_outlines(svg: &str) -> Vec<BezPath> {
     let mut db = usvg::fontdb::Database::new();
     db.load_font_data(std::fs::read(concat!(env!("CARGO_MANIFEST_DIR"), "/../../assets/fonts/SourceSans3-Regular.ttf")).unwrap());
-    let opt = usvg::Options { fontdb: Arc::new(db), ..Default::default() };
+    // Points as pixels (72 per inch): the files give their size in points.
+    let opt = usvg::Options { fontdb: Arc::new(db), dpi: 72.0, ..Default::default() };
     let tree = usvg::Tree::from_str(svg, &opt).unwrap();
     fn walk(g: &usvg::Group, out: &mut Vec<BezPath>) {
         for n in g.children() {

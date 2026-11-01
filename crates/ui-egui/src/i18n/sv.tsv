@@ -5163,3 +5163,571 @@ theme	Appearance	Utseende
 @msg	the file's variables and data sets weren't read (variables: {variables}, data sets: {data_sets}): the Variables panel doesn't list them	filens variabler och datauppsättningar lästes inte (variabler: {variables}, datauppsättningar: {data_sets}): panelen Variabler visar dem inte
 # Select by Color (select.color)
 	Select by Color	Markera efter färg
+# PatternFoundry: pattern pieces (PF-1).
+	Add Notch	Lägg till hack
+	Make Pattern Piece	Skapa mönsterdel
+	Pattern Pieces	Mönsterdelar
+	Piece Info	Information om mönsterdel
+	Piece Options	Alternativ för mönsterdel
+	Release Pattern Piece	Frigör mönsterdel
+	Remove Notch	Ta bort hack
+	Cut {count}	Klipp {count}
+	Each selected closed path becomes a piece: the path is its seam line	Varje markerad sluten bana blir en mönsterdel: banan är dess sömlinje
+	Edges	Kanter
+	Fabric	Tyg
+	Mirrored pairs	Spegelvända par
+	No pattern pieces yet	Inga mönsterdelar ännu
+	Notches	Hack
+	Pattern piece	Mönsterdel
+	Pieces	Delar
+	Seam allowance	Sömsmån
+	Seam line length	Sömlinjens längd
+	Selected piece	Markerad mönsterdel
+# PatternFoundry: true-scale printing (PF-2).
+	Pattern Marks (test squares, page names, overlap lines)	Mönstermärken (testkvadrater, sidnamn, överlappningslinjer)
+# PatternFoundry: measurements (PF-3).
+	Add Measurement	Lägg till mått
+	Clear Measurements	Rensa mått
+	Clear Point Formulas	Rensa punktformler
+	Draft Info	Konstruktionsinfo
+	Formulas	Formler
+	Import Size Chart	Importera storlekstabell
+	Let PDF and SVG files saved with Preserve Editing keep the measured values	PDF- och SVG-filer som sparas med Bevara redigering behåller de uppmätta värdena
+	Measurements	Mått
+	No measurements yet	Inga mått ännu
+	Set Measurements	Ange mått
+	Set Point Formula	Ange punktformel
+	Share in exported files	Dela i exporterade filer
+	Figure	Figur
+	Female	Kvinna
+	Male	Man
+	Child	Barn
+	The avatar takes what the measurements don't give from a survey's women's, men's or children's proportions	Avataren tar det måtten inte ger från en undersöknings kvinnors, mäns eller barns proportioner
+	Size chart	Storlekstabell
+	Use Size	Använd storlek
+# PatternFoundry: blocks (PF-4).
+	Draft Bodice Block	Konstruera grundmönster för liv
+	Block Measurements	Mått för grundmönstret
+	Draft Skirt Block	Konstruera grundmönster för kjol
+# PatternFoundry: design tools (PF-5).
+	Rotate Dart	Flytta inprovning
+	Split at Points	Dela vid punkter
+	Seam Length	Sömlängd
+	Slash and Spread	Klipp och sprid
+	Match Seam Length	Matcha sömlängd
+	Make Facing	Skapa belägg
+	Add Pleat	Lägg till veck
+	Draft Sleeve Block	Konstruera grundmönster för ärm
+	Draft Trouser Block	Konstruera grundmönster för byxor
+	Draft Men's Trouser Block	Konstruera grundmönster för herrbyxor
+	Draft Men's Shirt Block	Konstruera grundmönster för herrskjorta
+	Draft Men's Shirt Sleeve Block	Konstruera grundmönster för herrskjortärm
+	Gather	Rynka
+	Draft Collar	Konstruera krage
+	Patch Pocket	Påsydd ficka
+	Walk Seams	Gå igenom sömmarna
+	Smooth Across Seam	Jämna ut över sömmen
+	Draft Stand Collar	Konstruera ståkrage
+	In-Seam Pocket	Sömficka
+	Welt Pocket	Paspelficka
+	Make Wrap Front	Omlottframstycke
+	Make Band	Skapa linning
+	Grade Nest	Gradera storlekar
+	Clear Graded Nest	Rensa graderade storlekar
+	Set Size Range	Ange storleksserie
+	Set Grade Rule	Ange graderingsregel
+	Grade Info	Graderingsinfo
+	Grading	Gradering
+	Base size	Basstorlek
+	Grade rules (mm a size)	Graderingsregler (mm per storlek)
+	Name the sizes, smallest first, to give the points grade rules	Namnge storlekarna, minsta först, för att ge punkterna graderingsregler
+	Select one pattern piece to grade its points	Markera en mönsterdel för att gradera dess punkter
+	Sizes	Storlekar
+	per size	per storlek
+	Copy Grade Rules	Kopiera graderingsregler
+	Copy Rules To	Kopiera regler till
+	Mirrored	Spegelvänd
+	For the opposite half: places mirrored left to right, x moves the other way	För motsatta halvan: platser speglade vänster till höger, x-förflyttningar åt andra hållet
+	Draft Shirt Collar	Konstruera skjortkrage
+file-filter	DXF-AAMA (cutting room)	DXF-AAMA (tillskärning)
+@msg	DXF-AAMA files are DXF R13 (ASTM D6673) or R12	DXF-AAMA-filer är DXF R13 (ASTM D6673) eller R12
+@msg	no pattern pieces to export	inga mönsterdelar att exportera
+@msg	the piece {_1} has no outline	mönsterdelen {_1} har ingen kontur
+file-filter	SVG for cutting	SVG för skärning
+file-filter	PDF for projector	PDF för projektor
+	Foundry Account…	Foundry-konto…
+	Publish to MakerFoundry…	Publicera på MakerFoundry…
+	Publish to MakerFoundry	Publicera på MakerFoundry
+	Publish	Publicera
+	Sign In…	Logga in…
+	Not signed in	Inte inloggad
+	Your Foundry Account	Ditt Foundry-konto
+	Sent to	Skickas till
+	SVG, a vector design	SVG, en vektordesign
+	What it is, e.g. A-line skirt	Vad det är, t.ex. A-linjekjol
+	Your design goes to MakerFoundry as a private draft, to finish on its page. Nothing is public until you publish it there.	Din design skickas till MakerFoundry som ett privat utkast, att göra klart på dess sida. Inget är offentligt förrän du publicerar det där.
+	Draft {id} made.	Utkast {id} skapat.
+	Draft {id} made on MakerFoundry: finish it on the page that opened in your browser.	Utkast {id} skapat på MakerFoundry: gör klart det på sidan som öppnades i webbläsaren.
+	Finish it on MakerFoundry's page, which opened in your browser: it stays private until you publish it there.	Gör klart det på MakerFoundrys sida som öppnades i webbläsaren: det förblir privat tills du publicerar det där.
+	A password needs at least 8 characters.	Ett lösenord behöver minst 8 tecken.
+	Account	Konto
+	Allow	Tillåt
+	Anthropic API key:	Anthropic API-nyckel:
+	Ask	Fråga
+	Buy credits	Köp krediter
+	Buy…	Köp…
+	Change key	Byt nyckel
+	Create Free Account	Skapa gratis konto
+	Create a free Foundry Account	Skapa ett gratis Foundry-konto
+	Don't Allow	Tillåt inte
+	Edit › Undo takes each change back.	Redigera › Ångra tar tillbaka varje ändring.
+	Email	E-post
+	Foundry Account	Foundry-konto
+	Foundry accounts aren't open yet. Until then, the AI features work with your own Anthropic API key.	Foundry-konton har inte öppnat än. Tills dess fungerar AI-funktionerna med din egen API-nyckel från Anthropic.
+	Get a key	Skaffa en nyckel
+	I have an account: Sign In	Jag har ett konto: logga in
+	New Conversation	Ny konversation
+	New here? Create a free account	Ny här? Skapa ett gratis konto
+	No card needed, and no API key to set up	Inget kort och ingen API-nyckel att ställa in
+	Paid with Foundry credits ({n} left).	Betalt med Foundry-krediter ({n} kvar).
+	Paid with Foundry credits.	Betalt med Foundry-krediter.
+	Pay for the AI features with my Foundry credits	Betala AI-funktionerna med mina Foundry-krediter
+	Pay with Foundry credits instead	Betala med Foundry-krediter i stället
+	Payment is on Stripe's secure page, in your browser; your card never reaches PatternFoundry.	Betalningen sker på Stripes säkra sida i din webbläsare; ditt kort når aldrig PatternFoundry.
+	Reading your credits…	Läser dina krediter…
+	Remember the key on this computer	Kom ihåg nyckeln på den här datorn
+	Server	Server
+	Sign In	Logga in
+	Sign Out	Logga ut
+	Sign in to your Foundry Account	Logga in på ditt Foundry-konto
+	Signed in as {email}	Inloggad som {email}
+	Thinking…	Tänker…
+	Type your question, then press Enter	Skriv din fråga och tryck sedan på Enter
+	{n} credits	{n} krediter
+	{n} credits for {price}	{n} krediter för {price}
+@msg	Anthropic refused the API key: {0}	Anthropic avvisade API-nyckeln: {0}
+@msg	Couldn't reach the AI service: {0}	Kunde inte nå AI-tjänsten: {0}
+@msg	Enter your Anthropic API key first.	Ange din Anthropic API-nyckel först.
+@msg	The AI declined to answer this: ask another way.	AI:n avböjde att svara på detta: fråga på ett annat sätt.
+@msg	The AI service failed (error {0}): try again later.	AI-tjänsten misslyckades (fel {0}): försök igen senare.
+@msg	The AI service is busy: try again in a minute.	AI-tjänsten är upptagen: försök igen om en minut.
+@msg	The API key isn't valid: paste it again from the Anthropic Console.	API-nyckeln är ogiltig: klistra in den igen från Anthropic Console.
+@msg	The question is too long: keep it under 2,000 characters.	Frågan är för lång: håll den under 2 000 tecken.
+@msg	The reply had no answer: try again, or ask something narrower.	Svaret innehöll inget svar: försök igen, eller fråga något snävare.
+@msg	The request failed (error {0}): {1}	Begäran misslyckades (fel {0}): {1}
+@msg	Type a question first.	Skriv en fråga först.
+@msg	Your Anthropic account can't pay for this: {0}	Ditt Anthropic-konto kan inte betala för detta: {0}
+@msg	already asking: wait for the answer	frågar redan: vänta på svaret
+@msg	This conversation is long: start a New Conversation.	Den här konversationen är lång: starta en ny konversation.
+@msg	Claude took too many steps: ask again, more simply.	Claude tog för många steg: fråga igen, enklare.
+	Ask About Patterns…	Fråga om mönster…
+	Answers come from Claude with your own Anthropic API key, billed to your Anthropic account. They can be wrong: sew a muslin before cutting good fabric.	Svaren kommer från Claude med din egen Anthropic API-nyckel, debiterat ditt Anthropic-konto. De kan vara fel: sy en provmodell i nessel innan du klipper till fint tyg.
+	Ask About Patterns	Fråga om mönster
+	Ask anything about sewing patterns or PatternFoundry: how much ease to add, how to move a dart, which block to start from, where a feature is. Claude can also draft and change your pattern when you ask, after you allow it.	Fråga vad som helst om symönster eller PatternFoundry: hur mycket rörelsevidd du ska lägga till, hur du flyttar en inprovning, vilket grundmönster du ska utgå från, var en funktion finns. Claude kan också konstruera och ändra ditt mönster när du ber om det, efter att du har tillåtit det.
+	Claude asks to:	Claude ber om att:
+	Couldn't do:	Kunde inte utföra:
+	Done:	Klart:
+	Free credits for the AI features, no API key needed	Gratis krediter för AI-funktionerna, ingen API-nyckel behövs
+	Free credits to try the AI features: Ask About Patterns drafts and changes patterns with you	Gratis krediter för att prova AI-funktionerna: Fråga om mönster konstruerar och ändrar mönster tillsammans med dig
+	Include my pattern	Inkludera mitt mönster
+	Its pieces and sizes, and which measurements are set: never their values	Dess delar och storlekar, och vilka mått som är angivna: aldrig deras värden
+	Leave it empty for the Foundry service.	Lämna tomt för Foundry-tjänsten.
+	Not allowed:	Inte tillåtet:
+	One account for every SiteSentrix app	Ett konto för alla SiteSentrix-appar
+	Read your measurements	Läsa dina mått
+@msg	An account with that email already exists: sign in instead.	Det finns redan ett konto med den e-postadressen: logga in i stället.
+@msg	Ask About Patterns needs a build that can reach the AI service	Fråga om mönster kräver en version som kan nå AI-tjänsten
+@msg	Foundry Account needs a build that can reach the AI service	Foundry-konto kräver en version som kan nå AI-tjänsten
+@msg	Foundry accounts aren't open yet.	Foundry-konton är inte öppna än.
+@msg	Not enough Foundry credits: buy more in Foundry Account.	Inte tillräckligt med Foundry-krediter: köp fler i Foundry-konto.
+@msg	Sign in to your Foundry account (Help › Foundry Account…).	Logga in på ditt Foundry-konto (Hjälp › Foundry-konto…).
+@msg	The Foundry service can't do this yet: try again later.	Foundry-tjänsten kan inte göra detta än: försök igen senare.
+@msg	this needs a connection to the AI service, which this build doesn't have	detta kräver en anslutning till AI-tjänsten, som den här versionen inte har
+@msg	Account made: welcome to PatternFoundry.	Kontot har skapats: välkommen till PatternFoundry.
+@msg	Signed in.	Inloggad.
+@msg	Signed out.	Utloggad.
+@msg	Type your email address.	Skriv din e-postadress.
+@msg	Pay on the page that opened in your browser, then press Refresh.	Betala på sidan som öppnades i webbläsaren och tryck sedan på Uppdatera.
+	Add Photos…	Lägg till foton…
+	Choose the photos in the browser's window…	Välj fotona i webbläsarens fönster…
+	About the fit	Om passformen
+	Anything else? For example: folds below the back neck	Något annat? Till exempel: veck nedanför nacken bak
+	Check My Muslin	Kontrollera min provmodell
+	Claude looks at the photos with your own Anthropic API key, billed to your Anthropic account. It can be wrong: sew the altered part again in muslin before cutting good fabric.	Claude tittar på fotona med din egen API-nyckel från Anthropic, som debiteras ditt Anthropic-konto. Den kan ha fel: sy den ändrade delen igen i nessel innan du klipper till fint tyg.
+	Final fabric	Slutligt tyg
+	Hard to raise my arms	Svårt att lyfta armarna
+	How it feels:	Hur den känns:
+	Include the pattern it was cut from (open now), so it can be altered	Skicka med mönstret den klipptes efter (öppet nu), så att det kan ändras
+	Loose or gaping somewhere	Lös eller glipar någonstans
+	Muslin fabric	Tyg till provmodellen
+	My muslin ({n} photos)	Min provmodell ({n} foton)
+	Photos of your muslin, tried on	Foton av din provmodell, påklädd
+	The front, the side and the back, standing straight with your arms down, and close-ups of any folds or pulling.	Framifrån, från sidan och bakifrån, stående rakt med armarna nere, och närbilder av veck eller drag.
+	The neckline gapes or pulls	Halsringningen glipar eller drar
+	The photos go to Claude for this check only; PatternFoundry doesn't keep them.	Fotona går till Claude bara för den här kontrollen; PatternFoundry sparar dem inte.
+	The shoulder seams don't sit on my shoulders	Axelsömmarna sitter inte på mina axlar
+	Tight across the back or shoulders	Trång över ryggen eller axlarna
+	Tight across the bust or chest	Trång över bysten eller bröstet
+	Tight at the waist or hips	Trång i midjan eller över höfterna
+	Too long or too short	För lång eller för kort
+	e.g. calico, an old sheet	t.ex. nessel, ett gammalt lakan
+	e.g. cotton poplin, jersey	t.ex. bomullspoplin, trikå
+	Check My Muslin…	Kontrollera min provmodell…
+@msg	Add a photo of the muslin first.	Lägg först till ett foto av provmodellen.
+@msg	Check My Muslin needs a build that can reach the AI service	Kontrollera min provmodell kräver en version som kan nå AI-tjänsten
+@msg	The image is too large to send: crop it, or send a smaller copy.	Bilden är för stor för att skickas: beskär den eller skicka en mindre kopia.
+@msg	This photo is too large: send a smaller copy.	Det här fotot är för stort: skicka en mindre kopia.
+@msg	no files here	inga filer här
+@msg	At most 6 photos: remove one first.	Högst 6 foton: ta bort ett först.
+@msg	This photo can't be read: save or send it as a JPEG (on an iPhone: Settings › Camera › Formats › Most Compatible).	Det här fotot kan inte läsas: spara eller skicka det som JPEG (på en iPhone: Inställningar › Kamera › Format › Mest kompatibelt).
+	Make Marker	Skapa läggning
+	Make Marker…	Skapa läggning…
+	Gap	Mellanrum
+	Precision	Precision
+	One Way	En riktning
+	Cut on fold	Klipp i vikningen
+	Folded	Vikt
+	The straight edge laid on the fabric's fold: no allowance there	Den raka kanten lagd i tygets vikning: ingen sömsmån där
+	Check Sleeve Ease	Kontrollera ärmens invidd
+	Sleeve Ease	Ärmens invidd
+	Crown {crown} mm, armhole {armhole} mm (back {back}, front {front}): the crown takes in {ease} mm ({percent}%).	Ärmkulle {crown} mm, ärmhål {armhole} mm (bak {back}, fram {front}): kullen tar in {ease} mm ({percent} %).
+	Less than the {min} to {max} mm it should take in: the sleeve may pull across the cap. Set sleeve_crown to {wanted} mm in Measurements to redraft the sleeve block with the ease in the middle.	Mindre än de {min} till {max} mm den bör ta in: ärmen kan dra över kullen. Ställ sleeve_crown på {wanted} mm i Mått för att rita om ärmgrundmönstret med invidden i mitten.
+	More than the {min} to {max} mm it should take in: the cap may pucker when it is set in. Set sleeve_crown to {wanted} mm in Measurements to redraft the sleeve block with the ease in the middle.	Mer än de {min} till {max} mm den bör ta in: kullen kan rynka sig när den sys i. Ställ sleeve_crown på {wanted} mm i Mått för att rita om ärmgrundmönstret med invidden i mitten.
+	Within the {min} to {max} mm it should take in.	Inom de {min} till {max} mm den bör ta in.
+	Edges: {edges}, notches: {notches}	Kanter: {edges}, hack: {notches}
+	Edge {n}	Kant {n}
+	On fold	I vikningen
+	Back to the piece's seam allowance	Tillbaka till delens sömsmån
+	A notch in the middle of the edge	Ett hack mitt på kanten
+	Notch on edge {edge}, {at}% along	Hack på kant {edge}, vid {at} %
+	Piece Outlines	Mönsterdelarnas konturer
+	Projector	Projektor
+	Projector Scale (screen points per mm, 0: not calibrated)	Projektorskala (skärmpunkter per mm, 0: inte kalibrerad)
+	Projector View	Projektorvy
+	Measure the square on the cutting mat: it should be 10 cm each way. The arrows make it bigger or smaller (with Shift, faster); Enter keeps it; Escape leaves. Scale: {scale} points per mm.	Mät kvadraten på skärmattan: den ska vara 10 cm åt båda hållen. Pilarna gör den större eller mindre (med Skift snabbare); Retur behåller den; Escape avslutar. Skala: {scale} punkter per mm.
+	Arrows move the pattern 1 cm (Shift: 1 mm) · M mirrors it · C calibrates · Escape leaves	Pilarna flyttar mönstret 1 cm (Skift: 1 mm) · M speglar det · C kalibrerar · Escape avslutar
+@msg	no pattern pieces to project: make the outlines pattern pieces first (Pattern › Make Pattern Piece)	inga mönsterdelar att projicera: gör först konturerna till mönsterdelar (Mönster › Skapa mönsterdel)
+@msg	scale: screen points per mm, more than 0	skala: skärmpunkter per mm, mer än 0
+	Delete Saved Measurements	Ta bort sparade mått
+	Load Measurements	Läs in mått
+	My Measurements	Mina mått
+	Save to My Measurements	Spara i Mina mått
+	Delete from this computer	Ta bort från den här datorn
+	Kept on this computer only, to load into any pattern	Sparas bara på den här datorn, för att läsas in i vilket mönster som helst
+	Load	Läs in
+	Use these measurements in this pattern	Använd de här måtten i det här mönstret
+	Whose (Me)	Vems (Jag)
+	Shorten Dart	Korta inprovning
+	Shorten Dart…	Korta inprovning…
+	Shorten	Korta
+	Add Notch Here	Lägg till hack här
+	Cut on Fold Here	Klipp i vikningen här
+	Seam Allowance Here…	Sömsmån här…
+	Grade This Point…	Gradera den här punkten…
+	Edge Allowance	Kantens sömsmån
+	Across	Vågrätt
+	Down	Nedåt
+	One step	Ett steg
+	The same move for each size, from the size above the base	Samma förflyttning för varje storlek, från storleken över basen
+	Per size	Per storlek
+	A move for each size of its own	En egen förflyttning för varje storlek
+	Add Drill Hole Here	Lägg till borrhål här
+	Remove Drill Hole Here	Ta bort borrhål här
+	Add Drill Hole	Lägg till borrhål
+	Remove Drill Hole	Ta bort borrhål
+	Drill holes: {count}	Borrhål: {count}
+	Right-click inside the piece: Add Drill Hole Here	Högerklicka inuti delen: Lägg till borrhål här
+	Drill hole {n}, {mm} mm	Borrhål {n}, {mm} mm
+	Drill hole {n}	Borrhål {n}
+	Notch Shape	Hackets form
+	Slit notch	Skårhack
+	Double notch	Dubbelhack
+	V notch	V-hack
+	T notch	T-hack
+	Castle notch	Kantad hack
+	U notch	U-hack
+	As drawn	Som ritat
+	Side by side	Sida vid sida
+	Block Options…	Alternativ för grundmönstret…
+	Block Options	Alternativ för grundmönstret
+	Ease	Rörelsevidd
+	Waist ease	Rörelsevidd i midjan
+	Bust dart	Bystinsnitt
+	Shoulder dart	Axelinsnitt
+	Back dart	Bakinsnitt
+	Back dart length	Bakinsnittets längd
+	Front dart length	Framinsnittets längd
+	Option	Alternativ
+	Back to the block's default	Tillbaka till grundmönstrets standard
+	from the measurements	från måtten
+	Block Options Info	Information om grundmönstrets alternativ
+	Check Trouser Seams	Kontrollera byxsömmarna
+	Trouser Seams	Byxsömmar
+	Inseam, knee to hem	Innerbenssöm, knä till fåll
+	Inseam, crotch to knee	Innerbenssöm, gren till knä
+	Side seam, knee to hem	Sidsöm, knä till fåll
+	Side seam, waist to knee	Sidsöm, midja till knä
+	{seam}: front {front} mm, back {back} mm ({difference} mm)	{seam}: fram {front} mm, bak {back} mm ({difference} mm)
+	Walk them on the pattern too: where a line doesn't run on smoothly from front to back, find the point half way between the two and correct both lines. The back inseam is more curved, so it is often longer: lowering the back crotch curve slightly to match is fine.	Gå igenom dem på mönstret också: där en linje inte fortsätter jämnt från fram till bak, hitta punkten mitt emellan och rätta båda linjerna. Bakre innerbenssömmen är mer böjd och därför ofta längre: att sänka den bakre grenkurvan lite för att den ska passa går bra.
+	Front dart	Framinsnitt
+	Draft Trouser Waistband	Rita byxlinning
+	Flap Pocket…	Paspelficka med lock…
+	Crown ease	Ärmkullens vidd
+	Remove Design Step	Ta bort designsteg
+	Dart moved	Inprovning flyttad
+	Dart shortened {mm} mm	Inprovning kortad {mm} mm
+	Slashed and spread {mm} mm	Uppklippt och spridd {mm} mm
+	Seam trued to {mm} mm	Söm anpassad till {mm} mm
+	Split into panels	Delad i paneler
+	Design step	Designsteg
+	Design steps: {count}	Designsteg: {count}
+	Design changes made on the block (darts, splits, spreads, seam lengths) show here; each is made again when the measurements change	Ändringar på grundmönstret (inprovningar, delningar, spridningar, sömlängder) visas här; var och en görs om när måtten ändras
+	Remove this step and the ones after it (they were made on the outline it made)	Ta bort det här steget och de efter det (de gjordes på konturen det gav)
+	Selected block part	Markerad del av grundmönstret
+	Curve Dart Legs…	Böj inprovningens ben…
+	Curve Dart Legs	Böj inprovningens ben
+	Dart legs curved {mm} mm	Inprovningens ben böjda {mm} mm
+	Draft Rounded Stand Collar	Konstruera ståkrage med rundade hörn
+	Draft Wing Collar	Konstruera vingkrage
+	Check Marker	Kontrollera utläggningen
+	{length} cm long, {efficiency}% of the fabric used	{length} cm lång, {efficiency} % av tyget används
+	{a} overlaps {b}	{a} överlappar {b}
+	{piece} is off the fabric	{piece} ligger utanför tyget
+	No pieces overlap, and all are on the fabric.	Inga delar överlappar, och alla ligger på tyget.
+	Plaid	Rutigt
+menu	Pattern	Mönster
+@msg	a and b are two pieces (or paths) that sew together	a och b är två mönsterdelar (eller banor) som sys ihop
+@msg	a corner is "mitre" or "square"	ett hörn är "mitre" eller "square"
+@msg	a facing runs along part of the outline	ett belägg löper längs en del av konturen
+@msg	a facing runs between two different points of the outline	ett belägg löper mellan två olika punkter på konturen
+@msg	a name takes at most 200 characters	ett namn får vara högst 200 tecken
+@msg	a neckline runs between two different points of its outline, and the shoulder point is one of them	en halsringning löper mellan två olika punkter på sin kontur, och axelpunkten är en av dem
+@msg	a seam allowance is a number of mm, or a length with its unit ("5/8 in")	en sömsmån är ett antal mm, eller en längd med sin enhet ("5/8 in")
+@msg	a seam has no length	en söm saknar längd
+@msg	a shoulder point is on its neck point	en axelpunkt ligger på sin halspunkt
+@msg	a slash runs between two points of the outline that aren't neighbours	ett snitt löper mellan två punkter på konturen som inte är grannar
+@msg	a split leaves a piece with fewer than three anchors	en delning lämnar en del med färre än tre ankarpunkter
+@msg	a split made two panels: delete the panel you don't want instead	en delning gav två delar: ta i stället bort den del du inte vill ha
+@msg	a split needs two different anchors on the outline	en delning kräver två olika ankarpunkter på konturen
+@msg	amount: a share of the dart, (0, 1]	amount: en andel av inprovningen, (0, 1]
+@msg	amount: how far it opens, mm	amount: hur mycket den öppnas, mm
+@msg	anchor: the point's number along the path, from 0	anchor: punktens nummer längs banan, från 0
+@msg	anchor: the seam line's point, from 0	anchor: sömlinjens punkt, från 0
+@msg	anchors: [a, b] or [a]	anchors: [a, b] eller [a]
+@msg	anchors: point numbers along the path	anchors: punktnummer längs banan
+@msg	apex: the dart's point (or select that one point)	apex: inprovningens spets (eller markera just den punkten)
+@msg	at: 0 (the edge's start) to 1 (its end)	at: 0 (kantens början) till 1 (dess slut)
+@msg	at: [x, y], the document point on the edge	at: [x, y], dokumentpunkten på kanten
+@msg	base: the size the pattern is drawn in	base: storleken som mönstret är ritat i
+@msg	block: "bodice", "skirt", "sleeve" or "trousers"	block: "bodice", "skirt", "sleeve" eller "trousers"
+@msg	can't make the seam that long by moving its end	sömmen kan inte göras så lång genom att flytta dess ände
+@msg	curve: mm the wrap edge bows into the piece	curve: mm som omlottkanten buktar in i delen
+@msg	cut is a whole number, 1 to 999	cut är ett heltal, 1 till 999
+@msg	data: the chart's text	data: tabellens text
+@msg	depth: how deep the pleat folds under, mm	depth: hur djupt vecket viks in under, mm
+@msg	depth: mm (less than 0 bows the legs in)	depth: mm (under 0 buktar benen inåt)
+@msg	diameter: a number of mm, or a length with its unit ("1/8 in")	diameter: ett antal mm, eller en längd med sin enhet ("1/8 in")
+@msg	edge: the edge's number, from 0 (or point)	edge: kantens nummer, från 0 (eller point)
+@msg	edges and corners are numbered from 0	kanter och hörn numreras från 0
+@msg	every: mm, at least 10	every: mm, minst 10
+@msg	face: only a box pleat has one	face: bara ett lådveck har en
+@msg	face: the box pleat's width between its folds, mm	face: lådveckets bredd mellan dess vikningar, mm
+@msg	flapShape: "square", "rounded" or "pointed"	flapShape: "square", "rounded" eller "pointed"
+@msg	fold is an edge's number (0..), or null	fold är en kants nummer (0..), eller null
+@msg	fold: [a, b], the centre front edge's two points	fold: [a, b], de två punkterna på kanten mitt fram
+@msg	fold: true or false	fold: true eller false
+@msg	foldAt: [x, y] in document points	foldAt: [x, y] i dokumentpunkter
+@msg	folded: true or false	folded: true eller false
+@msg	from: [x, y] in document points	from: [x, y] i dokumentpunkter
+@msg	from: not a pattern piece	from: inte en mönsterdel
+@msg	from: the pattern piece whose rules are copied	from: mönsterdelen vars regler kopieras
+@msg	from: the piece has no seam line	from: delen saknar sömlinje
+@msg	frontShape: "square", "rounded" or "winged"	frontShape: "square", "rounded" eller "winged"
+@msg	gathering runs between two different points of the outline	rynkningen löper mellan två olika punkter på konturen
+@msg	give apex and one of to or toAnchor (or select the two points)	ange apex och antingen to eller toAnchor (eller markera de två punkterna)
+@msg	height: mm, 10 to 100 (the tutorial's is at most 30)	height: mm, 10 till 100 (handledningens är högst 30)
+@msg	id: a block part's id	id: id för en del av ett grundmönster
+@msg	index: the drill hole's place in the list, from 0 (or point)	index: borrhålets plats i listan, från 0 (eller point)
+@msg	index: the notch's place in the list, from 0	index: hackets plats i listan, från 0
+@msg	index: the step's place, from 0	index: stegets plats, från 0
+@msg	into: the length it gathers into, mm	into: längden som det rynkas in till, mm
+@msg	kind: "slit", "double", "v", "t", "castle" or "u"	kind: "slit", "double", "v", "t", "castle" eller "u"
+@msg	kind: the notch's new shape	kind: hackets nya form
+@msg	layer: a marker layer's id	layer: id för ett läggningslager
+@msg	length (mm) or likeId with likeFrom and likeTo: the seam to match	length (mm) eller likeId med likeFrom och likeTo: sömmen som ska matchas
+@msg	length: mm, more than 0	length: mm, mer än 0
+@msg	line: "cut" or "seam"	line: "cut" eller "seam"
+@msg	match: the seam it sews to is shorter than the pocket opening's end	match: sömmen den sys mot är kortare än till fickhalsens ände
+@msg	min is more than max	min är större än max
+@msg	mirror is true or false	mirror är true eller false
+@msg	mirror: "none", "x", "y" or "xy"	mirror: "none", "x", "y" eller "xy"
+@msg	name: the saved set's name	name: den sparade uppsättningens namn
+@msg	name: whose measurements they are ("Me")	name: vems mått det är ("Me")
+@msg	no drill hole near the point	inget borrhål nära punkten
+@msg	no drill hole with that index	inget borrhål med det indexet
+@msg	no notch with that index	inget hack med det indexet
+@msg	no object with that id	inget objekt med det id:t
+@msg	no pattern pieces to grade: make the outlines pattern pieces first (Pattern › Make Pattern Piece)	inga mönsterdelar att gradera: gör först konturerna till mönsterdelar (Mönster › Skapa mönsterdel)
+@msg	no straight centre front edge on the outline's side: name it with fold: [a, b]	ingen rak kant mitt fram på konturens sida: ange den med fold: [a, b]
+@msg	not a drafted block part	inte en del av ett konstruerat grundmönster
+@msg	not a marker's layer (Pattern › Make Marker…)	inte ett läggningslager (Mönster › Skapa läggning…)
+@msg	not a pattern piece	inte en mönsterdel
+@msg	not a stand collar's outline	inte en ståkrages kontur
+@msg	notches go on pattern pieces: make both seams' paths pieces first (Pattern › Make Pattern Piece)	hack placeras på mönsterdelar: gör först båda sömmarnas banor till mönsterdelar (Mönster › Skapa mönsterdel)
+@msg	notches: [mm, …]	notches: [mm, …]
+@msg	notches: distances from the seams' starts, mm	notches: avstånd från sömmarnas början, mm
+@msg	on and at go together: the garment piece and where the opening's top-left corner goes on it	on och at hör ihop: plaggdelen och var öppningens övre vänstra hörn hamnar på den
+@msg	on and at go together: the garment piece and where the pocket's top-left corner goes on it	on och at hör ihop: plaggdelen och var fickans övre vänstra hörn hamnar på den
+@msg	one point splits only where another point is at the same place (two darts' point)	en enda punkt delar bara där en annan punkt ligger på samma ställe (två inprovningars spets)
+@msg	oneWay: true or false	oneWay: true eller false
+@msg	openFolds: true or false	openFolds: true eller false
+@msg	origin: [x, y] in document points	origin: [x, y] i dokumentpunkter
+@msg	overlap: mm past centre front, more than 0	overlap: mm förbi mitt fram, mer än 0
+@msg	overlap: the edge misses the outline	overlap: kanten missar konturen
+@msg	plaid: the repeat (mm, or [along, across])	plaid: rapporten (mm, eller [along, across])
+@msg	plaid: the repeat along and across, 1 to 10 000 mm each	plaid: rapporten på längden och på tvären, 1 till 10 000 mm vardera
+@msg	point: [x, y] in document points	point: [x, y] i dokumentpunkter
+@msg	select a drafted block part (Pattern › Draft … Block)	markera en del av ett konstruerat grundmönster (Mönster › Konstruera grundmönster för …)
+@msg	select a path or a pattern piece	markera en bana eller en mönsterdel
+@msg	select a pattern piece (Pattern › Make Pattern Piece makes one)	markera en mönsterdel (Mönster › Skapa mönsterdel skapar en)
+@msg	select a piece on the marker to check	markera en del i läggningen att kontrollera
+@msg	select closed paths: each becomes a piece, the path its seam line	markera slutna banor: var och en blir en mönsterdel, banan dess sömlinje
+@msg	select one path	markera en bana
+@msg	select one pattern piece	markera en mönsterdel
+@msg	select two points of one path (or one that two darts share)	markera två punkter på en bana (eller en som två inprovningar delar)
+@msg	select two points of one path: the dart's point and where the dart moves to	markera två punkter på en bana: inprovningens spets och dit inprovningen flyttas
+@msg	select two points of one path: the ends of the edge to face	markera två punkter på en bana: ändarna på kanten som ska få belägg
+@msg	select two points of one path: the ends of the edge to gather	markera två punkter på en bana: ändarna på kanten som ska rynkas
+@msg	share is true or false	share är true eller false
+@msg	shorten: mm (less than 0 lengthens)	shorten: mm (under 0 förlänger)
+@msg	shoulder: longer than the outline	shoulder: längre än konturen
+@msg	shoulder: mm, 0 or more	shoulder: mm, 0 eller mer
+@msg	size: one of the chart's sizes	size: en av tabellens storlekar
+@msg	size: the name of a size of the size range or chart	size: namnet på en storlek i storleksserien eller tabellen
+@msg	sizes: name one size at least	sizes: ange minst en storlek
+@msg	sizes: the sizes' names	sizes: storlekarnas namn
+@msg	sizes: the sizes' names, smallest first (null removes them)	sizes: storlekarnas namn, minsta först (null tar bort dem)
+@msg	split the seam line on its own: release the piece first (Pattern › Release Pattern Piece)	dela sömlinjen för sig: frigör först mönsterdelen (Mönster › Frigör mönsterdel)
+@msg	step: [dx, dy] in mm	step: [dx, dy] i mm
+@msg	style: classic, casual or shirt	style: classic, casual eller shirt
+@msg	that anchor's neighbours don't make a dart	den ankarpunktens grannar bildar ingen inprovning
+@msg	that point is not a dart's point: its legs open a right angle or wider	den punkten är ingen inprovningsspets: dess ben öppnar sig i rät vinkel eller mer
+@msg	the amount is a share of the dart, more than 0 and at most 1	mängden är en andel av inprovningen, mer än 0 och högst 1
+@msg	the back's outline encloses no area	bakstyckets kontur omsluter ingen yta
+@msg	the box pleat's face is more than 0 wide	lådveckets framsida är mer än 0 bred
+@msg	the chart is larger than 1 MB	tabellen är större än 1 MB
+@msg	the curve has no length at the meeting point	kurvan saknar längd vid mötespunkten
+@msg	the curves leave the seam the same way	kurvorna lämnar sömmen åt samma håll
+@msg	the dart has no length	inprovningen saknar längd
+@msg	the dart is not that long	inprovningen är inte så lång
+@msg	the dart point or the new dart's anchor is not on the outline	inprovningens spets eller den nya inprovningens ankarpunkt ligger inte på konturen
+@msg	the dart's legs must be straight lines	inprovningens ben måste vara raka linjer
+@msg	the dart's point is past the outline's end	inprovningens spets ligger bortom konturens slut
+@msg	the depth to curve the legs by is not a number	djupet som benen ska böjas med är inget tal
+@msg	the document has no marker (Pattern › Make Marker…)	dokumentet har ingen läggning (Mönster › Skapa läggning…)
+@msg	the document has no measurements to save	dokumentet har inga mått att spara
+@msg	the document has no size chart (measure.importChart)	dokumentet har ingen storlekstabell (measure.importChart)
+@msg	the drop at the front is less than half the neck edge	sänkningen fram är mindre än halva halskanten
+@msg	the edge has no length	kanten saknar längd
+@msg	the edge's anchor is past the outline's end	kantens ankarpunkt ligger bortom konturens slut
+@msg	the fabric's width must be more than 0	tygets bredd måste vara mer än 0
+@msg	the flap is deeper than twice its width	locket är djupare än två gånger sin bredd
+@msg	the flap's width and depth are more than 0, its allowance 0 or more	lockets bredd och djup är mer än 0, dess sömsmån 0 eller mer
+@msg	the fold edge has no length	vikkanten saknar längd
+@msg	the fold edge's anchors are past the outline's end	vikkantens ankarpunkter ligger bortom konturens slut
+@msg	the fold edge's two anchors must be neighbours on the outline	vikkantens två ankarpunkter måste vara grannar på konturen
+@msg	the fold must be a straight edge	vikningen måste vara en rak kant
+@msg	the front end has no length	framänden saknar längd
+@msg	the gap must be 0 or more	avståndet måste vara 0 eller mer
+@msg	the grainline's ends are the same point	trådriktningens ändar är samma punkt
+@msg	the legs can't curve that far: the dart isn't wide enough	benen kan inte böjas så mycket: inprovningen är inte tillräckligt bred
+@msg	the length to shorten by is not a number	längden att korta med är inget tal
+@msg	the marker has lost its fabric outline	läggningen har förlorat sin tygkontur
+@msg	the marker has no pieces	läggningen har inga delar
+@msg	the marker is too large at this precision: give a coarser one	läggningen är för stor med den här precisionen: ange en grövre
+@msg	the measurements could not be saved	måtten kunde inte sparas
+@msg	the meeting point and the seam's other end are points of the outline	mötespunkten och sömmens andra ände är punkter på konturen
+@msg	the neckline has no length	halsringningen saknar längd
+@msg	the neckline lengths and the stand's height are more than 0, the rise and extension 0 or more	halsringningens längder och kragståndarens höjd är mer än 0, lyftet och förlängningen 0 eller mer
+@msg	the new dart is on the old dart	den nya inprovningen ligger på den gamla
+@msg	the opening is longer than twice its height	öppningen är längre än två gånger sin höjd
+@msg	the opening, depth and width are more than 0, the width more than the allowance	öppningen, djupet och bredden är mer än 0, bredden mer än sömsmånen
+@msg	the opening, the welt and the depth are more than 0, the allowances 0 or more	öppningen, paspeln och djupet är mer än 0, sömsmånerna 0 eller mer
+@msg	the outline encloses no area	konturen omsluter ingen yta
+@msg	the outline has no side seam	konturen har ingen sidsöm
+@msg	the path has no outline	banan har ingen kontur
+@msg	the path must be one closed outline	banan måste vara en enda sluten kontur
+@msg	the piece has no grade rules to copy	delen har inga graderingsregler att kopiera
+@msg	the piece has no straight edge to cut on the fold	delen har ingen rak kant att klippa i vikningen
+@msg	the pieces have no cutting lines to lay	delarna har inga skärlinjer att lägga ut
+@msg	the plaid's repeat must be more than 0 along and across	rutornas rapport måste vara mer än 0 på längden och på tvären
+@msg	the pocket (its opening and the allowance past both ends) fits on the seam	fickan (dess öppning och sömsmånen förbi båda ändarna) ska få plats på sömmen
+@msg	the point is not inside the piece	punkten ligger inte inuti delen
+@msg	the point is not on the seam line or in its allowance	punkten ligger inte på sömlinjen eller i dess sömsmån
+@msg	the precision must be more than 0	precisionen måste vara mer än 0
+@msg	the rise at centre front is less than the front neckline is long	lyftet mitt fram är mindre än den främre halsringningens längd
+@msg	the seam has no length there	sömmen saknar längd där
+@msg	the seam runs between two different points of the outline	sömmen löper mellan två olika punkter på konturen
+@msg	the seam's other end is a neighbour of the meeting point	sömmens andra ände är granne med mötespunkten
+@msg	the top edge has no length	överkanten saknar längd
+@msg	the wing is more than 0 long	vingen är längre än 0
+@msg	there is no folder to keep measurement sets in here (the desktop app keeps them next to its preferences)	det finns ingen mapp att spara måttuppsättningar i här (skrivbordsappen sparar dem bredvid sina inställningar)
+@msg	there is no point of the seam line there	det finns ingen punkt på sömlinjen där
+@msg	to or toAnchor: where the dart moves to	to eller toAnchor: dit inprovningen flyttas
+@msg	to: [x, y] in document points	to: [x, y] i dokumentpunkter
+@msg	to: the pieces to copy the rules to (select them, or name them)	to: delarna som reglerna ska kopieras till (markera dem, eller ange dem)
+@msg	too many objects at once	för många objekt på en gång
+@msg	too many pieces at once	för många delar på en gång
+@msg	too many pieces to lay at once	för många delar att lägga ut på en gång
+@msg	too many sizes at once	för många storlekar på en gång
+@msg	unit: "mm", "cm" or "in"	unit: "mm", "cm" eller "in"
+@msg	width: mm, more than 0	width: mm, mer än 0
+	Draw Avatar	Rita avatar
+	Export Avatar as OBJ	Exportera avatar som OBJ
+	Sewn seams: {count}	Sydda sömmar: {count}
+	{label}: sewn to {piece}, {mm} mm longer	{label}: sydd till {piece}, {mm} mm längre
+	{label}: sewn to {piece}, {mm} mm shorter	{label}: sydd till {piece}, {mm} mm kortare
+	{label}: sewn to {piece}	{label}: sydd till {piece}
+	Sew Seams	Sy ihop sömmar
+	Unsew Seams	Sprätta upp sömmar
+	Sewn Seams	Sydda sömmar
+	Drape on Avatar	Drapera på avatar
+	Use as Fabric…	Använd som tyg…
+	Use as Fabric	Använd som tyg
+	Stop Using as Fabric	Sluta använda som tyg
+	Fabric Photos	Tygfoton
+@msg	the drape view's picture is the wrong size	fallvyns bild har fel storlek
+@msg	the drape view: {e}	fallvyn: {e}
+@msg	a fabric photo is the wrong size	tygfotot har fel storlek
+@msg	a fabric photo: {e}	tygfotot: {e}
+	Export Avatar as glTF	Exportera avatar som glTF
+	Export Avatar as glTF…	Exportera avatar som glTF…
+	Export Drape as glTF…	Exportera fall som glTF…
+@msg	format: "obj" or "glb"	format: "obj" eller "glb"
+@msg	colour: "fabric" or "fit"	colour: "fabric" eller "fit"
+@msg	a piece could not be placed on the body	en mönsterdel kunde inte placeras på kroppen
+@msg	{name} is already open	{name} är redan öppen
+@msg	Draping on Avatar	Fall på avatar
+	Step {n} of {total}	Steg {n} av {total}
+@msg	The drape was cancelled	Fallet avbröts
+@msg	Draped on the avatar	Fall på avataren klart
+@msg	the document was closed	dokumentet stängdes
+@msg	the drape stopped	fallet stoppades
+@msg	width: the photo's width on the fabric, 10 to 5000 mm	width: fotots bredd på tyget, 10 till 5000 mm
+@msg	turns: 0, 1, 2 or 3	turns: 0, 1, 2 eller 3
+@msg	the image is not a fabric photo (Pattern › Use as Fabric…)	bilden är inget tygfoto (Mönster › Använd som tyg…)
+@msg	even: true or false	even: true eller false
+@msg	seamless: true or false	seamless: true eller false
+@msg	Sign in to your Foundry Account first: Help › Foundry Account…	Logga in på ditt Foundry-konto först: Hjälp › Foundry-konto…
+@msg	The document is empty: there is nothing to publish.	Dokumentet är tomt: det finns inget att publicera.
+@msg	The design is too large for MakerFoundry: at most 8 MB.	Designen är för stor för MakerFoundry: högst 8 MB.
+@msg	MakerFoundry's answer couldn't be read.	MakerFoundrys svar gick inte att läsa.
+@msg	MakerFoundry answered with a page on another site, which wasn't opened.	MakerFoundry svarade med en sida på en annan webbplats, som inte öppnades.
+@msg	MakerFoundry: {1}	MakerFoundry: {1}
+@msg	MakerFoundry couldn't be reached: {0}	Det gick inte att nå MakerFoundry: {0}
+@msg	Publish to MakerFoundry needs a build that can reach MakerFoundry	Publicera på MakerFoundry kräver en version som kan nå MakerFoundry
+@msg	open Publish to MakerFoundry first: it shows what is sent	öppna Publicera på MakerFoundry först: där syns vad som skickas
+@msg	That link isn't a design file on MakerFoundry, so it wasn't opened.	Länken är ingen designfil på MakerFoundry, så den öppnades inte.
+@msg	The design is too large to open: at most 32 MB.	Designen är för stor att öppna: högst 32 MB.
+@msg	PatternFoundry opens SVG and DXF designs from MakerFoundry; that file is neither.	PatternFoundry öppnar SVG- och DXF-designer från MakerFoundry; filen är ingetdera.
+@msg	The design couldn't be downloaded from MakerFoundry: {0}	Designen kunde inte hämtas från MakerFoundry: {0}

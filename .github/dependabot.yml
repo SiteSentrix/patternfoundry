@@ -7,14 +7,37 @@ updates:
       - "/crates/affinity/fuzz"
       - "/crates/plugins/example"
     schedule:
-      interval: "daily"
+      interval: "weekly"
+      day: "monday"
       time: "06:00"
       timezone: "America/New_York"
-    # Consolidate updates into a single PR rather than one PR per crate
+    open-pull-requests-limit: 5
+    # Minor and patch updates together in one PR; each major update in a PR of its own, so one
+    # breaking crate can't hold the rest back. (Dependabot counts 0.x -> 0.y as minor, though
+    # Cargo treats it as breaking: those can still land in the group.)
     groups:
-      cargo-dependencies:
-        patterns:
-          - "*"
+      cargo-minor-patch:
+        update-types:
+          - "minor"
+          - "patch"
+    ignore:
+      # egui 0.37 needs craft-libs (craft-ui pins egui 0.36) to move first; until then two eguis
+      # in one build don't compile. Remove when craft-ui is on 0.37.
+      - dependency-name: "egui"
+        versions: [">= 0.37"]
+      - dependency-name: "egui_extras"
+        versions: [">= 0.37"]
+      - dependency-name: "eframe"
+        versions: [">= 0.37"]
+      - dependency-name: "egui_kittest"
+        versions: [">= 0.37"]
+      # vello 0.3 isolates root-level blend modes from the target, so Screen, Multiply and the
+      # rest stop blending with the page under them (tests_flatten fails); the renderer's
+      # compositing needs reworking first.
+      - dependency-name: "vello_cpu"
+        versions: [">= 0.3"]
+      - dependency-name: "vello_common"
+        versions: [">= 0.3"]
     commit-message:
       prefix: "chore(deps)"
 
@@ -22,12 +45,15 @@ updates:
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
-      interval: "daily"
+      interval: "weekly"
+      day: "monday"
       time: "06:00"
       timezone: "America/New_York"
+    open-pull-requests-limit: 5
     groups:
-      actions:
-        patterns:
-          - "*"
+      actions-minor-patch:
+        update-types:
+          - "minor"
+          - "patch"
     commit-message:
       prefix: "ci(deps)"

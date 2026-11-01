@@ -46,6 +46,11 @@ pub(crate) struct Layout {
     /// The TrimBox and BleedBox in page space.
     pub page_trim: Rect,
     pub page_bleed: Rect,
+    /// The part of the page the printer prints on (the paper less the margin), in drawing space:
+    /// where the sewing-pattern marks go.
+    pub printable: Rect,
+    /// The tile grid's width in tiles (0 for a page that isn't a tile).
+    pub columns: usize,
 }
 
 /// The tiles of one artboard (`print.preview`).
@@ -230,7 +235,7 @@ pub(crate) fn layout(doc: &Document, set: &PrintSettings, warnings: &mut Vec<Str
             let t = view.transform_rect_bbox(trim).intersect(b);
             if t.area() > 0.0 { (t, b) } else { (page, page) }
         };
-        let base = |view, window, place, area, trim, (page_trim, page_bleed), tile| Layout {
+        let base = |view, window, place, area, trim, (page_trim, page_bleed), tile, printable, columns| Layout {
             artboard,
             tile,
             size: page_size,
@@ -244,6 +249,8 @@ pub(crate) fn layout(doc: &Document, set: &PrintSettings, warnings: &mut Vec<Str
             bleed: bleed_s,
             page_trim,
             page_bleed,
+            printable,
+            columns,
         };
         if !set.scaling.tiles() {
             // The printed area's top-left corner: where the tile origin puts it, else the placement.
@@ -261,7 +268,7 @@ pub(crate) fn layout(doc: &Document, set: &PrintSettings, warnings: &mut Vec<Str
             if !imageable.inflate(0.01, 0.01).contains_rect(Rect::new(x, y, x + extent.0, y + extent.1)) {
                 warnings.push(format!("{what} with its bleed and marks is larger than the imageable area: part of it doesn't print"));
             }
-            pages.push(base(turn, None, place_at(trim), bleed_box, trim, boxes(turn, trim), None));
+            pages.push(base(turn, None, place_at(trim), bleed_box, trim, boxes(turn, trim), None, imageable, 0));
             continue;
         }
         // Tiles across then down over the printed area, overlapping by `overlap`.
@@ -301,7 +308,8 @@ pub(crate) fn layout(doc: &Document, set: &PrintSettings, warnings: &mut Vec<Str
             let w = window(t);
             let view = turn * Affine::translate((at.0 - w.x0, at.1 - w.y0));
             let area = from_doc.transform_rect_bbox(w).intersect(bleed_box);
-            pages.push(base(view, Some(w), place, area, trim, boxes(view, trim), Some((t, count))));
+            let printable = Rect::new(w.x0 + inside, w.y0 + inside, w.x1 - inside, w.y1 - inside);
+            pages.push(base(view, Some(w), place, area, trim, boxes(view, trim), Some((t, count)), printable, cols));
         }
         let tiles = (0..count).map(|t| from_doc.transform_rect_bbox(window(t))).map(|b| [b.x0, b.y0, b.x1, b.y1]).collect();
         grids.push(TileGrid { artboard, columns: cols, rows, printed: pick.iter().map(|t| t + 1).collect(), tiles });

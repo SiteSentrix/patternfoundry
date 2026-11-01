@@ -937,7 +937,7 @@ fn selected_images(st: &crate::DocState, keep: impl Fn(&ImageObject) -> bool) ->
 }
 
 /// `id`, else the first selected image.
-fn image_param(st: &crate::DocState, p: &Value, cmd: &str) -> Result<NodeId> {
+pub(crate) fn image_param(st: &crate::DocState, p: &Value, cmd: &str) -> Result<NodeId> {
     let id = id_param(p, "id").or_else(|| selected_images(st, |_| true).first().copied()).ok_or_else(|| bad(cmd, "select an image, or pass id"))?;
     match image_of(&st.doc, id) {
         Some(_) => Ok(id),

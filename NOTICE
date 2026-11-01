@@ -7,6 +7,14 @@ Licensed under the MIT License or the Apache License, Version 2.0, at your optio
 PatternFoundry is based on VectorCraft by the ArtCraft team (https://github.com/storytold/vectorcraft).
 It carries none of the ArtCraft name, wordmark or logos, which are the ArtCraft Team's trademarks.
 
+crates/pf-core/src/expr.rs (the measurement formulas' language) is adapted from CADCraft
+(https://github.com/storytold/cadcraft, crates/constraints/src/expr.rs):
+Copyright (c) 2026 ArtCraft Team and the CADCraft contributors, MIT OR Apache-2.0.
+
+crates/pf-dxf (the DXF tag reader and writer that DXF-AAMA files are written and read with) is
+adapted from CADCraft (https://github.com/storytold/cadcraft, crates/dxf):
+Copyright (c) 2026 ArtCraft Team and the CADCraft contributors, MIT OR Apache-2.0.
+
 Third-party material
 
 This product bundles third-party material under its own licenses, listed below. The per-file

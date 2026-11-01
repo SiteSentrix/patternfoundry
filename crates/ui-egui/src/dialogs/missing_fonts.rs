@@ -464,7 +464,7 @@ mod tests {
     }
 
     fn open(app: &mut VectorcraftApp, path: &Path) {
-        crate::io::open_path(app, &path.to_string_lossy()).unwrap();
+        crate::io::reopen(app, &path.to_string_lossy()).unwrap();
     }
 
     fn kind(app: &VectorcraftApp) -> Option<&str> {
@@ -646,6 +646,9 @@ mod tests {
         let mut app = app_for(&root);
         let doc = root.join("a.vectorcraft");
         save_doc(&mut app, &doc, "Alpha Missing Family", false);
+        // Closed, so dropping it opens it again.
+        app.session.execute("file.close", &json!({})).unwrap();
+        app.sync_views();
         let pdf = || {
             let page = || vectorcraft_testkit::pdf::PdfPage::new(100.0, 100.0, "0 g 0 0 10 10 re f");
             vectorcraft_testkit::pdf::pdf(&[page(), page()], None)

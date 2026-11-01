@@ -5207,3 +5207,571 @@ mark-style	Japanese	Japonské
 @msg	the file's variables and data sets weren't read (variables: {variables}, data sets: {data_sets}): the Variables panel doesn't list them	proměnné a sady dat souboru nebyly načteny (proměnné: {variables}, sady dat: {data_sets}): panel Proměnné je nezobrazuje
 # Select by Color (select.color)
 	Select by Color	Vybrat podle barvy
+# PatternFoundry: pattern pieces (PF-1).
+	Add Notch	Přidat zářez
+	Make Pattern Piece	Vytvořit díl střihu
+	Pattern Pieces	Díly střihu
+	Piece Info	Informace o dílu
+	Piece Options	Volby dílu
+	Release Pattern Piece	Uvolnit díl střihu
+	Remove Notch	Odstranit zářez
+	Cut {count}	Stříhat {count}×
+	Each selected closed path becomes a piece: the path is its seam line	Každá vybraná uzavřená cesta se stane dílem: cesta je jeho linií šití
+	Edges	Hrany
+	Fabric	Látka
+	Mirrored pairs	Zrcadlové páry
+	No pattern pieces yet	Zatím žádné díly střihu
+	Notches	Zářezy
+	Pattern piece	Díl střihu
+	Pieces	Díly
+	Seam allowance	Přídavek na šev
+	Seam line length	Délka linie šití
+	Selected piece	Vybraný díl
+# PatternFoundry: true-scale printing (PF-2).
+	Pattern Marks (test squares, page names, overlap lines)	Značky střihu (zkušební čtverce, názvy stránek, čáry překryvu)
+# PatternFoundry: measurements (PF-3).
+	Add Measurement	Přidat míru
+	Clear Measurements	Vymazat míry
+	Clear Point Formulas	Vymazat vzorce bodů
+	Draft Info	Informace o konstrukci
+	Formulas	Vzorce
+	Import Size Chart	Importovat tabulku velikostí
+	Let PDF and SVG files saved with Preserve Editing keep the measured values	Soubory PDF a SVG uložené s volbou Zachovat možnosti úprav ponechají naměřené hodnoty
+	Measurements	Míry
+	No measurements yet	Zatím žádné míry
+	Set Measurements	Nastavit míry
+	Set Point Formula	Nastavit vzorec bodu
+	Share in exported files	Sdílet v exportovaných souborech
+	Figure	Postava
+	Female	Ženská
+	Male	Mužská
+	Child	Dítě
+	The avatar takes what the measurements don't give from a survey's women's, men's or children's proportions	Avatar doplní, co míry neudávají, z proporcí žen, mužů nebo dětí z průzkumu
+	Size chart	Tabulka velikostí
+	Use Size	Použít velikost
+# PatternFoundry: blocks (PF-4).
+	Draft Bodice Block	Konstruovat základní střih živůtku
+	Block Measurements	Míry pro základní střih
+	Draft Skirt Block	Konstruovat základní střih sukně
+# PatternFoundry: design tools (PF-5).
+	Rotate Dart	Přesunout záševek
+	Split at Points	Rozdělit v bodech
+	Seam Length	Délka švu
+	Slash and Spread	Rozstřihnout a rozevřít
+	Match Seam Length	Srovnat délku švu
+	Make Facing	Vytvořit podsádku
+	Add Pleat	Přidat sklad
+	Draft Sleeve Block	Konstruovat základní střih rukávu
+	Draft Trouser Block	Konstruovat základní střih kalhot
+	Draft Men's Trouser Block	Konstruovat základní střih pánských kalhot
+	Draft Men's Shirt Block	Konstruovat základní střih pánské košile
+	Draft Men's Shirt Sleeve Block	Konstruovat základní střih rukávu pánské košile
+	Gather	Nařasit
+	Draft Collar	Zkonstruovat límec
+	Patch Pocket	Nášivná kapsa
+	Walk Seams	Porovnat švy
+	Smooth Across Seam	Vyhladit přes šev
+	Draft Stand Collar	Konstruovat stojáček
+	In-Seam Pocket	Kapsa ve švu
+	Welt Pocket	Kapsa s lištou
+	Make Wrap Front	Zavinovací předek
+	Make Band	Vytvořit pásek
+	Grade Nest	Odstupňovat velikosti
+	Clear Graded Nest	Vymazat odstupňované velikosti
+	Set Size Range	Nastavit řadu velikostí
+	Set Grade Rule	Nastavit pravidlo odstupňování
+	Grade Info	Informace o odstupňování
+	Grading	Odstupňování
+	Base size	Základní velikost
+	Grade rules (mm a size)	Pravidla odstupňování (mm na velikost)
+	Name the sizes, smallest first, to give the points grade rules	Pojmenujte velikosti od nejmenší, abyste bodům dali pravidla
+	Select one pattern piece to grade its points	Vyberte jeden střihový díl a odstupňujte jeho body
+	Sizes	Velikosti
+	per size	po velikostech
+	Copy Grade Rules	Kopírovat pravidla odstupňování
+	Copy Rules To	Kopírovat pravidla do
+	Mirrored	Zrcadlově
+	For the opposite half: places mirrored left to right, x moves the other way	Pro protější polovinu: místa zrcadlená zleva doprava, posuny v x opačně
+	Draft Shirt Collar	Konstruovat košilový límec
+file-filter	DXF-AAMA (cutting room)	DXF-AAMA (střihárna)
+@msg	DXF-AAMA files are DXF R13 (ASTM D6673) or R12	Soubory DXF-AAMA jsou DXF R13 (ASTM D6673) nebo R12
+@msg	no pattern pieces to export	žádné díly střihu k exportu
+@msg	the piece {_1} has no outline	díl {_1} nemá obrys
+file-filter	SVG for cutting	SVG pro řezání
+file-filter	PDF for projector	PDF pro projektor
+	Foundry Account…	Účet Foundry…
+	Publish to MakerFoundry…	Publikovat na MakerFoundry…
+	Publish to MakerFoundry	Publikovat na MakerFoundry
+	Publish	Publikovat
+	Sign In…	Přihlásit se…
+	Not signed in	Nepřihlášeno
+	Your Foundry Account	Váš účet Foundry
+	Sent to	Odesílá se na
+	SVG, a vector design	SVG, vektorový návrh
+	What it is, e.g. A-line skirt	Co to je, např. áčková sukně
+	Your design goes to MakerFoundry as a private draft, to finish on its page. Nothing is public until you publish it there.	Váš návrh jde na MakerFoundry jako soukromý koncept, který dokončíte na jeho stránce. Nic není veřejné, dokud ho tam nezveřejníte.
+	Draft {id} made.	Koncept {id} vytvořen.
+	Draft {id} made on MakerFoundry: finish it on the page that opened in your browser.	Koncept {id} vytvořen na MakerFoundry: dokončete ho na stránce, která se otevřela v prohlížeči.
+	Finish it on MakerFoundry's page, which opened in your browser: it stays private until you publish it there.	Dokončete ho na stránce MakerFoundry, která se otevřela v prohlížeči: zůstane soukromý, dokud ho tam nezveřejníte.
+	A password needs at least 8 characters.	Heslo musí mít alespoň 8 znaků.
+	Account	Účet
+	Allow	Povolit
+	Anthropic API key:	Klíč API Anthropic:
+	Ask	Zeptat se
+	Buy credits	Koupit kredity
+	Buy…	Koupit…
+	Change key	Změnit klíč
+	Create Free Account	Vytvořit účet zdarma
+	Create a free Foundry Account	Vytvořte si účet Foundry zdarma
+	Don't Allow	Nepovolit
+	Edit › Undo takes each change back.	Úpravy › Zpět vrátí každou změnu.
+	Email	E-mail
+	Foundry Account	Účet Foundry
+	Foundry accounts aren't open yet. Until then, the AI features work with your own Anthropic API key.	Účty Foundry zatím nejsou otevřené. Do té doby funkce AI fungují s vaším vlastním klíčem API Anthropic.
+	Get a key	Získat klíč
+	I have an account: Sign In	Mám účet: přihlásit se
+	New Conversation	Nová konverzace
+	New here? Create a free account	Jste tu nově? Vytvořte si účet zdarma
+	No card needed, and no API key to set up	Bez karty a bez nastavování klíče API
+	Paid with Foundry credits ({n} left).	Placeno kredity Foundry (zbývá {n}).
+	Paid with Foundry credits.	Placeno kredity Foundry.
+	Pay for the AI features with my Foundry credits	Platit funkce AI mými kredity Foundry
+	Pay with Foundry credits instead	Platit raději kredity Foundry
+	Payment is on Stripe's secure page, in your browser; your card never reaches PatternFoundry.	Platí se na zabezpečené stránce Stripe ve vašem prohlížeči; vaše karta se do PatternFoundry nikdy nedostane.
+	Reading your credits…	Načítají se kredity…
+	Remember the key on this computer	Zapamatovat si klíč v tomto počítači
+	Server	Server
+	Sign In	Přihlásit se
+	Sign Out	Odhlásit se
+	Sign in to your Foundry Account	Přihlaste se k účtu Foundry
+	Signed in as {email}	Přihlášen jako {email}
+	Thinking…	Přemýšlí…
+	Type your question, then press Enter	Napište otázku a stiskněte Enter
+	{n} credits	{n} kreditů
+	{n} credits for {price}	{n} kreditů za {price}
+@msg	An account with that email already exists: sign in instead.	Účet s tímto e-mailem už existuje: raději se přihlaste.
+@msg	Anthropic refused the API key: {0}	Anthropic odmítl klíč API: {0}
+@msg	Couldn't reach the AI service: {0}	Ke službě AI se nelze připojit: {0}
+@msg	Enter your Anthropic API key first.	Nejprve zadejte svůj klíč API Anthropic.
+@msg	Foundry accounts aren't open yet.	Účty Foundry zatím nejsou otevřené.
+@msg	Not enough Foundry credits: buy more in Foundry Account.	Málo kreditů Foundry: kupte další v Účtu Foundry.
+@msg	The AI declined to answer this: ask another way.	AI odmítla odpovědět: zeptejte se jinak.
+@msg	The AI service failed (error {0}): try again later.	Služba AI selhala (chyba {0}): zkuste to znovu později.
+@msg	The AI service is busy: try again in a minute.	Služba AI je právě vytížená: zkuste to znovu za minutu.
+@msg	The API key isn't valid: paste it again from the Anthropic Console.	Klíč API není platný: vložte ho znovu z Anthropic Console.
+@msg	The question is too long: keep it under 2,000 characters.	Otázka je příliš dlouhá: nepřekračujte 2 000 znaků.
+@msg	The reply had no answer: try again, or ask something narrower.	Odpověď byla prázdná: zkuste to znovu nebo se zeptejte konkrétněji.
+@msg	The request failed (error {0}): {1}	Požadavek selhal (chyba {0}): {1}
+@msg	Type a question first.	Nejprve napište otázku.
+@msg	Your Anthropic account can't pay for this: {0}	Z vašeho účtu Anthropic to nelze zaplatit: {0}
+@msg	already asking: wait for the answer	otázka už se odesílá: počkejte na odpověď
+@msg	this needs a connection to the AI service, which this build doesn't have	to vyžaduje připojení ke službě AI, které tato verze nemá
+@msg	This conversation is long: start a New Conversation.	Tato konverzace je dlouhá: začněte novou konverzaci.
+@msg	Claude took too many steps: ask again, more simply.	Claude potřeboval příliš mnoho kroků: zeptejte se znovu a jednodušeji.
+@msg	Account made: welcome to PatternFoundry.	Účet vytvořen: vítejte ve PatternFoundry.
+@msg	Signed in.	Přihlášeno.
+@msg	Signed out.	Odhlášeno.
+@msg	Type your email address.	Napište svou e-mailovou adresu.
+@msg	Pay on the page that opened in your browser, then press Refresh.	Zaplaťte na stránce otevřené v prohlížeči a pak stiskněte Obnovit.
+	Ask About Patterns…	Zeptat se na střihy…
+	Answers come from Claude with your own Anthropic API key, billed to your Anthropic account. They can be wrong: sew a muslin before cutting good fabric.	Odpovědi přicházejí od Clauda s vaším vlastním klíčem API Anthropic, účtovaným na váš účet Anthropic. Mohou být chybné: než nastříháte dobrou látku, ušijte zkušební model z nebělené bavlny.
+	Ask About Patterns	Zeptat se na střihy
+	Ask anything about sewing patterns or PatternFoundry: how much ease to add, how to move a dart, which block to start from, where a feature is. Claude can also draft and change your pattern when you ask, after you allow it.	Zeptejte se na cokoli o střizích nebo PatternFoundry: kolik volnosti přidat, jak přesunout záševek, ze kterého základního střihu vyjít, kde je nějaká funkce. Claude může na vaši žádost také konstruovat a měnit váš střih, jakmile to povolíte.
+	Claude asks to:	Claude žádá:
+	Couldn't do:	Nelze provést:
+	Done:	Hotovo:
+	Free credits for the AI features, no API key needed	Kredity zdarma na funkce AI, bez klíče API
+	Free credits to try the AI features: Ask About Patterns drafts and changes patterns with you	Kredity zdarma na vyzkoušení funkcí AI: Zeptat se na střihy s vámi konstruuje a mění střihy
+	Include my pattern	Přiložit můj střih
+	Its pieces and sizes, and which measurements are set: never their values	Jeho díly a velikosti a které míry jsou nastavené: nikdy jejich hodnoty
+	Leave it empty for the Foundry service.	Nechte prázdné pro službu Foundry.
+	Not allowed:	Nepovoleno:
+	One account for every SiteSentrix app	Jeden účet pro všechny aplikace SiteSentrix
+	Read your measurements	Číst vaše míry
+@msg	Ask About Patterns needs a build that can reach the AI service	Zeptat se na střihy vyžaduje verzi, která se může připojit ke službě AI
+@msg	Foundry Account needs a build that can reach the AI service	Účet Foundry vyžaduje verzi, která se může připojit ke službě AI
+@msg	Sign in to your Foundry account (Help › Foundry Account…).	Přihlaste se ke svému účtu Foundry (Nápověda › Účet Foundry…).
+@msg	The Foundry service can't do this yet: try again later.	Služba Foundry to zatím neumí: zkuste to později.
+	Add Photos…	Přidat fotky…
+	Choose the photos in the browser's window…	Vyberte fotky v okně prohlížeče…
+@msg	This photo is too large: send a smaller copy.	Tato fotka je příliš velká: pošlete menší kopii.
+@msg	no files here	tady nejsou žádné soubory
+	About the fit	O padnutí
+	Anything else? For example: folds below the back neck	Ještě něco? Například: záhyby pod zadním výstřihem
+	Check My Muslin	Zkontrolovat zkušební model
+	Claude looks at the photos with your own Anthropic API key, billed to your Anthropic account. It can be wrong: sew the altered part again in muslin before cutting good fabric.	Claude se na fotky podívá s vaším vlastním klíčem API Anthropic, účtovaným na váš účet Anthropic. Může se mýlit: než nastříháte dobrou látku, ušijte upravenou část znovu jako zkušební model z nebělené bavlny.
+	Final fabric	Konečná látka
+	Hard to raise my arms	Těžko zvedám ruce
+	How it feels:	Jak sedí:
+	Include the pattern it was cut from (open now), so it can be altered	Přiložit střih, podle kterého byl nastříhán (teď otevřený), aby se dal upravit
+	Loose or gaping somewhere	Někde volný nebo odstává
+	Muslin fabric	Látka na zkušební model
+	My muslin ({n} photos)	Můj zkušební model ({n} fotek)
+	Photos of your muslin, tried on	Fotky vašeho zkušebního modelu na těle
+	The front, the side and the back, standing straight with your arms down, and close-ups of any folds or pulling.	Zepředu, z boku a zezadu, ve vzpřímeném postoji se spuštěnými pažemi, a detaily všech záhybů a míst, kde táhne.
+	The neckline gapes or pulls	Výstřih odstává nebo táhne
+	The photos go to Claude for this check only; PatternFoundry doesn't keep them.	Fotky jdou ke Claudovi jen pro tuto kontrolu; PatternFoundry si je neuchovává.
+	The shoulder seams don't sit on my shoulders	Ramenní švy nesedí na mých ramenou
+	Tight across the back or shoulders	Těsný přes záda nebo ramena
+	Tight across the bust or chest	Těsný přes prsa nebo hrudník
+	Tight at the waist or hips	Těsný v pase nebo v bocích
+	Too long or too short	Příliš dlouhý nebo příliš krátký
+	e.g. calico, an old sheet	např. nebělená bavlna, staré prostěradlo
+	e.g. cotton poplin, jersey	např. bavlněný popelín, úplet
+	Check My Muslin…	Zkontrolovat zkušební model…
+@msg	Add a photo of the muslin first.	Nejdřív přidejte fotku zkušebního modelu.
+@msg	Check My Muslin needs a build that can reach the AI service	Zkontrolovat zkušební model vyžaduje verzi, která se může připojit ke službě AI
+@msg	The image is too large to send: crop it, or send a smaller copy.	Obraz je příliš velký na odeslání: ořízněte ho nebo pošlete menší kopii.
+@msg	At most 6 photos: remove one first.	Nejvýš 6 fotek: nejdřív jednu odeberte.
+@msg	This photo can't be read: save or send it as a JPEG (on an iPhone: Settings › Camera › Formats › Most Compatible).	Tuto fotku nelze přečíst: uložte nebo pošlete ji jako JPEG (na iPhonu: Nastavení › Fotoaparát › Formáty › Nejkompatibilnější).
+	Make Marker	Vytvořit polohu střihu
+	Make Marker…	Vytvořit polohu střihu…
+	Gap	Mezera
+	Precision	Přesnost
+	One Way	Jedním směrem
+	Cut on fold	Stříhat v lomu
+	Folded	Přeložená
+	The straight edge laid on the fabric's fold: no allowance there	Rovný okraj položený na lom látky: bez švové záložky
+	Check Sleeve Ease	Zkontrolovat přidržení rukávu
+	Sleeve Ease	Přidržení rukávu
+	Crown {crown} mm, armhole {armhole} mm (back {back}, front {front}): the crown takes in {ease} mm ({percent}%).	Hlavice {crown} mm, průramek {armhole} mm (záda {back}, předek {front}): hlavice přidrží {ease} mm ({percent} %).
+	Less than the {min} to {max} mm it should take in: the sleeve may pull across the cap. Set sleeve_crown to {wanted} mm in Measurements to redraft the sleeve block with the ease in the middle.	Méně než {min} až {max} mm, které by měla přidržet: rukáv může v hlavici táhnout. Nastavte sleeve_crown na {wanted} mm v Mírách a základ rukávu se překreslí s přidržením uprostřed.
+	More than the {min} to {max} mm it should take in: the cap may pucker when it is set in. Set sleeve_crown to {wanted} mm in Measurements to redraft the sleeve block with the ease in the middle.	Více než {min} až {max} mm, které by měla přidržet: hlavice se může při všívání zvrásnit. Nastavte sleeve_crown na {wanted} mm v Mírách a základ rukávu se překreslí s přidržením uprostřed.
+	Within the {min} to {max} mm it should take in.	V rozmezí {min} až {max} mm, které by měla přidržet.
+	Edges: {edges}, notches: {notches}	Hrany: {edges}, zářezy: {notches}
+	Edge {n}	Hrana {n}
+	On fold	V lomu
+	Back to the piece's seam allowance	Zpět na švovou záložku dílu
+	A notch in the middle of the edge	Zářez uprostřed hrany
+	Notch on edge {edge}, {at}% along	Zářez na hraně {edge}, {at} % od začátku
+	Piece Outlines	Obrysy dílů
+	Projector	Projektor
+	Projector Scale (screen points per mm, 0: not calibrated)	Měřítko projektoru (body obrazovky na mm, 0: nezkalibrováno)
+	Projector View	Zobrazení pro projektor
+	Measure the square on the cutting mat: it should be 10 cm each way. The arrows make it bigger or smaller (with Shift, faster); Enter keeps it; Escape leaves. Scale: {scale} points per mm.	Změřte čtverec na řezací podložce: měl by mít 10 cm na každou stranu. Šipky ho zvětšují nebo zmenšují (se Shiftem rychleji); Enter ho ponechá; Escape skončí. Měřítko: {scale} bodů na mm.
+	Arrows move the pattern 1 cm (Shift: 1 mm) · M mirrors it · C calibrates · Escape leaves	Šipky posunou střih o 1 cm (Shift: 1 mm) · M ho zrcadlí · C kalibruje · Escape skončí
+@msg	no pattern pieces to project: make the outlines pattern pieces first (Pattern › Make Pattern Piece)	žádné díly střihu k promítnutí: nejdřív udělejte z obrysů díly střihu (Střih › Vytvořit díl střihu)
+@msg	scale: screen points per mm, more than 0	měřítko: body obrazovky na mm, více než 0
+	Delete Saved Measurements	Smazat uložené míry
+	Load Measurements	Načíst míry
+	My Measurements	Moje míry
+	Save to My Measurements	Uložit do Mých měr
+	Delete from this computer	Smazat z tohoto počítače
+	Kept on this computer only, to load into any pattern	Uchovávají se jen v tomto počítači, k načtení do libovolného střihu
+	Load	Načíst
+	Use these measurements in this pattern	Použít tyto míry v tomto střihu
+	Whose (Me)	Čí (Já)
+	Shorten Dart	Zkrátit záševek
+	Shorten Dart…	Zkrátit záševek…
+	Shorten	Zkrátit
+	Add Notch Here	Přidat zářez sem
+	Cut on Fold Here	Stříhat v lomu zde
+	Seam Allowance Here…	Švová záložka zde…
+	Grade This Point…	Odstupňovat tento bod…
+	Edge Allowance	Záložka hrany
+	Across	Vodorovně
+	Down	Dolů
+	One step	Jeden krok
+	The same move for each size, from the size above the base	Stejný posun pro každou velikost, podle velikosti nad základní
+	Per size	Po velikostech
+	A move for each size of its own	Vlastní posun pro každou velikost
+	Add Drill Hole Here	Přidat vrtaný otvor sem
+	Remove Drill Hole Here	Odebrat vrtaný otvor zde
+	Add Drill Hole	Přidat vrtaný otvor
+	Remove Drill Hole	Odebrat vrtaný otvor
+	Drill holes: {count}	Vrtané otvory: {count}
+	Right-click inside the piece: Add Drill Hole Here	Klikněte pravým tlačítkem uvnitř dílu: Přidat vrtaný otvor sem
+	Drill hole {n}, {mm} mm	Vrtaný otvor {n}, {mm} mm
+	Drill hole {n}	Vrtaný otvor {n}
+	Notch Shape	Tvar zářezu
+	Slit notch	Rovný zářez
+	Double notch	Dvojitý zářez
+	V notch	Zářez V
+	T notch	Zářez T
+	Castle notch	Hranatý zářez
+	U notch	Zářez U
+	As drawn	Jak je nakresleno
+	Side by side	Vedle sebe
+	Block Options…	Možnosti základního střihu…
+	Block Options	Možnosti základního střihu
+	Ease	Přídavek na volnost
+	Waist ease	Přídavek v pase
+	Bust dart	Prsní záševek
+	Shoulder dart	Ramenní záševek
+	Back dart	Zadní záševek
+	Back dart length	Délka zadního záševku
+	Front dart length	Délka předního záševku
+	Option	Možnost
+	Back to the block's default	Zpět na výchozí hodnotu základního střihu
+	from the measurements	z měr
+	Block Options Info	Informace o možnostech základního střihu
+	Check Trouser Seams	Zkontrolovat švy kalhot
+	Trouser Seams	Švy kalhot
+	Inseam, knee to hem	Vnitřní šev, od kolena k lemu
+	Inseam, crotch to knee	Vnitřní šev, od rozkroku ke kolenu
+	Side seam, knee to hem	Boční šev, od kolena k lemu
+	Side seam, waist to knee	Boční šev, od pasu ke kolenu
+	{seam}: front {front} mm, back {back} mm ({difference} mm)	{seam}: předek {front} mm, zadek {back} mm ({difference} mm)
+	Walk them on the pattern too: where a line doesn't run on smoothly from front to back, find the point half way between the two and correct both lines. The back inseam is more curved, so it is often longer: lowering the back crotch curve slightly to match is fine.	Projděte je i na střihu: kde čára nenavazuje plynule z předku na zadek, najděte bod v polovině mezi nimi a opravte obě čáry. Zadní vnitřní šev je víc zakřivený, a proto často delší: mírně snížit zadní sedovou křivku, aby seděl, je v pořádku.
+	Front dart	Přední záševek
+	Draft Trouser Waistband	Narýsovat pas kalhot
+	Flap Pocket…	Kapsa s patkou…
+	Crown ease	Přidání v hlavici rukávu
+	Remove Design Step	Odebrat krok úpravy
+	Dart moved	Záševek přesunut
+	Dart shortened {mm} mm	Záševek zkrácen o {mm} mm
+	Slashed and spread {mm} mm	Rozstřiženo a rozevřeno o {mm} mm
+	Seam trued to {mm} mm	Šev upraven na {mm} mm
+	Split into panels	Rozděleno na díly
+	Design step	Krok úpravy
+	Design steps: {count}	Kroky úprav: {count}
+	Design changes made on the block (darts, splits, spreads, seam lengths) show here; each is made again when the measurements change	Úpravy základního střihu (záševky, dělení, rozevření, délky švů) se zobrazují zde; každá se provede znovu, když se změní míry
+	Remove this step and the ones after it (they were made on the outline it made)	Odebrat tento krok a ty po něm (byly provedeny na obrysu, který vytvořil)
+	Selected block part	Vybraná část základního střihu
+	Curve Dart Legs…	Prohnout ramena záševku…
+	Curve Dart Legs	Prohnout ramena záševku
+	Dart legs curved {mm} mm	Ramena záševku prohnuta o {mm} mm
+	Draft Rounded Stand Collar	Konstruovat stojáček se zaoblenými rohy
+	Draft Wing Collar	Konstruovat límec s křidélky
+	Check Marker	Zkontrolovat polohu střihu
+	{length} cm long, {efficiency}% of the fabric used	{length} cm dlouhé, využito {efficiency} % látky
+	{a} overlaps {b}	{a} se překrývá s {b}
+	{piece} is off the fabric	{piece} je mimo látku
+	No pieces overlap, and all are on the fabric.	Žádné díly se nepřekrývají a všechny jsou na látce.
+	Plaid	Kostka
+menu	Pattern	Střih
+@msg	a and b are two pieces (or paths) that sew together	a a b jsou dva díly (nebo cesty), které se sešívají
+@msg	a corner is "mitre" or "square"	roh je "mitre" nebo "square"
+@msg	a facing runs along part of the outline	podsádka vede podél části obrysu
+@msg	a facing runs between two different points of the outline	podsádka vede mezi dvěma různými body obrysu
+@msg	a name takes at most 200 characters	název může mít nejvýše 200 znaků
+@msg	a neckline runs between two different points of its outline, and the shoulder point is one of them	výstřih vede mezi dvěma různými body svého obrysu a ramenní bod je jedním z nich
+@msg	a seam allowance is a number of mm, or a length with its unit ("5/8 in")	přídavek na šev je počet mm nebo délka s jednotkou ("5/8 in")
+@msg	a seam has no length	šev nemá délku
+@msg	a shoulder point is on its neck point	ramenní bod leží na krčním bodu
+@msg	a slash runs between two points of the outline that aren't neighbours	rozstřih vede mezi dvěma body obrysu, které nejsou sousední
+@msg	a split leaves a piece with fewer than three anchors	rozdělení zanechá díl s méně než třemi kotevními body
+@msg	a split made two panels: delete the panel you don't want instead	rozdělením vznikly dva díly: místo toho odstraňte díl, který nechcete
+@msg	a split needs two different anchors on the outline	rozdělení potřebuje dva různé kotevní body na obrysu
+@msg	amount: a share of the dart, (0, 1]	amount: podíl záševku, (0, 1]
+@msg	amount: how far it opens, mm	amount: o kolik se rozevře, mm
+@msg	anchor: the point's number along the path, from 0	anchor: číslo bodu podél cesty, od 0
+@msg	anchor: the seam line's point, from 0	anchor: bod linie šití, od 0
+@msg	anchors: [a, b] or [a]	anchors: [a, b] nebo [a]
+@msg	anchors: point numbers along the path	anchors: čísla bodů podél cesty
+@msg	apex: the dart's point (or select that one point)	apex: vrchol záševku (nebo vyberte právě ten jeden bod)
+@msg	at: 0 (the edge's start) to 1 (its end)	at: 0 (začátek hrany) až 1 (její konec)
+@msg	at: [x, y], the document point on the edge	at: [x, y], bod dokumentu na hraně
+@msg	base: the size the pattern is drawn in	base: velikost, ve které je střih nakreslen
+@msg	block: "bodice", "skirt", "sleeve" or "trousers"	block: "bodice", "skirt", "sleeve" nebo "trousers"
+@msg	can't make the seam that long by moving its end	šev nelze posunutím jeho konce tolik prodloužit
+@msg	curve: mm the wrap edge bows into the piece	curve: mm, o které se okraj zavinutí prohne do dílu
+@msg	cut is a whole number, 1 to 999	cut je celé číslo od 1 do 999
+@msg	data: the chart's text	data: text tabulky
+@msg	depth: how deep the pleat folds under, mm	depth: jak hluboko se sklad podkládá, mm
+@msg	depth: mm (less than 0 bows the legs in)	depth: mm (méně než 0 prohne ramena dovnitř)
+@msg	diameter: a number of mm, or a length with its unit ("1/8 in")	diameter: počet mm nebo délka s jednotkou ("1/8 in")
+@msg	edge: the edge's number, from 0 (or point)	edge: číslo hrany, od 0 (nebo point)
+@msg	edges and corners are numbered from 0	hrany a rohy se číslují od 0
+@msg	every: mm, at least 10	every: mm, nejméně 10
+@msg	face: only a box pleat has one	face: má ji jen protisklad
+@msg	face: the box pleat's width between its folds, mm	face: šířka protiskladu mezi jeho lomy, mm
+@msg	flapShape: "square", "rounded" or "pointed"	flapShape: "square", "rounded" nebo "pointed"
+@msg	fold is an edge's number (0..), or null	fold je číslo hrany (0..) nebo null
+@msg	fold: [a, b], the centre front edge's two points	fold: [a, b], dva body hrany středu předku
+@msg	fold: true or false	fold: true nebo false
+@msg	foldAt: [x, y] in document points	foldAt: [x, y] v bodech dokumentu
+@msg	folded: true or false	folded: true nebo false
+@msg	from: [x, y] in document points	from: [x, y] v bodech dokumentu
+@msg	from: not a pattern piece	from: není díl střihu
+@msg	from: the pattern piece whose rules are copied	from: díl střihu, jehož pravidla se kopírují
+@msg	from: the piece has no seam line	from: díl nemá linii šití
+@msg	frontShape: "square", "rounded" or "winged"	frontShape: "square", "rounded" nebo "winged"
+@msg	gathering runs between two different points of the outline	nařasení vede mezi dvěma různými body obrysu
+@msg	give apex and one of to or toAnchor (or select the two points)	zadejte apex a jedno z to nebo toAnchor (nebo vyberte oba body)
+@msg	height: mm, 10 to 100 (the tutorial's is at most 30)	height: mm, 10 až 100 (v návodu nejvýše 30)
+@msg	id: a block part's id	id: id části základního střihu
+@msg	index: the drill hole's place in the list, from 0 (or point)	index: pořadí vrtaného otvoru v seznamu, od 0 (nebo point)
+@msg	index: the notch's place in the list, from 0	index: pořadí zářezu v seznamu, od 0
+@msg	index: the step's place, from 0	index: pořadí kroku, od 0
+@msg	into: the length it gathers into, mm	into: délka, na kterou se nařasí, mm
+@msg	kind: "slit", "double", "v", "t", "castle" or "u"	kind: "slit", "double", "v", "t", "castle" nebo "u"
+@msg	kind: the notch's new shape	kind: nový tvar zářezu
+@msg	layer: a marker layer's id	layer: id vrstvy polohy střihu
+@msg	length (mm) or likeId with likeFrom and likeTo: the seam to match	length (mm) nebo likeId s likeFrom a likeTo: šev, ke kterému se má délka srovnat
+@msg	length: mm, more than 0	length: mm, více než 0
+@msg	line: "cut" or "seam"	line: "cut" nebo "seam"
+@msg	match: the seam it sews to is shorter than the pocket opening's end	match: šev, ke kterému se přišívá, končí dřív než konec vstupu do kapsy
+@msg	min is more than max	min je větší než max
+@msg	mirror is true or false	mirror je true nebo false
+@msg	mirror: "none", "x", "y" or "xy"	mirror: "none", "x", "y" nebo "xy"
+@msg	name: the saved set's name	name: název uložené sady
+@msg	name: whose measurements they are ("Me")	name: čí jsou to míry ("Me")
+@msg	no drill hole near the point	v blízkosti bodu není žádný vrtaný otvor
+@msg	no drill hole with that index	vrtaný otvor s tímto indexem neexistuje
+@msg	no notch with that index	zářez s tímto indexem neexistuje
+@msg	no object with that id	objekt s tímto id neexistuje
+@msg	no pattern pieces to grade: make the outlines pattern pieces first (Pattern › Make Pattern Piece)	žádné díly střihu k odstupňování: nejprve z obrysů vytvořte díly střihu (Střih › Vytvořit díl střihu)
+@msg	no straight centre front edge on the outline's side: name it with fold: [a, b]	na této straně obrysu není rovná hrana středu předku: určete ji pomocí fold: [a, b]
+@msg	not a drafted block part	není část zkonstruovaného základního střihu
+@msg	not a marker's layer (Pattern › Make Marker…)	není vrstva polohy střihu (Střih › Vytvořit polohu střihu…)
+@msg	not a pattern piece	není díl střihu
+@msg	not a stand collar's outline	není obrys stojáčku
+@msg	notches go on pattern pieces: make both seams' paths pieces first (Pattern › Make Pattern Piece)	zářezy patří na díly střihu: nejprve z cest obou švů vytvořte díly (Střih › Vytvořit díl střihu)
+@msg	notches: [mm, …]	notches: [mm, …]
+@msg	notches: distances from the seams' starts, mm	notches: vzdálenosti od začátků švů, mm
+@msg	on and at go together: the garment piece and where the opening's top-left corner goes on it	on a at se zadávají společně: díl oděvu a místo, kam na něm přijde levý horní roh otvoru
+@msg	on and at go together: the garment piece and where the pocket's top-left corner goes on it	on a at se zadávají společně: díl oděvu a místo, kam na něm přijde levý horní roh kapsy
+@msg	one point splits only where another point is at the same place (two darts' point)	jediný bod rozděluje jen tam, kde na stejném místě leží jiný bod (vrchol dvou záševků)
+@msg	oneWay: true or false	oneWay: true nebo false
+@msg	openFolds: true or false	openFolds: true nebo false
+@msg	origin: [x, y] in document points	origin: [x, y] v bodech dokumentu
+@msg	overlap: mm past centre front, more than 0	overlap: mm přes střed předku, více než 0
+@msg	overlap: the edge misses the outline	overlap: hrana mine obrys
+@msg	plaid: the repeat (mm, or [along, across])	plaid: střída (mm nebo [along, across])
+@msg	plaid: the repeat along and across, 1 to 10 000 mm each	plaid: střída po délce a po šířce, každá 1 až 10 000 mm
+@msg	point: [x, y] in document points	point: [x, y] v bodech dokumentu
+@msg	select a drafted block part (Pattern › Draft … Block)	vyberte část zkonstruovaného základního střihu (Střih › Konstruovat základní střih …)
+@msg	select a path or a pattern piece	vyberte cestu nebo díl střihu
+@msg	select a pattern piece (Pattern › Make Pattern Piece makes one)	vyberte díl střihu (vytvoří ho Střih › Vytvořit díl střihu)
+@msg	select a piece on the marker to check	vyberte díl v poloze střihu, který chcete zkontrolovat
+@msg	select closed paths: each becomes a piece, the path its seam line	vyberte uzavřené cesty: z každé se stane díl a z cesty jeho linie šití
+@msg	select one path	vyberte jednu cestu
+@msg	select one pattern piece	vyberte jeden díl střihu
+@msg	select two points of one path (or one that two darts share)	vyberte dva body jedné cesty (nebo jeden, který sdílejí dva záševky)
+@msg	select two points of one path: the dart's point and where the dart moves to	vyberte dva body jedné cesty: vrchol záševku a místo, kam se záševek přesune
+@msg	select two points of one path: the ends of the edge to face	vyberte dva body jedné cesty: konce hrany, která dostane podsádku
+@msg	select two points of one path: the ends of the edge to gather	vyberte dva body jedné cesty: konce hrany, která se má nařasit
+@msg	share is true or false	share je true nebo false
+@msg	shorten: mm (less than 0 lengthens)	shorten: mm (méně než 0 prodlouží)
+@msg	shoulder: longer than the outline	shoulder: delší než obrys
+@msg	shoulder: mm, 0 or more	shoulder: mm, 0 nebo více
+@msg	size: one of the chart's sizes	size: jedna z velikostí tabulky
+@msg	size: the name of a size of the size range or chart	size: název velikosti z řady velikostí nebo z tabulky
+@msg	sizes: name one size at least	sizes: uveďte alespoň jednu velikost
+@msg	sizes: the sizes' names	sizes: názvy velikostí
+@msg	sizes: the sizes' names, smallest first (null removes them)	sizes: názvy velikostí, od nejmenší (null je odstraní)
+@msg	split the seam line on its own: release the piece first (Pattern › Release Pattern Piece)	chcete-li rozdělit samotnou linii šití, nejprve uvolněte díl (Střih › Uvolnit díl střihu)
+@msg	step: [dx, dy] in mm	step: [dx, dy] v mm
+@msg	style: classic, casual or shirt	style: classic, casual nebo shirt
+@msg	that anchor's neighbours don't make a dart	sousedé tohoto kotevního bodu netvoří záševek
+@msg	that point is not a dart's point: its legs open a right angle or wider	tento bod není vrchol záševku: jeho ramena svírají pravý nebo větší úhel
+@msg	the amount is a share of the dart, more than 0 and at most 1	množství je podíl záševku, větší než 0 a nejvýše 1
+@msg	the back's outline encloses no area	obrys zadního dílu neohraničuje žádnou plochu
+@msg	the box pleat's face is more than 0 wide	líc protiskladu je širší než 0
+@msg	the chart is larger than 1 MB	tabulka je větší než 1 MB
+@msg	the curve has no length at the meeting point	křivka nemá v bodě setkání žádnou délku
+@msg	the curves leave the seam the same way	křivky opouštějí šev stejným směrem
+@msg	the dart has no length	záševek nemá délku
+@msg	the dart is not that long	záševek není tak dlouhý
+@msg	the dart point or the new dart's anchor is not on the outline	vrchol záševku nebo kotevní bod nového záševku neleží na obrysu
+@msg	the dart's legs must be straight lines	ramena záševku musí být přímé čáry
+@msg	the dart's point is past the outline's end	vrchol záševku leží za koncem obrysu
+@msg	the depth to curve the legs by is not a number	hloubka prohnutí ramen není číslo
+@msg	the document has no marker (Pattern › Make Marker…)	dokument nemá polohu střihu (Střih › Vytvořit polohu střihu…)
+@msg	the document has no measurements to save	dokument nemá žádné míry k uložení
+@msg	the document has no size chart (measure.importChart)	dokument nemá tabulku velikostí (measure.importChart)
+@msg	the drop at the front is less than half the neck edge	prohloubení vpředu je menší než polovina hrany krku
+@msg	the edge has no length	hrana nemá délku
+@msg	the edge's anchor is past the outline's end	kotevní bod hrany leží za koncem obrysu
+@msg	the fabric's width must be more than 0	šířka látky musí být větší než 0
+@msg	the flap is deeper than twice its width	patka je hlubší než dvojnásobek své šířky
+@msg	the flap's width and depth are more than 0, its allowance 0 or more	šířka a hloubka patky jsou větší než 0, její přídavek 0 nebo více
+@msg	the fold edge has no length	hrana lomu nemá délku
+@msg	the fold edge's anchors are past the outline's end	kotevní body hrany lomu leží za koncem obrysu
+@msg	the fold edge's two anchors must be neighbours on the outline	dva kotevní body hrany lomu musí být na obrysu sousední
+@msg	the fold must be a straight edge	lom musí být rovná hrana
+@msg	the front end has no length	přední konec nemá délku
+@msg	the gap must be 0 or more	mezera musí být 0 nebo více
+@msg	the grainline's ends are the same point	konce směru osnovy jsou tentýž bod
+@msg	the legs can't curve that far: the dart isn't wide enough	ramena nelze tolik prohnout: záševek není dost široký
+@msg	the length to shorten by is not a number	délka zkrácení není číslo
+@msg	the marker has lost its fabric outline	poloha střihu ztratila obrys látky
+@msg	the marker has no pieces	poloha střihu nemá žádné díly
+@msg	the marker is too large at this precision: give a coarser one	poloha střihu je při této přesnosti příliš velká: zadejte hrubší
+@msg	the measurements could not be saved	míry se nepodařilo uložit
+@msg	the meeting point and the seam's other end are points of the outline	bod setkání a druhý konec švu jsou body obrysu
+@msg	the neckline has no length	výstřih nemá délku
+@msg	the neckline lengths and the stand's height are more than 0, the rise and extension 0 or more	délky výstřihu a výška stojáčku jsou větší než 0, převýšení a přesah 0 nebo více
+@msg	the new dart is on the old dart	nový záševek leží na starém
+@msg	the opening is longer than twice its height	otvor je delší než dvojnásobek své výšky
+@msg	the opening, depth and width are more than 0, the width more than the allowance	otvor, hloubka a šířka jsou větší než 0, šířka větší než přídavek
+@msg	the opening, the welt and the depth are more than 0, the allowances 0 or more	otvor, lišta a hloubka jsou větší než 0, přídavky 0 nebo více
+@msg	the outline encloses no area	obrys neohraničuje žádnou plochu
+@msg	the outline has no side seam	obrys nemá boční šev
+@msg	the path has no outline	cesta nemá obrys
+@msg	the path must be one closed outline	cesta musí být jeden uzavřený obrys
+@msg	the piece has no grade rules to copy	díl nemá žádná pravidla odstupňování ke kopírování
+@msg	the piece has no straight edge to cut on the fold	díl nemá rovnou hranu ke stříhání v lomu
+@msg	the pieces have no cutting lines to lay	díly nemají žádné linie střihu k položení
+@msg	the plaid's repeat must be more than 0 along and across	střída kostky musí být po délce i po šířce větší než 0
+@msg	the pocket (its opening and the allowance past both ends) fits on the seam	kapsa (její otvor a přídavek za oběma konci) se vejde na šev
+@msg	the point is not inside the piece	bod neleží uvnitř dílu
+@msg	the point is not on the seam line or in its allowance	bod neleží na linii šití ani v jejím přídavku
+@msg	the precision must be more than 0	přesnost musí být větší než 0
+@msg	the rise at centre front is less than the front neckline is long	převýšení ve středu předku je menší než délka předního výstřihu
+@msg	the seam has no length there	šev tam nemá délku
+@msg	the seam runs between two different points of the outline	šev vede mezi dvěma různými body obrysu
+@msg	the seam's other end is a neighbour of the meeting point	druhý konec švu sousedí s bodem setkání
+@msg	the top edge has no length	horní hrana nemá délku
+@msg	the wing is more than 0 long	křidélko je delší než 0
+@msg	there is no folder to keep measurement sets in here (the desktop app keeps them next to its preferences)	není zde složka pro sady měr (aplikace pro počítač je ukládá vedle svých předvoleb)
+@msg	there is no point of the seam line there	v tom místě není žádný bod linie šití
+@msg	to or toAnchor: where the dart moves to	to nebo toAnchor: místo, kam se záševek přesune
+@msg	to: [x, y] in document points	to: [x, y] v bodech dokumentu
+@msg	to: the pieces to copy the rules to (select them, or name them)	to: díly, na které se pravidla zkopírují (vyberte je nebo je pojmenujte)
+@msg	too many objects at once	příliš mnoho objektů najednou
+@msg	too many pieces at once	příliš mnoho dílů najednou
+@msg	too many pieces to lay at once	příliš mnoho dílů k položení najednou
+@msg	too many sizes at once	příliš mnoho velikostí najednou
+@msg	unit: "mm", "cm" or "in"	unit: "mm", "cm" nebo "in"
+@msg	width: mm, more than 0	width: mm, více než 0
+	Draw Avatar	Nakreslit avatara
+	Export Avatar as OBJ	Exportovat avatara jako OBJ
+	Sewn seams: {count}	Sešité švy: {count}
+	{label}: sewn to {piece}, {mm} mm longer	{label}: sešito s {piece}, o {mm} mm delší
+	{label}: sewn to {piece}, {mm} mm shorter	{label}: sešito s {piece}, o {mm} mm kratší
+	{label}: sewn to {piece}	{label}: sešito s {piece}
+	Sew Seams	Sešít švy
+	Unsew Seams	Rozpárat švy
+	Sewn Seams	Sešité švy
+	Drape on Avatar	Drapovat na avatara
+	Use as Fabric…	Použít jako látku…
+	Use as Fabric	Použít jako látku
+	Stop Using as Fabric	Přestat používat jako látku
+	Fabric Photos	Fotografie látek
+@msg	the drape view's picture is the wrong size	obrázek pohledu na splývání má špatnou velikost
+@msg	the drape view: {e}	pohled na splývání: {e}
+@msg	a fabric photo is the wrong size	fotografie látky má špatnou velikost
+@msg	a fabric photo: {e}	fotografie látky: {e}
+	Export Avatar as glTF	Exportovat avatara jako glTF
+	Export Avatar as glTF…	Exportovat avatara jako glTF…
+	Export Drape as glTF…	Exportovat splývání jako glTF…
+@msg	format: "obj" or "glb"	format: "obj" nebo "glb"
+@msg	colour: "fabric" or "fit"	colour: "fabric" nebo "fit"
+@msg	a piece could not be placed on the body	díl se nepodařilo umístit na tělo
+@msg	{name} is already open	{name} je už otevřen
+@msg	Draping on Avatar	Splývání na avatarovi
+	Step {n} of {total}	Krok {n} z {total}
+@msg	The drape was cancelled	Splývání bylo zrušeno
+@msg	Draped on the avatar	Splývání na avatarovi hotovo
+@msg	the document was closed	dokument byl zavřen
+@msg	the drape stopped	splývání se zastavilo
+@msg	width: the photo's width on the fabric, 10 to 5000 mm	width: šířka fotografie na látce, 10 až 5000 mm
+@msg	turns: 0, 1, 2 or 3	turns: 0, 1, 2 nebo 3
+@msg	the image is not a fabric photo (Pattern › Use as Fabric…)	obrázek není fotografie látky (Střih › Použít jako látku…)
+@msg	even: true or false	even: true nebo false
+@msg	seamless: true or false	seamless: true nebo false
+@msg	Sign in to your Foundry Account first: Help › Foundry Account…	Nejdřív se přihlaste ke svému účtu Foundry: Nápověda › Účet Foundry…
+@msg	The document is empty: there is nothing to publish.	Dokument je prázdný: není co publikovat.
+@msg	The design is too large for MakerFoundry: at most 8 MB.	Návrh je pro MakerFoundry příliš velký: nejvýš 8 MB.
+@msg	MakerFoundry's answer couldn't be read.	Odpověď MakerFoundry se nepodařilo přečíst.
+@msg	MakerFoundry answered with a page on another site, which wasn't opened.	MakerFoundry odpověděl stránkou na jiném webu, která se neotevřela.
+@msg	MakerFoundry: {1}	MakerFoundry: {1}
+@msg	MakerFoundry couldn't be reached: {0}	MakerFoundry není dostupný: {0}
+@msg	Publish to MakerFoundry needs a build that can reach MakerFoundry	Publikovat na MakerFoundry potřebuje verzi, která se k MakerFoundry dostane
+@msg	open Publish to MakerFoundry first: it shows what is sent	nejdřív otevřete Publikovat na MakerFoundry: ukazuje, co se odešle
+@msg	That link isn't a design file on MakerFoundry, so it wasn't opened.	Tento odkaz není soubor návrhu na MakerFoundry, a proto nebyl otevřen.
+@msg	The design is too large to open: at most 32 MB.	Návrh je příliš velký na otevření: nejvýše 32 MB.
+@msg	PatternFoundry opens SVG and DXF designs from MakerFoundry; that file is neither.	PatternFoundry otevírá návrhy SVG a DXF z MakerFoundry; tento soubor není ani jedno.
+@msg	The design couldn't be downloaded from MakerFoundry: {0}	Návrh se nepodařilo stáhnout z MakerFoundry: {0}

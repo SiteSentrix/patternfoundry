@@ -1,4 +1,6 @@
-//! A save format's options before the file is written; on the web, where there is no save panel,
+//! A save format's options before the file is written (and, after Export As, the pattern exports'
+//! options: DXF-AAMA, SVG for cutting and PDF for projector, PF-7.9); on the web, where there is no
+//! save panel,
 //! also the Save As dialog that names the file and picks the format (SVG and PDF then go on to
 //! their own dialogs). The rows come from the format's options in the engine's format table, so a
 //! format gains rows as its encoder gains options.
@@ -372,6 +374,33 @@ fn option_row(app: &VectorcraftApp, ui: &mut egui::Ui, d: &mut Dialog, o: &Forma
         ui.end_row();
         return;
     }
+    // Pattern exports: the size from the document's size range, the projector's layout and the
+    // DXF-AAMA version from lists.
+    let sizes: Vec<String> = app.session.active().and_then(|st| st.doc.grade_sizes.as_deref().map(|r| r.sizes.clone())).unwrap_or_default();
+    let list: Option<(Vec<&str>, Vec<String>)> = match (o.name, d.str("format").as_str()) {
+        ("size", _) if !sizes.is_empty() => {
+            let mut ids = vec![String::new()];
+            ids.extend(sizes.iter().cloned());
+            let mut names = vec![tl!("As drawn")];
+            names.extend(sizes.iter().map(String::as_str));
+            Some((names, ids))
+        }
+        ("layout", "projector") => Some((vec![tl!("Side by side"), tl!("As drawn")], vec!["row".into(), "asDrawn".into()])),
+        ("version", "aama") => Some((vec!["R13 (ASTM D6673)", "R12"], vec!["R13".into(), "R12".into()])),
+        _ => None,
+    };
+    if let Some((names, ids)) = list {
+        ui.label(egui::RichText::new(&label).color(t.text_dim)).on_hover_text(o.description);
+        let current = value.as_str().unwrap_or_default();
+        let at = ids.iter().position(|i| i.eq_ignore_ascii_case(current)).unwrap_or(0);
+        if let Some(i) = widgets::dropdown(ui, ("save-option", o.name), names.get(at).copied().unwrap_or_default(), &names, 254.0)
+            && let Some(id) = ids.get(i)
+        {
+            d.fields.insert(o.name.into(), json!(id));
+        }
+        ui.end_row();
+        return;
+    }
     if o.ty == "boolean" {
         ui.label("");
         let on = value.as_bool().unwrap_or(false);
@@ -461,6 +490,12 @@ fn confirm(app: &mut VectorcraftApp, d: &Dialog) -> DialogResult {
         }
     }
     app.ui.dialog = None;
+    // A pattern export's options (Export As): the file is exported, the document not saved.
+    if d.str("__action") == "file.exportAs" {
+        let mut params = Value::Object(options);
+        params["format"] = json!(f.id);
+        return io::export(app, Some(f.id), Some(path), &params);
+    }
     match SaveMode::of(&d.str("__action")) {
         Some(mode) if own_dialog(f) => io::ask_format_options(app, mode, f, &path),
         Some(mode) => io::save(app, mode, &json!({ "path": path, "format": f.id, "options": options }), false),

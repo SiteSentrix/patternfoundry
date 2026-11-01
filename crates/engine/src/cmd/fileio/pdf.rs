@@ -256,7 +256,7 @@ pub const EDITING_NEEDS_EVERY_ARTBOARD: &str =
 pub fn encode(cmd: &str, doc: &Document, p: &Value) -> Result<(Vec<u8>, Vec<String>)> {
     // Keep the editable object tree independent of preview fallbacks used by the drawn pages.
     let (full, mut warnings) = crate::cmd::place::document::full_documents(doc);
-    let (bytes, drawn_warnings) = encode_carrying(cmd, &full, p, || Ok(vectorcraft_format::save(doc, false)))?;
+    let (bytes, drawn_warnings) = encode_carrying(cmd, &full, p, || Ok(vectorcraft_format::save(&crate::cmd::measure::for_sharing(doc), false)))?;
     warnings.extend(drawn_warnings);
     warnings.extend(overflow_warning(cmd, &full, p)?);
     Ok((bytes, warnings))

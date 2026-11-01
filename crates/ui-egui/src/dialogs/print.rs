@@ -659,6 +659,8 @@ fn general(app: &VectorcraftApp, ui: &mut egui::Ui, d: &mut Dialog) {
     if tiles {
         note(ui, tl!("Tiles are numbered across, then down; leave the range empty for every tile."));
     }
+    // PatternFoundry: what a sewist checks and tapes by.
+    flag(ui, d, "patternMarks", tl!("Pattern Marks (test squares, page names, overlap lines)"), true);
 }
 
 fn output(ui: &mut egui::Ui, d: &mut Dialog, pv: &Result<Value, String>) {

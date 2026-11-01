@@ -5190,3 +5190,571 @@ swatch	Bright Violet	Violet cerah
 	Justification	Justifikasi
 # Select by Color (select.color)
 	Select by Color	Pilih berdasarkan warna
+# PatternFoundry: pattern pieces (PF-1).
+	Add Notch	Tambah takik
+	Make Pattern Piece	Buat bagian pola
+	Pattern Pieces	Bagian pola
+	Piece Info	Info bagian
+	Piece Options	Opsi bagian
+	Release Pattern Piece	Lepaskan bagian pola
+	Remove Notch	Hapus takik
+	Cut {count}	Potong {count}
+	Each selected closed path becomes a piece: the path is its seam line	Setiap jalur tertutup yang dipilih menjadi bagian: jalur itu adalah garis jahitnya
+	Edges	Tepi
+	Fabric	Kain
+	Mirrored pairs	Pasangan cermin
+	No pattern pieces yet	Belum ada bagian pola
+	Notches	Takik
+	Pattern piece	Bagian pola
+	Pieces	Bagian
+	Seam allowance	Kampuh
+	Seam line length	Panjang garis jahit
+	Selected piece	Bagian terpilih
+# PatternFoundry: true-scale printing (PF-2).
+	Pattern Marks (test squares, page names, overlap lines)	Tanda pola (persegi uji, nama halaman, garis tumpang)
+# PatternFoundry: measurements (PF-3).
+	Add Measurement	Tambah ukuran
+	Clear Measurements	Hapus ukuran
+	Clear Point Formulas	Hapus rumus titik
+	Draft Info	Info pola dasar
+	Formulas	Rumus
+	Import Size Chart	Impor tabel ukuran
+	Let PDF and SVG files saved with Preserve Editing keep the measured values	File PDF dan SVG yang disimpan dengan Pertahankan Pengeditan menyimpan nilai ukuran
+	Measurements	Ukuran
+	No measurements yet	Belum ada ukuran
+	Set Measurements	Atur ukuran
+	Set Point Formula	Atur rumus titik
+	Share in exported files	Bagikan di file ekspor
+	Figure	Postur
+	Female	Perempuan
+	Male	Laki-laki
+	Child	Anak
+	The avatar takes what the measurements don't give from a survey's women's, men's or children's proportions	Avatar mengambil yang tidak diberikan ukuran dari proporsi perempuan, laki-laki, atau anak-anak dalam sebuah survei
+	Size chart	Tabel ukuran
+	Use Size	Gunakan ukuran
+# PatternFoundry: blocks (PF-4).
+	Draft Bodice Block	Buat pola dasar badan
+	Block Measurements	Ukuran pola dasar
+	Draft Skirt Block	Buat pola dasar rok
+# PatternFoundry: design tools (PF-5).
+	Rotate Dart	Putar kup
+	Split at Points	Pisah di titik
+	Seam Length	Panjang jahitan
+	Slash and Spread	Gunting dan lebarkan
+	Match Seam Length	Samakan panjang jahitan
+	Make Facing	Buat lapisan tepi
+	Add Pleat	Tambah lipit
+	Draft Sleeve Block	Buat pola dasar lengan
+	Draft Trouser Block	Buat pola dasar celana
+	Draft Men's Trouser Block	Gambar pola dasar celana pria
+	Draft Men's Shirt Block	Gambar pola dasar kemeja pria
+	Draft Men's Shirt Sleeve Block	Gambar pola dasar lengan kemeja pria
+	Gather	Kerut
+	Draft Collar	Buat pola kerah
+	Patch Pocket	Saku tempel
+	Walk Seams	Cocokkan jahitan
+	Smooth Across Seam	Haluskan melintasi jahitan
+	Draft Stand Collar	Buat pola kerah berdiri
+	In-Seam Pocket	Saku di jahitan
+	Welt Pocket	Saku bobok
+	Make Wrap Front	Bagian depan lilit
+	Make Band	Buat ban
+	Grade Nest	Grading ukuran
+	Clear Graded Nest	Hapus grading ukuran
+	Set Size Range	Atur rentang ukuran
+	Set Grade Rule	Atur aturan grading
+	Grade Info	Info grading
+	Grading	Grading
+	Base size	Ukuran dasar
+	Grade rules (mm a size)	Aturan grading (mm per ukuran)
+	Name the sizes, smallest first, to give the points grade rules	Beri nama ukuran, dari yang terkecil, untuk memberi titik aturan grading
+	Select one pattern piece to grade its points	Pilih satu potongan pola untuk men-grading titik-titiknya
+	Sizes	Ukuran
+	per size	per ukuran
+	Copy Grade Rules	Salin aturan grading
+	Copy Rules To	Salin aturan ke
+	Mirrored	Dicerminkan
+	For the opposite half: places mirrored left to right, x moves the other way	Untuk sisi seberang: posisi dicerminkan kiri ke kanan, gerakan x berlawanan arah
+	Draft Shirt Collar	Buat pola kerah kemeja
+file-filter	DXF-AAMA (cutting room)	DXF-AAMA (ruang potong)
+@msg	DXF-AAMA files are DXF R13 (ASTM D6673) or R12	Berkas DXF-AAMA adalah DXF R13 (ASTM D6673) atau R12
+@msg	no pattern pieces to export	tidak ada potongan pola untuk diekspor
+@msg	the piece {_1} has no outline	potongan {_1} tidak memiliki garis tepi
+file-filter	SVG for cutting	SVG untuk pemotongan
+file-filter	PDF for projector	PDF untuk proyektor
+	Foundry Account…	Akun Foundry…
+	Publish to MakerFoundry…	Terbitkan ke MakerFoundry…
+	Publish to MakerFoundry	Terbitkan ke MakerFoundry
+	Publish	Terbitkan
+	Sign In…	Masuk…
+	Not signed in	Belum masuk
+	Your Foundry Account	Akun Foundry Anda
+	Sent to	Dikirim ke
+	SVG, a vector design	SVG, desain vektor
+	What it is, e.g. A-line skirt	Apa ini, mis. rok A-line
+	Your design goes to MakerFoundry as a private draft, to finish on its page. Nothing is public until you publish it there.	Desain Anda dikirim ke MakerFoundry sebagai draf pribadi, untuk diselesaikan di halamannya. Tidak ada yang publik sampai Anda menerbitkannya di sana.
+	Draft {id} made.	Draf {id} dibuat.
+	Draft {id} made on MakerFoundry: finish it on the page that opened in your browser.	Draf {id} dibuat di MakerFoundry: selesaikan di halaman yang terbuka di browser.
+	Finish it on MakerFoundry's page, which opened in your browser: it stays private until you publish it there.	Selesaikan di halaman MakerFoundry yang terbuka di browser: draf tetap pribadi sampai Anda menerbitkannya di sana.
+	A password needs at least 8 characters.	Kata sandi perlu minimal 8 karakter.
+	Account	Akun
+	Allow	Izinkan
+	Anthropic API key:	Kunci API Anthropic:
+	Ask	Tanya
+	Buy credits	Beli kredit
+	Buy…	Beli…
+	Change key	Ganti kunci
+	Create Free Account	Buat Akun Gratis
+	Create a free Foundry Account	Buat Akun Foundry gratis
+	Don't Allow	Jangan izinkan
+	Edit › Undo takes each change back.	Edit › Urungkan membatalkan setiap perubahan.
+	Email	Email
+	Foundry Account	Akun Foundry
+	Foundry accounts aren't open yet. Until then, the AI features work with your own Anthropic API key.	Akun Foundry belum dibuka. Sampai saat itu, fitur AI bekerja dengan kunci API Anthropic Anda sendiri.
+	Get a key	Dapatkan kunci
+	I have an account: Sign In	Saya punya akun: Masuk
+	New Conversation	Percakapan baru
+	New here? Create a free account	Baru di sini? Buat akun gratis
+	No card needed, and no API key to set up	Tanpa kartu dan tanpa kunci API yang perlu diatur
+	Paid with Foundry credits ({n} left).	Dibayar dengan kredit Foundry (sisa {n}).
+	Paid with Foundry credits.	Dibayar dengan kredit Foundry.
+	Pay for the AI features with my Foundry credits	Bayar fitur AI dengan kredit Foundry saya
+	Pay with Foundry credits instead	Bayar dengan kredit Foundry saja
+	Payment is on Stripe's secure page, in your browser; your card never reaches PatternFoundry.	Pembayaran dilakukan di halaman aman Stripe, di peramban Anda; kartu Anda tidak pernah sampai ke PatternFoundry.
+	Reading your credits…	Membaca kredit Anda…
+	Remember the key on this computer	Ingat kunci di komputer ini
+	Server	Server
+	Sign In	Masuk
+	Sign Out	Keluar
+	Sign in to your Foundry Account	Masuk ke Akun Foundry Anda
+	Signed in as {email}	Masuk sebagai {email}
+	Thinking…	Berpikir…
+	Type your question, then press Enter	Ketik pertanyaan Anda, lalu tekan Enter
+	{n} credits	{n} kredit
+	{n} credits for {price}	{n} kredit seharga {price}
+	Ask About Patterns…	Tanya tentang pola…
+	Answers come from Claude with your own Anthropic API key, billed to your Anthropic account. They can be wrong: sew a muslin before cutting good fabric.	Jawaban berasal dari Claude dengan kunci API Anthropic Anda sendiri, ditagihkan ke akun Anthropic Anda. Jawaban bisa salah: jahit pakaian uji dari kain blacu sebelum memotong kain yang bagus.
+	Ask About Patterns	Tanya tentang pola
+	Ask anything about sewing patterns or PatternFoundry: how much ease to add, how to move a dart, which block to start from, where a feature is. Claude can also draft and change your pattern when you ask, after you allow it.	Tanyakan apa saja tentang pola jahit atau PatternFoundry: berapa banyak kelonggaran yang perlu ditambahkan, cara memindahkan kup, pola dasar mana yang dipakai sebagai awal, di mana sebuah fitur berada. Claude juga dapat membuat dan mengubah pola Anda saat Anda memintanya, setelah Anda mengizinkannya.
+	Claude asks to:	Claude meminta untuk:
+	Couldn't do:	Tidak dapat dilakukan:
+	Done:	Selesai:
+	Free credits for the AI features, no API key needed	Kredit gratis untuk fitur AI, tanpa kunci API
+	Free credits to try the AI features: Ask About Patterns drafts and changes patterns with you	Kredit gratis untuk mencoba fitur AI: Tanya tentang pola membuat dan mengubah pola bersama Anda
+	Include my pattern	Sertakan pola saya
+	Its pieces and sizes, and which measurements are set: never their values	Bagian dan ukurannya, serta ukuran badan mana yang sudah diatur: tidak pernah nilainya
+	Leave it empty for the Foundry service.	Kosongkan untuk memakai layanan Foundry.
+	Not allowed:	Tidak diizinkan:
+	One account for every SiteSentrix app	Satu akun untuk semua aplikasi SiteSentrix
+	Read your measurements	Membaca ukuran badan Anda
+@msg	An account with that email already exists: sign in instead.	Akun dengan email itu sudah ada: silakan masuk.
+@msg	Ask About Patterns needs a build that can reach the AI service	Tanya tentang pola memerlukan build yang dapat menjangkau layanan AI
+@msg	Foundry Account needs a build that can reach the AI service	Akun Foundry memerlukan build yang dapat menjangkau layanan AI
+@msg	Foundry accounts aren't open yet.	Akun Foundry belum dibuka.
+@msg	Not enough Foundry credits: buy more in Foundry Account.	Kredit Foundry tidak cukup: beli lagi di Akun Foundry.
+@msg	Sign in to your Foundry account (Help › Foundry Account…).	Masuk ke akun Foundry Anda (Bantuan › Akun Foundry…).
+@msg	The Foundry service can't do this yet: try again later.	Layanan Foundry belum bisa melakukan ini: coba lagi nanti.
+@msg	this needs a connection to the AI service, which this build doesn't have	ini memerlukan koneksi ke layanan AI, yang tidak dimiliki build ini
+@msg	Account made: welcome to PatternFoundry.	Akun dibuat: selamat datang di PatternFoundry.
+@msg	Signed in.	Berhasil masuk.
+@msg	Signed out.	Berhasil keluar.
+@msg	Type your email address.	Ketik alamat email Anda.
+@msg	Pay on the page that opened in your browser, then press Refresh.	Bayar di halaman yang terbuka di browser Anda, lalu tekan Segarkan.
+@msg	Anthropic refused the API key: {0}	Anthropic menolak kunci API: {0}
+@msg	Couldn't reach the AI service: {0}	Tidak dapat menjangkau layanan AI: {0}
+@msg	Enter your Anthropic API key first.	Masukkan dulu kunci API Anthropic Anda.
+@msg	The AI declined to answer this: ask another way.	AI menolak menjawab ini: tanyakan dengan cara lain.
+@msg	The AI service failed (error {0}): try again later.	Layanan AI gagal (galat {0}): coba lagi nanti.
+@msg	The AI service is busy: try again in a minute.	Layanan AI sedang sibuk: coba lagi dalam satu menit.
+@msg	The API key isn't valid: paste it again from the Anthropic Console.	Kunci API tidak valid: tempel lagi dari Anthropic Console.
+@msg	The question is too long: keep it under 2,000 characters.	Pertanyaannya terlalu panjang: buat kurang dari 2.000 karakter.
+@msg	The reply had no answer: try again, or ask something narrower.	Balasan tidak berisi jawaban: coba lagi, atau tanyakan sesuatu yang lebih spesifik.
+@msg	The request failed (error {0}): {1}	Permintaan gagal (galat {0}): {1}
+@msg	Type a question first.	Ketik pertanyaan terlebih dahulu.
+@msg	Your Anthropic account can't pay for this: {0}	Akun Anthropic Anda tidak dapat membayar ini: {0}
+@msg	already asking: wait for the answer	sedang bertanya: tunggu jawabannya
+@msg	This conversation is long: start a New Conversation.	Percakapan ini sudah panjang: mulai Percakapan baru.
+@msg	Claude took too many steps: ask again, more simply.	Claude mengambil terlalu banyak langkah: tanyakan lagi dengan lebih sederhana.
+	Add Photos…	Tambah foto…
+	Choose the photos in the browser's window…	Pilih foto di jendela peramban…
+	About the fit	Tentang kepasan
+	Anything else? For example: folds below the back neck	Ada yang lain? Misalnya: kerutan di bawah leher belakang
+	Check My Muslin	Periksa pakaian uji saya
+	Claude looks at the photos with your own Anthropic API key, billed to your Anthropic account. It can be wrong: sew the altered part again in muslin before cutting good fabric.	Claude melihat foto-foto dengan kunci API Anthropic Anda sendiri, ditagihkan ke akun Anthropic Anda. Hasilnya bisa salah: jahit ulang bagian yang diubah sebagai pakaian uji dari kain blacu sebelum memotong kain yang bagus.
+	Final fabric	Kain akhir
+	Hard to raise my arms	Sulit mengangkat lengan
+	How it feels:	Rasanya saat dipakai:
+	Include the pattern it was cut from (open now), so it can be altered	Sertakan pola yang dipakai untuk memotongnya (sedang terbuka), agar bisa diubah
+	Loose or gaping somewhere	Longgar atau menganga di suatu tempat
+	Muslin fabric	Kain pakaian uji
+	My muslin ({n} photos)	Pakaian uji saya ({n} foto)
+	Photos of your muslin, tried on	Foto pakaian uji Anda saat dipakai
+	The front, the side and the back, standing straight with your arms down, and close-ups of any folds or pulling.	Tampak depan, samping, dan belakang, berdiri tegak dengan lengan di bawah, serta foto dekat setiap kerutan atau tarikan.
+	The neckline gapes or pulls	Garis leher menganga atau tertarik
+	The photos go to Claude for this check only; PatternFoundry doesn't keep them.	Foto dikirim ke Claude hanya untuk pemeriksaan ini; PatternFoundry tidak menyimpannya.
+	The shoulder seams don't sit on my shoulders	Jahitan bahu tidak pas di bahu saya
+	Tight across the back or shoulders	Sempit di punggung atau bahu
+	Tight across the bust or chest	Sempit di dada
+	Tight at the waist or hips	Sempit di pinggang atau pinggul
+	Too long or too short	Terlalu panjang atau terlalu pendek
+	e.g. calico, an old sheet	mis. kain blacu, seprai bekas
+	e.g. cotton poplin, jersey	mis. katun poplin, jersey
+	Check My Muslin…	Periksa pakaian uji saya…
+@msg	Add a photo of the muslin first.	Tambahkan foto pakaian uji terlebih dahulu.
+@msg	Check My Muslin needs a build that can reach the AI service	Periksa pakaian uji saya memerlukan build yang dapat menjangkau layanan AI
+@msg	The image is too large to send: crop it, or send a smaller copy.	Gambar terlalu besar untuk dikirim: pangkas, atau kirim salinan yang lebih kecil.
+@msg	This photo is too large: send a smaller copy.	Foto ini terlalu besar: kirim salinan yang lebih kecil.
+@msg	no files here	tidak ada file di sini
+@msg	At most 6 photos: remove one first.	Paling banyak 6 foto: hapus satu terlebih dahulu.
+@msg	This photo can't be read: save or send it as a JPEG (on an iPhone: Settings › Camera › Formats › Most Compatible).	Foto ini tidak dapat dibaca: simpan atau kirim sebagai JPEG (di iPhone: Pengaturan › Kamera › Format › Paling Kompatibel).
+	Make Marker	Buat tata letak potong
+	Make Marker…	Buat tata letak potong…
+	Gap	Jarak
+	Precision	Presisi
+	One Way	Satu arah
+	Cut on fold	Potong di lipatan
+	Folded	Terlipat
+	The straight edge laid on the fabric's fold: no allowance there	Tepi lurus yang diletakkan di lipatan kain: tanpa kampuh di sana
+	Check Sleeve Ease	Periksa kelonggaran kepala lengan
+	Sleeve Ease	Kelonggaran kepala lengan
+	Crown {crown} mm, armhole {armhole} mm (back {back}, front {front}): the crown takes in {ease} mm ({percent}%).	Kepala lengan {crown} mm, lubang lengan {armhole} mm (belakang {back}, depan {front}): kepala lengan mengerut {ease} mm ({percent}%).
+	Less than the {min} to {max} mm it should take in: the sleeve may pull across the cap. Set sleeve_crown to {wanted} mm in Measurements to redraft the sleeve block with the ease in the middle.	Kurang dari {min} sampai {max} mm yang seharusnya dikerutkan: lengan bisa tertarik di kepala lengan. Atur sleeve_crown menjadi {wanted} mm di Ukuran agar pola dasar lengan digambar ulang dengan kelonggaran di tengah.
+	More than the {min} to {max} mm it should take in: the cap may pucker when it is set in. Set sleeve_crown to {wanted} mm in Measurements to redraft the sleeve block with the ease in the middle.	Lebih dari {min} sampai {max} mm yang seharusnya dikerutkan: kepala lengan bisa berkerut saat dipasang. Atur sleeve_crown menjadi {wanted} mm di Ukuran agar pola dasar lengan digambar ulang dengan kelonggaran di tengah.
+	Within the {min} to {max} mm it should take in.	Dalam batas {min} sampai {max} mm yang seharusnya dikerutkan.
+	Edges: {edges}, notches: {notches}	Tepi: {edges}, takik: {notches}
+	Edge {n}	Tepi {n}
+	On fold	Di lipatan
+	Back to the piece's seam allowance	Kembali ke kampuh potongan
+	A notch in the middle of the edge	Takik di tengah tepi
+	Notch on edge {edge}, {at}% along	Takik di tepi {edge}, pada {at}%
+	Piece Outlines	Garis luar potongan
+	Projector	Proyektor
+	Projector Scale (screen points per mm, 0: not calibrated)	Skala proyektor (titik layar per mm, 0: belum dikalibrasi)
+	Projector View	Tampilan proyektor
+	Measure the square on the cutting mat: it should be 10 cm each way. The arrows make it bigger or smaller (with Shift, faster); Enter keeps it; Escape leaves. Scale: {scale} points per mm.	Ukur persegi di alas potong: tiap sisinya harus 10 cm. Tombol panah memperbesar atau memperkecilnya (dengan Shift lebih cepat); Enter menyimpannya; Escape keluar. Skala: {scale} titik per mm.
+	Arrows move the pattern 1 cm (Shift: 1 mm) · M mirrors it · C calibrates · Escape leaves	Panah menggeser pola 1 cm (Shift: 1 mm) · M mencerminkannya · C mengkalibrasi · Escape keluar
+@msg	no pattern pieces to project: make the outlines pattern pieces first (Pattern › Make Pattern Piece)	tidak ada potongan pola untuk diproyeksikan: jadikan garis luar sebagai potongan pola dulu (Pola › Buat Potongan Pola)
+@msg	scale: screen points per mm, more than 0	skala: titik layar per mm, lebih dari 0
+	Delete Saved Measurements	Hapus ukuran tersimpan
+	Load Measurements	Muat ukuran
+	My Measurements	Ukuran Saya
+	Save to My Measurements	Simpan ke Ukuran Saya
+	Delete from this computer	Hapus dari komputer ini
+	Kept on this computer only, to load into any pattern	Disimpan hanya di komputer ini, untuk dimuat ke pola mana pun
+	Load	Muat
+	Use these measurements in this pattern	Gunakan ukuran ini di pola ini
+	Whose (Me)	Milik siapa (Saya)
+	Shorten Dart	Perpendek kup
+	Shorten Dart…	Perpendek kup…
+	Shorten	Perpendek
+	Add Notch Here	Tambah takik di sini
+	Cut on Fold Here	Potong di lipatan di sini
+	Seam Allowance Here…	Kampuh di sini…
+	Grade This Point…	Gradasi titik ini…
+	Edge Allowance	Kampuh tepi
+	Across	Mendatar
+	Down	Ke bawah
+	One step	Satu langkah
+	The same move for each size, from the size above the base	Pergeseran yang sama tiap ukuran, dari ukuran di atas dasar
+	Per size	Per ukuran
+	A move for each size of its own	Pergeseran sendiri untuk tiap ukuran
+	Add Drill Hole Here	Tambah Lubang Bor di Sini
+	Remove Drill Hole Here	Hapus Lubang Bor di Sini
+	Add Drill Hole	Tambah Lubang Bor
+	Remove Drill Hole	Hapus Lubang Bor
+	Drill holes: {count}	Lubang bor: {count}
+	Right-click inside the piece: Add Drill Hole Here	Klik kanan di dalam potongan: Tambah Lubang Bor di Sini
+	Drill hole {n}, {mm} mm	Lubang bor {n}, {mm} mm
+	Drill hole {n}	Lubang bor {n}
+	Notch Shape	Bentuk Takik
+	Slit notch	Takik belah
+	Double notch	Takik ganda
+	V notch	Takik V
+	T notch	Takik T
+	Castle notch	Takik kastel
+	U notch	Takik U
+	As drawn	Seperti digambar
+	Side by side	Berdampingan
+	Block Options…	Opsi Pola Dasar…
+	Block Options	Opsi Pola Dasar
+	Ease	Kelonggaran
+	Waist ease	Kelonggaran pinggang
+	Bust dart	Kup dada
+	Shoulder dart	Kup bahu
+	Back dart	Kup belakang
+	Back dart length	Panjang kup belakang
+	Front dart length	Panjang kup depan
+	Option	Opsi
+	Back to the block's default	Kembali ke bawaan pola dasar
+	from the measurements	dari ukuran
+	Block Options Info	Info Opsi Pola Dasar
+	Check Trouser Seams	Periksa Jahitan Celana
+	Trouser Seams	Jahitan Celana
+	Inseam, knee to hem	Jahitan dalam, lutut ke kelim
+	Inseam, crotch to knee	Jahitan dalam, selangkang ke lutut
+	Side seam, knee to hem	Jahitan sisi, lutut ke kelim
+	Side seam, waist to knee	Jahitan sisi, pinggang ke lutut
+	{seam}: front {front} mm, back {back} mm ({difference} mm)	{seam}: depan {front} mm, belakang {back} mm ({difference} mm)
+	Walk them on the pattern too: where a line doesn't run on smoothly from front to back, find the point half way between the two and correct both lines. The back inseam is more curved, so it is often longer: lowering the back crotch curve slightly to match is fine.	Periksa juga di pola: jika garis tidak tersambung mulus dari depan ke belakang, cari titik tengah di antara keduanya dan perbaiki kedua garis. Jahitan dalam belakang lebih melengkung, jadi sering lebih panjang: menurunkan sedikit lengkung selangkang belakang agar pas tidak masalah.
+	Front dart	Kup depan
+	Draft Trouser Waistband	Gambar Ban Pinggang Celana
+	Flap Pocket…	Saku Bertutup…
+	Crown ease	Kelonggaran kepala lengan
+	Remove Design Step	Hapus langkah desain
+	Dart moved	Kup dipindah
+	Dart shortened {mm} mm	Kup diperpendek {mm} mm
+	Slashed and spread {mm} mm	Digunting dan dibuka {mm} mm
+	Seam trued to {mm} mm	Jahitan disamakan menjadi {mm} mm
+	Split into panels	Dipisah menjadi panel
+	Design step	Langkah desain
+	Design steps: {count}	Langkah desain: {count}
+	Design changes made on the block (darts, splits, spreads, seam lengths) show here; each is made again when the measurements change	Perubahan pada pola dasar (kup, pisahan, bukaan, panjang jahitan) tampil di sini; masing-masing dibuat ulang saat ukuran berubah
+	Remove this step and the ones after it (they were made on the outline it made)	Hapus langkah ini dan yang sesudahnya (dibuat pada garis tepi hasil langkah ini)
+	Selected block part	Bagian pola dasar terpilih
+	Curve Dart Legs…	Lengkungkan sisi kup…
+	Curve Dart Legs	Lengkungkan sisi kup
+	Dart legs curved {mm} mm	Sisi kup dilengkungkan {mm} mm
+	Draft Rounded Stand Collar	Buat pola kerah berdiri ujung bulat
+	Draft Wing Collar	Buat pola kerah sayap
+	Check Marker	Periksa tata letak potong
+	{length} cm long, {efficiency}% of the fabric used	Panjang {length} cm, {efficiency}% kain terpakai
+	{a} overlaps {b}	{a} bertumpuk dengan {b}
+	{piece} is off the fabric	{piece} keluar dari kain
+	No pieces overlap, and all are on the fabric.	Tidak ada bagian yang bertumpuk, semuanya di atas kain.
+	Plaid	Kotak-kotak
+menu	Pattern	Pola
+@msg	a and b are two pieces (or paths) that sew together	a dan b adalah dua bagian (atau jalur) yang dijahit menjadi satu
+@msg	a corner is "mitre" or "square"	sudut berupa "mitre" atau "square"
+@msg	a facing runs along part of the outline	lapisan tepi mengikuti sebagian garis luar
+@msg	a facing runs between two different points of the outline	lapisan tepi membentang di antara dua titik berbeda pada garis luar
+@msg	a name takes at most 200 characters	nama paling banyak 200 karakter
+@msg	a neckline runs between two different points of its outline, and the shoulder point is one of them	garis leher membentang di antara dua titik berbeda pada garis luarnya, dan salah satunya adalah titik bahu
+@msg	a seam allowance is a number of mm, or a length with its unit ("5/8 in")	kampuh berupa angka dalam mm, atau panjang dengan satuannya ("5/8 in")
+@msg	a seam has no length	jahitan tidak memiliki panjang
+@msg	a shoulder point is on its neck point	titik bahu berada di titik lehernya
+@msg	a slash runs between two points of the outline that aren't neighbours	sayatan membentang di antara dua titik garis luar yang tidak bersebelahan
+@msg	a split leaves a piece with fewer than three anchors	pemisahan menyisakan bagian dengan kurang dari tiga titik jangkar
+@msg	a split made two panels: delete the panel you don't want instead	pemisahan menghasilkan dua panel: hapus saja panel yang tidak Anda inginkan
+@msg	a split needs two different anchors on the outline	pemisahan memerlukan dua titik jangkar berbeda pada garis luar
+@msg	amount: a share of the dart, (0, 1]	amount: porsi kup, (0, 1]
+@msg	amount: how far it opens, mm	amount: seberapa jauh terbuka, mm
+@msg	anchor: the point's number along the path, from 0	anchor: nomor titik di sepanjang jalur, mulai 0
+@msg	anchor: the seam line's point, from 0	anchor: titik garis jahit, mulai 0
+@msg	anchors: [a, b] or [a]	anchors: [a, b] atau [a]
+@msg	anchors: point numbers along the path	anchors: nomor titik di sepanjang jalur
+@msg	apex: the dart's point (or select that one point)	apex: ujung kup (atau pilih satu titik itu)
+@msg	at: 0 (the edge's start) to 1 (its end)	at: 0 (awal tepi) hingga 1 (ujungnya)
+@msg	at: [x, y], the document point on the edge	at: [x, y], titik dokumen pada tepi
+@msg	base: the size the pattern is drawn in	base: ukuran tempat pola digambar
+@msg	block: "bodice", "skirt", "sleeve" or "trousers"	block: "bodice", "skirt", "sleeve" atau "trousers"
+@msg	can't make the seam that long by moving its end	jahitan tidak dapat dibuat sepanjang itu dengan memindahkan ujungnya
+@msg	curve: mm the wrap edge bows into the piece	curve: mm lengkungan tepi tumpang ke dalam bagian
+@msg	cut is a whole number, 1 to 999	cut adalah bilangan bulat, 1 hingga 999
+@msg	data: the chart's text	data: teks tabel
+@msg	depth: how deep the pleat folds under, mm	depth: seberapa dalam lipit terlipat ke bawah, mm
+@msg	depth: mm (less than 0 bows the legs in)	depth: mm (kurang dari 0 melengkungkan kaki ke dalam)
+@msg	diameter: a number of mm, or a length with its unit ("1/8 in")	diameter: angka dalam mm, atau panjang dengan satuannya ("1/8 in")
+@msg	edge: the edge's number, from 0 (or point)	edge: nomor tepi, mulai 0 (atau point)
+@msg	edges and corners are numbered from 0	tepi dan sudut diberi nomor mulai 0
+@msg	every: mm, at least 10	every: mm, minimal 10
+@msg	face: only a box pleat has one	face: hanya lipit kotak yang memilikinya
+@msg	face: the box pleat's width between its folds, mm	face: lebar lipit kotak di antara lipatannya, mm
+@msg	flapShape: "square", "rounded" or "pointed"	flapShape: "square", "rounded" atau "pointed"
+@msg	fold is an edge's number (0..), or null	fold adalah nomor tepi (0..), atau null
+@msg	fold: [a, b], the centre front edge's two points	fold: [a, b], dua titik tepi tengah muka
+@msg	fold: true or false	fold: true atau false
+@msg	foldAt: [x, y] in document points	foldAt: [x, y] dalam poin dokumen
+@msg	folded: true or false	folded: true atau false
+@msg	from: [x, y] in document points	from: [x, y] dalam poin dokumen
+@msg	from: not a pattern piece	from: bukan bagian pola
+@msg	from: the pattern piece whose rules are copied	from: bagian pola yang aturannya disalin
+@msg	from: the piece has no seam line	from: bagian tidak memiliki garis jahit
+@msg	frontShape: "square", "rounded" or "winged"	frontShape: "square", "rounded" atau "winged"
+@msg	gathering runs between two different points of the outline	kerutan membentang di antara dua titik berbeda pada garis luar
+@msg	give apex and one of to or toAnchor (or select the two points)	berikan apex dan salah satu dari to atau toAnchor (atau pilih kedua titik)
+@msg	height: mm, 10 to 100 (the tutorial's is at most 30)	height: mm, 10 hingga 100 (pada tutorial paling tinggi 30)
+@msg	id: a block part's id	id: id bagian pola dasar
+@msg	index: the drill hole's place in the list, from 0 (or point)	index: urutan lubang bor dalam daftar, mulai 0 (atau point)
+@msg	index: the notch's place in the list, from 0	index: urutan takik dalam daftar, mulai 0
+@msg	index: the step's place, from 0	index: urutan langkah, mulai 0
+@msg	into: the length it gathers into, mm	into: panjang setelah dikerut, mm
+@msg	kind: "slit", "double", "v", "t", "castle" or "u"	kind: "slit", "double", "v", "t", "castle" atau "u"
+@msg	kind: the notch's new shape	kind: bentuk baru takik
+@msg	layer: a marker layer's id	layer: id lapisan tata letak potong
+@msg	length (mm) or likeId with likeFrom and likeTo: the seam to match	length (mm) atau likeId dengan likeFrom dan likeTo: jahitan yang panjangnya disamakan
+@msg	length: mm, more than 0	length: mm, lebih dari 0
+@msg	line: "cut" or "seam"	line: "cut" atau "seam"
+@msg	match: the seam it sews to is shorter than the pocket opening's end	match: jahitan pasangannya lebih pendek daripada ujung bukaan saku
+@msg	min is more than max	min lebih besar daripada max
+@msg	mirror is true or false	mirror bernilai true atau false
+@msg	mirror: "none", "x", "y" or "xy"	mirror: "none", "x", "y" atau "xy"
+@msg	name: the saved set's name	name: nama set yang disimpan
+@msg	name: whose measurements they are ("Me")	name: milik siapa ukuran badan ini ("Me")
+@msg	no drill hole near the point	tidak ada lubang bor di dekat titik
+@msg	no drill hole with that index	tidak ada lubang bor dengan indeks itu
+@msg	no notch with that index	tidak ada takik dengan indeks itu
+@msg	no object with that id	tidak ada objek dengan id itu
+@msg	no pattern pieces to grade: make the outlines pattern pieces first (Pattern › Make Pattern Piece)	tidak ada bagian pola untuk di-grading: jadikan garis luar sebagai bagian pola dulu (Pola › Buat bagian pola)
+@msg	no straight centre front edge on the outline's side: name it with fold: [a, b]	tidak ada tepi tengah muka yang lurus di sisi garis luar ini: tentukan dengan fold: [a, b]
+@msg	not a drafted block part	bukan bagian pola dasar yang sudah dibuat
+@msg	not a marker's layer (Pattern › Make Marker…)	bukan lapisan tata letak potong (Pola › Buat tata letak potong…)
+@msg	not a pattern piece	bukan bagian pola
+@msg	not a stand collar's outline	bukan garis luar kerah berdiri
+@msg	notches go on pattern pieces: make both seams' paths pieces first (Pattern › Make Pattern Piece)	takik dipasang pada bagian pola: jadikan jalur kedua jahitan sebagai bagian dulu (Pola › Buat bagian pola)
+@msg	notches: [mm, …]	notches: [mm, …]
+@msg	notches: distances from the seams' starts, mm	notches: jarak dari awal jahitan, mm
+@msg	on and at go together: the garment piece and where the opening's top-left corner goes on it	on dan at diberikan bersama: bagian pakaian dan letak sudut kiri atas bukaan di atasnya
+@msg	on and at go together: the garment piece and where the pocket's top-left corner goes on it	on dan at diberikan bersama: bagian pakaian dan letak sudut kiri atas saku di atasnya
+@msg	one point splits only where another point is at the same place (two darts' point)	satu titik hanya dapat dipisah jika ada titik lain di tempat yang sama (ujung dua kup)
+@msg	oneWay: true or false	oneWay: true atau false
+@msg	openFolds: true or false	openFolds: true atau false
+@msg	origin: [x, y] in document points	origin: [x, y] dalam poin dokumen
+@msg	overlap: mm past centre front, more than 0	overlap: mm melewati tengah muka, lebih dari 0
+@msg	overlap: the edge misses the outline	overlap: tepi tidak mengenai garis luar
+@msg	plaid: the repeat (mm, or [along, across])	plaid: ulangan motif (mm, atau [along, across])
+@msg	plaid: the repeat along and across, 1 to 10 000 mm each	plaid: ulangan memanjang dan melintang, masing-masing 1 hingga 10 000 mm
+@msg	point: [x, y] in document points	point: [x, y] dalam poin dokumen
+@msg	select a drafted block part (Pattern › Draft … Block)	pilih bagian pola dasar yang sudah dibuat (Pola › Buat pola dasar …)
+@msg	select a path or a pattern piece	pilih jalur atau bagian pola
+@msg	select a pattern piece (Pattern › Make Pattern Piece makes one)	pilih bagian pola (Pola › Buat bagian pola akan membuatnya)
+@msg	select a piece on the marker to check	pilih bagian pada tata letak potong untuk diperiksa
+@msg	select closed paths: each becomes a piece, the path its seam line	pilih jalur tertutup: masing-masing menjadi bagian, dengan jalur itu sebagai garis jahitnya
+@msg	select one path	pilih satu jalur
+@msg	select one pattern piece	pilih satu bagian pola
+@msg	select two points of one path (or one that two darts share)	pilih dua titik dari satu jalur (atau satu titik yang dimiliki dua kup)
+@msg	select two points of one path: the dart's point and where the dart moves to	pilih dua titik dari satu jalur: ujung kup dan tempat kup dipindahkan
+@msg	select two points of one path: the ends of the edge to face	pilih dua titik dari satu jalur: ujung-ujung tepi yang diberi lapisan tepi
+@msg	select two points of one path: the ends of the edge to gather	pilih dua titik dari satu jalur: ujung-ujung tepi yang akan dikerut
+@msg	share is true or false	share bernilai true atau false
+@msg	shorten: mm (less than 0 lengthens)	shorten: mm (kurang dari 0 memperpanjang)
+@msg	shoulder: longer than the outline	shoulder: lebih panjang daripada garis luar
+@msg	shoulder: mm, 0 or more	shoulder: mm, 0 atau lebih
+@msg	size: one of the chart's sizes	size: salah satu ukuran dalam tabel
+@msg	size: the name of a size of the size range or chart	size: nama ukuran dari rentang ukuran atau tabel
+@msg	sizes: name one size at least	sizes: sebutkan minimal satu ukuran
+@msg	sizes: the sizes' names	sizes: nama-nama ukuran
+@msg	sizes: the sizes' names, smallest first (null removes them)	sizes: nama-nama ukuran, dari yang terkecil (null menghapusnya)
+@msg	split the seam line on its own: release the piece first (Pattern › Release Pattern Piece)	untuk memisah garis jahit saja, lepaskan bagian dulu (Pola › Lepaskan bagian pola)
+@msg	step: [dx, dy] in mm	step: [dx, dy] dalam mm
+@msg	style: classic, casual or shirt	style: classic, casual atau shirt
+@msg	that anchor's neighbours don't make a dart	titik-titik di sebelah titik jangkar itu tidak membentuk kup
+@msg	that point is not a dart's point: its legs open a right angle or wider	titik itu bukan ujung kup: kakinya membuka sudut siku-siku atau lebih lebar
+@msg	the amount is a share of the dart, more than 0 and at most 1	nilainya adalah porsi kup, lebih dari 0 dan paling banyak 1
+@msg	the back's outline encloses no area	garis luar bagian belakang tidak melingkupi area apa pun
+@msg	the box pleat's face is more than 0 wide	lebar muka lipit kotak harus lebih dari 0
+@msg	the chart is larger than 1 MB	tabel lebih besar dari 1 MB
+@msg	the curve has no length at the meeting point	kurva tidak memiliki panjang di titik pertemuan
+@msg	the curves leave the seam the same way	kedua kurva meninggalkan jahitan ke arah yang sama
+@msg	the dart has no length	kup tidak memiliki panjang
+@msg	the dart is not that long	kup tidak sepanjang itu
+@msg	the dart point or the new dart's anchor is not on the outline	ujung kup atau titik jangkar kup baru tidak berada pada garis luar
+@msg	the dart's legs must be straight lines	kaki kup harus berupa garis lurus
+@msg	the dart's point is past the outline's end	ujung kup melewati akhir garis luar
+@msg	the depth to curve the legs by is not a number	kedalaman lengkung kaki bukan angka
+@msg	the document has no marker (Pattern › Make Marker…)	dokumen tidak memiliki tata letak potong (Pola › Buat tata letak potong…)
+@msg	the document has no measurements to save	dokumen tidak memiliki ukuran badan untuk disimpan
+@msg	the document has no size chart (measure.importChart)	dokumen tidak memiliki tabel ukuran (measure.importChart)
+@msg	the drop at the front is less than half the neck edge	turunan leher depan kurang dari setengah tepi leher
+@msg	the edge has no length	tepi tidak memiliki panjang
+@msg	the edge's anchor is past the outline's end	titik jangkar tepi melewati akhir garis luar
+@msg	the fabric's width must be more than 0	lebar kain harus lebih dari 0
+@msg	the flap is deeper than twice its width	tutup saku lebih dalam daripada dua kali lebarnya
+@msg	the flap's width and depth are more than 0, its allowance 0 or more	lebar dan kedalaman tutup saku lebih dari 0, kampuhnya 0 atau lebih
+@msg	the fold edge has no length	tepi lipatan tidak memiliki panjang
+@msg	the fold edge's anchors are past the outline's end	titik jangkar tepi lipatan melewati akhir garis luar
+@msg	the fold edge's two anchors must be neighbours on the outline	dua titik jangkar tepi lipatan harus bersebelahan pada garis luar
+@msg	the fold must be a straight edge	lipatan harus berupa tepi lurus
+@msg	the front end has no length	ujung depan tidak memiliki panjang
+@msg	the gap must be 0 or more	celah harus 0 atau lebih
+@msg	the grainline's ends are the same point	kedua ujung garis serat adalah titik yang sama
+@msg	the legs can't curve that far: the dart isn't wide enough	kaki tidak dapat melengkung sejauh itu: kup kurang lebar
+@msg	the length to shorten by is not a number	panjang pemendekan bukan angka
+@msg	the marker has lost its fabric outline	tata letak potong kehilangan garis luar kainnya
+@msg	the marker has no pieces	tata letak potong tidak memiliki bagian
+@msg	the marker is too large at this precision: give a coarser one	tata letak potong terlalu besar pada presisi ini: berikan yang lebih kasar
+@msg	the measurements could not be saved	ukuran badan tidak dapat disimpan
+@msg	the meeting point and the seam's other end are points of the outline	titik pertemuan dan ujung lain jahitan harus berupa titik pada garis luar
+@msg	the neckline has no length	garis leher tidak memiliki panjang
+@msg	the neckline lengths and the stand's height are more than 0, the rise and extension 0 or more	panjang garis leher dan tinggi kaki kerah lebih dari 0, kenaikan dan perpanjangan 0 atau lebih
+@msg	the new dart is on the old dart	kup baru berada di atas kup lama
+@msg	the opening is longer than twice its height	bukaan lebih panjang daripada dua kali tingginya
+@msg	the opening, depth and width are more than 0, the width more than the allowance	bukaan, kedalaman, dan lebar lebih dari 0, lebarnya lebih dari kampuh
+@msg	the opening, the welt and the depth are more than 0, the allowances 0 or more	bukaan, lis, dan kedalaman lebih dari 0, kampuhnya 0 atau lebih
+@msg	the outline encloses no area	garis luar tidak melingkupi area apa pun
+@msg	the outline has no side seam	garis luar tidak memiliki jahitan sisi
+@msg	the path has no outline	jalur tidak memiliki garis luar
+@msg	the path must be one closed outline	jalur harus berupa satu garis luar tertutup
+@msg	the piece has no grade rules to copy	bagian tidak memiliki aturan grading untuk disalin
+@msg	the piece has no straight edge to cut on the fold	bagian tidak memiliki tepi lurus untuk dipotong di lipatan
+@msg	the pieces have no cutting lines to lay	bagian-bagian tidak memiliki garis potong untuk ditata
+@msg	the plaid's repeat must be more than 0 along and across	ulangan kotak-kotak harus lebih dari 0 memanjang dan melintang
+@msg	the pocket (its opening and the allowance past both ends) fits on the seam	saku (bukaan dan kampuh di luar kedua ujungnya) harus muat pada jahitan
+@msg	the point is not inside the piece	titik tidak berada di dalam bagian
+@msg	the point is not on the seam line or in its allowance	titik tidak berada pada garis jahit atau di kampuhnya
+@msg	the precision must be more than 0	presisi harus lebih dari 0
+@msg	the rise at centre front is less than the front neckline is long	kenaikan di tengah muka kurang dari panjang garis leher depan
+@msg	the seam has no length there	jahitan tidak memiliki panjang di sana
+@msg	the seam runs between two different points of the outline	jahitan membentang di antara dua titik berbeda pada garis luar
+@msg	the seam's other end is a neighbour of the meeting point	ujung lain jahitan bersebelahan dengan titik pertemuan
+@msg	the top edge has no length	tepi atas tidak memiliki panjang
+@msg	the wing is more than 0 long	panjang sayap lebih dari 0
+@msg	there is no folder to keep measurement sets in here (the desktop app keeps them next to its preferences)	tidak ada folder untuk menyimpan set ukuran badan di sini (aplikasi desktop menyimpannya di samping preferensinya)
+@msg	there is no point of the seam line there	tidak ada titik garis jahit di sana
+@msg	to or toAnchor: where the dart moves to	to atau toAnchor: tempat kup dipindahkan
+@msg	to: [x, y] in document points	to: [x, y] dalam poin dokumen
+@msg	to: the pieces to copy the rules to (select them, or name them)	to: bagian tujuan penyalinan aturan (pilih atau sebutkan namanya)
+@msg	too many objects at once	terlalu banyak objek sekaligus
+@msg	too many pieces at once	terlalu banyak bagian sekaligus
+@msg	too many pieces to lay at once	terlalu banyak bagian untuk ditata sekaligus
+@msg	too many sizes at once	terlalu banyak ukuran sekaligus
+@msg	unit: "mm", "cm" or "in"	unit: "mm", "cm" atau "in"
+@msg	width: mm, more than 0	width: mm, lebih dari 0
+	Draw Avatar	Gambar avatar
+	Export Avatar as OBJ	Ekspor avatar sebagai OBJ
+	Sewn seams: {count}	Jahitan tersambung: {count}
+	{label}: sewn to {piece}, {mm} mm longer	{label}: dijahit ke {piece}, {mm} mm lebih panjang
+	{label}: sewn to {piece}, {mm} mm shorter	{label}: dijahit ke {piece}, {mm} mm lebih pendek
+	{label}: sewn to {piece}	{label}: dijahit ke {piece}
+	Sew Seams	Jahit Kampuh
+	Unsew Seams	Lepas Jahitan
+	Sewn Seams	Jahitan Tersambung
+	Drape on Avatar	Drape pada avatar
+	Use as Fabric…	Gunakan sebagai Kain…
+	Use as Fabric	Gunakan sebagai Kain
+	Stop Using as Fabric	Berhenti Menggunakan sebagai Kain
+	Fabric Photos	Foto Kain
+@msg	the drape view's picture is the wrong size	gambar tampilan jatuhan kain berukuran salah
+@msg	the drape view: {e}	tampilan jatuhan kain: {e}
+@msg	a fabric photo is the wrong size	foto kain berukuran salah
+@msg	a fabric photo: {e}	foto kain: {e}
+	Export Avatar as glTF	Ekspor Avatar sebagai glTF
+	Export Avatar as glTF…	Ekspor Avatar sebagai glTF…
+	Export Drape as glTF…	Ekspor Jatuhan Kain sebagai glTF…
+@msg	format: "obj" or "glb"	format: "obj" atau "glb"
+@msg	colour: "fabric" or "fit"	colour: "fabric" atau "fit"
+@msg	a piece could not be placed on the body	sebuah potongan pola tidak dapat ditempatkan pada tubuh
+@msg	{name} is already open	{name} sudah terbuka
+@msg	Draping on Avatar	Menjatuhkan kain pada avatar
+	Step {n} of {total}	Langkah {n} dari {total}
+@msg	The drape was cancelled	Penjatuhan kain dibatalkan
+@msg	Draped on the avatar	Kain dijatuhkan pada avatar
+@msg	the document was closed	dokumen ditutup
+@msg	the drape stopped	penjatuhan kain berhenti
+@msg	width: the photo's width on the fabric, 10 to 5000 mm	width: lebar foto pada kain, 10 sampai 5000 mm
+@msg	turns: 0, 1, 2 or 3	turns: 0, 1, 2, atau 3
+@msg	the image is not a fabric photo (Pattern › Use as Fabric…)	gambar ini bukan foto kain (Pola › Gunakan sebagai Kain…)
+@msg	even: true or false	even: true atau false
+@msg	seamless: true or false	seamless: true atau false
+@msg	Sign in to your Foundry Account first: Help › Foundry Account…	Masuk dulu ke Akun Foundry Anda: Bantuan › Akun Foundry…
+@msg	The document is empty: there is nothing to publish.	Dokumen kosong: tidak ada yang diterbitkan.
+@msg	The design is too large for MakerFoundry: at most 8 MB.	Desain terlalu besar untuk MakerFoundry: maksimal 8 MB.
+@msg	MakerFoundry's answer couldn't be read.	Jawaban MakerFoundry tidak dapat dibaca.
+@msg	MakerFoundry answered with a page on another site, which wasn't opened.	MakerFoundry menjawab dengan halaman di situs lain, yang tidak dibuka.
+@msg	MakerFoundry: {1}	MakerFoundry: {1}
+@msg	MakerFoundry couldn't be reached: {0}	MakerFoundry tidak dapat dihubungi: {0}
+@msg	Publish to MakerFoundry needs a build that can reach MakerFoundry	Terbitkan ke MakerFoundry memerlukan versi yang dapat menghubungi MakerFoundry
+@msg	open Publish to MakerFoundry first: it shows what is sent	buka Terbitkan ke MakerFoundry dulu: di sana terlihat apa yang dikirim
+@msg	That link isn't a design file on MakerFoundry, so it wasn't opened.	Tautan itu bukan file desain di MakerFoundry, jadi tidak dibuka.
+@msg	The design is too large to open: at most 32 MB.	Desain terlalu besar untuk dibuka: paling banyak 32 MB.
+@msg	PatternFoundry opens SVG and DXF designs from MakerFoundry; that file is neither.	PatternFoundry membuka desain SVG dan DXF dari MakerFoundry; file itu bukan keduanya.
+@msg	The design couldn't be downloaded from MakerFoundry: {0}	Desain tidak dapat diunduh dari MakerFoundry: {0}
