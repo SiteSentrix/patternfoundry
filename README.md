@@ -55,6 +55,14 @@ own rules (clean-room, assets, no panics, quality gates) are in
 PatternFoundry is written clean-room: behaviour comes from public documentation only, never from
 commercial pattern software.
 
+## Videos and support
+
+- **Videos:** the [MakerFoundry YouTube channel](https://www.youtube.com/@MakerFoundryApp)
+  (Help › MakerFoundry on YouTube in the app).
+- **Support PatternFoundry:** [Buy Me a Coffee](https://buymeacoffee.com/bwattendorf)
+  (Help › Support PatternFoundry in the app). Donations are handled by Buy Me a Coffee and its
+  payment processor; the maintainer sees the name, email and message a supporter gives.
+
 ## License and credits
 
 PatternFoundry is dual-licensed under [MIT](LICENSE-MIT) or [Apache-2.0](LICENSE-APACHE), at your

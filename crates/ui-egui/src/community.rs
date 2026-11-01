@@ -1,5 +1,5 @@
-//! Project links (About, Home): the source code, issues and releases on GitHub. Icons are
-//! Lucide's (ISC).
+//! Project links (About, Home): the source code, issues and releases on GitHub, the MakerFoundry
+//! videos on YouTube, and the Buy Me a Coffee page. Icons are Lucide's (ISC).
 
 use egui::Ui;
 
@@ -22,7 +22,11 @@ fn link(app: &mut VectorcraftApp, ui: &mut Ui, icon: &str, label: &str, cmd: &st
 pub fn links(app: &mut VectorcraftApp, ui: &mut Ui) {
     let l = app.session.execute("help.links", &serde_json::json!({})).unwrap_or_default();
     let github = l["github"].as_str().unwrap_or("").to_string();
+    let youtube = l["youtube"].as_str().unwrap_or("").to_string();
+    let donate = l["donate"].as_str().unwrap_or("").to_string();
     link(app, ui, "git-branch", tl!("Source code on GitHub"), "help.github", &github);
+    link(app, ui, "circle-play", tl!("Videos on YouTube"), "help.youtube", &youtube);
+    link(app, ui, "coffee", tl!("Buy me a coffee"), "help.donate", &donate);
 }
 
 #[cfg(test)]
@@ -38,11 +42,16 @@ mod tests {
         let services = crate::Services { open_url: Some(Box::new(move |u: &str| o.lock().unwrap().push(u.to_string()))), ..Default::default() };
         let mut app = VectorcraftApp::new(vectorcraft_engine::Session::new(), services);
         crate::menus::invoke(&mut app, "help.github", serde_json::json!({}));
-        assert_eq!(*opened.lock().unwrap(), ["https://github.com/SiteSentrix/patternfoundry"]);
+        crate::menus::invoke(&mut app, "help.youtube", serde_json::json!({}));
+        crate::menus::invoke(&mut app, "help.donate", serde_json::json!({}));
+        assert_eq!(
+            *opened.lock().unwrap(),
+            ["https://github.com/SiteSentrix/patternfoundry", "https://www.youtube.com/@MakerFoundryApp", "https://buymeacoffee.com/bwattendorf"]
+        );
         // The control channel / MCP path returns the URL without opening a browser.
         let v = app.run("help.github", serde_json::json!({})).unwrap();
         assert_eq!(v["url"], "https://github.com/SiteSentrix/patternfoundry");
-        assert_eq!(opened.lock().unwrap().len(), 1);
+        assert_eq!(opened.lock().unwrap().len(), 3);
         let ctx = egui::Context::default();
         theme::install_fonts(&ctx);
         let mut out = ctx.run_ui(egui::RawInput::default(), |ui| links(&mut app, ui));
