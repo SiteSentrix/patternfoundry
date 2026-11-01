@@ -36,8 +36,6 @@
     <Property Id="ARPURLINFOABOUT" Value="https://github.com/SiteSentrix/patternfoundry" />
     <Property Id="ARPURLUPDATEINFO" Value="https://github.com/SiteSentrix/patternfoundry/releases" />
     <Property Id="ARPHELPLINK" Value="https://github.com/SiteSentrix/patternfoundry/issues" />
-    <!-- The installer's last page: where the videos are and how to support the project. -->
-    <Property Id="WIXUI_EXITDIALOGOPTIONALTEXT" Value="Thank you for installing PatternFoundry. Videos: youtube.com/@MakerFoundryApp. Support the project: buymeacoffee.com/bwattendorf. Both are in the Help menu too." />
 
     <StandardDirectory Id="ProgramFiles6432Folder">
       <Directory Id="INSTALLFOLDER" Name="PatternFoundry" />
@@ -101,8 +99,10 @@
          pages through vectorcraft.en-us.wxl. -->
     <Property Id="VectorcraftVersion" Value="$(var.DisplayVersion)" />
 
-    <!-- Finish page: say where to find the app, and offer to start it (ticked by default). -->
-    <Property Id="WIXUI_EXITDIALOGOPTIONALTEXT" Value="PatternFoundry $(var.DisplayVersion) is installed. You can start it any time from the Start menu." />
+    <!-- Finish page: say where to find the app, where the videos are and how to support the
+         project (also in the Help menu), and offer to start it (ticked by default). One property
+         only: WiX refuses a second WIXUI_EXITDIALOGOPTIONALTEXT (xtask/src/wix.rs checks every Id). -->
+    <Property Id="WIXUI_EXITDIALOGOPTIONALTEXT" Value="PatternFoundry $(var.DisplayVersion) is installed. Start it any time from the Start menu. Videos: youtube.com/@MakerFoundryApp. Support PatternFoundry: buymeacoffee.com/bwattendorf. Both are in the Help menu too." />
     <Property Id="WIXUI_EXITDIALOGOPTIONALCHECKBOXTEXT" Value="Launch PatternFoundry" />
     <Property Id="WIXUI_EXITDIALOGOPTIONALCHECKBOX" Value="1" />
     <Property Id="WixShellExecTarget" Value="[#VectorcraftExe]" />
