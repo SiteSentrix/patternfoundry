@@ -90,6 +90,10 @@ is built on, plus a pattern mode, the way StitchFoundry adds embroidery:
 - None at present.
 
 ## Progress log
+- 2026-11-01, **PF-8.1**: the Foundry Account's "plain HTTP only on this computer" check
+  (`pf_ai::cloud::clean_server`) compares the host whole instead of the address's start, and
+  refuses an address with a user name or password in it: `http://localhost:80@evil.com` passed
+  before, and would have sent the session token and password in clear text to evil.com.
 - 2026-11-01, **PF-13**: links to the MakerFoundry YouTube channel and the Buy Me a Coffee page.
   Help › MakerFoundry on YouTube (`help.youtube`) and Help › Support PatternFoundry (Buy Me a
   Coffee) (`help.donate`) return their URL as `help.github` does and open it from the menu; the
