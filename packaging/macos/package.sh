@@ -109,6 +109,20 @@ notarize() {
   fi
 }
 
+# `stapler staple` fetches the ticket from the same CloudKit service, and the same dropped
+# connection ("The network connection was lost", Error 68) fails it: retry it the same way.
+staple() {
+  local try
+  for try in 1 2 3 4; do
+    xcrun stapler staple "$1" && return 0
+    [ "$try" = 4 ] && break
+    echo "stapler staple failed (try $try of 4); retrying in $((try * 20)) s" >&2
+    sleep $((try * 20))
+  done
+  echo "error: stapler staple $(basename "$1") failed 4 times" >&2
+  exit 1
+}
+
 # `stapler validate` looks the ticket up in Apple's CloudKit, and a dropped connection there
 # (NSURLErrorDomain -1005, "Error 68") fails it although the staple worked. Retry with a pause; a
 # missing or bad ticket still fails every try.
@@ -147,7 +161,7 @@ codesign --verify --strict --deep --verbose=2 "$APP"
 if [ "$NOTARIZE" = 1 ]; then
   ditto -c -k --keepParent "$APP" "$WORK/PatternFoundry-notarize.zip"
   notarize "$WORK/PatternFoundry-notarize.zip"
-  xcrun stapler staple "$APP"
+  staple "$APP"
   validate_stapled "$APP"
   spctl --assess --type execute -vvv "$APP"
 fi
@@ -197,7 +211,7 @@ fi
 hdiutil_retry detach detach "$MOUNT" >/dev/null
 if [ "$NOTARIZE" = 1 ]; then
   notarize "$DMG"
-  xcrun stapler staple "$DMG"
+  staple "$DMG"
   validate_stapled "$DMG"
   spctl --assess --type open --context context:primary-signature -vvv "$DMG"
 fi
