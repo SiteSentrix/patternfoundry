@@ -36,6 +36,8 @@
     <Property Id="ARPURLINFOABOUT" Value="https://github.com/SiteSentrix/patternfoundry" />
     <Property Id="ARPURLUPDATEINFO" Value="https://github.com/SiteSentrix/patternfoundry/releases" />
     <Property Id="ARPHELPLINK" Value="https://github.com/SiteSentrix/patternfoundry/issues" />
+    <!-- The installer's last page: where the videos are and how to support the project. -->
+    <Property Id="WIXUI_EXITDIALOGOPTIONALTEXT" Value="Thank you for installing PatternFoundry. Videos: youtube.com/@MakerFoundryApp. Support the project: buymeacoffee.com/bwattendorf. Both are in the Help menu too." />
 
     <StandardDirectory Id="ProgramFiles6432Folder">
       <Directory Id="INSTALLFOLDER" Name="PatternFoundry" />

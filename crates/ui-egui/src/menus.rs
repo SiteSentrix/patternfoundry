@@ -3135,6 +3135,8 @@ pub fn menu_tree_named(english_names: bool) -> Vec<(&'static str, Vec<Item>)> {
             "Help",
             vec![
                 c("PatternFoundry on GitHub", "help.github"),
+                c("MakerFoundry on YouTube", "help.youtube"),
+                c("Support PatternFoundry (Buy Me a Coffee)", "help.donate"),
                 Sep,
                 c("Search Commands…", "help.commandPalette"),
                 todos("PatternFoundry Help…", "F1"),
@@ -3765,7 +3767,7 @@ pub fn invoke(app: &mut VectorcraftApp, id: &str, p: Value) {
         return;
     }
     // Help links: the command returns the URL; a menu click opens it (agents just get the URL).
-    if id == "help.github" {
+    if matches!(id, "help.github" | "help.youtube" | "help.donate") {
         app.open_link(id);
         return;
     }
