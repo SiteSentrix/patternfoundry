@@ -152,7 +152,7 @@ pub(super) fn import(bytes: &[u8]) -> Result<(Document, Vec<String>)> {
         let (right, left) = ap.quantity;
         let mut piece = Piece {
             name: pf_core::piece::check_name(&name).unwrap_or_default(),
-            cut: (right + left).clamp(1, pf_core::piece::MAX_CUT),
+            cut: right.saturating_add(left).clamp(1, pf_core::piece::MAX_CUT),
             mirror: left > 0,
             fabric: ap.material.trim().to_string(),
             allowance,
