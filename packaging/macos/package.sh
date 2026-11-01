@@ -77,7 +77,19 @@ sign() {
   [ "$IDENTITY" = "-" ] && ts=(--timestamp=none)
   local kc=()
   [ -n "${MACOS_KEYCHAIN:-}" ] && kc=(--keychain "$MACOS_KEYCHAIN")
-  codesign --force --sign "$IDENTITY" ${kc[@]+"${kc[@]}"} "${ts[@]}" "$@"
+  # Apple's timestamp server sometimes doesn't answer ("A timestamp was expected but was not
+  # found"): try up to four times, as stapling and hdiutil are, before giving up.
+  local try
+  for try in 1 2 3 4; do
+    if codesign --force --sign "$IDENTITY" ${kc[@]+"${kc[@]}"} "${ts[@]}" "$@"; then
+      return 0
+    fi
+    [ "$try" = 4 ] && break
+    echo "codesign failed (try $try of 4); retrying in $((try * 15)) s" >&2
+    sleep $((try * 15))
+  done
+  echo "error: codesign failed 4 times: $*" >&2
+  return 1
 }
 
 notarize() {
