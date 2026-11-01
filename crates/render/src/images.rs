@@ -215,7 +215,7 @@ pub(crate) fn half(pm: &Pixmap) -> Pixmap {
             data.push(PremulRgba8 { r: mean(|p| p.r), g: mean(|p| p.g), b: mean(|p| p.b), a: mean(|p| p.a) });
         }
     }
-    Pixmap::from_parts(data, ow as u16, oh as u16)
+    crate::pixmap_from_premul(data, ow as u16, oh as u16)
 }
 
 /// How many times to halve an image drawn with `m` (image pixels → device pixels): while a pixel
@@ -262,7 +262,7 @@ mod tests {
     #[test]
     fn half_averages_and_rounds_up_odd_sizes() {
         let px = |v: u8| PremulRgba8 { r: v, g: v, b: v, a: 255 };
-        let pm = Pixmap::from_parts(vec![px(0), px(100), px(200), px(40), px(60), px(80)], 3, 2);
+        let pm = crate::pixmap_from_premul(vec![px(0), px(100), px(200), px(40), px(60), px(80)], 3, 2);
         let h = half(&pm);
         assert_eq!((h.width(), h.height()), (2, 1));
         assert_eq!(h.data()[0].r, 50);

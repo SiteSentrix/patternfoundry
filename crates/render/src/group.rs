@@ -69,7 +69,7 @@ impl Renderer {
             self.clip_paths.push((path.clone(), rule, f.view));
             draw(self, ctx, f);
             self.clip_paths.pop();
-            ctx.pop_clip_path();
+            ctx.pop_clip();
             return;
         }
         if c.blends && (c.isolated || self.nested == 0) {
@@ -139,14 +139,11 @@ impl Renderer {
         ctx.reset();
         let crop = if (r.x, r.y, r.w, r.h) == (0, 0, all.width(), all.height()) { None } else { Some(Arc::new(cropped(&all, r))) };
         let all = Arc::new(all);
-        // With 8-bit compositing, rendering over the picture gives the pixels that drawing it back
-        // as an image gives: the context starts again empty, and `finish` renders what it draws
-        // next over the picture. With floating-point compositing the picture is drawn back.
-        if self.raster.render_mode == vello_cpu::RenderMode::OptimizeSpeed {
-            self.picture = Some(all.clone());
-        } else {
-            draw_pixmap(ctx, all.clone(), (0.0, 0.0));
-        }
+        // vello 0.3 isolates root-level blending from the render target, and rounds 8-bit
+        // compositing over a target differently from drawing, so the picture is drawn back into
+        // the context (as with floating-point compositing before). Costs a page-sized image per
+        // copy: `backdrop_copies_draw_no_picture_of_the_page_back` fails until that is bounded.
+        draw_pixmap(ctx, all.clone(), (0.0, 0.0));
         for (path, rule, xf) in &self.clip_paths {
             ctx.set_transform(*xf);
             ctx.set_fill_rule(fill_rule(*rule));
@@ -165,7 +162,7 @@ impl Renderer {
             return pm;
         };
         let mut pm = Arc::unwrap_or_clone(below);
-        let over = vello_cpu::RasterizerSettings { composite_mode: vello_cpu::CompositeMode::SrcOver, ..settings };
+        let over = vello_cpu::RasterizerSettings { target_init: vello_cpu::TargetInit::SrcOver, ..settings };
         ctx.render_with(&mut pm, &mut self.resources, over);
         pm
     }
