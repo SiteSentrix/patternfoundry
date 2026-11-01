@@ -1400,6 +1400,12 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "b97b65636e5b9ef369943878ac74335ba1c55c1cb6adbf1e2c293c624248d693"
 
 [[package]]
+name = "fearless_simd"
+version = "0.7.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "f4beca3cb2444e3304ac30843cc091f44ed58932353cd492ce740067bfce6b12"
+
+[[package]]
 name = "find-msvc-tools"
 version = "0.1.14"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1662,9 +1668,9 @@ dependencies = [
 
 [[package]]
 name = "glifo"
-version = "0.3.0"
+version = "0.4.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "282a26c1e23de04bdab3e34a21b6f877a479b96737792516b9b8b8f69b6661be"
+checksum = "9f1218dedd5348c1b166ec3b8b3cbca49d2f527bd43b3fa072ea5123c523ed3f"
 dependencies = [
  "bytemuck",
  "foldhash 0.2.0",
@@ -1674,7 +1680,7 @@ dependencies = [
  "png 0.18.1",
  "skrifa 0.44.0",
  "smallvec",
- "vello_common 0.2.0",
+ "vello_common 0.3.0",
 ]
 
 [[package]]
@@ -1889,7 +1895,7 @@ name = "hayro-jbig2"
 version = "0.3.0"
 source = "git+https://github.com/storytold/craft-libs?rev=ca50d63b773c99f96e75c77ce5a1d21e7c9cda0d#ca50d63b773c99f96e75c77ce5a1d21e7c9cda0d"
 dependencies = [
- "fearless_simd",
+ "fearless_simd 0.4.1",
  "hayro-ccitt 0.3.0",
 ]
 
@@ -1899,7 +1905,7 @@ version = "0.3.5"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "c75ab947623ef4ccaa7acf0579edf7cbb5a73838e3839a7be73335e522f433a1"
 dependencies = [
- "fearless_simd",
+ "fearless_simd 0.4.1",
 ]
 
 [[package]]
@@ -5216,8 +5222,8 @@ dependencies = [
  "vectorcraft-plugins",
  "vectorcraft-testkit",
  "vectorcraft-text",
- "vello_common 0.2.0",
- "vello_cpu 0.2.0",
+ "vello_common 0.3.0",
+ "vello_cpu 0.3.0",
  "wat",
  "weezl 0.2.1",
 ]
@@ -5392,7 +5398,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "b2e9aed918117e8152c9eddfd8362d73c465c23f26c44786aa331707b8a64fa2"
 dependencies = [
  "bytemuck",
- "fearless_simd",
+ "fearless_simd 0.4.1",
  "guillotiere",
  "log",
  "peniko",
@@ -5402,12 +5408,12 @@ dependencies = [
 
 [[package]]
 name = "vello_common"
-version = "0.2.0"
+version = "0.3.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "bbb2141a2bca6e6d598e471fd4d1d7eed8e020aad6a28187edda07f091a325dd"
+checksum = "73c2fbe53548bcd25c8ff42f75a93770a8611a16b37bee56d7ef7b44e36027f1"
 dependencies = [
  "bytemuck",
- "fearless_simd",
+ "fearless_simd 0.7.0",
  "guillotiere",
  "log",
  "peniko",
@@ -5430,19 +5436,19 @@ dependencies = [
 
 [[package]]
 name = "vello_cpu"
-version = "0.2.0"
+version = "0.3.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "ace506ca414548966fcf3c283be94eb1cad8254de488791ee698bf438b0890a9"
+checksum = "ed1fec424fbba6acf6cbc78bb526447eb77590d95f40419d598870fe37535212"
 dependencies = [
  "bytemuck",
  "crossbeam-channel",
- "glifo 0.3.0",
+ "glifo 0.4.0",
  "hashbrown 0.17.1",
  "ordered-channel",
  "png 0.18.1",
  "rayon",
  "thread_local",
- "vello_common 0.2.0",
+ "vello_common 0.3.0",
 ]
 
 [[package]]

@@ -298,7 +298,7 @@ fn inks_pixmap(inks: &Inks, lut: &InkLut) -> Option<Pixmap> {
             }
         })
         .collect();
-    Some(Pixmap::from_parts(data, w, h))
+    Some(crate::pixmap_from_premul(data, w, h))
 }
 
 /// The working CMYK profile's display table (what CMYK images show through) and its generation.
