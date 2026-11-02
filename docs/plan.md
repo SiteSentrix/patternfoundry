@@ -90,6 +90,19 @@ is built on, plus a pattern mode, the way StitchFoundry adds embroidery:
 - None at present.
 
 ## Progress log
+- 2026-11-01, **PF-8.1**: the Foundry Account's "plain HTTP only on this computer" check
+  (`pf_ai::cloud::clean_server`) compares the host whole instead of the address's start, and
+  refuses an address with a user name or password in it: `http://localhost:80@evil.com` passed
+  before, and would have sent the session token and password in clear text to evil.com.
+- 2026-11-01, **PF-13**: links to the MakerFoundry YouTube channel and the Buy Me a Coffee page.
+  Help › MakerFoundry on YouTube (`help.youtube`) and Help › Support PatternFoundry (Buy Me a
+  Coffee) (`help.donate`) return their URL as `help.github` does and open it from the menu; the
+  About and Home links row shows both. The Windows installer's last page, the macOS DMG window and
+  the Linux AppStream data (a donation URL) name them, and the README has a "Videos and support"
+  section.
+  The first v0.1.1 release build failed on Windows: the installer file already set the finish-page
+  text, and WiX refuses a second one (WIX0091). Fixed with one combined text; a workspace test
+  (`xtask/src/wix.rs`) now fails on any duplicate WiX `Id`, so this is caught in PR CI.
 - 2026-10-31, **PF-12**: the web app opens MakerFoundry links:
   `https://sitesentrix.github.io/patternfoundry/?open=<URL-encoded design file address>`. The
   address must be `https://makerfoundry.app/api/v1/…` (or `www.`), a path of `a-z 0-9 - . /`

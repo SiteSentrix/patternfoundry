@@ -77,7 +77,19 @@ sign() {
   [ "$IDENTITY" = "-" ] && ts=(--timestamp=none)
   local kc=()
   [ -n "${MACOS_KEYCHAIN:-}" ] && kc=(--keychain "$MACOS_KEYCHAIN")
-  codesign --force --sign "$IDENTITY" ${kc[@]+"${kc[@]}"} "${ts[@]}" "$@"
+  # Apple's timestamp server sometimes doesn't answer ("A timestamp was expected but was not
+  # found"): try up to four times, as stapling and hdiutil are, before giving up.
+  local try
+  for try in 1 2 3 4; do
+    if codesign --force --sign "$IDENTITY" ${kc[@]+"${kc[@]}"} "${ts[@]}" "$@"; then
+      return 0
+    fi
+    [ "$try" = 4 ] && break
+    echo "codesign failed (try $try of 4); retrying in $((try * 15)) s" >&2
+    sleep $((try * 15))
+  done
+  echo "error: codesign failed 4 times: $*" >&2
+  return 1
 }
 
 notarize() {
@@ -95,6 +107,20 @@ notarize() {
     echo "error: notarization of $(basename "$file") failed (status: ${status:-unknown})" >&2
     exit 1
   fi
+}
+
+# `stapler staple` fetches the ticket from the same CloudKit service, and the same dropped
+# connection ("The network connection was lost", Error 68) fails it: retry it the same way.
+staple() {
+  local try
+  for try in 1 2 3 4; do
+    xcrun stapler staple "$1" && return 0
+    [ "$try" = 4 ] && break
+    echo "stapler staple failed (try $try of 4); retrying in $((try * 20)) s" >&2
+    sleep $((try * 20))
+  done
+  echo "error: stapler staple $(basename "$1") failed 4 times" >&2
+  exit 1
 }
 
 # `stapler validate` looks the ticket up in Apple's CloudKit, and a dropped connection there
@@ -135,7 +161,7 @@ codesign --verify --strict --deep --verbose=2 "$APP"
 if [ "$NOTARIZE" = 1 ]; then
   ditto -c -k --keepParent "$APP" "$WORK/PatternFoundry-notarize.zip"
   notarize "$WORK/PatternFoundry-notarize.zip"
-  xcrun stapler staple "$APP"
+  staple "$APP"
   validate_stapled "$APP"
   spctl --assess --type execute -vvv "$APP"
 fi
@@ -185,7 +211,7 @@ fi
 hdiutil_retry detach detach "$MOUNT" >/dev/null
 if [ "$NOTARIZE" = 1 ]; then
   notarize "$DMG"
-  xcrun stapler staple "$DMG"
+  staple "$DMG"
   validate_stapled "$DMG"
   spctl --assess --type open --context context:primary-signature -vvv "$DMG"
 fi

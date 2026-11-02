@@ -318,6 +318,12 @@ pub fn lay_matched(parts: &[Part], width: f64, gap: f64, step: f64, repeat: Opti
             if !usable(p) {
                 return Vec::new();
             }
+            // A part with more rows than the fabric can't be laid: its grid isn't made (a huge
+            // part would take more memory than there is).
+            let (y0, y1) = p.points.iter().fold((f64::INFINITY, f64::NEG_INFINITY), |(a, b), q| (a.min(q.y), b.max(q.y)));
+            if (y1 - y0 + 2.0 * (pad + grow)) / step > fabric_rows as f64 {
+                return Vec::new();
+            }
             let mut w = vec![way(&p.points, false, pad + grow, step)];
             if p.turn && !p.fold && repeat.is_none() {
                 w.push(way(&p.points, true, pad + grow, step));
@@ -326,7 +332,7 @@ pub fn lay_matched(parts: &[Part], width: f64, gap: f64, step: f64, repeat: Opti
         })
         .collect();
     // The grid is as long as every part laid end to end.
-    let total: usize = ways.iter().filter_map(|w| w.first()).map(|w| w.cells.cols).sum::<usize>() + 1;
+    let total: usize = ways.iter().filter_map(|w| w.first()).fold(1usize, |t, w| t.saturating_add(w.cells.cols));
     if fabric_rows.saturating_mul(total) > MAX_CELLS {
         return Err(MarkerError::TooLarge);
     }
@@ -440,6 +446,18 @@ pub fn opened_out(points: &[Pt], a: Pt, b: Pt) -> Option<Vec<Pt>> {
 
 #[cfg(test)]
 mod tests {
+    #[test]
+    fn a_huge_part_is_refused_at_once_not_gridded() {
+        let rect =
+            |w: f64, h: f64| Part { points: vec![Pt::new(0.0, 0.0), Pt::new(w, 0.0), Pt::new(w, h), Pt::new(0.0, h)], turn: true, fold: false };
+        // Far taller than the fabric: not laid, and its billions of rows are never made.
+        let l = lay(&[rect(100.0, 1e12), rect(100.0, 100.0)], 1000.0, 2.0, 3.0).unwrap();
+        assert_eq!(l.placed[0], None);
+        assert!(l.placed[1].is_some());
+        // Two parts each longer than any grid: too large, without the column count overflowing.
+        assert_eq!(lay(&[rect(1e300, 10.0), rect(1e300, 10.0)], 1000.0, 2.0, 3.0), Err(MarkerError::TooLarge));
+    }
+
     #[test]
     fn on_a_plaid_every_part_moves_whole_repeats_and_none_overlap() {
         let at = |x: f64, y: f64, w: f64, h: f64| Part {

@@ -16,6 +16,8 @@ mod sha256;
 mod stats;
 mod version;
 mod web_fonts;
+#[cfg(test)]
+mod wix;
 
 use std::path::{Path, PathBuf};
 use std::process::{Command, ExitCode};
