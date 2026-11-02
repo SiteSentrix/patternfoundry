@@ -146,5 +146,5 @@ fn pixmap_of(img: image::RgbaImage) -> Option<vello_cpu::Pixmap> {
             vello_cpu::color::PremulRgba8 { r: m(p[0]), g: m(p[1]), b: m(p[2]), a: p[3] }
         })
         .collect();
-    Some(vello_cpu::Pixmap::from_parts(data, w as u16, h as u16))
+    Some(crate::pixmap_from_premul(data, w as u16, h as u16))
 }

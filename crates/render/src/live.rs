@@ -215,7 +215,7 @@ fn draw_mesh_raster(ctx: &mut RenderContext, f: &Frame, m: &GradientMesh, quads:
     // Twice: the grown edge samples pixels up to about a pixel and a half out from the quads.
     let filled = spread_to_edges(&mut px, filled, w, h);
     spread_to_edges(&mut px, filled, w, h);
-    let pm = Arc::new(vello_cpu::Pixmap::from_parts(px, w as u16, h as u16));
+    let pm = Arc::new(crate::pixmap_from_premul(px, w as u16, h as u16));
     ctx.set_transform(Affine::translate((x0, y0)));
     ctx.set_paint(vello_cpu::Image { image: vello_cpu::ImageSource::Pixmap(pm), sampler: peniko::ImageSampler::default() });
     ctx.fill_path(&grown_outline(&(Affine::translate((-x0, -y0)) * f.view * outline), 0.5));
