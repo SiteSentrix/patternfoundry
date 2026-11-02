@@ -95,7 +95,21 @@ impl Renderer {
         let view = Affine::translate((-(r.x as f64), -(r.y as f64))) * f.view;
         let visible = view.inverse().transform_rect_bbox(Rect::new(0.0, 0.0, r.w as f64, r.h as f64));
         let sub = Frame { mt: false, view, visible, ..*f };
-        let backdrop = (!isolated).then(|| self.flatten(ctx, r));
+        // With 8-bit compositing the context renders over a picture of what it drew before (see
+        // `flatten`). vello 0.3 isolates a context whose root holds a blend from that picture, so
+        // a blend composited at the root reaches the backdrop only in pixels of the context: the
+        // group's region of the picture is moved into the context first, and the picture taken
+        // again after it, so drawing that follows is not isolated with it.
+        let lift = self.nested == 0 && self.raster.render_mode == vello_cpu::RenderMode::OptimizeSpeed && (!isolated || blend != Blend::Normal);
+        let backdrop = if !isolated {
+            Some(self.flatten(ctx, r, lift))
+        } else {
+            if lift && self.picture.is_some() {
+                self.flatten(ctx, r, true);
+            }
+            None
+        };
+        let lift = lift && self.picture.is_some();
         let content = self.offscreen(r, &sub, backdrop.clone(), draw);
         let at = (r.x as f64, r.y as f64);
         let push = |ctx: &mut RenderContext, mode: BlendMode, mask: Option<vello_cpu::Mask>| {
@@ -130,26 +144,46 @@ impl Renderer {
             }
         }
         ctx.pop_layer();
+        if lift {
+            self.restart(ctx, None);
+        }
     }
 
     /// Render what `ctx` holds so far, and start it again from that picture (so later drawing sees
-    /// it unchanged). Returns the pixels of `r`.
-    fn flatten(&mut self, ctx: &mut RenderContext, r: Region) -> Arc<Pixmap> {
-        let all = self.finish(ctx, self.raster);
+    /// it unchanged). Returns the pixels of `r`. With `lift` (8-bit compositing only) the pixels of
+    /// `r` are moved from the picture into the context (see [`Self::group_offscreen`]).
+    fn flatten(&mut self, ctx: &mut RenderContext, r: Region, lift: bool) -> Arc<Pixmap> {
+        self.restart(ctx, Some((r, lift))).unwrap_or_else(|| Arc::new(Pixmap::new(r.w, r.h)))
+    }
+
+    /// [`Self::flatten`], with no pixels returned for no region.
+    fn restart(&mut self, ctx: &mut RenderContext, r: Option<(Region, bool)>) -> Option<Arc<Pixmap>> {
+        let mut all = self.finish(ctx, self.raster);
         ctx.reset();
-        let crop = if (r.x, r.y, r.w, r.h) == (0, 0, all.width(), all.height()) { None } else { Some(Arc::new(cropped(&all, r))) };
-        let all = Arc::new(all);
-        // vello 0.3 isolates root-level blending from the render target, and rounds 8-bit
-        // compositing over a target differently from drawing, so the picture is drawn back into
-        // the context (as with floating-point compositing before). Costs a page-sized image per
-        // copy: `backdrop_copies_draw_no_picture_of_the_page_back` fails until that is bounded.
-        draw_pixmap(ctx, all.clone(), (0.0, 0.0));
+        let whole = |r: &Region| (r.x, r.y, r.w, r.h) == (0, 0, all.width(), all.height());
+        let crop = r.map(|(r, lift)| (!whole(&r) || lift).then(|| Arc::new(cropped(&all, r))));
+        // With 8-bit compositing, rendering over the picture gives the pixels that drawing it back
+        // as an image gives: the context starts again empty, and `finish` renders what it draws
+        // next over the picture. With floating-point compositing the picture is drawn back.
+        let out = if self.raster.render_mode == vello_cpu::RenderMode::OptimizeSpeed {
+            if let (Some((r, true)), Some(Some(c))) = (r, &crop) {
+                clear(&mut all, r);
+                draw_pixmap(ctx, c.clone(), (r.x as f64, r.y as f64));
+            }
+            let all = Arc::new(all);
+            self.picture = Some(all.clone());
+            crop.map(|c| c.unwrap_or(all))
+        } else {
+            let all = Arc::new(all);
+            draw_pixmap(ctx, all.clone(), (0.0, 0.0));
+            crop.map(|c| c.unwrap_or(all))
+        };
         for (path, rule, xf) in &self.clip_paths {
             ctx.set_transform(*xf);
             ctx.set_fill_rule(fill_rule(*rule));
             ctx.push_clip_path(path);
         }
-        crop.unwrap_or(all)
+        out
     }
 
     /// Render what `ctx` holds into a pixmap of its size: over the picture [`Self::flatten`]
@@ -306,6 +340,17 @@ fn cropped(pm: &Pixmap, r: Region) -> Pixmap {
         out.data_mut()[row * w..(row + 1) * w].copy_from_slice(&pm.data()[from..from + w]);
     }
     out
+}
+
+/// Make region `r` of `pm` transparent.
+fn clear(pm: &mut Pixmap, r: Region) {
+    let (pw, x, w) = (pm.width() as usize, r.x as usize, r.w as usize);
+    for row in pm.data_mut().chunks_mut(pw.max(1)).skip(r.y as usize).take(r.h as usize) {
+        for p in row.iter_mut().skip(x).take(w) {
+            *p = vello_cpu::color::PremulRgba8 { r: 0, g: 0, b: 0, a: 0 };
+        }
+    }
+    pm.set_may_have_transparency(true);
 }
 
 /// The group's own colour from `content` (the group drawn over `backdrop`) and `alone` (drawn

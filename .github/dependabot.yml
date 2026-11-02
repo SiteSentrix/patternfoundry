@@ -31,13 +31,6 @@ updates:
         versions: [">= 0.37"]
       - dependency-name: "egui_kittest"
         versions: [">= 0.37"]
-      # vello 0.3 isolates root-level blend modes from the target, so Screen, Multiply and the
-      # rest stop blending with the page under them (tests_flatten fails); the renderer's
-      # compositing needs reworking first.
-      - dependency-name: "vello_cpu"
-        versions: [">= 0.3"]
-      - dependency-name: "vello_common"
-        versions: [">= 0.3"]
     commit-message:
       prefix: "chore(deps)"
 
