@@ -325,6 +325,26 @@ fn paid_with_credits_the_request_goes_to_the_foundry_service() {
     assert!(window_text(&mut app).iter().any(|t| t.starts_with("Paid with Foundry credits")), "the window says how it is paid");
 }
 
+/// An account whose email isn't confirmed: the service's 403 says where the link went, and the
+/// Ask window shows those words (not "Sign in"), still signed in; a 403 without a message still
+/// asks to sign in.
+#[test]
+fn an_unconfirmed_email_shows_the_services_words_not_sign_in() {
+    let words = "Confirm your email first: we sent a link to d@e.f (send it again from your Foundry Account window).";
+    let (mut app, _, keys) =
+        app(vec![(403, json!({"type": "error", "error": {"type": "permission_error", "message": words}}).to_string()), (403, "{}".to_string())]);
+    keys.save(pf_ai::cloud::TOKEN_NAME, Some("sfs_session")).unwrap();
+    keys.save("foundry-server", Some("https://cloud.example.com")).unwrap();
+    app.run("ui.askAboutPatterns", json!({"question": "Seam allowance?"})).unwrap();
+    wait(&mut app);
+    assert_eq!(app.ai.ask.error.as_deref(), Some(words));
+    assert!(window_text(&mut app).iter().any(|t| t == words), "the window shows the service's words");
+    app.ai.ask.input = "And for knits?".into();
+    ask::send(&mut app).unwrap();
+    wait(&mut app);
+    assert!(app.ai.ask.error.as_deref().is_some_and(|e| e.starts_with("Sign in to your Foundry account")), "{:?}", app.ai.ask.error);
+}
+
 /// A small PNG standing in for a photo of a muslin.
 fn photo_png(w: u32, h: u32) -> Vec<u8> {
     let img = image::RgbImage::from_fn(w, h, |x, y| image::Rgb([(x % 256) as u8, (y % 256) as u8, 128]));

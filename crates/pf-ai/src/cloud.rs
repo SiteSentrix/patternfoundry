@@ -87,6 +87,8 @@ pub fn status_error(status: u16, body: &str) -> AiError {
         .and_then(|v| v.pointer("/error/message").and_then(Value::as_str).map(str::to_string))
         .unwrap_or_default();
     match status {
+        // the email isn't confirmed: the service says where the link went
+        403 if !message.trim().is_empty() => AiError::Unconfirmed(message),
         401 | 403 => AiError::SignIn,
         402 => AiError::NoCredits,
         409 => AiError::Taken,
@@ -168,11 +170,27 @@ mod tests {
         assert_eq!(parse(402, r#"{"type":"error","error":{"type":"x","message":"not enough credits"}}"#), Err(AiError::NoCredits));
         assert_eq!(parse(401, "{}"), Err(AiError::SignIn));
         assert_eq!(parse(409, "{}"), Err(AiError::Taken));
+        assert_eq!(parse(403, "{}"), Err(AiError::SignIn), "a 403 without a message still asks to sign in");
+        assert_eq!(parse(403, "<html>Forbidden</html>"), Err(AiError::SignIn));
+        assert_eq!(parse(403, r#"{"type":"error","error":{"type":"permission_error","message":" "}}"#), Err(AiError::SignIn));
         assert_eq!(parse(503, "{}"), Err(AiError::CloudClosed));
         assert_eq!(
             parse(400, r#"{"error":{"message":"a password needs at least 8 characters"}}"#),
             Err(AiError::Request(400, "a password needs at least 8 characters".into()))
         );
+    }
+
+    /// An account whose email isn't confirmed is refused spending with a 403 that says where the
+    /// link went: the user sees those words, not "Sign in".
+    #[test]
+    fn an_unconfirmed_email_shows_the_services_message() {
+        let words = "Confirm your email first: we sent a link to d@e.f (send it again from your Foundry Account window).";
+        let body = json!({"type": "error", "error": {"type": "permission_error", "message": words}}).to_string();
+        let e = parse(403, &body).unwrap_err();
+        assert_eq!(e, AiError::Unconfirmed(words.into()));
+        assert_eq!(e.to_string(), words);
+        assert_eq!(status_error(403, "{}").to_string(), AiError::SignIn.to_string());
+        assert!(status_error(403, "").to_string().starts_with("Sign in"));
     }
 
     #[test]
