@@ -2452,6 +2452,17 @@ fn fill_rule(r: FillRule) -> peniko::Fill {
     }
 }
 
+/// A pixmap from premultiplied pixels (vello 0.3's `Pixmap::from_parts` takes raw bytes).
+pub(crate) fn pixmap_from_premul(data: Vec<vello_cpu::color::PremulRgba8>, w: u16, h: u16) -> Pixmap {
+    let mut pm = Pixmap::new(w, h);
+    // Callers pass `w × h` pixels; a short or long `data` leaves the rest transparent or is cut.
+    for (p, d) in pm.data_mut().iter_mut().zip(data) {
+        *p = d;
+    }
+    pm.recompute_may_have_transparency();
+    pm
+}
+
 pub(crate) fn blend_mode(b: vectorcraft_color::BlendMode) -> BlendMode {
     use vectorcraft_color::BlendMode as B;
     let mix = match b {

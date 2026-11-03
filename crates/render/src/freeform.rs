@@ -59,7 +59,7 @@ pub(crate) fn rasterize(f: &Freeform, b: Rect, cols: u16, rows: u16, ink: Ink) -
             vello_cpu::color::PremulRgba8 { r: q(r), g: q(g), b: q(bl), a: (a * 255.0).round() as u8 }
         })
         .collect();
-    Pixmap::from_parts(data, cols, rows)
+    crate::pixmap_from_premul(data, cols, rows)
 }
 
 /// Set freeform gradient `g` on box `bounds` (in the paint's space, which the context's current

@@ -183,7 +183,7 @@ fn make(r: &mut Renderer, object: &PlacedDocument, blob: &ImageBlob, step: f64) 
     let view = Affine::scale_non_uniform(sx, sy) * Affine::translate((-f.x0, -f.y0));
     let img = render_inside(r, &e.doc, &e.art, w, h, view)?;
     let data = img.pixels.as_chunks::<4>().0.iter().map(|&[r, g, b, a]| vello_cpu::color::PremulRgba8 { r, g, b, a }).collect();
-    Some(Pixmap::from_parts(data, w, h))
+    Some(crate::pixmap_from_premul(data, w, h))
 }
 
 /// A bitmap side for `v` pixels (at least 1).
