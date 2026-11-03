@@ -101,6 +101,10 @@ pub enum AiError {
     /// The Foundry session ended, or there is none.
     #[error("Sign in to your Foundry account (Help › Foundry Account…).")]
     SignIn,
+    /// The Foundry account's email isn't confirmed yet (403), with the service's message, which
+    /// says where the link went and how to have it sent again. Shown as the service wrote it.
+    #[error("{0}")]
+    Unconfirmed(String),
     /// The Foundry account hasn't the credits.
     #[error("Not enough Foundry credits: buy more in Foundry Account.")]
     NoCredits,
