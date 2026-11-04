@@ -38,7 +38,7 @@ is built on, plus a pattern mode, the way StitchFoundry adds embroidery:
 | PF-7 | Export for cutting: DXF-AAMA/ASTM D6673, SVG; projector mode | a DXF opens in a cutting-room tool |
 | PF-8 | AI help (StitchFoundry's AI layer): draft from a description, fit advice from muslin photos, step-by-step help | "a wrap dress for my measurements" drafts |
 | PF-9 | Marker making / nesting; selling patterns on MakerFoundry | a marker for 2 m of fabric |
-| PF-10 | 3D fit preview (as Marvelous Designer and CLO do, from public docs only): avatar from measurements, sewing lines, cloth simulation, drape view beside the 2D pattern; glTF/OBJ export for game and 3D artists | a skirt drapes on an avatar of the user's size |
+| PF-10 | 3D fit preview (from public documentation only): avatar from measurements, sewing lines, cloth simulation, drape view beside the 2D pattern; glTF/OBJ export for game and 3D artists | a skirt drapes on an avatar of the user's size |
 | PF-11 | Publish to MakerFoundry: File › Publish to MakerFoundry… sends the document with the Foundry Account session as a private draft (MakerFoundry docs/api.md, "How publishing from an app works"): SVG now, listed as a vector (laser) design; true-scale and tiled PDF (PF-2), pieces (PF-1) and DXF-AAMA (PF-7) once MakerFoundry has a sewing-pattern kind | the desktop app publishes a draft and opens its page |
 | PF-12 | Open from a MakerFoundry link: the web app's `?open=` (MakerFoundry docs/api.md, the file address), checked to https://makerfoundry.app/api/v1/designs/…/file/… only, fetched without cookies or redirects | the web app opens a design from its MakerFoundry address |
 
