@@ -386,9 +386,9 @@ line Pantone"; }
 
     #[test]
     fn markdown_checks_pattern_software_only() {
-        let md = |text: &str| -> Vec<(usize, &'static str)> {
+        fn md(text: &str) -> Vec<(usize, &'static str)> {
             scan_lines(text, &[PATTERN_CAD], |_| true).into_iter().map(|(l, t, _)| (l, t)).collect()
-        };
+        }
         let text = "Like Adobe apps\nA Marvelous Designer workflow\nSeamly2D docs <!-- brand-ok -->\nwild ginger\n";
         assert_eq!(md(text), [(2, "marvelous designer"), (4, "wild ginger")]);
         assert!(md("clothing 3D preview, sewists, a pattern maker\n").is_empty());
