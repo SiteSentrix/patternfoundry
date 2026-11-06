@@ -271,7 +271,6 @@ impl FaxRows {
             left -= 1;
         }
     }
-
 }
 
 impl Decoder for FaxRows {
