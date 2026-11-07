@@ -3645,7 +3645,9 @@ fn draft_block(app: &mut VectorcraftApp, id: &str, kind: &str) {
     if !missing.is_empty() {
         let _ = app.run("window.panel", json!({ "panel": "measurements" }));
         let detail = crate::i18n::fmt(
-            tl!("This block needs: {names}. Enter your measurements in the Measurements panel, or pick a size from its size chart, then draft the block again."),
+            tl!(
+                "This block needs: {names}. Enter your measurements in the Measurements panel, or pick a size from its size chart, then draft the block again."
+            ),
             &[("names", &missing.join(", "))],
         );
         crate::dialogs::confirm::tell(app, tl!("This block needs your measurements"), &detail);
