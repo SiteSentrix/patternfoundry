@@ -2323,6 +2323,11 @@ pub fn enabled(app: &VectorcraftApp, id: &str) -> bool {
     if waits_for_ime(app, id) {
         return false;
     }
+    // The Pattern menu's blocks are always on: with no document, drafting opens one, and without
+    // measurements or a selected block it says what is missing.
+    if block_kind(id).is_some() || id == "ui.blockOptions" {
+        return true;
+    }
     if let Some(c) = vectorcraft_engine::find_command(id) {
         // The system clipboard's contents can be pasted with an empty internal clipboard.
         return (c.enabled)(&app.session).is_ok() || app.system_paste && id.starts_with("edit.paste");
@@ -2335,7 +2340,7 @@ pub fn enabled(app: &VectorcraftApp, id: &str) -> bool {
         "file.reveal" => app.services.reveal.is_some() && app.session.active().is_some_and(|d| d.path.is_some()),
         "ui.askAboutPatterns" | "ui.checkMuslin" | "ui.account" => crate::ai::available(app),
         "ui.publishToMakerFoundry" => crate::ai::available(app) && app.session.active().is_some_and(|st| st.doc.art_bounds().is_some()),
-        "ui.checkSleeveEase" | "ui.checkTrouserSeams" | "ui.checkMarker" | "ui.projector" | "ui.blockOptions" => app.session.active().is_some(),
+        "ui.checkSleeveEase" | "ui.checkTrouserSeams" | "ui.checkMarker" | "ui.projector" => app.session.active().is_some(),
         "file.cancelExport" | "file.exportInBackground" => app.background.jobs.iter().any(|j| j.progress.is_some() && !j.cancelled()),
         "file.place"
         | "file.export.svg"
@@ -3616,8 +3621,59 @@ pub(crate) fn graph_dialog(app: &mut VectorcraftApp, id: &str) -> Result<Value, 
     app.run("ui.paramDialog", json!({"command": id, "label": label, "params": fields})).map(|_| json!({ "dialog": "command" }))
 }
 
+/// The block `id` (a Pattern › Draft … Block command) drafts, as `block.measurements` names it.
+fn block_kind(id: &str) -> Option<&str> {
+    id.strip_prefix("block.").filter(|k| matches!(*k, "bodice" | "skirt" | "sleeve" | "trousers" | "mensTrousers" | "mensShirt" | "mensShirtSleeve"))
+}
+
+/// Pattern › Draft … Block from the menu: a new document when none is open, and when the
+/// measurements fall short the Measurements panel with a message that names them (nothing is
+/// drafted); otherwise the block is drafted. Errors show in a dialog, not only in the status bar.
+fn draft_block(app: &mut VectorcraftApp, id: &str, kind: &str) {
+    if app.session.active().is_none()
+        && let Err(e) = app.run("file.new", json!({}))
+    {
+        crate::dialogs::confirm::tell(app, tl!("Can't draft this block"), &e);
+        return;
+    }
+    let missing: Vec<String> = app
+        .session
+        .execute("block.measurements", &json!({ "block": kind }))
+        .ok()
+        .and_then(|v| v["missing"].as_array().map(|m| m.iter().filter_map(Value::as_str).map(String::from).collect()))
+        .unwrap_or_default();
+    if !missing.is_empty() {
+        let _ = app.run("window.panel", json!({ "panel": "measurements" }));
+        let detail = crate::i18n::fmt(
+            tl!("This block needs: {names}. Enter your measurements in the Measurements panel, or pick a size from its size chart, then draft the block again."),
+            &[("names", &missing.join(", "))],
+        );
+        crate::dialogs::confirm::tell(app, tl!("This block needs your measurements"), &detail);
+        return;
+    }
+    if let Err(e) = app.run(id, json!({})) {
+        app.status(e.clone());
+        crate::dialogs::confirm::tell(app, tl!("Can't draft this block"), &e);
+    }
+}
+
 pub fn invoke(app: &mut VectorcraftApp, id: &str, p: Value) {
     if waits_for_ime(app, id) {
+        return;
+    }
+    if let Some(kind) = block_kind(id)
+        && p.as_object().is_none_or(|o| o.is_empty())
+    {
+        draft_block(app, id, kind);
+        return;
+    }
+    // Block Options… with no block selected says so in a dialog.
+    if id == "ui.blockOptions" && p.as_object().is_none_or(|o| o.is_empty()) {
+        if let Err(e) = app.run(id, p) {
+            app.status(e);
+            let detail = tl!("Block Options changes the ease and darts of a block drafted from the Pattern menu.");
+            crate::dialogs::confirm::tell(app, tl!("Select a drafted block first"), detail);
+        }
         return;
     }
     // Params first: some dialogs' fields take a look through the session (Move's last move).
@@ -4231,6 +4287,42 @@ pub fn menu_strings() -> std::collections::BTreeSet<String> {
 mod tests {
     use super::*;
     use crate::theme;
+
+    fn pattern_app() -> VectorcraftApp {
+        VectorcraftApp::new(vectorcraft_engine::Session::new(), Default::default())
+    }
+
+    #[test]
+    fn draft_block_with_no_document_opens_one_and_asks_for_measurements() {
+        let mut app = pattern_app();
+        assert!(enabled(&app, "block.bodice") && enabled(&app, "ui.blockOptions"));
+        invoke(&mut app, "block.bodice", json!({}));
+        let st = app.session.active().expect("a new document");
+        assert!(st.doc.art_bounds().is_none(), "nothing drafted without measurements");
+        let d = app.ui.dialog.as_ref().expect("a message");
+        assert_eq!(d.kind, crate::dialogs::confirm::MESSAGE);
+        assert!(d.str("detail").contains("bust"), "{}", d.str("detail"));
+        assert_eq!(app.ui.open_panel.as_deref(), Some("measurements"));
+    }
+
+    #[test]
+    fn draft_block_after_a_size_is_picked_draws_the_pieces() {
+        let mut app = pattern_app();
+        app.run("file.new", json!({})).unwrap();
+        app.run("measure.useSize", json!({"size": "12"})).unwrap();
+        invoke(&mut app, "block.bodice", json!({}));
+        assert!(app.ui.dialog.is_none(), "{:?}", app.ui.status);
+        assert!(app.session.active().unwrap().doc.art_bounds().is_some());
+    }
+
+    #[test]
+    fn block_options_with_nothing_selected_says_so_in_a_dialog() {
+        let mut app = pattern_app();
+        app.run("file.new", json!({})).unwrap();
+        invoke(&mut app, "ui.blockOptions", json!({}));
+        let d = app.ui.dialog.as_ref().expect("a message");
+        assert_eq!((d.kind.as_str(), d.str("message")), (crate::dialogs::confirm::MESSAGE, "Select a drafted block first".to_string()));
+    }
 
     /// One headless frame of the in-window menu bar; returns its titles (left to right) as
     /// (rect, id of the title's popup).
